@@ -1,0 +1,27 @@
+R_DEF: Internal format may change without notice
+local
+anim fade_in
+anim fade_out
+anim left_in
+anim left_out
+anim right_in
+anim right_out
+anim slide_in_from_bottom
+anim slide_in_from_top
+anim slide_out_to_bottom
+anim slide_out_to_top
+attr? indicator
+attr? indicator_color
+attr? loading_color
+attr? loading_width
+attr? shadow_position
+color loading_color
+id loading
+id message_txt
+layout dialog_loading
+style MyDialog
+style Theme.rails
+style dialog
+style title_bar
+styleable LoadingIndicatorView indicator indicator_color
+styleable RotateLoading loading_width loading_color shadow_position

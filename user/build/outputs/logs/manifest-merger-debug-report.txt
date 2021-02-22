@@ -1,0 +1,39 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+	package
+		ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:3:5-46
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+		ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+		ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:1-14:12
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml:5:5-12:19
+uses-sdk
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+		ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+		ADDED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml
+		INJECTED from /Users/comic/Desktop/purchaseplatform/user/src/main/module/AndroidManifest.xml

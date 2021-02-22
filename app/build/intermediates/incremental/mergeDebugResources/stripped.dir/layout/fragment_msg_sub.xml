@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.rails.purchaseplatform.common.widget.BaseSwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/line"
+            style="@style/line_thin_shade" />
+
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/line"
+            android:background="@color/white"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:canH="false" />
+
+
+        <com.rails.purchaseplatform.common.widget.EmptyView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</com.rails.purchaseplatform.common.widget.BaseSwipeLayout>

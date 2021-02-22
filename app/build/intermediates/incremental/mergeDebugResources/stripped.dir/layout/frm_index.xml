@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.rails.purchaseplatform.common.widget.BaseSwipeLayout
+        android:id="@+id/rl_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_320"
+                            android:background="@color/bg_blue">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingTop="@dimen/dp_25">
+
+
+                                <TextView
+                                    android:id="@+id/et_search"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/dp_20"
+                                    android:layout_marginTop="@dimen/dp_20"
+                                    android:layout_marginRight="@dimen/dp_20"
+                                    android:background="@drawable/bg_corner_border_gray_5"
+                                    android:drawableLeft="@drawable/svg_search"
+                                    android:drawablePadding="@dimen/dp_5"
+                                    android:hint="搜索"
+                                    android:imeOptions="actionSearch"
+                                    android:inputType="text"
+                                    android:lines="1"
+                                    android:padding="@dimen/dp_10"
+                                    android:singleLine="true"
+                                    android:textColor="@color/font_black"
+                                    android:textColorHint="@color/font_hint"
+                                    android:textSize="@dimen/font_size_14" />
+
+
+                                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                                    android:id="@+id/rv_step"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginTop="@dimen/dp_30"
+                                    android:layout_marginRight="@dimen/dp_20"
+                                    android:layout_marginBottom="@dimen/dp_30"
+                                    android:overScrollMode="never" />
+
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:id="@+id/line_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_20"
+                        android:visibility="gone" />
+
+
+                    <net.lucode.hackware.magicindicator.MagicIndicator
+                        android:id="@+id/magic_indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50" />
+
+                </LinearLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>
+
+    </com.rails.purchaseplatform.common.widget.BaseSwipeLayout>
+
+
+</FrameLayout>
+
+
+

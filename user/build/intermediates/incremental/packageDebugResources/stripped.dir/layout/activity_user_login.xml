@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="-10dp"
+            android:layout_marginRight="@dimen/dp_30"
+            android:background="@null"
+            android:drawablePadding="@dimen/dp_8"
+            android:hint="@string/user_account_hint"
+            android:inputType="text"
+            android:maxLength="25"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/font_black"
+            android:textColorHint="@color/font_hint"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/font_size_15" />
+
+        <View
+            style="@style/line_thin_shade"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_30">
+
+            <EditText
+                android:id="@+id/et_paw"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:drawablePadding="@dimen/dp_8"
+                android:hint="@string/user_paw_hint"
+                android:inputType="textPassword"
+                android:padding="@dimen/dp_10"
+                android:textColor="@color/font_black"
+                android:textColorHint="@color/font_hint"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_15" />
+
+
+            <CheckBox
+                android:id="@+id/cb_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:button="@null"
+                android:padding="@dimen/dp_8"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/font_size_12" />
+
+        </RelativeLayout>
+
+        <View
+            style="@style/line_thin_shade"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20" />
+
+
+        <TextView
+            android:id="@+id/btn_login"
+            style="@style/btn_commit"
+            android:layout_marginTop="@dimen/dp_50"
+            android:background="@drawable/bg_corner_blue_5"
+            android:text="@string/user_login" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tv_xy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15"
+            android:textColor="@color/font_black_light"
+            android:textSize="@dimen/font_size_12" />
+
+        <TextView
+            android:id="@+id/tv_ys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15"
+            android:text="请仔细阅读《用户协议》和《隐私政策》"
+            android:textColor="@color/font_blue"
+            android:textSize="@dimen/font_size_12" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+

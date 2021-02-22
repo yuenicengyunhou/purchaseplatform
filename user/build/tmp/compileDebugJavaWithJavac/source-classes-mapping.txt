@@ -1,0 +1,9 @@
+com/rails/purchaseplatform/user/ui/activity/LoginActivity.java
+ com.rails.purchaseplatform.user.ui.activity.LoginActivity
+ com.rails.purchaseplatform.user.ui.activity.LoginActivity$1
+com/rails/purchaseplatform/user/DataBindingTriggerClass.java
+ com.rails.purchaseplatform.user.DataBindingTriggerClass
+com/rails/purchaseplatform/user/BuildConfig.java
+ com.rails.purchaseplatform.user.BuildConfig
+com/rails/purchaseplatform/user/databinding/ActivityUserLoginBinding.java
+ com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding

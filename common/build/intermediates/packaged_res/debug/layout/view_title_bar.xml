@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/comment_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/bg_blue"
+        android:minHeight="@dimen/dp_45"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+
+        <TextView
+            android:id="@+id/btn_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_15"
+            android:textSize="@dimen/font_size_16" />
+
+
+        <ImageView
+            android:id="@+id/img_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15" />
+
+
+        <ImageView
+            android:id="@+id/img_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/comment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btn_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/dp_15"
+            android:textSize="@dimen/font_size_16" />
+
+        <ImageView
+            android:id="@+id/img_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="@dimen/dp_15" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_4"
+        android:layout_gravity="bottom"
+        android:background="@drawable/main_line"
+        android:visibility="gone" />
+
+
+</FrameLayout>

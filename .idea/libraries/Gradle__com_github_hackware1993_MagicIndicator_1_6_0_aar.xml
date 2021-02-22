@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.hackware1993:MagicIndicator:1.6.0@aar">
+    <CLASSES>
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/84f42d64a95a5337906a30c1309d6cf4/jetified-MagicIndicator-1.6.0/jars/classes.jar!/" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/84f42d64a95a5337906a30c1309d6cf4/jetified-MagicIndicator-1.6.0/res" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/84f42d64a95a5337906a30c1309d6cf4/jetified-MagicIndicator-1.6.0/AndroidManifest.xml" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/285676db468b4ae417cbef8434c9f681/jetified-MagicIndicator-1.6.0/jars/classes.jar!/" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/285676db468b4ae417cbef8434c9f681/jetified-MagicIndicator-1.6.0/res" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/285676db468b4ae417cbef8434c9f681/jetified-MagicIndicator-1.6.0/AndroidManifest.xml" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/00d999c62df2fea0fd714591f9ffbc36/jetified-MagicIndicator-1.6.0/AndroidManifest.xml" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/00d999c62df2fea0fd714591f9ffbc36/jetified-MagicIndicator-1.6.0/res" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/00d999c62df2fea0fd714591f9ffbc36/jetified-MagicIndicator-1.6.0/jars/classes.jar!/" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/714dabe04a6474b35e4e2a6ea24015dd/jetified-MagicIndicator-1.6.0/AndroidManifest.xml" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/714dabe04a6474b35e4e2a6ea24015dd/jetified-MagicIndicator-1.6.0/jars/classes.jar!/" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/transforms-2/files-2.1/714dabe04a6474b35e4e2a6ea24015dd/jetified-MagicIndicator-1.6.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-4.6/caches/modules-2/files-2.1/com.github.hackware1993/MagicIndicator/1.6.0/d5e35f249d66b0172ddd781d8b209552966b13/MagicIndicator-1.6.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

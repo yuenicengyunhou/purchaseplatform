@@ -1,0 +1,59 @@
+com/rails/purchaseplatform/fragment/AutionFragment.java
+ com.rails.purchaseplatform.fragment.AutionFragment
+ com.rails.purchaseplatform.fragment.AutionFragment$1
+com/rails/purchaseplatform/DataBindingTriggerClass.java
+ com.rails.purchaseplatform.DataBindingTriggerClass
+com/rails/purchaseplatform/databinding/FragmentAutionBinding.java
+ com.rails.purchaseplatform.databinding.FragmentAutionBinding
+com/rails/purchaseplatform/databinding/FrmClassicalBinding.java
+ com.rails.purchaseplatform.databinding.FrmClassicalBinding
+com/rails/purchaseplatform/fragment/MsgsubFragment.java
+ com.rails.purchaseplatform.fragment.MsgsubFragment
+ com.rails.purchaseplatform.fragment.MsgsubFragment$1
+com/rails/purchaseplatform/BuildConfig.java
+ com.rails.purchaseplatform.BuildConfig
+com/rails/purchaseplatform/adapter/MsgAdapter.java
+ com.rails.purchaseplatform.adapter.MsgAdapter
+com/rails/purchaseplatform/databinding/ActivityMainBinding.java
+ com.rails.purchaseplatform.databinding.ActivityMainBinding
+com/rails/purchaseplatform/MainActivity.java
+ com.rails.purchaseplatform.MainActivity
+ com.rails.purchaseplatform.MainActivity$1
+ com.rails.purchaseplatform.MainActivity$2
+ com.rails.purchaseplatform.MainActivity$3
+ com.rails.purchaseplatform.MainActivity$4
+com/rails/purchaseplatform/fragment/MineFrm.java
+ com.rails.purchaseplatform.fragment.MineFrm
+com/rails/purchaseplatform/databinding/FrmMsgBinding.java
+ com.rails.purchaseplatform.databinding.FrmMsgBinding
+com/rails/purchaseplatform/databinding/ItemAuctionBinding.java
+ com.rails.purchaseplatform.databinding.ItemAuctionBinding
+com/rails/purchaseplatform/databinding/ItemMsgBinding.java
+ com.rails.purchaseplatform.databinding.ItemMsgBinding
+com/rails/purchaseplatform/databinding/FragmentMsgSubBinding.java
+ com.rails.purchaseplatform.databinding.FragmentMsgSubBinding
+com/rails/purchaseplatform/fragment/IndexFrm.java
+ com.rails.purchaseplatform.fragment.IndexFrm
+ com.rails.purchaseplatform.fragment.IndexFrm$1
+ com.rails.purchaseplatform.fragment.IndexFrm$2
+ com.rails.purchaseplatform.fragment.IndexFrm$3
+ com.rails.purchaseplatform.fragment.IndexFrm$3$1
+com/rails/purchaseplatform/databinding/FrmMineBinding.java
+ com.rails.purchaseplatform.databinding.FrmMineBinding
+com/rails/purchaseplatform/fragment/MallFrm.java
+ com.rails.purchaseplatform.fragment.MallFrm
+com/rails/purchaseplatform/adapter/AuctionAdapter.java
+ com.rails.purchaseplatform.adapter.AuctionAdapter
+com/rails/purchaseplatform/fragment/MsgFrm.java
+ com.rails.purchaseplatform.fragment.MsgFrm
+ com.rails.purchaseplatform.fragment.MsgFrm$1
+ com.rails.purchaseplatform.fragment.MsgFrm$1$1
+ com.rails.purchaseplatform.fragment.MsgFrm$1$2
+com/rails/purchaseplatform/databinding/FrmMallBinding.java
+ com.rails.purchaseplatform.databinding.FrmMallBinding
+com/rails/purchaseplatform/databinding/FrmIndexBinding.java
+ com.rails.purchaseplatform.databinding.FrmIndexBinding
+com/rails/purchaseplatform/fragment/ClassicalFrm.java
+ com.rails.purchaseplatform.fragment.ClassicalFrm
+com/rails/purchaseplatform/databinding/ItemTabBinding.java
+ com.rails.purchaseplatform.databinding.ItemTabBinding

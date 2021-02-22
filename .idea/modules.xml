@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/purchaseplatform.iml" filepath="$PROJECT_DIR$/.idea/modules/purchaseplatform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/purchaseplatform.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/purchaseplatform.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/purchaseplatform.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/purchaseplatform.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/framwork/purchaseplatform.framwork.iml" filepath="$PROJECT_DIR$/.idea/modules/framwork/purchaseplatform.framwork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_data/purchaseplatform.lib_data.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_data/purchaseplatform.lib_data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user/purchaseplatform.user.iml" filepath="$PROJECT_DIR$/.idea/modules/user/purchaseplatform.user.iml" />
+    </modules>
+  </component>
+</project>

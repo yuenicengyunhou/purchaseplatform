@@ -1,0 +1,101 @@
+com/rails/purchaseplatform/framwork/BuildConfig.java
+ com.rails.purchaseplatform.framwork.BuildConfig
+com/rails/purchaseplatform/framwork/adapter/BaseRecycleAdapter.java
+ com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter
+ com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter$RecyclerHolder
+com/rails/purchaseplatform/framwork/http/faction/HttpResult.java
+ com.rails.purchaseplatform.framwork.http.faction.HttpResult
+com/rails/purchaseplatform/framwork/adapter/listener/ViewPositionListener.java
+ com.rails.purchaseplatform.framwork.adapter.listener.ViewPositionListener
+com/rails/purchaseplatform/framwork/base/BasePresenter.java
+ com.rails.purchaseplatform.framwork.base.BasePresenter
+com/rails/purchaseplatform/framwork/adapter/BaseAbsAdapter.java
+ com.rails.purchaseplatform.framwork.adapter.BaseAbsAdapter
+com/rails/purchaseplatform/framwork/utils/ServiceManager.java
+ com.rails.purchaseplatform.framwork.utils.ServiceManager
+com/rails/purchaseplatform/framwork/base/BaseAbsActivity.java
+ com.rails.purchaseplatform.framwork.base.BaseAbsActivity
+com/rails/purchaseplatform/framwork/adapter/listener/PositionListener.java
+ com.rails.purchaseplatform.framwork.adapter.listener.PositionListener
+com/rails/purchaseplatform/framwork/adapter/listener/MulPositionListener.java
+ com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener
+com/rails/purchaseplatform/framwork/http/observer/HttpRxObserver.java
+ com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver
+com/rails/purchaseplatform/framwork/utils/NetWorkUtil.java
+ com.rails.purchaseplatform.framwork.utils.NetWorkUtil
+com/rails/purchaseplatform/framwork/http/faction/ErrorFunction.java
+ com.rails.purchaseplatform.framwork.http.faction.ErrorFunction
+com/rails/purchaseplatform/framwork/http/observer/down/DownloadRequestBody.java
+ com.rails.purchaseplatform.framwork.http.observer.down.DownloadRequestBody
+ com.rails.purchaseplatform.framwork.http.observer.down.DownloadRequestBody$1
+ com.rails.purchaseplatform.framwork.http.observer.down.DownloadRequestBody$DownloadProgressListener
+com/rails/purchaseplatform/framwork/base/BaseAbsFragment.java
+ com.rails.purchaseplatform.framwork.base.BaseAbsFragment
+com/rails/purchaseplatform/framwork/base/BaseView.java
+ com.rails.purchaseplatform.framwork.base.BaseView
+com/rails/purchaseplatform/framwork/utils/ScreenSizeUtil.java
+ com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil
+com/rails/purchaseplatform/framwork/base/BaseErrorActivity.java
+ com.rails.purchaseplatform.framwork.base.BaseErrorActivity
+com/rails/purchaseplatform/framwork/bean/BusEvent.java
+ com.rails.purchaseplatform.framwork.bean.BusEvent
+com/rails/purchaseplatform/framwork/bean/ErrorBean.java
+ com.rails.purchaseplatform.framwork.bean.ErrorBean
+com/rails/purchaseplatform/framwork/http/HttpConstants.java
+ com.rails.purchaseplatform.framwork.http.HttpConstants
+com/rails/purchaseplatform/framwork/http/observer/BaseRetrofit.java
+ com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit
+ com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit$1
+com/rails/purchaseplatform/framwork/systembar/StatusBarUtil.java
+ com.rails.purchaseplatform.framwork.systembar.StatusBarUtil
+com/rails/purchaseplatform/framwork/utils/PrefrenceUtil.java
+ com.rails.purchaseplatform.framwork.utils.PrefrenceUtil
+ com.rails.purchaseplatform.framwork.utils.PrefrenceUtil$1
+com/rails/purchaseplatform/framwork/loading/RotateLoading.java
+ com.rails.purchaseplatform.framwork.loading.RotateLoading
+ com.rails.purchaseplatform.framwork.loading.RotateLoading$1
+com/rails/purchaseplatform/framwork/http/observer/upload/UploadObserver.java
+ com.rails.purchaseplatform.framwork.http.observer.upload.UploadObserver
+com/rails/purchaseplatform/framwork/base/BaseActManager.java
+ com.rails.purchaseplatform.framwork.base.BaseActManager
+com/rails/purchaseplatform/framwork/http/faction/HttpFunction.java
+ com.rails.purchaseplatform.framwork.http.faction.HttpFunction
+com/rails/purchaseplatform/framwork/http/observer/upload/UploadRequestBody.java
+ com.rails.purchaseplatform.framwork.http.observer.upload.UploadRequestBody
+ com.rails.purchaseplatform.framwork.http.observer.upload.UploadRequestBody$CountingSink
+com/rails/purchaseplatform/framwork/base/AFileProvider.java
+ com.rails.purchaseplatform.framwork.base.AFileProvider
+com/rails/purchaseplatform/framwork/systembar/SystemBarTintManager.java
+ com.rails.purchaseplatform.framwork.systembar.SystemBarTintManager
+ com.rails.purchaseplatform.framwork.systembar.SystemBarTintManager$1
+ com.rails.purchaseplatform.framwork.systembar.SystemBarTintManager$SystemBarConfig
+com/rails/purchaseplatform/framwork/http/faction/HttpStringFunction.java
+ com.rails.purchaseplatform.framwork.http.faction.HttpStringFunction
+com/rails/purchaseplatform/framwork/BaseApp.java
+ com.rails.purchaseplatform.framwork.BaseApp
+ com.rails.purchaseplatform.framwork.BaseApp$1
+com/rails/purchaseplatform/framwork/http/observer/down/UploadService.java
+ com.rails.purchaseplatform.framwork.http.observer.down.UploadService
+com/rails/purchaseplatform/framwork/http/observer/down/DownInterceptor.java
+ com.rails.purchaseplatform.framwork.http.observer.down.DownInterceptor
+com/rails/purchaseplatform/framwork/base/BaseActivity.java
+ com.rails.purchaseplatform.framwork.base.BaseActivity
+com/rails/purchaseplatform/framwork/databinding/DialogLoadingBinding.java
+ com.rails.purchaseplatform.framwork.databinding.DialogLoadingBinding
+com/rails/purchaseplatform/framwork/http/observer/HttpRxObservable.java
+ com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable
+com/rails/purchaseplatform/framwork/http/observer/down/DownBean.java
+ com.rails.purchaseplatform.framwork.http.observer.down.DownBean
+com/rails/purchaseplatform/framwork/http/faction/HttpError.java
+ com.rails.purchaseplatform.framwork.http.faction.HttpError
+com/rails/purchaseplatform/framwork/http/faction/ExceptionEngine.java
+ com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine
+com/rails/purchaseplatform/framwork/http/observer/HttpRequestListener.java
+ com.rails.purchaseplatform.framwork.http.observer.HttpRequestListener
+com/rails/purchaseplatform/framwork/loading/LoadingDialog.java
+ com.rails.purchaseplatform.framwork.loading.LoadingDialog
+ com.rails.purchaseplatform.framwork.loading.LoadingDialog$Builder
+com/rails/purchaseplatform/framwork/DataBindingTriggerClass.java
+ com.rails.purchaseplatform.framwork.DataBindingTriggerClass
+com/rails/purchaseplatform/framwork/base/BaseFragment.java
+ com.rails.purchaseplatform.framwork.base.BaseFragment
