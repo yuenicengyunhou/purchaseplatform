@@ -1,0 +1,104 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    buildFeatures{
+        viewBinding true
+
+        dataBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //    网络请求
+    api "com.squareup.okhttp3:okhttp:$rails.okhttp"
+    api "com.squareup.okhttp3:logging-interceptor:$rails.okhttp"
+    api "io.reactivex.rxjava2:rxjava:$rails.rxjava"
+    api "io.reactivex.rxjava2:rxandroid:$rails.rxandroid"
+    api "com.squareup.retrofit2:retrofit:$rails.retrofit"
+    api "com.squareup.retrofit2:converter-gson:$rails.retrofit"
+    api "com.squareup.retrofit2:adapter-rxjava2:$rails.retrofit"
+
+
+    //logger日志
+    api 'com.orhanobut:logger:2.2.0'
+
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    api 'com.google.android.material:material:1.2.1'
+
+
+    api 'org.greenrobot:eventbus:3.2.0'
+
+    //分包
+    api 'com.android.support:multidex:1.0.3'
+
+    api 'com.alibaba:fastjson:1.2.75'
+//    api 'com.google.code.gson:gson:2.8.6'
+
+
+    //注解
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
+
+
+    api 'io.reactivex:rxjava:1.3.8'
+    api 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+
+
+    //导航栏
+    api 'com.github.hackware1993:MagicIndicator:1.6.0'
+
+
+    //图片加载
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+
+//    //阿里路由
+    implementation 'com.alibaba:arouter-api:1.4.0'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+}

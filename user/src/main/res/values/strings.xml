@@ -1,0 +1,8 @@
+<resources>
+
+
+    <!--登录-->
+    <string name="user_login">登录</string>
+    <string name="user_account_hint">输入账号</string>
+    <string name="user_paw_hint">输入密码</string>
+</resources>

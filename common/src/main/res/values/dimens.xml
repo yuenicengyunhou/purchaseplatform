@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- - - 通用控件尺寸大小- - - -->
+    <dimen name="login_putin_hight">50dp</dimen><!--登录/注册页面所有的输入控件高度-->
+    <dimen name="input_hight">45dp</dimen><!--个人信息/添加紧急联系人/个人资料等页面输入控件的高度-->
+
+    <!--公共页面的title部分-->
+    <dimen name="common_title_hight">45dp</dimen>
+
+
+    <!-- 不需要做多分辨率处理的 -->
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="dp_tiny">0.5dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_6">6dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_11">11dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_16">16dp</dimen>
+    <dimen name="dp_17">17dp</dimen>
+    <dimen name="dp_18">17dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_22">22dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_28">28dp</dimen>
+    <dimen name="dp_29">29dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_33">33dp</dimen>
+    <dimen name="dp_35">35dp</dimen>
+    <dimen name="dp_36">36dp</dimen>
+    <dimen name="dp_38">38dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_53">53dp</dimen>
+    <dimen name="dp_54">54dp</dimen>
+    <dimen name="dp_55">55dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_63">63dp</dimen>
+    <dimen name="dp_65">65dp</dimen>
+    <dimen name="dp_68">68dp</dimen>
+    <dimen name="dp_70">70dp</dimen>
+    <dimen name="dp_75">75dp</dimen>
+    <dimen name="dp_76">76dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
+    <dimen name="dp_90">90dp</dimen>
+    <dimen name="dp_95">95dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+    <dimen name="dp_105">105dp</dimen>
+    <dimen name="dp_108">108dp</dimen>
+    <dimen name="dp_110">110dp</dimen>
+    <dimen name="dp_120">120dp</dimen>
+    <dimen name="dp_130">130dp</dimen>
+    <dimen name="dp_136">136dp</dimen>
+    <dimen name="dp_140">140dp</dimen>
+    <dimen name="dp_160">160dp</dimen>
+    <dimen name="dp_180">180dp</dimen>
+    <dimen name="dp_200">200dp</dimen>
+    <dimen name="dp_206">206dp</dimen>
+    <dimen name="dp_215">215dp</dimen>
+    <dimen name="dp_225">225dp</dimen>
+    <dimen name="dp_240">240dp</dimen>
+    <dimen name="dp_272">272dp</dimen>
+    <dimen name="dp_250">250dp</dimen>
+    <dimen name="dp_290">290dp</dimen>
+    <dimen name="dp_320">320dp</dimen>
+    <dimen name="dp_324">324dp</dimen>
+    <dimen name="dp_329">329dp</dimen>
+    <dimen name="dp_332">332dp</dimen>
+    <dimen name="dp_548">548dp</dimen>
+
+    <!-- 文字大小适配-->
+    <dimen name="font_size_9">9sp</dimen>
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_11">11sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_13">13sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_17">17sp</dimen>
+    <dimen name="font_size_18">18sp</dimen>
+    <dimen name="font_size_19">19sp</dimen>
+    <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_size_35">35sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+</resources>

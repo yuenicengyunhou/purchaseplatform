@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="line_thin_shade">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_2</item>
+        <item name="android:background">@drawable/main_line</item>
+    </style>
+
+
+    <style name="line_thin_gray">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_1</item>
+        <item name="android:background">@color/line_gray</item>
+    </style>
+
+
+    <style name="line_bold_gray">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_5</item>
+        <item name="android:background">@color/line_gray</item>
+    </style>
+
+
+    <style name="line_thin_gray_margin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_tiny</item>
+        <item name="android:background">@color/line_gray</item>
+        <item name="android:layout_marginLeft">@dimen/dp_20</item>
+        <item name="android:layout_marginRight">@dimen/dp_20</item>
+    </style>
+
+
+    <!-- 提交按钮样式-->
+    <style name="btn_commit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_45</item>
+        <item name="android:layout_marginLeft">@dimen/dp_30</item>
+        <item name="android:layout_marginRight">@dimen/dp_30</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_size_16</item>
+
+    </style>
+
+</resources>

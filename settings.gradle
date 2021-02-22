@@ -1,0 +1,6 @@
+include ':user'
+include ':common'
+include ':lib_data'
+include ':framwork'
+include ':app'
+rootProject.name = "purchaseplatform"

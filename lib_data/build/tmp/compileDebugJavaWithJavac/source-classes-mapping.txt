@@ -1,4 +1,0 @@
-com/rails/lib_data/bean/MsgBean.java
- com.rails.lib_data.bean.MsgBean
-com/rails/lib_data/BuildConfig.java
- com.rails.lib_data.BuildConfig

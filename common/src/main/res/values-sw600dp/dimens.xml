@@ -1,0 +1,71 @@
+<resources>
+    <!-- 比例  1.875 -->
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="dp_tiny">0.75dp</dimen>
+    <dimen name="dp_1">1.875dp</dimen>
+    <dimen name="dp_2">3.75dp</dimen>
+    <dimen name="dp_3">5.625dp</dimen>
+    <dimen name="dp_5">9.375dp</dimen>
+    <dimen name="dp_6">11.25dp</dimen>
+    <dimen name="dp_8">15dp</dimen>
+    <dimen name="dp_10">18.75dp</dimen>
+    <dimen name="dp_12">22.5dp</dimen>
+    <dimen name="dp_15">28.125dp</dimen>
+    <dimen name="dp_16">30dp</dimen>
+    <dimen name="dp_20">37.25dp</dimen>
+    <dimen name="dp_25">46.875dp</dimen>
+    <dimen name="dp_28">52.5dp</dimen>
+    <dimen name="dp_30">56.25dp</dimen>
+    <dimen name="dp_33">61.875dp</dimen>
+    <dimen name="dp_35">63.625dp</dimen>
+    <dimen name="dp_36">67.5dp</dimen>
+    <dimen name="dp_40">75dp</dimen>
+    <dimen name="dp_45">84.375dp</dimen>
+    <dimen name="dp_48">90dp</dimen>
+    <dimen name="dp_50">93.75dp</dimen>
+    <dimen name="dp_55">103.125dp</dimen>
+    <dimen name="dp_60">112.5dp</dimen>
+    <dimen name="dp_65">121.875dp</dimen>
+    <dimen name="dp_68">127.5dp</dimen>
+    <dimen name="dp_70">131.25dp</dimen>
+    <dimen name="dp_75">140.625dp</dimen>
+    <dimen name="dp_80">150dp</dimen>
+    <dimen name="dp_90">168.75dp</dimen>
+    <dimen name="dp_95">187.125dp</dimen>
+    <dimen name="dp_100">187.5dp</dimen>
+    <dimen name="dp_105">197dp</dimen>
+    <dimen name="dp_108">202.5dp</dimen>
+    <dimen name="dp_110">206.25dp</dimen>
+    <dimen name="dp_120">225dp</dimen>
+    <dimen name="dp_136">255dp</dimen>
+    <dimen name="dp_140">262.5dp</dimen>
+    <dimen name="dp_160">300dp</dimen>
+    <dimen name="dp_180">337.86dp</dimen>
+    <dimen name="dp_200">375dp</dimen>
+    <dimen name="dp_206">386.25dp</dimen>
+    <dimen name="dp_215">403.125dp</dimen>
+    <dimen name="dp_225">421.5dp</dimen>
+    <dimen name="dp_240">450dp</dimen>
+    <dimen name="dp_272">510dp</dimen>
+    <dimen name="dp_250">468.75dp</dimen>
+    <dimen name="dp_320">600dp</dimen>
+    <dimen name="dp_312">662.5dp</dimen>
+    <dimen name="dp_548">1027.5dp</dimen>
+
+
+    <!-- 文字大小适配-->
+    <dimen name="font_size_9">16.875sp</dimen>
+    <dimen name="font_size_10">18.75sp</dimen>
+    <dimen name="font_size_11">20.625sp</dimen>
+    <dimen name="font_size_12">22.5sp</dimen>
+    <dimen name="font_size_13">24.375sp</dimen>
+    <dimen name="font_size_14">26.25sp</dimen>
+    <dimen name="font_size_15">28.125sp</dimen>
+    <dimen name="font_size_16">30sp</dimen>
+    <dimen name="font_size_17">31.875sp</dimen>
+    <dimen name="font_size_18">33.75sp</dimen>
+    <dimen name="font_size_19">35.625sp</dimen>
+    <dimen name="font_size_20">37.5sp</dimen>
+    <dimen name="font_size_35">65.625sp</dimen>
+
+</resources>

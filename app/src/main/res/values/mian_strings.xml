@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="mine_mine_fwgj">服务工具</string>
+    <string name="main_mine_zzxx">资质信息</string>
+    <string name="main_mine_xgmm">修改密码</string>
+    <string name="main_mine_kfzx">客服中心</string>
+    <string name="main_mine_yjfk">意见反馈</string>
+    <string name="main_mine_sz">设置</string>
+
+
+    <string-array name="msgs_tab">
+        <item>系统消息</item>
+        <item>代办事项</item>
+        <item>订阅提醒</item>
+        <item>精彩推荐</item>
+
+    </string-array>
+
+
+    <string-array name="aution_tab">
+        <item>招标</item>
+        <item>非招标</item>
+        <item>拍卖</item>
+        <item>非拍卖</item>
+
+    </string-array>
+
+</resources>

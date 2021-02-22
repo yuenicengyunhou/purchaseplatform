@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="text" format="string" />
+    <attr name="text_size" format="dimension" />
+    <attr name="distance" format="dimension" />
+    <attr name="is_hide" format="boolean" />
+    <attr name="value_gravity" format="integer">
+        <enum name="left" value="-1" />
+        <enum name="center" value="0" />
+        <enum name="right" value="1" />
+    </attr>
+    <attr name="value_size" format="dimension" />
+    <attr name="left_icon" format="integer" />
+    <attr name="value_right_icon" format="integer" />
+    <attr name="hint" format="string" />
+
+
+    <declare-styleable name="recycler">
+        <attr name="canV" format="boolean" />
+        <attr name="canH" format="boolean" />
+    </declare-styleable>
+
+
+    <!--自定义radioButton-->
+    <declare-styleable name="badge">
+        <attr name="rt_icon" format="integer" />
+        <attr name="is_rt_icon" format="boolean" />
+        <attr name="rt_width" format="integer" />
+    </declare-styleable>
+
+
+    <!--左右lable组合view属性 左右edit组合view属性-->
+    <declare-styleable name="LrLable">
+        <attr name="key" format="string" />
+        <attr name="key_size" format="dimension" />
+        <attr name="key_color" format="color" />
+        <attr name="value_content" format="string" />
+        <attr name="editable" format="boolean" />
+        <attr name="value_size" />
+        <attr name="value_gravity" />
+        <attr name="input" format="integer">
+            <enum name="number" value="-1" />
+            <enum name="text" value="0" />
+        </attr>
+        <attr name="max_length" format="integer" />
+        <attr name="value_color" format="color" />
+        <attr name="is_hide" />
+        <attr name="hint" />
+        <attr name="left_icon" />
+        <attr name="left_img" format="integer" />
+        <attr name="right_img" format="integer" />
+        <attr name="value_right_icon" />
+        <attr name="padding_bottom" format="dimension" />
+        <attr name="padding_top" format="dimension" />
+    </declare-styleable>
+
+
+    <!--圆形Imageview-->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="MoreCompView">
+        <attr name="left_icon" />
+        <attr name="value_right_icon" />
+        <attr name="android:text" />
+        <attr name="hint" />
+        <attr name="is_edit" format="boolean" />
+        <attr name="android:inputType" />
+        <attr name="android:maxLength" />
+        <attr name="is_hide" />
+        <attr name="contentxt" format="string" />
+    </declare-styleable>
+
+
+    <!--个人中心，弧形背景-->
+    <declare-styleable name="LineLayout">
+        <attr name="border_color" />
+        <attr name="distance" />
+        <attr name="border_width" />
+        <attr name="fill_color" format="color" />
+        <attr name="start_angle" format="integer" />
+        <attr name="sweep_angle" format="integer" />
+        <attr name="cal_angle" format="integer" />
+    </declare-styleable>
+
+
+</resources>

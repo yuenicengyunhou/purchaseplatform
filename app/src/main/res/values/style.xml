@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TabButton">
+        <item name="android:textAppearance">@style/tab_item_text_style</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <style name="tab_item_text_style">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:textColor">@color/selector_blue_gray_color</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+
+    <!--公用分割线样式-->
+    <style name="mine_tab">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_50</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+
+</resources>
