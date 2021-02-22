@@ -14,7 +14,7 @@ import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 public class PageRecyclerView extends BaseRecyclerView {
 
     private float downX;
-    private float MIN_DISTANCE = 50;
+    private float MIN_DISTANCE = 100;
 
     private int Max_Num = 4;
     private int totalPage;

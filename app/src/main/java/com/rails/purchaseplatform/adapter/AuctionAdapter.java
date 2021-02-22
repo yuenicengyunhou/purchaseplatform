@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AuctionAdapter extends BaseRecycleAdapter<String, ItemAuctionBinding> {
 
 
-    public AuctionAdapter(Context context) {
+    private int type;
+
+    public AuctionAdapter(Context context, int type) {
         super(context);
+        this.type = type;
     }
 
     @Override
@@ -31,11 +34,13 @@ public class AuctionAdapter extends BaseRecycleAdapter<String, ItemAuctionBindin
 
     @Override
     protected void onBindItem(ItemAuctionBinding binding, String s, int position) {
-        RecyclerView.LayoutParams linearParams =
-                (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
-        linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) << 1) / 3;
+        if (type == 0) {
+            RecyclerView.LayoutParams linearParams =
+                    (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
+            linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) << 1) / 3;
+            binding.getRoot().setLayoutParams(linearParams);
+        }
 
-        binding.getRoot().setLayoutParams(linearParams);
     }
 
 }

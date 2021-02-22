@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * 临时
+ *
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
@@ -25,7 +26,7 @@ public class AutionFragment extends LazyFragment<FragmentAutionBinding> {
 
     @Override
     protected void loadData() {
-        auctionAdapter = new AuctionAdapter(getActivity());
+        auctionAdapter = new AuctionAdapter(getActivity(), 1);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
 //        msgRecycler.addItemDecoration(new SpaceDecoration(this, ScreenSizeUtil.dp2px(this, 15), R.color.white));
         binding.recycler.setAdapter(auctionAdapter);

@@ -27,7 +27,7 @@
             app:value_content="全部"
             app:value_right_icon="@drawable/svg_arrow_white" />
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        <com.rails.purchaseplatform.common.widget.PageRecyclerView
             android:id="@+id/zb_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             app:value_content="全部"
             app:value_right_icon="@drawable/svg_arrow_white" />
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        <com.rails.purchaseplatform.common.widget.PageRecyclerView
             android:id="@+id/fzb_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             app:value_content="全部"
             app:value_right_icon="@drawable/svg_arrow_white" />
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        <com.rails.purchaseplatform.common.widget.PageRecyclerView
             android:id="@+id/pm_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             app:value_content="全部"
             app:value_right_icon="@drawable/svg_arrow_white" />
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        <com.rails.purchaseplatform.common.widget.PageRecyclerView
             android:id="@+id/fpm_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

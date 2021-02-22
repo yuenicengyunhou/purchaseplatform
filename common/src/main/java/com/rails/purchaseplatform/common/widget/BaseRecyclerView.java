@@ -89,10 +89,10 @@ public class BaseRecyclerView extends RecyclerView {
                                         yDistance += Math.abs(curY - lastY);
                                         lastX = curX;
                                         lastY = curY;
-                                        if (xDistance > yDistance) {
-                                            requestDisallowInterceptTouchEvent(true);
+                                        if (xDistance < yDistance) {
+                                            requestDisallowInterceptTouchEvent(canVertical);
                                         } else
-                                            requestDisallowInterceptTouchEvent(false);
+                                            requestDisallowInterceptTouchEvent(canVertical);
                                 }
                                 return false;
                             }

@@ -7,6 +7,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 import java.util.ArrayList;
 
@@ -26,29 +27,30 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
     @Override
     protected void loadData() {
 
+        int w = ScreenSizeUtil.getScreenWidth(getActivity()) / 3 - ScreenSizeUtil.dp2px(getActivity(), 40);
         //招标
-        zbAdapter = new AuctionAdapter(getActivity());
+        zbAdapter = new AuctionAdapter(getActivity(), 0);
         binding.zbRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 2);
 //        msgRecycler.addItemDecoration(new SpaceDecoration(this, ScreenSizeUtil.dp2px(this, 15), R.color.white));
-        binding.zbRecycler.setAdapter(zbAdapter);
+        binding.zbRecycler.setAdapter(zbAdapter, w);
 
         //非招标
-        fzbAdapter = new AuctionAdapter(getActivity());
+        fzbAdapter = new AuctionAdapter(getActivity(), 0);
         binding.fzbRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 2);
 //        msgRecycler.addItemDecoration(new SpaceDecoration(this, ScreenSizeUtil.dp2px(this, 15), R.color.white));
-        binding.fzbRecycler.setAdapter(fzbAdapter);
+        binding.fzbRecycler.setAdapter(fzbAdapter, w);
 
 
-        pmAdapter = new AuctionAdapter(getActivity());
+        pmAdapter = new AuctionAdapter(getActivity(), 0);
         binding.pmRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 2);
 //        msgRecycler.addItemDecoration(new SpaceDecoration(this, ScreenSizeUtil.dp2px(this, 15), R.color.white));
-        binding.pmRecycler.setAdapter(pmAdapter);
+        binding.pmRecycler.setAdapter(pmAdapter, w);
 
 
-        fpmAdapter = new AuctionAdapter(getActivity());
+        fpmAdapter = new AuctionAdapter(getActivity(), 0);
         binding.fpmRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 2);
 //        msgRecycler.addItemDecoration(new SpaceDecoration(this, ScreenSizeUtil.dp2px(this, 15), R.color.white));
-        binding.fpmRecycler.setAdapter(fpmAdapter);
+        binding.fpmRecycler.setAdapter(fpmAdapter, w);
 
 
         ArrayList<String> datas = new ArrayList<>();
