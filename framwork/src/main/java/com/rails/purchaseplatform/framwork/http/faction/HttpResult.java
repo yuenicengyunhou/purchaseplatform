@@ -8,7 +8,8 @@ package com.rails.purchaseplatform.framwork.http.faction;
 public class HttpResult<T> {
     private T data;
     private boolean success;
-    private String message;
+    private String msg;
+    private String code;
 
     public T getData() {
         return data;
@@ -27,10 +28,18 @@ public class HttpResult<T> {
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
