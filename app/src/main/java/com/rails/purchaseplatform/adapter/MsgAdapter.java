@@ -4,14 +4,14 @@ import android.content.Context;
 
 import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.databinding.ItemMsgBinding;
-import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
+import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 
 /**
  * 消息adapter
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class MsgAdapter extends BaseRecycleAdapter<String , ItemMsgBinding> {
+public class MsgAdapter extends BaseRecyclerAdapter<String , ItemMsgBinding> {
 
 
     public MsgAdapter(Context context) {

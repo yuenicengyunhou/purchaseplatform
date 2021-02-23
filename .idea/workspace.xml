@@ -11,6 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bfb67d24-8865-457b-a753-3650d1dea628" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/framwork/src/main/java/com/rails/purchaseplatform/framwork/adapter/BaseHolder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framwork/src/main/java/com/rails/purchaseplatform/framwork/adapter/BaseMulRecyclerAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framwork/src/main/java/com/rails/purchaseplatform/framwork/adapter/MulInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
@@ -24,18 +27,16 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/adapter/AuctionAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/adapter/AuctionAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/fragment/AutionFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/fragment/AutionFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/fragment/MallFrm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/fragment/MallFrm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frm_mall.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frm_mall.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/rails/purchaseplatform/common/widget/BaseRecyclerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/rails/purchaseplatform/common/widget/BaseRecyclerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/rails/purchaseplatform/common/widget/PageRecyclerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/rails/purchaseplatform/common/widget/PageRecyclerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/adapter/MsgAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/rails/purchaseplatform/adapter/MsgAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framwork/src/main/java/com/rails/purchaseplatform/framwork/adapter/BaseRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/framwork/src/main/java/com/rails/purchaseplatform/framwork/adapter/BaseRecyclerAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib_data/src/main/java/com/rails/lib_data/bean/MsgBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/lib_data/src/main/java/com/rails/lib_data/bean/MsgBean.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[faccecd9]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Nexus_5X_API_28]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -57,8 +58,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -78,6 +80,8 @@
     <property name="DEBUGGABLE_DEVICE" value="xiaomi-mi_9-faccecd9" />
     <property name="DEBUGGABLE_PROCESS" value="com.rails.purchaseplatform" />
     <property name="DEBUGGER_ID" value="Auto" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_5X_API_28" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-02-23T01:57:26.400Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -305,10 +309,10 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="104" y="73" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.777@0.23.1280.777" timestamp="1611642616840" />
-    <state x="453" y="125" key="#com.intellij.ide.util.MemberChooser" timestamp="1613965677514">
+    <state x="453" y="125" key="#com.intellij.ide.util.MemberChooser" timestamp="1614051272424">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="453" y="125" key="#com.intellij.ide.util.MemberChooser/0.23.1280.777@0.23.1280.777" timestamp="1613965677514" />
+    <state x="453" y="125" key="#com.intellij.ide.util.MemberChooser/0.23.1280.777@0.23.1280.777" timestamp="1614051272424" />
     <state x="228" y="173" key="AndroidCreateResourceDirectoryDialog" timestamp="1611642172448">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
@@ -325,22 +329,22 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="409" y="165" key="AndroidProcessChooserDialog/0.23.1280.777@0.23.1280.777" timestamp="1613987275485" />
-    <state width="1236" height="216" key="GridCell.Tab.0.bottom" timestamp="1613987317702">
+    <state width="1236" height="216" key="GridCell.Tab.0.bottom" timestamp="1613988812328">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1236" height="216" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1613987317702" />
-    <state width="1236" height="216" key="GridCell.Tab.0.center" timestamp="1613987317701">
+    <state width="1236" height="216" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1613988812328" />
+    <state width="1236" height="216" key="GridCell.Tab.0.center" timestamp="1613988812328">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1236" height="216" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1613987317701" />
-    <state width="1236" height="216" key="GridCell.Tab.0.left" timestamp="1613987317701">
+    <state width="1236" height="216" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1613988812328" />
+    <state width="1236" height="216" key="GridCell.Tab.0.left" timestamp="1613988812327">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1236" height="216" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1613987317701" />
-    <state width="1236" height="216" key="GridCell.Tab.0.right" timestamp="1613987317701">
+    <state width="1236" height="216" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1613988812327" />
+    <state width="1236" height="216" key="GridCell.Tab.0.right" timestamp="1613988812328">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1236" height="216" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1613987317701" />
+    <state width="1236" height="216" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1613988812328" />
     <state x="228" y="161" key="IDE.errors.dialog" timestamp="1611726847769">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
@@ -365,9 +369,9 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="427" y="280" key="git4idea.rebase.GitRebaseDialog/0.23.1280.777@0.23.1280.777" timestamp="1613979156324" />
-    <state x="305" y="124" key="search.everywhere.popup" timestamp="1613976763994">
+    <state x="305" y="124" key="search.everywhere.popup" timestamp="1614050287457">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="305" y="124" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1613976763994" />
+    <state x="305" y="124" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1614050287457" />
   </component>
 </project>

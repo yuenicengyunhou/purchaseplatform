@@ -1,12 +1,10 @@
 package com.rails.purchaseplatform.adapter;
 
 import android.content.Context;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.databinding.ItemAuctionBinding;
-import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
+import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class AuctionAdapter extends BaseRecycleAdapter<String, ItemAuctionBinding> {
+public class AuctionAdapter extends BaseRecyclerAdapter<String, ItemAuctionBinding> {
 
 
     private int type;
