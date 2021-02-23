@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <com.rails.purchaseplatform.common.widget.UnslideViewPager
+    <com.rails.purchaseplatform.common.widget.SlideViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
