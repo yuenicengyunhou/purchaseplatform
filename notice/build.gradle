@@ -1,19 +1,25 @@
-plugins {
-    id 'com.android.application'
+if (isLib.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
 }
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.rails.purchaseplatform"
+        if(isLib.toBoolean())
+            applicationId "com.rails.purchaseplatform.notice"
+
+        if (isLib.toBoolean())
+            multiDexEnabled true
+
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        flavorDimensions "versionCode"
-        multiDexEnabled true
 
 
         javaCompileOptions {
@@ -43,23 +49,31 @@ android {
         dataBinding true
     }
 
+
+    sourceSets {
+        main {
+            if (isLib.toBoolean()) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            }
+        }
+    }
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.13.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 
     //阿里路由
     implementation 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
+
     implementation project(path: ':common')
-    implementation project(path: ':user')
-    implementation project(path: ':notice')
 }
