@@ -1,5 +1,8 @@
 package com.rails.purchaseplatform.fragment;
 
+import com.rails.lib_data.bean.NoticeParentBean;
+import com.rails.lib_data.contract.NoticeContract;
+import com.rails.lib_data.contract.NoticePresenterImpl;
 import com.rails.purchaseplatform.adapter.AuctionAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -17,12 +20,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class AutionFragment extends LazyFragment<FragmentAutionBinding> {
+public class AutionFragment extends LazyFragment<FragmentAutionBinding> implements NoticeContract.NoticeView {
 
+    private NoticeContract.NoticePresenter presenter;
 
     private final int DEF_PAGE = 1;
     private int page = DEF_PAGE;
     AuctionAdapter auctionAdapter;
+
 
     @Override
     protected void loadData() {
@@ -31,15 +36,8 @@ public class AutionFragment extends LazyFragment<FragmentAutionBinding> {
 //        msgRecycler.addItemDecoration(new SpaceDecoration(this, ScreenSizeUtil.dp2px(this, 15), R.color.white));
         binding.recycler.setAdapter(auctionAdapter);
 
-        ArrayList<String> msgs = new ArrayList<>();
-        msgs.add("");
-        msgs.add("");
-        msgs.add("");
-        msgs.add("");
-        msgs.add("");
-        msgs.add("");
-        msgs.add("");
-        auctionAdapter.update(msgs, true);
+
+        presenter = new NoticePresenterImpl(getActivity(), this);
         onRefresh();
     }
 
@@ -83,6 +81,12 @@ public class AutionFragment extends LazyFragment<FragmentAutionBinding> {
 
 
     private void notifyData(boolean isDialog, int page) {
+        presenter.getNotice();
+    }
 
+
+    @Override
+    public void getNotice(ArrayList<NoticeParentBean> bean) {
+        auctionAdapter.update(bean.get(0).getSub(), true);
     }
 }

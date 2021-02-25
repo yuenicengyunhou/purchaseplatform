@@ -1,5 +1,8 @@
 package com.rails.purchaseplatform.fragment;
 
+import com.rails.lib_data.bean.NoticeParentBean;
+import com.rails.lib_data.contract.NoticeContract;
+import com.rails.lib_data.contract.NoticePresenterImpl;
 import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.adapter.AuctionAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -19,10 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/1/26
  */
-public class MallFrm extends LazyFragment<FrmMallBinding> {
-
+public class MallFrm extends LazyFragment<FrmMallBinding> implements NoticeContract.NoticeView {
 
     private AuctionAdapter zbAdapter, fzbAdapter, pmAdapter, fpmAdapter;
+    private NoticeContract.NoticePresenter presenter;
 
     @Override
     protected void loadData() {
@@ -53,18 +56,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
         binding.fpmRecycler.setAdapter(fpmAdapter, w);
 
 
-        ArrayList<String> datas = new ArrayList<>();
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        zbAdapter.update(datas, true);
-        fzbAdapter.update(datas, true);
-        pmAdapter.update(datas, true);
-        fpmAdapter.update(datas, true);
+        presenter = new NoticePresenterImpl(getActivity(), this);
+        presenter.getNotice();
 
     }
 
@@ -88,5 +81,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
     @Override
     public void onFailure(String errorMsg) {
 
+    }
+
+    @Override
+    public void getNotice(ArrayList<NoticeParentBean> bean) {
+        zbAdapter.update(bean.get(0).getSub(), true);
+        fzbAdapter.update(bean.get(0).getSub(), true);
+        pmAdapter.update(bean.get(0).getSub(), true);
+        fpmAdapter.update(bean.get(0).getSub(), true);
     }
 }

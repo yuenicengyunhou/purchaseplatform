@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rails.purchaseplatform">
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".framwork.BaseApp"
         android:allowBackup="true"
@@ -19,8 +22,9 @@
         </activity>
 
 
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

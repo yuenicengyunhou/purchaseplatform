@@ -6,7 +6,7 @@
 
         <variable
             name="auction"
-            type="com.rails.lib_data.bean.MsgBean" />
+            type="com.rails.lib_data.bean.NoticeBean" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -31,7 +31,9 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="中铁特货公司手持终端询价采购项目"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="@{auction.notTitle}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_16" />
 
@@ -39,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="国铁集团｜货物类｜公开招标"
+                android:text="@{auction.bidTypeName+auction.projTypeName}"
                 android:textColor="@color/font_black_light"
                 android:textSize="@dimen/font_size_13" />
 
@@ -48,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="2020-07-04"
+                android:text="@{auction.checkTime}"
                 android:textColor="@color/font_black_light"
                 android:textSize="@dimen/font_size_13" />
 
