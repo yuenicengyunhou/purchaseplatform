@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_wx" />
+
+
+    <TextView
+        android:id="@+id/btn_wx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_16"
+        android:drawableLeft="@drawable/svg_search"
+        android:drawablePadding="@dimen/dp_5"
+        android:text="@string/user_wx_login"
+        android:textColor="@color/font_black_light"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>

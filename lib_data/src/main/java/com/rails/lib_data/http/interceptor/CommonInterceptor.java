@@ -1,6 +1,11 @@
 package com.rails.lib_data.http.interceptor;
 
 
+<<<<<<< HEAD
+=======
+import android.text.TextUtils;
+
+>>>>>>> e41a6286c0069f3b4ddb89df3d61655c12d29065
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
@@ -31,9 +36,15 @@ public class CommonInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
+<<<<<<< HEAD
 //        String token = "";
 //        if (!TextUtils.isEmpty(token))
 //            builder.addHeader("token", token);
+=======
+        String token = "";
+        if (!TextUtils.isEmpty(token))
+            builder.addHeader("token", token);
+>>>>>>> e41a6286c0069f3b4ddb89df3d61655c12d29065
         //添加网络默认头
 //        builder.addHeader("version", version);
 //        builder.addHeader("appSystem", "android");

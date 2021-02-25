@@ -5,9 +5,15 @@
     <application>
 
         <!-- 登录-->
-<!--        <activity-->
-<!--            android:name=".ui.activity.LoginActivity"-->
-<!--            android:screenOrientation="portrait" />-->
+        <!--        <activity-->
+        <!--            android:name=".ui.activity.LoginActivity"-->
+        <!--            android:screenOrientation="portrait" />-->
+
+
+        <!--注册-->
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
