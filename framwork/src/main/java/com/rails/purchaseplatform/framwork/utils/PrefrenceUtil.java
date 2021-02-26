@@ -27,7 +27,7 @@ public class PrefrenceUtil {
     private SharedPreferences preferences;
 
     private PrefrenceUtil(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
         preferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
     }
 

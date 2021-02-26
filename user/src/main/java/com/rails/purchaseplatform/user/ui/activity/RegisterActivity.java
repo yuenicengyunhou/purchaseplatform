@@ -48,6 +48,6 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
 
     @Override
     public void getTests(ArrayList<TestBean> testBeans) {
-
+            startIntent(LoginActivity.class);
     }
 }

@@ -18,7 +18,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
@@ -182,19 +181,6 @@ public abstract class BaseAbsFragment<T extends ViewBinding> extends Fragment im
         }
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        permissionAuthor();
-    }
-
-    /**
-     * 权限授权之后，操作
-     */
-    protected void permissionAuthor() {
-
-    }
 
     @Override
     public void onPause() {

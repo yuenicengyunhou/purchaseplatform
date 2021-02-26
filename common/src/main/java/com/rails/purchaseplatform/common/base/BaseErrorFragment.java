@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.common.base;
 
 import com.rails.purchaseplatform.framwork.base.BaseAbsFragment;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 
 import androidx.viewbinding.ViewBinding;
 
@@ -13,11 +14,8 @@ import androidx.viewbinding.ViewBinding;
 public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFragment<T> {
 
 
+    @Override
+    public void onError(ErrorBean errorBean) {
 
-    /**
-     *
-     */
-    protected void reNetLoad() {
     }
-
 }

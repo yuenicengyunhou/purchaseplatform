@@ -15,6 +15,8 @@ import retrofit2.http.GET;
  * @date: 2021/2/23
  */
 public interface LoginService {
+
+
     @GET("elasticSearch/queryBidNoticeListForMainPage")
     Observable<HttpResult<ArrayList<TestBean>>> getTests();
 
