@@ -7,22 +7,10 @@ import com.rails.purchaseplatform.framwork.http.observer.down.DownloadRequestBod
 
 import java.io.IOException;
 import java.io.InputStream;
-<<<<<<< HEAD
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
-=======
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.security.GeneralSecurityException;
-import java.security.KeyStore;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
->>>>>>> e41a6286c0069f3b4ddb89df3d61655c12d29065
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
@@ -68,13 +56,8 @@ public abstract class BaseRetrofit {
     public OkHttpClient getOkHttpClient() {
         //打印retrofit日志
 
-<<<<<<< HEAD
         X509TrustManager trustManager;
         SSLSocketFactory sslSocketFactory;
-=======
-        SSLSocketFactory sslSocketFactory;
-        X509TrustManager trustManager;
->>>>>>> e41a6286c0069f3b4ddb89df3d61655c12d29065
         try {
             trustManager = trustManagerForCertificates(trustedCertificatesInputStream());
             SSLContext sslContext = SSLContext.getInstance("TLS");
@@ -84,18 +67,10 @@ public abstract class BaseRetrofit {
             throw new RuntimeException(e);
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e41a6286c0069f3b4ddb89df3d61655c12d29065
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(getInterceptor())
                 .addInterceptor(loggingInterceptor)
-<<<<<<< HEAD
-=======
-
->>>>>>> e41a6286c0069f3b4ddb89df3d61655c12d29065
                 .sslSocketFactory(sslSocketFactory, trustManager)
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)

@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.framwork.base;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -26,7 +27,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.right_in, R.anim.left_out);
+//        overridePendingTransition(R.anim.right_in, R.anim.left_out);
         BaseActManager.getInstance().addActivity(this);
         setLayout();
         setStatusBar();
@@ -107,8 +108,12 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
         Resources res = super.getResources();
         Configuration config = new Configuration();
         config.setToDefaults();
-        res.updateConfiguration(config, res.getDisplayMetrics());
-        return res;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            return createConfigurationContext(config).getResources();
+        } else {
+            res.updateConfiguration(config, res.getDisplayMetrics());
+            return res;
+        }
     }
 
 
@@ -126,7 +131,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
+//        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
 
