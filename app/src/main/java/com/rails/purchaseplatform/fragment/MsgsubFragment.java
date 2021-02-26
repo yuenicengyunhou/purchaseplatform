@@ -61,11 +61,6 @@ public class MsgsubFragment extends LazyFragment<FragmentMsgSubBinding> {
 
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
-
 
     /**
      * 数据刷新操作

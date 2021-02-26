@@ -1,25 +1,31 @@
 package com.rails.purchaseplatform.framwork.http.observer;
 
 
-
-
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.UN_KNOWN_ERROR;
 
-public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListener {
+/**
+ * 请求数据分发
+ *
+ * @param <T>
+ */
+public abstract class HttpRxObserver<T> implements Observer<T> {
+
 
     @Override
     public void onError(Throwable e) {
         if (e instanceof ErrorBean) {
             onError((ErrorBean) e);
         } else {
-            onError(new ErrorBean(10000, e + ""));
+            onError(new ErrorBean(UN_KNOWN_ERROR, e + ""));
         }
     }
+
 
     @Override
     public void onComplete() {
@@ -35,10 +41,6 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
         onStart(d);
     }
 
-    @Override
-    public void cancel() {
-
-    }
 
     protected void onStart(Disposable d) {
 

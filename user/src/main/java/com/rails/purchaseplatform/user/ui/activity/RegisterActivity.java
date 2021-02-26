@@ -42,11 +42,6 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
     }
 
     @Override
-    public void onFailure(String errorMsg) {
-
-    }
-
-    @Override
     public void getTests(ArrayList<TestBean> testBeans) {
             startIntent(LoginActivity.class);
     }

@@ -33,9 +33,4 @@ public class ClassicalFrm extends LazyFragment<FrmClassicalBinding> {
     public void onError(ErrorBean errorBean) {
 
     }
-
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 }

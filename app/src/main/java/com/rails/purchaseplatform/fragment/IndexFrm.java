@@ -105,10 +105,6 @@ public class IndexFrm extends LazyFragment<FrmIndexBinding> {
 
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 
 
     /**

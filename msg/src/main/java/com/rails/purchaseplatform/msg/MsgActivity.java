@@ -36,8 +36,4 @@ public class MsgActivity extends ToolbarActivity<ActivityMsgBinding> {
         // TODO: 2021/2/25 页面操作的处理 
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 }

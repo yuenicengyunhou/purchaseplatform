@@ -30,9 +30,4 @@ public class MineFrm extends LazyFragment<FrmMineBinding> {
         return false;
     }
 
-
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 }

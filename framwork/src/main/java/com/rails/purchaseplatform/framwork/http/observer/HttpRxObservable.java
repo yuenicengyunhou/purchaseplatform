@@ -3,7 +3,6 @@ package com.rails.purchaseplatform.framwork.http.observer;
 
 import com.rails.purchaseplatform.framwork.http.faction.ErrorFunction;
 import com.rails.purchaseplatform.framwork.http.faction.HttpFunction;
-import com.rails.purchaseplatform.framwork.http.faction.HttpStringFunction;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,16 +30,4 @@ public class HttpRxObservable {
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;
     }
-
-
-    public static Observable getObservables(Observable apiObservable) {
-        Observable observable = apiObservable
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new HttpStringFunction())
-                .onErrorResumeNext(new ErrorFunction())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-        return observable;
-    }
-
 }

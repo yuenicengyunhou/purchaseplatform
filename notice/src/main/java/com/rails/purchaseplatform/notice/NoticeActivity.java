@@ -37,8 +37,4 @@ public class NoticeActivity extends ToolbarActivity<ActivityNoticeBinding> {
         return false;
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 }

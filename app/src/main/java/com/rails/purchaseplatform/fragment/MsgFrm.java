@@ -62,10 +62,6 @@ public class MsgFrm extends LazyFragment<FrmMsgBinding> {
 
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 
 
     /**

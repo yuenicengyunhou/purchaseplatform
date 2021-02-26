@@ -36,7 +36,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
             @Override
             protected void onSuccess(ArrayList<TestBean> beans) {
-                Logger.d(beans+"+++++++++++++");
                 baseView.getTests(beans);
             }
         });

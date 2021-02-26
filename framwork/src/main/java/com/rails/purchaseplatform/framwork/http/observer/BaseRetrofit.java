@@ -53,9 +53,13 @@ public abstract class BaseRetrofit {
         }
     });
 
-    public OkHttpClient getOkHttpClient() {
-        //打印retrofit日志
 
+    /**
+     * okHttp配置
+     *
+     * @return
+     */
+    public OkHttpClient getOkHttpClient() {
         X509TrustManager trustManager;
         SSLSocketFactory sslSocketFactory;
         try {
@@ -67,6 +71,7 @@ public abstract class BaseRetrofit {
             throw new RuntimeException(e);
         }
 
+        //打印retrofit日志
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(getInterceptor())
@@ -79,6 +84,9 @@ public abstract class BaseRetrofit {
 
         return client;
     }
+
+
+
 
     public Retrofit getRetrofit() {
         Retrofit mRetrofit = new Retrofit.Builder()

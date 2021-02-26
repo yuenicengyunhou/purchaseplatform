@@ -39,10 +39,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> {
         return false;
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 
     @Override
     protected void onClick() {

@@ -6,6 +6,7 @@ import com.rails.lib_data.contract.NoticePresenterImpl;
 import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.adapter.AuctionAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.common.utils.ToastUtil;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -72,16 +73,11 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements NoticeContr
         return false;
     }
 
-
     @Override
     public void onError(ErrorBean errorBean) {
-
+        super.onError(errorBean);
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 
     @Override
     public void getNotice(ArrayList<NoticeParentBean> bean) {

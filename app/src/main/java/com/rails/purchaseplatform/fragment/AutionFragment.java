@@ -57,11 +57,6 @@ public class AutionFragment extends LazyFragment<FragmentAutionBinding> implemen
 
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
-
 
     /**
      * 数据刷新操作

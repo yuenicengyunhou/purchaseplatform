@@ -17,13 +17,6 @@ public interface BaseView {
     void onError(ErrorBean errorBean);
 
     /**
-     * service fail
-     *
-     * @param errorMsg
-     */
-    void onFailure(String errorMsg);
-
-    /**
      * dialog loading
      */
     void showDialog(String msg);

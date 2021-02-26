@@ -50,11 +50,6 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
         initPager();
     }
 
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
-
 
     @Override
     protected void onClick() {
