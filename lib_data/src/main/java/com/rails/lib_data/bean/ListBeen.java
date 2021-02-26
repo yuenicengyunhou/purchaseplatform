@@ -10,31 +10,31 @@ import java.util.ArrayList;
 public class ListBeen<T> {
 
 
-    private int pageTotal;
-    private ArrayList<T> list;
-    private int Total;
+    private int totalPageCount;
+    private ArrayList<T> result;
+    private int totalCount;
 
-    public int getPageTotal() {
-        return pageTotal;
+    public int getTotalPageCount() {
+        return totalPageCount;
     }
 
-    public void setPageTotal(int pageTotal) {
-        this.pageTotal = pageTotal;
+    public void setTotalPageCount(int totalPageCount) {
+        this.totalPageCount = totalPageCount;
     }
 
-    public ArrayList<T> getList() {
-        return list;
+    public ArrayList<T> getResult() {
+        return result;
     }
 
-    public void setList(ArrayList<T> list) {
-        this.list = list;
+    public void setResult(ArrayList<T> result) {
+        this.result = result;
     }
 
-    public int getTotal() {
-        return Total;
+    public int getTotalCount() {
+        return totalCount;
     }
 
-    public void setTotal(int total) {
-        Total = total;
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
     }
 }
