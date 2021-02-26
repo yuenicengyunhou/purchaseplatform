@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.rails.lib_data.bean.TestBean;
 import com.rails.lib_data.contract.LoginContract;
-import com.rails.lib_data.presenter.LoginPresneterImpl;
+import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.user.databinding.ActivityUserRegisterBinding;
 

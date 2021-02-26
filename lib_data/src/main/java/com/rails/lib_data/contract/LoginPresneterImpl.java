@@ -1,4 +1,4 @@
-package com.rails.lib_data.presenter;
+package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
