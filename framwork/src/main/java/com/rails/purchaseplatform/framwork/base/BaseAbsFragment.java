@@ -43,6 +43,10 @@ public abstract class BaseAbsFragment<T extends ViewBinding> extends Fragment im
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getArguments();
+        if (null != extras) {
+            getExtraEvent(extras);
+        }
         if (isBindEventBus()) {
             EventBus.getDefault().register(this);
         }
@@ -118,6 +122,13 @@ public abstract class BaseAbsFragment<T extends ViewBinding> extends Fragment im
      */
     public void startIntent(Class<?> cls, Bundle bundle) {
         this.startIntent(getActivity(), cls, bundle);
+    }
+
+
+    /**
+     * 获取页面传值
+     */
+    protected void getExtraEvent(Bundle extras) {
     }
 
     /**

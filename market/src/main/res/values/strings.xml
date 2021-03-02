@@ -1,0 +1,22 @@
+<resources>
+    <string name="market">商城</string>
+
+
+    <string-array name="market_categorys">
+
+        <item>办公用品</item>
+        <item>厨具餐具</item>
+        <item>电器商城</item>
+        <item>电子产品</item>
+        <item>工艺品</item>
+        <item>家纺布艺</item>
+        <item>劳保用品</item>
+        <item>粮油食品</item>
+        <item>清洁纸品</item>
+        <item>日用百货</item>
+        <item>生鲜冷冻</item>
+
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
