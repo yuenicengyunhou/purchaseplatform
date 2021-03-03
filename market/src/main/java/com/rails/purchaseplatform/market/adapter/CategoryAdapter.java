@@ -1,22 +1,24 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
-import android.view.View;
 
 import com.rails.lib_data.bean.CategoryBean;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemCategoryBinding;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * 一级分类列表
+ * 分类
  *
  * @author： sk_comic@163.com
- * @date: 2021/2/26
+ * @date: 2021/3/2
  */
 public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCategoryBinding> {
 
-    CategoryBean lastBean;
 
     public CategoryAdapter(Context context) {
         super(context);
@@ -30,20 +32,12 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCateg
     @Override
     protected void onBindItem(ItemCategoryBinding binding, CategoryBean categoryBean, int position) {
         binding.setCategory(categoryBean);
+        CategorySubAdapter adapter = new CategorySubAdapter(mContext);
+        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
+//        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext,10,10,10,10,android.R.color.white));
+        binding.recycler.setAdapter(adapter);
+        adapter.update(categoryBean.getSubs(), true);
 
-        binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (lastBean != null) {
-                    lastBean.isSel.set(false);
-                }
-                categoryBean.isSel.set(true);
-                lastBean = categoryBean;
-
-                if (positionListener != null){
-                    positionListener.onPosition(categoryBean,position);
-                }
-            }
-        });
     }
+
 }

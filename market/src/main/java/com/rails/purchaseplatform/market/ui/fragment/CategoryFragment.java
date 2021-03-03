@@ -1,12 +1,12 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
-import com.rails.lib_data.bean.CategoryBean;
+import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.adapter.CategoryAdapter;
+import com.rails.purchaseplatform.market.adapter.CategoryRootAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentCategoryBinding;
 
 import java.util.ArrayList;
@@ -21,14 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/2/26
  */
-public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> implements PositionListener<CategoryBean> {
+public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> implements PositionListener<CategoryRootBean> {
 
-    CategoryAdapter adapter;
+    CategoryRootAdapter adapter;
     ViewPageAdapter viewPageAdapter;
 
     @Override
     protected void loadData() {
-        adapter = new CategoryAdapter(getActivity());
+        adapter = new CategoryRootAdapter(getActivity());
         adapter.setListener(this);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.setAdapter(adapter);
@@ -52,13 +52,13 @@ public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> impl
 
 
     private void setFragments(String[] tabs) {
-        ArrayList<CategoryBean> beans = new ArrayList<>();
+        ArrayList<CategoryRootBean> beans = new ArrayList<>();
         ArrayList<Fragment> fragments = new ArrayList<>();
-        CategoryBean bean;
+        CategoryRootBean bean;
 
         for (String name : tabs) {
-            bean = new CategoryBean();
-            bean.name.set(name);
+            bean = new CategoryRootBean();
+            bean.navigationBarName.set(name);
             beans.add(bean);
             fragments.add(CategorySubFragment.newInstance(name));
         }
@@ -67,7 +67,7 @@ public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> impl
     }
 
     @Override
-    public void onPosition(CategoryBean bean, int position) {
+    public void onPosition(CategoryRootBean bean, int position) {
         binding.pager.setCurrentItem(position);
     }
 }

@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <net.lucode.hackware.magicindicator.MagicIndicator
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/magic"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40" />
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_25"
+        app:tabMode="scrollable" />
 
-
-    <com.rails.purchaseplatform.market.widget.MoreScrollView
-        android:id="@+id/more"
+    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-        </FrameLayout>
-
-    </com.rails.purchaseplatform.market.widget.MoreScrollView>
+        android:layout_height="match_parent"
+        app:canH="false"
+        app:canV="true" />
 
 </LinearLayout>

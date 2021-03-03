@@ -1,43 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <import type="android.view.View" />
 
         <variable
             name="category"
             type="com.rails.lib_data.bean.CategoryBean" />
     </data>
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="@{category.isSel? @color/white:@color/bg_gray}">
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
 
-
-        <ImageView
-            android:id="@+id/img_res"
-            android:layout_width="@dimen/dp_5"
-            android:layout_height="@dimen/dp_15"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_5"
-            android:background="@color/bg_blue"
-            android:visibility="@{category.isSel?View.VISIBLE : View.INVISIBLE}" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/img_res"
-            android:singleLine="true"
-            android:text="@{category.name}"
-            android:textColor="@{category.isSel?@color/font_black_light : @color/font_black}"
-            android:textSize="@dimen/font_size_15"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{category.name}"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_15" />
+
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_8"
+                android:overScrollMode="never"
+                app:canH="false"
+                app:canV="false" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>
