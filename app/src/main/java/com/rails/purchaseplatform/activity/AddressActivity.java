@@ -13,6 +13,7 @@ import com.rails.purchaseplatform.adapter.AdderssAdapter;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.databinding.ActivityAddressBinding;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
