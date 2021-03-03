@@ -4,6 +4,7 @@ import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.PageTransformer;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryRootAdapter;
@@ -33,6 +34,7 @@ public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> impl
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.setAdapter(adapter);
 
+        binding.pager.setPageTransformer(false, new PageTransformer());
         viewPageAdapter = new ViewPageAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.pager.setAdapter(viewPageAdapter);
 
