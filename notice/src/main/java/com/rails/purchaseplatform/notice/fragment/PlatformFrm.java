@@ -1,29 +1,28 @@
-package com.rails.purchaseplatform.fragment;
+package com.rails.purchaseplatform.notice.fragment;
 
 import com.rails.lib_data.bean.NoticeParentBean;
 import com.rails.lib_data.contract.NoticeContract;
 import com.rails.lib_data.contract.NoticePresenterImpl;
-import com.rails.purchaseplatform.R;
-import com.rails.purchaseplatform.adapter.AuctionAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
-import com.rails.purchaseplatform.common.utils.ToastUtil;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.notice.R;
+import com.rails.purchaseplatform.notice.adapter.AuctionAdapter;
+import com.rails.purchaseplatform.notice.databinding.FrmPlatformIndexBinding;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * 商城首页
+ * 平台首页
  *
  * @author： sk_comic@163.com
  * @date: 2021/1/26
  */
-public class MallFrm extends LazyFragment<FrmMallBinding> implements NoticeContract.NoticeView {
+public class PlatformFrm extends LazyFragment<FrmPlatformIndexBinding> implements NoticeContract.NoticeView {
 
     private AuctionAdapter zbAdapter, fzbAdapter, pmAdapter, fpmAdapter;
     private NoticeContract.NoticePresenter presenter;

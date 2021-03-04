@@ -15,7 +15,7 @@
         <activity android:name=".activity.AddActivity"></activity>
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,9 +25,9 @@
         <activity android:name=".activity.RaddressActivity" />
         <activity android:name=".activity.AddressActivity" />
         <activity android:name=".user.ui.activity.LoginActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+        <!--        <activity-->
+        <!--            android:name=".MainActivity"-->
+        <!--            android:screenOrientation="portrait" />-->
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.fragment;
+package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
-import com.rails.purchaseplatform.databinding.FrmIndexBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -29,12 +29,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
- * 首页
+ * 商城首页
  *
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class IndexFrm extends LazyFragment<FrmIndexBinding> {
+public class MallFrm extends LazyFragment<FrmMallBinding> {
 
 
 
@@ -70,8 +70,7 @@ public class IndexFrm extends LazyFragment<FrmIndexBinding> {
 
         onRefresh();
 
-        String[] tabs = getResources().getStringArray(R.array.aution_tab);
-        initPager(tabs);
+//        initPager(tabs);
     }
 
 
@@ -115,7 +114,7 @@ public class IndexFrm extends LazyFragment<FrmIndexBinding> {
         fragments = new ArrayList<>();
         Fragment fragment;
         for (String tab : tabs) {
-            fragment = new AutionFragment();
+            fragment = new CategoryFrm();
             Bundle bundle = new Bundle();
             fragment.setArguments(bundle);
             fragments.add(fragment);

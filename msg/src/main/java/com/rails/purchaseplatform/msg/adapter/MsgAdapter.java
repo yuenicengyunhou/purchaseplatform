@@ -1,10 +1,11 @@
-package com.rails.purchaseplatform.adapter;
+package com.rails.purchaseplatform.msg.adapter;
 
 import android.content.Context;
 
-import com.rails.purchaseplatform.R;
-import com.rails.purchaseplatform.databinding.ItemMsgBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.msg.R;
+import com.rails.purchaseplatform.msg.databinding.ItemMsgBinding;
+
 
 /**
  * 消息adapter

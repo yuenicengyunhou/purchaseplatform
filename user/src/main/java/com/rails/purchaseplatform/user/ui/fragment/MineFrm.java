@@ -1,10 +1,9 @@
-package com.rails.purchaseplatform.fragment;
+package com.rails.purchaseplatform.user.ui.fragment;
 
-import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.common.base.LazyFragment;
-import com.rails.purchaseplatform.databinding.FrmMineBinding;
-import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.user.R;
+import com.rails.purchaseplatform.user.databinding.FrmMineBinding;
 
 /**
  * 个人中心
