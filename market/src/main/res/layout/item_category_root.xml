@@ -34,7 +34,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/img_res"
             android:singleLine="true"
-            android:text="@{category.navigationBarName}"
+            android:text="@{category.name}"
             android:textColor="@{category.isSel?@color/font_black_light : @color/font_black}"
             android:textSize="@dimen/font_size_15"
             android:textStyle="bold" />

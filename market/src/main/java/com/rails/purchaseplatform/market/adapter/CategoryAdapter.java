@@ -36,7 +36,7 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCateg
         binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
 //        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext,10,10,10,10,android.R.color.white));
         binding.recycler.setAdapter(adapter);
-        adapter.update(categoryBean.getSubs(), true);
+        adapter.update(categoryBean.getThirdPlatformCategoryList(), true);
 
     }
 

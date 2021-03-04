@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.CategoryBean;
-import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
@@ -32,16 +31,16 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding> {
 
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM = "bean";
 
-    private String name;
+    private CategoryRootBean bean;
     private CategoryAdapter adapter;
 
 
-    public static CategorySubFragment newInstance(String param1) {
+    public static CategorySubFragment newInstance(CategoryRootBean bean) {
         CategorySubFragment fragment = new CategorySubFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putSerializable(ARG_PARAM, bean);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +49,7 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        name = getArguments().getString(ARG_PARAM1);
+        bean = (CategoryRootBean) getArguments().getSerializable(ARG_PARAM);
     }
 
 
@@ -66,70 +65,11 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
         binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.white));
         binding.recycler.setAdapter(adapter);
 
+        if (bean != null) {
+            initPager((ArrayList<CategoryBean>) bean.getSecondPlatformCategoryList());
+            adapter.update((ArrayList<CategoryBean>) bean.getSecondPlatformCategoryList(), true);
+        }
 
-        ArrayList<CategoryBean> categoryBeans = new ArrayList<>();
-        ArrayList<CategorySubBean> subBeans = new ArrayList<>();
-        CategoryBean bean = new CategoryBean();
-        bean.setName("篮球鞋");
-        subBeans.add(new CategorySubBean("乔丹", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans.add(new CategorySubBean("亚瑟士", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans.add(new CategorySubBean("特步", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans.add(new CategorySubBean("安踏", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans.add(new CategorySubBean("李宁", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans.add(new CategorySubBean("耐克", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans.add(new CategorySubBean("阿迪达斯", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans.add(new CategorySubBean("361度", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        bean.setSubs(subBeans);
-        categoryBeans.add(bean);
-
-
-        CategoryBean bean2 = new CategoryBean();
-        ArrayList<CategorySubBean> subBeans2 = new ArrayList<>();
-        bean2.setName("花治百病");
-        subBeans2.add(new CategorySubBean("蓝色妖姬", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("紫罗兰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("秋菊", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("康乃馨", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("百合", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("玫瑰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("牡丹", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("花开富贵", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("蓝色妖姬", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("紫罗兰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("秋菊", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("康乃馨", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("百合", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("玫瑰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("牡丹", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans2.add(new CategorySubBean("花开富贵", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        bean2.setSubs(subBeans2);
-        categoryBeans.add(bean2);
-
-
-        CategoryBean bean3 = new CategoryBean();
-        ArrayList<CategorySubBean> subBeans3 = new ArrayList<>();
-        bean3.setName("化妆品");
-        subBeans3.add(new CategorySubBean("蓝色妖姬", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("紫罗兰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("秋菊", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("康乃馨", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("百合", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("玫瑰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("牡丹", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("花开富贵", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("蓝色妖姬", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("紫罗兰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("秋菊", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("康乃馨", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("百合", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("玫瑰", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("牡丹", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        subBeans3.add(new CategorySubBean("花开富贵", "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1983115038,1914523613&fm=26&gp=0.jpg"));
-        bean3.setSubs(subBeans3);
-        categoryBeans.add(bean3);
-
-        initPager(categoryBeans);
-        adapter.update(categoryBeans, true);
     }
 
     @Override

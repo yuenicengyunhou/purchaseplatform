@@ -9,6 +9,8 @@ import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemCategoryRootBinding;
 
+import java.util.ArrayList;
+
 /**
  * 一级分类列表
  *
@@ -46,5 +48,16 @@ public class CategoryRootAdapter extends BaseRecyclerAdapter<CategoryRootBean, I
                 }
             }
         });
+    }
+
+
+    @Override
+    public void update(ArrayList itemDatas, boolean isClear) {
+        if (!itemDatas.isEmpty()) {
+            lastBean = (CategoryRootBean) itemDatas.get(0);
+            lastBean.isSel.set(true);
+        }
+        super.update(itemDatas, isClear);
+
     }
 }

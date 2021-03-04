@@ -4,8 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
+
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 /**
  * Recyclerview 装饰
@@ -24,8 +28,7 @@ public class SpaceDecoration extends RecyclerView.ItemDecoration {
      * @param color   recyclerview的背景颜色
      */
     public SpaceDecoration(Context context, int space, int color) {
-//        this.space = ScreenSizeUtil.dp2px(context, space);
-        this.space = space;
+        this.space = ScreenSizeUtil.dp2px(context, space);
         if (color == 0)
             bgColor = Color.WHITE;
         else

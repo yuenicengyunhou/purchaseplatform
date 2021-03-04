@@ -9,7 +9,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/magic"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
+        android:layout_height="@dimen/dp_50"
         android:layout_marginTop="@dimen/dp_25"
         app:tabMode="scrollable" />
 

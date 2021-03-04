@@ -39,7 +39,7 @@ public class ExceptionEngine {
             errorBean.setMsg("网络请求异常");  //均视为网络错误
         } else if (e instanceof HttpError) {    //服务器返回的错误
             HttpError httpError = (HttpError) e;
-            errorBean = new ErrorBean(httpError, httpError.getCode());
+            errorBean = new ErrorBean(httpError, Integer.parseInt(httpError.getCode()));
             errorBean.setMsg(httpError.getMsg());
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
