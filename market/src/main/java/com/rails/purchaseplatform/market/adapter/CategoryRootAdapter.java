@@ -51,6 +51,16 @@ public class CategoryRootAdapter extends BaseRecyclerAdapter<CategoryRootBean, I
     }
 
 
+    public void setLastBean(int position) {
+        if (position < mDataSource.size()) {
+            if (lastBean != null)
+                lastBean.isSel.set(false);
+            lastBean = mDataSource.get(position);
+            lastBean.isSel.set(true);
+        }
+    }
+
+
     @Override
     public void update(ArrayList itemDatas, boolean isClear) {
         if (!itemDatas.isEmpty()) {

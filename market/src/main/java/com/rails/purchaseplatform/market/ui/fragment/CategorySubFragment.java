@@ -12,13 +12,19 @@ import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentCategorySubBinding;
+import com.rails.purchaseplatform.market.widget.MoreLinearLayout;
+import com.rails.purchaseplatform.market.widget.MoreScrollView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +40,7 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
     private static final String ARG_PARAM = "bean";
 
     //判断是点击还是滑动
-    private boolean isScroll = false;
+    private boolean isScroll = true;
 
     private CategoryRootBean bean;
     private CategoryAdapter adapter;
@@ -128,6 +134,18 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
             }
         });
 
+
+//        binding.more.setMoreListener(new MoreLinearLayout.OnMoreListener() {
+//            @Override
+//            public void onMore() {
+//                EventBus.getDefault().post(new BusEvent("onMore", "CategoryFragment"));
+//            }
+//
+//            @Override
+//            public void onChange(int l, int t, int oldl, int oldt) {
+//
+//            }
+//        });
 
         binding.recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

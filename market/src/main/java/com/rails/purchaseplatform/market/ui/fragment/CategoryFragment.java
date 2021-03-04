@@ -3,19 +3,23 @@ package com.rails.purchaseplatform.market.ui.fragment;
 import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.lib_data.contract.CategoryContract;
 import com.rails.lib_data.contract.CategoryPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.PageTransformer;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryRootAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentCategoryBinding;
+import com.rails.purchaseplatform.market.widget.CenterManger;
 
 import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -29,13 +33,16 @@ public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> impl
 
     CategoryRootAdapter adapter;
     ViewPageAdapter viewPageAdapter;
+    CenterManger centerManger;
     private CategoryContract.CategoryPresenter presenter;
+    private int curPosition = 0;
 
     @Override
     protected void loadData() {
         adapter = new CategoryRootAdapter(getActivity());
         adapter.setListener(this);
-        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        centerManger = new CenterManger(getActivity(), RecyclerView.VERTICAL, false);
+        binding.recycler.setLayoutManager(centerManger);
         binding.recycler.setAdapter(adapter);
 
         viewPageAdapter = new ViewPageAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -53,9 +60,23 @@ public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> impl
 
     @Override
     protected boolean isBindEventBus() {
-        return false;
+        return true;
     }
 
+
+    @Override
+    public void onMessageEvent(BusEvent event) {
+        super.onMessageEvent(event);
+        String code = event.getEventCode();
+        String mathord = (String) event.getBean();
+        if ("CategoryFragment".equals(code)) {
+            if ("onMore".equals(mathord)) {
+                doNext();
+            } else
+                doPre();
+        }
+
+    }
 
     @Override
     public void getCategorys(ArrayList<CategoryRootBean> beans) {
@@ -79,6 +100,33 @@ public class CategoryFragment extends LazyFragment<FragmentCategoryBinding> impl
     @Override
     public void onPosition(CategoryRootBean bean, int position) {
         binding.pager.setCurrentItem(position);
+        curPosition = position;
+        centerManger.smoothScrollToPosition(binding.recycler,new RecyclerView.State(),position);
     }
+
+
+    /**
+     * 下一步
+     */
+    private void doNext() {
+        if (curPosition < adapter.getCount() - 1) {
+            curPosition++;
+            binding.pager.setCurrentItem(curPosition);
+            adapter.setLastBean(curPosition);
+        }
+    }
+
+
+    /**
+     * 上一步
+     */
+    private void doPre() {
+        if (curPosition > 0) {
+            curPosition--;
+            binding.pager.setCurrentItem(curPosition);
+            adapter.setLastBean(curPosition);
+        }
+    }
+
 
 }
