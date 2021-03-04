@@ -49,7 +49,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> {
     }
 
     private void initData() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             list.add(new AddressBean("张三" + i, "12345678909", "北京市海淀区怡和八号院"));
         }
         adderssAdapter.notifyDataSetChanged();
