@@ -4,6 +4,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.databinding.FrmClassicalBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 /**
  * 分类页面
@@ -14,7 +15,6 @@ import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 public class ClassicalFrm extends LazyFragment<FrmClassicalBinding> {
     @Override
     protected void loadData() {
-
     }
 
     @Override

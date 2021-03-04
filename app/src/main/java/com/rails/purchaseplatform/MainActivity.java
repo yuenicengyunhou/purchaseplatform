@@ -12,6 +12,7 @@ import com.rails.purchaseplatform.fragment.MallFrm;
 import com.rails.purchaseplatform.fragment.MineFrm;
 import com.rails.purchaseplatform.fragment.MsgFrm;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.market.ui.fragment.CategoryFragment;
 
 import java.util.ArrayList;
 
@@ -87,7 +88,7 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
     private void initPager() {
         frms = new ArrayList<>();
         frms.add(new IndexFrm());
-        frms.add(new MallFrm());
+        frms.add(new CategoryFragment());
         frms.add(new MsgFrm());
         frms.add(new MineFrm());
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

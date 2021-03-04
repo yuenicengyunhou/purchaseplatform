@@ -86,8 +86,6 @@ public abstract class BaseRetrofit {
     }
 
 
-
-
     public Retrofit getRetrofit() {
         Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(getBaseUrl())
@@ -144,7 +142,8 @@ public abstract class BaseRetrofit {
     private InputStream trustedCertificatesInputStream() {
         InputStream inputStream = null;
         try {
-            inputStream = BaseApp.getContext().getAssets().open("crmall.crt");
+//            inputStream = BaseApp.getContext().getAssets().open("crmall.crt");
+            inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -61,7 +61,7 @@ public class SlideViewPager extends ViewPager {
 
     @Override
     public void setCurrentItem(int item) {
-        super.setCurrentItem(item);
+        super.setCurrentItem(item, false);
     }
 
 }

@@ -63,4 +63,5 @@ dependencies {
     implementation project(path: ':user')
     implementation project(path: ':notice')
     implementation project(path: ':msg')
+    implementation project(path: ':market')
 }

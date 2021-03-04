@@ -1,0 +1,34 @@
+package com.rails.lib_data.service;
+
+import android.util.SparseArray;
+
+import com.alibaba.fastjson.JSONObject;
+import com.rails.lib_data.bean.CategoryRootBean;
+import com.rails.lib_data.bean.ListBeen;
+import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import io.reactivex.Observable;
+import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
+
+/**
+ * 商城分类service
+ *
+ * @author： sk_comic@163.com
+ * @date: 2021/3/3
+ */
+public interface CategoryService {
+
+
+    /**
+     * frontcategory/getAllCategoryList?platformId=20&businessType=1
+     * 获取商城分类
+     *
+     * @return
+     */
+    @GET("frontcategory/getAllCategoryList")
+    Observable<HttpResult<ArrayList<CategoryRootBean>>> getCategorys(@QueryMap HashMap<String, String> params);
+}
