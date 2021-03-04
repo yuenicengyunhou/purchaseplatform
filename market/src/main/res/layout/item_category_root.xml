@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:background="@{category.isSel? @color/white:@color/bg_gray}">
+        android:background="@{category.isSel? @color/white:@color/bg_gray_light}">
 
 
         <ImageView

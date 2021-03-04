@@ -33,6 +33,9 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
 
     private static final String ARG_PARAM = "bean";
 
+    //判断是点击还是滑动
+    private boolean isScroll = false;
+
     private CategoryRootBean bean;
     private CategoryAdapter adapter;
 
@@ -97,7 +100,8 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
             lable.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    v.setSelected(true);
+                    tab.select();
+                    isScroll = false;
                     ((LinearLayoutManager) binding.recycler.getLayoutManager()).scrollToPositionWithOffset((Integer) tab.getTag(), 0);
                 }
             });
@@ -134,9 +138,13 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int position = manager.findFirstVisibleItemPosition();
-                binding.magic.getTabAt(position).select();
+                if (isScroll) {
+                    LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int position = manager.findFirstVisibleItemPosition();
+                    binding.magic.getTabAt(position).select();
+                }
+                isScroll = true;
+
             }
         });
 

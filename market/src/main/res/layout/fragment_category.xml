@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:background="@color/bg_gray"
+        android:background="@color/bg_gray_light"
         android:paddingTop="@dimen/dp_30" />
 
     <com.rails.purchaseplatform.common.widget.SlideViewPager
