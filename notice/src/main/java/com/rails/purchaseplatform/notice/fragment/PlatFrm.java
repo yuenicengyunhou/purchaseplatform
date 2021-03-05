@@ -80,7 +80,7 @@ public class PlatFrm extends LazyFragment<FrmPlatBinding> implements NoticeContr
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
+        StatusBarUtil.StatusBarMode(getActivity(), R.color.trans);
     }
 
 
