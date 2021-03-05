@@ -8,7 +8,7 @@ import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.databinding.FrmTabPlatBinding;
 import com.rails.purchaseplatform.msg.fragment.MsgFrm;
-import com.rails.purchaseplatform.notice.fragment.PlatformFrm;
+import com.rails.purchaseplatform.notice.fragment.PlatFrm;
 import com.rails.purchaseplatform.user.ui.fragment.MineFrm;
 
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public class PlatTabFrm extends LazyFragment<FrmTabPlatBinding> {
      */
     private void initPager() {
         frms = new ArrayList<>();
-        frms.add(new PlatformFrm());
+        frms.add(new PlatFrm());
         frms.add(new MsgFrm());
         frms.add(new MineFrm());
         viewPageAdapter = new ViewPageAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
