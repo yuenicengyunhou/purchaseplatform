@@ -10,10 +10,10 @@
     android:paddingRight="@dimen/dp_15"
     android:paddingBottom="@dimen/dp_5">
 
-    <ImageView
+    <com.rails.purchaseplatform.common.widget.CircleImageView
         android:id="@+id/tv_res"
-        android:layout_width="@dimen/dp_45"
-        android:layout_height="@dimen/dp_45"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_5" />
 

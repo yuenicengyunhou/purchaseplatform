@@ -40,7 +40,6 @@ public class MsgFrm extends LazyFragment<FrmMsgBinding> {
     @Override
     protected void loadData() {
 
-
         String[] tabs = getResources().getStringArray(R.array.msgs_tab);
         int[] res = {R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
         initPager(tabs, res);
@@ -61,7 +60,6 @@ public class MsgFrm extends LazyFragment<FrmMsgBinding> {
     public void onError(ErrorBean errorBean) {
 
     }
-
 
 
     /**
