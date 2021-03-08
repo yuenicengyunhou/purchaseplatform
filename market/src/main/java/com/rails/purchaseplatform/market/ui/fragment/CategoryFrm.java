@@ -7,6 +7,8 @@ import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
+import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryRootAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCategoryBinding;
 import com.rails.purchaseplatform.market.widget.CenterManger;
@@ -50,7 +52,7 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
 
     @Override
     protected void loadPreVisitData() {
-
+        StatusBarUtil.StatusBarMode(getActivity(), R.color.white);
     }
 
     @Override
