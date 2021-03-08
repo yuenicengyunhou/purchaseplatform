@@ -23,27 +23,47 @@
                 android:scaleType="centerCrop"
                 tools:background="@color/bg" />
 
-
-            <TextView
-                android:id="@+id/et_search"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_40"
-                android:layout_marginRight="@dimen/dp_20"
-                android:background="@drawable/bg_corner_white_20"
-                android:drawableStart="@drawable/svg_search"
-                android:drawablePadding="@dimen/dp_5"
-                android:hint="搜索"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:lines="1"
-                android:padding="@dimen/dp_10"
-                android:singleLine="true"
-                android:textColor="@color/font_black"
-                android:textColorHint="@color/font_hint"
-                android:textSize="@dimen/font_size_14" />
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:background="@drawable/bg_corner_white_20"
+                    android:drawableStart="@drawable/svg_search"
+                    android:layout_toLeftOf="@+id/img_msg"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:hint="搜索"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:padding="@dimen/dp_10"
+                    android:singleLine="true"
+                    android:textColor="@color/font_black"
+                    android:textColorHint="@color/font_hint"
+                    android:textSize="@dimen/font_size_14" />
+
+
+
+
+                <ImageView
+                    android:id="@+id/img_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_20"
+                    android:src="@drawable/svg_market_msg" />
+
+            </RelativeLayout>
+
 
 
             <FrameLayout
