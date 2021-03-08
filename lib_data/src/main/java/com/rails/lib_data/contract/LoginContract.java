@@ -1,6 +1,5 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.bean.TestBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public interface LoginContract {
     interface LoginView extends BaseView {
 
 
-        void getTests(ArrayList<TestBean> testBeans);
+        void getTests(ArrayList<String> testBeans);
 
     }
 

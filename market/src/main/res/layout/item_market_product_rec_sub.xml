@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.rails.lib_data.bean.ProductBean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_5"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_1"
+            tools:ignore="MissingDefaultResource">
+
+            <com.rails.purchaseplatform.common.widget.RatioImage
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:overScrollMode="never"
+                app:imgUrl="@{product.pictureUrl}" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@{product.pictureName}"
+            android:textColor="@color/font_black_light"
+            android:textSize="@dimen/font_size_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@{product.pictureName}"
+            android:textColor="@color/font_red"
+            android:textSize="@dimen/font_size_12" />
+
+    </LinearLayout>
+
+</layout>

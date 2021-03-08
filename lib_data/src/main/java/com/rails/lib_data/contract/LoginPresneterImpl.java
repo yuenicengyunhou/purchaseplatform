@@ -2,9 +2,6 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
-import com.orhanobut.logger.Logger;
-import com.rails.lib_data.bean.TestBean;
-import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -28,14 +25,14 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
     @Override
     public void getTests() {
-        model.getTests(new HttpRxObserver<ArrayList<TestBean>>() {
+        model.getTests(new HttpRxObserver<ArrayList<String>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
             }
 
             @Override
-            protected void onSuccess(ArrayList<TestBean> beans) {
+            protected void onSuccess(ArrayList<String> beans) {
                 baseView.getTests(beans);
             }
         });

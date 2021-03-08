@@ -6,12 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.contract.ProductContract;
+import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -26,6 +32,7 @@ import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -34,12 +41,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class MallFrm extends LazyFragment<FrmMallBinding> {
+public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductContract.ProductView {
 
 
-
-    private ArrayList<Fragment> fragments;
-    private ViewPageAdapter viewPageAdapter;
+    private ProductContract.ProductPresenter presenter;
+    private ProductRecAdapter recAdapter;
 
 
     @Override
@@ -50,7 +56,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
                 if (i > 0) {
-                   binding.rlRecycler.setEnabled(true);
+                    binding.rlRecycler.setEnabled(true);
                 } else {
                     binding.rlRecycler.setEnabled(false);
 
@@ -58,19 +64,20 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
 
                 boolean isVisit = getLocalVisibleRect(getActivity(), binding.rvStep);
                 if (Math.abs(i) > 500 && !isVisit) {
-                    binding.lineBar.setVisibility(View.VISIBLE);
                     StatusBarUtil.StatusBarLightMode(getActivity());
                 } else {
-                    binding.lineBar.setVisibility(View.GONE);
                     StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
                 }
             }
         });
 
+        recAdapter = new ProductRecAdapter(getActivity());
+        presenter = new ProductPresenterImpl(getActivity(), this);
+        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 20, R.color.bg));
+        binding.recycler.setAdapter(recAdapter);
 
         onRefresh();
-
-//        initPager(tabs);
     }
 
 
@@ -83,8 +90,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
             public void onRefresh() {
                 //下拉刷新数据
                 binding.rlRecycler.setRefreshing(false);
+                presenter.getRectProducts(false);
             }
         });
+        presenter.getRectProducts(true);
     }
 
     @Override
@@ -105,63 +114,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
     }
 
 
-
-    /**
-     * 初始化pageradapter
-     */
-    private void initPager(String[] tabs) {
-
-        fragments = new ArrayList<>();
-        Fragment fragment;
-        for (String tab : tabs) {
-            fragment = new CategoryFrm();
-            Bundle bundle = new Bundle();
-            fragment.setArguments(bundle);
-            fragments.add(fragment);
-        }
-        viewPageAdapter = new ViewPageAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPageAdapter.update(fragments, true);
-        binding.viewPager.setAdapter(viewPageAdapter);
-        binding.viewPager.setOffscreenPageLimit(tabs.length);
-
-        CommonNavigator commonNavigator = new CommonNavigator(getActivity());
-        commonNavigator.setAdjustMode(false);
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return tabs == null ? 0 : tabs.length;
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, final int index) {
-                ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.font_black_light));
-                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_blue));
-                colorTransitionPagerTitleView.setTextSize(14f);
-                colorTransitionPagerTitleView.setText(tabs[index]);
-                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        binding.viewPager.setCurrentItem(index);
-                    }
-                });
-                return colorTransitionPagerTitleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
-                indicator.setColors(getResources().getColor(android.R.color.transparent));
-                return indicator;
-            }
-        });
-        binding.magicIndicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(binding.magicIndicator, binding.viewPager);
-        binding.viewPager.setCurrentItem(0);
-    }
-
-
     public boolean getLocalVisibleRect(Context context, View view) {
         int screenWidth = ScreenSizeUtil.getScreenWidth(context);
         int screenHeight = ScreenSizeUtil.getScreenHeight(context);
@@ -174,5 +126,11 @@ public class MallFrm extends LazyFragment<FrmMallBinding> {
         } else {
             return false;
         }
+    }
+
+
+    @Override
+    public void getRecProducts(ArrayList<ProductRecBean> beans) {
+        recAdapter.update(beans, true);
     }
 }

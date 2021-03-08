@@ -43,6 +43,8 @@ public class BindAdapter {
      */
     @androidx.databinding.BindingAdapter("imgUrl")
     public static void bindImageUrl(ImageView view, String imageUrl) {
+        if (!imageUrl.contains("https:"))
+            imageUrl = "https:" + imageUrl;
         RequestOptions options =
                 new RequestOptions()
                         .centerCrop()
