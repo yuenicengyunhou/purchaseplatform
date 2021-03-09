@@ -9,6 +9,7 @@ import androidx.databinding.BindingAdapter;
 
 /**
  * 绑定
+ *
  * @author： sk_comic@163.com
  * @date: 2021/2/18
  */
@@ -18,17 +19,17 @@ public class BindAdapter {
      * 绑定资源图片
      *
      * @param view
-     * @param imageUrl
+     * @param imgRes
      */
-    @androidx.databinding.BindingAdapter("imgUrl")
-    public static void bindImageUrl(ImageView view, int imageUrl) {
+    @androidx.databinding.BindingAdapter("imgRes")
+    public static void bindImageUrl(ImageView view, int imgRes) {
         RequestOptions options =
                 new RequestOptions()
                         .centerCrop()
                         .dontAnimate();
 
         Glide.with(view)
-                .load(imageUrl)
+                .load(imgRes)
                 .apply(options)
                 .into(view);
     }
@@ -42,6 +43,8 @@ public class BindAdapter {
      */
     @androidx.databinding.BindingAdapter("imgUrl")
     public static void bindImageUrl(ImageView view, String imageUrl) {
+        if (!imageUrl.contains("https:"))
+            imageUrl = "https:" + imageUrl;
         RequestOptions options =
                 new RequestOptions()
                         .centerCrop()

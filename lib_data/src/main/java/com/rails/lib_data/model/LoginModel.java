@@ -1,10 +1,9 @@
 package com.rails.lib_data.model;
 
 import com.rails.lib_data.http.RetrofitUtil;
+import com.rails.lib_data.service.LoginService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-
-import java.util.HashMap;
 
 /**
  * @author： sk_comic@163.com

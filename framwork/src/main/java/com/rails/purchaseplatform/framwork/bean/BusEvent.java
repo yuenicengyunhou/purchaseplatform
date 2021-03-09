@@ -10,17 +10,17 @@ package com.rails.purchaseplatform.framwork.bean;
 public class BusEvent<T> {
 
     private T bean;
-    private int eventCode;
+    private String eventCode;
 
     public BusEvent(T bean) {
         this.bean = bean;
     }
 
-    public BusEvent(int eventCode) {
+    public BusEvent(String eventCode) {
         this.eventCode = eventCode;
     }
 
-    public BusEvent(T bean, int eventCode) {
+    public BusEvent(T bean, String eventCode) {
         this.bean = bean;
         this.eventCode = eventCode;
     }
@@ -29,7 +29,7 @@ public class BusEvent<T> {
         return bean;
     }
 
-    public int getEventCode() {
+    public String getEventCode() {
         return eventCode;
     }
 }

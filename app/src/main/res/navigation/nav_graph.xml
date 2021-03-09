@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mallFrm">
+
+    <fragment
+        android:id="@+id/platFrm"
+        android:name="com.rails.purchaseplatform.fragment.PlatTabFrm">
+
+        <action
+            android:id="@+id/action_plat_to_mall"
+            app:destination="@id/mallFrm" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mallFrm"
+        android:name="com.rails.purchaseplatform.fragment.MallTabFrm">
+
+        <action
+            android:id="@+id/action_mall_to_plat"
+            app:destination="@id/platFrm" />
+    </fragment>
+</navigation>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">国铁商城</string>
+    <string name="password">密码</string>
+    <string name="id">账号</string>
+    <string name="login">登录</string>
+    <string name="register">立即注册</string>
+    <string name="forgotpassword">登录</string>
 </resources>
