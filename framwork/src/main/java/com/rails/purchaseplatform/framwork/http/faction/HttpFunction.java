@@ -13,14 +13,15 @@ public class HttpFunction<T> implements Function<HttpResult<T>, T> {
     @Override
     public T apply(HttpResult<T> tHttpResult) throws Exception {
 
-        if (!tHttpResult.isSuccess())
-            throw new HttpError(0, tHttpResult.getMessage());
-        else {
+        if (tHttpResult.isSuccess() || "0".equals(tHttpResult.getCode())) {
+
             T t = tHttpResult.getData();
             if (t == null)
                 return (T) tHttpResult.getMessage();
             else
                 return t;
+        } else {
+            throw new HttpError("0", tHttpResult.getMessage());
         }
     }
 }

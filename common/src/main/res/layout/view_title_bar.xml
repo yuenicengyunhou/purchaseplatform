@@ -11,7 +11,7 @@
         android:id="@+id/comment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45"
-        android:background="@color/bg_blue"
+        android:background="@color/white"
         android:minHeight="@dimen/dp_45"
         app:layout_scrollFlags="scroll|enterAlways">
 

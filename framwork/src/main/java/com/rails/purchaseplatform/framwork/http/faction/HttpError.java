@@ -6,15 +6,15 @@ package com.rails.purchaseplatform.framwork.http.faction;
  */
 public class HttpError extends RuntimeException {
 
-    private int code;
+    private String code;
     private String msg;
 
-    public HttpError(int code, String msg) {
+    public HttpError(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 

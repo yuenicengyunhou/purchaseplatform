@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.user.ui.activity;
 
 import android.os.Bundle;
 
-import com.rails.lib_data.bean.TestBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
@@ -42,7 +41,7 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
     }
 
     @Override
-    public void getTests(ArrayList<TestBean> testBeans) {
+    public void getTests(ArrayList<String> testBeans) {
             startIntent(LoginActivity.class);
     }
 }

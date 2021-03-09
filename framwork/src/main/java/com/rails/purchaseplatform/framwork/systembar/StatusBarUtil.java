@@ -29,7 +29,7 @@ public class StatusBarUtil {
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintEnabled(false);
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setStatusBarTintResource(color);
     }

@@ -9,15 +9,6 @@
     <string name="main_mine_sz">设置</string>
 
 
-    <string-array name="msgs_tab">
-        <item>系统消息</item>
-        <item>代办事项</item>
-        <item>订阅提醒</item>
-        <item>精彩推荐</item>
-
-    </string-array>
-
-
     <string-array name="aution_tab">
         <item>招标</item>
         <item>非招标</item>
