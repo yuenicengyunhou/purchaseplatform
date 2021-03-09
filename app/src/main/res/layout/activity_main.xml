@@ -11,7 +11,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/ll_bottom" />
+        android:layout_above="@+id/ll_bottom"/>
 
     <LinearLayout
         android:id="@+id/ll_bottom"
@@ -21,7 +21,7 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
-        <View style="@style/line_thin_shade" />
+        <View style="@style/line_thin_shade"/>
 
         <RadioGroup
 
@@ -67,7 +67,7 @@
                 android:drawableTop="@drawable/tab_mall"
                 android:drawablePadding="@dimen/dp_3"
                 android:text="@string/tab_mine"
-                android:textColor="@color/selector_blue_gray_color" />
+                android:textColor="@color/selector_blue_gray_color"/>
         </RadioGroup>
 
 

@@ -43,17 +43,15 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> {
 
         binding.titleBar.setImgLeftRes(R.drawable.jiantou)
                 .setTitle("收货地址管理").setShowLine(true);
-
         initView();
         initData();
     }
 
     private void initData() {
-        for (int i = 0; i < 4; i++) {
+       for (int i = 0; i < 4; i++) {
             list.add(new AddressBean("张三" + i, "12345678909", "北京市海淀区怡和八号院"));
         }
-        adderssAdapter.notifyDataSetChanged();
-    }
+      }
 
     private void initView() {
 
@@ -70,7 +68,6 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> {
                 startActivity(intent);
             }
         });
-
 
     }
 }

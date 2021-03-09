@@ -166,6 +166,7 @@
         android:layout_marginRight="@dimen/dp_20"
         android:text="保存"
         android:gravity="center"
-        android:background="#FF5722"/>
+        android:textColor="@color/white"
+        android:background="@drawable/login_button_background"/>
 
 </LinearLayout>

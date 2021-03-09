@@ -34,8 +34,7 @@ public class AuctionAdapter extends BaseRecyclerAdapter<NoticeBean, ItemAuctionB
     @Override
     protected void onBindItem(ItemAuctionBinding binding, NoticeBean noticeBean, int position) {
         if (type == 0) {
-            RecyclerView.LayoutParams linearParams =
-                    (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
+            RecyclerView.LayoutParams linearParams = (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
             linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) << 1) / 3;
             binding.getRoot().setLayoutParams(linearParams);
         }
