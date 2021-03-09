@@ -6,7 +6,7 @@ import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.FrmMineBinding;
 
 /**
- * 个人中心
+ * 平台--个人中心
  *
  * @author： sk_comic@163.com
  * @date: 2021/1/26
