@@ -1,13 +1,13 @@
-package com.rails.purchaseplatform.fragment;
+package com.rails.purchaseplatform.notice.fragment;
 
 import com.rails.lib_data.bean.NoticeParentBean;
 import com.rails.lib_data.contract.NoticeContract;
 import com.rails.lib_data.contract.NoticePresenterImpl;
-import com.rails.purchaseplatform.adapter.AuctionAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.databinding.FragmentAutionBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.notice.adapter.AuctionAdapter;
+import com.rails.purchaseplatform.notice.databinding.FragmentNoticeAutionBinding;
 
 import java.util.ArrayList;
 
@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
- * 临时
+ * 临时公告
  *
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class AutionFragment extends LazyFragment<FragmentAutionBinding> implements NoticeContract.NoticeView {
+public class AutionFragment extends LazyFragment<FragmentNoticeAutionBinding> implements NoticeContract.NoticeView {
 
     private NoticeContract.NoticePresenter presenter;
 

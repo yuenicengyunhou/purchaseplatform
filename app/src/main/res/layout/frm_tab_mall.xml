@@ -6,12 +6,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <com.rails.purchaseplatform.common.widget.SlideViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/ll_bottom"/>
+        android:layout_above="@+id/ll_bottom" />
 
     <LinearLayout
         android:id="@+id/ll_bottom"
@@ -21,15 +20,14 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
-        <View style="@style/line_thin_shade"/>
+        <View style="@style/line_thin_shade" />
 
         <RadioGroup
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/dp_8"
-            android:paddingBottom="@dimen/dp_8">
+            android:layout_height="@dimen/dp_55"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
 
             <!--商城-->
@@ -48,7 +46,7 @@
                 style="@style/TabButton"
                 android:drawableTop="@drawable/tab_mall"
                 android:drawablePadding="@dimen/dp_3"
-                android:text="@string/tab_mall"
+                android:text="@string/tab_classical"
                 android:textColor="@color/selector_blue_gray_color" />
 
             <!--购物车-->
@@ -57,7 +55,7 @@
                 style="@style/TabButton"
                 android:drawableTop="@drawable/tab_mall"
                 android:drawablePadding="@dimen/dp_3"
-                android:text="@string/tab_msg"
+                android:text="@string/tab_cart"
                 android:textColor="@color/selector_blue_gray_color" />
 
             <!--我的-->
@@ -67,10 +65,27 @@
                 android:drawableTop="@drawable/tab_mall"
                 android:drawablePadding="@dimen/dp_3"
                 android:text="@string/tab_mine"
-                android:textColor="@color/selector_blue_gray_color"/>
+                android:textColor="@color/selector_blue_gray_color" />
+
+
+            <TextView
+                android:id="@+id/goPlat"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_corner_blue_left_half"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_40"
+                android:paddingRight="@dimen/dp_25"
+                android:text="@string/tab_goPlat"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18" />
+
         </RadioGroup>
 
 
     </LinearLayout>
 
+
 </RelativeLayout>
+
+

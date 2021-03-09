@@ -1,12 +1,12 @@
-package com.rails.purchaseplatform.adapter;
+package com.rails.purchaseplatform.notice.adapter;
 
 import android.content.Context;
 
 import com.rails.lib_data.bean.NoticeBean;
-import com.rails.purchaseplatform.R;
-import com.rails.purchaseplatform.databinding.ItemAuctionBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.notice.R;
+import com.rails.purchaseplatform.notice.databinding.ItemAuctionBinding;
 
 import androidx.recyclerview.widget.RecyclerView;
 

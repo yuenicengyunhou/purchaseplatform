@@ -1,44 +1,41 @@
-package com.rails.purchaseplatform;
+package com.rails.purchaseplatform.fragment;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
-import com.rails.purchaseplatform.databinding.ActivityMainBinding;
-import com.rails.purchaseplatform.fragment.IndexFrm;
-import com.rails.purchaseplatform.fragment.MallFrm;
-import com.rails.purchaseplatform.fragment.MineFrm;
-import com.rails.purchaseplatform.fragment.MsgFrm;
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
-//import com.rails.purchaseplatform.market.ui.fragment.CategoryFragment;
+import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.databinding.FrmTabPlatBinding;
+import com.rails.purchaseplatform.msg.fragment.MsgFrm;
+import com.rails.purchaseplatform.notice.fragment.PlatFrm;
+import com.rails.purchaseplatform.user.ui.fragment.MineFrm;
 
 import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-
+import androidx.navigation.fragment.NavHostFragment;
 
 /**
- * tabs 页面
+ * 平台切换首页
+ *
+ * @author： sk_comic@163.com
+ * @date: 2021/3/4
  */
-@Route(path = ConRoute.RAILS.MAIN)
-public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
+public class PlatTabFrm extends LazyFragment<FrmTabPlatBinding> {
+    @Override
+    protected void loadData() {
 
+    }
+
+    @Override
+    protected void loadPreVisitData() {
+
+    }
 
     private ViewPageAdapter viewPageAdapter;
     private ArrayList<Fragment> frms;
-
-    @Override
-    protected int getColor() {
-        return android.R.color.transparent;
-    }
-
-    @Override
-    protected boolean isSetSystemBar() {
-        return true;
-    }
 
     @Override
     protected boolean isBindEventBus() {
@@ -48,13 +45,12 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
 
     @Override
     protected void initialize(Bundle bundle) {
+        onClick();
         initPager();
     }
 
 
-    @Override
     protected void onClick() {
-        super.onClick();
         binding.rbMall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,32 +64,35 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
             }
         });
 
-        binding.rbZc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.viewpager.setCurrentItem(2);
-            }
-        });
         binding.rbMine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 binding.viewpager.setCurrentItem(3);
             }
         });
+
+
+        binding.goMall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(PlatTabFrm.this)
+                        .navigate(R.id.action_plat_to_mall);
+            }
+        });
     }
 
-    /**l
+    /**
      * 初始化pageradapter
      */
     private void initPager() {
         frms = new ArrayList<>();
-        frms.add(new IndexFrm());
-       // frms.add(new CategoryFragment());
+        frms.add(new PlatFrm());
         frms.add(new MsgFrm());
         frms.add(new MineFrm());
-        viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPageAdapter = new ViewPageAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPageAdapter.update(frms, true);
         binding.viewpager.setAdapter(viewPageAdapter);
         binding.viewpager.setOffscreenPageLimit(4);
     }
+
 }

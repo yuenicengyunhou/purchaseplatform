@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+
         <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +20,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_320"
                 android:orientation="vertical"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -97,30 +98,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
-                        android:id="@+id/line_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_20"
-                        android:visibility="gone" />
-
-
-                    <net.lucode.hackware.magicindicator.MagicIndicator
-                        android:id="@+id/magic_indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_50" />
-
                 </LinearLayout>
 
             </com.google.android.material.appbar.AppBarLayout>
 
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                app:canH="false"
+                app:canV="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
         </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>
+
 
     </com.rails.purchaseplatform.common.widget.BaseSwipeLayout>
 

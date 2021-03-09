@@ -79,6 +79,7 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
             adapter.update((ArrayList<CategoryBean>) bean.getSecondPlatformCategoryList(), true);
         }
 
+
     }
 
     @Override

@@ -1,3 +1,14 @@
 <resources>
     <string name="notice">采购.公告</string>
+
+
+    <string-array name="notice_type_name">
+        <item>招标</item>
+        <item>非招标</item>
+        <item>单一来源</item>
+        <item>拍卖</item>
+        <item>更多</item>
+    </string-array>
+
+
 </resources>

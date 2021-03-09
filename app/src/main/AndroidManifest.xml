@@ -17,19 +17,12 @@
         <activity android:name=".activity.AddActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".activity.RaddressActivity" />
         <activity android:name=".activity.AddressActivity" />
         <activity android:name=".user.ui.activity.LoginActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+        <!--        <activity-->
+        <!--            android:name=".MainActivity"-->
+        <!--            android:screenOrientation="portrait" />-->
     </application>
 
 </manifest>

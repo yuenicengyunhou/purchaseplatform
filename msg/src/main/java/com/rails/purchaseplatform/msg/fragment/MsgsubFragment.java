@@ -1,10 +1,10 @@
-package com.rails.purchaseplatform.fragment;
+package com.rails.purchaseplatform.msg.fragment;
 
-import com.rails.purchaseplatform.adapter.MsgAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.databinding.FragmentMsgSubBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.msg.adapter.MsgAdapter;
+import com.rails.purchaseplatform.msg.databinding.FragmentMsgSubBinding;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
- * 购物车
+ * 消息子fragment
  *
  * @author： sk_comic@163.com
  * @date: 2021/1/26

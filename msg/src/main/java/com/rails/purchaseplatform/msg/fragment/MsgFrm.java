@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.fragment;
+package com.rails.purchaseplatform.msg.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
-import com.rails.purchaseplatform.databinding.FrmMsgBinding;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.msg.R;
+import com.rails.purchaseplatform.msg.databinding.FrmMsgBinding;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -40,7 +40,6 @@ public class MsgFrm extends LazyFragment<FrmMsgBinding> {
     @Override
     protected void loadData() {
 
-
         String[] tabs = getResources().getStringArray(R.array.msgs_tab);
         int[] res = {R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
         initPager(tabs, res);
@@ -61,7 +60,6 @@ public class MsgFrm extends LazyFragment<FrmMsgBinding> {
     public void onError(ErrorBean errorBean) {
 
     }
-
 
 
     /**

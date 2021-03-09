@@ -1,13 +1,10 @@
-package com.rails.lib_data.model;
+package com.rails.lib_data.service;
 
-import com.rails.lib_data.bean.TestBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import io.reactivex.Observable;
-import retrofit2.http.FieldMap;
 import retrofit2.http.GET;
 
 /**
@@ -18,6 +15,6 @@ public interface LoginService {
 
 
     @GET("elasticSearch/queryBidNoticeListForMainPage")
-    Observable<HttpResult<ArrayList<TestBean>>> getTests();
+    Observable<HttpResult<ArrayList<String>>> getTests();
 
 }
