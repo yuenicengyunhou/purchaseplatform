@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         if(isLib.toBoolean())
-            applicationId "com.rails.purchaseplatform.msg"
+            applicationId "com.rails.purchaseplatform.order"
 
         if (isLib.toBoolean())
             multiDexEnabled true
