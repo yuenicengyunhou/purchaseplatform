@@ -10,4 +10,14 @@
     <string name="user_wx_login">微信登录</string>
 
 
+
+    <!--平台我的页面-->
+    <string name="mine_mine_fwgj">服务工具</string>
+    <string name="main_mine_zzxx">资质信息</string>
+    <string name="main_mine_xgmm">修改密码</string>
+    <string name="main_mine_kfzx">客服中心</string>
+    <string name="main_mine_yjfk">意见反馈</string>
+    <string name="main_mine_sz">设置</string>
+
+
 </resources>

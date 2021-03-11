@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.common.utils;
 
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;

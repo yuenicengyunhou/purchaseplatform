@@ -77,6 +77,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductCont
         binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 20, R.color.bg));
         binding.recycler.setAdapter(recAdapter);
 
+
         onRefresh();
     }
 
@@ -112,6 +113,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductCont
     public void onError(ErrorBean errorBean) {
 
     }
+
 
 
     public boolean getLocalVisibleRect(Context context, View view) {

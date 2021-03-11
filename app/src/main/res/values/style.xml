@@ -20,12 +20,4 @@
     </style>
 
 
-    <!--公用分割线样式-->
-    <style name="mine_tab">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_50</item>
-        <item name="android:background">@color/white</item>
-    </style>
-
-
 </resources>
