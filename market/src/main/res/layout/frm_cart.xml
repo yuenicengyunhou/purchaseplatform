@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:canH="false"
-                    app:canV="false" />
+                    app:canV="true" />
 
                 <com.rails.purchaseplatform.common.widget.EmptyView
                     android:id="@+id/empty"

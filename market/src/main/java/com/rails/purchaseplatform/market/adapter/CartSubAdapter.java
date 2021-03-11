@@ -23,6 +23,6 @@ public class CartSubAdapter extends BaseRecyclerAdapter<ProductBean, ItemMarketC
 
     @Override
     protected void onBindItem(ItemMarketCartSubBinding binding, ProductBean productBean, int position) {
-
+        binding.setProduct(productBean);
     }
 }
