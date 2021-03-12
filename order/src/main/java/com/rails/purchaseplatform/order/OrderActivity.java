@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.order.adapter.MyFragmentAdapter;
 import com.rails.purchaseplatform.order.fragment.AllFragment;
 import com.rails.purchaseplatform.order.fragment.MyFragment;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Route(path = ConRoute.ORDER.ORDER_MAIN)
 public class OrderActivity extends AppCompatActivity {
     private ImageView left;
     private EditText search;

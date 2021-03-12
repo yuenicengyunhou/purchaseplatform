@@ -159,6 +159,7 @@
         android:textColor="@color/bg_gray"
         app:layout_constraintTop_toBottomOf="@+id/my_address_administration" />
     <TextView
+
         android:id="@+id/my_change_password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"

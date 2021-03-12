@@ -30,16 +30,14 @@ public class MyBuyAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(context).inflate(R.layout.recycler_item, parent, false);
-       ViewHolder holder=new ViewHolder(view);
-
-
+        ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         OrderBean bean = datas.get(position);
-        ViewHolder holder1= (ViewHolder) holder;
+        ViewHolder holder1 = (ViewHolder) holder;
         Glide.with(context).load(bean.getImg()).into(holder1.img);
         Glide.with(context).load(bean.getImg()).into(holder1.img2);
         holder1.shu.setText(bean.getDanHao());
@@ -49,6 +47,7 @@ public class MyBuyAdapter extends RecyclerView.Adapter {
         holder1.timeShu1.setText(bean.getTime());
         holder1.tv_title.setText(bean.getTitle());
     }
+
     @Override
     public int getItemCount() {
         return datas.size();
