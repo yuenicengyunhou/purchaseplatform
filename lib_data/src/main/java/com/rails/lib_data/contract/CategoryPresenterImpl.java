@@ -2,12 +2,19 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.CategoryRootBean;
+import com.rails.lib_data.bean.NoticeBean;
 import com.rails.lib_data.model.CategoryModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -31,18 +38,25 @@ public class CategoryPresenterImpl extends BasePresenter<CategoryContract.Catego
      */
     @Override
     public void getCategorys(boolean isReadCache) {
-        model.getCategorys(new HttpRxObserver<ArrayList<CategoryRootBean>>() {
-            @Override
-            protected void onError(ErrorBean e) {
-                baseView.onError(e);
-            }
+//        model.getCategorys(new HttpRxObserver<ArrayList<CategoryRootBean>>() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//                baseView.onError(e);
+//            }
+//
+//            @Override
+//            protected void onSuccess(ArrayList<CategoryRootBean> beans) {
+//                if (isCallBack()) {
+//                    baseView.getCategorys(beans);
+//                }
+//            }
+//        });
 
-            @Override
-            protected void onSuccess(ArrayList<CategoryRootBean> beans) {
-                if (isCallBack()) {
-                    baseView.getCategorys(beans);
-                }
-            }
-        });
+        Type type = new TypeToken<ArrayList<CategoryRootBean>>() {
+        }.getType();
+        ArrayList<CategoryRootBean> beans = JsonUtil.parseJson(mContext, "classical.json", type);
+        baseView.getCategorys(beans);
+
+
     }
 }

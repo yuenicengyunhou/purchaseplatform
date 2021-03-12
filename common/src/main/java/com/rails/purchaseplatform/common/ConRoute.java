@@ -32,4 +32,12 @@ public class ConRoute {
     }
 
 
+
+    public static final class ORDER{
+
+        public final static String ORDER_MAIN = "/order/mian";
+
+    }
+
+
 }

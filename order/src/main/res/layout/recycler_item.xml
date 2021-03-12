@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_5">
+    <TextView
+        android:id="@+id/danHao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="采购单号:"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="1210121172900001"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toRightOf="@id/danHao"
+        app:layout_constraintTop_toTopOf="@id/danHao" />
+
+    <ImageView
+        android:id="@+id/img_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:src="@drawable/ic_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/danHao" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="生成时间:"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/danHao" />
+
+    <TextView
+        android:id="@+id/timeShu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="2021-01-11    17:29:30"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="@id/shu"
+        app:layout_constraintTop_toTopOf="@id/time" />
+
+    <TextView
+        android:id="@+id/people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="采购人:"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="@id/time"
+        app:layout_constraintTop_toBottomOf="@id/time" />
+
+    <TextView
+        android:id="@+id/peopleRen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="中国铁路某某局集团"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toRightOf="@id/people"
+        app:layout_constraintTop_toTopOf="@id/people" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_3"
+        android:background="@color/line"
+        app:layout_constraintLeft_toLeftOf="@id/people"
+        app:layout_constraintRight_toRightOf="@id/img_right"
+        app:layout_constraintTop_toBottomOf="@id/people" />
+
+    <TextView
+        android:id="@+id/order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:text="订单号:"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toLeftOf="@id/line1"
+        app:layout_constraintTop_toBottomOf="@id/line1" />
+
+    <TextView
+        android:id="@+id/orderShu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="1210118143800008"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toRightOf="@id/order"
+        app:layout_constraintTop_toTopOf="@id/order" />
+
+    <TextView
+        android:id="@+id/sendGood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_little_right"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="已发货"
+        android:textColor="#ff0000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/order" />
+
+    <TextView
+        android:id="@+id/time1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:text="生成时间:"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toLeftOf="@id/order"
+        app:layout_constraintTop_toBottomOf="@id/order" />
+
+    <TextView
+        android:id="@+id/timeShu1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="2021-01-11    17:29:30"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toRightOf="@id/time1"
+        app:layout_constraintTop_toTopOf="@id/time1" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:padding="@dimen/dp_5"
+        android:src="@drawable/a"
+        app:layout_constraintLeft_toLeftOf="@id/time1"
+        app:layout_constraintTop_toBottomOf="@id/time1" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="得力正品2B铅笔小学生专用一年级..."
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_11"
+        app:layout_constraintLeft_toRightOf="@id/img"
+        app:layout_constraintTop_toTopOf="@id/img" />
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="￥59.9"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_title" />
+    <TextView
+        android:id="@+id/shuLiang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="×10"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintRight_toRightOf="@id/money"
+        app:layout_constraintTop_toBottomOf="@id/money"
+        />
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:text="型号:  100支/盒"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintLeft_toLeftOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        />
+    <TextView
+        android:id="@+id/totle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="小计：￥599"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_11"
+        app:layout_constraintRight_toRightOf="@id/money"
+        app:layout_constraintTop_toBottomOf="@id/shuLiang"
+        />
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_3"
+        android:background="@color/line"
+        app:layout_constraintLeft_toLeftOf="@id/img"
+        app:layout_constraintRight_toRightOf="@id/totle"
+        app:layout_constraintTop_toBottomOf="@id/img" />
+
+    <TextView
+        android:id="@+id/order2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:text="订单号:"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toLeftOf="@id/line2"
+        app:layout_constraintTop_toBottomOf="@id/line2" />
+
+    <TextView
+        android:id="@+id/orderShu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="1210118143800008"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toRightOf="@id/order2"
+        app:layout_constraintTop_toTopOf="@id/order2" />
+
+    <TextView
+        android:id="@+id/sendGood2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_little_right"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="已发货"
+        android:textColor="#ff0000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/order2" />
+
+    <TextView
+        android:id="@+id/time2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:text="生成时间:"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toLeftOf="@id/order2"
+        app:layout_constraintTop_toBottomOf="@id/order2" />
+
+    <TextView
+        android:id="@+id/timeShu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="2021-01-11    17:29:30"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toRightOf="@id/time2"
+        app:layout_constraintTop_toTopOf="@id/time2" />
+
+    <ImageView
+        android:id="@+id/img2"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:padding="@dimen/dp_5"
+        android:src="@drawable/a"
+        app:layout_constraintLeft_toLeftOf="@id/time2"
+        app:layout_constraintTop_toBottomOf="@id/time2" />
+
+    <TextView
+        android:id="@+id/tv_title2"
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="得力正品2B铅笔小学生专用一年级..."
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_11"
+        app:layout_constraintLeft_toRightOf="@id/img2"
+        app:layout_constraintTop_toTopOf="@id/img2" />
+
+    <TextView
+        android:id="@+id/money2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="￥59.9"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_title2" />
+    <TextView
+        android:id="@+id/shuLiang2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="×10"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintRight_toRightOf="@id/money"
+        app:layout_constraintTop_toBottomOf="@id/money"
+        />
+    <TextView
+        android:id="@+id/type2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:text="型号:  100支/盒"
+        android:textColor="@color/font_color_light"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintLeft_toLeftOf="@id/tv_title2"
+        app:layout_constraintTop_toBottomOf="@id/tv_title2"
+        />
+    <TextView
+        android:id="@+id/totle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="小计：￥599"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_11"
+        app:layout_constraintRight_toRightOf="@id/money2"
+        app:layout_constraintTop_toBottomOf="@id/shuLiang2"
+        />
+    <View
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_3"
+        android:background="@color/line"
+        app:layout_constraintLeft_toLeftOf="@id/img"
+        app:layout_constraintRight_toRightOf="@id/img2"
+        app:layout_constraintTop_toBottomOf="@id/img2" />
+    <TextView
+        android:id="@+id/zong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_3"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="总计:"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintRight_toLeftOf="@id/zongMonmy"
+        app:layout_constraintTop_toBottomOf="@id/line3"
+        />
+    <TextView
+        android:id="@+id/zongMonmy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="￥938.9"
+        android:textColor="#ff0000"
+        android:textSize="@dimen/sp_11"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line3"
+        android:layout_marginTop="@dimen/dp_5"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

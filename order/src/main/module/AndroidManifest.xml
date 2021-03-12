@@ -6,7 +6,7 @@
 
         <activity
             android:name=".OrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
     </application>
 

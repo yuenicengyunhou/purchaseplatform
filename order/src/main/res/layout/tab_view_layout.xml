@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom|center"
+    android:paddingBottom="5dp"
+    android:orientation="horizontal">
+    <TextView
+        android:text="1111111"
+        android:id="@+id/tv_tab_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:singleLine="true"/>
+    <com.flyco.tablayout.widget.MsgView
+        android:id="@+id/rtv_msg_tip"
+        xmlns:mv="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="11.5sp"
+        android:visibility="gone"
+        mv:mv_backgroundColor="#FD481F"
+        mv:mv_isRadiusHalfHeight="true"
+        mv:mv_strokeColor="#ffffff"
+        mv:mv_strokeWidth="1dp"/>
+</LinearLayout>

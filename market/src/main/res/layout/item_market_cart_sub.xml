@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/img_left"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
+            android:layout_width="@dimen/dp_35"
+            android:layout_height="@dimen/dp_35"
             android:layout_alignTop="@+id/img_product"
             android:layout_alignBottom="@+id/img_product"
             android:layout_centerVertical="true"
@@ -27,7 +27,7 @@
 
         <com.rails.purchaseplatform.common.widget.RatioImage
             android:id="@+id/img_product"
-            android:layout_width="@dimen/dp_110"
+            android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_toRightOf="@+id/img_left"
@@ -42,10 +42,11 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginRight="@dimen/dp_15"
             android:layout_toRightOf="@+id/img_product"
+            android:lineSpacingMultiplier="1.1"
             android:lines="2"
             android:text="济南工务段2021年度特种作业人员培训项目招标公告"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_15" />
+            android:textSize="@dimen/font_size_13" />
 
 
         <TextView
@@ -68,11 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_property"
             android:layout_alignLeft="@+id/tv_title"
-            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_15"
             android:text="¥2200.56"
             android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_16" />
+            android:textSize="@dimen/font_size_14" />
 
 
         <LinearLayout
@@ -130,7 +131,7 @@
             android:layout_marginRight="@dimen/dp_15"
             android:text="限购5箱"
             android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_14" />
+            android:textSize="@dimen/font_size_11" />
 
 
 
