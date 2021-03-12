@@ -30,7 +30,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/bar"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_320"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -72,7 +72,7 @@
             <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
                 android:id="@+id/recRecycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:overScrollMode="never"/>
 

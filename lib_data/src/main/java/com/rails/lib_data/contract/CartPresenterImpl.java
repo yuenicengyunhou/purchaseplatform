@@ -57,7 +57,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         if (isCallBack()) {
             baseView.dismissDialog();
             boolean isClear = page <= 1;
-            baseView.getRecProjects(productBeans, true, isClear);
+            baseView.getRecProjects(productBeans, false, isClear);
         }
     }
 }

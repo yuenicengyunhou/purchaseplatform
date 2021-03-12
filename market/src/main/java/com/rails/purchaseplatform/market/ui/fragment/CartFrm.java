@@ -46,7 +46,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-                if (i > 0) {
+                if (i > -94) {
                     binding.swipe.setEnabled(true);
                 } else {
                     binding.swipe.setEnabled(false);
