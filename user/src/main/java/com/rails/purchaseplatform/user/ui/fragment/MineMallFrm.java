@@ -1,5 +1,10 @@
 package com.rails.purchaseplatform.user.ui.fragment;
 
+import android.view.View;
+
+import com.rails.purchaseplatform.common.ConRoute;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 
@@ -23,5 +28,15 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     @Override
     protected boolean isBindEventBus() {
         return false;
+    }
+
+
+    void onClick(){
+        binding.myChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ORDER.ORDER_MAIN).navigation();
+            }
+        });
     }
 }
