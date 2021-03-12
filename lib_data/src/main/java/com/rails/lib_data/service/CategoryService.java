@@ -31,4 +31,5 @@ public interface CategoryService {
      */
     @GET("item/mall/frontcategory/getAllCategoryList")
     Observable<HttpResult<ArrayList<CategoryRootBean>>> getCategorys(@QueryMap HashMap<String, String> params);
+
 }

@@ -1,18 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     tools:context=".OrderActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:src="@drawable/ic_left"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:layout_weight="2"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/edittext_search"
+            app:layout_constraintLeft_toRightOf="@id/left"
+            app:layout_constraintRight_toLeftOf="@id/right_add"
+            app:layout_constraintTop_toTopOf="@id/left"
+            android:hint="          采购单号"
+            android:textSize="@dimen/sp_13"
+            />
+        <ImageView
+            android:id="@+id/right_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@id/search"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search" />
+    </LinearLayout>
+
+    <com.rails.purchaseplatform.order.utils.MyTabLayout
+        android:id="@+id/slide_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:background="@color/white"
+        tl:tl_divider_padding="2dp"
+        tl:tl_indicator_color="@color/tabCheck"
+        tl:tl_indicator_corner_radius="@dimen/dp_2"
+        tl:tl_indicator_height="@dimen/dp_3"
+        tl:tl_indicator_width="@dimen/dp_18"
+        tl:tl_indicator_width_equal_title="true"
+        tl:tl_tab_padding="12dp"
+        tl:tl_tab_space_equal="false"
+        tl:tl_textBold="SELECT"
+        tl:tl_textSelectColor="@color/tabCheck"
+        tl:tl_textUnselectColor="@color/font_color_light"
+        tl:tl_textsize="@dimen/sp_14" />
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vp"
+        />
+
+</LinearLayout>
