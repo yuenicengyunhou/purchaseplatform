@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="SearchActivityX"
+            type="com.rails.purchaseplatform.common.activity.SearchActivityX" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SEARCH"
+            android:textColor="#FF0000"
+            android:textSize="48sp" />
+
+        <com.rails.purchaseplatform.common.widget.LineBreakLayout
+            android:id="@+id/lbl_search_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:leftAndRightSpace="20dp"
+            app:rowSpace="10dp" />
+
+
+    </LinearLayout>
+
+</layout>
