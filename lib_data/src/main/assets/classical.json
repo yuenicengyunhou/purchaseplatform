@@ -1,0 +1,2300 @@
+[
+  {
+    "name": "办公用品",
+    "secondPlatformCategoryList": [
+      {
+        "name": "办公器材",
+        "fcid": 1000791,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "白板",
+            "fcid": 1000801
+          }
+        ]
+      },
+      {
+        "name": "笔类产品",
+        "fcid": 1000792,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "签字笔",
+            "fcid": 1000807
+          },
+          {
+            "name": "钢笔",
+            "fcid": 1000810
+          },
+          {
+            "name": "笔芯",
+            "fcid": 1000812
+          }
+        ]
+      },
+      {
+        "name": "打印耗材",
+        "fcid": 1000793,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "墨盒",
+            "fcid": 1000815
+          },
+          {
+            "name": "墨水",
+            "fcid": 1000818
+          },
+          {
+            "name": "硒鼓",
+            "fcid": 1000820
+          },
+          {
+            "name": "墨粉",
+            "fcid": 1000822
+          },
+          {
+            "name": "色带",
+            "fcid": 1000823
+          }
+        ]
+      },
+      {
+        "name": "文具",
+        "fcid": 1000826,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "办公文具",
+            "fcid": 1000830
+          },
+          {
+            "name": "本册及便签",
+            "fcid": 1000833
+          },
+          {
+            "name": "笔类",
+            "fcid": 1000837
+          },
+          {
+            "name": "财会用品",
+            "fcid": 1000839
+          },
+          {
+            "name": "画具画材",
+            "fcid": 1000841
+          },
+          {
+            "name": "刻录碟片及附件",
+            "fcid": 1000844
+          },
+          {
+            "name": "文件管理",
+            "fcid": 1000848
+          },
+          {
+            "name": "硒鼓及墨粉",
+            "fcid": 1000849
+          },
+          {
+            "name": "学生文具",
+            "fcid": 1000850
+          },
+          {
+            "name": "纸类",
+            "fcid": 1000852
+          }
+        ]
+      },
+      {
+        "name": "纸类产品",
+        "fcid": 1000856,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "传真纸",
+            "fcid": 1000861
+          },
+          {
+            "name": "打印纸",
+            "fcid": 1000864
+          },
+          {
+            "name": "复印纸",
+            "fcid": 1000868
+          },
+          {
+            "name": "相纸",
+            "fcid": 1000870
+          }
+        ]
+      }
+    ],
+    "fcid": 1000682
+  },
+  {
+    "name": "厨具餐具",
+    "secondPlatformCategoryList": [
+      {
+        "name": "餐具",
+        "fcid": 1001173,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "果盘及果篮",
+            "fcid": 1001182
+          },
+          {
+            "name": "盘及碟",
+            "fcid": 1001185
+          }
+        ]
+      },
+      {
+        "name": "茶具",
+        "fcid": 1001174,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "整套茶具",
+            "fcid": 1001187
+          },
+          {
+            "name": "茶杯",
+            "fcid": 1001189
+          }
+        ]
+      },
+      {
+        "name": "厨房配件",
+        "fcid": 1001176,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "厨房置物架",
+            "fcid": 1001190
+          },
+          {
+            "name": "厨房DIY及小工具",
+            "fcid": 1001196
+          }
+        ]
+      },
+      {
+        "name": "刀剪菜板",
+        "fcid": 1001177,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "瓜果刀及刨",
+            "fcid": 1001201
+          },
+          {
+            "name": "多功能刀",
+            "fcid": 1001204
+          }
+        ]
+      }
+    ],
+    "fcid": 1000694
+  },
+  {
+    "name": "电器商品",
+    "secondPlatformCategoryList": [
+      {
+        "name": "电工电气",
+        "fcid": 1000364,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "开关",
+            "fcid": 1000523
+          },
+          {
+            "name": "搜索",
+            "fcid": 1000776
+          }
+        ]
+      },
+      {
+        "name": "大 家 电",
+        "fcid": 1000273,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "冷柜/冰吧",
+            "fcid": 1000516
+          },
+          {
+            "name": "中央空调",
+            "fcid": 1000517
+          },
+          {
+            "name": "烘干机",
+            "fcid": 1000518
+          },
+          {
+            "name": "移动空调",
+            "fcid": 1000519
+          },
+          {
+            "name": "平板电视",
+            "fcid": 1000520
+          },
+          {
+            "name": "洗衣机",
+            "fcid": 1000521
+          },
+          {
+            "name": "冰箱",
+            "fcid": 1000764
+          }
+        ]
+      },
+      {
+        "name": "厨房小电",
+        "fcid": 1000269,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "电热饭盒",
+            "fcid": 1000480
+          },
+          {
+            "name": "榨汁机/原汁机",
+            "fcid": 1000481
+          },
+          {
+            "name": "电烧烤炉",
+            "fcid": 1000483
+          },
+          {
+            "name": "电陶炉",
+            "fcid": 1000485
+          },
+          {
+            "name": "绞肉机",
+            "fcid": 1000487
+          },
+          {
+            "name": "电饭煲",
+            "fcid": 1000489
+          }
+        ]
+      }
+    ],
+    "fcid": 1000208
+  },
+  {
+    "name": "电子产品",
+    "secondPlatformCategoryList": [
+      {
+        "name": "办公设备",
+        "fcid": 1000249,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "安防监控",
+            "fcid": 1000411
+          },
+          {
+            "name": "传真机",
+            "fcid": 1000413
+          },
+          {
+            "name": "传真设备",
+            "fcid": 1000889
+          },
+          {
+            "name": "打印机",
+            "fcid": 1000414
+          },
+          {
+            "name": "电子标签机",
+            "fcid": 1000415
+          },
+          {
+            "name": "多功能一体机",
+            "fcid": 1000417
+          },
+          {
+            "name": "复合机",
+            "fcid": 1000901
+          },
+          {
+            "name": "复印机",
+            "fcid": 1000904
+          },
+          {
+            "name": "高拍仪",
+            "fcid": 1000907
+          },
+          {
+            "name": "会议音频视频",
+            "fcid": 1000909
+          },
+          {
+            "name": "激光打印机",
+            "fcid": 1000914
+          },
+          {
+            "name": "计算器",
+            "fcid": 1000923
+          },
+          {
+            "name": "考勤机",
+            "fcid": 1000930
+          },
+          {
+            "name": "喷墨打印机",
+            "fcid": 1000933
+          },
+          {
+            "name": "其他扫描设备",
+            "fcid": 1000936
+          },
+          {
+            "name": "扫描枪",
+            "fcid": 1000939
+          },
+          {
+            "name": "扫描设备配件",
+            "fcid": 1000943
+          },
+          {
+            "name": "扫描仪",
+            "fcid": 1000946
+          },
+          {
+            "name": "收银机",
+            "fcid": 1000951
+          },
+          {
+            "name": "数据采集器",
+            "fcid": 1000953
+          },
+          {
+            "name": "塑封机",
+            "fcid": 1000958
+          },
+          {
+            "name": "碎纸机",
+            "fcid": 1000963
+          },
+          {
+            "name": "条码打印机配件",
+            "fcid": 1000966
+          },
+          {
+            "name": "投影机",
+            "fcid": 1000970
+          },
+          {
+            "name": "投影配件",
+            "fcid": 1000973
+          },
+          {
+            "name": "验钞及点钞机",
+            "fcid": 1000977
+          },
+          {
+            "name": "装订及封装机",
+            "fcid": 1000978
+          },
+          {
+            "name": "装订及封装机耗材",
+            "fcid": 1000979
+          }
+        ]
+      },
+      {
+        "name": "电脑配件",
+        "fcid": 1000252,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "CPU",
+            "fcid": 1000426
+          },
+          {
+            "name": "SSD固态硬盘",
+            "fcid": 1000427
+          },
+          {
+            "name": "电脑配件套装",
+            "fcid": 1000428
+          },
+          {
+            "name": "电源",
+            "fcid": 1000429
+          },
+          {
+            "name": "机箱",
+            "fcid": 1000430
+          },
+          {
+            "name": "刻录机及光驱",
+            "fcid": 1000431
+          },
+          {
+            "name": "内存",
+            "fcid": 1001004
+          },
+          {
+            "name": "散热器",
+            "fcid": 1001007
+          },
+          {
+            "name": "声卡及扩展卡",
+            "fcid": 1001011
+          },
+          {
+            "name": "显卡",
+            "fcid": 1001012
+          },
+          {
+            "name": "显示器",
+            "fcid": 1001013
+          },
+          {
+            "name": "显示器支架",
+            "fcid": 1001014
+          },
+          {
+            "name": "硬盘",
+            "fcid": 1001015
+          },
+          {
+            "name": "主板",
+            "fcid": 1001017
+          },
+          {
+            "name": "装机配件",
+            "fcid": 1001019
+          },
+          {
+            "name": "组装电脑",
+            "fcid": 1001022
+          },
+          {
+            "name": "笔记本电池",
+            "fcid": 1001023
+          },
+          {
+            "name": "笔记本电脑包",
+            "fcid": 1001025
+          },
+          {
+            "name": "笔记本附件",
+            "fcid": 1001029
+          },
+          {
+            "name": "笔记本配件",
+            "fcid": 1001032
+          },
+          {
+            "name": "服务器配件",
+            "fcid": 1001036
+          },
+          {
+            "name": "平板电脑配件",
+            "fcid": 1001039
+          },
+          {
+            "name": "准系统",
+            "fcid": 1001043
+          },
+          {
+            "name": "AGP接口显卡",
+            "fcid": 1001046
+          },
+          {
+            "name": "PCIE接口显卡",
+            "fcid": 1001057
+          },
+          {
+            "name": "接口卡",
+            "fcid": 1001064
+          },
+          {
+            "name": "声卡",
+            "fcid": 1001068
+          }
+        ]
+      },
+      {
+        "name": "电脑整机",
+        "fcid": 1000254,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "笔记本",
+            "fcid": 1000432
+          },
+          {
+            "name": "笔记本电脑",
+            "fcid": 1000434
+          },
+          {
+            "name": "服务器",
+            "fcid": 1000435
+          },
+          {
+            "name": "工作站",
+            "fcid": 1001096
+          },
+          {
+            "name": "家用电脑",
+            "fcid": 1001097
+          },
+          {
+            "name": "平板电脑",
+            "fcid": 1001099
+          },
+          {
+            "name": "商用电脑",
+            "fcid": 1001101
+          },
+          {
+            "name": "台式机",
+            "fcid": 1001103
+          },
+          {
+            "name": "一体机",
+            "fcid": 1001105
+          }
+        ]
+      },
+      {
+        "name": "各种线缆",
+        "fcid": 1001107,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "1394电缆线",
+            "fcid": 1001111
+          },
+          {
+            "name": "SCSI电缆线",
+            "fcid": 1001121
+          },
+          {
+            "name": "USB电缆线",
+            "fcid": 1001124
+          },
+          {
+            "name": "VGA电缆线",
+            "fcid": 1001127
+          },
+          {
+            "name": "打印电缆线",
+            "fcid": 1001130
+          },
+          {
+            "name": "光纤",
+            "fcid": 1001132
+          },
+          {
+            "name": "键盘鼠标线",
+            "fcid": 1001135
+          },
+          {
+            "name": "联网线",
+            "fcid": 1001138
+          },
+          {
+            "name": "水晶头",
+            "fcid": 1001140
+          },
+          {
+            "name": "音视频线",
+            "fcid": 1001141
+          },
+          {
+            "name": "硬盘数据线",
+            "fcid": 1001144
+          },
+          {
+            "name": "转换线头",
+            "fcid": 1001146
+          }
+        ]
+      },
+      {
+        "name": "光盘用品",
+        "fcid": 1000351,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "光盘包及盒",
+            "fcid": 1000436
+          },
+          {
+            "name": "光盘笔",
+            "fcid": 1000437
+          },
+          {
+            "name": "光盘袋",
+            "fcid": 1001160
+          },
+          {
+            "name": "光盘帖",
+            "fcid": 1001163
+          },
+          {
+            "name": "光盘箱及柜",
+            "fcid": 1000438
+          }
+        ]
+      },
+      {
+        "name": "核心配件",
+        "fcid": 1000352,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "AMD平台主板",
+            "fcid": 1000439
+          },
+          {
+            "name": "Intel平台主板",
+            "fcid": 1000440
+          },
+          {
+            "name": "笔记本内存",
+            "fcid": 1000442
+          },
+          {
+            "name": "台式机内存",
+            "fcid": 1000444
+          }
+        ]
+      },
+      {
+        "name": "打印耗材",
+        "fcid": 1000251,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "墨盒",
+            "fcid": 1000421
+          },
+          {
+            "name": "墨水",
+            "fcid": 1000422
+          },
+          {
+            "name": "硒鼓",
+            "fcid": 1000423
+          },
+          {
+            "name": "墨粉",
+            "fcid": 1000424
+          },
+          {
+            "name": "色带",
+            "fcid": 1000425
+          }
+        ]
+      },
+      {
+        "name": "卡类产品",
+        "fcid": 1000354,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "AGP接口显卡",
+            "fcid": 1000447
+          },
+          {
+            "name": "PCI-E接口显卡",
+            "fcid": 1000448
+          },
+          {
+            "name": "接口卡",
+            "fcid": 1000449
+          },
+          {
+            "name": "声卡",
+            "fcid": 1000450
+          }
+        ]
+      },
+      {
+        "name": "刻录碟片",
+        "fcid": 1000355,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "CD-R碟片",
+            "fcid": 1000452
+          },
+          {
+            "name": "DVDR碟片",
+            "fcid": 1000453
+          },
+          {
+            "name": "其它碟片",
+            "fcid": 1000455
+          }
+        ]
+      },
+      {
+        "name": "键盘鼠标",
+        "fcid": 1000356,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "鼠标",
+            "fcid": 1001212
+          },
+          {
+            "name": "鼠标垫",
+            "fcid": 1001213
+          }
+        ]
+      },
+      {
+        "name": "驱动器",
+        "fcid": 1000357,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "CD刻录机",
+            "fcid": 1000457
+          },
+          {
+            "name": "DVD刻录机",
+            "fcid": 1000459
+          },
+          {
+            "name": "光驱",
+            "fcid": 1000460
+          },
+          {
+            "name": "软驱",
+            "fcid": 1000462
+          }
+        ]
+      }
+    ],
+    "fcid": 1000207
+  },
+  {
+    "name": "工业品",
+    "secondPlatformCategoryList": [
+      {
+        "name": "安防用品",
+        "fcid": 1000289,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "化学品处理/存储",
+            "fcid": 1000456
+          }
+        ]
+      },
+      {
+        "name": "搬运存储",
+        "fcid": 1000290,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "搬运设备",
+            "fcid": 1000451
+          },
+          {
+            "name": "存储设备",
+            "fcid": 1000454
+          }
+        ]
+      },
+      {
+        "name": "标签包装",
+        "fcid": 1000292,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "包装耗材",
+            "fcid": 1000472
+          },
+          {
+            "name": "包装工具",
+            "fcid": 1000473
+          },
+          {
+            "name": "标签打印耗材",
+            "fcid": 1000474
+          }
+        ]
+      },
+      {
+        "name": "传感器",
+        "fcid": 1000293,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "测力传感器",
+            "fcid": 1000475
+          },
+          {
+            "name": "电流传感器",
+            "fcid": 1000476
+          },
+          {
+            "name": "位移传感器",
+            "fcid": 1000477
+          },
+          {
+            "name": "生物医学传感器",
+            "fcid": 1000479
+          },
+          {
+            "name": "光学传感器",
+            "fcid": 1000482
+          },
+          {
+            "name": "近程传感器",
+            "fcid": 1000484
+          }
+        ]
+      },
+      {
+        "name": "电料辅件",
+        "fcid": 1000370,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "电力金具",
+            "fcid": 1000486
+          },
+          {
+            "name": "安全工器具",
+            "fcid": 1000488
+          },
+          {
+            "name": "其他电料辅件",
+            "fcid": 1000491
+          }
+        ]
+      },
+      {
+        "name": "电线电缆",
+        "fcid": 1000371,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "电气装备电缆",
+            "fcid": 1000492
+          },
+          {
+            "name": "电力电缆",
+            "fcid": 1000493
+          },
+          {
+            "name": "通信/光缆",
+            "fcid": 1000494
+          },
+          {
+            "name": "裸线类",
+            "fcid": 1000496
+          },
+          {
+            "name": "绕组线类",
+            "fcid": 1000498
+          }
+        ]
+      },
+      {
+        "name": "电子连接器",
+        "fcid": 1000372,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "D-Sub连接器",
+            "fcid": 1000499
+          },
+          {
+            "name": "IC与器件插座",
+            "fcid": 1000503
+          },
+          {
+            "name": "板对板连接器",
+            "fcid": 1000505
+          },
+          {
+            "name": "电源连接器",
+            "fcid": 1000509
+          },
+          {
+            "name": "汽车连接器",
+            "fcid": 1000511
+          },
+          {
+            "name": "音视频连接器",
+            "fcid": 1000513
+          },
+          {
+            "name": "接线系统",
+            "fcid": 1000514
+          }
+        ]
+      },
+      {
+        "name": "中低压配电",
+        "fcid": 1000393,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "供电保护系统装置",
+            "fcid": 1000790
+          }
+        ]
+      },
+      {
+        "name": "货车配件",
+        "fcid": 1001226,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "机车传动装置",
+            "fcid": 1001227
+          },
+          {
+            "name": "车钩缓冲装置",
+            "fcid": 1001228
+          },
+          {
+            "name": "转向架",
+            "fcid": 1001229
+          },
+          {
+            "name": "电机继电器",
+            "fcid": 1001230
+          },
+          {
+            "name": "空气制动装置",
+            "fcid": 1001231
+          },
+          {
+            "name": "高压供电装置",
+            "fcid": 1001232
+          },
+          {
+            "name": "给排水及卫生系统",
+            "fcid": 1001233
+          }
+        ]
+      }
+    ],
+    "fcid": 1000217
+  },
+  {
+    "name": "家纺布艺",
+    "secondPlatformCategoryList": [
+      {
+        "name": "床上用品",
+        "fcid": 1000730,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "三件套",
+            "fcid": 1001193
+          },
+          {
+            "name": "四件套",
+            "fcid": 1001194
+          }
+        ]
+      },
+      {
+        "name": "居家布艺",
+        "fcid": 1001197,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "浴巾",
+            "fcid": 1001198
+          },
+          {
+            "name": "毛巾礼盒套装",
+            "fcid": 1001200
+          },
+          {
+            "name": "地毯",
+            "fcid": 1001203
+          }
+        ]
+      }
+    ],
+    "fcid": 1000728
+  },
+  {
+    "name": "劳保用品",
+    "secondPlatformCategoryList": [
+      {
+        "name": "铁路防疫物资",
+        "fcid": 1001224,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "口罩",
+            "fcid": 1001225
+          }
+        ]
+      },
+      {
+        "name": "个人防护",
+        "fcid": 1000744,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "头部防护",
+            "fcid": 1000745
+          },
+          {
+            "name": "眼脸部防护",
+            "fcid": 1000768
+          },
+          {
+            "name": "听力防护",
+            "fcid": 1000802
+          },
+          {
+            "name": "呼吸防护",
+            "fcid": 1000803
+          },
+          {
+            "name": "手部防护",
+            "fcid": 1000804
+          },
+          {
+            "name": "身体防护",
+            "fcid": 1000805
+          },
+          {
+            "name": "足部防护",
+            "fcid": 1000806
+          },
+          {
+            "name": "坠落防护",
+            "fcid": 1000809
+          },
+          {
+            "name": "个人卫生",
+            "fcid": 1000811
+          },
+          {
+            "name": "静电无尘",
+            "fcid": 1000814
+          },
+          {
+            "name": "焊接防护",
+            "fcid": 1000817
+          },
+          {
+            "name": "劳防用品",
+            "fcid": 1000821
+          }
+        ]
+      },
+      {
+        "name": "卫生清洁",
+        "fcid": 1000767,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "毛巾",
+            "fcid": 1000825
+          },
+          {
+            "name": "卫浴用品",
+            "fcid": 1000827
+          },
+          {
+            "name": "驱蚊用品",
+            "fcid": 1000829
+          },
+          {
+            "name": "洗衣液",
+            "fcid": 1000831
+          },
+          {
+            "name": "洗衣粉",
+            "fcid": 1000834
+          },
+          {
+            "name": "洗衣皂",
+            "fcid": 1000836
+          }
+        ]
+      }
+    ],
+    "fcid": 1000740
+  },
+  {
+    "name": "粮油食品",
+    "secondPlatformCategoryList": [
+      {
+        "name": "地方特产",
+        "fcid": 1000685,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "其他特产",
+            "fcid": 1000686
+          },
+          {
+            "name": "新疆",
+            "fcid": 1000853
+          },
+          {
+            "name": "北京",
+            "fcid": 1000857
+          },
+          {
+            "name": "山西",
+            "fcid": 1000859
+          },
+          {
+            "name": "内蒙古",
+            "fcid": 1000862
+          },
+          {
+            "name": "福建",
+            "fcid": 1000865
+          },
+          {
+            "name": "湖南",
+            "fcid": 1000867
+          },
+          {
+            "name": "四川",
+            "fcid": 1000871
+          },
+          {
+            "name": "云南",
+            "fcid": 1000872
+          },
+          {
+            "name": "东北",
+            "fcid": 1000875
+          }
+        ]
+      },
+      {
+        "name": "进口食品",
+        "fcid": 1000765,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "牛奶",
+            "fcid": 1000766
+          },
+          {
+            "name": "水",
+            "fcid": 1000879
+          },
+          {
+            "name": "饮料",
+            "fcid": 1000880
+          },
+          {
+            "name": "咖啡豆及咖啡粉",
+            "fcid": 1000883
+          },
+          {
+            "name": "油",
+            "fcid": 1000885
+          },
+          {
+            "name": "方便食品",
+            "fcid": 1000887
+          },
+          {
+            "name": "饼干蛋糕",
+            "fcid": 1000888
+          },
+          {
+            "name": "糖果及巧克力",
+            "fcid": 1000891
+          },
+          {
+            "name": "休闲零食",
+            "fcid": 1000894
+          },
+          {
+            "name": "冲调品",
+            "fcid": 1000896
+          },
+          {
+            "name": "米面调味",
+            "fcid": 1000898
+          }
+        ]
+      },
+      {
+        "name": "粮油调味",
+        "fcid": 1000785,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "烘焙原料",
+            "fcid": 1000786
+          },
+          {
+            "name": "面",
+            "fcid": 1000905
+          },
+          {
+            "name": "杂粮",
+            "fcid": 1000908
+          },
+          {
+            "name": "米",
+            "fcid": 1000910
+          },
+          {
+            "name": "食用油",
+            "fcid": 1000913
+          },
+          {
+            "name": "调味品",
+            "fcid": 1000916
+          },
+          {
+            "name": "南北干货",
+            "fcid": 1000918
+          },
+          {
+            "name": "方便食品",
+            "fcid": 1000921
+          },
+          {
+            "name": "有机食品",
+            "fcid": 1000925
+          }
+        ]
+      },
+      {
+        "name": "茗茶",
+        "fcid": 1000843,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "铁观音",
+            "fcid": 1000927
+          },
+          {
+            "name": "普洱",
+            "fcid": 1000928
+          },
+          {
+            "name": "龙井",
+            "fcid": 1000929
+          },
+          {
+            "name": "绿茶",
+            "fcid": 1000931
+          },
+          {
+            "name": "红茶",
+            "fcid": 1000932
+          },
+          {
+            "name": "乌龙茶",
+            "fcid": 1000934
+          },
+          {
+            "name": "花草茶",
+            "fcid": 1000935
+          },
+          {
+            "name": "花果茶",
+            "fcid": 1000937
+          },
+          {
+            "name": "养生茶",
+            "fcid": 1000940
+          },
+          {
+            "name": "黑茶",
+            "fcid": 1000941
+          },
+          {
+            "name": "白茶",
+            "fcid": 1000944
+          },
+          {
+            "name": "其它茶",
+            "fcid": 1000948
+          },
+          {
+            "name": "茉莉花茶",
+            "fcid": 1000950
+          }
+        ]
+      },
+      {
+        "name": "节日食品",
+        "fcid": 1000845,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "月饼",
+            "fcid": 1000955
+          },
+          {
+            "name": "粽子",
+            "fcid": 1000957
+          }
+        ]
+      },
+      {
+        "name": "休闲食品",
+        "fcid": 1000846,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "熟食腊味",
+            "fcid": 1000982
+          },
+          {
+            "name": "膨化食品",
+            "fcid": 1000984
+          },
+          {
+            "name": "休闲零食",
+            "fcid": 1000986
+          },
+          {
+            "name": "坚果炒货",
+            "fcid": 1000988
+          },
+          {
+            "name": "肉干肉脯",
+            "fcid": 1000989
+          },
+          {
+            "name": "蜜饯果干",
+            "fcid": 1000991
+          },
+          {
+            "name": "糖果及巧克力",
+            "fcid": 1000993
+          },
+          {
+            "name": "饼干蛋糕",
+            "fcid": 1000994
+          }
+        ]
+      },
+      {
+        "name": "饮料冲调",
+        "fcid": 1000847,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "饮用水",
+            "fcid": 1000995
+          },
+          {
+            "name": "蜂蜜及柚子茶",
+            "fcid": 1000997
+          },
+          {
+            "name": "成人奶粉",
+            "fcid": 1000999
+          },
+          {
+            "name": "冲饮谷物",
+            "fcid": 1001000
+          },
+          {
+            "name": "饮料",
+            "fcid": 1001002
+          },
+          {
+            "name": "咖啡及奶茶",
+            "fcid": 1001005
+          },
+          {
+            "name": "牛奶乳品",
+            "fcid": 1001008
+          }
+        ]
+      }
+    ],
+    "fcid": 1000684
+  },
+  {
+    "name": "清洁纸品",
+    "secondPlatformCategoryList": [
+      {
+        "name": "环境清洁",
+        "fcid": 1000280,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "洗洁精",
+            "fcid": 1000530
+          },
+          {
+            "name": "油污清洁剂",
+            "fcid": 1000531
+          },
+          {
+            "name": "除湿干燥剂",
+            "fcid": 1000533
+          },
+          {
+            "name": "洁厕剂",
+            "fcid": 1000534
+          },
+          {
+            "name": "家电清洁用品",
+            "fcid": 1000537
+          },
+          {
+            "name": "消毒液",
+            "fcid": 1001110
+          },
+          {
+            "name": "地板清洁剂",
+            "fcid": 1001115
+          },
+          {
+            "name": "其它清洁用品",
+            "fcid": 1001118
+          }
+        ]
+      },
+      {
+        "name": "皮具护理",
+        "fcid": 1000281,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "皮具护理品",
+            "fcid": 1000540
+          },
+          {
+            "name": "皮具护理工具",
+            "fcid": 1000542
+          }
+        ]
+      },
+      {
+        "name": "清洁用具",
+        "fcid": 1000282,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "一次性清洁用品",
+            "fcid": 1000544
+          },
+          {
+            "name": "垃圾袋及垃圾桶",
+            "fcid": 1000546
+          },
+          {
+            "name": "拖把及扫把",
+            "fcid": 1000548
+          },
+          {
+            "name": "脸盆及水桶",
+            "fcid": 1000551
+          },
+          {
+            "name": "抹布及百洁布",
+            "fcid": 1000554
+          },
+          {
+            "name": "手套及鞋套及围裙",
+            "fcid": 1000555
+          }
+        ]
+      },
+      {
+        "name": "清洁纸品",
+        "fcid": 1000283,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "抽纸",
+            "fcid": 1000558
+          },
+          {
+            "name": "卷纸",
+            "fcid": 1000560
+          },
+          {
+            "name": "手帕纸",
+            "fcid": 1000562
+          },
+          {
+            "name": "湿巾",
+            "fcid": 1000563
+          },
+          {
+            "name": "厨房纸巾",
+            "fcid": 1000565
+          },
+          {
+            "name": "湿厕纸",
+            "fcid": 1000566
+          },
+          {
+            "name": "其它纸品/湿巾",
+            "fcid": 1000568
+          }
+        ]
+      },
+      {
+        "name": "驱蚊驱虫",
+        "fcid": 1000284,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "驱蚊用品",
+            "fcid": 1000571
+          },
+          {
+            "name": "灭鼠/杀虫剂",
+            "fcid": 1000573
+          }
+        ]
+      },
+      {
+        "name": "衣物清洁",
+        "fcid": 1000285,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "洗衣液",
+            "fcid": 1000575
+          },
+          {
+            "name": "洗衣粉",
+            "fcid": 1000577
+          },
+          {
+            "name": "洗衣皂",
+            "fcid": 1000579
+          },
+          {
+            "name": "护理剂",
+            "fcid": 1000581
+          },
+          {
+            "name": "除菌剂",
+            "fcid": 1000582
+          },
+          {
+            "name": "其它衣物清洁",
+            "fcid": 1000583
+          }
+        ]
+      }
+    ],
+    "fcid": 1000216
+  },
+  {
+    "name": "日用百货",
+    "secondPlatformCategoryList": [
+      {
+        "name": "家居用品",
+        "fcid": 1000274,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "儿童家居",
+            "fcid": 1000592
+          },
+          {
+            "name": "实用家具",
+            "fcid": 1000596
+          },
+          {
+            "name": "照明灯具",
+            "fcid": 1000597
+          },
+          {
+            "name": "收纳空间",
+            "fcid": 1001109
+          },
+          {
+            "name": "时尚家饰",
+            "fcid": 1001112
+          },
+          {
+            "name": "除味专家",
+            "fcid": 1001114
+          },
+          {
+            "name": "清洁用品",
+            "fcid": 1001117
+          },
+          {
+            "name": "缝纫用品",
+            "fcid": 1001120
+          },
+          {
+            "name": "床单被罩",
+            "fcid": 1001123
+          },
+          {
+            "name": "床品件套",
+            "fcid": 1001126
+          },
+          {
+            "name": "床品单件",
+            "fcid": 1001129
+          },
+          {
+            "name": "四季被芯",
+            "fcid": 1001131
+          },
+          {
+            "name": "舒适枕芯",
+            "fcid": 1001134
+          },
+          {
+            "name": "蚊帐凉席",
+            "fcid": 1001136
+          }
+        ]
+      },
+      {
+        "name": "家装软饰",
+        "fcid": 1000276,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "相框/照片墙",
+            "fcid": 1000603
+          },
+          {
+            "name": "装饰字画",
+            "fcid": 1000604
+          },
+          {
+            "name": "手工/十字绣",
+            "fcid": 1000606
+          },
+          {
+            "name": "装饰摆件",
+            "fcid": 1000608
+          },
+          {
+            "name": "壁饰",
+            "fcid": 1000611
+          },
+          {
+            "name": "帘艺隔断",
+            "fcid": 1001143
+          },
+          {
+            "name": "墙贴及装饰贴",
+            "fcid": 1001147
+          },
+          {
+            "name": "钟饰",
+            "fcid": 1001149
+          },
+          {
+            "name": "花瓶花艺",
+            "fcid": 1000610
+          },
+          {
+            "name": "香薰蜡烛",
+            "fcid": 1001152
+          },
+          {
+            "name": "创意家居",
+            "fcid": 1001154
+          },
+          {
+            "name": "壁饰",
+            "fcid": 1001156
+          }
+        ]
+      },
+      {
+        "name": "生活日用",
+        "fcid": 1000394,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "保暖防护",
+            "fcid": 1000612
+          },
+          {
+            "name": "雨伞雨具",
+            "fcid": 1000613
+          },
+          {
+            "name": "浴室用品",
+            "fcid": 1000615
+          },
+          {
+            "name": "缝纫/针织用品",
+            "fcid": 1000616
+          },
+          {
+            "name": "洗晒及熨烫",
+            "fcid": 1001167
+          },
+          {
+            "name": "净化除味",
+            "fcid": 1000617
+          }
+        ]
+      },
+      {
+        "name": "收纳用品",
+        "fcid": 1000395,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "收纳袋/包",
+            "fcid": 1000624
+          },
+          {
+            "name": "收纳柜",
+            "fcid": 1000626
+          },
+          {
+            "name": "收纳箱/盒",
+            "fcid": 1000631
+          },
+          {
+            "name": "防尘罩",
+            "fcid": 1000627
+          },
+          {
+            "name": "收纳架/篮",
+            "fcid": 1000629
+          }
+        ]
+      },
+      {
+        "name": "运动健康",
+        "fcid": 1000396,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "室内球类",
+            "fcid": 1000633
+          },
+          {
+            "name": "室外球类",
+            "fcid": 1000638
+          },
+          {
+            "name": "游泳用品",
+            "fcid": 1000636
+          },
+          {
+            "name": "大型健身器械",
+            "fcid": 1000640
+          },
+          {
+            "name": "钓鱼用具",
+            "fcid": 1000641
+          },
+          {
+            "name": "纤体瑜伽",
+            "fcid": 1000643
+          },
+          {
+            "name": "健康食品",
+            "fcid": 1000646
+          }
+        ]
+      },
+      {
+        "name": "安全自驾",
+        "fcid": 1001016,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "自驾野营",
+            "fcid": 1001175
+          }
+        ]
+      },
+      {
+        "name": "车载电器",
+        "fcid": 1001018,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "导航仪",
+            "fcid": 1001178
+          }
+        ]
+      }
+    ],
+    "fcid": 1000212
+  },
+  {
+    "name": "生鲜冷冻",
+    "secondPlatformCategoryList": [
+      {
+        "name": "海鲜水产",
+        "fcid": 1000851,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "海参",
+            "fcid": 1000863
+          },
+          {
+            "name": "鱼类",
+            "fcid": 1000866
+          },
+          {
+            "name": "虾类",
+            "fcid": 1000869
+          },
+          {
+            "name": "蟹类",
+            "fcid": 1000873
+          },
+          {
+            "name": "贝类",
+            "fcid": 1000874
+          },
+          {
+            "name": "海产干货",
+            "fcid": 1000876
+          },
+          {
+            "name": "其他水产",
+            "fcid": 1000877
+          },
+          {
+            "name": "海产礼盒",
+            "fcid": 1000878
+          },
+          {
+            "name": "软足类",
+            "fcid": 1000881
+          },
+          {
+            "name": "藻类",
+            "fcid": 1000882
+          },
+          {
+            "name": "海鲜制品",
+            "fcid": 1000884
+          },
+          {
+            "name": "海鲜卡券",
+            "fcid": 1000886
+          }
+        ]
+      },
+      {
+        "name": "冷藏及冷冻食品",
+        "fcid": 1000854,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "水饺及馄饨",
+            "fcid": 1000890
+          },
+          {
+            "name": "汤圆及元宵",
+            "fcid": 1000892
+          },
+          {
+            "name": "面点",
+            "fcid": 1000893
+          },
+          {
+            "name": "火锅丸料",
+            "fcid": 1000895
+          },
+          {
+            "name": "西式烘焙",
+            "fcid": 1000897
+          },
+          {
+            "name": "肉制品",
+            "fcid": 1000899
+          }
+        ]
+      },
+      {
+        "name": "禽肉蛋品",
+        "fcid": 1000855,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "蛋类",
+            "fcid": 1000900
+          },
+          {
+            "name": "鸡肉",
+            "fcid": 1000902
+          },
+          {
+            "name": "鸭肉",
+            "fcid": 1000903
+          },
+          {
+            "name": "其他禽类",
+            "fcid": 1000906
+          }
+        ]
+      },
+      {
+        "name": "乳品冷饮",
+        "fcid": 1000858,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "冷藏饮料",
+            "fcid": 1000911
+          },
+          {
+            "name": "冰淇淋",
+            "fcid": 1000912
+          },
+          {
+            "name": "低温奶",
+            "fcid": 1000915
+          },
+          {
+            "name": "奶酪黄油",
+            "fcid": 1000917
+          }
+        ]
+      },
+      {
+        "name": "猪牛羊肉",
+        "fcid": 1000860,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "猪肉",
+            "fcid": 1000919
+          },
+          {
+            "name": "牛肉",
+            "fcid": 1000920
+          },
+          {
+            "name": "羊肉",
+            "fcid": 1000922
+          },
+          {
+            "name": "内脏类",
+            "fcid": 1000924
+          },
+          {
+            "name": "其它肉类",
+            "fcid": 1000926
+          }
+        ]
+      }
+    ],
+    "fcid": 1000710
+  },
+  {
+    "name": "通用工具",
+    "secondPlatformCategoryList": [
+      {
+        "name": "工具",
+        "fcid": 1000824,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "工具配件",
+            "fcid": 1000828
+          },
+          {
+            "name": "气动工具",
+            "fcid": 1000832
+          },
+          {
+            "name": "手动工具",
+            "fcid": 1000835
+          },
+          {
+            "name": "电动工具",
+            "fcid": 1000838
+          },
+          {
+            "name": "测量工具",
+            "fcid": 1000840
+          },
+          {
+            "name": "工具组套",
+            "fcid": 1000842
+          }
+        ]
+      }
+    ],
+    "fcid": 1000726
+  },
+  {
+    "name": "通用零件",
+    "secondPlatformCategoryList": [
+      {
+        "name": "紧固密封件",
+        "fcid": 1000808,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "密封件",
+            "fcid": 1000813
+          },
+          {
+            "name": "紧固件",
+            "fcid": 1000816
+          },
+          {
+            "name": "小五金及其他",
+            "fcid": 1000819
+          }
+        ]
+      }
+    ],
+    "fcid": 1000748
+  },
+  {
+    "name": "装修建材",
+    "secondPlatformCategoryList": [
+      {
+        "name": "餐厅家具",
+        "fcid": 1000278,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "餐桌",
+            "fcid": 1000590
+          },
+          {
+            "name": "酒柜",
+            "fcid": 1000593
+          },
+          {
+            "name": "椅子",
+            "fcid": 1000595
+          },
+          {
+            "name": "餐边柜",
+            "fcid": 1000591
+          }
+        ]
+      },
+      {
+        "name": "厨房卫浴",
+        "fcid": 1000279,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "淋浴房",
+            "fcid": 1000599
+          },
+          {
+            "name": "智能马桶盖",
+            "fcid": 1000601
+          },
+          {
+            "name": "垃圾处理器",
+            "fcid": 1000602
+          },
+          {
+            "name": "干手器",
+            "fcid": 1000605
+          },
+          {
+            "name": "智能坐便器",
+            "fcid": 1000607
+          },
+          {
+            "name": "浴霸",
+            "fcid": 1000609
+          },
+          {
+            "name": "排气扇及换气设备",
+            "fcid": 1000938
+          },
+          {
+            "name": "淋浴花洒",
+            "fcid": 1000942
+          },
+          {
+            "name": "厨卫挂件",
+            "fcid": 1000945
+          },
+          {
+            "name": "龙头",
+            "fcid": 1000947
+          },
+          {
+            "name": "马桶",
+            "fcid": 1000949
+          },
+          {
+            "name": "马桶",
+            "fcid": 1000952
+          },
+          {
+            "name": "浴室柜",
+            "fcid": 1000954
+          },
+          {
+            "name": "浴缸",
+            "fcid": 1000956
+          },
+          {
+            "name": "水槽",
+            "fcid": 1000960
+          },
+          {
+            "name": "净水软水",
+            "fcid": 1000962
+          },
+          {
+            "name": "橱柜",
+            "fcid": 1000965
+          },
+          {
+            "name": "陶瓷件组套",
+            "fcid": 1000968
+          },
+          {
+            "name": "沐浴桶",
+            "fcid": 1000972
+          },
+          {
+            "name": "厨卫配件",
+            "fcid": 1000975
+          }
+        ]
+      },
+      {
+        "name": "灯饰照明",
+        "fcid": 1000398,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "筒灯及射灯",
+            "fcid": 1000622
+          },
+          {
+            "name": "室外及庭院灯",
+            "fcid": 1000623
+          },
+          {
+            "name": "杀菌灯",
+            "fcid": 1000625
+          },
+          {
+            "name": "荧光灯源",
+            "fcid": 1000628
+          },
+          {
+            "name": "壁灯",
+            "fcid": 1000980
+          },
+          {
+            "name": "落地灯",
+            "fcid": 1000981
+          },
+          {
+            "name": "手电筒及应急灯",
+            "fcid": 1000983
+          },
+          {
+            "name": "LED灯源",
+            "fcid": 1000985
+          },
+          {
+            "name": "吸顶灯",
+            "fcid": 1000987
+          },
+          {
+            "name": "氛围照明",
+            "fcid": 1000990
+          },
+          {
+            "name": "吊灯",
+            "fcid": 1000992
+          }
+        ]
+      },
+      {
+        "name": "储物家具",
+        "fcid": 1000397,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "衣帽架",
+            "fcid": 1000614
+          },
+          {
+            "name": "鞋架",
+            "fcid": 1000618
+          },
+          {
+            "name": "储物及收纳用品",
+            "fcid": 1000619
+          },
+          {
+            "name": "墙面搁架",
+            "fcid": 1000620
+          },
+          {
+            "name": "层架及置物架",
+            "fcid": 1000621
+          }
+        ]
+      },
+      {
+        "name": "电工电料",
+        "fcid": 1000399,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "门铃",
+            "fcid": 1000630
+          },
+          {
+            "name": "光伏设备",
+            "fcid": 1000632
+          },
+          {
+            "name": "电气控制",
+            "fcid": 1000634
+          },
+          {
+            "name": "开关插座",
+            "fcid": 1000635
+          },
+          {
+            "name": "智能家居",
+            "fcid": 1000637
+          },
+          {
+            "name": "配电箱及断路器",
+            "fcid": 1000639
+          },
+          {
+            "name": "电线及电缆",
+            "fcid": 1000996
+          },
+          {
+            "name": "电料配件",
+            "fcid": 1000998
+          }
+        ]
+      },
+      {
+        "name": "儿童家具",
+        "fcid": 1000400,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "儿童床",
+            "fcid": 1000642
+          },
+          {
+            "name": "儿童床垫",
+            "fcid": 1000644
+          },
+          {
+            "name": "儿童衣柜",
+            "fcid": 1000645
+          },
+          {
+            "name": "儿童书桌",
+            "fcid": 1001001
+          },
+          {
+            "name": "儿童椅凳",
+            "fcid": 1001003
+          },
+          {
+            "name": "儿童餐椅",
+            "fcid": 1001006
+          },
+          {
+            "name": "儿童桌椅套装",
+            "fcid": 1001009
+          },
+          {
+            "name": "儿童沙发",
+            "fcid": 1001010
+          }
+        ]
+      },
+      {
+        "name": "基建材料",
+        "fcid": 1000401,
+        "thirdPlatformCategoryList": [
+          {
+            "name": "木材及板材",
+            "fcid": 1000647
+          },
+          {
+            "name": "涂刷化工类辅料",
+            "fcid": 1000648
+          },
+          {
+            "name": "油漆及涂料",
+            "fcid": 1000649
+          },
+          {
+            "name": "管材管件",
+            "fcid": 1000650
+          },
+          {
+            "name": "型材",
+            "fcid": 1000651
+          },
+          {
+            "name": "化工产品",
+            "fcid": 1000652
+          }
+        ]
+      }
+    ],
+    "fcid": 1000215
+  }
+]

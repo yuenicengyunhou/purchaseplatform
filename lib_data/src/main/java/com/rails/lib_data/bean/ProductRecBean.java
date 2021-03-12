@@ -46,6 +46,10 @@ public class ProductRecBean {
     private String linkUrl;
     private ArrayList<ProductBean> floorList;
 
+
+
+
+
     public Integer getId() {
         return id;
     }

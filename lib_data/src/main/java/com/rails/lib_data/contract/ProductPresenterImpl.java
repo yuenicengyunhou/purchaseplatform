@@ -2,12 +2,18 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.model.ProductModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -27,22 +33,34 @@ public class ProductPresenterImpl extends BasePresenter<ProductContract.ProductV
 
     @Override
     public void getRectProducts(boolean isDialog) {
-        if (isDialog)
-            baseView.showDialog("加载中...");
+//        if (isDialog)
+//            baseView.showDialog("加载中...");
+//
+//        model.getRecProducts(new HttpRxObserver<ArrayList<ProductRecBean>>() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//                baseView.dismissDialog();
+//                baseView.onError(e);
+//
+//            }
+//
+//            @Override
+//            protected void onSuccess(ArrayList<ProductRecBean> beans) {
+//                baseView.dismissDialog();
+//                baseView.getRecProducts(beans);
+//            }
+//        });
 
-        model.getRecProducts(new HttpRxObserver<ArrayList<ProductRecBean>>() {
-            @Override
-            protected void onError(ErrorBean e) {
-                baseView.dismissDialog();
-                baseView.onError(e);
+        Type type = new TypeToken<ArrayList<ProductRecBean>>() {}.getType();
+        ArrayList<ProductRecBean> beans =JsonUtil.parseJson(mContext, "mall.json",type);
+        baseView.getRecProducts(beans);
 
-            }
+//        String json = JsonUtil.getJson(mContext, "classical.json");
+//        Gson gson = new GsonBuilder().create();
+//        Type type = new TypeToken<ArrayList<ProductRecBean>>() {}.getType();
+//        ArrayList<CategoryRootBean> beans = gson.fromJson(json, type);
+//        baseView.getRecProducts(beans);
 
-            @Override
-            protected void onSuccess(ArrayList<ProductRecBean> beans) {
-                baseView.dismissDialog();
-                baseView.getRecProducts(beans);
-            }
-        });
+
     }
 }

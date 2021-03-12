@@ -8,6 +8,7 @@ import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding;
 
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -33,6 +34,8 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 0);
         binding.recycler.setAdapter(adapter, 10);
         adapter.update(bean.getFloorList(), true);
+
+
     }
 
 }

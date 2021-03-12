@@ -16,7 +16,7 @@ public class PageRecyclerView extends BaseRecyclerView {
     private float downX;
     private float MIN_DISTANCE = 100;
 
-    private int Max_Num = 4;
+    private int Max_Num = 3;
     private int totalPage;
     private int currentPage = 1;
     private float mScrollX = 0;
