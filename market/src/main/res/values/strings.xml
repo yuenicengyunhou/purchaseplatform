@@ -1,4 +1,9 @@
 <resources>
     <string name="market">商城</string>
+    
+    
+    <!--购物城-->
+    <string name="market_cart_total">合计:</string>
+    <string name="market_cart_order">结算</string>
 
 </resources>
