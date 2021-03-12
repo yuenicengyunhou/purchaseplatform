@@ -1,7 +1,7 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.CartBean;
-import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public interface CartContract {
          * @param hasMore      是否有更多
          * @param isClear      是否清除
          */
-        void getRecProjects(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear);
+        void getRecProjects(ArrayList<ProductRecBean> productBeans, boolean hasMore, boolean isClear);
     }
 
 

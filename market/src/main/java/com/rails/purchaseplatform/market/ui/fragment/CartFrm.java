@@ -1,12 +1,15 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView;
+import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
@@ -38,6 +41,19 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.titleBar
                 .setBtnRightContent(R.string.market_cart_manager)
                 .setTitle(R.string.market_cart);
+
+
+        binding.bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                if (i > 0) {
+                    binding.swipe.setEnabled(true);
+                } else {
+                    binding.swipe.setEnabled(false);
+
+                }
+            }
+        });
 
         cartAdapter = new CartAdapter(getActivity());
         binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
@@ -90,7 +106,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
     @Override
-    public void getRecProjects(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+    public void getRecProjects(ArrayList<ProductRecBean> productBeans, boolean hasMore, boolean isClear) {
         recAdapter.update(productBeans, isClear);
         binding.recRecycler.notifyMoreFinish(hasMore);
     }

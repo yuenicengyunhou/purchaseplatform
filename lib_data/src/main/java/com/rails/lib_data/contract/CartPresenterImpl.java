@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 
 import java.util.ArrayList;
@@ -45,13 +46,13 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
-        ArrayList<ProductBean> productBeans = new ArrayList<>();
-        productBeans.add(new ProductBean());
-        productBeans.add(new ProductBean());
-        productBeans.add(new ProductBean());
-        productBeans.add(new ProductBean());
-        productBeans.add(new ProductBean());
-        productBeans.add(new ProductBean());
+        ArrayList<ProductRecBean> productBeans = new ArrayList<>();
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
 
         if (isCallBack()) {
             baseView.dismissDialog();
