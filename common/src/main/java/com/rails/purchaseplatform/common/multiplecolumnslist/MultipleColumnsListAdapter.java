@@ -4,6 +4,8 @@ package com.rails.purchaseplatform.common.multiplecolumnslist;
 import android.content.Context;
 import android.view.View;
 
+import com.rails.purchaseplatform.common.R;
+
 import java.util.List;
 
 
@@ -22,12 +24,12 @@ public class MultipleColumnsListAdapter extends AbsMultipleColumnsListAdapter<St
         for (int i = 0; i < positions.length; i++) {
             switch (i) {
 //                case 0:
-//                    holder.getLinearLayout(R.id.ll_layout_1).setVisibility(View.VISIBLE);
-//                    holder.setText(R.id.tv_zuo, models.get(i).getSchool_id());
+//                    holder.getLinearLayout(R.id.tv_hot_search).setVisibility(View.VISIBLE);
+//                    holder.setText(R.id.tv_hot_search, models.get(i));
 //                    break;
 //                case 1:
-//                    holder.getLinearLayout(R.id.ll_layout_2).setVisibility(View.VISIBLE);
-//                    holder.setText(R.id.tv_you, models.get(i).getSchool_id());
+//                    holder.getLinearLayout(R.id.tv_hot_search).setVisibility(View.VISIBLE);
+//                    holder.setText(R.id.tv_hot_search, models.get(i));
 //                    break;
 //                case 2:
 //                    holder.getLinearLayout(R.id.ll_layout_3).setVisibility(View.VISIBLE);

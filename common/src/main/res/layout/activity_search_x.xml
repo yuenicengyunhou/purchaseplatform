@@ -48,7 +48,14 @@
         <ListView
             android:id="@+id/lv_hot_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <GridView
+            android:id="@+id/gv_hot_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="2" />
 
     </LinearLayout>
 
