@@ -8,6 +8,12 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * 抽象的多列ListView适配器
+ *
+ * @param <T>
+ */
 public abstract class AbsMultipleColumnsListAdapter<T> extends BaseAdapter {
 
     protected Context mContext;

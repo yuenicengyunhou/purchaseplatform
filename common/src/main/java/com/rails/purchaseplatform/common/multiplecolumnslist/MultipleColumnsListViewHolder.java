@@ -11,6 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+/**
+ * 封装的ViewHolder类
+ * 用于多列ListView的item展示、循环复用
+ */
 public class MultipleColumnsListViewHolder {
 
     private SparseArray<View> mViews;

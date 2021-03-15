@@ -6,6 +6,11 @@ import android.view.View;
 
 import java.util.List;
 
+
+/**
+ * 多列ListView适配器
+ * 集成抽象的多列ListView适配器
+ */
 public class MultipleColumnsListAdapter extends AbsMultipleColumnsListAdapter<String> {
 
     public MultipleColumnsListAdapter(Context context, List<String> data, int layoutId, int setcolumn) {
