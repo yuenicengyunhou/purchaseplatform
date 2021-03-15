@@ -1,21 +1,20 @@
 package com.rails.purchaseplatform.order;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.order.adapter.MyFragmentAdapter;
-import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 import com.rails.purchaseplatform.order.fragment.AllFragment;
 import com.rails.purchaseplatform.order.fragment.MyFragment;
-import com.rails.purchaseplatform.order.utils.MyTabLayout;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +25,7 @@ public class OrderActivity extends AppCompatActivity {
     private ImageView left;
     private EditText search;
     private ImageView right_add;
-    private MyTabLayout slide_layout;
+    private SlidingTabLayout slide_layout;
     private ViewPager vp;
     private List<String> mTitles=new ArrayList<>();
     private List<Fragment> mFragment=new ArrayList<>();
@@ -58,7 +57,7 @@ public class OrderActivity extends AppCompatActivity {
         left = (ImageView) findViewById(R.id.left);
         search = (EditText) findViewById(R.id.search);
         right_add = (ImageView) findViewById(R.id.right_add);
-        slide_layout = (MyTabLayout) findViewById(R.id.slide_layout);
+        slide_layout =  findViewById(R.id.slide_layout);
         vp = (ViewPager) findViewById(R.id.vp);
 
     }
