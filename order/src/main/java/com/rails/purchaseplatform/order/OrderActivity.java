@@ -10,7 +10,9 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.order.adapter.MyFragmentAdapter;
+import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 import com.rails.purchaseplatform.order.fragment.AllFragment;
 import com.rails.purchaseplatform.order.fragment.MyFragment;
 import com.rails.purchaseplatform.order.utils.MyTabLayout;
