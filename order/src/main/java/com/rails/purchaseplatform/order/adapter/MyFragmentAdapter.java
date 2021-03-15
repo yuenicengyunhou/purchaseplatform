@@ -9,7 +9,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
-
+/*
+*采购单列表适配器
+ */
 
 public class MyFragmentAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> mFragments;

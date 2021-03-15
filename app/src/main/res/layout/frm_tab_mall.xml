@@ -44,7 +44,7 @@
             <RadioButton
                 android:id="@+id/rb_index"
                 style="@style/TabButton"
-                android:drawableTop="@drawable/tab_mall"
+                android:drawableTop="@drawable/tab_classical"
                 android:drawablePadding="@dimen/dp_3"
                 android:text="@string/tab_classical"
                 android:textColor="@color/selector_blue_gray_color" />
@@ -53,7 +53,7 @@
             <RadioButton
                 android:id="@+id/rb_zc"
                 style="@style/TabButton"
-                android:drawableTop="@drawable/tab_mall"
+                android:drawableTop="@drawable/tab_cart"
                 android:drawablePadding="@dimen/dp_3"
                 android:text="@string/tab_cart"
                 android:textColor="@color/selector_blue_gray_color" />
@@ -62,7 +62,7 @@
             <RadioButton
                 android:id="@+id/rb_mine"
                 style="@style/TabButton"
-                android:drawableTop="@drawable/tab_mall"
+                android:drawableTop="@drawable/tab_mine"
                 android:drawablePadding="@dimen/dp_3"
                 android:text="@string/tab_mine"
                 android:textColor="@color/selector_blue_gray_color" />

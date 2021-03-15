@@ -15,7 +15,9 @@ import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.bean.OrderBean;
 
 import java.util.List;
-
+/*
+*采购单列表
+ */
 public class MyBuyAdapter extends RecyclerView.Adapter {
     private List<OrderBean> datas;
     private Context context;

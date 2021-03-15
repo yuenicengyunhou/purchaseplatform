@@ -9,13 +9,16 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.CategoryBean;
 import com.rails.lib_data.bean.CategoryRootBean;
+import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentCategorySubBinding;
+import com.rails.purchaseplatform.market.ui.activity.WebActivity;
 import com.rails.purchaseplatform.market.widget.MoreLinearLayout;
 import com.rails.purchaseplatform.market.widget.MoreScrollView;
 
@@ -35,7 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/2/26
  */
-public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding> {
+public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding> implements PositionListener<CategorySubBean> {
 
     private static final String ARG_PARAM = "bean";
 
@@ -72,7 +75,9 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
         adapter = new CategoryAdapter(getActivity());
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.white));
+        adapter.setListener(this);
         binding.recycler.setAdapter(adapter);
+
 
         if (bean != null) {
             initPager((ArrayList<CategoryBean>) bean.getSecondPlatformCategoryList());
@@ -174,5 +179,8 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
 
     }
 
-
+    @Override
+    public void onPosition(CategorySubBean bean, int position) {
+        startIntent(WebActivity.class);
+    }
 }

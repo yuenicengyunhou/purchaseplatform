@@ -1,5 +1,7 @@
 package com.rails.purchaseplatform.order.bean;
-
+/*
+*采购单列表实体类
+ */
 public  class OrderBean {
     private String danHao;
     private String time;
