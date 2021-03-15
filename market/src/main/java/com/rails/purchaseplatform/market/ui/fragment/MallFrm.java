@@ -3,12 +3,15 @@ package com.rails.purchaseplatform.market.ui.fragment;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -42,6 +45,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductContract.ProductView {
+    final private String TAG = MallFrm.class.getName();
 
 
     private ProductContract.ProductPresenter presenter;
@@ -68,6 +72,15 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductCont
                 } else {
                     StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
                 }
+            }
+        });
+
+        // 搜索页面跳转
+        binding.etSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "==============MallFrm.java-SearchActivity.java================");
+                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
             }
         });
 

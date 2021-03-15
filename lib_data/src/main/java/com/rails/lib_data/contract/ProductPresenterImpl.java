@@ -55,12 +55,6 @@ public class ProductPresenterImpl extends BasePresenter<ProductContract.ProductV
         ArrayList<ProductRecBean> beans =JsonUtil.parseJson(mContext, "mall.json",type);
         baseView.getRecProducts(beans);
 
-//        String json = JsonUtil.getJson(mContext, "classical.json");
-//        Gson gson = new GsonBuilder().create();
-//        Type type = new TypeToken<ArrayList<ProductRecBean>>() {}.getType();
-//        ArrayList<CategoryRootBean> beans = gson.fromJson(json, type);
-//        baseView.getRecProducts(beans);
-
 
     }
 }

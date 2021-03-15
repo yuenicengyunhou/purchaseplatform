@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     @Override
     protected void loadData() {
-
+        onClick();
     }
 
     @Override

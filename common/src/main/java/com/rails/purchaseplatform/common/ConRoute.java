@@ -24,6 +24,13 @@ public class ConRoute {
         public final static String REGISTER = "/user/register";
     }
 
+    // 通用COMMON
+    public static final class COMMON {
+
+        // 搜索
+        public final static String SEARCH = "/common/SearchActivityX";
+    }
+
 
 
     public static final class ORDER{
