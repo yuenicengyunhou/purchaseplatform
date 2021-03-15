@@ -1,5 +1,7 @@
 package com.rails.purchaseplatform.order.fragment;
-
+/*
+*采购单列表
+ */
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;

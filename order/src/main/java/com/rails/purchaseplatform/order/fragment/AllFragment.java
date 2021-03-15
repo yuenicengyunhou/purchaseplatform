@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.MyBuyAdapter;
 
-
+/*
+*采购单列表
+ */
 public class AllFragment extends Fragment {
 
     private static int whichFragment;

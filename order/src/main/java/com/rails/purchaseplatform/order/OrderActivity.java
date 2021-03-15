@@ -19,7 +19,10 @@ import com.flyco.tablayout.SlidingTabLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+/*
+*
+采购单列表
+ */
 @Route(path = ConRoute.ORDER.ORDER_MAIN)
 public class OrderActivity extends AppCompatActivity {
     private ImageView left;
