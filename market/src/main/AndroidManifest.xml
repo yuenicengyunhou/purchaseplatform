@@ -9,13 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.rails">
-        <activity android:name=".ui.MarketActivity">
+        <activity android:name=".ui.activity.MarketActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.rails.purchaseplatform.market.ui.activity.SearchResultActivity" />
     </application>
 
 </manifest>

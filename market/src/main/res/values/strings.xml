@@ -10,5 +10,6 @@
     <string name="market_cart_manager">管理</string>
     <string name="market_cart_total">合计:</string>
     <string name="market_cart_order">结算</string>
+    <string name="items_on_sale">商品</string>
 
 </resources>

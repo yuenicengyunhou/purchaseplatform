@@ -3,4 +3,6 @@
     <string name="search_history">历史搜索</string>
     <string name="hot_search">热门搜索</string>
     <string name="search">搜索</string>
+    <string name="items_on_sale">商品</string>
+    <string name="keys_searching">搜索关键字</string>
 </resources>

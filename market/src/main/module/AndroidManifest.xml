@@ -5,7 +5,7 @@
     <application>
 
         <activity
-            android:name=".ui.MarketActivity"
+            android:name=".ui.activity.MarketActivity"
             android:screenOrientation="portrait" />
 
     </application>

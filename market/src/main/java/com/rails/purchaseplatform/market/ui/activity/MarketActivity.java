@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.market.ui;
+package com.rails.purchaseplatform.market.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
