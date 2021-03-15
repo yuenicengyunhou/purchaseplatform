@@ -3,11 +3,14 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 
 import com.rails.lib_data.bean.CategoryBean;
+import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemCategoryBinding;
+import com.rails.purchaseplatform.market.widget.CategoryDecoration;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,9 +37,16 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCateg
         binding.setCategory(categoryBean);
         CategorySubAdapter adapter = new CategorySubAdapter(mContext);
         binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
-//        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext,10,10,10,10,android.R.color.white));
+        binding.recycler.addItemDecoration(new CategoryDecoration(mContext));
         binding.recycler.setAdapter(adapter);
         adapter.update(categoryBean.getThirdPlatformCategoryList(), true);
+        adapter.setListener(new PositionListener<CategorySubBean>() {
+            @Override
+            public void onPosition(CategorySubBean bean, int position) {
+                if (positionListener != null)
+                    positionListener.onPosition(bean, position);
+            }
+        });
 
     }
 

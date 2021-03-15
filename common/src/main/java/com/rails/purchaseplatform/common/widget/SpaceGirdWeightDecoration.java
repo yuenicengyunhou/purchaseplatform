@@ -48,7 +48,7 @@ public class SpaceGirdWeightDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        parent.setBackgroundColor(bgColor);
+//        parent.setBackgroundColor(bgColor);
         int size = parent.getAdapter().getItemCount();
         int position = parent.getChildAdapterPosition(view);
         outRect.left = left;
@@ -60,6 +60,8 @@ public class SpaceGirdWeightDecoration extends RecyclerView.ItemDecoration {
         outRect.top = top;
         outRect.bottom = bottom;
     }
+
+
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {

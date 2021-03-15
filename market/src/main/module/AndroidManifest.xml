@@ -8,6 +8,11 @@
             android:name=".ui.MarketActivity"
             android:screenOrientation="portrait" />
 
+
+        <activity
+            android:name=".ui.activity.WebActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

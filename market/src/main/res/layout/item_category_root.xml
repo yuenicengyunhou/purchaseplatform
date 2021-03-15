@@ -11,33 +11,44 @@
             type="com.rails.lib_data.bean.CategoryRootBean" />
     </data>
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="@{category.isSel? @color/white:@color/bg_gray_light}">
-
+        android:layout_height="@dimen/dp_60">
 
         <ImageView
-            android:id="@+id/img_res"
-            android:layout_width="@dimen/dp_5"
-            android:layout_height="@dimen/dp_15"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_5"
-            android:background="@color/bg_blue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_market_category_checked"
             android:visibility="@{category.isSel?View.VISIBLE : View.INVISIBLE}" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/img_res"
-            android:singleLine="true"
-            android:text="@{category.name}"
-            android:textColor="@{category.isSel?@color/font_black_light : @color/font_black}"
-            android:textSize="@dimen/font_size_15"
-            android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_gravity="center">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/img_res"
+                android:layout_width="@dimen/dp_3"
+                android:layout_height="@dimen/dp_18"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@drawable/ic_category_lump"
+                android:visibility="@{category.isSel?View.VISIBLE : View.INVISIBLE}" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_res"
+                android:singleLine="true"
+                android:text="@{category.name}"
+                android:textColor="@{category.isSel?@color/font_black:@color/font_black_light}"
+                android:textSize="@dimen/font_size_14" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
 </layout>

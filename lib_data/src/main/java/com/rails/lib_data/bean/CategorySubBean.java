@@ -1,12 +1,14 @@
 package com.rails.lib_data.bean;
 
+import java.io.Serializable;
+
 /**
  * 三级分类
  *
  * @author： sk_comic@163.com
  * @date: 2021/3/2
  */
-public class CategorySubBean {
+public class CategorySubBean implements Serializable {
 
     //"name": "小五金及其他",
     //"fcid": 1001736
