@@ -76,6 +76,9 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
+    //banner
+    implementation 'com.youth.banner:banner:1.4.10'
+
 
     implementation project(path: ':common')
 }

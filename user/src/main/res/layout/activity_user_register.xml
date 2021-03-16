@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textSize="@dimen/font_size_16"
-        android:drawableLeft="@drawable/svg_search"
+        android:drawableLeft="@drawable/svg_search_black"
         android:drawablePadding="@dimen/dp_5"
         android:text="@string/user_wx_login"
         android:textColor="@color/font_black_light"
