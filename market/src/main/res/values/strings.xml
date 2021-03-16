@@ -1,11 +1,12 @@
 <resources>
     <string name="market">商城</string>
 
-    
-    <string name="market_index_tip">今日疯抢，品牌火爆上新</string>
 
-    
-    
+    <!--    商城首页-->
+    <string name="market_index_tip">今日疯抢，品牌火爆上新</string>
+    <string name="market_index_search">搜索</string>
+
+
     <!--购物城-->
     <string name="market_cart">购物车</string>
 

@@ -80,8 +80,8 @@ public class ProductBean {
     }
 
     public String getPictureUrl() {
-        return "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg07file.tooopen.com%2Fimages%2F20180829%2Ftooopen_sl_213337333747611.jpg&refer=http%3A%2F%2Fimg07file.tooopen.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1617418238&t=04923941d0c4c8035e9df66e028df869";
-//        return pictureUrl;
+//        return "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg07file.tooopen.com%2Fimages%2F20180829%2Ftooopen_sl_213337333747611.jpg&refer=http%3A%2F%2Fimg07file.tooopen.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1617418238&t=04923941d0c4c8035e9df66e028df869";
+        return pictureUrl;
     }
 
     public void setPictureUrl(String pictureUrl) {

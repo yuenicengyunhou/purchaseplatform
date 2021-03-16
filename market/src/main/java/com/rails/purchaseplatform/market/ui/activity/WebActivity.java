@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -17,6 +18,7 @@ import android.webkit.WebViewClient;
 
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.utils.ToastUtil;
 import com.rails.purchaseplatform.market.databinding.ActivityFindWebBinding;
 
 import java.util.HashMap;
@@ -37,8 +39,8 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
 
     @Override
     protected void initialize(Bundle bundle) {
-
-        url ="http://172.28.20.109:3000/hotGoods";
+        url = "file:///android_asset/index.html";
+//        url ="http://172.28.20.109:3000/hotGoods";
         initWebView(barBinding.web, this);
     }
 
@@ -114,7 +116,7 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
                 return true;
             }
         });
-//        webView.addJavascriptInterface(jsCallBack, "hitumedia_android_js");
+        webView.addJavascriptInterface(jsCallBack, "app");
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -128,8 +130,6 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
             public void onPageFinished(WebView view, String url) {
                 // TODO Auto-generated method stub
                 dismissDialog();
-//                String js = "javascript:getAccountId('" + userId + "')";
-//                barBinding.web.loadUrl(js);
             }
 
 
@@ -162,8 +162,6 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
      */
     public void addHeader(WebView webView, String url) {
         HashMap<String, String> params = new HashMap<>();
-//        String userId = UserData.getPrefString(getActivity(), UserData.AccountField.ACCOUNTID);
-//        params.put("accountid", userId);
         if (params.size() <= 0)
             webView.loadUrl(url);
         else
@@ -180,8 +178,9 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
         super.onBack();
     }
 
+    @JavascriptInterface
     @Override
     public void postMessage(String msg) {
-
+        ToastUtil.showCenter(this,msg);
     }
 }

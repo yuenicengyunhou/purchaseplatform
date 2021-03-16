@@ -17,7 +17,6 @@ import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     @Override
     protected void loadData() {
-        onClick();
     }
 
     @Override
@@ -31,7 +30,9 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     }
 
 
-    void onClick(){
+    @Override
+    protected void onClick(){
+        super.onClick();
         binding.myChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

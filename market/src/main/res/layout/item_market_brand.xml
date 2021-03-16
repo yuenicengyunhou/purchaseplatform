@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="brand"
+            type="com.rails.lib_data.bean.BrandBean" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_3"
+        android:paddingTop="@dimen/dp_6"
+        android:paddingRight="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_6">
+
+        <com.rails.purchaseplatform.common.widget.RatioImage
+            android:id="@+id/img_brand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:imgUrl="@{brand.pictureUrl}" />
+
+    </FrameLayout>
+
+</layout>

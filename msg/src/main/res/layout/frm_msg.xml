@@ -29,7 +29,7 @@
             android:layout_alignParentRight="true"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_20"
-            android:src="@drawable/svg_search" />
+            android:src="@drawable/svg_search_black" />
 
     </RelativeLayout>
 
