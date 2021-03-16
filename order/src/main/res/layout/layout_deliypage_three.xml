@@ -39,7 +39,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guidelinethree"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelinethree"
-        app:srcCompat="@drawable/ic_baseline_fiber_manual_hui" />
+        app:srcCompat="@drawable/ic_baseline_fiber_manual_hui"/>
 
     <TextView
         android:id="@+id/tv_two"

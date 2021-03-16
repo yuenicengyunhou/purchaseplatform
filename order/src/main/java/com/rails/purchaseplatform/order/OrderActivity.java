@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.order;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -62,6 +64,7 @@ public class OrderActivity extends AppCompatActivity {
         right_add = (ImageView) findViewById(R.id.right_add);
         slide_layout =  findViewById(R.id.slide_layout);
         vp = (ViewPager) findViewById(R.id.vp);
+
 
     }
 

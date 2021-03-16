@@ -1,0 +1,52 @@
+package com.rails.purchaseplatform.order.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.rails.purchaseplatform.order.R;
+
+import java.util.ArrayList;
+
+public class RecyclerAdapterTwo extends RecyclerView.Adapter<RecyclerAdapterTwo.ViewHolder> {
+    Context context;
+    public RecyclerAdapterTwo(Context context) {
+        this.context = context;
+    }
+
+    ArrayList<String> strings = new ArrayList();
+
+    public void setStrings(ArrayList<String> strings) {
+        this.strings = strings;
+        notifyDataSetChanged();
+    }
+
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_deliypage_two, parent, false);
+        return new ViewHolder(inflate);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return 2;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+}
+

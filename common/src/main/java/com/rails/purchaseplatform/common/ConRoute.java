@@ -39,5 +39,9 @@ public class ConRoute {
 
     }
 
+    public static final class ORDERS {
+
+        public final static String ALL = "/order/all";
+    }
 
 }
