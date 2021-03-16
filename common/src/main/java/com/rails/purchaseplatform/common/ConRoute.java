@@ -31,9 +31,14 @@ public class ConRoute {
         public final static String SEARCH = "/common/SearchActivityX";
     }
 
+    // 商品包 market
+    public static final class MARKET {
+        // 搜索结果页面
+        public final static String SEARCH_RESULT = "/market/SearchResultActivity";
+    }
 
 
-    public static final class ORDER{
+    public static final class ORDER {
 
         public final static String ORDER_MAIN = "/order/mian";
 
