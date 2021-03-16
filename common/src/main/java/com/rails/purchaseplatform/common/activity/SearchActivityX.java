@@ -16,6 +16,14 @@ import com.rails.purchaseplatform.common.widget.LineBreakLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 搜索页面，点击首页搜索跳转到此页面
+ * 1 - 是否需要自动完成
+ * 2 - 展示搜索历史（最近10条，存储在本地）
+ * 3 - 展示热门搜索（由服务器返回）
+ * 4 - PopWindow，用来更改搜索商品或者搜索店铺
+ * 5 -
+ */
 @Route(path = "/common/SearchActivityX")
 public class SearchActivityX extends Activity {
     final private String TAG = SearchActivityX.class.getName();
