@@ -15,11 +15,18 @@ public class CategorySubBean implements Serializable {
     private String name;
     private String url;
     private String fcid;
+    private int res;
 
 
     public CategorySubBean(String name, String url) {
         this.name = name;
         this.url = url;
+    }
+
+
+    public CategorySubBean(String name, int res) {
+        this.name = name;
+        this.res = res;
     }
 
     public String getName() {
@@ -44,5 +51,14 @@ public class CategorySubBean implements Serializable {
 
     public void setFcid(String fcid) {
         this.fcid = fcid;
+    }
+
+
+    public int getRes() {
+        return res;
+    }
+
+    public void setRes(int res) {
+        this.res = res;
     }
 }

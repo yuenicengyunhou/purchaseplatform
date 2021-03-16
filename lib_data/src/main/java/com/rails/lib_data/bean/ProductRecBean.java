@@ -99,8 +99,8 @@ public class ProductRecBean {
     }
 
     public String getFloorPictureUrl() {
-//        return floorPictureUrl;
-        return "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1696385818,1925333725&fm=26&gp=0.jpg";
+        return floorPictureUrl;
+//        return "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1696385818,1925333725&fm=26&gp=0.jpg";
     }
 
     public void setFloorPictureUrl(String floorPictureUrl) {

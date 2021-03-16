@@ -89,6 +89,7 @@ public abstract class BaseAbsFragment<T extends ViewBinding> extends Fragment im
         super.onViewCreated(view, savedInstanceState);
         view.setClickable(true);
         initialize(savedInstanceState);
+        onClick();
     }
 
 
@@ -122,6 +123,11 @@ public abstract class BaseAbsFragment<T extends ViewBinding> extends Fragment im
      */
     public void startIntent(Class<?> cls, Bundle bundle) {
         this.startIntent(getActivity(), cls, bundle);
+    }
+
+
+    protected void onClick() {
+
     }
 
 

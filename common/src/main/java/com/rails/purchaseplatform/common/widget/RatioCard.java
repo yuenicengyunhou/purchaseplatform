@@ -1,35 +1,35 @@
 package com.rails.purchaseplatform.common.widget;
 
 import android.content.Context;
-
-import androidx.annotation.Nullable;
-
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import com.rails.purchaseplatform.common.R;
+
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 /**
  * 宽高比图片
  * Created by sk on 2017/4/21.
  */
 
-public class RatioImage extends androidx.appcompat.widget.AppCompatImageView {
+public class RatioCard extends CardView {
 
     int w = 1;
     int h = 1;
 
-    public RatioImage(Context context) {
+    public RatioCard(Context context) {
         super(context);
         init(context, null);
     }
 
-    public RatioImage(Context context, @Nullable AttributeSet attrs) {
+    public RatioCard(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public RatioImage(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RatioCard(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }

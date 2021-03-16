@@ -32,7 +32,7 @@
                 android:layout_height="@dimen/dp_18"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_10"
-                android:background="@drawable/ic_category_lump"
+                android:background="@drawable/ic_market_category_checked"
                 android:visibility="@{category.isSel?View.VISIBLE : View.INVISIBLE}" />
 
             <TextView

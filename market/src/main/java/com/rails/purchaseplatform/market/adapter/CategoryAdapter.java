@@ -5,7 +5,6 @@ import android.content.Context;
 import com.rails.lib_data.bean.CategoryBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
@@ -35,7 +34,7 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCateg
     @Override
     protected void onBindItem(ItemCategoryBinding binding, CategoryBean categoryBean, int position) {
         binding.setCategory(categoryBean);
-        CategorySubAdapter adapter = new CategorySubAdapter(mContext);
+        CategorySub2Adapter adapter = new CategorySub2Adapter(mContext);
         binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recycler.addItemDecoration(new CategoryDecoration(mContext));
         binding.recycler.setAdapter(adapter);
