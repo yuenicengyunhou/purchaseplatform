@@ -1,4 +1,8 @@
 <resources>
+
+    <!--公共边距-->
+    <dimen name="common_border">30dp</dimen>
+
     <!-- 比例  1.875 -->
     <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_tiny">0.75dp</dimen>
