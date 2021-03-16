@@ -52,7 +52,7 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarMode(getActivity(), R.color.white);
+        StatusBarUtil.StatusBarLightMode(getActivity());
     }
 
     @Override
