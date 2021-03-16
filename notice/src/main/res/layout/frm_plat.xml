@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:background="@drawable/bg_corner_white_20"
-                    android:drawableStart="@drawable/svg_search"
+                    android:drawableStart="@drawable/svg_search_black"
                     android:layout_toLeftOf="@+id/img_msg"
                     android:drawablePadding="@dimen/dp_5"
                     android:hint="搜索"

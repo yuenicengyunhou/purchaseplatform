@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!--  头部，标题栏  -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -72,22 +73,26 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- 排序选项&布局选项 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!--  排序选项：综合、价格、时间、销量  -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5">
 
                 <TextView
+                    android:id="@+id/tv_synthesis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="综合" />
+                    android:text="@string/synthesis" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -96,7 +101,7 @@
                         android:id="@+id/tv_sort_oder_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="价格" />
+                        android:text="@string/price" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -105,6 +110,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -113,7 +119,7 @@
                         android:id="@+id/tv_sort_oder_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="价格" />
+                        android:text="@string/time" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -122,6 +128,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_sales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -130,7 +137,7 @@
                         android:id="@+id/tv_sort_oder_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="价格" />
+                        android:text="@string/sales" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -140,6 +147,7 @@
 
             </LinearLayout>
 
+            <!-- 布局选项：切换布局 -->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,6 +155,7 @@
 
         </LinearLayout>
 
+        <!--  展示搜索结果  -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

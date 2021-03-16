@@ -20,7 +20,7 @@
     <color name="font_black">#333333</color>
     <color name="font_black_light">#666666</color>
     <color name="font_gray">#d4d4d4</color>
-    <color name="font_hint">#d4d4d4</color>
+    <color name="font_hint">#666666</color>
 
 
     <!-- 边框颜色-->

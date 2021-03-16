@@ -36,7 +36,7 @@
         android:padding="@dimen/dp_10"
         app:layout_constraintRight_toRightOf="parent"
         android:hint="搜素关键字"
-        android:drawableLeft="@drawable/svg_search"
+        android:drawableLeft="@drawable/svg_search_black"
         />
     <TextView
         android:id="@+id/se"
