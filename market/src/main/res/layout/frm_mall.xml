@@ -50,6 +50,31 @@
                                 android:paddingTop="@dimen/dp_25">
 
 
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_70">
+
+                                    <ImageView
+                                        android:id="@+id/img_logo"
+                                        android:layout_width="@dimen/dp_60"
+                                        android:layout_height="@dimen/dp_60"
+                                        android:layout_marginLeft="@dimen/dp_16"
+                                        android:src="@drawable/ic_market_logo" />
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:textColor="@color/white"
+                                        android:layout_marginLeft="@dimen/dp_8"
+                                        android:layout_toRightOf="@+id/img_logo"
+                                        android:text="@string/market_index_tip"
+                                        android:textSize="@dimen/font_size_12" />
+
+                                </RelativeLayout>
+
+
                                 <TextView
                                     android:id="@+id/et_search"
                                     android:layout_width="match_parent"
