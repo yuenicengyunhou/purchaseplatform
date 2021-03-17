@@ -54,6 +54,11 @@ public class ProductPresenterImpl extends BasePresenter<ProductContract.ProductV
         Type type = new TypeToken<ArrayList<ProductRecBean>>() {
         }.getType();
         ArrayList<ProductRecBean> beans = JsonUtil.parseJson(mContext, "mall.json", type);
+        int[] resourese = new int[]{R.drawable.ic_market_bg_one, R.drawable.ic_market_bg_two,
+                R.drawable.ic_market_bg_three, R.drawable.ic_market_bg_four};
+        for (int i = 0; i < beans.size(); i++) {
+            beans.get(i).setRes(resourese[i % 4]);
+        }
         baseView.getRecProducts(beans);
 
 

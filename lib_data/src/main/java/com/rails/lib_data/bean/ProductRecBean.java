@@ -45,6 +45,7 @@ public class ProductRecBean {
     private Integer yn;
     private String linkUrl;
     private ArrayList<ProductBean> floorList;
+    private int res;
 
 
 
@@ -177,5 +178,13 @@ public class ProductRecBean {
 
     public void setFloorList(ArrayList<ProductBean> floorList) {
         this.floorList = floorList;
+    }
+
+    public int getRes() {
+        return res;
+    }
+
+    public void setRes(int res) {
+        this.res = res;
     }
 }

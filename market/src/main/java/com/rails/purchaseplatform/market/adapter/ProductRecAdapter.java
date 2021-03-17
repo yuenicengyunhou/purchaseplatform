@@ -5,6 +5,7 @@ import android.content.Context;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding;
 
@@ -32,7 +33,7 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
         binding.setFloor(bean);
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 0);
-        binding.recycler.setAdapter(adapter, 10);
+        binding.recycler.setAdapter(adapter, ScreenSizeUtil.dp2px(mContext, 42));
         adapter.update(bean.getFloorList(), true);
 
 
