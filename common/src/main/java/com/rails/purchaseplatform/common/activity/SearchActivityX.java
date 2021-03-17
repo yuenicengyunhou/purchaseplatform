@@ -12,9 +12,11 @@ import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.R;
+import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
 import com.rails.purchaseplatform.common.multiplecolumnslist.HotSearchGridViewAdapter;
 import com.rails.purchaseplatform.common.multiplecolumnslist.MultipleColumnsListAdapter;
 import com.rails.purchaseplatform.common.widget.LineBreakLayout;
+import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ import java.util.List;
  * 5 -
  */
 @Route(path = "/common/SearchActivityX")
-public class SearchActivityX extends Activity {
+public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
     final private String TAG = SearchActivityX.class.getName();
 
     private List<String> mHistorySearchList;
@@ -47,14 +49,33 @@ public class SearchActivityX extends Activity {
         setContentView(R.layout.activity_search_x);
         ARouter.getInstance().inject(this);
 
-        // 左上角的返回按钮
-        findViewById(R.id.fl_back).setOnClickListener(v -> SearchActivityX.this.finish());
 
         initData();
         initView();
         doTask();
 
 //        binding.
+    }
+
+    @Override
+    protected int getColor() {
+        return 0;
+    }
+
+    @Override
+    protected boolean isSetSystemBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean isBindEventBus() {
+        return false;
+    }
+
+    @Override
+    protected void initialize(Bundle bundle) {
+        // 左上角的返回按钮
+        binding.flBack.setOnClickListener(v -> SearchActivityX.this.finish());
     }
 
     /**
@@ -101,5 +122,10 @@ public class SearchActivityX extends Activity {
 
         mHotSearchGridView.setAdapter(mHotSearchAdapter);
         mHotSearchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

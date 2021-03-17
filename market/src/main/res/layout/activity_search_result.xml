@@ -179,7 +179,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/tv_sort_oder_3" />
+                        android:layout_toEndOf="@+id/tv_sort_oder_3" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -195,7 +195,15 @@
         <!--  展示搜索结果  -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/searchResultRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <GridView
                 android:id="@+id/gv_search_result"

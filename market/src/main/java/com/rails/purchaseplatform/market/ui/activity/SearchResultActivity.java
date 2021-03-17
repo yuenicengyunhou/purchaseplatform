@@ -11,8 +11,11 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.rails.purchaseplatform.common.activity.SearchActivityX;
+import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultAdapter;
+import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 
 import java.util.List;
 
@@ -27,7 +30,7 @@ import java.util.List;
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
 @Route(path = "/market/SearchResultActivity")
-public class SearchResultActivity extends Activity {
+public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> {
 
     private List mSearchResultDataList;
     private BaseAdapter mSearchResultGridViewAdapter;
@@ -38,19 +41,38 @@ public class SearchResultActivity extends Activity {
     private int mModuleFlag = 0;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_result);
+    protected int getColor() {
+        return 0;
+    }
 
-        // 左上角的返回按钮
-        findViewById(R.id.fl_back).setOnClickListener(v -> SearchResultActivity.this.finish());
+    @Override
+    protected boolean isSetSystemBar() {
+        return false;
+    }
 
-        mSearchResultGridView = findViewById(R.id.gv_search_result);
-        mSearchResultListView = findViewById(R.id.lv_search_result);
+    @Override
+    protected boolean isBindEventBus() {
+        return false;
+    }
+
+    @Override
+    protected void initialize(Bundle bundle) {
 
         mSearchResultGridViewAdapter = new SearchResultAdapter(this, mSearchResultDataList);
-
-        mSearchResultGridView.setAdapter(mSearchResultGridViewAdapter);
+//        binding.searchResultRecycler.setAdapter(mSearchResultGridViewAdapter);
         mSearchResultGridViewAdapter.notifyDataSetChanged();
+//        binding.
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        // 左上角的返回按钮
+        binding.flBack.setOnClickListener(v -> SearchResultActivity.this.finish());
+//        binding
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
     }
 }
