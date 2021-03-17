@@ -2,8 +2,11 @@ package com.rails.purchaseplatform.common.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -43,6 +46,9 @@ public class SearchActivityX extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_x);
         ARouter.getInstance().inject(this);
+
+        // 左上角的返回按钮
+        findViewById(R.id.fl_back).setOnClickListener(v -> SearchActivityX.this.finish());
 
         initData();
         initView();

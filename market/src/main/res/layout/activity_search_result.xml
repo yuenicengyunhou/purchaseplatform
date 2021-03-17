@@ -21,6 +21,7 @@
 
             <!-- 返回按钮 -->
             <FrameLayout
+                android:id="@+id/fl_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

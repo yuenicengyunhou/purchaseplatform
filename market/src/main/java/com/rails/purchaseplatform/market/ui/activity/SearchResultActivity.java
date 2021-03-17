@@ -2,7 +2,9 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -39,6 +41,9 @@ public class SearchResultActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+        // 左上角的返回按钮
+        findViewById(R.id.fl_back).setOnClickListener(v -> SearchResultActivity.this.finish());
 
         mSearchResultGridView = findViewById(R.id.gv_search_result);
         mSearchResultListView = findViewById(R.id.lv_search_result);
