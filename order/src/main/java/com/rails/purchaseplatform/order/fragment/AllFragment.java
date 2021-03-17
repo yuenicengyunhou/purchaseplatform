@@ -18,7 +18,7 @@ import com.rails.purchaseplatform.order.databinding.FragmentAllBinding;
 /*
 *采购单列表
  */
-public class AllFragment extends LazyFragment<FragmentAllBinding> {
+public class AllFragment extends Fragment {
 
     private static int whichFragment;
     public AllFragment() {
@@ -44,17 +44,18 @@ public class AllFragment extends LazyFragment<FragmentAllBinding> {
         return inflater.inflate(R.layout.fragment_all, container, false);
     }
 
-    @Override
-    protected boolean isBindEventBus() {
-        return false;
-    }
-
-    @Override
-    protected void loadData() {
-    }
-
-    @Override
-    protected void loadPreVisitData() {
-
-    }
+//    @Override
+//    protected boolean isBindEventBus() {
+//        return false;
+//    }
+//
+//    @Override
+//    protected void loadData() {
+//
+//    }
+//
+//    @Override
+//    protected void loadPreVisitData() {
+//
+//    }
 }

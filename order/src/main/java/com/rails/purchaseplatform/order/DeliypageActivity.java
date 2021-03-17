@@ -32,9 +32,9 @@ public class DeliypageActivity extends AppCompatActivity {
         RecyclerView recyclerView3 = findViewById(R.id.recyclerView3);
 
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("asd");
-        strings.add("zxc");
-        strings.add("qwe");
+        strings.add("提交订单");
+        strings.add("已确定");
+        strings.add("已收货");
         RecyclerViewAdapterOne recyclerViewAdapterOne = new RecyclerViewAdapterOne(this);
         recyclerViewAdapterOne.setStrings(strings);
         recyclerView1.setLayoutManager(new GridLayoutManager(this,strings.size()));
@@ -58,11 +58,11 @@ public class DeliypageActivity extends AppCompatActivity {
         flexboxLayoutManager.setJustifyContent(JustifyContent.FLEX_START);
         recyclerView4.setLayoutManager(flexboxLayoutManager);
         RecyclerViewAdapterFour recyclerViewAdapterFour = new RecyclerViewAdapterFour(this);
-        ArrayList<String> strings1 = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            strings1.add("jkl"+i);
-        }
-        recyclerViewAdapterFour.setStrings(strings1);
+//        ArrayList<String> strings1 = new ArrayList<>();
+//        for (int i = 0; i < 30; i++) {
+//            strings1.add("jkl"+i);
+//        }
+//        recyclerViewAdapterFour.setStrings(strings1);
         recyclerView4.setAdapter(recyclerViewAdapterFour);
     }
 }

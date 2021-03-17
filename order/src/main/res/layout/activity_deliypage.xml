@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="采购单号: 13211928598"
+                android:text="采购单号: 1210121172900001"
                 app:layout_constraintStart_toEndOf="@+id/imageViews"
                 app:layout_constraintTop_toTopOf="@+id/imageViews" />
 
@@ -103,7 +103,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"
-                android:text="采购人:  中国铁路某某局"
+                android:text="采购人:  中国铁路某某局集团有限公-admin01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViews"
                 app:layout_constraintTop_toBottomOf="@+id/provider" />
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="武帅"
+                android:text="王小帅"
                 app:layout_constraintStart_toEndOf="@+id/imageViewthree"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -148,7 +148,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="北京市海淀区"
+                android:text="北京市海淀区大柳树路2号"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViewthree"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -158,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="13211928598"
+                android:text="15698765432"
                 android:textColor="#D5D5D5"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_name"
                 app:layout_constraintStart_toEndOf="@+id/tv_name"
@@ -215,7 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="本单位结算: 中国铁路某某"
+                android:text="本单位结算: 中国铁路某某局集团有限公司"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_account" />
 
@@ -252,7 +252,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="发票抬头: 中国铁路某某"
+                android:text="发票抬头: 中国铁路某某局集团有限公司"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_information" />
@@ -308,7 +308,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:text="商品总价: 999"
+                android:text="商品总价: ￥938.9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
 
@@ -318,7 +318,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:text="运费:999"
+                android:text="运费: ￥0.0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_price" />
 
@@ -329,7 +329,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
-                android:text="￥999.9"
+                android:text="￥938.9"
                 android:textColor="#E91E63"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -342,7 +342,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="实付款:"
+                android:text="实付款: "
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -372,6 +372,7 @@
                 android:text="采购单备注:"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -429,7 +430,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="订单编号:123456789"
+                android:text="订单编号: 1210121172900002"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_prepared" />
 
@@ -439,7 +440,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="生成时间: 2021-01-01  17:29:29"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_number" />
         </androidx.constraintlayout.widget.ConstraintLayout>
