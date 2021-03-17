@@ -35,11 +35,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:w="35"
-                    app:h="8"
                     android:padding="@dimen/dp_tiny"
                     android:scaleType="centerCrop"
-                    app:imgUrl="@{floor.floorPictureUrl}" />
+                    app:h="8"
+                    app:imgRes="@{floor.res}"
+                    app:w="35" />
 
 
                 <LinearLayout
@@ -79,8 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:padding="@dimen/dp_5"
                 android:overScrollMode="never"
+                android:padding="@dimen/dp_5"
                 app:canH="true"
                 app:canV="false" />
 

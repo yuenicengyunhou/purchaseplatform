@@ -30,6 +30,16 @@
 
 
     <!--自定义radioButton-->
+    <declare-styleable name="TabRadio">
+        <attr name="distance" />
+        <attr name="font_color" format="color" />
+        <attr name="font_size" format="dimension" />
+        <attr name="font_padding" format="dimension" />
+        <attr name="is_hide_txt" format="boolean" />
+        <attr name="is_hide" />
+    </declare-styleable>
+
+
     <declare-styleable name="badge">
         <attr name="rt_icon" format="integer" />
         <attr name="is_rt_icon" format="boolean" />
