@@ -97,7 +97,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductCont
         //推荐商品列表
         recAdapter = new ProductRecAdapter(getActivity());
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
-        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 20, R.color.bg));
+        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
         binding.recycler.setAdapter(recAdapter);
 
 
