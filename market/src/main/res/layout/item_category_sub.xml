@@ -12,6 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
         android:orientation="vertical">
 
 
@@ -20,8 +23,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:overScrollMode="never"
-            android:padding="@dimen/dp_15"
-            app:imgUrl="@{sub.url}" />
+            app:imgRes="@{sub.res}" />
 
 
         <TextView
@@ -30,8 +32,9 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@{sub.name}"
+            android:singleLine="true"
             android:textColor="@color/font_black_light"
-            android:textSize="@dimen/font_size_13" />
+            android:textSize="@dimen/font_size_12" />
 
     </LinearLayout>
 

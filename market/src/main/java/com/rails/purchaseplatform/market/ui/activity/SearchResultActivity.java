@@ -2,11 +2,17 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.adapter.SearchResultAdapter;
+
+import java.util.List;
 
 /**
  * 搜索结果页
@@ -20,9 +26,26 @@ import com.rails.purchaseplatform.market.R;
  */
 @Route(path = "/market/SearchResultActivity")
 public class SearchResultActivity extends Activity {
+
+    private List mSearchResultDataList;
+    private BaseAdapter mSearchResultGridViewAdapter;
+
+    private ListView mSearchResultListView;
+    private GridView mSearchResultGridView;
+
+    private int mModuleFlag = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+        mSearchResultGridView = findViewById(R.id.gv_search_result);
+        mSearchResultListView = findViewById(R.id.lv_search_result);
+
+        mSearchResultGridViewAdapter = new SearchResultAdapter(this, mSearchResultDataList);
+
+        mSearchResultGridView.setAdapter(mSearchResultGridViewAdapter);
+        mSearchResultGridViewAdapter.notifyDataSetChanged();
     }
 }

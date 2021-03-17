@@ -22,6 +22,13 @@
     </declare-styleable>
 
 
+    <!--比例图片-->
+    <declare-styleable name="ratioImage">
+        <attr name="w" format="integer" />
+        <attr name="h" format="integer" />
+    </declare-styleable>
+
+
     <!--自定义radioButton-->
     <declare-styleable name="badge">
         <attr name="rt_icon" format="integer" />

@@ -1,5 +1,9 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.BannerBean;
+import com.rails.lib_data.bean.BrandBean;
+import com.rails.lib_data.bean.CategoryBean;
+import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -22,6 +26,30 @@ public interface ProductContract {
          * @param beans
          */
         void getRecProducts(ArrayList<ProductRecBean> beans);
+
+
+        /**
+         * 获取banner列表
+         *
+         * @param bannerBeans
+         */
+        void getBanners(ArrayList<BannerBean> bannerBeans);
+
+
+        /**
+         * 获取推荐品牌
+         *
+         * @param brandBeans
+         */
+        void getBrands(ArrayList<BrandBean> brandBeans);
+
+
+        /**
+         * 获取推荐分类
+         *
+         * @param beans
+         */
+        void getRecCategorys(ArrayList<CategorySubBean> beans);
     }
 
 
@@ -34,6 +62,23 @@ public interface ProductContract {
          * @param isDialog 是否显示加载窗口
          */
         void getRectProducts(boolean isDialog);
+
+
+        /**
+         * 获取banner列表
+         */
+        void getBanners();
+
+        /**
+         * 获取推荐品牌
+         */
+        void getBrands();
+
+
+        /**
+         * 获取推荐分类
+         */
+        void getRecCategorys();
 
     }
 }
