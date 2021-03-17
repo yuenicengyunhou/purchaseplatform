@@ -30,11 +30,13 @@
                 android:layout_height="wrap_content">
 
 
-                <ImageView
+                <com.rails.purchaseplatform.common.widget.RatioImage
                     android:id="@+id/img_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_120"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    app:w="35"
+                    app:h="8"
                     android:padding="@dimen/dp_tiny"
                     android:scaleType="centerCrop"
                     app:imgUrl="@{floor.floorPictureUrl}" />
@@ -78,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:padding="@dimen/dp_5"
+                android:overScrollMode="never"
                 app:canH="true"
                 app:canV="false" />
 

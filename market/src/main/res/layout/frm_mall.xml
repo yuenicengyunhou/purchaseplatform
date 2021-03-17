@@ -7,14 +7,13 @@
     <com.rails.purchaseplatform.common.widget.BaseSwipeLayout
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
 
         <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/bg"
             android:orientation="vertical">
 
             <com.google.android.material.appbar.AppBarLayout
@@ -146,7 +145,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/dp_50"
                                     android:layout_gravity="bottom"
-                                    android:background="@color/white" />
+                                    android:background="@color/bg" />
 
                                 <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                                     android:id="@+id/categoryRecycler"
@@ -169,23 +168,24 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/common_border"
+                            android:layout_marginTop="@dimen/dp_25"
+                            android:background="@color/bg"
                             android:layout_marginRight="@dimen/common_border"
                             android:orientation="vertical">
 
-                            <TextView
+                            <com.rails.purchaseplatform.common.widget.RatioImage
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/ic_market_brand"
-                                android:gravity="center"
-                                android:text="推荐品牌"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/font_size_17" />
+                                android:src="@drawable/ic_market_brand"
+                                app:h="103"
+                                app:w="701" />
 
                             <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                                 android:id="@+id/brandRecycler"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/bg_red"
+                                android:layout_marginTop="-1dp"
+                                android:background="@drawable/bg_corner_red_5"
                                 android:overScrollMode="never"
                                 android:paddingLeft="@dimen/dp_3"
                                 android:paddingRight="@dimen/dp_3"
@@ -201,26 +201,24 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_height="match_parent">
 
-                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/common_border"
                     android:overScrollMode="never"
-                    android:paddingTop="@dimen/dp_15"
+                    android:paddingTop="@dimen/dp_20"
                     android:paddingRight="@dimen/common_border"
                     app:canH="false"
-                    app:canV="false"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
             </androidx.core.widget.NestedScrollView>
-
 
         </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>
 
