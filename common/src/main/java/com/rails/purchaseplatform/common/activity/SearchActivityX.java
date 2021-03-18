@@ -1,20 +1,13 @@
 package com.rails.purchaseplatform.common.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.R;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
-import com.rails.purchaseplatform.common.multiplecolumnslist.HotSearchGridViewAdapter;
-import com.rails.purchaseplatform.common.multiplecolumnslist.MultipleColumnsListAdapter;
 import com.rails.purchaseplatform.common.widget.LineBreakLayout;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 
@@ -105,7 +98,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
         mLineBreakLayout = findViewById(R.id.lbl_search_history);
 
         mHotSearchGridView = findViewById(R.id.gv_hot_search);
-        mHotSearchAdapter = new HotSearchGridViewAdapter<>(this, mHotSearchList);
     }
 
     private void doTask() {
