@@ -37,7 +37,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
     private List<String> mSelectedLabel;
 
     private LineBreakLayout mLineBreakLayout;
-    private ListView mHotSearchListView;
     private BaseAdapter mHotSearchAdapter;
 
     private GridView mHotSearchGridView;
@@ -75,7 +74,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
     @Override
     protected void initialize(Bundle bundle) {
         // 左上角的返回按钮
-        binding.flBack.setOnClickListener(v -> SearchActivityX.this.finish());
+        binding.ibBack.setOnClickListener(v -> SearchActivityX.this.finish());
     }
 
     /**
@@ -104,8 +103,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
 
     private void initView() {
         mLineBreakLayout = findViewById(R.id.lbl_search_history);
-        mHotSearchListView = findViewById(R.id.lv_hot_search);
-        mHotSearchAdapter = new MultipleColumnsListAdapter(this, mHistorySearchList, R.layout.item_hot_search, 2);
 
         mHotSearchGridView = findViewById(R.id.gv_hot_search);
         mHotSearchAdapter = new HotSearchGridViewAdapter<>(this, mHotSearchList);

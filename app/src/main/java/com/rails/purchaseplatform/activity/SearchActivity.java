@@ -15,6 +15,7 @@ import com.rails.purchaseplatform.R;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class SearchActivity extends AppCompatActivity {
     private List<String> strings = new ArrayList<>();
 //    private SearchDateAdapter searchDateAdapter2;

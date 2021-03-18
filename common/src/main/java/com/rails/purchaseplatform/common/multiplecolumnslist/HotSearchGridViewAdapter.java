@@ -44,7 +44,7 @@ public class HotSearchGridViewAdapter<T> extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_hot_search, null);
             holder = new ViewHolder();
-            holder.textView = convertView.findViewById(R.id.tv_hot_search_content);
+            holder.textView = convertView.findViewById(R.id.tv_hotSearchContent);
             holder.textView.setOnClickListener(v -> {
                 // TODO: 2021/3/15 需要考虑传递数据，不同的搜索内容对应不同的搜索结果
                 ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).navigation();

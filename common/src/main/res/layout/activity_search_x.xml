@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="SearchActivityX"
-            type="com.rails.purchaseplatform.common.activity.SearchActivityX" />
+            name="hotSearch"
+            type="com.rails.lib_data.bean.HotSearchBean" />
     </data>
 
     <LinearLayout
@@ -17,92 +17,78 @@
         android:orientation="vertical">
 
         <!-- 标题栏 -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="44dp">
 
-            <!-- 返回按钮 -->
-            <FrameLayout
-                android:id="@+id/fl_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="14dp"
+                android:background="@color/white"
+                android:scaleType="center"
+                android:src="@mipmap/icon_back" />
+
+
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="@dimen/dp_32"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/dp_50"
+                android:background="@drawable/bg_corner_gray_20">
+
+                <TextView
+                    android:id="@+id/tv_type_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:text="@string/items_on_sale"
+                    android:textSize="@dimen/font_size_12" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@mipmap/icon_back" />
-            </FrameLayout>
-
-            <!-- 圆角阴影 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:layout_weight="5"
-                android:background="@drawable/bg_corner_gray_20"
-                android:gravity="center">
-
-                <!-- 切换搜索类型：商品、店铺 -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="4dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp">
-
-                    <TextView
-                        android:id="@+id/tv_type_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:gravity="center"
-                        android:text="@string/items_on_sale"
-                        android:textSize="12sp" />
-
-                    <ImageView
-                        android:id="@+id/iv_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:background="@mipmap/icon_down" />
-                </LinearLayout>
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:layout_toEndOf="@+id/tv_type_name"
+                    android:background="@mipmap/icon_down" />
 
                 <ImageView
-                    android:layout_width="1dp"
-                    android:layout_height="12dp"
+                    android:id="@+id/baseline"
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="@dimen/dp_12"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_55"
                     android:background="#22000000" />
 
-                <!-- 输入框 -->
                 <AutoCompleteTextView
-                    android:id="@+id/auto_text_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_toEndOf="@+id/baseline"
                     android:background="@null"
-                    android:gravity="left|center"
                     android:hint="@string/keys_searching"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/font_size_12" />
+            </RelativeLayout>
 
-            </LinearLayout>
-
-            <!-- 搜索按钮 -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_weight="1"
+                android:id="@+id/tv_search"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="14dp"
                 android:gravity="center"
                 android:text="@string/search"
-                android:textSize="12sp" />
-        </LinearLayout>
+                android:textSize="@dimen/font_size_12" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_text"
@@ -132,12 +118,6 @@
             android:text="@string/hot_search"
             android:textColor="#FF000000"
             android:textSize="16sp" />
-
-        <ListView
-            android:id="@+id/lv_hot_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
 
         <GridView
             android:id="@+id/gv_hot_search"
