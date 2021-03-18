@@ -36,6 +36,7 @@ public class OrderActivity extends AppCompatActivity {
     private List<Fragment> mFragment=new ArrayList<>();
     private MyFragmentAdapter myFragmentAdapter;
     private final int mine = 1,all = 2;
+    private ArrayList<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,9 @@ public class OrderActivity extends AppCompatActivity {
     private void initData() {
         Collections.addAll(mTitles,"我的采购单","全部采购单");
         Collections.addAll(mFragment, MyFragment.getInstance(mine), AllFragment.getInstance(all));
+//        fragments = new ArrayList<>();
+//        fragments.add(MyFragment);
+//        fragments.add(AllFragment);
         myFragmentAdapter.notifyDataSetChanged();
         slide_layout.notifyDataSetChanged();
 

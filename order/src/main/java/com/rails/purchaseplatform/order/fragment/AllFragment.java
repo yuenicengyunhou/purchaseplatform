@@ -43,19 +43,4 @@ public class AllFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_all, container, false);
     }
-
-//    @Override
-//    protected boolean isBindEventBus() {
-//        return false;
-//    }
-//
-//    @Override
-//    protected void loadData() {
-//
-//    }
-//
-//    @Override
-//    protected void loadPreVisitData() {
-//
-//    }
 }

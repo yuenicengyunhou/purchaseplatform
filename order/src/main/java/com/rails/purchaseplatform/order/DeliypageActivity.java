@@ -20,7 +20,7 @@ import com.rails.purchaseplatform.order.adapter.RecyclerViewAdapterFour;
 import com.rails.purchaseplatform.order.adapter.RecyclerViewAdapterOne;
 
 import java.util.ArrayList;
-@Route(path = ConRoute.ORDER.ORDER_MAIN)
+@Route(path = ConRoute.ORDER.ALL)
 public class DeliypageActivity extends AppCompatActivity {
 
     @Override

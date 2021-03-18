@@ -12,9 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.MyBuyAdapter;
 import com.rails.purchaseplatform.order.bean.OrderBean;
+import com.rails.purchaseplatform.order.databinding.FragmentMyBinding;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ import java.util.ArrayList;
  * Use the {@link MyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyFragment extends Fragment {
+public class MyFragment extends LazyFragment<FragmentMyBinding> {
     private static int whichFragment;
     private RecyclerView rcy;
     private int mFragmentLabel;
@@ -33,11 +37,11 @@ public class MyFragment extends Fragment {
     private SmartRefreshLayout smart;
 
 
-    public static MyFragment getInstance(int pWhichFragment){
+    public static MyFragment getInstance(int pWhichFragment) {
         whichFragment = pWhichFragment;
         MyFragment myFragment = new MyFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("lable",whichFragment);
+        bundle.putInt("lable", whichFragment);
         myFragment.setArguments(bundle);
         return myFragment;
 
@@ -55,15 +59,21 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my, container, false);
+        View view = inflater.inflate(R.layout.refresh_list_layout, container, false);
         initView(view);
         return view;
     }
+
+    @Override
+    protected boolean isBindEventBus() {
+        return false;
+    }
+
     private void initData() {
-        OrderBean bean=null;
+        OrderBean bean = null;
         ArrayList<OrderBean> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            bean=new OrderBean("12123021543312","2021.3.10","铁路学院","这是一个啥东西","256.23","121","152/100盒","100",R.drawable.a);
+            bean = new OrderBean("12123021543312", "2021.3.10", "铁路学院", "这是一个啥东西", "256.23", "121", "152/100盒", "100", R.drawable.a);
             list.add(bean);
         }
         orderBeans.addAll(list);
@@ -79,9 +89,20 @@ public class MyFragment extends Fragment {
         rcy.setLayoutManager(manager);
 
         orderBeans = new ArrayList<>();
-        mAdapter = new MyBuyAdapter(orderBeans,getActivity());
+        mAdapter = new MyBuyAdapter(orderBeans, getActivity());
         rcy.setAdapter(mAdapter);
 
         initData();
+    }
+
+    @Override
+    protected void loadData() {
+        onClick();
+
+
+    }
+
+    @Override
+    protected void loadPreVisitData() {
     }
 }

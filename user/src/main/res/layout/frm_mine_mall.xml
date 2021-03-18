@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -188,37 +187,63 @@
                     <com.rails.purchaseplatform.common.widget.TabRadio
                         android:id="@+id/tab"
                         android:layout_width="wrap_content"
-                        android:drawableTop="@drawable/ic_category_food"
+                        android:drawableTop="@drawable/ic_setting"
                         android:button="@null"
                         android:gravity="center"
                         android:drawablePadding="@dimen/dp_3"
                         app:is_hide="false"
                         app:is_hide_txt="false"
                         app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_5"
+                        app:font_padding="@dimen/dp_4"
                         app:font_size="@dimen/font_size_14"
-                        android:text="购物车"
+                        android:text="待下单"
+                        android:layout_marginLeft="@dimen/dp_30"
                         android:layout_height="wrap_content"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="@dimen/dp_20"
-                            android:layout_height="@dimen/dp_20"
-                            android:layout_gravity="center"
-                            android:background="@drawable/ic_setting" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:text="已取消" />
-                    </LinearLayout>
+                    <com.rails.purchaseplatform.common.widget.TabRadio
+                        android:id="@+id/tab1"
+                        android:layout_width="wrap_content"
+                        android:drawableTop="@drawable/ic_setting"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/dp_3"
+                        app:is_hide="false"
+                        app:is_hide_txt="false"
+                        app:font_color="@color/bg_red"
+                        app:font_padding="@dimen/dp_4"
+                        app:font_size="@dimen/font_size_14"
+                        android:text="待发货"
+                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_height="wrap_content"/>
+                    <com.rails.purchaseplatform.common.widget.TabRadio
+                        android:id="@+id/tab2"
+                        android:layout_width="wrap_content"
+                        android:drawableTop="@drawable/ic_setting"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/dp_3"
+                        app:is_hide="false"
+                        app:is_hide_txt="false"
+                        app:font_color="@color/bg_red"
+                        app:font_padding="@dimen/dp_4"
+                        app:font_size="@dimen/font_size_14"
+                        android:text="待收货"
+                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_height="wrap_content"/>
+                    <com.rails.purchaseplatform.common.widget.TabRadio
+                        android:id="@+id/tab3"
+                        android:layout_width="wrap_content"
+                        android:drawableTop="@drawable/ic_setting"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/dp_3"
+                        app:is_hide="false"
+                        app:is_hide_txt="false"
+                        app:font_color="@color/bg_red"
+                        app:font_padding="@dimen/dp_4"
+                        app:font_size="@dimen/font_size_14"
+                        android:text="待取消"
+                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
 
