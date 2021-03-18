@@ -25,6 +25,7 @@
 
             <!-- 返回按钮 -->
             <FrameLayout
+                android:id="@+id/fl_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -142,6 +143,7 @@
             android:id="@+id/gv_hot_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:numColumns="2" />
 
     </LinearLayout>

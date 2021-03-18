@@ -45,7 +45,7 @@
             android:singleLine="true"
             android:text="@{product.pictureName}"
             android:textColor="@color/font_black_light"
-            android:textSize="@dimen/font_size_14" />
+            android:textSize="@dimen/font_size_12" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
             android:singleLine="true"
             android:text="@{product.pictureName}"
             android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_12" />
+            android:textSize="@dimen/font_size_10" />
 
     </LinearLayout>
 

@@ -34,6 +34,7 @@ import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import java.util.ArrayList;
 
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -75,6 +76,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductCont
                 }
             }
         });
+
+
+
 
         //设置banner的宽高
         CardView.LayoutParams linearParams = (CardView.LayoutParams) binding.banner.getLayoutParams();

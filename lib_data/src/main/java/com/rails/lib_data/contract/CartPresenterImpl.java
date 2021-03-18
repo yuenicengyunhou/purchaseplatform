@@ -29,10 +29,10 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
         ArrayList<CartBean> cartBeans = new ArrayList<>();
         cartBeans.add(new CartBean("三只松鼠"));
-        cartBeans.add(new CartBean("良品铺子"));
-        cartBeans.add(new CartBean("味多美"));
-        cartBeans.add(new CartBean("好利来"));
-        cartBeans.add(new CartBean("汉巴味德"));
+//        cartBeans.add(new CartBean("良品铺子"));
+//        cartBeans.add(new CartBean("味多美"));
+//        cartBeans.add(new CartBean("好利来"));
+//        cartBeans.add(new CartBean("汉巴味德"));
         if (isCallBack()) {
             baseView.dismissDialog();
             baseView.getCarts(cartBeans);
@@ -47,6 +47,24 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             baseView.showResDialog(R.string.loading);
 
         ArrayList<ProductRecBean> productBeans = new ArrayList<>();
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
+        productBeans.add(new ProductRecBean());
         productBeans.add(new ProductRecBean());
         productBeans.add(new ProductRecBean());
         productBeans.add(new ProductRecBean());

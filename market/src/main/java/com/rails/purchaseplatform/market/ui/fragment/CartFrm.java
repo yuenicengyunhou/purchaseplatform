@@ -38,10 +38,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     protected void loadData() {
 
-        binding.titleBar
-                .setBtnRightContent(R.string.market_cart_manager)
-                .setTitle(R.string.market_cart);
-
 
         binding.bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -58,7 +54,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         cartAdapter = new CartAdapter(getActivity());
         binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.cartRecycler.setAdapter(cartAdapter);
-        binding.empty.setDescEmpty("暂无数据").setImgEmpty(R.drawable.svg_market_scan).setMarginTop(60);
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(60);
         binding.cartRecycler.setEmptyView(binding.empty);
 
         recAdapter = new ProductRecAdapter(getActivity());
@@ -86,13 +82,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             @Override
             public void onRefresh() {
                 binding.swipe.setRefreshing(false);
-                page =DEF_PAGE;
+                page = DEF_PAGE;
                 presenter.getCarts(false);
-                notifyData(false,page);
+                notifyData(false, page);
             }
         });
         presenter.getCarts(true);
-        notifyData(false,page);
+        notifyData(false, page);
     }
 
 

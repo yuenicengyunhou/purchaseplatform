@@ -46,16 +46,17 @@ public class SearchResultAdapter extends BaseAdapter {
             holder = new SearchResultViewHolder();
             holder.itemImage = convertView.findViewById(R.id.iv_image);
             holder.itemImage.setOnClickListener(v -> goItemDetailsActivity());
-            holder.itemImage = convertView.findViewById(R.id.iv_image);
-            holder.itemImage.setOnClickListener(v -> goItemDetailsActivity());
-            holder.itemImage = convertView.findViewById(R.id.iv_image);
-            holder.itemImage.setOnClickListener(v -> goItemDetailsActivity());
-            holder.itemImage = convertView.findViewById(R.id.iv_image);
-            holder.itemImage.setOnClickListener(v -> goItemDetailsActivity());
+            holder.itemName = convertView.findViewById(R.id.tv_name);
+            holder.itemName.setOnClickListener(v -> goItemDetailsActivity());
+            holder.itemShop = convertView.findViewById(R.id.tv_shop);
+            holder.itemShop.setOnClickListener(v -> goShopActivity());
+            holder.itemPrice = convertView.findViewById(R.id.tv_price);
+            holder.itemPrice.setOnClickListener(v -> goItemDetailsActivity());
             convertView.setTag(holder);
         } else {
             holder = (SearchResultViewHolder) convertView.getTag();
         }
+        // TODO: 2021/3/17 需要从mData中取得数据（图片、文字）
         holder.itemImage.setImageResource(0);
         holder.itemName.setText("戴尔U2515H");
         holder.itemShop.setText("戴尔官方旗舰店");
@@ -63,6 +64,7 @@ public class SearchResultAdapter extends BaseAdapter {
         return convertView;
     }
 
+    // TODO: 2021/3/17 跳转页面需要传递数据，添加参数。
     private void goShopActivity() {
 
     }

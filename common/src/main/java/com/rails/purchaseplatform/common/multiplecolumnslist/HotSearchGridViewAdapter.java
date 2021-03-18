@@ -59,5 +59,6 @@ public class HotSearchGridViewAdapter<T> extends BaseAdapter {
 
     class ViewHolder {
         TextView textView;
+
     }
 }
