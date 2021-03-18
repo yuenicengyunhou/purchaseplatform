@@ -20,10 +20,12 @@
     <dimen name="dp_25">46.875dp</dimen>
     <dimen name="dp_28">52.5dp</dimen>
     <dimen name="dp_30">56.25dp</dimen>
+    <dimen name="dp_32">60dp</dimen>
     <dimen name="dp_33">61.875dp</dimen>
     <dimen name="dp_35">63.625dp</dimen>
     <dimen name="dp_36">67.5dp</dimen>
     <dimen name="dp_40">75dp</dimen>
+    <dimen name="dp_44">82.5</dimen>
     <dimen name="dp_45">84.375dp</dimen>
     <dimen name="dp_48">90dp</dimen>
     <dimen name="dp_50">93.75dp</dimen>

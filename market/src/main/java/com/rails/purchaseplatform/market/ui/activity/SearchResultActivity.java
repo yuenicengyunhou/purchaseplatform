@@ -68,8 +68,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     protected void onClick() {
         super.onClick();
         // 左上角的返回按钮
-        binding.flBack.setOnClickListener(v -> SearchResultActivity.this.finish());
-//        binding
+        binding.ibBack.setOnClickListener(v -> SearchResultActivity.this.finish());
+        binding.baseline.setImageAlpha(0);
     }
 
     @Override
