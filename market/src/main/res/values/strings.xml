@@ -10,6 +10,8 @@
     <!--购物城-->
     <string name="market_cart">购物车</string>
 
+    <string name="market_cart_null">空空如也</string>
+
     <string name="market_cart_manager">管理</string>
     <string name="market_cart_total">合计:</string>
     <string name="market_cart_order">结算</string>

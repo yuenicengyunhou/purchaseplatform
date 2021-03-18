@@ -59,6 +59,25 @@ public class StatusBarUtil {
     }
 
 
+
+    public static int StatusBarDarkMode(Activity activity) {
+        int result = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (MIUISetStatusBarLightMode(activity, true)) {
+                setStatusBarColor(activity, android.R.color.white);
+                result = 1;
+            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), true)) {
+                setStatusBarColor(activity, android.R.color.white);
+                result = 2;
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                result = 3;
+            }
+        }
+        return result;
+    }
+
+
     public static int StatusBarMode(Activity activity,int color) {
         int result = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

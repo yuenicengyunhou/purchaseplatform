@@ -11,12 +11,13 @@
 
 
         <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
+            android:id="@+id/coordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg"
             android:orientation="vertical">
 
-            <com.google.android.material.appbar.AppBarLayout
+            <com.rails.purchaseplatform.common.widget.BaseBarLayout
                 android:id="@+id/bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,8 +170,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/common_border"
                             android:layout_marginTop="@dimen/dp_25"
-                            android:layout_marginRight="@dimen/common_border"
                             android:background="@color/bg"
+                            android:layout_marginRight="@dimen/common_border"
                             android:orientation="vertical">
 
                             <com.rails.purchaseplatform.common.widget.RatioImage
@@ -199,13 +200,12 @@
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            </com.google.android.material.appbar.AppBarLayout>
+            </com.rails.purchaseplatform.common.widget.BaseBarLayout>
 
-
-            <androidx.core.widget.NestedScrollView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_height="wrap_content">
 
                 <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
                     android:id="@+id/recycler"
@@ -216,9 +216,11 @@
                     android:paddingTop="@dimen/dp_20"
                     android:paddingRight="@dimen/common_border"
                     app:canH="false"
+                    app:canV = "true"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </FrameLayout>
 
-            </androidx.core.widget.NestedScrollView>
+
 
         </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>
 
