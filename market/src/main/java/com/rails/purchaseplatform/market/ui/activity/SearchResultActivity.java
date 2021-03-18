@@ -15,6 +15,7 @@ import com.rails.purchaseplatform.common.activity.SearchActivityX;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultAdapter;
+import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 
 import java.util.List;
@@ -33,10 +34,9 @@ import java.util.List;
 public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> {
 
     private List mSearchResultDataList;
-    private BaseAdapter mSearchResultGridViewAdapter;
 
-    private ListView mSearchResultListView;
-    private GridView mSearchResultGridView;
+    private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
+
 
     private int mModuleFlag = 0;
 
@@ -58,10 +58,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     @Override
     protected void initialize(Bundle bundle) {
 
-        mSearchResultGridViewAdapter = new SearchResultAdapter(this, mSearchResultDataList);
-//        binding.searchResultRecycler.setAdapter(mSearchResultGridViewAdapter);
-        mSearchResultGridViewAdapter.notifyDataSetChanged();
-//        binding.
+        mSearchResultRecyclerAdapter = new SearchResultRecyclerAdapter(this);
+        binding.searchResultRecycler.setAdapter(mSearchResultRecyclerAdapter);
+        mSearchResultRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -69,7 +68,6 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         super.onClick();
         // 左上角的返回按钮
         binding.ibBack.setOnClickListener(v -> SearchResultActivity.this.finish());
-        binding.baseline.setImageAlpha(0);
     }
 
     @Override
