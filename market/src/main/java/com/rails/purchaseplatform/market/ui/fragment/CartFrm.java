@@ -3,15 +3,18 @@ package com.rails.purchaseplatform.market.ui.fragment;
 import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
+import com.rails.lib_data.contract.ProductContract;
+import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
+import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 
@@ -26,14 +29,17 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
-public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContract.CartView, LoadMoreRecyclerView.LoadMoreListener {
+public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContract.CartView,
+        LoadMoreRecyclerView.LoadMoreListener, ProductContract.ProductView {
 
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
 
     CartAdapter cartAdapter;
-    ProductRecAdapter recAdapter;
+    ProductHotAdapter recAdapter;
     CartContract.CartPresenter presenter;
+    ProductContract.ProductPresenter productPresenter;
+
 
     @Override
     protected void loadData() {
@@ -57,13 +63,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(60);
         binding.cartRecycler.setEmptyView(binding.empty);
 
-        recAdapter = new ProductRecAdapter(getActivity());
+        recAdapter = new ProductHotAdapter(getActivity());
         binding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+//        binding.recRecycler.addItemDecoration(new SpaceGirdWeightDecoration(getActivity(), 0, 12, 0, 12, R.color.white));
         binding.recRecycler.setLoadMoreListener(this);
         binding.recRecycler.setAdapter(recAdapter);
 
 
         presenter = new CartPresenterImpl(getActivity(), this);
+        productPresenter = new ProductPresenterImpl(getActivity(), this);
 
     }
 
@@ -102,12 +110,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         cartAdapter.update(cartBeans, true);
     }
 
-    @Override
-    public void getRecProjects(ArrayList<ProductRecBean> productBeans, boolean hasMore, boolean isClear) {
-        recAdapter.update(productBeans, isClear);
-        binding.recRecycler.notifyMoreFinish(hasMore);
-    }
-
 
     /**
      * 请求推荐商品列表
@@ -116,12 +118,18 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        presenter.getRecProducts(isDialog, page);
+        productPresenter.getHotProducts(isDialog, page);
     }
 
     @Override
     public void onLoadMore() {
         page++;
         notifyData(false, page);
+    }
+
+    @Override
+    public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+        recAdapter.update(productBeans, isClear);
+        binding.recRecycler.notifyMoreFinish(hasMore);
     }
 }

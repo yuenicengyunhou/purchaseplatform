@@ -38,8 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
             android:layout_centerVertical="true"
+            android:gravity="center_vertical"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/common_border"
             android:text="@string/market_cart_manager"
@@ -110,6 +110,8 @@
                 android:id="@+id/recRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_8"
                 android:overScrollMode="never"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

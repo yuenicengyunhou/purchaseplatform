@@ -1,10 +1,6 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.bean.BannerBean;
-import com.rails.lib_data.bean.BrandBean;
-import com.rails.lib_data.bean.CategoryBean;
-import com.rails.lib_data.bean.CategorySubBean;
-import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -20,36 +16,16 @@ public interface ProductContract {
 
     interface ProductView extends BaseView {
 
-        /**
-         * 获取首页推荐产品列表
-         *
-         * @param beans
-         */
-        void getRecProducts(ArrayList<ProductRecBean> beans);
-
 
         /**
-         * 获取banner列表
+         * 获取热门商品列表
          *
-         * @param bannerBeans
+         * @param productBeans
+         * @param hasMore      是否有更多
+         * @param isClear      是否清除
          */
-        void getBanners(ArrayList<BannerBean> bannerBeans);
+        void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear);
 
-
-        /**
-         * 获取推荐品牌
-         *
-         * @param brandBeans
-         */
-        void getBrands(ArrayList<BrandBean> brandBeans);
-
-
-        /**
-         * 获取推荐分类
-         *
-         * @param beans
-         */
-        void getRecCategorys(ArrayList<CategorySubBean> beans);
     }
 
 
@@ -57,28 +33,12 @@ public interface ProductContract {
 
 
         /**
-         * 获取首页推荐产品列表
+         * 获取热门推荐产品
          *
          * @param isDialog 是否显示加载窗口
          */
-        void getRectProducts(boolean isDialog);
+        void getHotProducts(boolean isDialog, int page);
 
-
-        /**
-         * 获取banner列表
-         */
-        void getBanners();
-
-        /**
-         * 获取推荐品牌
-         */
-        void getBrands();
-
-
-        /**
-         * 获取推荐分类
-         */
-        void getRecCategorys();
 
     }
 }

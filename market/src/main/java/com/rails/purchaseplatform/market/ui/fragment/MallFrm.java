@@ -13,6 +13,8 @@ import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
+import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -44,11 +46,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductContract.ProductView {
+public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndexContract.MarketIndexView {
     final private String TAG = MallFrm.class.getName();
 
 
-    private ProductContract.ProductPresenter presenter;
+    private MarketIndexContract.MarketIndexPresenter presenter;
     private ProductRecAdapter recAdapter;
     private CategorySubAdapter categoryAdapter;
     private BrandAdapter brandAdapter;
@@ -56,29 +58,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductCont
 
     @Override
     protected void loadData() {
-
-
-        binding.bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-                if (i > 0) {
-                    binding.rlRecycler.setEnabled(true);
-                } else {
-                    binding.rlRecycler.setEnabled(false);
-
-                }
-
-                boolean isVisit = getLocalVisibleRect(getActivity(), binding.categoryRecycler);
-                if (Math.abs(i) > 500 && !isVisit) {
-                    StatusBarUtil.StatusBarLightMode(getActivity());
-                } else {
-                    StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
-                }
-            }
-        });
-
-
-
 
         //设置banner的宽高
         CardView.LayoutParams linearParams = (CardView.LayoutParams) binding.banner.getLayoutParams();
@@ -105,7 +84,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements ProductCont
         binding.recycler.setAdapter(recAdapter);
 
 
-        presenter = new ProductPresenterImpl(getActivity(), this);
+        presenter = new MarKetIndexPresenterImpl(getActivity(), this);
 
 
         onRefresh();
