@@ -41,41 +41,4 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
     }
 
-    @Override
-    public void getRecProducts(boolean isDialog, int page) {
-        if (isDialog)
-            baseView.showResDialog(R.string.loading);
-
-        ArrayList<ProductRecBean> productBeans = new ArrayList<>();
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-        productBeans.add(new ProductRecBean());
-
-        if (isCallBack()) {
-            baseView.dismissDialog();
-            boolean isClear = page <= 1;
-            baseView.getRecProjects(productBeans, false, isClear);
-        }
-    }
 }
