@@ -145,7 +145,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/dp_50"
                                     android:layout_gravity="bottom"
-                                    android:background="@color/bg" />
+                                    android:background="@drawable/ic_market_rect" />
 
                                 <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                                     android:id="@+id/categoryRecycler"
@@ -169,8 +169,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/common_border"
                             android:layout_marginTop="@dimen/dp_25"
-                            android:background="@color/bg"
                             android:layout_marginRight="@dimen/common_border"
+                            android:background="@color/bg"
                             android:orientation="vertical">
 
                             <com.rails.purchaseplatform.common.widget.RatioImage
@@ -204,8 +204,8 @@
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
                     android:id="@+id/recycler"
