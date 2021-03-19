@@ -41,10 +41,14 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
     protected abstract void onBindItem(E binding, T t, int position);
 
 
+    protected void onBindView(E binding){}
+
+
     @NonNull
     @Override
     public BaseHolder<E> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         E bing = DataBindingUtil.inflate(LayoutInflater.from(mContext), getContentID(), parent, false);
+        onBindView(bing);
         return new BaseHolder(bing);
     }
 

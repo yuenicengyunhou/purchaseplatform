@@ -7,6 +7,7 @@ import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
 import java.util.ArrayList;
 
@@ -27,15 +28,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
-        ArrayList<CartBean> cartBeans = new ArrayList<>();
-        cartBeans.add(new CartBean("三只松鼠"));
-//        cartBeans.add(new CartBean("良品铺子"));
-//        cartBeans.add(new CartBean("味多美"));
-//        cartBeans.add(new CartBean("好利来"));
-//        cartBeans.add(new CartBean("汉巴味德"));
+        CartBean cartBean = JsonUtil.parseJson(mContext, "cart.json", CartBean.class);
+
         if (isCallBack()) {
             baseView.dismissDialog();
-            baseView.getCarts(cartBeans);
+            baseView.getCartInfo(cartBean);
         }
 
 

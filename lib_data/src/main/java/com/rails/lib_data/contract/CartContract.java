@@ -19,9 +19,9 @@ public interface CartContract {
         /**
          * 获取购物车列表
          *
-         * @param cartBeans
+         * @param cartBean
          */
-        void getCarts(ArrayList<CartBean> cartBeans);
+        void getCartInfo(CartBean cartBean);
 
 
     }

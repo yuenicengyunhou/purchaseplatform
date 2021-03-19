@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 
+import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
@@ -11,7 +12,7 @@ import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
  * @author： sk_comic@163.com
  * @date: 2021/3/11
  */
-public class CartSubAdapter extends BaseRecyclerAdapter<ProductBean, ItemMarketCartSubBinding> {
+public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, ItemMarketCartSubBinding> {
     public CartSubAdapter(Context context) {
         super(context);
     }
@@ -22,7 +23,7 @@ public class CartSubAdapter extends BaseRecyclerAdapter<ProductBean, ItemMarketC
     }
 
     @Override
-    protected void onBindItem(ItemMarketCartSubBinding binding, ProductBean productBean, int position) {
+    protected void onBindItem(ItemMarketCartSubBinding binding, CartShopProductBean productBean, int position) {
         binding.setProduct(productBean);
     }
 }

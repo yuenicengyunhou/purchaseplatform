@@ -5,8 +5,11 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 
 import com.rails.lib_data.bean.CartBean;
+import com.rails.lib_data.bean.CartShopBean;
+import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
@@ -21,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/3/10
  */
-public class CartAdapter extends BaseRecyclerAdapter<CartBean, ItemMarketCartBinding> {
+public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartBinding> {
 
     private SparseBooleanArray selects;
 
@@ -36,13 +39,20 @@ public class CartAdapter extends BaseRecyclerAdapter<CartBean, ItemMarketCartBin
     }
 
     @Override
-    protected void onBindItem(ItemMarketCartBinding binding, CartBean cartBean, int position) {
-        binding.setCart(cartBean);
+    protected void onBindItem(ItemMarketCartBinding binding, CartShopBean cartShopBean, int position) {
+        binding.setCart(cartShopBean);
+
+        if (binding.recycler.getAdapter() == null) {
+            CartSubAdapter adapter = new CartSubAdapter(mContext);
+            binding.recycler.setAdapter(adapter);
+            adapter.update((ArrayList) cartShopBean.getSkuList(), true);
+        }
 
         if (selects.get(position))
             binding.imgLeft.setSelected(true);
         else
             binding.imgLeft.setSelected(false);
+
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,17 +65,23 @@ public class CartAdapter extends BaseRecyclerAdapter<CartBean, ItemMarketCartBin
             }
         });
 
-
-        CartSubAdapter adapter = new CartSubAdapter(mContext);
-        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
-        binding.recycler.setAdapter(adapter);
-
-
-        ArrayList<ProductBean> productBeans = new ArrayList<>();
-        productBeans.add(new ProductBean());
-        productBeans.add(new ProductBean());
-        productBeans.add(new ProductBean());
-        adapter.update(productBeans, true);
     }
 
+
+    private void notifySub(RecyclerView view, CartShopBean cartShopBean, boolean isChecked) {
+        CartSubAdapter adapter = (CartSubAdapter) view.getAdapter();
+        ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
+        for (CartShopProductBean bean : beans) {
+
+        }
+        adapter.update(beans, true);
+    }
+
+
+    @Override
+    protected void onBindView(ItemMarketCartBinding binding) {
+        super.onBindView(binding);
+        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
+    }
 }

@@ -15,6 +15,10 @@
     <string name="market_cart_manager">管理</string>
     <string name="market_cart_total">合计:</string>
     <string name="market_cart_order">结算</string>
+    <string name="market_cart_pay">¥%s</string>
+    <string name="market_cart_hot">热销商品</string>
+
+
     <string name="items_on_sale">商品</string>
     <string name="synthesis">综合</string>
     <string name="price">价格</string>
