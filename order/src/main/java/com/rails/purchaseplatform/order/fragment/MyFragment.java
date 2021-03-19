@@ -94,7 +94,7 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
 
         initData();
     }
-
+ 
     @Override
     protected void loadData() {
         onClick();
@@ -104,5 +104,6 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
 
     @Override
     protected void loadPreVisitData() {
+
     }
 }
