@@ -28,9 +28,9 @@ public class HotSearchPresenterImpl extends BasePresenter<HotSearchContract.HotS
             baseView.showResDialog(R.string.loading);
 
 
-        Type type = new TypeToken<ArrayList<ProductBean>>() {
+        Type type = new TypeToken<ArrayList<HotSearchBean>>() {
         }.getType();
-        ArrayList<HotSearchBean> beans = JsonUtil.parseJson(mContext, "product_hot.json", type);
+        ArrayList<HotSearchBean> beans = JsonUtil.parseJson(mContext, "hotSearch.json", type);
 
         if (isCallBack()) {
             baseView.dismissDialog();
