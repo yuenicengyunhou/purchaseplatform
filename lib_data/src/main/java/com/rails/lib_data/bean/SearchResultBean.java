@@ -5,7 +5,7 @@ public class SearchResultBean {
     private String iconUrl;
     private String name;
     private String shop;
-    private int price;
+    private String price;
 
 
     public String getIconUrl() {
@@ -32,12 +32,11 @@ public class SearchResultBean {
         this.shop = shop;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
-
 }
