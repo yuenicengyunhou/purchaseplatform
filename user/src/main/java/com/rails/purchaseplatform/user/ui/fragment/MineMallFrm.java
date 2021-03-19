@@ -17,6 +17,10 @@ import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     @Override
     protected void loadData() {
+        onClick();
+
+        binding.tabOrder.setNumber(3);
+        binding.tabReceive.setNumber(20);
     }
 
     @Override

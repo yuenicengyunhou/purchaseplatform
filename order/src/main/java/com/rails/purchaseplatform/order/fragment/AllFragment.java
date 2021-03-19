@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.MyBuyAdapter;
+import com.rails.purchaseplatform.order.databinding.FragmentAllBinding;
 
 /*
 *采购单列表

@@ -39,14 +39,14 @@
         app:layout_constraintBottom_toTopOf="@+id/guidelinethree"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelinethree"
-        app:srcCompat="@drawable/ic_baseline_fiber_manual_hui" />
+        app:srcCompat="@drawable/ic_baseline_fiber_manual_hui"/>
 
     <TextView
         android:id="@+id/tv_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="TextView"
+        android:text="一级审批"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
