@@ -1,14 +1,19 @@
 package com.rails.purchaseplatform.common.activity;
 
 import android.os.Bundle;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.purchaseplatform.common.R;
+import com.rails.lib_data.bean.HotSearchBean;
+import com.rails.lib_data.contract.HotSearchContract;
+import com.rails.lib_data.contract.HotSearchPresenterImpl;
+import com.rails.purchaseplatform.common.adapter.FlowLayoutManager;
+import com.rails.purchaseplatform.common.adapter.HotSearchRecyclerAdapter;
+import com.rails.purchaseplatform.common.adapter.SearchHistoryFlowAdapter;
+import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
-import com.rails.purchaseplatform.common.widget.LineBreakLayout;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 
 import java.util.ArrayList;
@@ -23,31 +28,32 @@ import java.util.List;
  * 5 -
  */
 @Route(path = "/common/SearchActivityX")
-public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
+public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView {
     final private String TAG = SearchActivityX.class.getName();
 
-    private List<String> mHistorySearchList;
-    private List<String> mSelectedLabel;
+    private final List<String> mHistorySearchList = new ArrayList<>();
 
-    private LineBreakLayout mLineBreakLayout;
-    private BaseAdapter mHotSearchAdapter;
-
-    private GridView mHotSearchGridView;
-    private List<String> mHotSearchList;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_x);
-        ARouter.getInstance().inject(this);
-
-
-        initData();
-        initView();
-        doTask();
-
-//        binding.
+    {
+        mHistorySearchList.add("经济");
+        mHistorySearchList.add("八卦");
+        mHistorySearchList.add("天文爱好者");
+        mHistorySearchList.add("完美主义者阿了哈");
+        mHistorySearchList.add("小道消息不对劲啊");
+        mHistorySearchList.add("选择困难症");
+        mHistorySearchList.add("娱乐");
+        mHistorySearchList.add("政治中心");
+        mHistorySearchList.add("彩票");
+        mHistorySearchList.add("情感");
+        mHistorySearchList.add("人傻钱多");
+        mHistorySearchList.add("旅游爱好者");
     }
+
+    private SearchHistoryFlowAdapter mSearchHistoryFlowAdapter;
+    private FlowLayoutManager mFlowLayoutManager;
+
+    private HotSearchContract.HotSearchPresenter mHotSearchPresenter;
+    private HotSearchRecyclerAdapter mHotSearchRecyclerAdapter;
+
 
     @Override
     protected int getColor() {
@@ -68,53 +74,28 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
     protected void initialize(Bundle bundle) {
         // 左上角的返回按钮
         binding.ibBack.setOnClickListener(v -> SearchActivityX.this.finish());
+
+        mSearchHistoryFlowAdapter = new SearchHistoryFlowAdapter(this, mHistorySearchList);
+        mFlowLayoutManager = new FlowLayoutManager();
+        binding.recyclerSearchHistory.setLayoutManager(mFlowLayoutManager);
+        binding.recyclerSearchHistory.addItemDecoration(new SpaceItemDecoration(20));
+        binding.recyclerSearchHistory.setAdapter(mSearchHistoryFlowAdapter);
+
+        mHotSearchRecyclerAdapter = new HotSearchRecyclerAdapter(this);
+        mHotSearchPresenter = new HotSearchPresenterImpl(this, this);
+        binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
+        mHotSearchPresenter.getHotSearch(false, 1);
     }
 
-    /**
-     * 初始化页面数据
-     */
-    private void initData() {
-        // TODO: 2021/3/11 这里应该使用本地存储来保存搜索历史
-        mHistorySearchList = new ArrayList<>();
-        mHistorySearchList.add("经济");
-        mHistorySearchList.add("八卦");
-        mHistorySearchList.add("天文爱好者");
-        mHistorySearchList.add("完美主义者阿了哈");
-        mHistorySearchList.add("小道消息不对劲啊");
-        mHistorySearchList.add("选择困难症");
-        mHistorySearchList.add("娱乐");
-        mHistorySearchList.add("政治中心");
-        mHistorySearchList.add("彩票");
-        mHistorySearchList.add("情感");
-        mHistorySearchList.add("人傻钱多");
-        mHistorySearchList.add("旅游爱好者");
-
-        // TODO: 2021/3/11 这里应该发送网络请求以获取热门搜索
-        mHotSearchList = new ArrayList<>();
-        mHotSearchList = mHistorySearchList;
-    }
-
-    private void initView() {
-        mLineBreakLayout = findViewById(R.id.lbl_search_history);
-
-        mHotSearchGridView = findViewById(R.id.gv_hot_search);
-    }
-
-    private void doTask() {
-        //设置标签
-        mLineBreakLayout.setLabels(mHistorySearchList, true);
-        //获取选中的标签
-        mSelectedLabel = mLineBreakLayout.getSelectedLabels();
-
-//        mHotSearchListView.setAdapter(mHotSearchAdapter);
-//        mHotSearchAdapter.notifyDataSetChanged();
-
-        mHotSearchGridView.setAdapter(mHotSearchAdapter);
-        mHotSearchAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void getHotSearch(ArrayList<HotSearchBean> hotSearchBeans, boolean hasMore, boolean isClear) {
+        mHotSearchRecyclerAdapter.update(hotSearchBeans, true);
     }
 }

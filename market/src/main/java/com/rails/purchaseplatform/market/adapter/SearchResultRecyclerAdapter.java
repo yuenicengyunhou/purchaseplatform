@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.rails.purchaseplatform.framwork.adapter.BaseMulRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
+import com.rails.purchaseplatform.market.ui.activity.ItemDetailsActivity;
 
 public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<SearchResultBean, ItemSearchResultBinding> {
 
@@ -33,11 +35,12 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<SearchResul
     protected void onBindItem(ItemSearchResultBinding binding, SearchResultBean searchResultBean, int position) {
         binding.setResult(searchResultBean);
 
-        binding.ivIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "HELLO", Toast.LENGTH_SHORT).show();
-            }
+//        binding.ivIcon.setImageURI(searchResultBean.getIconUrl());
+//        binding.tvName.setText(searchResultBean.getName());
+//        binding.tvShop.setText(searchResultBean.getShop());
+//        binding.tvPrice.setText(searchResultBean.getPrice());
+        binding.llItems.setOnClickListener(v -> {
+            mContext.startActivity(new Intent(mContext, ItemDetailsActivity.class));
         });
 
     }

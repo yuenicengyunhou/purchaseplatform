@@ -9,15 +9,21 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.lib_data.contract.SearchResultContract;
+import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.activity.SearchActivityX;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,11 +37,10 @@ import java.util.List;
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
 @Route(path = "/market/SearchResultActivity")
-public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> {
-
-    private List mSearchResultDataList;
+public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements SearchResultContract.SearchResultView {
 
     private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
+    private SearchResultContract.SearchResultPresenter mSearchResultPresenter;
 
 
     private int mModuleFlag = 0;
@@ -59,8 +64,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     protected void initialize(Bundle bundle) {
 
         mSearchResultRecyclerAdapter = new SearchResultRecyclerAdapter(this);
+        mSearchResultPresenter = new SearchResultPresenterImpl(this, this);
+        binding.searchResultRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.searchResultRecycler.setAdapter(mSearchResultRecyclerAdapter);
-        mSearchResultRecyclerAdapter.notifyDataSetChanged();
+        mSearchResultPresenter.getSearchResult(false, 1);
     }
 
     @Override
@@ -72,5 +79,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+    }
+
+    @Override
+    public void getSearchResult(ArrayList<SearchResultBean> searchResultBeans, boolean hasMore, boolean isClear) {
+        mSearchResultRecyclerAdapter.update(searchResultBeans, isClear);
     }
 }
