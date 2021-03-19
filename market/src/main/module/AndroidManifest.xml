@@ -18,6 +18,10 @@
             android:name="com.rails.purchaseplatform.market.ui.activity.SearchResultActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.activity.ItemDetailsActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
