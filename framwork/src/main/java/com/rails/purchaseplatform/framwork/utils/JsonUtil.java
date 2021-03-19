@@ -43,18 +43,34 @@ public class JsonUtil {
 
 
     /**
-     * 解析json
+     * 解析jsonArray
      *
      * @param <T>
      * @param context
      * @param fileName
      * @return
      */
-    public static <T> T parseJson(Context context, String fileName,Type type) {
+    public static <T> T parseJson(Context context, String fileName, Type type) {
         String json = getJson(context, fileName);
         Gson gson = new GsonBuilder().create();
         return gson.fromJson(json, type);
 
+    }
+
+
+    /**
+     * 解析jsonObject
+     *
+     * @param context
+     * @param fileName
+     * @param cls
+     * @param <T>
+     * @return
+     */
+    public static <T> T parseJson(Context context, String fileName, Class<T> cls) {
+        String json = getJson(context, fileName);
+        Gson gson = new GsonBuilder().create();
+        return gson.fromJson(json, cls);
     }
 
 

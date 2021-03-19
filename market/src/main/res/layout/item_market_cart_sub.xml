@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="product"
-            type="com.rails.lib_data.bean.ProductBean" />
+            type="com.rails.lib_data.bean.CartShopProductBean" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/img_left"
@@ -19,19 +21,17 @@
             android:layout_alignTop="@+id/img_product"
             android:layout_alignBottom="@+id/img_product"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_5"
             android:padding="@dimen/dp_5"
             android:src="@drawable/selector_circle" />
 
 
         <com.rails.purchaseplatform.common.widget.RatioImage
             android:id="@+id/img_product"
-            android:layout_width="@dimen/dp_100"
+            android:layout_width="@dimen/dp_95"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_toRightOf="@+id/img_left"
-            android:background="@drawable/bg_corner_blue_5" />
+            app:imgUrl="@{product.pictureUrl}" />
 
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_toRightOf="@+id/img_product"
             android:lineSpacingMultiplier="1.1"
             android:lines="2"
-            android:text="济南工务段2021年度特种作业人员培训项目招标公告"
+            android:text="@{product.itemName}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13" />
 
@@ -59,7 +59,7 @@
             android:layout_marginRight="@dimen/dp_15"
             android:background="@color/bg_gray"
             android:padding="@dimen/dp_3"
-            android:text="银灰色 （官方标配）"
+            android:text="@{product.attributesName}"
             android:textSize="@dimen/font_size_12" />
 
 
@@ -71,7 +71,9 @@
             android:layout_alignLeft="@+id/tv_title"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_15"
-            android:text="¥2200.56"
+            android:paddingTop="@dimen/dp_3"
+            android:paddingBottom="@dimen/dp_3"
+            android:text="@{@string/market_cart_pay(product.marketPrice)}"
             android:textColor="@color/font_red"
             android:textSize="@dimen/font_size_14" />
 
@@ -79,37 +81,40 @@
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_30"
+            android:layout_height="@dimen/dp_25"
             android:layout_alignTop="@+id/tv_price"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_15">
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="@drawable/bg_corner_border_gray">
 
             <TextView
                 android:id="@+id/tv_reduce"
-                android:layout_width="@dimen/dp_30"
+                android:layout_width="@dimen/dp_25"
                 android:layout_height="match_parent"
-                android:background="@color/bg_gray"
+                android:background="@color/bg_gray_light"
                 android:gravity="center"
                 android:text="-"
                 android:textColor="@color/selector_black_gray_color"
                 android:textSize="@dimen/font_size_18" />
 
             <EditText
-                android:layout_width="@dimen/dp_45"
+                android:layout_width="@dimen/dp_30"
                 android:layout_height="match_parent"
                 android:background="@null"
+                android:focusableInTouchMode="false"
                 android:gravity="center"
+                android:inputType="none"
                 android:singleLine="true"
-                android:text="100"
+                android:text="@{String.valueOf(product.skuNum)}"
                 android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_16" />
+                android:textSize="@dimen/font_size_12" />
 
 
             <TextView
                 android:id="@+id/tv_add"
-                android:layout_width="@dimen/dp_30"
+                android:layout_width="@dimen/dp_25"
                 android:layout_height="match_parent"
-                android:background="@color/bg_gray"
+                android:background="@color/bg_gray_light"
                 android:enabled="false"
                 android:gravity="center"
                 android:text="+"
@@ -119,7 +124,6 @@
         </LinearLayout>
 
 
-
         <TextView
             android:id="@+id/tv_limit"
             android:layout_width="wrap_content"
@@ -127,12 +131,11 @@
             android:layout_below="@+id/layout"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_20"
             android:text="限购5箱"
             android:textColor="@color/font_red"
             android:textSize="@dimen/font_size_11" />
-
 
 
     </RelativeLayout>

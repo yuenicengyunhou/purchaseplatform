@@ -10,6 +10,7 @@ import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.market.R;
@@ -59,13 +60,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         cartAdapter = new CartAdapter(getActivity());
         binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.cartRecycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.line_gray));
         binding.cartRecycler.setAdapter(cartAdapter);
-        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(60);
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.cartRecycler.setEmptyView(binding.empty);
 
         recAdapter = new ProductHotAdapter(getActivity());
         binding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
-//        binding.recRecycler.addItemDecoration(new SpaceGirdWeightDecoration(getActivity(), 0, 12, 0, 12, R.color.white));
         binding.recRecycler.setLoadMoreListener(this);
         binding.recRecycler.setAdapter(recAdapter);
 
@@ -105,11 +106,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         return false;
     }
 
-    @Override
-    public void getCarts(ArrayList<CartBean> cartBeans) {
-        cartAdapter.update(cartBeans, true);
-    }
-
 
     /**
      * 请求推荐商品列表
@@ -131,5 +127,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
         recAdapter.update(productBeans, isClear);
         binding.recRecycler.notifyMoreFinish(hasMore);
+    }
+
+    @Override
+    public void getCartInfo(CartBean cartBean) {
+        cartAdapter.update((ArrayList) cartBean.getShopList(), true);
     }
 }
