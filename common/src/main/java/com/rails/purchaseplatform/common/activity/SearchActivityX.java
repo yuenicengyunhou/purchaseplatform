@@ -1,20 +1,13 @@
 package com.rails.purchaseplatform.common.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.R;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
-import com.rails.purchaseplatform.common.multiplecolumnslist.HotSearchGridViewAdapter;
-import com.rails.purchaseplatform.common.multiplecolumnslist.MultipleColumnsListAdapter;
 import com.rails.purchaseplatform.common.widget.LineBreakLayout;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 
@@ -37,7 +30,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
     private List<String> mSelectedLabel;
 
     private LineBreakLayout mLineBreakLayout;
-    private ListView mHotSearchListView;
     private BaseAdapter mHotSearchAdapter;
 
     private GridView mHotSearchGridView;
@@ -75,7 +67,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
     @Override
     protected void initialize(Bundle bundle) {
         // 左上角的返回按钮
-        binding.flBack.setOnClickListener(v -> SearchActivityX.this.finish());
+        binding.ibBack.setOnClickListener(v -> SearchActivityX.this.finish());
     }
 
     /**
@@ -104,11 +96,8 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
 
     private void initView() {
         mLineBreakLayout = findViewById(R.id.lbl_search_history);
-        mHotSearchListView = findViewById(R.id.lv_hot_search);
-        mHotSearchAdapter = new MultipleColumnsListAdapter(this, mHistorySearchList, R.layout.item_hot_search, 2);
 
         mHotSearchGridView = findViewById(R.id.gv_hot_search);
-        mHotSearchAdapter = new HotSearchGridViewAdapter<>(this, mHotSearchList);
     }
 
     private void doTask() {

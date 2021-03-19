@@ -24,14 +24,6 @@ public interface CartContract {
         void getCarts(ArrayList<CartBean> cartBeans);
 
 
-        /**
-         * 获取推荐商品列表
-         *
-         * @param productBeans
-         * @param hasMore      是否有更多
-         * @param isClear      是否清除
-         */
-        void getRecProjects(ArrayList<ProductRecBean> productBeans, boolean hasMore, boolean isClear);
     }
 
 
@@ -43,14 +35,5 @@ public interface CartContract {
          */
         void getCarts(boolean isDialog);
 
-
-        /**
-         * 获取推荐商品列表
-         */
-        /**
-         * @param isDialog 是否显示loading窗口
-         * @param page
-         */
-        void getRecProducts(boolean isDialog, int page);
     }
 }

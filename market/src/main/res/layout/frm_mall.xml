@@ -7,222 +7,203 @@
     <com.rails.purchaseplatform.common.widget.BaseSwipeLayout
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
 
-        <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
-            android:id="@+id/coordinator"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg"
+            android:overScrollMode="never"
             android:orientation="vertical">
 
-            <com.rails.purchaseplatform.common.widget.BaseBarLayout
-                android:id="@+id/bar"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                android:orientation="vertical">
 
-                <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsing"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:contentScrim="?attr/colorPrimary"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                    android:background="@color/bg_blue"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/dp_35">
 
 
-                    <LinearLayout
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_logo"
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/common_border"
+                            android:src="@drawable/ic_market_logo" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_toRightOf="@+id/img_logo"
+                            android:text="@string/market_index_tip"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_size_12" />
+
+
+                        <ImageView
+                            android:id="@+id/img_scan"
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/img_msg"
+                            android:padding="@dimen/dp_8"
+                            android:src="@drawable/ic_market_scan" />
+
+
+                        <ImageView
+                            android:id="@+id/img_msg"
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginRight="@dimen/common_border"
+                            android:padding="@dimen/dp_8"
+                            android:src="@drawable/ic_market_msg" />
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/et_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/common_border"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/common_border"
+                        android:background="@drawable/bg_corner_border_gray_20"
+                        android:drawableLeft="@drawable/svg_search_blue"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:hint="@string/market_index_search"
+                        android:lines="1"
+                        android:paddingLeft="@dimen/dp_15"
+                        android:paddingTop="@dimen/dp_8"
+                        android:paddingRight="@dimen/dp_15"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:singleLine="true"
+                        android:textColor="@color/font_black"
+                        android:textColorHint="@color/font_hint"
+                        android:textSize="@dimen/font_size_13" />
 
 
-                        <LinearLayout
+                    <com.rails.purchaseplatform.common.widget.RatioCard
+                        android:id="@+id/card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_border"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/common_border"
+                        app:cardCornerRadius="@dimen/dp_5"
+                        app:cardElevation="@dimen/dp_1"
+                        app:h="13"
+                        app:w="35">
+
+                        <com.youth.banner.Banner
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </com.rails.purchaseplatform.common.widget.RatioCard>
+
+
+                    <FrameLayout
+                        android:id="@+id/ll_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_50"
+                            android:layout_gravity="bottom"
+                            android:background="@drawable/ic_market_rect" />
+
+                        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                            android:id="@+id/categoryRecycler"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/bg_blue"
-                            android:orientation="vertical"
-                            android:paddingTop="@dimen/dp_35">
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginRight="@dimen/dp_20"
+                            android:overScrollMode="never"
+                            app:canH="false"
+                            app:canV="false" />
 
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                    </FrameLayout>
 
-                                <ImageView
-                                    android:id="@+id/img_logo"
-                                    android:layout_width="@dimen/dp_35"
-                                    android:layout_height="@dimen/dp_35"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/common_border"
-                                    android:src="@drawable/ic_market_logo" />
+                </LinearLayout>
 
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/dp_8"
-                                    android:layout_toRightOf="@+id/img_logo"
-                                    android:text="@string/market_index_tip"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/font_size_12" />
-
-
-                                <ImageView
-                                    android:id="@+id/img_scan"
-                                    android:layout_width="@dimen/dp_35"
-                                    android:layout_height="@dimen/dp_35"
-                                    android:layout_centerVertical="true"
-                                    android:layout_toLeftOf="@+id/img_msg"
-                                    android:padding="@dimen/dp_8"
-                                    android:src="@drawable/ic_market_scan" />
-
-
-                                <ImageView
-                                    android:id="@+id/img_msg"
-                                    android:layout_width="@dimen/dp_35"
-                                    android:layout_height="@dimen/dp_35"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/dp_10"
-                                    android:layout_marginRight="@dimen/common_border"
-                                    android:padding="@dimen/dp_8"
-                                    android:src="@drawable/ic_market_msg" />
-
-                            </RelativeLayout>
-
-
-                            <TextView
-                                android:id="@+id/et_search"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="@dimen/common_border"
-                                android:layout_marginTop="@dimen/dp_10"
-                                android:layout_marginRight="@dimen/common_border"
-                                android:background="@drawable/bg_corner_border_gray_20"
-                                android:drawableLeft="@drawable/svg_search_blue"
-                                android:drawablePadding="@dimen/dp_5"
-                                android:hint="@string/market_index_search"
-                                android:lines="1"
-                                android:paddingLeft="@dimen/dp_15"
-                                android:paddingTop="@dimen/dp_8"
-                                android:paddingRight="@dimen/dp_15"
-                                android:paddingBottom="@dimen/dp_8"
-                                android:singleLine="true"
-                                android:textColor="@color/font_black"
-                                android:textColorHint="@color/font_hint"
-                                android:textSize="@dimen/font_size_13" />
-
-
-                            <com.rails.purchaseplatform.common.widget.RatioCard
-                                android:id="@+id/card"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/common_border"
-                                android:layout_marginTop="@dimen/dp_15"
-                                android:layout_marginRight="@dimen/common_border"
-                                app:cardCornerRadius="@dimen/dp_5"
-                                app:cardElevation="@dimen/dp_1"
-                                app:h="13"
-                                app:w="35">
-
-                                <com.youth.banner.Banner
-                                    android:id="@+id/banner"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
-
-                            </com.rails.purchaseplatform.common.widget.RatioCard>
-
-
-                            <FrameLayout
-                                android:id="@+id/ll_category"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dp_50"
-                                    android:layout_gravity="bottom"
-                                    android:background="@drawable/ic_market_rect" />
-
-                                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                                    android:id="@+id/categoryRecycler"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_10"
-                                    android:layout_marginTop="@dimen/dp_10"
-                                    android:layout_marginRight="@dimen/dp_20"
-                                    android:overScrollMode="never"
-                                    app:canH="false"
-                                    app:canV="false" />
-
-
-                            </FrameLayout>
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/common_border"
-                            android:layout_marginTop="@dimen/dp_25"
-                            android:background="@color/bg"
-                            android:layout_marginRight="@dimen/common_border"
-                            android:orientation="vertical">
-
-                            <com.rails.purchaseplatform.common.widget.RatioImage
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_market_brand"
-                                app:h="103"
-                                app:w="701" />
-
-                            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                                android:id="@+id/brandRecycler"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="-1dp"
-                                android:background="@drawable/bg_corner_red_5"
-                                android:overScrollMode="never"
-                                android:paddingLeft="@dimen/dp_3"
-                                android:paddingRight="@dimen/dp_3"
-                                app:canH="true"
-                                app:canV="false" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-            </com.rails.purchaseplatform.common.widget.BaseBarLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_height="wrap_content">
-
-                <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
-                    android:id="@+id/recycler"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_border"
-                    android:overScrollMode="never"
-                    android:paddingTop="@dimen/dp_20"
-                    android:paddingRight="@dimen/common_border"
-                    app:canH="false"
-                    app:canV = "true"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-            </FrameLayout>
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:layout_marginRight="@dimen/common_border"
+                    android:background="@color/bg"
+                    android:orientation="vertical">
+
+                    <com.rails.purchaseplatform.common.widget.RatioImage
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_market_brand"
+                        app:h="103"
+                        app:w="701" />
+
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                        android:id="@+id/brandRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp"
+                        android:background="@drawable/bg_corner_red_5"
+                        android:overScrollMode="never"
+                        android:paddingLeft="@dimen/dp_3"
+                        android:paddingRight="@dimen/dp_3"
+                        app:canH="true"
+                        app:canV="false" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/common_border"
+                        android:overScrollMode="never"
+                        android:paddingTop="@dimen/dp_20"
+                        android:paddingRight="@dimen/common_border"
+                        app:canH="false"
+                        app:canV="true" />
+                </FrameLayout>
+
+            </LinearLayout>
 
 
 
-        </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
     </com.rails.purchaseplatform.common.widget.BaseSwipeLayout>
