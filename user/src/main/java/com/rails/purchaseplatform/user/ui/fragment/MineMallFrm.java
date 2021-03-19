@@ -19,8 +19,8 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     protected void loadData() {
         onClick();
 
-        binding.tab.setNumber(3);
-        binding.tab2.setNumber(20);
+        binding.tabOrder.setNumber(3);
+        binding.tabReceive.setNumber(20);
     }
 
     @Override
