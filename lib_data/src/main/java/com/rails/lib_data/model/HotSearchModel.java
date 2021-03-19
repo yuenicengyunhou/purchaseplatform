@@ -11,11 +11,10 @@ public class HotSearchModel {
 
     public void getRecHotSearch(HttpRxObserver httpRxObserver) {
 
-
         HashMap<String, String> params = new HashMap<>();
         params.put("platformId", "20");
-//        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-//                .create(HotSearchService.class, 1).getHotSearch(params))
-//                .subscribe(httpRxObserver);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(HotSearchService.class, 1).getHotSearch(params))
+                .subscribe(httpRxObserver);
     }
 }
