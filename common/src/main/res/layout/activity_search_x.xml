@@ -91,7 +91,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_text"
+            android:id="@+id/tv_searchHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -101,16 +101,13 @@
             android:textColor="#FF000000"
             android:textSize="16sp" />
 
-        <com.rails.purchaseplatform.common.widget.LineBreakLayout
-            android:id="@+id/lbl_search_history"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerSearchHistory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:leftAndRightSpace="20dp"
-            app:rowSpace="10dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_text2"
+            android:id="@+id/tv_hotSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
@@ -119,12 +116,10 @@
             android:textColor="#FF000000"
             android:textSize="16sp" />
 
-        <GridView
-            android:id="@+id/gv_hot_search"
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/recyclerHotSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:numColumns="2" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

@@ -4,13 +4,21 @@ import android.os.Bundle;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.gson.reflect.TypeToken;
+import com.rails.lib_data.bean.HotSearchBean;
 import com.rails.purchaseplatform.common.R;
+import com.rails.purchaseplatform.common.adapter.HotSearchRecyclerAdapter;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LineBreakLayout;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,26 +35,14 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
     final private String TAG = SearchActivityX.class.getName();
 
     private List<String> mHistorySearchList;
-    private List<String> mSelectedLabel;
 
-    private LineBreakLayout mLineBreakLayout;
-    private BaseAdapter mHotSearchAdapter;
-
-    private GridView mHotSearchGridView;
-    private List<String> mHotSearchList;
+    private List<HotSearchBean> mHotSearchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_x);
         ARouter.getInstance().inject(this);
-
-
-        initData();
-        initView();
-        doTask();
-
-//        binding.
     }
 
     @Override
@@ -66,8 +62,12 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
 
     @Override
     protected void initialize(Bundle bundle) {
+        initData();
         // 左上角的返回按钮
         binding.ibBack.setOnClickListener(v -> SearchActivityX.this.finish());
+
+        binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        binding.recyclerHotSearch.setAdapter(new HotSearchRecyclerAdapter(this));
     }
 
     /**
@@ -89,28 +89,10 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> {
         mHistorySearchList.add("人傻钱多");
         mHistorySearchList.add("旅游爱好者");
 
-        // TODO: 2021/3/11 这里应该发送网络请求以获取热门搜索
-        mHotSearchList = new ArrayList<>();
-        mHotSearchList = mHistorySearchList;
-    }
+        Type type = new TypeToken<ArrayList<HotSearchBean>>() {
+        }.getType();
+        mHotSearchList = JsonUtil.parseJson(this, "hotSearch.json", type);
 
-    private void initView() {
-        mLineBreakLayout = findViewById(R.id.lbl_search_history);
-
-        mHotSearchGridView = findViewById(R.id.gv_hot_search);
-    }
-
-    private void doTask() {
-        //设置标签
-        mLineBreakLayout.setLabels(mHistorySearchList, true);
-        //获取选中的标签
-        mSelectedLabel = mLineBreakLayout.getSelectedLabels();
-
-//        mHotSearchListView.setAdapter(mHotSearchAdapter);
-//        mHotSearchAdapter.notifyDataSetChanged();
-
-        mHotSearchGridView.setAdapter(mHotSearchAdapter);
-        mHotSearchAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -5,11 +5,16 @@ import android.content.Context;
 import com.rails.lib_data.bean.HotSearchBean;
 import com.rails.purchaseplatform.common.R;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
+import com.rails.purchaseplatform.common.databinding.ItemHotSearchBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 
-public class HotSearchRecyclerAdapter extends BaseRecyclerAdapter<HotSearchBean, ActivitySearchXBinding> {
+public class HotSearchRecyclerAdapter extends BaseRecyclerAdapter<HotSearchBean, ItemHotSearchBinding> {
+
+    private Context mContext;
+
     public HotSearchRecyclerAdapter(Context context) {
         super(context);
+        mContext = context;
     }
 
     @Override
@@ -18,7 +23,9 @@ public class HotSearchRecyclerAdapter extends BaseRecyclerAdapter<HotSearchBean,
     }
 
     @Override
-    protected void onBindItem(ActivitySearchXBinding binding, HotSearchBean hotSearchBean, int position) {
-
+    protected void onBindItem(ItemHotSearchBinding binding, HotSearchBean hotSearchBean, int position) {
+        binding.setHotSearch(hotSearchBean);
+        binding.tvSearchItem.setText(hotSearchBean.getSearchItem());
     }
+
 }
