@@ -73,6 +73,7 @@
                     android:layout_toEndOf="@+id/baseline"
                     android:background="@null"
                     android:hint="@string/keys_searching"
+                    android:lines="1"
                     android:textSize="@dimen/font_size_12" />
             </RelativeLayout>
 
@@ -94,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/search_history"
@@ -104,13 +105,20 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSearchHistory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp" />
 
         <TextView
             android:id="@+id/tv_hotSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="12dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/hot_search"
@@ -122,6 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
+            android:layout_marginTop="@dimen/dp_8"
             android:layout_marginEnd="14dp"
             android:nestedScrollingEnabled="false" />
 
