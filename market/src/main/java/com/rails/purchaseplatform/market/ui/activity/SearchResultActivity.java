@@ -1,30 +1,19 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
-import android.widget.GridView;
-import android.widget.ListView;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
-import com.rails.purchaseplatform.common.activity.SearchActivityX;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
-import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.adapter.SearchResultAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 搜索结果页
