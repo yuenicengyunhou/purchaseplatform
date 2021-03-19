@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
@@ -140,7 +139,7 @@
             android:layout_marginTop="-80dp"
             android:background="@android:color/transparent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/dp_80"
+            android:paddingTop="@dimen/dp_60"
             app:fill_color="@color/bg"
             app:start_angle="0"
             app:sweep_angle="180">
@@ -164,7 +163,7 @@
                     app:key="采购单"
                     app:key_color="@color/font_black"
                     app:key_size="@dimen/font_size_15"
-                    app:right_img="@drawable/svg_arrow_white"
+                    app:right_img="@drawable/ic_mine_right"
                     app:value_content="查看全部" />
 
 
@@ -172,7 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/dp_15"
-                    android:paddingTop="@dimen/dp_20"
+                    android:paddingTop="@dimen/dp_2"
                     android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_20">
 
@@ -247,7 +246,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_20">
+                    android:paddingBottom="@dimen/dp_16">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -268,7 +267,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:text="待审核" />
+                            android:text="待审核"
+                            android:textSize="@dimen/font_size_12" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -290,7 +290,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:text="已驳回" />
+                            android:text="已驳回"
+                            android:textSize="@dimen/font_size_12" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -312,7 +313,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:text="已通过" />
+                            android:text="已通过"
+                            android:textSize="@dimen/font_size_12" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -322,7 +324,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_border"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_2"
                 android:layout_marginRight="@dimen/common_border"
                 android:layout_marginBottom="@dimen/dp_50"
                 android:background="@drawable/bg_corner_white_5"
@@ -335,11 +337,12 @@
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_marginRight="@dimen/dp_15"
                     android:background="@drawable/bottom_line_bg"
-                    android:drawableLeft="@drawable/ic_follow_friend"
-                    android:drawableRight="@drawable/ic_right_arrow"
+                    android:drawableLeft="@drawable/ic_mine_address"
+                    android:drawableRight="@drawable/ic_mine_right"
                     android:drawablePadding="@dimen/dp_5"
                     android:gravity="center_vertical"
                     android:text="地址管理"
+                    android:textSize="@dimen/font_size_15"
                     app:layout_constraintTop_toBottomOf="@+id/center_cutView" />
 
 
@@ -350,11 +353,13 @@
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_marginRight="@dimen/dp_15"
                     android:background="@drawable/bottom_line_bg"
-                    android:drawableLeft="@drawable/ic_my_test"
-                    android:drawableRight="@drawable/ic_right_arrow"
+                    android:drawableLeft="@drawable/ic_mine_paw"
+                    android:drawableRight="@drawable/ic_mine_right"
                     android:drawablePadding="@dimen/dp_5"
                     android:gravity="center_vertical"
                     android:text="密码修改"
+                    android:textSize="@dimen/font_size_15"
+
                     app:layout_constraintTop_toBottomOf="@+id/my_invoice_title" />
 
 
