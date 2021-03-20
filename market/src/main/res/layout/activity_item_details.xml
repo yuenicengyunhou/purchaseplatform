@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -358,10 +357,19 @@
                 android:layout_marginEnd="@dimen/dp_16"
                 android:nestedScrollingEnabled="false" />
 
-            <TableLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_details"
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                app:tabGravity="fill"
+                app:tabMode="fixed" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
