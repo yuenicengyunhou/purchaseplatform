@@ -1,6 +1,9 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.recyclerview.widget.RecyclerView;
 

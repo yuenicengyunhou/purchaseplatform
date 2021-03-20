@@ -27,7 +27,7 @@ public class RecommendItemsPresenterImpl extends BasePresenter<RecommendItemsCon
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
-        Type type = new TypeToken<RecommendItemsBean>() {
+        Type type = new TypeToken<ArrayList<RecommendItemsBean>>() {
         }.getType();
 
         ArrayList<RecommendItemsBean> beans = JsonUtil.parseJson(mContext, "recommendThings.json", type);
