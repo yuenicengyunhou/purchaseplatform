@@ -55,10 +55,8 @@ public class OrderActivity extends AppCompatActivity {
     private void initData() {
         Collections.addAll(mTitles,"我的采购单","全部采购单");
         Collections.addAll(mFragment, MyFragment.getInstance(mine), AllFragment.getInstance(all));
-//        fragments = new ArrayList<>();
-//        fragments.add(MyFragment);
-//        fragments.add(AllFragment);
         myFragmentAdapter.notifyDataSetChanged();
+
         slide_layout.notifyDataSetChanged();
 
     }
@@ -68,6 +66,13 @@ public class OrderActivity extends AppCompatActivity {
         right_add = (ImageView) findViewById(R.id.right_add);
         slide_layout =  findViewById(R.id.slide_layout);
         vp = (ViewPager) findViewById(R.id.vp);
+
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
 
 
     }

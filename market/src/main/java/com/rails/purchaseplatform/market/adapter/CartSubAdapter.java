@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.CompoundButton;
 
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
@@ -25,5 +27,17 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     @Override
     protected void onBindItem(ItemMarketCartSubBinding binding, CartShopProductBean productBean, int position) {
         binding.setProduct(productBean);
+
+        binding.imgLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (positionListener != null) {
+                    boolean isChecked = binding.imgLeft.isChecked();
+                    productBean.isSel.set(isChecked);
+                    positionListener.onPosition(productBean, position);
+                }
+
+            }
+        });
     }
 }

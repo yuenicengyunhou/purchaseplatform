@@ -24,15 +24,15 @@
             android:orientation="vertical">
 
 
-            <ImageView
+            <CheckBox
                 android:id="@+id/img_left"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_10"
-                android:padding="@dimen/dp_5"
-                android:src="@drawable/selector_circle" />
+                android:button="@null"
+                android:drawableLeft="@drawable/selector_circle"
+                android:checked="@{cart.isSel}" />
 
             <TextView
                 android:id="@+id/shopName"
@@ -61,9 +61,9 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never"
             android:layout_marginLeft="@dimen/common_border"
             android:layout_marginRight="@dimen/common_border"
+            android:overScrollMode="never"
             app:canH="false"
             app:canV="false" />
 

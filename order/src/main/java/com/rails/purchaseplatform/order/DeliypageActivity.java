@@ -57,6 +57,7 @@ public class DeliypageActivity extends AppCompatActivity {
         flexboxLayoutManager.setAlignItems(AlignItems.STRETCH);
         flexboxLayoutManager.setJustifyContent(JustifyContent.FLEX_START);
         recyclerView4.setLayoutManager(flexboxLayoutManager);
+
         RecyclerViewAdapterFour recyclerViewAdapterFour = new RecyclerViewAdapterFour(this);
 //        ArrayList<String> strings1 = new ArrayList<>();
 //        for (int i = 0; i < 30; i++) {

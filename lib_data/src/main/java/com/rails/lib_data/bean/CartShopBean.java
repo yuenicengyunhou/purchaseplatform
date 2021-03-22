@@ -2,6 +2,8 @@ package com.rails.lib_data.bean;
 
 import java.util.List;
 
+import androidx.databinding.ObservableField;
+
 /**
  * 购物车--商铺信息
  *
@@ -37,6 +39,7 @@ public class CartShopBean {
     private Integer selectedSkuNum;
     private String freightPrice;
     private List<CartShopProductBean> skuList;
+    public final ObservableField<Boolean> isSel = new ObservableField<>();
 
     public Integer getPlatformId() {
         return platformId;

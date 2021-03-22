@@ -2,22 +2,21 @@ package com.rails.purchaseplatform.order.fragment;
 /*
 *采购单列表
  */
+
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.order.R;
-import com.rails.purchaseplatform.order.adapter.MyBuyAdapter;
+import com.rails.purchaseplatform.order.adapter.MayAdapter;
 import com.rails.purchaseplatform.order.bean.OrderBean;
+import com.rails.purchaseplatform.order.bean.PurchaseBean;
 import com.rails.purchaseplatform.order.databinding.FragmentMyBinding;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -32,9 +31,11 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
     private static int whichFragment;
     private RecyclerView rcy;
     private int mFragmentLabel;
-    private MyBuyAdapter mAdapter;
+    private MayAdapter mAdapter;
     private ArrayList<OrderBean> orderBeans;
     private SmartRefreshLayout smart;
+    private ArrayList<PurchaseBean> purchaseBeans;
+    private MayAdapter mayAdapter;
 
 
     public static MyFragment getInstance(int pWhichFragment) {
@@ -70,14 +71,16 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
     }
 
     private void initData() {
-        OrderBean bean = null;
-        ArrayList<OrderBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            bean = new OrderBean("12123021543312", "2021.3.10", "铁路学院", "这是一个啥东西", "256.23", "121", "152/100盒", "100", R.drawable.a);
-            list.add(bean);
+        for (int i = 0 ;i< 3 ;i++){
+            ArrayList<PurchaseBean.Student> students = new ArrayList<>();
+            for (int j= 0; j < 2; j++) {
+                PurchaseBean.Student s = new PurchaseBean.Student("这是一个啥东西", "233.99", "1210118143800008", "152/100盒", "100", R.drawable.a);
+                students.add(s);
+            }
+            purchaseBeans.add(new PurchaseBean("1210121172900001","2021-01-11  17:29:30","中国铁路某某局集团有限公-admin01",students));
         }
-        orderBeans.addAll(list);
-        mAdapter.notifyDataSetChanged();
+        mayAdapter.notifyDataSetChanged();
+
     }
 
     private void initView(View view) {
@@ -88,9 +91,9 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         rcy.setLayoutManager(manager);
 
-        orderBeans = new ArrayList<>();
-        mAdapter = new MyBuyAdapter(orderBeans, getActivity());
-        rcy.setAdapter(mAdapter);
+        purchaseBeans = new ArrayList<>();
+        mayAdapter = new MayAdapter( getActivity(),purchaseBeans);
+        rcy.setAdapter(mayAdapter);
 
         initData();
     }
