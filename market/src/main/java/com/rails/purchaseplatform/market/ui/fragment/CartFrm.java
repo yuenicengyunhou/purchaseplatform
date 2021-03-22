@@ -1,5 +1,7 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import android.view.View;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.ProductBean;
@@ -13,6 +15,7 @@ import com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
@@ -45,11 +48,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     protected void loadData() {
 
-
+        int height = -ScreenSizeUtil.dp2px(getActivity(), 45);
         binding.bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-                if (i > -94) {
+                if (i >= height) {
                     binding.swipe.setEnabled(true);
                 } else {
                     binding.swipe.setEnabled(false);
@@ -131,5 +134,18 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getCartInfo(CartBean cartBean) {
         cartAdapter.update((ArrayList) cartBean.getShopList(), true);
+    }
+
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        binding.imgTotal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isChecked = binding.imgTotal.isChecked();
+                cartAdapter.checkAll(isChecked);
+            }
+        });
     }
 }

@@ -25,4 +25,9 @@
     <string name="time">时间</string>
     <string name="sales">销量</string>
 
+    <string name="tab_text_1">商品信息</string>
+    <string name="tab_text_2">包装清单</string>
+    <string name="tab_text_3">售后服务</string>
+    <string name="tab_text_4">推荐单位</string>
+
 </resources>
