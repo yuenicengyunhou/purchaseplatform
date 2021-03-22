@@ -64,7 +64,7 @@ public class CartShopProductBean {
     private String skuStatus;
     private String unit;
     private Integer skuNum;
-    private String marketPrice;
+    private double marketPrice;
     private String sellPrice;
     private String subtotalPrice;
     private Boolean selected;
@@ -206,11 +206,11 @@ public class CartShopProductBean {
         this.skuNum = skuNum;
     }
 
-    public String getMarketPrice() {
+    public double getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(String marketPrice) {
+    public void setMarketPrice(double marketPrice) {
         this.marketPrice = marketPrice;
     }
 

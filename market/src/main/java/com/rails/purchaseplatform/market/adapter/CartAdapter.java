@@ -12,6 +12,7 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
@@ -27,6 +28,17 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/10
  */
 public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartBinding> {
+
+    //控制全局
+    public static final int CHECK = 0;
+    //产品规格弹窗
+    public static final int PROPERTY = 1;
+    //加减
+    public static final int NUMBER = 2;
+    //编辑
+    public static final int EDIT = 3;
+    //商城首页
+    public static final int SHOP = 4;
 
 
     public CartAdapter(Context context) {
@@ -44,20 +56,43 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
-        adapter.setListener(new PositionListener<CartShopProductBean>() {
+        adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
             @Override
-            public void onPosition(CartShopProductBean bean, int len) {
-                boolean isCheck = isAllChecked(cartShopBean);
-                cartShopBean.isSel.set(isCheck);
-            }
+            public void onPosition(CartShopProductBean bean, int len, int... params) {
+                if (params[0] == CartSubAdapter.CHECK) {
+                    boolean isCheck = isAllChecked(cartShopBean);
+                    cartShopBean.isSel.set(isCheck);
+                    mulPositionListener.onPosition(bean, len, CHECK);
 
+                } else if (params[0] == CartSubAdapter.PROPERTY) {
+                    // TODO: 2021/3/22 产品规格
+                    if (mulPositionListener != null) {
+                        mulPositionListener.onPosition(bean, len, PROPERTY);
+                    }
+                } else if (params[0] == CartSubAdapter.NUMBER) {
+                    // TODO: 2021/3/22 数量加减
+                    mulPositionListener.onPosition(bean, len, NUMBER);
+                }
+
+            }
         });
+
         adapter.update((ArrayList) cartShopBean.getSkuList(), true);
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkShopAll(cartShopBean, binding.imgLeft.isChecked());
+                if (positionListener != null)
+                    positionListener.onPosition(cartShopBean, CHECK);
+            }
+        });
+
+        binding.shopName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (positionListener != null)
+                    positionListener.onPosition(cartShopBean, SHOP);
             }
         });
     }
@@ -82,18 +117,66 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
     /**
      * 购物车是否全选
+     *
      * @param isChecked
      */
-    public void checkAll(boolean isChecked){
-        for (CartShopBean shopBean:mDataSource){
+    public void checkAll(boolean isChecked) {
+        for (CartShopBean shopBean : mDataSource) {
             shopBean.isSel.set(isChecked);
             checkShopAll(shopBean, isChecked);
         }
     }
 
 
+    public boolean isAll() {
+        for (CartShopBean bean : mDataSource) {
+            boolean isCheck = isAllChecked(bean);
+            if (!isCheck)
+                return false;
+        }
+        return true;
+    }
+
+
     /**
+     * 计算总计价格
      *
+     * @return
+     */
+    public double totalPrice() {
+        double total = 0;
+        for (CartShopBean bean : mDataSource) {
+            total += shopPrice(bean);
+        }
+        return total;
+    }
+
+
+    /**
+     * 计算一个店的价格
+     *
+     * @return
+     */
+    private double shopPrice(CartShopBean cartShopBean) {
+        double total = 0;
+        try {
+            ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
+            for (CartShopProductBean bean : beans) {
+                if (bean.isSel == null)
+                    continue;
+                if (bean.isSel.get()) {
+                    total += bean.getSkuNum() * bean.getMarketPrice();
+                }
+            }
+        } catch (Exception e) {
+            return total;
+        }
+        return total;
+    }
+
+
+    /**
+     * 商店商品是否全部被选中
      */
     private boolean isAllChecked(CartShopBean cartShopBean) {
         try {

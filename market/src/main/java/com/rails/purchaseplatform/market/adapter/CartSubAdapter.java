@@ -15,6 +15,17 @@ import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
  * @date: 2021/3/11
  */
 public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, ItemMarketCartSubBinding> {
+
+    //选中
+    public static final int CHECK = 0;
+    //产品规格弹窗
+    public static final int PROPERTY = 1;
+    //加减
+    public static final int NUMBER = 2;
+    //编辑
+    public static final int EDIT = 3;
+
+
     public CartSubAdapter(Context context) {
         super(context);
     }
@@ -31,13 +42,35 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (positionListener != null) {
+                if (mulPositionListener != null) {
                     boolean isChecked = binding.imgLeft.isChecked();
                     productBean.isSel.set(isChecked);
-                    positionListener.onPosition(productBean, position);
+                    mulPositionListener.onPosition(productBean, position, CHECK);
                 }
 
             }
         });
+
+
+        binding.tvProperty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(productBean, position, PROPERTY);
+                }
+            }
+        });
+
+
+        binding.tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(productBean, position, NUMBER);
+                }
+            }
+        });
+
+
     }
 }
