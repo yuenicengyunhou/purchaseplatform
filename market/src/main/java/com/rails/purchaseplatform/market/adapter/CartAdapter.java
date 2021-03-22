@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
@@ -11,6 +12,7 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
 
@@ -45,36 +47,61 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         if (binding.recycler.getAdapter() == null) {
             CartSubAdapter adapter = new CartSubAdapter(mContext);
             binding.recycler.setAdapter(adapter);
+            adapter.setListener(new PositionListener<CartShopProductBean>() {
+                @Override
+                public void onPosition(CartShopProductBean bean, int position) {
+                    boolean isCheck = isAllChecked(cartShopBean);
+                    cartShopBean.isSel.set(isCheck);
+                }
+
+            });
             adapter.update((ArrayList) cartShopBean.getSkuList(), true);
         }
-
-        if (selects.get(position))
-            binding.imgLeft.setSelected(true);
-        else
-            binding.imgLeft.setSelected(false);
-
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selects.get(position)) {
-                    selects.put(position, false);
-                } else
-                    selects.put(position, true);
-                notifyItemChanged(position);
+                checkAll(cartShopBean, binding.imgLeft.isChecked());
             }
         });
+    }
+
+
+    /**
+     * 商铺全选
+     *
+     * @param cartShopBean
+     * @param isChecked
+     */
+    private void checkAll(CartShopBean cartShopBean, boolean isChecked) {
+        try {
+            ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
+            for (CartShopProductBean bean : beans) {
+                bean.isSel.set(isChecked);
+            }
+        } catch (Exception e) {
+        }
 
     }
 
 
-    private void notifySub(RecyclerView view, CartShopBean cartShopBean, boolean isChecked) {
-        CartSubAdapter adapter = (CartSubAdapter) view.getAdapter();
-        ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
-        for (CartShopProductBean bean : beans) {
-
+    /**
+     *
+     */
+    private boolean isAllChecked(CartShopBean cartShopBean) {
+        try {
+            ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
+            for (CartShopProductBean bean : beans) {
+                if (bean.isSel.get()) {
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
         }
-        adapter.update(beans, true);
+
+        return true;
     }
 
 

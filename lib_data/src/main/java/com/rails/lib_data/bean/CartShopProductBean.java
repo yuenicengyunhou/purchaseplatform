@@ -1,5 +1,7 @@
 package com.rails.lib_data.bean;
 
+import androidx.databinding.ObservableField;
+
 /**
  * 购物车--商铺---产品对象
  *
@@ -82,6 +84,7 @@ public class CartShopProductBean {
     private String secondCategoryName;
     private String thirdCategoryId;
     private String thirdCategoryName;
+    public final ObservableField<Boolean> isSel = new ObservableField<>();
 
     public Long getShopId() {
         return shopId;

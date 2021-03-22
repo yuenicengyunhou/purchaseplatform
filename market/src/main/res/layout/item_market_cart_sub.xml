@@ -14,15 +14,18 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <ImageView
+
+        <CheckBox
             android:id="@+id/img_left"
             android:layout_width="@dimen/dp_35"
             android:layout_height="@dimen/dp_35"
             android:layout_alignTop="@+id/img_product"
             android:layout_alignBottom="@+id/img_product"
             android:layout_centerVertical="true"
-            android:padding="@dimen/dp_5"
-            android:src="@drawable/selector_circle" />
+            android:layout_marginLeft="@dimen/dp_15"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_circle"
+            android:checked="@{product.isSel}" />
 
 
         <com.rails.purchaseplatform.common.widget.RatioImage
