@@ -35,10 +35,10 @@ public class May2adapter  extends RecyclerView.Adapter<May2adapter.ViewHolder> {
         holder1.money.setText(student.money);
         holder1.orderShu.setText(student.count);
         holder1.sendGood.setText("已发货");
-        holder1.shuLiang.setText("数量");
-        holder1.timeShu1.setText("时间");
+        holder1.shuLiang.setText("x 10");
+        holder1.timeShu1.setText("2021-01-11 17:29:30");
         holder1.totle.setText(student.count);
-        holder1.type.setText("类型");
+        holder1.type.setText("型号: 100支/盒");
     }
 
     @NonNull
