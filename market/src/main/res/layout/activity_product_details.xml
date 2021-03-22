@@ -364,12 +364,11 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed" />
 
-            <androidx.viewpager2.widget.ViewPager2
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/pager_details"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:orientation="horizontal" />
+                android:layout_height="600dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

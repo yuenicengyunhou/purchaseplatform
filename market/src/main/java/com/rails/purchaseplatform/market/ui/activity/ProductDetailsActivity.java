@@ -3,7 +3,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
@@ -12,19 +12,28 @@ import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
-import com.rails.purchaseplatform.market.databinding.ActivityItemDetailsBinding;
-import com.rails.purchaseplatform.market.ui.fragment.TabFragment;
+import com.rails.purchaseplatform.market.adapter.SectionsPagerAdapter;
+import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDetailsActivity extends BaseErrorActivity<ActivityItemDetailsBinding> implements RecommendItemsContract.RecommendItemsView {
+public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements RecommendItemsContract.RecommendItemsView {
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
-    private String[] tabTitles = {"商品信息", "包装清单", "售后服务", "推荐单位"};
-    private List<TabFragment> tabFragments = new ArrayList<>();
+    final private String BASE_URL = "http://172.28.20.109:3000/";
+    final private String DETAILS = "productInfo";
+    final private String LIST = "packingList";
+    final private String SERVICE = "serviceOrPartner?service=0";
+    final private String RECOMMEND = "serviceOrPartner?service=1";
+    final private String[] TAB_URLS = {
+            BASE_URL + DETAILS,
+            BASE_URL + LIST,
+            BASE_URL + SERVICE,
+            BASE_URL + RECOMMEND
+    };
 
 
     @Override
@@ -36,15 +45,11 @@ public class ItemDetailsActivity extends BaseErrorActivity<ActivityItemDetailsBi
         recommendItemsPresenter.getRecommendItems(false, 1);
 
         TabLayout tabLayout = binding.tabDetails;
-        ViewPager2 viewPager2 = binding.pagerDetails;
-        for (int i = 0; i < tabTitles.length; i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(tabTitles[i]));
-            tabFragments.add(TabFragment.newInstance(tabTitles[i]));
-        }
+        ViewPager viewPager = binding.pagerDetails;
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        viewPager.setAdapter(sectionsPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
-
-//        binding.tabDetails
-//        binding.pagerDetails
     }
 
     @Override
