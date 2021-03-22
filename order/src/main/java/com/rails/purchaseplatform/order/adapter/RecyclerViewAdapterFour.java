@@ -15,7 +15,7 @@ import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
- public class RecyclerViewAdapterFour extends RecyclerView.Adapter<RecyclerViewAdapterFour.ViewHolder> {
+public class RecyclerViewAdapterFour extends RecyclerView.Adapter<RecyclerViewAdapterFour.ViewHolder> {
     Context context;
     StringBuffer stringBuffer = new StringBuffer();
     ArrayList<String> strings = new ArrayList();
