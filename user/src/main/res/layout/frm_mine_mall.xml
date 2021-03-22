@@ -18,7 +18,7 @@
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/dp_240"
                 android:background="@color/bg_blue"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_75"
                 android:src="@color/bg_gray"
                 app:border_color="@color/white"
                 app:border_width="@dimen/dp_2"
@@ -44,7 +44,26 @@
                 android:textColor="@color/white"
                 app:layout_constraintLeft_toRightOf="@id/image"
                 app:layout_constraintTop_toTopOf="@id/image" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/order_meassge"
+                app:layout_constraintBottom_toTopOf="@id/name"
+                app:layout_constraintRight_toRightOf="parent"
+                android:src="@drawable/ic_mine_msg"
+                android:layout_marginRight="@dimen/dp_70"
+                android:layout_marginBottom="@dimen/dp_20"
+                />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/order_meassge"
+                app:layout_constraintLeft_toRightOf="@id/order_meassge"
+                android:src="@drawable/ic_mine_exit"
+                app:layout_constraintBottom_toBottomOf="@id/order_meassge"
+                android:layout_marginLeft="@dimen/dp_20"
+                />
             <TextView
                 android:id="@+id/reilwary_name"
                 android:layout_width="wrap_content"
@@ -55,22 +74,12 @@
                 app:layout_constraintBottom_toBottomOf="@id/image"
                 app:layout_constraintLeft_toRightOf="@id/image" />
 
-            <ImageView
-                android:id="@+id/meassge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dp_20"
-                android:src="@drawable/ic_index"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/image"
-                app:layout_constraintLeft_toRightOf="@id/name"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/image" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image">
 
@@ -163,7 +172,7 @@
                     app:key="采购单"
                     app:key_color="@color/font_black"
                     app:key_size="@dimen/font_size_15"
-                    app:right_img="@drawable/ic_mine_right"
+                    app:right_img="@drawable/ic_mine_you"
                     app:value_content="查看全部" />
 
 

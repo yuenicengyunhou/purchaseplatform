@@ -57,6 +57,7 @@ public class MyBuyAdapter extends RecyclerView.Adapter {
 
     public static
     class ViewHolder extends RecyclerView.ViewHolder {
+
         public View rootView;
         public TextView shu;
         public ImageView img_right;

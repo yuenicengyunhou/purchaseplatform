@@ -59,6 +59,7 @@ public class OrderActivity extends AppCompatActivity {
 //        fragments.add(MyFragment);
 //        fragments.add(AllFragment);
         myFragmentAdapter.notifyDataSetChanged();
+
         slide_layout.notifyDataSetChanged();
 
     }

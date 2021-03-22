@@ -232,10 +232,12 @@
         android:text="订单号:"
         android:textColor="@color/font_color_light"
         android:textSize="@dimen/sp_12"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@id/line2"
         app:layout_constraintTop_toBottomOf="@id/line2" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/orderShu2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -248,6 +250,7 @@
         app:layout_constraintTop_toTopOf="@id/order2" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/sendGood2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -261,6 +264,7 @@
         app:layout_constraintTop_toTopOf="@id/order2" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/time2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -272,6 +276,7 @@
         app:layout_constraintTop_toBottomOf="@id/order2" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/timeShu2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -284,6 +289,7 @@
         app:layout_constraintTop_toTopOf="@id/time2" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/img2"
         android:layout_width="@dimen/dp_80"
         android:layout_height="@dimen/dp_80"
@@ -293,6 +299,7 @@
         app:layout_constraintTop_toBottomOf="@id/time2" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_title2"
         android:layout_width="@dimen/dp_160"
         android:layout_height="wrap_content"
@@ -325,6 +332,7 @@
         app:layout_constraintTop_toBottomOf="@id/money"
         />
     <TextView
+        android:visibility="gone"
         android:id="@+id/type2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

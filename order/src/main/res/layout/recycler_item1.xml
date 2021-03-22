@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_5">
+    <TextView
+        android:id="@+id/danHao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="采购单号:"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="1210121172900001"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toRightOf="@id/danHao"
+        app:layout_constraintTop_toTopOf="@id/danHao" />
+
+    <ImageView
+        android:id="@+id/img_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:src="@drawable/ic_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/danHao" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="生成时间:"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/danHao" />
+
+    <TextView
+        android:id="@+id/timeShu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="2021-01-11    17:29:30"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="@id/shu"
+        app:layout_constraintTop_toTopOf="@id/time" />
+
+    <TextView
+        android:id="@+id/people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="采购人:"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toLeftOf="@id/time"
+        app:layout_constraintTop_toBottomOf="@id/time" />
+
+    <TextView
+        android:id="@+id/peopleRen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:text="中国铁路某某局集团有限公司—admin01"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintLeft_toRightOf="@id/people"
+        app:layout_constraintTop_toTopOf="@id/people" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerViewchid"
+        app:layout_constraintTop_toBottomOf="@id/peopleRen"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/dp_10"
+        />
+
+    <TextView
+        android:id="@+id/countcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewchid"
+        android:text="总计： 12345"
+        android:textSize="@dimen/sp_25"
+        android:layout_marginTop="@dimen/dp_15"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@color/bg_red"
+        />
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_height="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="@id/countcode"
+            android:background="@color/bg_gray"
+            app:layout_constraintLeft_toLeftOf="parent"
+/>
+
+/></androidx.constraintlayout.widget.ConstraintLayout>

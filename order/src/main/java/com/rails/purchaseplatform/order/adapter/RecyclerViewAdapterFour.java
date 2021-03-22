@@ -75,7 +75,7 @@ import java.util.HashSet;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_five = itemView.findViewById(R.id.tv_five);
+            tv_five = itemView.findViewById(R.id.danHao);
             imageViewSeven = itemView.findViewById(R.id.imageViewSeven);
         }
     }
