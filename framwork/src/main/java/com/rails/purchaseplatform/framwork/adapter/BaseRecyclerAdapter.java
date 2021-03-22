@@ -41,7 +41,8 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
     protected abstract void onBindItem(E binding, T t, int position);
 
 
-    protected void onBindView(E binding){}
+    protected void onBindView(E binding) {
+    }
 
 
     @NonNull
