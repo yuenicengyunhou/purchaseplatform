@@ -1,7 +1,12 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -14,11 +19,15 @@ import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.SectionsPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
+import com.rails.purchaseplatform.market.ui.fragment.PlaceholderFragment;
+import com.rails.purchaseplatform.market.web.PackageListPage4Js;
+import com.rails.purchaseplatform.market.web.ProductInfoPage4Js;
+import com.rails.purchaseplatform.market.web.RecommendPage4Js;
+import com.rails.purchaseplatform.market.web.ServicePage4Js;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements RecommendItemsContract.RecommendItemsView {
+public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements RecommendItemsContract.RecommendItemsView, NestedScrollView.OnScrollChangeListener {
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
@@ -36,6 +45,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     };
 
 
+    @SuppressLint("JavascriptInterface")
     @Override
     protected void initialize(Bundle bundle) {
         recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
@@ -50,6 +60,33 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         viewPager.setAdapter(sectionsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+
+        WebView[] WEB_VIEWS = {
+                binding.webProductInfo,
+                binding.webPackageList,
+                binding.webService,
+                binding.webRecommend
+        };
+
+        Object[] OBJECTS = {
+                new ProductInfoPage4Js(this),
+                new PackageListPage4Js(this),
+                new ServicePage4Js(this),
+                new RecommendPage4Js(this)
+        };
+
+        String[] FLAGS = {
+                "PRODUCT_INFO",
+                "PACKAGE_LIST",
+                "SERVICE",
+                "RECOMMEND"
+        };
+
+        for (int i = 0; i < WEB_VIEWS.length; i++) {
+            setWeb(WEB_VIEWS[i]);
+            WEB_VIEWS[i].loadUrl(TAB_URLS[i]);
+            WEB_VIEWS[i].addJavascriptInterface(OBJECTS[i], FLAGS[i]);
+        }
     }
 
     @Override
@@ -76,5 +113,27 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void getRecommendItems(ArrayList<RecommendItemsBean> recommendItemsBeans, boolean hasMore, boolean isClear) {
         recommendItemsRecyclerAdapter.update(recommendItemsBeans, false);
+    }
+
+    @Override
+    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        Log.d("HELLO = scrollX", String.valueOf(scrollX));
+        Log.d("HELLO = scrollY", String.valueOf(scrollY));
+        Log.d("HELLO = oldScrollX", String.valueOf(oldScrollX));
+        Log.d("HELLO = oldScrollY", String.valueOf(oldScrollY));
+    }
+
+    private void setWeb(WebView view) {
+        WebSettings webSettings = view.getSettings();
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//设置js可以直接打开窗口，如window.open()，默认为false
+        webSettings.setJavaScriptEnabled(true);//是否允许JavaScript脚本运行，默认为false。设置true时，会提醒可能造成XSS漏洞
+        webSettings.setSupportZoom(true);//是否可以缩放，默认true
+        webSettings.setBuiltInZoomControls(true);//是否显示缩放按钮，默认false
+        webSettings.setUseWideViewPort(true);//设置此属性，可任意比例缩放。大视图模式
+        webSettings.setLoadWithOverviewMode(true);//和setUseWideViewPort(true)一起解决网页自适应问题
+        webSettings.setAppCacheEnabled(true);//是否使用缓存
+        webSettings.setDomStorageEnabled(true);//开启本地DOM存储
+        webSettings.setLoadsImagesAutomatically(true); // 加载图片
+        webSettings.setMediaPlaybackRequiresUserGesture(false);//播放音频，多媒体需要用户手动？设置为false为可自动播放
     }
 }
