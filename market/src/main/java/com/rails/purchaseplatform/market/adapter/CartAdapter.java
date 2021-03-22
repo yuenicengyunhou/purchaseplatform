@@ -58,20 +58,20 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         binding.recycler.setAdapter(adapter);
         adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
             @Override
-            public void onPosition(CartShopProductBean bean, int position, int... params) {
+            public void onPosition(CartShopProductBean bean, int len, int... params) {
                 if (params[0] == CartSubAdapter.CHECK) {
                     boolean isCheck = isAllChecked(cartShopBean);
                     cartShopBean.isSel.set(isCheck);
-                    mulPositionListener.onPosition(bean,position,CHECK);
+                    mulPositionListener.onPosition(bean, len, CHECK);
 
                 } else if (params[0] == CartSubAdapter.PROPERTY) {
                     // TODO: 2021/3/22 产品规格
-                    if (mulPositionListener != null){
-                        mulPositionListener.onPosition(bean,position,PROPERTY);
+                    if (mulPositionListener != null) {
+                        mulPositionListener.onPosition(bean, len, PROPERTY);
                     }
                 } else if (params[0] == CartSubAdapter.NUMBER) {
                     // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean,position,NUMBER);
+                    mulPositionListener.onPosition(bean, len, NUMBER);
                 }
 
             }
@@ -83,6 +83,16 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             @Override
             public void onClick(View v) {
                 checkShopAll(cartShopBean, binding.imgLeft.isChecked());
+                if (positionListener != null)
+                    positionListener.onPosition(cartShopBean, CHECK);
+            }
+        });
+
+        binding.shopName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (positionListener != null)
+                    positionListener.onPosition(cartShopBean, SHOP);
             }
         });
     }
@@ -118,8 +128,55 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     }
 
 
+    public boolean isAll() {
+        for (CartShopBean bean : mDataSource) {
+            boolean isCheck = isAllChecked(bean);
+            if (!isCheck)
+                return false;
+        }
+        return true;
+    }
+
+
     /**
+     * 计算总计价格
      *
+     * @return
+     */
+    public double totalPrice() {
+        double total = 0;
+        for (CartShopBean bean : mDataSource) {
+            total += shopPrice(bean);
+        }
+        return total;
+    }
+
+
+    /**
+     * 计算一个店的价格
+     *
+     * @return
+     */
+    private double shopPrice(CartShopBean cartShopBean) {
+        double total = 0;
+        try {
+            ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
+            for (CartShopProductBean bean : beans) {
+                if (bean.isSel == null)
+                    continue;
+                if (bean.isSel.get()) {
+                    total += bean.getSkuNum() * bean.getMarketPrice();
+                }
+            }
+        } catch (Exception e) {
+            return total;
+        }
+        return total;
+    }
+
+
+    /**
+     * 商店商品是否全部被选中
      */
     private boolean isAllChecked(CartShopBean cartShopBean) {
         try {
