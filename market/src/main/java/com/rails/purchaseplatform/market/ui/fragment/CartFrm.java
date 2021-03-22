@@ -1,5 +1,7 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import android.view.View;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.ProductBean;
@@ -132,5 +134,18 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getCartInfo(CartBean cartBean) {
         cartAdapter.update((ArrayList) cartBean.getShopList(), true);
+    }
+
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        binding.imgTotal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isChecked = binding.imgTotal.isChecked();
+                cartAdapter.checkAll(isChecked);
+            }
+        });
     }
 }

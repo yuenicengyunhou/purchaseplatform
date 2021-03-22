@@ -12,6 +12,7 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
@@ -27,6 +28,17 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/10
  */
 public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartBinding> {
+
+    //控制全局
+    public static final int CHECK = 0;
+    //产品规格弹窗
+    public static final int PROPERTY = 1;
+    //加减
+    public static final int NUMBER = 2;
+    //编辑
+    public static final int EDIT = 3;
+    //商城首页
+    public static final int SHOP = 4;
 
 
     public CartAdapter(Context context) {
@@ -44,14 +56,27 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
-        adapter.setListener(new PositionListener<CartShopProductBean>() {
+        adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
             @Override
-            public void onPosition(CartShopProductBean bean, int len) {
-                boolean isCheck = isAllChecked(cartShopBean);
-                cartShopBean.isSel.set(isCheck);
-            }
+            public void onPosition(CartShopProductBean bean, int position, int... params) {
+                if (params[0] == CartSubAdapter.CHECK) {
+                    boolean isCheck = isAllChecked(cartShopBean);
+                    cartShopBean.isSel.set(isCheck);
+                    mulPositionListener.onPosition(bean,position,CHECK);
 
+                } else if (params[0] == CartSubAdapter.PROPERTY) {
+                    // TODO: 2021/3/22 产品规格
+                    if (mulPositionListener != null){
+                        mulPositionListener.onPosition(bean,position,PROPERTY);
+                    }
+                } else if (params[0] == CartSubAdapter.NUMBER) {
+                    // TODO: 2021/3/22 数量加减
+                    mulPositionListener.onPosition(bean,position,NUMBER);
+                }
+
+            }
         });
+
         adapter.update((ArrayList) cartShopBean.getSkuList(), true);
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
@@ -82,10 +107,11 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
     /**
      * 购物车是否全选
+     *
      * @param isChecked
      */
-    public void checkAll(boolean isChecked){
-        for (CartShopBean shopBean:mDataSource){
+    public void checkAll(boolean isChecked) {
+        for (CartShopBean shopBean : mDataSource) {
             shopBean.isSel.set(isChecked);
             checkShopAll(shopBean, isChecked);
         }
