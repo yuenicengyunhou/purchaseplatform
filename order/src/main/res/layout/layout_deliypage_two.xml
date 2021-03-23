@@ -11,7 +11,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/a"/>
+        app:srcCompat="@drawable/ic_order_a"/>
 
     <TextView
         android:id="@+id/tv_texts"
