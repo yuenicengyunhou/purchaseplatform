@@ -172,8 +172,15 @@
                     app:key="采购单"
                     app:key_color="@color/font_black"
                     app:key_size="@dimen/font_size_15"
-                    app:right_img="@drawable/ic_mine_you"
-                    app:value_content="查看全部" />
+                    app:value_content="查看全部"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/dp_5"
+                    android:layout_height="9dp"
+                    android:src="@drawable/ic_mine_right"
+                    />
+
+
 
 
                 <LinearLayout
