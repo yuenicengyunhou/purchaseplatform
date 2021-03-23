@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
+import com.rails.lib_data.bean.CartShopBean;
+import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -29,6 +31,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             baseView.showResDialog(R.string.loading);
 
         CartBean cartBean = JsonUtil.parseJson(mContext, "cart.json", CartBean.class);
+        for (CartShopBean shopBean : cartBean.getShopList()) {
+            for (CartShopProductBean productBean : shopBean.getSkuList()) {
+                productBean.num.set(productBean.getSkuNum());
+            }
+        }
 
         if (isCallBack()) {
             baseView.dismissDialog();
@@ -36,6 +43,27 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         }
 
 
+    }
+
+    @Override
+    public void addProduct(int num) {
+//        baseView.showResDialog(R.string.loading);
+        num++;
+        baseView.getProjectNumber(num);
+
+    }
+
+    @Override
+    public void reduceProduct(int num) {
+//        baseView.showResDialog(R.string.loading);
+        num--;
+        baseView.getProjectNumber(num);
+    }
+
+    @Override
+    public void editProduct(int num) {
+//        baseView.showResDialog(R.string.loading);
+        baseView.getProjectNumber(num);
     }
 
 }

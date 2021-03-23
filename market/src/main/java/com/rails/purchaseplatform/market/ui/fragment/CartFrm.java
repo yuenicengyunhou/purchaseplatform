@@ -53,6 +53,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     ProductContract.ProductPresenter productPresenter;
 
 
+    private CartShopProductBean lastBean;
+
+
     @Override
     protected void loadData() {
 
@@ -146,6 +149,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         cartAdapter.update((ArrayList) cartBean.getShopList(), true);
     }
 
+    @Override
+    public void getProjectNumber(int num) {
+        if (lastBean != null){
+            lastBean.num.set(num);
+            userTotal(lastBean);
+        }
+    }
+
 
     @Override
     protected void onClick() {
@@ -163,10 +174,17 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void onPosition(CartShopProductBean bean, int position, int... params) {
         // TODO: 2021/3/22 商品的点击
+        lastBean = bean;
         int type = params[0];
         if (type == CartAdapter.CHECK) {
             // TODO: 2021/3/22 更改选中按钮，计算总价
             setTotal();
+        } else if (type == CartAdapter.ADD) {
+            presenter.addProduct(bean.num.get());
+        } else if (type == CartAdapter.REDUCE) {
+            presenter.reduceProduct(bean.num.get());
+        } else if (type == CartAdapter.EDIT) {
+            // TODO: 2021/3/23 显示编辑窗口 ，更改产品数量
         }
     }
 
@@ -176,7 +194,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (type == CartAdapter.SHOP) {
             //跳转商铺页面
             Bundle bundle = new Bundle();
-            bundle.putString("url", "https://crmall.rails.cn/purchase-android-web/home");
+            bundle.putString("url", "https://crmall.rails.cn/purchase-android-web/browsingHistory");
             startIntent(WebActivity.class, bundle);
         } else {
             // TODO: 2021/3/22 更改选中按钮，计算总价
@@ -191,5 +209,21 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private void setTotal() {
         binding.imgTotal.setChecked(cartAdapter.isAll());
         binding.tvTotal.setText(String.valueOf(cartAdapter.totalPrice()));
+    }
+
+
+    /**
+     * 是否要用
+     *
+     * @param bean 商品
+     */
+    private void userTotal(CartShopProductBean bean) {
+        if (bean ==null)
+            return;
+        if (bean.isSel.get() == null)
+            return;
+        if (bean.isSel.get())
+            setTotal();
+
     }
 }

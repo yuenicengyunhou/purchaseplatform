@@ -20,10 +20,12 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     public static final int CHECK = 0;
     //产品规格弹窗
     public static final int PROPERTY = 1;
-    //加减
-    public static final int NUMBER = 2;
+    //增加
+    public static final int ADD = 2;
+    //删除
+    public static final int REDUCE = 3;
     //编辑
-    public static final int EDIT = 3;
+    public static final int EDIT = 4;
 
 
     public CartSubAdapter(Context context) {
@@ -66,7 +68,17 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
             @Override
             public void onClick(View v) {
                 if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, NUMBER);
+                    mulPositionListener.onPosition(productBean, position, ADD);
+                }
+            }
+        });
+
+
+        binding.tvReduce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(productBean, position, REDUCE);
                 }
             }
         });

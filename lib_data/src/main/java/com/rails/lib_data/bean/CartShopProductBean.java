@@ -84,7 +84,9 @@ public class CartShopProductBean {
     private String secondCategoryName;
     private String thirdCategoryId;
     private String thirdCategoryName;
+
     public final ObservableField<Boolean> isSel = new ObservableField<>();
+    public final ObservableField<Integer> num = new ObservableField<>();
 
     public Long getShopId() {
         return shopId;
@@ -203,7 +205,7 @@ public class CartShopProductBean {
     }
 
     public void setSkuNum(Integer skuNum) {
-        this.skuNum = skuNum;
+        num.set(skuNum);
     }
 
     public double getMarketPrice() {

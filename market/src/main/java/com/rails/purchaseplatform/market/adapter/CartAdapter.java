@@ -33,12 +33,14 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     public static final int CHECK = 0;
     //产品规格弹窗
     public static final int PROPERTY = 1;
-    //加减
-    public static final int NUMBER = 2;
+    //增加
+    public static final int ADD = 2;
+    //删除
+    public static final int REDUCE = 3;
     //编辑
-    public static final int EDIT = 3;
+    public static final int EDIT = 4;
     //商城首页
-    public static final int SHOP = 4;
+    public static final int SHOP = 5;
 
 
     public CartAdapter(Context context) {
@@ -69,9 +71,12 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                     if (mulPositionListener != null) {
                         mulPositionListener.onPosition(bean, len, PROPERTY);
                     }
-                } else if (params[0] == CartSubAdapter.NUMBER) {
+                } else if (params[0] == CartSubAdapter.ADD) {
                     // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean, len, NUMBER);
+                    mulPositionListener.onPosition(bean, len, ADD);
+                }else if (params[0] == CartSubAdapter.REDUCE) {
+                    // TODO: 2021/3/22 数量加减
+                    mulPositionListener.onPosition(bean, len, REDUCE);
                 }
 
             }
@@ -165,7 +170,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 if (bean.isSel == null)
                     continue;
                 if (bean.isSel.get()) {
-                    total += bean.getSkuNum() * bean.getMarketPrice();
+                    total += bean.num.get() * bean.getMarketPrice();
                 }
             }
         } catch (Exception e) {
