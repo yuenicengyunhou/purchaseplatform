@@ -43,7 +43,7 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
     @Override
     protected void initialize(Bundle bundle) {
 //        url = "file:///android_asset/index.html";
-//        url="http://172.28.22.92:3000/passwordEdit";
+        url="http://172.28.22.92:3000/purchase-android-web/browsingHistory";
 //        url ="http://172.28.20.109:3000/hotGoods";
 
         initWebView(barBinding.web, this);

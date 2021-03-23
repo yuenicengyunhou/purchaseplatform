@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg"
     android:overScrollMode="never">
 
     <RelativeLayout
@@ -44,26 +45,26 @@
                 android:textColor="@color/white"
                 app:layout_constraintLeft_toRightOf="@id/image"
                 app:layout_constraintTop_toTopOf="@id/image" />
+
             <ImageView
+                android:id="@+id/order_meassge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/order_meassge"
-                app:layout_constraintBottom_toTopOf="@id/name"
-                app:layout_constraintRight_toRightOf="parent"
-                android:src="@drawable/ic_mine_msg"
                 android:layout_marginRight="@dimen/dp_70"
                 android:layout_marginBottom="@dimen/dp_20"
-                />
+                android:src="@drawable/ic_mine_msg"
+                app:layout_constraintBottom_toTopOf="@id/name"
+                app:layout_constraintRight_toRightOf="parent" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/order_meassge"
-                app:layout_constraintLeft_toRightOf="@id/order_meassge"
+                android:layout_marginLeft="@dimen/dp_20"
                 android:src="@drawable/ic_mine_exit"
                 app:layout_constraintBottom_toBottomOf="@id/order_meassge"
-                android:layout_marginLeft="@dimen/dp_20"
-                />
+                app:layout_constraintLeft_toRightOf="@id/order_meassge"
+                app:layout_constraintTop_toTopOf="@id/order_meassge" />
+
             <TextView
                 android:id="@+id/reilwary_name"
                 android:layout_width="wrap_content"
@@ -73,7 +74,6 @@
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/image"
                 app:layout_constraintLeft_toRightOf="@id/image" />
-
 
 
             <LinearLayout
@@ -172,15 +172,10 @@
                     app:key="采购单"
                     app:key_color="@color/font_black"
                     app:key_size="@dimen/font_size_15"
+                    app:value_color="@color/font_gray"
                     app:value_content="查看全部"
-                    />
-                <ImageView
-                    android:layout_width="@dimen/dp_5"
-                    android:layout_height="9dp"
-                    android:src="@drawable/ic_mine_right"
-                    />
-
-
+                    app:value_right_icon="@drawable/ic_mine_right"
+                    app:value_size="@dimen/font_size_12" />
 
 
                 <LinearLayout

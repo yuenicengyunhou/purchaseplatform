@@ -24,8 +24,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_15"
             android:button="@null"
-            android:drawableLeft="@drawable/selector_circle"
-            android:checked="@{product.isSel}" />
+            android:checked="@{product.isSel}"
+            android:drawableLeft="@drawable/selector_circle" />
 
 
         <com.rails.purchaseplatform.common.widget.RatioImage
@@ -108,7 +108,7 @@
                 android:gravity="center"
                 android:inputType="none"
                 android:singleLine="true"
-                android:text="@{String.valueOf(product.skuNum)}"
+                android:text="@{String.valueOf(product.num)}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_12" />
 
@@ -118,7 +118,7 @@
                 android:layout_width="@dimen/dp_25"
                 android:layout_height="match_parent"
                 android:background="@color/bg_gray_light"
-                android:enabled="false"
+                android:enabled="true"
                 android:gravity="center"
                 android:text="+"
                 android:textColor="@color/selector_black_gray_color"

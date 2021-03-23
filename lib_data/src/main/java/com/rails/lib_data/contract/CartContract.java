@@ -24,6 +24,14 @@ public interface CartContract {
         void getCartInfo(CartBean cartBean);
 
 
+        /**
+         * 获取产品当前数量
+         *
+         * @param num
+         */
+        void getProjectNumber(int num);
+
+
     }
 
 
@@ -34,6 +42,29 @@ public interface CartContract {
          *                 获取购物车列表
          */
         void getCarts(boolean isDialog);
+
+
+        /**
+         * 商品添加
+         *
+         * @param num 传递的数量
+         */
+        void addProduct(int num);
+
+
+        /**
+         * 商品减少
+         *
+         * @param num
+         */
+        void reduceProduct(int num);
+
+        /**
+         * 编辑框输入的数量
+         *
+         * @param num
+         */
+        void editProduct(int num);
 
     }
 }
