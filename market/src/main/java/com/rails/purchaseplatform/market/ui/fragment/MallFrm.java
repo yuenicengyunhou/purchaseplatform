@@ -12,6 +12,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
@@ -22,6 +23,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
@@ -31,6 +33,7 @@ import com.rails.purchaseplatform.market.adapter.CategorySub2Adapter;
 import com.rails.purchaseplatform.market.adapter.CategorySubAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
+import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
 
 import java.util.ArrayList;
@@ -46,8 +49,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndexContract.MarketIndexView {
-    final private String TAG = MallFrm.class.getName();
+public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndexContract.MarketIndexView
+        , PositionListener<ProductBean> {
 
 
     private MarketIndexContract.MarketIndexPresenter presenter;
@@ -79,6 +82,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
 
         //推荐商品列表
         recAdapter = new ProductRecAdapter(getActivity());
+        recAdapter.setListener(this);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
         binding.recycler.setAdapter(recAdapter);
@@ -190,9 +194,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         binding.etSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "==============MallFrm.java-SearchActivity.java================");
                 ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
             }
         });
+    }
+
+    @Override
+    public void onPosition(ProductBean bean, int position) {
+        startIntent(ProductDetailsActivity.class);
     }
 }

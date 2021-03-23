@@ -62,7 +62,7 @@
         android:layout_width="@dimen/dp_80"
         android:layout_height="@dimen/dp_80"
         android:padding="@dimen/dp_5"
-        android:src="@drawable/a"
+        android:src="@drawable/ic_order_a"
         app:layout_constraintLeft_toLeftOf="@id/time1"
         app:layout_constraintTop_toBottomOf="@id/time1" />
 

@@ -2,9 +2,11 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding;
@@ -36,6 +38,15 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
         binding.recycler.setAdapter(adapter, ScreenSizeUtil.dp2px(mContext, 42));
         adapter.update(bean.getFloorList(), true);
 
+        adapter.setListener(new PositionListener<ProductBean>() {
+            @Override
+            public void onPosition(ProductBean bean, int position) {
+                if (positionListener != null) {
+                    positionListener.onPosition(bean, position);
+                }
+            }
+
+        });
 
     }
 

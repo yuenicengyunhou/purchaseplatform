@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:overScrollMode="never"
-        tools:context=".DeliypageActivity">
+    tools:context=".DeliypageActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/bg_gray"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/bg_gray">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -21,17 +22,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:src="@drawable/ic_left"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:srcCompat="@drawable/abc_vector_test"/>
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/detail_page"
@@ -44,7 +45,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"/>
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -169,9 +170,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
             android:layout_width="0dp"
-            android:background="@drawable/back_shape"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/back_shape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -260,7 +261,7 @@
                 android:text="发票抬头: 中国铁路某某局集团有限公司"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_information"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_information" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -296,12 +297,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView2"
-                android:overScrollMode="never"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -340,7 +341,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_freight"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_freight" />
 
             <TextView
                 android:id="@+id/tv_payment"
@@ -375,9 +376,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="采购单备注:"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -422,12 +423,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:drawableRight="@android:drawable/ic_media_play"
                 android:gravity="center"
                 android:text="查看"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_prepared" />
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="5dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_mine_right"
+                app:layout_constraintLeft_toRightOf="@id/tv_check"
+                app:layout_constraintTop_toBottomOf="@id/tv_check"
+                app:layout_constraintTop_toTopOf="@id/tv_prepared" />
 
             <TextView
                 android:id="@+id/tv_number"
@@ -477,10 +486,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView3"
-                android:overScrollMode="never"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
