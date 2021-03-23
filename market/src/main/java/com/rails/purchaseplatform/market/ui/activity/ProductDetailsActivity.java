@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,12 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.RatioImage;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.SectionsPagerAdapter;
@@ -130,6 +134,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 Log.d(TAG, "scrollX = " + scrollX + ", scrollY = " + scrollY + ", oldScrollX = " + oldScrollX + ", oldScrollY = " + oldScrollY);
                 binding.tabDetails.selectTab(binding.tabDetails.getTabAt(2));
+                getLocalVisibleRect(ProductDetailsActivity.this, binding.webProductInfo);
             }
         });
     }
@@ -166,6 +171,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         Log.d("HELLO = scrollY", String.valueOf(scrollY));
         Log.d("HELLO = oldScrollX", String.valueOf(oldScrollX));
         Log.d("HELLO = oldScrollY", String.valueOf(oldScrollY));
+
+
     }
 
     private void setWeb(WebView view) {
@@ -181,4 +188,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         webSettings.setLoadsImagesAutomatically(true); // 加载图片
         webSettings.setMediaPlaybackRequiresUserGesture(false);//播放音频，多媒体需要用户手动？设置为false为可自动播放
     }
+
+
+    public void getLocalVisibleRect(Context context, View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        view.setTag(location[1]);//存储y方向的位置
+    }
+
+
 }

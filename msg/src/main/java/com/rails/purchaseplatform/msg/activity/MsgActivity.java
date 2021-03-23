@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.msg;
+package com.rails.purchaseplatform.msg.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -27,7 +28,7 @@ import java.util.HashMap;
  * 消息
  */
 @Route(path = ConRoute.MSG.MSG_MAIN)
-public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> {
+public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> implements JSMsgBack{
 
     private String url;
 
@@ -44,7 +45,7 @@ public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> {
         url = "http://172.28.22.92:3000/purchase-android-web/messageList";
 //        url ="http://172.28.20.109:3000/hotGoods";
 
-        initWebView(binding.web);
+        initWebView(binding.web,this);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> {
      *
      * @param webView
      */
-    private void initWebView(WebView webView) {
+    private void initWebView(WebView webView,JSMsgBack jsMsgBack) {
 
         addHeader(webView, url);
         WebSettings webSettings = webView.getSettings();
@@ -118,7 +119,7 @@ public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> {
                 return true;
             }
         });
-//        webView.addJavascriptInterface(jsCallBack, "app");
+        webView.addJavascriptInterface(jsMsgBack, "app");
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -170,4 +171,15 @@ public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> {
             webView.loadUrl(url, params);
     }
 
+    @JavascriptInterface
+    @Override
+    public void postMessage(String msg) {
+
+    }
+
+    @JavascriptInterface
+    @Override
+    public void onBack() {
+        this.finish();
+    }
 }

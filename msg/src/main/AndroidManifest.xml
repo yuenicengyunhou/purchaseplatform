@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Purchaseplatform">
-        <activity android:name=".MsgActivity">
+        <activity android:name=".activity.MsgActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
