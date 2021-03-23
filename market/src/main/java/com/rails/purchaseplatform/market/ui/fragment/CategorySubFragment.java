@@ -18,6 +18,7 @@ import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentCategorySubBinding;
+import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 import com.rails.purchaseplatform.market.ui.activity.WebActivity;
 import com.rails.purchaseplatform.market.widget.MoreLinearLayout;
 import com.rails.purchaseplatform.market.widget.MoreScrollView;
@@ -181,6 +182,6 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
 
     @Override
     public void onPosition(CategorySubBean bean, int position) {
-        startIntent(WebActivity.class);
+        startIntent(SearchResultActivity.class);
     }
 }
