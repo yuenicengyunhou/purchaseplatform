@@ -36,6 +36,7 @@ import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
+import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
 
 import java.util.ArrayList;
@@ -89,6 +90,12 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         brandAdapter = new BrandAdapter(getActivity());
         binding.brandRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 4);
         binding.brandRecycler.setAdapter(brandAdapter);
+        brandAdapter.setListener(new PositionListener<BrandBean>() {
+            @Override
+            public void onPosition(BrandBean bean, int position) {
+                startIntent(ShopDetailActivity.class);
+            }
+        });
 
 
         //推荐商品列表

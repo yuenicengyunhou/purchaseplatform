@@ -1,5 +1,7 @@
 <resources>
     <string name="market">商城</string>
+    <string name="market_shop">店铺详情</string>
+
 
 
     <!--    商城首页-->

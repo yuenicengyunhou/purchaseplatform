@@ -28,6 +28,7 @@ import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
+import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.activity.WebActivity;
 
 import java.util.ArrayList;
@@ -206,8 +207,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (type == CartAdapter.SHOP) {
             //跳转商铺页面
             Bundle bundle = new Bundle();
-            bundle.putString("url", "https://crmall.rails.cn/purchase-android-web/browsingHistory");
-            startIntent(WebActivity.class, bundle);
+            startIntent(ShopDetailActivity.class, bundle);
+
         } else {
             // TODO: 2021/3/22 更改选中按钮，计算总价
             setTotal();

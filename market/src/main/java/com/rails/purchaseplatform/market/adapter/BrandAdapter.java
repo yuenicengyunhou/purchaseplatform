@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.rails.lib_data.bean.BrandBean;
@@ -28,8 +29,16 @@ public class BrandAdapter extends BaseRecyclerAdapter<BrandBean, ItemMarketBrand
     @Override
     protected void onBindItem(ItemMarketBrandBinding binding, BrandBean brandBean, int position) {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) binding.imgBrand.getLayoutParams();
-        params.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 62))>>2;
+        params.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 62)) >> 2;
         binding.setBrand(brandBean);
+
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (positionListener != null)
+                    positionListener.onPosition(brandBean, position);
+            }
+        });
     }
 
 }
