@@ -1,8 +1,12 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import android.view.View;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.lib_data.contract.CategoryContract;
 import com.rails.lib_data.contract.CategoryPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
@@ -98,7 +102,7 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
     public void onPosition(CategoryRootBean bean, int position) {
         binding.pager.setCurrentItem(position);
         curPosition = position;
-        centerManger.smoothScrollToPosition(binding.recycler,new RecyclerView.State(),position);
+        centerManger.smoothScrollToPosition(binding.recycler, new RecyclerView.State(), position);
     }
 
 
@@ -126,4 +130,22 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
     }
 
 
+    @Override
+    protected void onClick() {
+        super.onClick();
+        binding.etSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
+            }
+        });
+
+
+        binding.imgMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.MSG.MSG_MAIN).navigation();
+            }
+        });
+    }
 }
