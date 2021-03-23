@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">国铁商城</string>
+
+
+
     <string name="search_history">历史搜索</string>
     <string name="hot_search">热门搜索</string>
     <string name="search">搜索</string>

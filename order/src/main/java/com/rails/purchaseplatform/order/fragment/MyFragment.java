@@ -74,7 +74,7 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
         for (int i = 0 ;i< 3 ;i++){
             ArrayList<PurchaseBean.Student> students = new ArrayList<>();
             for (int j= 0; j < 2; j++) {
-                PurchaseBean.Student s = new PurchaseBean.Student("工作使我快乐", "233.99", "1210118143800008", "152/100盒", "100", R.drawable.ic_order_a);
+                PurchaseBean.Student s = new PurchaseBean.Student("工作使我快乐", "233.99", "1210118143800008", "152/100盒", "小计：￥599", R.drawable.ic_order_a);
                 students.add(s);
             }
             purchaseBeans.add(new PurchaseBean("1210121172900001","2021-01-11  17:29:30","中国铁路某某局集团有限公-admin01",students));

@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:src="@drawable/ic_left"
+            android:src="@drawable/ic_order_white"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />
@@ -64,7 +64,7 @@
                 android:layout_marginStart="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/received"
-                app:srcCompat="@android:drawable/ic_dialog_info" />
+                app:srcCompat="@android:drawable/ic_dialog_info"/>
 
             <TextView
                 android:id="@+id/received"

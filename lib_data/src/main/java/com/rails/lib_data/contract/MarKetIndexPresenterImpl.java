@@ -83,7 +83,7 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
         beans.add(new CategorySubBean("办公用品", R.drawable.ic_category_office));
         beans.add(new CategorySubBean("粮油食品", R.drawable.ic_category_food));
         beans.add(new CategorySubBean("通用工具", R.drawable.ic_category_tool));
-        beans.add(new CategorySubBean("全部分类", R.drawable.ic_category_all));
+        beans.add(new CategorySubBean("防疫物资", R.drawable.ic_category_goods));
 
         baseView.getRecCategorys(beans);
     }

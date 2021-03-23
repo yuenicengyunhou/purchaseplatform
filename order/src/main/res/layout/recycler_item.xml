@@ -85,7 +85,7 @@
     <View
         android:id="@+id/line1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
+        android:layout_height="@dimen/dp_2"
         android:layout_marginTop="@dimen/dp_3"
         android:background="@color/line"
         app:layout_constraintLeft_toLeftOf="@id/people"
