@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.util.TypedValue;
+import android.view.View;
 
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
@@ -17,8 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/18
  */
 public class ProductHotAdapter extends BaseRecyclerAdapter<ProductBean, ItemMarketProductHotBinding> {
-    public ProductHotAdapter(Context context) {
+
+    int type;
+
+    public ProductHotAdapter(Context context, int type) {
         super(context);
+        this.type = type;
     }
 
     @Override
@@ -28,11 +34,24 @@ public class ProductHotAdapter extends BaseRecyclerAdapter<ProductBean, ItemMark
 
     @Override
     protected void onBindItem(ItemMarketProductHotBinding binding, ProductBean productBean, int position) {
-//        RecyclerView.LayoutParams linearParams =
-//                (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
-//        linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 48)) / 2;
-//        binding.getRoot().setLayoutParams(linearParams);
 
         binding.setProduct(productBean);
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (positionListener != null) {
+                    positionListener.onPosition(productBean, position);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onBindView(ItemMarketProductHotBinding binding) {
+        super.onBindView(binding);
+        if (type != 0) {
+            binding.tvProperty.setTextColor(mContext.getResources().getColor(R.color.font_red));
+            binding.tvProperty.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        }
     }
 }
