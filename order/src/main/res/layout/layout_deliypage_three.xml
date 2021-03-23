@@ -48,7 +48,7 @@
         android:layout_marginStart="16dp"
         android:text="一级审批"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageViewsix"
         app:layout_constraintTop_toTopOf="@+id/imageViewsix" />
