@@ -431,9 +431,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:tabGravity="fill"
-                app:tabMode="fixed" />
+                app:tabMode="fixed">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_productInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_1" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_packageList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_2" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_3" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_4" />
+            </com.google.android.material.tabs.TabLayout>
         </RelativeLayout>
 
         <RelativeLayout

@@ -38,6 +38,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
     final private String BASE_URL = "http://172.28.20.109:3000/";
+    //    final private String BASE_URL = "https://crmall.rails.cn/purchase-android-web/";
     final private String DETAILS = "productInfo";
     final private String LIST = "packingList";
     final private String SERVICE = "serviceOrPartner?service=0";
@@ -58,12 +59,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
         recommendItemsPresenter.getRecommendItems(false, 1);
-
-        TabLayout tabLayout = binding.tabDetails;
-        ViewPager viewPager = binding.pagerDetails;
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        viewPager.setAdapter(sectionsPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
 
 
         WebView[] WEB_VIEWS = {
@@ -93,13 +88,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             WEB_VIEWS[i].addJavascriptInterface(OBJECTS[i], FLAGS[i]);
         }
 
-//        binding.webProductInfo
-//        binding.webPackageList
-//        binding.webService
-//        binding.webRecommend
-
-//        RatioImage image = (RatioImage) LayoutInflater.from(this).inflate(R.layout.activity_product_details, null);
-
 
         int width = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
@@ -108,17 +96,21 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.riItemPhoto.measure(width, height);
         Log.d(TAG, "getMeasuredWidth = " + binding.riItemPhoto.getMeasuredWidth());
         Log.d(TAG, "getMeasuredHeight = " + binding.riItemPhoto.getMeasuredHeight());
-//        binding.riItemPhoto.getMeasuredWidth(); // 获取宽度
-//        binding.riItemPhoto.getMeasuredHeight(); // 获取高度
 
-
-//        binding.riItemPhoto.measure(0, 0);
-//        Log.d(TAG, "getMeasuredHeight = " + binding.riItemPhoto.getMeasuredHeight());
+//        binding.tabDetails.selectTab(binding.tabDetails.getTabAt(3));
 
         binding.tabDetails.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
+                if (binding.tabDetails.getTabAt(0).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 200);
+                } else if (binding.tabDetails.getTabAt(1).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 400);
+                } else if (binding.tabDetails.getTabAt(2).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 600);
+                } else if (binding.tabDetails.getTabAt(3).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 800);
+                }
             }
 
             @Override
@@ -132,11 +124,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             }
         });
 
+
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 Log.d(TAG, "scrollX = " + scrollX + ", scrollY = " + scrollY + ", oldScrollX = " + oldScrollX + ", oldScrollY = " + oldScrollY);
-//                Log.d(TAG,"getTranslationY = " + binding.webPackageList.());
+                binding.tabDetails.selectTab(binding.tabDetails.getTabAt(2));
             }
         });
     }

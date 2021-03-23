@@ -34,18 +34,18 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
     private final List<String> mHistorySearchList = new ArrayList<>();
 
     {
-        mHistorySearchList.add("经济");
-        mHistorySearchList.add("八卦");
-        mHistorySearchList.add("天文爱好者");
-        mHistorySearchList.add("完美主义者阿了哈");
-        mHistorySearchList.add("小道消息不对劲啊");
-        mHistorySearchList.add("选择困难症");
-        mHistorySearchList.add("娱乐");
-        mHistorySearchList.add("政治中心");
-        mHistorySearchList.add("彩票");
-        mHistorySearchList.add("情感");
-        mHistorySearchList.add("人傻钱多");
-        mHistorySearchList.add("旅游爱好者");
+        mHistorySearchList.add("耳机");
+        mHistorySearchList.add("手机");
+        mHistorySearchList.add("飞利浦剃须刀");
+        mHistorySearchList.add("A4打印纸");
+        mHistorySearchList.add("苏泊尔电水壶");
+        mHistorySearchList.add("中性笔黑色");
+        mHistorySearchList.add("漫步者");
+        mHistorySearchList.add("Mate40Pro");
+        mHistorySearchList.add("斩切刀");
+        mHistorySearchList.add("U盘");
+        mHistorySearchList.add("老A工具");
+        mHistorySearchList.add("胡姬花花生油");
     }
 
     private SearchHistoryFlowAdapter mSearchHistoryFlowAdapter;
