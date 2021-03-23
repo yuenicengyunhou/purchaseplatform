@@ -31,6 +31,7 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.CategorySub2Adapter;
 import com.rails.purchaseplatform.market.adapter.CategorySubAdapter;
+import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
@@ -50,13 +51,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndexContract.MarketIndexView
-        , PositionListener<ProductBean> {
+        , PositionListener<ProductBean>, ProductContract.ProductView {
 
 
-    private MarketIndexContract.MarketIndexPresenter presenter;
     private ProductRecAdapter recAdapter;
     private CategorySubAdapter categoryAdapter;
     private BrandAdapter brandAdapter;
+    private ProductHotAdapter hotAdapter;
+
+    private MarketIndexContract.MarketIndexPresenter presenter;
+    private ProductContract.ProductPresenter productPresenter;
 
 
     @Override
@@ -88,7 +92,19 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         binding.recycler.setAdapter(recAdapter);
 
 
+        hotAdapter = new ProductHotAdapter(getActivity(), 1);
+        hotAdapter.setListener(new PositionListener<ProductBean>() {
+            @Override
+            public void onPosition(ProductBean bean, int position) {
+                startIntent(ProductDetailsActivity.class);
+            }
+        });
+        binding.hotRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        binding.hotRecycler.setAdapter(hotAdapter);
+
+
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
+        productPresenter = new ProductPresenterImpl(getActivity(), this);
 
 
         onRefresh();
@@ -131,6 +147,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         presenter.getBanners();
         presenter.getRecCategorys();
         presenter.getBrands();
+        productPresenter.getHotProducts(false, 1);
     }
 
     @Override
@@ -201,6 +218,12 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
 
     @Override
     public void onPosition(ProductBean bean, int position) {
+        // TODO: 2021/3/23 跳转商品详情
         startIntent(ProductDetailsActivity.class);
+    }
+
+    @Override
+    public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+        hotAdapter.update(productBeans, true);
     }
 }

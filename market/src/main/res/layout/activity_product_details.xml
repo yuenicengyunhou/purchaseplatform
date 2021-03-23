@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scroll_view"
+        <com.rails.purchaseplatform.common.widget.TabObserveNestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_55"
             app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -303,7 +304,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_60"
                         android:layout_marginTop="16dp"
-                        android:text="联想官网旗舰店"
+                        android:text="联想官方旗舰店"
                         android:textSize="@dimen/font_size_16"
                         android:textStyle="bold" />
 
@@ -326,11 +327,11 @@
                         android:textSize="@dimen/font_size_12" />
 
                     <TextView
-                        android:background="@drawable/bg_conner_blank_blue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:background="@drawable/bg_conner_blank_blue"
                         android:paddingLeft="@dimen/dp_11"
                         android:paddingTop="@dimen/dp_5"
                         android:paddingRight="@dimen/dp_11"
@@ -415,12 +416,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </com.rails.purchaseplatform.common.widget.TabObserveNestedScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_120"
-            android:background="#FFFF00FF"
+            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -430,8 +431,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
+                android:visibility="visible"
                 app:tabGravity="fill"
-                app:tabMode="fixed" />
+                app:tabMode="fixed">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_productInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_1" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_packageList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_2" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_3" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabItem_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_text_4" />
+            </com.google.android.material.tabs.TabLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -469,6 +496,7 @@
                 android:id="@+id/ll_collection"
                 android:layout_width="48dp"
                 android:layout_height="@dimen/dp_55"
+                android:layout_marginStart="@dimen/dp_6"
                 android:layout_toRightOf="@+id/ll_shop"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -490,6 +518,7 @@
                 android:id="@+id/ll_cart"
                 android:layout_width="48dp"
                 android:layout_height="@dimen/dp_55"
+                android:layout_marginStart="@dimen/dp_6"
                 android:layout_toRightOf="@+id/ll_collection"
                 android:gravity="center"
                 android:orientation="vertical">

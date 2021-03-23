@@ -5,7 +5,7 @@
     <application>
 
         <activity
-            android:name=".MsgActivity"
+            android:name=".activity.MsgActivity"
             android:screenOrientation="portrait" />
 
     </application>

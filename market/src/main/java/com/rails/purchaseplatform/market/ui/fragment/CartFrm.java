@@ -20,6 +20,7 @@ import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
@@ -72,6 +73,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             }
         });
 
+
+        binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
+                DecimalUtil.formatDouble(0.0), "", getResources().getColor(R.color.font_red)));
+
         cartAdapter = new CartAdapter(getActivity());
         cartAdapter.setListener(this);
         cartAdapter.setMulPositionListener(this);
@@ -81,9 +86,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.cartRecycler.setEmptyView(binding.empty);
 
-        recAdapter = new ProductHotAdapter(getActivity());
+        recAdapter = new ProductHotAdapter(getActivity(), 0);
         binding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.recRecycler.setLoadMoreListener(this);
+        recAdapter.setListener(new PositionListener<ProductBean>() {
+            @Override
+            public void onPosition(ProductBean bean, int position) {
+                startIntent(ProductDetailsActivity.class);
+            }
+        });
         binding.recRecycler.setAdapter(recAdapter);
 
 
@@ -151,7 +162,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getProjectNumber(int num) {
-        if (lastBean != null){
+        if (lastBean != null) {
             lastBean.num.set(num);
             userTotal(lastBean);
         }
@@ -166,7 +177,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onClick(View v) {
                 boolean isChecked = binding.imgTotal.isChecked();
                 cartAdapter.checkAll(isChecked);
-                binding.tvTotal.setText(String.valueOf(cartAdapter.totalPrice()));
+                binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
+                        DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", getResources().getColor(R.color.font_red)));
             }
         });
     }
@@ -208,7 +220,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      */
     private void setTotal() {
         binding.imgTotal.setChecked(cartAdapter.isAll());
-        binding.tvTotal.setText(String.valueOf(cartAdapter.totalPrice()));
+        binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
+                DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", getResources().getColor(R.color.font_red)));
     }
 
 
@@ -218,7 +231,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param bean 商品
      */
     private void userTotal(CartShopProductBean bean) {
-        if (bean ==null)
+        if (bean == null)
             return;
         if (bean.isSel.get() == null)
             return;

@@ -1,8 +1,12 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -11,11 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.RatioImage;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.SectionsPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
@@ -28,11 +36,13 @@ import com.rails.purchaseplatform.market.web.ServicePage4Js;
 import java.util.ArrayList;
 
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements RecommendItemsContract.RecommendItemsView, NestedScrollView.OnScrollChangeListener {
+    final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
     final private String BASE_URL = "http://172.28.20.109:3000/";
+    //    final private String BASE_URL = "https://crmall.rails.cn/purchase-android-web/";
     final private String DETAILS = "productInfo";
     final private String LIST = "packingList";
     final private String SERVICE = "serviceOrPartner?service=0";
@@ -53,12 +63,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
         recommendItemsPresenter.getRecommendItems(false, 1);
-
-        TabLayout tabLayout = binding.tabDetails;
-        ViewPager viewPager = binding.pagerDetails;
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        viewPager.setAdapter(sectionsPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
 
 
         WebView[] WEB_VIEWS = {
@@ -87,6 +91,52 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             WEB_VIEWS[i].loadUrl(TAB_URLS[i]);
             WEB_VIEWS[i].addJavascriptInterface(OBJECTS[i], FLAGS[i]);
         }
+
+
+        int width = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int height = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        binding.riItemPhoto.measure(width, height);
+        Log.d(TAG, "getMeasuredWidth = " + binding.riItemPhoto.getMeasuredWidth());
+        Log.d(TAG, "getMeasuredHeight = " + binding.riItemPhoto.getMeasuredHeight());
+
+//        binding.tabDetails.selectTab(binding.tabDetails.getTabAt(3));
+
+        binding.tabDetails.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (binding.tabDetails.getTabAt(0).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 200);
+                } else if (binding.tabDetails.getTabAt(1).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 400);
+                } else if (binding.tabDetails.getTabAt(2).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 600);
+                } else if (binding.tabDetails.getTabAt(3).equals(tab)) {
+                    binding.nestedScrollView.scrollTo(0, 800);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+        binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d(TAG, "scrollX = " + scrollX + ", scrollY = " + scrollY + ", oldScrollX = " + oldScrollX + ", oldScrollY = " + oldScrollY);
+                binding.tabDetails.selectTab(binding.tabDetails.getTabAt(2));
+                getLocalVisibleRect(ProductDetailsActivity.this, binding.webProductInfo);
+            }
+        });
     }
 
     @Override
@@ -121,6 +171,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         Log.d("HELLO = scrollY", String.valueOf(scrollY));
         Log.d("HELLO = oldScrollX", String.valueOf(oldScrollX));
         Log.d("HELLO = oldScrollY", String.valueOf(oldScrollY));
+
+
     }
 
     private void setWeb(WebView view) {
@@ -136,4 +188,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         webSettings.setLoadsImagesAutomatically(true); // 加载图片
         webSettings.setMediaPlaybackRequiresUserGesture(false);//播放音频，多媒体需要用户手动？设置为false为可自动播放
     }
+
+
+    public void getLocalVisibleRect(Context context, View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        view.setTag(location[1]);//存储y方向的位置
+    }
+
+
 }

@@ -5,6 +5,7 @@
     <!--    商城首页-->
     <string name="market_index_tip">今日疯抢，品牌火爆上新</string>
     <string name="market_index_search">搜索</string>
+    <string name="market_index_hot">热销商品</string>
 
 
     <!--购物城-->
@@ -13,7 +14,7 @@
     <string name="market_cart_null">空空如也</string>
 
     <string name="market_cart_manager">管理</string>
-    <string name="market_cart_total">合计:</string>
+    <string name="market_cart_total">合计:&#160;&#160;</string>
     <string name="market_cart_order">结算</string>
     <string name="market_cart_pay">¥%s</string>
     <string name="market_cart_hot">热销商品</string>
