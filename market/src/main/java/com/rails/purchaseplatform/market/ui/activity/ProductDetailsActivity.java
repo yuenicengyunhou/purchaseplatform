@@ -3,6 +3,8 @@ package com.rails.purchaseplatform.market.ui.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -15,7 +17,9 @@ import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.RatioImage;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.SectionsPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
@@ -28,6 +32,7 @@ import com.rails.purchaseplatform.market.web.ServicePage4Js;
 import java.util.ArrayList;
 
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements RecommendItemsContract.RecommendItemsView, NestedScrollView.OnScrollChangeListener {
+    final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
@@ -87,6 +92,53 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             WEB_VIEWS[i].loadUrl(TAB_URLS[i]);
             WEB_VIEWS[i].addJavascriptInterface(OBJECTS[i], FLAGS[i]);
         }
+
+//        binding.webProductInfo
+//        binding.webPackageList
+//        binding.webService
+//        binding.webRecommend
+
+//        RatioImage image = (RatioImage) LayoutInflater.from(this).inflate(R.layout.activity_product_details, null);
+
+
+        int width = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int height = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        binding.riItemPhoto.measure(width, height);
+        Log.d(TAG, "getMeasuredWidth = " + binding.riItemPhoto.getMeasuredWidth());
+        Log.d(TAG, "getMeasuredHeight = " + binding.riItemPhoto.getMeasuredHeight());
+//        binding.riItemPhoto.getMeasuredWidth(); // 获取宽度
+//        binding.riItemPhoto.getMeasuredHeight(); // 获取高度
+
+
+//        binding.riItemPhoto.measure(0, 0);
+//        Log.d(TAG, "getMeasuredHeight = " + binding.riItemPhoto.getMeasuredHeight());
+
+        binding.tabDetails.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d(TAG, "scrollX = " + scrollX + ", scrollY = " + scrollY + ", oldScrollX = " + oldScrollX + ", oldScrollY = " + oldScrollY);
+//                Log.d(TAG,"getTranslationY = " + binding.webPackageList.());
+            }
+        });
     }
 
     @Override
