@@ -176,7 +176,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -196,15 +198,16 @@
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/dp_40" />
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:background="@null"
+                        android:src="@drawable/ic_position" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/dp_60"
+                        android:layout_marginStart="@dimen/dp_55"
                         android:text="北京市海淀区西二旗智学苑1号楼1单元"
                         android:textSize="@dimen/font_size_13" />
 
@@ -212,7 +215,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -264,7 +269,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
                 <ImageView
@@ -280,11 +287,15 @@
 
                     <com.rails.purchaseplatform.common.widget.RatioImage
                         android:id="@+id/ratioImage"
-                        android:layout_width="48dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="50dp"
                         android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:src="@drawable/ic_shop_logo"
+                        app:h="18"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:w="21" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -301,23 +312,31 @@
                         android:layout_height="16dp"
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="@dimen/dp_60"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_marginBottom="@dimen/dp_18"
+                        android:background="@null"
+                        android:src="@drawable/ic_security_true" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginStart="@dimen/dp_90"
-                        android:layout_marginBottom="@dimen/dp_16"
+                        android:layout_marginStart="@dimen/dp_80"
+                        android:layout_marginBottom="@dimen/dp_18"
                         android:text="风险较低"
                         android:textSize="@dimen/font_size_12" />
 
                     <TextView
+                        android:background="@drawable/bg_conner_blank_blue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/dp_11"
+                        android:paddingTop="@dimen/dp_5"
+                        android:paddingRight="@dimen/dp_11"
+                        android:paddingBottom="@dimen/dp_5"
                         android:text="进店逛逛"
+                        android:textColor="#387CFC"
                         android:textSize="@dimen/font_size_13" />
                 </RelativeLayout>
 
@@ -341,7 +360,9 @@
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_6"
                         android:text="查看全部"
+                        android:textColor="#387CFC"
                         android:textSize="@dimen/font_size_13"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/imageButton"
@@ -349,8 +370,10 @@
 
                     <ImageButton
                         android:id="@+id/imageButton"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@drawable/ic_go_next"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -415,7 +438,7 @@
             android:id="@+id/bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_55"
-            android:background="#FFFFFF00"
+            android:background="#FFFFFFFF"
             android:paddingLeft="@dimen/dp_16"
             android:paddingRight="@dimen/dp_16"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -430,8 +453,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/ic_shop" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -449,8 +474,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/ic_collection" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -468,8 +495,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/ic_cart" />
 
                 <TextView
                     android:layout_width="wrap_content"
