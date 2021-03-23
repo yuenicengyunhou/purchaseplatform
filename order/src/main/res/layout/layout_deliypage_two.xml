@@ -11,7 +11,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/a"/>
+        app:srcCompat="@drawable/ic_order_a"/>
 
     <TextView
         android:id="@+id/tv_texts"
@@ -85,7 +85,7 @@
     <View
         android:id="@+id/view4"
         android:layout_width="0dp"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="#D5D5D5"
@@ -100,6 +100,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
-
+        app:layout_constraintGuide_percent="0.6"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

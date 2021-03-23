@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.order;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,8 +22,11 @@ import com.rails.purchaseplatform.order.adapter.RecyclerViewAdapterFour;
 import com.rails.purchaseplatform.order.adapter.RecyclerViewAdapterOne;
 
 import java.util.ArrayList;
+
 @Route(path = ConRoute.ORDER.ALL)
 public class DeliypageActivity extends AppCompatActivity {
+
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,7 @@ public class DeliypageActivity extends AppCompatActivity {
         strings.add("已收货");
         RecyclerViewAdapterOne recyclerViewAdapterOne = new RecyclerViewAdapterOne(this);
         recyclerViewAdapterOne.setStrings(strings);
-        recyclerView1.setLayoutManager(new GridLayoutManager(this,strings.size()));
+        recyclerView1.setLayoutManager(new GridLayoutManager(this, strings.size()));
         recyclerView1.setAdapter(recyclerViewAdapterOne);
 
         RecyclerAdapterTwo recyclerAdapterTwo = new RecyclerAdapterTwo(this);
@@ -59,11 +64,17 @@ public class DeliypageActivity extends AppCompatActivity {
         recyclerView4.setLayoutManager(flexboxLayoutManager);
 
         RecyclerViewAdapterFour recyclerViewAdapterFour = new RecyclerViewAdapterFour(this);
-//        ArrayList<String> strings1 = new ArrayList<>();
-//        for (int i = 0; i < 30; i++) {
-//            strings1.add("jkl"+i);
-//        }
-//        recyclerViewAdapterFour.setStrings(strings1);
         recyclerView4.setAdapter(recyclerViewAdapterFour);
+        initView();
+    }
+
+    private void initView() {
+        imageView = findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
     }
 }
