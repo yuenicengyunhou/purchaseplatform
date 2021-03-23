@@ -39,10 +39,19 @@ public class ConRoute {
 
     //采购单
     public static final class ORDER {
-    //列表
+        //列表
         public final static String ORDER_MAIN = "/order/mian";
         //详情页
         public final static String ALL = "/order/all";
+    }
+
+
+    /**
+     * 消息相关页面
+     */
+    public final static class MSG {
+        //消息首页
+        public final static String MSG_MAIN = "/msg/main";
     }
 
 
