@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.market.databinding.DialogMarketMumberBinding;
  * date : 2016/11/2.
  */
 
-public class AlterEditDialog {
+public class CartEditDialog {
 
 
     DialogMarketMumberBinding bind;
@@ -33,7 +33,7 @@ public class AlterEditDialog {
     private int rightColor;
     private DialogListener dialogListener;
 
-    private AlterEditDialog(Builder builder) {
+    private CartEditDialog(Builder builder) {
         this.context = builder.context;
         this.title = builder.title;
         this.msg = builder.msg;
@@ -95,13 +95,13 @@ public class AlterEditDialog {
             return this;
         }
 
-        public AlterEditDialog builder() {
-            return new AlterEditDialog(this);
+        public CartEditDialog builder() {
+            return new CartEditDialog(this);
         }
     }
 
 
-    private AlterEditDialog(Context context, String title, String msg, DialogListener dialogListener) {
+    private CartEditDialog(Context context, String title, String msg, DialogListener dialogListener) {
         this.dialogListener = dialogListener;
         dialog = new Dialog(context, R.style.MyDialog);
         LayoutInflater inflater = LayoutInflater.from(context);
