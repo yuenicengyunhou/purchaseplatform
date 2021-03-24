@@ -578,5 +578,17 @@
                 android:text="加入购物车"
                 android:textSize="@dimen/font_size_15" />
         </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/ibGoTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_72"
+            android:background="@null"
+            android:src="@drawable/ic_go_top"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

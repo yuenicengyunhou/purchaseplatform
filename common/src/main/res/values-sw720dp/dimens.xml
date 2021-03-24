@@ -46,6 +46,7 @@
     <dimen name="dp_65">130dp</dimen>
     <dimen name="dp_68">136dp</dimen>
     <dimen name="dp_70">140dp</dimen>
+    <dimen name="dp_72">144dp</dimen>
     <dimen name="dp_75">150dp</dimen>
     <dimen name="dp_76">152dp</dimen>
     <dimen name="dp_80">160dp</dimen>

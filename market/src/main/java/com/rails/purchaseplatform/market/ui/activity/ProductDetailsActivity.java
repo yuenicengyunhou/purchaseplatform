@@ -63,23 +63,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         int px = (int) ScreenSizeUtil.dp2px(this, 80);
         float px2 = ScreenSizeUtil.dp2px(this, 240);
+        float px3 = ScreenSizeUtil.dp2px(this, 1100);
 
-        /**
-         * 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
-         */
         binding.rlHeadViewWithTabLayout.setTransitionAlpha(0);
+        binding.ibGoTop.setVisibility(View.GONE);
+
+        // 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
         binding.tabDetails.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (binding.tabDetails.getTabAt(0).equals(tab)) {
-                    binding.nestedScrollView.scrollTo(0, 0);
-                } else if (binding.tabDetails.getTabAt(1).equals(tab)) {
-                    binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px);
-                } else if (binding.tabDetails.getTabAt(2).equals(tab)) {
-                    binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px);
-                } else if (binding.tabDetails.getTabAt(3).equals(tab)) {
-                    binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px);
-                }
+                selectTab(tab, px);
             }
 
             @Override
@@ -89,42 +82,93 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                selectTab(tab, px);
             }
         });
 
-        /**
-         * 监听NestedScrollView滚动事件设置TabLayout透明度和Tab标签
-         */
+        // 监听NestedScrollView滚动事件设置TabLayout透明度和Tab标签
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-                float llFlagPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.llFlag) - (float) px;
-
-                binding.rlHeadViewWithTabLayout.setTransitionAlpha(1 - (llFlagPosition / px2));
-
-                int productInfoPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webProductInfo) - px;
-                int packageListPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px;
-                int servicePosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px;
-                int recommendPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px;
-
-                Log.d(TAG, "productInfoPosition === " + productInfoPosition);
-                Log.d(TAG, "packageListPosition === " + packageListPosition);
-                Log.d(TAG, "servicePosition ======= " + servicePosition);
-                Log.d(TAG, "recommendPosition ===== " + recommendPosition);
-                Log.d(TAG, "======================= " + "===============");
-
-                if (packageListPosition <= 0 && servicePosition > 0) {
-                    binding.tabDetails.selectTab(binding.tabDetails.getTabAt(1));
-                } else if (servicePosition <= 0 && recommendPosition > 0) {
-                    binding.tabDetails.selectTab(binding.tabDetails.getTabAt(2));
-                } else if (recommendPosition <= 0) {
-                    binding.tabDetails.selectTab(binding.tabDetails.getTabAt(3));
-                }
+                updateTabTitleStateOnScroll(px, px2);
+                updateTabStateOnScroll(px);
+                updateGoTopButtonStateOnScroll(scrollY, px3);
 
             }
         });
+
+        // 监视返回顶部ImageButton点击事件，设置滚回顶部并设置标签选择
+        binding.ibGoTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.nestedScrollView.scrollTo(0, 0);
+                binding.tabDetails.selectTab(binding.tabDetails.getTabAt(0));
+            }
+        });
+    }
+
+    /**
+     * 当页面滚动时更新返回顶部按钮的显示状态
+     *
+     * @param scrollY
+     * @param px3
+     */
+    private void updateGoTopButtonStateOnScroll(int scrollY, float px3) {
+        if (scrollY >= px3) {
+            binding.ibGoTop.setVisibility(View.VISIBLE);
+        } else {
+            binding.ibGoTop.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 当页面滚动时更新TabLayout标签选中的状态
+     *
+     * @param px
+     */
+    private void updateTabStateOnScroll(int px) {
+        int productInfoPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webProductInfo) - px;
+        int packageListPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px;
+        int servicePosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px;
+        int recommendPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px;
+
+        if (packageListPosition <= 0 && servicePosition > 0) {
+            binding.tabDetails.selectTab(binding.tabDetails.getTabAt(1));
+        } else if (servicePosition <= 0 && recommendPosition > 0) {
+            binding.tabDetails.selectTab(binding.tabDetails.getTabAt(2));
+        } else if (recommendPosition <= 0) {
+            binding.tabDetails.selectTab(binding.tabDetails.getTabAt(3));
+        }
+    }
+
+    /**
+     * 当页面滚动时更新TabLayout透明度
+     *
+     * @param px
+     * @param px2
+     */
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void updateTabTitleStateOnScroll(float px, float px2) {
+        float llFlagPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.llFlag) - px;
+        binding.rlHeadViewWithTabLayout.setTransitionAlpha(1 - (llFlagPosition / px2));
+    }
+
+    /**
+     * 选中TabLayout标签，滚动NestedScrollView
+     *
+     * @param tab 点击的Tab
+     * @param px  标题头的高度
+     */
+    private void selectTab(TabLayout.Tab tab, int px) {
+        if (binding.tabDetails.getTabAt(0).equals(tab)) {
+            binding.nestedScrollView.scrollTo(0, 0);
+        } else if (binding.tabDetails.getTabAt(1).equals(tab)) {
+            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px);
+        } else if (binding.tabDetails.getTabAt(2).equals(tab)) {
+            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px);
+        } else if (binding.tabDetails.getTabAt(3).equals(tab)) {
+            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px);
+        }
     }
 
     /**
