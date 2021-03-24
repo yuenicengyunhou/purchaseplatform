@@ -11,7 +11,8 @@
         android:overScrollMode="never">
 
 
-        <androidx.core.widget.NestedScrollView
+        <com.rails.purchaseplatform.common.widget.AlphaScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg"
@@ -231,10 +232,22 @@
             </LinearLayout>
 
 
-        </androidx.core.widget.NestedScrollView>
+        </com.rails.purchaseplatform.common.widget.AlphaScrollView>
 
 
     </com.rails.purchaseplatform.common.widget.BaseSwipeLayout>
+
+
+    <ImageView
+        android:id="@+id/img_top"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="bottom|end"
+        android:padding="@dimen/dp_5"
+        android:layout_marginRight="@dimen/common_border"
+        android:layout_marginBottom="@dimen/common_border"
+        android:visibility="gone"
+        android:src="@drawable/ic_go_top" />
 
 
 </FrameLayout>

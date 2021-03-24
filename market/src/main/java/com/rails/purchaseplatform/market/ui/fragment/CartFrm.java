@@ -33,6 +33,8 @@ import com.rails.purchaseplatform.market.ui.activity.WebActivity;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -51,6 +53,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     CartAdapter cartAdapter;
     ProductHotAdapter recAdapter;
+    private GridLayoutManager hotManager;
+
     CartContract.CartPresenter presenter;
     ProductContract.ProductPresenter productPresenter;
 
@@ -88,7 +92,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.cartRecycler.setEmptyView(binding.empty);
 
         recAdapter = new ProductHotAdapter(getActivity(), 0);
-        binding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        hotManager = new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false);
+        binding.recRecycler.setLayoutManager(hotManager);
         binding.recRecycler.setLoadMoreListener(this);
         recAdapter.setListener(new PositionListener<ProductBean>() {
             @Override
@@ -97,6 +102,22 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             }
         });
         binding.recRecycler.setAdapter(recAdapter);
+        binding.recRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int positions = hotManager.findFirstVisibleItemPosition();
+                if (positions > 0) {
+                    binding.imgTop.setVisibility(View.VISIBLE);
+                } else
+                    binding.imgTop.setVisibility(View.GONE);
+            }
+        });
 
 
         presenter = new CartPresenterImpl(getActivity(), this);
