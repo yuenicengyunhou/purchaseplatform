@@ -7,13 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.rails.lib_data.bean.AddressBean;
-import com.rails.purchaseplatform.R;
+import com.rails.purchaseplatform.address.R;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AdderssAdapter extends RecyclerView.Adapter {
     private List<AddressBean> mList;
@@ -27,7 +27,7 @@ public class AdderssAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.address_item, parent, false);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.item_address, parent, false);
         ViewHolder1 holder1 = new ViewHolder1(inflate);
         return holder1;
     }
@@ -43,13 +43,6 @@ public class AdderssAdapter extends RecyclerView.Adapter {
         holder1.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              if(isCheck){
-                  holder1.img.setImageResource(R.drawable.ic_download_selected);
-                  isCheck=false;
-              }else {
-                  holder1.img.setImageResource(R.drawable.ic_download_unselected);
-                  isCheck=true;
-              }
 
             }
         });
