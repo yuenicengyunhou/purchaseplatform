@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="product"
             type="com.rails.lib_data.bean.CartShopProductBean" />
@@ -25,7 +27,8 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:button="@null"
             android:checked="@{product.isSel}"
-            android:drawableLeft="@drawable/selector_circle" />
+            android:drawableLeft="@drawable/selector_circle"
+            android:enabled="@{product.canSel}" />
 
 
         <com.rails.purchaseplatform.common.widget.RatioImage
@@ -89,13 +92,16 @@
             android:layout_alignTop="@+id/tv_price"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_15"
-            android:background="@drawable/bg_corner_border_gray">
+            android:layout_marginBottom="@dimen/dp_15"
+            android:background="@drawable/bg_corner_border_gray"
+            android:visibility="@{product.canSel?View.VISIBLE:View.GONE}">
 
             <TextView
                 android:id="@+id/tv_reduce"
                 android:layout_width="@dimen/dp_25"
                 android:layout_height="match_parent"
                 android:background="@color/bg_gray_light"
+                android:enabled="@{product.canReduce}"
                 android:gravity="center"
                 android:text="-"
                 android:textColor="@color/selector_black_gray_color"
@@ -119,7 +125,7 @@
                 android:layout_width="@dimen/dp_25"
                 android:layout_height="match_parent"
                 android:background="@color/bg_gray_light"
-                android:enabled="true"
+                android:enabled="@{product.canAdd}"
                 android:gravity="center"
                 android:text="+"
                 android:textColor="@color/selector_black_gray_color"
@@ -134,12 +140,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_15"
-            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_15"
             android:text="限购5箱"
             android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_11" />
+            android:textSize="@dimen/font_size_11"
+            android:visibility="@{product.isLimit?View.VISIBLE:View.GONE}" />
 
 
     </RelativeLayout>

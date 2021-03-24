@@ -34,6 +34,7 @@ import com.rails.purchaseplatform.market.ui.activity.WebActivity;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -186,6 +187,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     public void getProjectNumber(int num) {
         if (lastBean != null) {
             lastBean.num.set(num);
+
+            isNumberUser(lastBean);
             userTotal(lastBean);
         }
     }
@@ -201,6 +204,23 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 cartAdapter.checkAll(isChecked);
                 binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
                         DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", getResources().getColor(R.color.font_red)));
+            }
+        });
+
+        binding.imgTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoordinatorLayout.Behavior behavior =
+                        ((CoordinatorLayout.LayoutParams) binding.bar.getLayoutParams()).getBehavior();
+                if (behavior instanceof AppBarLayout.Behavior) {
+                    AppBarLayout.Behavior appBarLayoutBehavior = (AppBarLayout.Behavior) behavior;
+                    int topAndBottomOffset = appBarLayoutBehavior.getTopAndBottomOffset();
+                    if (topAndBottomOffset != 0) {
+                        appBarLayoutBehavior.setTopAndBottomOffset(0);
+                        binding.recRecycler.scrollToPosition(0);
+                        binding.imgTop.setVisibility(View.GONE);
+                    }
+                }
             }
         });
     }
@@ -259,6 +279,25 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             return;
         if (bean.isSel.get())
             setTotal();
+
+    }
+
+
+    /**
+     * 增减按钮是否可以用
+     *
+     * @param bean
+     */
+    private void isNumberUser(CartShopProductBean bean) {
+        if (bean.num.get() > 99) {
+            bean.canAdd.set(false);
+        } else
+            bean.canAdd.set(true);
+
+        if (bean.num.get() <= 1) {
+            bean.canReduce.set(false);
+        } else
+            bean.canReduce.set(true);
 
     }
 }

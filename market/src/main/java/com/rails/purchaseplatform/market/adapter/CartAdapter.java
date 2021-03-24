@@ -74,7 +74,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 } else if (params[0] == CartSubAdapter.ADD) {
                     // TODO: 2021/3/22 数量加减
                     mulPositionListener.onPosition(bean, len, ADD);
-                }else if (params[0] == CartSubAdapter.REDUCE) {
+                } else if (params[0] == CartSubAdapter.REDUCE) {
                     // TODO: 2021/3/22 数量加减
                     mulPositionListener.onPosition(bean, len, REDUCE);
                 }
@@ -167,9 +167,11 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         try {
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
-                if (bean.isSel == null)
+                if (bean.canSel.get() ==null)
                     continue;
-                if (bean.isSel.get()) {
+                if (bean.isSel.get() ==null)
+                    continue;
+                if (bean.isSel.get() && bean.canSel.get()) {
                     total += bean.num.get() * bean.getMarketPrice();
                 }
             }

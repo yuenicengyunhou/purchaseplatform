@@ -46,7 +46,9 @@
           "secondCategoryId": "",
           "secondCategoryName": "",
           "thirdCategoryId": "",
-          "thirdCategoryName": ""
+          "thirdCategoryName": "",
+          "limit": false,
+          "canUser": true
         },
         {
           "shopId": 202003030109,
@@ -83,7 +85,9 @@
           "secondCategoryId": "",
           "secondCategoryName": "",
           "thirdCategoryId": "",
-          "thirdCategoryName": ""
+          "thirdCategoryName": "",
+          "limit": false,
+          "canUser": true
         }
       ],
       "selected": false,
@@ -135,7 +139,9 @@
           "secondCategoryId": "",
           "secondCategoryName": "",
           "thirdCategoryId": "",
-          "thirdCategoryName": ""
+          "thirdCategoryName": "",
+          "limit": true,
+          "canUser": true
         },
         {
           "shopId": 202003030109,
@@ -172,7 +178,9 @@
           "secondCategoryId": "",
           "secondCategoryName": "",
           "thirdCategoryId": "",
-          "thirdCategoryName": ""
+          "thirdCategoryName": "",
+          "limit": false,
+          "canUser": false
         }
       ],
       "selected": false,
