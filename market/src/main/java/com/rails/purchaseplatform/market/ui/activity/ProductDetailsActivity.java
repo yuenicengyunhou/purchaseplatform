@@ -93,7 +93,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 updateTabTitleStateOnScroll(px, px2);
                 updateTabStateOnScroll(px);
                 updateGoTopButtonStateOnScroll(scrollY, px3);
-
+                updateBackButtonStateOnScroll(scrollY);
             }
         });
 
@@ -105,6 +105,23 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 binding.tabDetails.selectTab(binding.tabDetails.getTabAt(0));
             }
         });
+
+        binding.ibBack.setOnClickListener(v -> finish());
+        binding.ibBack1.setOnClickListener(v -> finish());
+    }
+
+    /**
+     * 当页面滚动时更新返回按钮的显示状态
+     *
+     * @param scrollY
+     */
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void updateBackButtonStateOnScroll(int scrollY) {
+        if (scrollY <= 200) {
+            binding.ibBack1.setTransitionAlpha(1);
+        } else {
+            binding.ibBack1.setTransitionAlpha(0);
+        }
     }
 
     /**

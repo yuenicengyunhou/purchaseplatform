@@ -19,6 +19,7 @@
     <dimen name="dp_15">37.5dp</dimen>
     <dimen name="dp_16">40dp</dimen>
     <dimen name="dp_20">50dp</dimen>
+    <dimen name="dp_24">60dp</dimen>
     <dimen name="dp_25">62.5dp</dimen>
     <dimen name="dp_28">70dp</dimen>
     <dimen name="dp_30">75dp</dimen>

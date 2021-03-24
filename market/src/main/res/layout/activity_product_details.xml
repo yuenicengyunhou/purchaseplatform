@@ -38,7 +38,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_12"
                     android:layout_marginEnd="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_6"
                     android:orientation="horizontal">
 
                     <TextView
@@ -82,9 +84,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_6"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:ellipsize="end"
-                    android:maxLines="3"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:lineSpacingExtra="@dimen/dp_1"
                     android:text="华硕 玩家国度ROG 电竞显示器 游戏显示屏 27英寸 4K 144Hz刷新率 IPS HDR400 G-SYNC 神光同步 XG27UQ绝影"
                     android:textSize="@dimen/font_size_18"
                     android:textStyle="bold" />
@@ -92,6 +95,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_tiny"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:background="@color/bg_gray" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -363,6 +368,13 @@
                         android:textSize="@dimen/font_size_13" />
                 </RelativeLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_tiny"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:background="@color/bg_gray" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
@@ -408,6 +420,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_16"
                     android:nestedScrollingEnabled="false" />
 
 
@@ -418,20 +431,40 @@
                     android:visibility="gone"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_12"
+                    android:background="#447F7F7F" />
+
                 <WebView
                     android:id="@+id/web_productInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_12"
+                    android:background="#447F7F7F" />
 
                 <WebView
                     android:id="@+id/web_packageList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_12"
+                    android:background="#447F7F7F" />
+
                 <WebView
                     android:id="@+id/web_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_12"
+                    android:background="#447F7F7F" />
 
                 <WebView
                     android:id="@+id/web_recommend"
@@ -450,14 +483,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_48"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dp_16"
+                android:background="@null"
+                android:src="@mipmap/icon_back" />
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_details"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dp_50"
+                android:layout_marginEnd="@dimen/dp_50"
                 android:visibility="visible"
-                app:tabGravity="fill"
-                app:tabMode="fixed"
+                app:tabGravity="center"
+                app:tabMode="auto"
                 app:tabSelectedTextColor="#FF000000">
 
                 <com.google.android.material.tabs.TabItem
@@ -576,8 +620,20 @@
                 android:background="@drawable/bg_corner_blue_20"
                 android:padding="@dimen/dp_10"
                 android:text="加入购物车"
+                android:textColor="@color/white"
                 android:textSize="@dimen/font_size_15" />
         </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/ib_back_1"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_40"
+            android:background="@drawable/bg_tran_black_circle"
+            android:src="@mipmap/ic_back_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/ibGoTop"
