@@ -76,9 +76,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 } else if (binding.tabDetails.getTabAt(1).equals(tab)) {
                     binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px);
                 } else if (binding.tabDetails.getTabAt(2).equals(tab)) {
-                    binding.nestedScrollView.scrollTo(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px);
+                    binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px);
                 } else if (binding.tabDetails.getTabAt(3).equals(tab)) {
-                    binding.nestedScrollView.scrollTo(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px);
+                    binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px);
                 }
             }
 
@@ -108,6 +108,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 int packageListPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px;
                 int servicePosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px;
                 int recommendPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px;
+
+                Log.d(TAG, "productInfoPosition === " + productInfoPosition);
+                Log.d(TAG, "packageListPosition === " + packageListPosition);
+                Log.d(TAG, "servicePosition ======= " + servicePosition);
+                Log.d(TAG, "recommendPosition ===== " + recommendPosition);
+                Log.d(TAG, "======================= " + "===============");
 
                 if (packageListPosition <= 0 && servicePosition > 0) {
                     binding.tabDetails.selectTab(binding.tabDetails.getTabAt(1));
