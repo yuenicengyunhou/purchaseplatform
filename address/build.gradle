@@ -1,19 +1,25 @@
-plugins {
-    id 'com.android.application'
+if (isLib.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
 }
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.rails.purchaseplatform"
+        if(isLib.toBoolean())
+            applicationId "com.rails.purchaseplatform.address"
+
+        if (isLib.toBoolean())
+            multiDexEnabled true
+
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        flavorDimensions "versionCode"
-        multiDexEnabled true
 
 
         javaCompileOptions {
@@ -37,44 +43,38 @@ android {
     }
 
 
-    buildFeatures {
+    buildFeatures{
         viewBinding true
 
         dataBinding true
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+
+
+    sourceSets {
+        main {
+            if (isLib.toBoolean()) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            }
+        }
     }
 }
 
 dependencies {
 
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    implementation 'androidx.navigation:navigation-fragment:2.3.1'
-    implementation 'androidx.navigation:navigation-ui:2.3.1'
-    testImplementation 'junit:junit:4.13.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    implementation "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11"
-    implementation "androidx.recyclerview:recyclerview:1.2.0-alpha03"
-    implementation 'com.google.android:flexbox:1.0.0'
-
 
     //阿里路由
     implementation 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
     implementation project(path: ':common')
-    implementation project(path: ':user')
-    implementation project(path: ':notice')
-    implementation project(path: ':msg')
-    implementation project(path: ':market')
-    implementation project(path: ':order')
-    implementation project(path: ':address')
-
-
 }

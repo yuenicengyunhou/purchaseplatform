@@ -55,4 +55,23 @@ public class ConRoute {
     }
 
 
+    public final static class WEB {
+
+        private final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/";
+
+        //评价
+        public final static String EVALUTE = BASEURL + "evaluate";
+        //修改密码
+        public final static String MODIFYPAW = BASEURL + "passwordEdit";
+        //我的收藏
+        public final static String COLLECT = BASEURL + "goodsCollection";
+        //浏览记录
+        public final static String BROWSE = BASEURL + "browsingHistory";
+
+//        public final static String EVALUTE = BASEURL + "evaluate";
+//        public final static String EVALUTE = BASEURL + "evaluate";
+//        public final static String EVALUTE = BASEURL + "evaluate";
+
+    }
+
 }

@@ -1,16 +1,16 @@
-package com.rails.purchaseplatform.activity;
+package com.rails.purchaseplatform.address.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.rails.purchaseplatform.R;
+import com.rails.purchaseplatform.address.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class AddressActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_address);
     }
 }

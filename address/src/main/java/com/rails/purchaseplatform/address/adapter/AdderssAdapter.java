@@ -1,8 +1,6 @@
-package com.rails.purchaseplatform.adapter;
+package com.rails.purchaseplatform.address.adapter;
 
 import android.content.Context;
-import android.provider.DocumentsContract;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.fastjson.serializer.AdderSerializer;
-import com.rails.purchaseplatform.Bean.AddressBean;
+import com.rails.lib_data.bean.AddressBean;
 import com.rails.purchaseplatform.R;
 
 import java.util.List;
