@@ -30,6 +30,7 @@
     <dimen name="dp_48">90dp</dimen>
     <dimen name="dp_50">93.75dp</dimen>
     <dimen name="dp_55">103.125dp</dimen>
+    <dimen name="dp_56">105dp</dimen>
     <dimen name="dp_60">112.5dp</dimen>
     <dimen name="dp_65">121.875dp</dimen>
     <dimen name="dp_68">127.5dp</dimen>
@@ -71,6 +72,7 @@
     <dimen name="font_size_18">33.75sp</dimen>
     <dimen name="font_size_19">35.625sp</dimen>
     <dimen name="font_size_20">37.5sp</dimen>
+    <dimen name="font_size_26">48.75sp</dimen>
     <dimen name="font_size_35">65.625sp</dimen>
 
 </resources>

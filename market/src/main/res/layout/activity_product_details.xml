@@ -58,7 +58,7 @@
                         android:gravity="bottom"
                         android:text="3456.00"
                         android:textColor="#FFFF0000"
-                        android:textSize="26sp" />
+                        android:textSize="@dimen/font_size_26" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -86,12 +86,12 @@
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:text="华硕 玩家国度ROG 电竞显示器 游戏显示屏 27英寸 4K 144Hz刷新率 IPS HDR400 G-SYNC 神光同步 XG27UQ绝影"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/font_size_18"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/dp_tiny"
                     android:background="@color/bg_gray" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -154,7 +154,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16">
 
@@ -183,9 +183,16 @@
                         android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_tiny"
+                    android:layout_marginStart="@dimen/dp_56"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:background="#447F7F7F" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16">
 
@@ -222,9 +229,16 @@
                         android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_tiny"
+                    android:layout_marginStart="@dimen/dp_56"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:background="#447F7F7F" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16">
 
@@ -245,9 +259,16 @@
                         android:textSize="@dimen/font_size_13" />
                 </RelativeLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_tiny"
+                    android:layout_marginStart="@dimen/dp_56"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:background="#447F7F7F" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/dp_60"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16">
 
@@ -283,14 +304,14 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="@dimen/dp_80"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16">
 
                     <com.rails.purchaseplatform.common.widget.RatioImage
                         android:id="@+id/ratioImage"
                         android:layout_width="@dimen/dp_50"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/dp_50"
                         android:layout_centerVertical="true"
                         android:background="@null"
                         android:src="@drawable/ic_shop_logo"
@@ -304,14 +325,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_60"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/dp_16"
                         android:text="联想官方旗舰店"
                         android:textSize="@dimen/font_size_16"
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="@dimen/dp_16"
+                        android:layout_height="@dimen/dp_16"
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="@dimen/dp_60"
                         android:layout_marginBottom="@dimen/dp_18"
@@ -420,9 +441,11 @@
         </com.rails.purchaseplatform.common.widget.TabObserveNestedScrollView>
 
         <RelativeLayout
+            android:id="@+id/rlHeadViewWithTabLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_80"
-            android:background="@null"
+            android:background="@color/white"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -430,7 +453,7 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_details"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/dp_48"
                 android:layout_alignParentBottom="true"
                 android:visibility="visible"
                 app:tabGravity="fill"
@@ -460,6 +483,12 @@
                     android:layout_height="match_parent"
                     android:text="@string/tab_text_4" />
             </com.google.android.material.tabs.TabLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_tiny"
+                android:layout_alignParentBottom="true"
+                android:background="#447F7F7F" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -475,7 +504,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_shop"
-                android:layout_width="48dp"
+                android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_55"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -495,7 +524,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_collection"
-                android:layout_width="48dp"
+                android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_55"
                 android:layout_marginStart="@dimen/dp_6"
                 android:layout_toRightOf="@+id/ll_shop"
@@ -517,7 +546,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_cart"
-                android:layout_width="48dp"
+                android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_55"
                 android:layout_marginStart="@dimen/dp_6"
                 android:layout_toRightOf="@+id/ll_collection"

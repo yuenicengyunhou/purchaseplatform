@@ -67,7 +67,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         /**
          * 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
          */
-        binding.tabDetails.setTransitionAlpha(0);
+        binding.rlHeadViewWithTabLayout.setTransitionAlpha(0);
         binding.tabDetails.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -102,7 +102,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
                 float llFlagPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.llFlag) - (float) px;
 
-                binding.tabDetails.setTransitionAlpha(1 - (llFlagPosition / px2));
+                binding.rlHeadViewWithTabLayout.setTransitionAlpha(1 - (llFlagPosition / px2));
 
                 int productInfoPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webProductInfo) - px;
                 int packageListPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px;
