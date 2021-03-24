@@ -14,10 +14,10 @@ import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapterThree extends RecyclerView.Adapter<RecyclerAdapterThree.ViewHolder> {
+public class CdetailPageAdapter extends RecyclerView.Adapter<CdetailPageAdapter.ViewHolder> {
     Context context;
 
-    public RecyclerAdapterThree(Context context) {
+    public CdetailPageAdapter(Context context) {
         this.context = context;
     }
 

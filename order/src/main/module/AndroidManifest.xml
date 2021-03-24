@@ -3,7 +3,7 @@
     package="com.rails.purchaseplatform.order">
 
     <application>
-        <activity android:name=".DeliypageActivity"></activity>
+        <activity android:name=".DetailPageActivity"></activity>
         <activity
             android:name=".OrderActivity"
             android:screenOrientation="portrait" />

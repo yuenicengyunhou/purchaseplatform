@@ -16,11 +16,11 @@ import com.rails.purchaseplatform.order.bean.PurchaseBean;
 
 import java.util.List;
 
-public class May2adapter  extends RecyclerView.Adapter<May2adapter.ViewHolder> {
+public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.ViewHolder> {
     private List<PurchaseBean.Student> list;
     private Context context;
 
-    public May2adapter(List<PurchaseBean.Student> list, Context context) {
+    public OrderListsAdapter(List<PurchaseBean.Student> list, Context context) {
         this.list = list;
         this.context = context;
 
@@ -28,7 +28,7 @@ public class May2adapter  extends RecyclerView.Adapter<May2adapter.ViewHolder> {
 
 
     @Override
-    public void onBindViewHolder(@NonNull May2adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderListsAdapter.ViewHolder holder, int position) {
         PurchaseBean.Student student = list.get(position);
         ViewHolder holder1=(ViewHolder) holder;
         Glide.with(context).load(student.img).into(holder1.img);
@@ -43,7 +43,7 @@ public class May2adapter  extends RecyclerView.Adapter<May2adapter.ViewHolder> {
 
     @NonNull
     @Override
-    public May2adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrderListsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.recycler_item2, parent, false);
         ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;

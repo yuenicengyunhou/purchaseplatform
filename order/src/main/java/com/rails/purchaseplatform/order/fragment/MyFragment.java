@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.order.R;
-import com.rails.purchaseplatform.order.adapter.MayAdapter;
+import com.rails.purchaseplatform.order.adapter.OrderListAdapter;
 import com.rails.purchaseplatform.order.bean.OrderBean;
 import com.rails.purchaseplatform.order.bean.PurchaseBean;
 import com.rails.purchaseplatform.order.databinding.FragmentMyBinding;
@@ -31,11 +31,11 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
     private static int whichFragment;
     private RecyclerView rcy;
     private int mFragmentLabel;
-    private MayAdapter mAdapter;
+    private OrderListAdapter mAdapter;
     private ArrayList<OrderBean> orderBeans;
     private SmartRefreshLayout smart;
     private ArrayList<PurchaseBean> purchaseBeans;
-    private MayAdapter mayAdapter;
+    private OrderListAdapter mayAdapter;
 
 
     public static MyFragment getInstance(int pWhichFragment) {
@@ -92,7 +92,7 @@ public class MyFragment extends LazyFragment<FragmentMyBinding> {
         rcy.setLayoutManager(manager);
 
         purchaseBeans = new ArrayList<>();
-        mayAdapter = new MayAdapter( getActivity(),purchaseBeans);
+        mayAdapter = new OrderListAdapter( getActivity(),purchaseBeans);
         rcy.setAdapter(mayAdapter);
 
         initData();

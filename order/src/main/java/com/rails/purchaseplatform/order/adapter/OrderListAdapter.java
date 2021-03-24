@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.order.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,18 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.purchaseplatform.order.DeliypageActivity;
+import com.rails.purchaseplatform.order.DetailPageActivity;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.bean.PurchaseBean;
 
 import java.util.ArrayList;
 
-public class MayAdapter extends RecyclerView.Adapter<MayAdapter.ViewHolder> {
+public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ViewHolder> {
     private Context context;
     private ArrayList<PurchaseBean> list;
-    public May2adapter may2adapter;
+    public OrderListsAdapter orderListsAdapter;
 
-    public MayAdapter(Context context, ArrayList<PurchaseBean> list) {
+    public OrderListAdapter(Context context, ArrayList<PurchaseBean> list) {
         this.context = context;
         this.list = list;
     }
@@ -38,19 +37,19 @@ public class MayAdapter extends RecyclerView.Adapter<MayAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MayAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderListAdapter.ViewHolder holder, int position) {
         PurchaseBean purchaseBean = list.get(position);
       ViewHolder holder1 = (ViewHolder) holder;
        holder1.shu.setText(purchaseBean.danHao);
         holder1.timeShu.setText(purchaseBean.time);
         holder1.peopleRen.setText(purchaseBean.address);
         holder1.recyclerViewchid.setLayoutManager(new LinearLayoutManager(context));
-        may2adapter = new May2adapter(purchaseBean.list,context);
-        holder1.recyclerViewchid.setAdapter(may2adapter);
+       orderListsAdapter = new OrderListsAdapter(purchaseBean.list,context);
+        holder1.recyclerViewchid.setAdapter(orderListsAdapter);
         holder1.img_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DeliypageActivity.class);
+                Intent intent = new Intent(context, DetailPageActivity.class);
                 context.startActivity(intent);
             }
         });

@@ -18,12 +18,12 @@ import java.util.List;
 /*
 *采购单列表
  */
-public class MyBuyAdapter extends RecyclerView.Adapter {
+public class MyOrderAdapter extends RecyclerView.Adapter {
     private List<OrderBean> datas;
     private Context context;
     private View view;
 
-    public MyBuyAdapter(List<OrderBean> datas, Context context) {
+    public MyOrderAdapter(List<OrderBean> datas, Context context) {
         this.datas = datas;
         this.context = context;
     }

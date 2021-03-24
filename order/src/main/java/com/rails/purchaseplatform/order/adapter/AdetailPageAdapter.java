@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class RecyclerViewAdapterOne extends RecyclerView.Adapter<RecyclerViewAdapterOne.ViewHolder> {
+public class AdetailPageAdapter extends RecyclerView.Adapter<AdetailPageAdapter.ViewHolder> {
     Context context;
 
     public void setStrings(ArrayList<String> strings) {
@@ -23,7 +22,7 @@ public class RecyclerViewAdapterOne extends RecyclerView.Adapter<RecyclerViewAda
         notifyDataSetChanged();
     }
     ArrayList<String> strings = new ArrayList();
-    public RecyclerViewAdapterOne(Context context) {
+    public AdetailPageAdapter(Context context) {
         this.context = context;
 
     }

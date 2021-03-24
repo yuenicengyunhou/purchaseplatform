@@ -12,9 +12,9 @@ import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapterTwo extends RecyclerView.Adapter<RecyclerAdapterTwo.ViewHolder> {
+public class BdetailPageAdapter extends RecyclerView.Adapter<BdetailPageAdapter.ViewHolder> {
     Context context;
-    public RecyclerAdapterTwo(Context context) {
+    public BdetailPageAdapter(Context context) {
         this.context = context;
     }
 

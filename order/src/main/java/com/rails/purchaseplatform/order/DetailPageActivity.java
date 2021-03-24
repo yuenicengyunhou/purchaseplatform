@@ -16,22 +16,22 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.order.adapter.RecyclerAdapterThree;
-import com.rails.purchaseplatform.order.adapter.RecyclerAdapterTwo;
-import com.rails.purchaseplatform.order.adapter.RecyclerViewAdapterFour;
-import com.rails.purchaseplatform.order.adapter.RecyclerViewAdapterOne;
+import com.rails.purchaseplatform.order.adapter.CdetailPageAdapter;
+import com.rails.purchaseplatform.order.adapter.BdetailPageAdapter;
+import com.rails.purchaseplatform.order.adapter.DdetailPageAdapter;
+import com.rails.purchaseplatform.order.adapter.AdetailPageAdapter;
 
 import java.util.ArrayList;
 
 @Route(path = ConRoute.ORDER.ALL)
-public class DeliypageActivity extends AppCompatActivity {
+public class DetailPageActivity extends AppCompatActivity {
 
     private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deliypage);
+        setContentView(R.layout.activity_detailpage);
         RecyclerView recyclerView1 = findViewById(R.id.recyclerView);
         RecyclerView recyclerView2 = findViewById(R.id.recyclerView2);
         RecyclerView recyclerView3 = findViewById(R.id.recyclerView3);
@@ -40,16 +40,16 @@ public class DeliypageActivity extends AppCompatActivity {
         strings.add("提交订单");
         strings.add("已确定");
         strings.add("已收货");
-        RecyclerViewAdapterOne recyclerViewAdapterOne = new RecyclerViewAdapterOne(this);
+        AdetailPageAdapter recyclerViewAdapterOne = new AdetailPageAdapter(this);
         recyclerViewAdapterOne.setStrings(strings);
         recyclerView1.setLayoutManager(new GridLayoutManager(this, strings.size()));
         recyclerView1.setAdapter(recyclerViewAdapterOne);
 
-        RecyclerAdapterTwo recyclerAdapterTwo = new RecyclerAdapterTwo(this);
+        BdetailPageAdapter recyclerAdapterTwo = new BdetailPageAdapter(this);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
         recyclerView2.setAdapter(recyclerAdapterTwo);
 
-        RecyclerAdapterThree recyclerAdapterThree = new RecyclerAdapterThree(this);
+        CdetailPageAdapter recyclerAdapterThree = new CdetailPageAdapter(this);
         recyclerAdapterThree.setStrings(strings);
         recyclerView3.setLayoutManager(new LinearLayoutManager(this));
         recyclerView3.setAdapter(recyclerAdapterThree);
@@ -63,7 +63,7 @@ public class DeliypageActivity extends AppCompatActivity {
         flexboxLayoutManager.setJustifyContent(JustifyContent.FLEX_START);
         recyclerView4.setLayoutManager(flexboxLayoutManager);
 
-        RecyclerViewAdapterFour recyclerViewAdapterFour = new RecyclerViewAdapterFour(this);
+        DdetailPageAdapter recyclerViewAdapterFour = new DdetailPageAdapter(this);
         recyclerView4.setAdapter(recyclerViewAdapterFour);
         initView();
     }

@@ -15,7 +15,7 @@ import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-public class RecyclerViewAdapterFour extends RecyclerView.Adapter<RecyclerViewAdapterFour.ViewHolder> {
+public class DdetailPageAdapter extends RecyclerView.Adapter<DdetailPageAdapter.ViewHolder> {
     Context context;
     StringBuffer stringBuffer = new StringBuffer();
     ArrayList<String> strings = new ArrayList();
@@ -27,7 +27,7 @@ public class RecyclerViewAdapterFour extends RecyclerView.Adapter<RecyclerViewAd
 
     }
 
-    public RecyclerViewAdapterFour(Context context) {
+    public DdetailPageAdapter(Context context) {
         this.context = context;
 
     }
