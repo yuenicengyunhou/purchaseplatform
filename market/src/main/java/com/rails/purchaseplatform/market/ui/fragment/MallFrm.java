@@ -1,14 +1,10 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
@@ -20,16 +16,15 @@ import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
-import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.BrandAdapter;
-import com.rails.purchaseplatform.market.adapter.CategorySub2Adapter;
 import com.rails.purchaseplatform.market.adapter.CategorySubAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
@@ -42,7 +37,6 @@ import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import java.util.ArrayList;
 
 import androidx.cardview.widget.CardView;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -116,6 +110,16 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         binding.hotRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.hotRecycler.setAdapter(hotAdapter);
 
+
+        binding.scroll.setScrollViewListener(new AlphaScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(AlphaScrollView scrollView, int x, int y, int oldx, int oldy) {
+                if (y > 800) {
+                    binding.imgTop.setVisibility(View.VISIBLE);
+                } else
+                    binding.imgTop.setVisibility(View.GONE);
+            }
+        });
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
         productPresenter = new ProductPresenterImpl(getActivity(), this);
@@ -228,6 +232,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
                 ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
             }
         });
+
+        binding.imgTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.scroll.smoothScrollTo(0, 0);
+            }
+        });
     }
 
     @Override
@@ -240,4 +251,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
     public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
         hotAdapter.update(productBeans, true);
     }
+
+
 }
