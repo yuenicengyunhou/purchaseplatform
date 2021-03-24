@@ -19,6 +19,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/shopLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:orientation="vertical">
@@ -31,8 +32,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:button="@null"
-                android:drawableLeft="@drawable/selector_circle"
-                android:checked="@{cart.isSel}" />
+                android:checked="@{cart.isSel}"
+                android:drawableLeft="@drawable/selector_circle" />
 
             <TextView
                 android:id="@+id/shopName"

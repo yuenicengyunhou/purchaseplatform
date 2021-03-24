@@ -16,7 +16,6 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
-import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
@@ -25,11 +24,10 @@ import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
-import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
-import com.rails.purchaseplatform.market.ui.activity.WebActivity;
+import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
 
 import java.util.ArrayList;
 
@@ -239,6 +237,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             presenter.reduceProduct(bean.num.get());
         } else if (type == CartAdapter.EDIT) {
             // TODO: 2021/3/23 显示编辑窗口 ，更改产品数量
+            showDialog();
         }
     }
 
@@ -298,6 +297,23 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             bean.canReduce.set(false);
         } else
             bean.canReduce.set(true);
+    }
 
+
+    private void showDialog() {
+        new CartEditDialog.Builder()
+                .context(getActivity())
+                .title("输入您要购买的数量")
+                .setDialogListener(new CartEditDialog.DialogListener() {
+                    @Override
+                    public void onLeft() {
+
+                    }
+
+                    @Override
+                    public void onRight(String paw) {
+                        presenter.editProduct(Integer.parseInt(paw));
+                    }
+                }).builder().show();
     }
 }

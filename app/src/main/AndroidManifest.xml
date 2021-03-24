@@ -27,7 +27,7 @@
         <activity android:name=".activity.AddActivity"></activity>
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.RaddressActivity" />
+        <activity android:name=".address.ui.RaddressActivity" />
         <activity android:name=".activity.AddressActivity" />
         <activity android:name=".user.ui.activity.LoginActivity" />
         <!--        <activity-->

@@ -44,7 +44,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", "http://172.28.22.92:3000/purchase-android-web/passwordEdit");
+                bundle.putString("url", ConRoute.WEB.MODIFYPAW);
                 startIntent(BrowseActivity.class, bundle);
             }
         });
@@ -60,7 +60,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", "http://172.28.22.92:3000/purchase-android-web/browsingHistory");
+                bundle.putString("url", ConRoute.WEB.BROWSE);
                 startIntent(BrowseActivity.class, bundle);
             }
         });
@@ -70,7 +70,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", "http://172.28.22.92:3000/purchase-android-web/goodsCollection");
+                bundle.putString("url", ConRoute.WEB.COLLECT);
                 startIntent(BrowseActivity.class, bundle);
             }
         });

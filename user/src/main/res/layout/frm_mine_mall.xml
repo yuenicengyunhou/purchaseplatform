@@ -22,7 +22,7 @@
                 android:layout_height="@dimen/dp_240"
                 android:background="@color/bg_blue"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <com.rails.purchaseplatform.common.widget.CircleImageView
                 android:id="@+id/image"

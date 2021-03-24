@@ -77,6 +77,9 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 } else if (params[0] == CartSubAdapter.REDUCE) {
                     // TODO: 2021/3/22 数量加减
                     mulPositionListener.onPosition(bean, len, REDUCE);
+                }else if (params[0]== CartSubAdapter.EDIT){
+                    // TODO: 2021/3/22 数量加减
+                    mulPositionListener.onPosition(bean, len, EDIT);
                 }
 
             }
@@ -93,7 +96,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             }
         });
 
-        binding.shopName.setOnClickListener(new View.OnClickListener() {
+        binding.shopLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (positionListener != null)
