@@ -107,13 +107,13 @@
                 android:textColor="@color/selector_black_gray_color"
                 android:textSize="@dimen/font_size_18" />
 
-            <EditText
-                android:layout_width="@dimen/dp_30"
+            <TextView
+                android:id="@+id/et_num"
+                android:layout_width="wrap_content"
+                android:minWidth="@dimen/dp_30"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:focusableInTouchMode="false"
                 android:gravity="center"
-                android:inputType="none"
                 android:singleLine="true"
                 android:text="@{String.valueOf(product.num)}"
                 android:textColor="@color/font_black"

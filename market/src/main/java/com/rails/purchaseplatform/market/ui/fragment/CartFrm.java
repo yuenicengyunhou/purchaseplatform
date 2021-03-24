@@ -30,6 +30,7 @@ import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.activity.WebActivity;
+import com.rails.purchaseplatform.market.ui.pop.AlterEditDialog;
 
 import java.util.ArrayList;
 
@@ -239,6 +240,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             presenter.reduceProduct(bean.num.get());
         } else if (type == CartAdapter.EDIT) {
             // TODO: 2021/3/23 显示编辑窗口 ，更改产品数量
+            showDialog();
         }
     }
 
@@ -298,6 +300,23 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             bean.canReduce.set(false);
         } else
             bean.canReduce.set(true);
+    }
 
+
+    private void showDialog() {
+        new AlterEditDialog.Builder()
+                .context(getActivity())
+                .title("输入您要购买的数量")
+                .setDialogListener(new AlterEditDialog.DialogListener() {
+                    @Override
+                    public void onLeft() {
+
+                    }
+
+                    @Override
+                    public void onRight(String paw) {
+                        presenter.editProduct(Integer.parseInt(paw));
+                    }
+                }).builder().show();
     }
 }

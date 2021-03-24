@@ -83,6 +83,15 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
             }
         });
 
+        binding.etNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(productBean, position, EDIT);
+                }
+            }
+        });
+
 
     }
 }
