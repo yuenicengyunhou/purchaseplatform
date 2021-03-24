@@ -84,9 +84,17 @@ public class CartShopProductBean {
     private String secondCategoryName;
     private String thirdCategoryId;
     private String thirdCategoryName;
+    private Boolean limit;
+    private Boolean canUser;
+
+
 
     public final ObservableField<Boolean> isSel = new ObservableField<>();
     public final ObservableField<Integer> num = new ObservableField<>();
+    public final ObservableField<Boolean> canReduce = new ObservableField<>();
+    public final ObservableField<Boolean> canAdd = new ObservableField<>();
+    public final ObservableField<Boolean> canSel = new ObservableField<>();
+    public final ObservableField<Boolean> isLimit = new ObservableField<>();
 
     public Long getShopId() {
         return shopId;
@@ -366,5 +374,21 @@ public class CartShopProductBean {
 
     public void setThirdCategoryName(String thirdCategoryName) {
         this.thirdCategoryName = thirdCategoryName;
+    }
+
+    public Boolean getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Boolean limit) {
+        this.limit = limit;
+    }
+
+    public Boolean getCanUser() {
+        return canUser;
+    }
+
+    public void setCanUser(Boolean canUser) {
+        this.canUser = canUser;
     }
 }

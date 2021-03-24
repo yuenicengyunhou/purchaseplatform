@@ -34,6 +34,22 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         for (CartShopBean shopBean : cartBean.getShopList()) {
             for (CartShopProductBean productBean : shopBean.getSkuList()) {
                 productBean.num.set(productBean.getSkuNum());
+                productBean.isSel.set(false);
+
+                productBean.canSel.set(productBean.getCanUser());
+
+                if (productBean.num.get() > 99) {
+                    productBean.canAdd.set(false);
+                } else
+                    productBean.canAdd.set(true);
+
+                if (productBean.num.get() <= 1) {
+                    productBean.canReduce.set(false);
+                } else
+                    productBean.canReduce.set(true);
+
+                productBean.isLimit.set(productBean.getLimit());
+
             }
         }
 
