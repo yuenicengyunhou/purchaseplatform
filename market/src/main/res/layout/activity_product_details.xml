@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.rails.purchaseplatform.common.widget.TabObserveNestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -438,7 +438,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </com.rails.purchaseplatform.common.widget.TabObserveNestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
             android:id="@+id/rlHeadViewWithTabLayout"
