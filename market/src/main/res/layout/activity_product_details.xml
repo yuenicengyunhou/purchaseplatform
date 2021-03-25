@@ -510,7 +510,8 @@
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16"
                     android:layout_marginBottom="@dimen/dp_16"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
 
 
                 <androidx.viewpager.widget.ViewPager
