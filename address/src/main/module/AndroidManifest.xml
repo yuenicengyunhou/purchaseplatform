@@ -4,8 +4,16 @@
 
     <application>
 
+
+        <!--地址管理-->
         <activity
             android:name=".ui.AddressActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--添加地址-->
+        <activity
+            android:name=".ui.AddressAddActivity"
             android:screenOrientation="portrait" />
 
     </application>

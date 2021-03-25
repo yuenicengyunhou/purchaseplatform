@@ -55,6 +55,16 @@ public class ConRoute {
     }
 
 
+    /**
+     * 地址管理页面
+     */
+    public final static class ADDRESS {
+
+        public final static String ADDRESS_MAIN = "/address/main";
+
+    }
+
+
     public final static class WEB {
 
         private final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/";
@@ -73,5 +83,6 @@ public class ConRoute {
 //        public final static String EVALUTE = BASEURL + "evaluate";
 
     }
+
 
 }

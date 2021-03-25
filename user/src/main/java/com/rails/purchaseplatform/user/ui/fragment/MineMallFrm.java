@@ -83,5 +83,13 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             }
         });
 
+
+        binding.myAddressAdministration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+            }
+        });
+
     }
 }

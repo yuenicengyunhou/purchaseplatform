@@ -44,7 +44,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Vi
     @NonNull
     @Override
     public OrderListsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.recycler_item2, parent, false);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.recycler_detailpage_b, parent, false);
         ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;
     }

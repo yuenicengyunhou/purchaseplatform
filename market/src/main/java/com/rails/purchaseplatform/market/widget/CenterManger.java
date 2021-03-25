@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
+ * 向中心移动
  * @author： sk_comic@163.com
  * @date: 2021/3/4
  */

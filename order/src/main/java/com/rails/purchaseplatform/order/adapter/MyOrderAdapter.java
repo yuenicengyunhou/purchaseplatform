@@ -31,7 +31,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(context).inflate(R.layout.recycler_item, parent, false);
+        view = LayoutInflater.from(context).inflate(R.layout.recycler_detailpage_all, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

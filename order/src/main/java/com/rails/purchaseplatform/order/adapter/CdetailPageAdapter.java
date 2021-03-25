@@ -31,7 +31,7 @@ public class CdetailPageAdapter extends RecyclerView.Adapter<CdetailPageAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_deliypage_three, parent, false);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_detailpage_c, parent, false);
         return new ViewHolder(inflate);
     }
 

@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_70"
-                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:src="@drawable/ic_mine_msg"
                 app:layout_constraintBottom_toTopOf="@id/name"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -59,7 +59,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_30"
                 android:src="@drawable/ic_mine_exit"
                 app:layout_constraintBottom_toBottomOf="@id/order_meassge"
                 app:layout_constraintLeft_toRightOf="@id/order_meassge"
@@ -174,7 +174,7 @@
                     app:key="采购单"
                     app:key_color="@color/font_black"
                     app:key_size="@dimen/font_size_15"
-                    app:value_color="@color/font_gray"
+                    app:value_color="@color/font_grays"
                     app:value_content="查看全部"
                     app:value_right_icon="@drawable/ic_mine_right"
                     app:value_size="@dimen/font_size_12" />
