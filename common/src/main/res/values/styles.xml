@@ -26,8 +26,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_tiny</item>
         <item name="android:background">@color/line_gray</item>
-        <item name="android:layout_marginLeft">@dimen/dp_20</item>
-        <item name="android:layout_marginRight">@dimen/dp_20</item>
+        <item name="android:layout_marginLeft">@dimen/dp_15</item>
+        <item name="android:layout_marginRight">@dimen/dp_15</item>
     </style>
 
 
