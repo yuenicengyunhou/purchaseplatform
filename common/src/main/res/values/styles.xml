@@ -54,4 +54,8 @@
         <item name="android:background">@drawable/bg_corner_gray_20</item>
     </style>
 
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/font_size_13</item>
+    </style>
+
 </resources>

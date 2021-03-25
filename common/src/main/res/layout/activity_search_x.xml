@@ -12,14 +12,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp">
-
 
             <ImageButton
                 android:id="@+id/ib_back"
@@ -27,14 +24,13 @@
                 android:layout_height="@dimen/dp_32"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dp_10"
-                android:background="@color/white"
+                android:layout_marginStart="@dimen/dp_16"
+                android:background="@null"
                 android:scaleType="center"
                 android:src="@mipmap/icon_back" />
 
-
             <RelativeLayout
-                android:layout_width="280dp"
+                android:layout_width="@dimen/dp_280"
                 android:layout_height="@dimen/dp_32"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/dp_50"
@@ -83,7 +79,7 @@
                 android:layout_height="@dimen/dp_32"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_16"
                 android:gravity="center"
                 android:text="@string/search"
                 android:textSize="@dimen/font_size_12" />
@@ -94,44 +90,39 @@
             android:id="@+id/tv_searchHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="16dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_16"
             android:text="@string/search_history"
             android:textColor="#FF000000"
-            android:textSize="16sp" />
+            android:textSize="@dimen/font_size_16" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSearchHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginBottom="4dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp" />
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4" />
 
         <TextView
             android:id="@+id/tv_hotSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="12dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginBottom="@dimen/dp_16"
             android:text="@string/hot_search"
             android:textColor="#FF000000"
-            android:textSize="16sp" />
+            android:textSize="@dimen/font_size_16" />
 
         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/recyclerHotSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="14dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
             android:nestedScrollingEnabled="false" />
 
     </LinearLayout>
