@@ -10,6 +10,9 @@
     <string name="market_index_hot">热销商品</string>
 
 
+    <string name="market_category_search">搜索关键字</string>
+
+
     <!--购物城-->
     <string name="market_cart">购物车</string>
 
