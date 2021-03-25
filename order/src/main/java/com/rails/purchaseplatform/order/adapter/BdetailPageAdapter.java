@@ -29,7 +29,7 @@ public class BdetailPageAdapter extends RecyclerView.Adapter<BdetailPageAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_deliypage_two, parent, false);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_detailpage_b, parent, false);
         return new ViewHolder(inflate);
     }
 
