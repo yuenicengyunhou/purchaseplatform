@@ -41,6 +41,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_12"
                     android:text="@string/items_on_sale"
+                    android:textColor="#444444"
                     android:textSize="@dimen/font_size_12" />
 
                 <ImageView
@@ -58,6 +59,31 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_55"
                     android:background="#22000000" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_toRightOf="@+id/baseline"
+                    android:background="@drawable/bg_corner_gray_12_8e8e8e"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="电脑"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/font_size_12" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_up" />
+                </LinearLayout>
             </RelativeLayout>
 
             <TextView
@@ -84,37 +110,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/synthesis"
+                android:textColor="#666666"
                 android:textSize="@dimen/font_size_12" />
-
-            <RelativeLayout
-                android:id="@+id/rl_price"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/tv_sort_oder_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/price"
-                    android:textSize="@dimen/font_size_12" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_toEndOf="@+id/tv_sort_oder_price"
-                    android:src="@mipmap/icon_up" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_toEndOf="@+id/tv_sort_oder_price"
-                    android:src="@mipmap/icon_down" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_sales"
@@ -129,6 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sales"
+                    android:textColor="#666666"
                     android:textSize="@dimen/font_size_12" />
 
                 <ImageView
@@ -147,7 +145,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rl_time"
+                android:id="@+id/rl_price"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_32"
                 android:layout_gravity="center"
@@ -155,24 +153,25 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/tv_sort_oder_time"
+                    android:id="@+id/tv_sort_oder_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/time"
+                    android:text="@string/price"
+                    android:textColor="#666666"
                     android:textSize="@dimen/font_size_12" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_6"
-                    android:layout_toEndOf="@+id/tv_sort_oder_time"
+                    android:layout_toEndOf="@+id/tv_sort_oder_price"
                     android:src="@mipmap/icon_up" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:layout_toEndOf="@+id/tv_sort_oder_time"
+                    android:layout_toEndOf="@+id/tv_sort_oder_price"
                     android:src="@mipmap/icon_down" />
             </RelativeLayout>
 
