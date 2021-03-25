@@ -26,19 +26,19 @@
                 android:orientation="vertical">
 
                 <com.rails.purchaseplatform.common.widget.RatioImage
-                    android:visibility="gone"
                     android:id="@+id/ri_item_photo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/image_asus_lcd"
+                    android:visibility="gone"
                     app:h="720"
                     app:w="750" />
 
                 <com.rails.purchaseplatform.common.widget.RatioCard
-                    app:h="720"
-                    app:w="750"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:h="720"
+                    app:w="750">
 
                     <com.youth.banner.Banner
                         android:id="@+id/productPictureHD"
@@ -62,7 +62,7 @@
                         android:layout_marginEnd="@dimen/dp_2"
                         android:gravity="bottom"
                         android:text="¥"
-                        android:textColor="#FFFF0000"
+                        android:textColor="#E85454"
                         android:textSize="@dimen/font_size_16" />
 
                     <TextView
@@ -72,23 +72,26 @@
                         android:layout_marginEnd="@dimen/dp_4"
                         android:gravity="bottom"
                         android:text="3456.00"
-                        android:textColor="#FFFF0000"
+                        android:textColor="#E85454"
                         android:textSize="@dimen/font_size_26" />
 
                     <TextView
+                        android:id="@+id/tv_rmb_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_2"
                         android:gravity="bottom"
-                        android:text="¥"
+                        android:text="¥ "
+                        android:textColor="#BDBDBD"
                         android:textSize="@dimen/font_size_16" />
 
                     <TextView
+                        android:id="@+id/tv_price_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
                         android:text="4456.00"
+                        android:textColor="#BDBDBD"
                         android:textSize="@dimen/font_size_16" />
                 </LinearLayout>
 
@@ -102,6 +105,7 @@
                     android:layout_marginBottom="@dimen/dp_12"
                     android:lineSpacingExtra="@dimen/dp_1"
                     android:text="华硕 玩家国度ROG 电竞显示器 游戏显示屏 27英寸 4K 144Hz刷新率 IPS HDR400 G-SYNC 神光同步 XG27UQ绝影"
+                    android:textColor="#283247"
                     android:textSize="@dimen/font_size_18"
                     android:textStyle="bold" />
 
@@ -124,6 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="商品评分："
+                        android:textColor="#2E2E2E"
                         android:textSize="@dimen/font_size_13"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -203,6 +208,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@+id/item_sales_counts"
                         android:text="销量："
+                        android:textColor="#999999"
                         android:textSize="@dimen/font_size_12"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/item_sales_counts"
@@ -215,6 +221,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:text="126"
+                        android:textColor="#999999"
                         android:textSize="@dimen/font_size_12"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -238,6 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="已选"
+                        android:textColor="#2E2E2E"
                         android:textSize="@dimen/font_size_13"
                         android:textStyle="bold" />
 
@@ -247,6 +255,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/dp_40"
                         android:text="27英寸/FHD曲面/165Hz，1件"
+                        android:textColor="#454545"
                         android:textSize="@dimen/font_size_13" />
 
                     <ImageButton
@@ -276,6 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="送至"
+                        android:textColor="#2E2E2E"
                         android:textSize="@dimen/font_size_13"
                         android:textStyle="bold" />
 
@@ -293,6 +303,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/dp_55"
                         android:text="北京市海淀区西二旗智学苑1号楼1单元"
+                        android:textColor="#454545"
                         android:textSize="@dimen/font_size_13" />
 
                     <ImageButton
@@ -322,6 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="运费"
+                        android:textColor="#2E2E2E"
                         android:textSize="@dimen/font_size_13"
                         android:textStyle="bold" />
 
@@ -331,6 +343,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/dp_40"
                         android:text="店铺满99.00包邮"
+                        android:textColor="#454545"
                         android:textSize="@dimen/font_size_13" />
                 </RelativeLayout>
 
@@ -352,6 +365,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="参数"
+                        android:textColor="#2E2E2E"
                         android:textSize="@dimen/font_size_13"
                         android:textStyle="bold" />
 
@@ -361,6 +375,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/dp_40"
                         android:text="品牌 商品编码 商品产地 单品编码 ..."
+                        android:textColor="#454545"
                         android:textSize="@dimen/font_size_13" />
 
                     <ImageButton
@@ -402,6 +417,7 @@
                         android:layout_marginStart="@dimen/dp_60"
                         android:layout_marginTop="@dimen/dp_16"
                         android:text="联想官方旗舰店"
+                        android:textColor="#2E2E2E"
                         android:textSize="@dimen/font_size_16"
                         android:textStyle="bold" />
 
@@ -421,9 +437,11 @@
                         android:layout_marginStart="@dimen/dp_80"
                         android:layout_marginBottom="@dimen/dp_18"
                         android:text="风险较低"
+                        android:textColor="#333333"
                         android:textSize="@dimen/font_size_12" />
 
                     <TextView
+                        android:id="@+id/tv_go_in_shop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -456,16 +474,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="店铺推荐"
+                        android:textColor="#2E2E2E"
                         android:textSize="@dimen/font_size_13"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tv_show_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dp_6"
+                        android:layout_marginEnd="@dimen/dp_2"
                         android:text="查看全部"
                         android:textColor="#387CFC"
                         android:textSize="@dimen/font_size_13"
@@ -478,7 +497,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:src="@drawable/ic_go_next"
+                        android:src="@drawable/svg_arrow_blue_387cfc"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -571,15 +590,16 @@
                 android:layout_marginStart="@dimen/dp_50"
                 android:layout_marginEnd="@dimen/dp_50"
                 android:visibility="visible"
-                app:tabGravity="center"
                 app:tabMode="auto"
-                app:tabSelectedTextColor="#FF000000">
+                app:tabSelectedTextColor="#387CFC"
+                app:tabTextColor="#2E2E2E">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem_productInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_text_1" />
+                    android:text="@string/tab_text_1"
+                    app:tabTextAppearance="@style/TabLayoutTextStyle" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem_packageList"
@@ -660,27 +680,45 @@
                     android:textSize="@dimen/font_size_11" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_cart"
+            <RelativeLayout
                 android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_55"
                 android:layout_marginStart="@dimen/dp_6"
-                android:layout_toRightOf="@+id/ll_collection"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_toRightOf="@+id/ll_collection">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:src="@drawable/ic_cart" />
+                <LinearLayout
+                    android:id="@+id/ll_cart"
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_55"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@drawable/ic_cart_black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="购物车"
+                        android:textSize="@dimen/font_size_11" />
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="购物车"
-                    android:textSize="@dimen/font_size_11" />
-            </LinearLayout>
+                    android:layout_width="@dimen/dp_14"
+                    android:layout_height="@dimen/dp_14"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:background="@drawable/bg_trans_red_circle"
+                    android:text="33"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_9" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_putInCart"

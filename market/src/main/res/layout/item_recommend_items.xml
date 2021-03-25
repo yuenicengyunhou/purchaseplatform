@@ -29,6 +29,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{recommend.name}"
+            android:textColor="#3C3C3C"
             android:textSize="@dimen/font_size_12" />
 
         <LinearLayout
@@ -40,15 +41,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="¥"
-                android:textColor="#FFFF0000"
+                android:textColor="#E85454"
                 android:textSize="@dimen/font_size_10" />
 
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_2"
                 android:text="@{recommend.price}"
-                android:textColor="#FFFF0000"
+                android:textColor="#E85454"
                 android:textSize="@dimen/font_size_10" />
         </LinearLayout>
 

@@ -2,16 +2,20 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,6 +71,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
+
+        binding.tvRmbGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        binding.tvPriceGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         // 设置banner宽高
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
@@ -126,11 +133,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.ibGoTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.nestedScrollView.scrollTo(0, 0);
                 binding.tabDetails.selectTab(binding.tabDetails.getTabAt(0));
+                binding.nestedScrollView.scrollTo(0, 0);
             }
         });
 
+        // 左上角返回按钮
         binding.ibBack.setOnClickListener(v -> finish());
         binding.ibBack1.setOnClickListener(v -> finish());
     }
@@ -169,10 +177,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * @param px
      */
     private void updateTabStateOnScroll(int px) {
-        int productInfoPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webProductInfo) - px;
-        int packageListPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px;
-        int servicePosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px;
-        int recommendPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px;
+        int productInfoPosition = getCurrentPositionY(binding.webProductInfo) - px;
+        int packageListPosition = getCurrentPositionY(binding.webPackageList) - px;
+        int servicePosition = getCurrentPositionY(binding.webService) - px;
+        int recommendPosition = getCurrentPositionY(binding.webRecommend) - px;
 
         if (packageListPosition <= 0 && servicePosition > 0) {
             binding.tabDetails.selectTab(binding.tabDetails.getTabAt(1));
@@ -191,7 +199,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void updateTabTitleStateOnScroll(float px, float px2) {
-        float llFlagPosition = getCurrentPositionY(ProductDetailsActivity.this, binding.llFlag) - px;
+        float llFlagPosition = getCurrentPositionY(binding.llFlag) - px;
         binding.rlHeadViewWithTabLayout.setTransitionAlpha(1 - (llFlagPosition / px2));
     }
 
@@ -203,13 +211,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private void selectTab(TabLayout.Tab tab, int px) {
         if (binding.tabDetails.getTabAt(0).equals(tab)) {
-            binding.nestedScrollView.scrollTo(0, 0);
+            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webProductInfo) - px);
         } else if (binding.tabDetails.getTabAt(1).equals(tab)) {
-            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webPackageList) - px);
+            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webPackageList) - px);
         } else if (binding.tabDetails.getTabAt(2).equals(tab)) {
-            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webService) - px);
+            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webService) - px);
         } else if (binding.tabDetails.getTabAt(3).equals(tab)) {
-            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(ProductDetailsActivity.this, binding.webRecommend) - px);
+            binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webRecommend) - px);
         }
     }
 
@@ -266,6 +274,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     }
 
+    @Override
+    protected void onClick() {
+        super.onClick();
+        binding.tvShowAll.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
+        binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
+    }
 
     @Override
     public void getRecommendItems(ArrayList<RecommendItemsBean> recommendItemsBeans, boolean hasMore, boolean isClear) {
@@ -289,6 +303,24 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         webSettings.setDomStorageEnabled(true);//开启本地DOM存储
         webSettings.setLoadsImagesAutomatically(true); // 加载图片
         webSettings.setMediaPlaybackRequiresUserGesture(false);//播放音频，多媒体需要用户手动？设置为false为可自动播放
+
+        // 设置WebViewClient
+        view.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+            }
+        });
     }
 
 
@@ -302,11 +334,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 获取View与Window的距离
      *
-     * @param context Context
-     * @param view    需要测量的View
+     * @param view 需要测量的View
      * @return 返回View左上角与Window左上角的Y方向的距离
      */
-    public int getCurrentPositionY(Context context, View view) {
+    public int getCurrentPositionY(View view) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[1];
