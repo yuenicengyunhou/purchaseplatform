@@ -1,13 +1,21 @@
 package com.rails.purchaseplatform.common.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.HotSearchBean;
 import com.rails.lib_data.contract.HotSearchContract;
 import com.rails.lib_data.contract.HotSearchPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.FlowLayoutManager;
 import com.rails.purchaseplatform.common.adapter.HotSearchRecyclerAdapter;
 import com.rails.purchaseplatform.common.adapter.SearchHistoryFlowAdapter;
@@ -18,6 +26,7 @@ import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 搜索页面，点击首页搜索跳转到此页面
@@ -28,25 +37,11 @@ import java.util.List;
  * 5 -
  */
 @Route(path = "/common/SearchActivityX")
-public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView {
+public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView, View.OnKeyListener {
     final private String TAG = SearchActivityX.class.getName();
 
-    private final List<String> mHistorySearchList = new ArrayList<>();
-
-    {
-        mHistorySearchList.add("耳机");
-        mHistorySearchList.add("手机");
-        mHistorySearchList.add("飞利浦剃须刀");
-        mHistorySearchList.add("A4打印纸");
-        mHistorySearchList.add("苏泊尔电水壶");
-        mHistorySearchList.add("中性笔黑色");
-        mHistorySearchList.add("漫步者");
-        mHistorySearchList.add("Mate40Pro");
-//        mHistorySearchList.add("斩切刀");
-        mHistorySearchList.add("U盘");
-        mHistorySearchList.add("老A工具");
-//        mHistorySearchList.add("胡姬花花生油");
-    }
+    private SharedPreferences mSp;
+    private List<String> mHistorySearchList;
 
     private SearchHistoryFlowAdapter mSearchHistoryFlowAdapter;
     private FlowLayoutManager mFlowLayoutManager;
@@ -72,8 +67,13 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
 
     @Override
     protected void initialize(Bundle bundle) {
-        // 左上角的返回按钮
-        binding.ibBack.setOnClickListener(v -> SearchActivityX.this.finish());
+
+        mSp = this.getSharedPreferences("SEARCH_HISTORY", Context.MODE_PRIVATE);
+        mHistorySearchList = new ArrayList<>();
+
+
+        getSharedPreferenceData();
+
 
         mSearchHistoryFlowAdapter = new SearchHistoryFlowAdapter(this, mHistorySearchList);
         mFlowLayoutManager = new FlowLayoutManager();
@@ -88,6 +88,59 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
         mHotSearchPresenter.getHotSearch(false, 1);
     }
 
+    /**
+     * 把搜索记录存入SP
+     */
+    private void putSearchKeyInSharedPreference() {
+        SharedPreferences.Editor editor = mSp.edit();
+        editor.clear();
+        for (int i = 0; i < mHistorySearchList.size(); i++) {
+            editor.putString("HISTORY" + i, mHistorySearchList.get(i));
+        }
+        editor.apply();
+    }
+
+    /**
+     * 获取本地数据
+     */
+    private void getSharedPreferenceData() {
+        if (mSp != null) {
+            int size = mSp.getAll().size();
+            for (int i = 0; i < size; i++) {
+                mHistorySearchList.add(mSp.getString("HISTORY" + i, ""));
+            }
+        }
+    }
+
+    /**
+     * 更新列表
+     *
+     * @param text
+     */
+    private void updateList(String text) {
+        Log.d(TAG, String.valueOf(mHistorySearchList.contains(text)));
+        mHistorySearchList.remove(text);
+        mHistorySearchList.add(0, text);
+        Log.d(TAG, String.valueOf(mHistorySearchList.size()));
+        if (mHistorySearchList.size() > 10) mHistorySearchList.remove(10);
+        mSearchHistoryFlowAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 判断输入框是否为空
+     *
+     * @param text
+     * @return
+     */
+    private boolean isEmptyText(String text) {
+        Log.d(TAG, String.valueOf(text.equals("")));
+        if (Objects.equals(text, "")) {
+            Toast.makeText(SearchActivityX.this, "搜索不能为空", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
@@ -97,5 +150,46 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
     @Override
     public void getHotSearch(ArrayList<HotSearchBean> hotSearchBeans, boolean hasMore, boolean isClear) {
         mHotSearchRecyclerAdapter.update(hotSearchBeans, true);
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        // 左上角的返回按钮
+        binding.ibBack.setOnClickListener(v -> SearchActivityX.this.finish());
+
+        // 右上角搜索按钮
+        binding.tvSearch.setOnClickListener(v -> {
+
+            String text = binding.searchText.getText().toString().trim();
+
+            if (isEmptyText(text)) return;
+
+            updateList(text);
+
+            putSearchKeyInSharedPreference();
+
+            ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).navigation();
+        });
+    }
+
+    // TODO: 2021/3/25 软键盘回车键跳转
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
+            String text = binding.searchText.getText().toString().trim();
+
+            if (isEmptyText(text)) return false;
+
+            updateList(text);
+
+            putSearchKeyInSharedPreference();
+
+            ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).navigation();
+
+            return true;
+        }
+        return false;
     }
 }

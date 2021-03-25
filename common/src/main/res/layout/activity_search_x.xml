@@ -62,6 +62,7 @@
                     android:background="#22000000" />
 
                 <AutoCompleteTextView
+                    android:id="@+id/searchText"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
