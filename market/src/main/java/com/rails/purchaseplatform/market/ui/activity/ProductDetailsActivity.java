@@ -75,6 +75,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvRmbGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         binding.tvPriceGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
+        binding.fsvScore.setStar(4);
+
         // 设置banner宽高
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
         layoutParams.width = ScreenSizeUtil.getScreenWidth(this);
