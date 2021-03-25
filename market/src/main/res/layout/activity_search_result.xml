@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -22,7 +22,7 @@
                 android:layout_height="@dimen/dp_32"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="@dimen/dp_14"
                 android:background="@color/white"
                 android:scaleType="center"
                 android:src="@mipmap/icon_back" />
@@ -66,7 +66,7 @@
                 android:layout_height="@dimen/dp_32"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="14dp"
+                android:layout_marginEnd="@dimen/dp_14"
                 android:gravity="center"
                 android:text="@string/search"
                 android:textSize="@dimen/font_size_12" />
@@ -177,11 +177,12 @@
             </RelativeLayout>
 
             <ImageButton
+                android:id="@+id/ib_filter"
                 android:layout_width="@dimen/dp_32"
                 android:layout_height="@dimen/dp_32"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@null"
                 android:paddingLeft="@dimen/dp_10"
                 android:scaleType="center"
                 android:src="@mipmap/icon_filter" />
@@ -192,8 +193,8 @@
             android:id="@+id/searchResultRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20" />
 
     </LinearLayout>
 </layout>

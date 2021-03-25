@@ -26,12 +26,25 @@
                 android:orientation="vertical">
 
                 <com.rails.purchaseplatform.common.widget.RatioImage
+                    android:visibility="gone"
                     android:id="@+id/ri_item_photo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/image_asus_lcd"
                     app:h="720"
                     app:w="750" />
+
+                <com.rails.purchaseplatform.common.widget.RatioCard
+                    app:h="720"
+                    app:w="750"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/productPictureHD"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.rails.purchaseplatform.common.widget.RatioCard>
 
                 <LinearLayout
                     android:id="@+id/ll_flag"

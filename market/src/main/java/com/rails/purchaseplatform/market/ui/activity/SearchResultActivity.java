@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,6 +65,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         super.onClick();
         // 左上角的返回按钮
         binding.ibBack.setOnClickListener(v -> SearchResultActivity.this.finish());
+        // 筛选器
+        binding.ibFilter.setOnClickListener(v -> Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show());
+        // TODO: 2021/3/25 筛选规则
     }
 
     @Override

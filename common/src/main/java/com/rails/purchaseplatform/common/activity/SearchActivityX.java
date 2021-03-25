@@ -42,10 +42,10 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
         mHistorySearchList.add("中性笔黑色");
         mHistorySearchList.add("漫步者");
         mHistorySearchList.add("Mate40Pro");
-        mHistorySearchList.add("斩切刀");
+//        mHistorySearchList.add("斩切刀");
         mHistorySearchList.add("U盘");
         mHistorySearchList.add("老A工具");
-        mHistorySearchList.add("胡姬花花生油");
+//        mHistorySearchList.add("胡姬花花生油");
     }
 
     private SearchHistoryFlowAdapter mSearchHistoryFlowAdapter;
@@ -78,7 +78,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
         mSearchHistoryFlowAdapter = new SearchHistoryFlowAdapter(this, mHistorySearchList);
         mFlowLayoutManager = new FlowLayoutManager();
         binding.recyclerSearchHistory.setLayoutManager(mFlowLayoutManager);
-        binding.recyclerSearchHistory.addItemDecoration(new SpaceItemDecoration(20));
+        binding.recyclerSearchHistory.addItemDecoration(new SpaceItemDecoration(28));
         binding.recyclerSearchHistory.setAdapter(mSearchHistoryFlowAdapter);
 
         mHotSearchRecyclerAdapter = new HotSearchRecyclerAdapter(this);

@@ -6,10 +6,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,7 @@ import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
+import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import com.rails.purchaseplatform.market.web.PackageListPage4Js;
 import com.rails.purchaseplatform.market.web.ProductInfoPage4Js;
 import com.rails.purchaseplatform.market.web.RecommendPage4Js;
@@ -48,10 +51,32 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             BASE_URL + RECOMMEND
     };
 
+    final private ArrayList<String> PICTURE_URLS = new ArrayList<>();
+
+    {
+        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/13ebbb1f20c86d01f78d1ad947dc53ea20210311142710454.jpg");
+        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/15b05c30f482495a541566ed4d78f31520210302143520639.jpg");
+        PICTURE_URLS.add("https://mall.95306.cn/mall-view/product/search?businessType=1&cid=1001901");
+        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/350f52c335382eb0fc82876e6f971ef220210302143543911.jpg");
+        PICTURE_URLS.add("https://mall.95306.cn/mall-view/shop?shopId=202008210194");
+        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/36f96cfb37df5f69abe79f797755d1af20210302143600691.png");
+        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/cf00e7e274cb23158f9f7e9538d8219e20210127130842300.jpg");
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
+
+        // 设置banner宽高
+        ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
+        layoutParams.width = ScreenSizeUtil.getScreenWidth(this);
+        layoutParams.height = layoutParams.width * 24 / 25;
+        binding.productPictureHD.setLayoutParams(layoutParams);
+
+        binding.productPictureHD.setImages(PICTURE_URLS).setImageLoader(new GlideImageLoader()).start();
+
+
         recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
         recommendItemsPresenter = new RecommendItemsPresenterImpl(this, this);
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);

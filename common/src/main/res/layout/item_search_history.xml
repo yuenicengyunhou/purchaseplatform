@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_corner_gray_20"
-    android:paddingLeft="6dp"
-    android:paddingTop="2dp"
-    android:paddingRight="6dp"
-    android:paddingBottom="2dp">
+    android:paddingLeft="@dimen/dp_6"
+    android:paddingTop="@dimen/dp_4"
+    android:paddingRight="@dimen/dp_6"
+    android:paddingBottom="@dimen/dp_4">
 
 
     <TextView
