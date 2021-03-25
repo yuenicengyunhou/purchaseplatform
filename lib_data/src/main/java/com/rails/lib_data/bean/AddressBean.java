@@ -9,11 +9,6 @@ public class AddressBean {
     private String phone;
     private String address;
 
-    public AddressBean(String name, String phone, String address) {
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-    }
 
     public String getName() {
         return name;

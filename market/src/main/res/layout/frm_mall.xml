@@ -63,6 +63,7 @@
                             android:layout_width="@dimen/dp_35"
                             android:layout_height="@dimen/dp_35"
                             android:layout_centerVertical="true"
+                            android:visibility="gone"
                             android:layout_toLeftOf="@+id/img_msg"
                             android:padding="@dimen/dp_8"
                             android:src="@drawable/ic_market_scan" />
@@ -205,6 +206,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <com.rails.purchaseplatform.common.widget.LrLableLayout

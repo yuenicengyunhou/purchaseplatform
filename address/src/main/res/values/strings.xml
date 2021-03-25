@@ -1,3 +1,7 @@
 <resources>
     <string name="address">地址管理</string>
+
+
+    <string name="address_main">地址管理</string>
+    <string name="address_main_add">+&#160;添加收货地址</string>
 </resources>

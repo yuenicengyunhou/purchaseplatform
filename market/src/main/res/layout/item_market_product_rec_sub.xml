@@ -41,8 +41,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
-            android:gravity="center"
-            android:singleLine="true"
+            android:lines="2"
+            android:ellipsize="end"
             android:text="@{product.pictureName}"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_12" />
@@ -56,6 +56,7 @@
             android:layout_marginRight="@dimen/dp_5"
             android:gravity="center"
             android:singleLine="true"
+            android:visibility="gone"
             android:text="@{product.pictureName}"
             android:textColor="@color/font_red"
             android:textSize="@dimen/font_size_10" />

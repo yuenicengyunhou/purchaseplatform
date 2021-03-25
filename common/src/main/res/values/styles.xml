@@ -34,7 +34,7 @@
     <!-- 提交按钮样式-->
     <style name="btn_commit">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_45</item>
+        <item name="android:layout_height">@dimen/dp_40</item>
         <item name="android:layout_marginLeft">@dimen/dp_30</item>
         <item name="android:layout_marginRight">@dimen/dp_30</item>
         <item name="android:gravity">center</item>
@@ -46,12 +46,12 @@
 
     <!--    蓝色提交按钮-->
     <style name="btn_commit.blue" parent="btn_commit">
-        <item name="android:background">@drawable/bg_corner_blue_5</item>
+        <item name="android:background">@drawable/bg_corner_blue_20</item>
     </style>
 
     <!--    灰色提交按钮-->
     <style name="btn_commit.gray" parent="btn_commit">
-        <item name="android:background">@drawable/bg_corner_gray_5</item>
+        <item name="android:background">@drawable/bg_corner_gray_20</item>
     </style>
 
 </resources>

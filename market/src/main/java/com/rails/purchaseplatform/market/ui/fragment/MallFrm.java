@@ -144,7 +144,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         for (BannerBean bean : banners)
             imgs.add(bean.getPictureUrl());
 
-        binding.banner.setImages(imgs).setImageLoader(new GlideImageLoader()).start();
+        binding.banner.setImages(imgs).setDelayTime(3000).setImageLoader(new GlideImageLoader()).start();
 
     }
 
@@ -165,7 +165,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         presenter.getBanners();
         presenter.getRecCategorys();
         presenter.getBrands();
-        productPresenter.getHotProducts(false, 1);
+//        productPresenter.getHotProducts(false, 1);
     }
 
     @Override

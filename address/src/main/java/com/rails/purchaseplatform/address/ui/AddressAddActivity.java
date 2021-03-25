@@ -7,7 +7,7 @@ import com.rails.purchaseplatform.address.databinding.ActivityRaddressBinding;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 
 
-public class RaddressActivity extends ToolbarActivity<ActivityRaddressBinding> {
+public class AddressAddActivity extends ToolbarActivity<ActivityRaddressBinding> {
 
     private Button btnOk;
 
