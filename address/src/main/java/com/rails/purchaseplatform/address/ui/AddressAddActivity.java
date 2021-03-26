@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.address.ui;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.databinding.ActivityRaddressBinding;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 
@@ -14,7 +15,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityRaddressBinding>
 
     @Override
     protected int getColor() {
-        return  android.R.color.white;
+        return android.R.color.white;
     }
 
     @Override
@@ -29,8 +30,8 @@ public class AddressAddActivity extends ToolbarActivity<ActivityRaddressBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
-//        binding.titleBar.setImgLeftRes(R.drawable.jiantou)
-//                .setTitle("+添加收货地址").setShowLine(true);
+        binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
+                .setTitle("+添加收货地址").setShowLine(true);
 
     }
 
