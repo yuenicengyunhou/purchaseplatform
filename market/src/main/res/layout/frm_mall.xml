@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.rails.purchaseplatform.common.widget.BaseSwipeLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,10 +63,10 @@
                             android:layout_width="@dimen/dp_35"
                             android:layout_height="@dimen/dp_35"
                             android:layout_centerVertical="true"
-                            android:visibility="gone"
                             android:layout_toLeftOf="@+id/img_msg"
                             android:padding="@dimen/dp_8"
-                            android:src="@drawable/ic_market_scan" />
+                            android:src="@drawable/ic_market_scan"
+                            android:visibility="gone" />
 
 
                         <ImageView
@@ -206,8 +206,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <com.rails.purchaseplatform.common.widget.LrLableLayout
                         android:layout_width="match_parent"
@@ -237,7 +237,7 @@
         </com.rails.purchaseplatform.common.widget.AlphaScrollView>
 
 
-    </com.rails.purchaseplatform.common.widget.BaseSwipeLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
     <ImageView
@@ -245,11 +245,11 @@
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_50"
         android:layout_gravity="bottom|end"
-        android:padding="@dimen/dp_5"
         android:layout_marginRight="@dimen/common_border"
         android:layout_marginBottom="@dimen/common_border"
-        android:visibility="gone"
-        android:src="@drawable/ic_go_top" />
+        android:padding="@dimen/dp_5"
+        android:src="@drawable/ic_go_top"
+        android:visibility="gone" />
 
 
 </FrameLayout>

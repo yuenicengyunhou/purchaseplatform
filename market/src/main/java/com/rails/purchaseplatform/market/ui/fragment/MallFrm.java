@@ -33,9 +33,12 @@ import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -153,19 +156,20 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
      * 数据刷新操作
      */
     void onRefresh() {
-        binding.rlRecycler.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.rlRecycler.setEnableLoadMore(false);
+        binding.rlRecycler.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
-                //下拉刷新数据
-                binding.rlRecycler.setRefreshing(false);
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                binding.rlRecycler.finishRefresh();
                 presenter.getRectProducts(false);
             }
         });
+
         presenter.getRectProducts(true);
         presenter.getBanners();
         presenter.getRecCategorys();
         presenter.getBrands();
-//        productPresenter.getHotProducts(false, 1);
+        productPresenter.getHotProducts(false, 1);
     }
 
     @Override
