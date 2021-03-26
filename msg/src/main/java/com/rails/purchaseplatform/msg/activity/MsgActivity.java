@@ -28,7 +28,7 @@ import java.util.HashMap;
  * 消息
  */
 @Route(path = ConRoute.MSG.MSG_MAIN)
-public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> implements JSMsgBack{
+public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> implements JSMsgBack {
 
     private String url;
 
@@ -42,10 +42,9 @@ public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> implement
     @Override
     protected void initialize(Bundle bundle) {
 //        url = "file:///android_asset/index.html";
-        url = "http://172.28.22.92:3000/purchase-android-web/messageList";
-//        url ="http://172.28.20.109:3000/hotGoods";
+        url = ConRoute.WEB.MSG;
 
-        initWebView(binding.web,this);
+        initWebView(binding.web, this);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class MsgActivity extends BaseErrorActivity<ActivityMsgBinding> implement
      *
      * @param webView
      */
-    private void initWebView(WebView webView,JSMsgBack jsMsgBack) {
+    private void initWebView(WebView webView, JSMsgBack jsMsgBack) {
 
         addHeader(webView, url);
         WebSettings webSettings = webView.getSettings();

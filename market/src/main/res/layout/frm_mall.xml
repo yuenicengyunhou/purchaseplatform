@@ -8,6 +8,7 @@
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:srlPrimaryColor="@color/bg_blue"
         android:overScrollMode="never">
 
 

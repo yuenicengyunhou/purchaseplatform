@@ -243,6 +243,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
                 binding.scroll.smoothScrollTo(0, 0);
             }
         });
+
+        binding.imgMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.MSG.MSG_MAIN).navigation();
+            }
+        });
     }
 
     @Override
