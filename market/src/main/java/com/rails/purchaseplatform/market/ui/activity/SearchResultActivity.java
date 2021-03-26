@@ -2,15 +2,18 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.activity.SearchActivityX;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
@@ -31,6 +34,10 @@ import java.util.ArrayList;
  */
 @Route(path = "/market/SearchResultActivity")
 public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements SearchResultContract.SearchResultView {
+
+    final private String TAG = SearchResultActivity.class.getSimpleName();
+
+    private String mSearchKey;
 
     private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
     private SearchResultContract.SearchResultPresenter mSearchResultPresenter;
@@ -61,6 +68,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.searchResultRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.searchResultRecycler.setAdapter(mSearchResultRecyclerAdapter);
         mSearchResultPresenter.getSearchResult(false, 1);
+
+        binding.tvSearchKey.setText(mSearchKey);
     }
 
     @Override
@@ -87,5 +96,13 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     @Override
     public void getSearchResult(ArrayList<SearchResultBean> searchResultBeans, boolean hasMore, boolean isClear) {
         mSearchResultRecyclerAdapter.update(searchResultBeans, isClear);
+    }
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        Log.d(TAG, String.valueOf(extras.isEmpty()));
+        mSearchKey = extras.getString("search_key");
+        Log.d(TAG, mSearchKey);
     }
 }

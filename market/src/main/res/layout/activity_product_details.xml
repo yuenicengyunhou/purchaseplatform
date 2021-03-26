@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="productDetails"
+            type="com.rails.lib_data.bean.ProductDetailsBean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
