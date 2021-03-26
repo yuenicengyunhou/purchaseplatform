@@ -14,24 +14,28 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_44">
+            android:layout_height="@dimen/dp_44"
+            android:gravity="center_vertical">
 
             <ImageButton
                 android:id="@+id/ib_back"
-                android:layout_width="@dimen/dp_32"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_32"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginStart="@dimen/dp_16"
                 android:background="@null"
                 android:scaleType="center"
                 android:src="@mipmap/icon_back" />
 
             <RelativeLayout
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_32"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/dp_50"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_toStartOf="@+id/tv_search"
+                android:layout_toEndOf="@+id/ib_back"
                 android:background="@drawable/bg_corner_gray_20">
 
                 <TextView
@@ -61,6 +65,7 @@
                     android:background="#22000000" />
 
                 <LinearLayout
+                    android:id="@+id/ll_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_24"
                     android:layout_centerVertical="true"
@@ -73,6 +78,7 @@
                     android:paddingRight="@dimen/dp_8">
 
                     <TextView
+                        android:id="@+id/tv_search_key"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="电脑"
@@ -80,22 +86,24 @@
                         android:textSize="@dimen/font_size_12" />
 
                     <ImageView
+                        android:id="@+id/iv_cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
                         android:src="@mipmap/ic_cancel" />
                 </LinearLayout>
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_search"
-                android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp_14"
+                android:layout_marginEnd="@dimen/dp_16"
                 android:gravity="center"
                 android:text="@string/search"
-                android:textSize="@dimen/font_size_12" />
+                android:textSize="@dimen/font_size_13" />
         </RelativeLayout>
 
         <LinearLayout
@@ -189,7 +197,7 @@
         </LinearLayout>
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/rl_recycler"
+            android:id="@+id/srl_ji"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never">

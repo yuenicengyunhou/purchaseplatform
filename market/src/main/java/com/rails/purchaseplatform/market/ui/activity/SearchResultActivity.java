@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
+import com.rails.purchaseplatform.common.activity.SearchActivityX;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
@@ -68,6 +71,13 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 筛选器
         binding.ibFilter.setOnClickListener(v -> Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show());
         // TODO: 2021/3/25 筛选规则
+
+        binding.llCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchResultActivity.this.startActivity(new Intent(SearchResultActivity.this, SearchActivityX.class));
+            }
+        });
     }
 
     @Override

@@ -16,6 +16,7 @@
 
         <activity
             android:name="com.rails.purchaseplatform.market.ui.activity.SearchResultActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <activity
