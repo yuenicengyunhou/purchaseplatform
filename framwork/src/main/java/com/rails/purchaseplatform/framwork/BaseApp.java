@@ -84,7 +84,7 @@ public class BaseApp extends Application {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                layout.setPrimaryColorsId(R.color.header_color, android.R.color.white);//全局设置主题颜色
+                layout.setPrimaryColorsId(R.color.header_color, android.R.color.darker_gray);//全局设置主题颜色
                 return new ClassicsHeader(context);
             }
         });
