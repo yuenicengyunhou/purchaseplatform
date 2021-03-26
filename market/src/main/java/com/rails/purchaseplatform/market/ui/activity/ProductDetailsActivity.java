@@ -28,7 +28,7 @@ import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
-import com.rails.purchaseplatform.market.util.GlideImageLoader;
+import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 import com.rails.purchaseplatform.market.web.PackageListPage4Js;
 import com.rails.purchaseplatform.market.web.ProductInfoPage4Js;
 import com.rails.purchaseplatform.market.web.RecommendPage4Js;
@@ -58,13 +58,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     final private ArrayList<String> PICTURE_URLS = new ArrayList<>();
 
     {
-        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/13ebbb1f20c86d01f78d1ad947dc53ea20210311142710454.jpg");
-        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/15b05c30f482495a541566ed4d78f31520210302143520639.jpg");
-        PICTURE_URLS.add("https://mall.95306.cn/mall-view/product/search?businessType=1&cid=1001901");
-        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/350f52c335382eb0fc82876e6f971ef220210302143543911.jpg");
-        PICTURE_URLS.add("https://mall.95306.cn/mall-view/shop?shopId=202008210194");
-        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/36f96cfb37df5f69abe79f797755d1af20210302143600691.png");
-        PICTURE_URLS.add("https://oss.mall.95306.cn/mall/cf00e7e274cb23158f9f7e9538d8219e20210127130842300.jpg");
+        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/166096/33/15226/156617/605bf332E77bfdb15/f7e4a251e80278bd.jpg");
+        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/107085/16/10632/664379/5e210b19E144ab15c/a67ee480c6362732.png");
+        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/108742/17/4555/146823/5e210b09E0d94b095/da431a26270c8e4f.jpg");
+        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/99612/7/10845/145068/5e210b0bE70e61f44/86289e1d73106363.jpg");
+        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/106992/40/10798/148763/5e210b13E04bfbe5f/6acf46ab1343346a.jpg");
+        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/109976/4/4629/125199/5e210b16E5a1c0d32/1de193281edd0a5f.jpg");
     }
 
 
@@ -83,8 +82,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         layoutParams.height = layoutParams.width * 24 / 25;
         binding.productPictureHD.setLayoutParams(layoutParams);
 
-        binding.productPictureHD.setImages(PICTURE_URLS).setImageLoader(new GlideImageLoader()).start();
-
+        binding.productPictureHD.setImages(PICTURE_URLS).setImageLoader(new GlideImageLoader4ProductDetails()).start();
 
         recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
         recommendItemsPresenter = new RecommendItemsPresenterImpl(this, this);
