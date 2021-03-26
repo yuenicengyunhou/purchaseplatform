@@ -53,7 +53,5 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11'
-
     api project(path: ':lib_data')
 }

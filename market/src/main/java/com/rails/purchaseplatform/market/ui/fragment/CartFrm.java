@@ -13,6 +13,7 @@ import com.rails.lib_data.contract.CartPresenterImpl;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
@@ -28,6 +29,8 @@ import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
@@ -64,20 +67,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     protected void loadData() {
 
-        int height = -ScreenSizeUtil.dp2px(getActivity(), 45);
-        binding.bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-                if (i >= height) {
-                    binding.swipe.setEnabled(true);
-                } else {
-                    binding.swipe.setEnabled(false);
-
-                }
-            }
-        });
-
-
         binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
                 DecimalUtil.formatDouble(0.0), "", getResources().getColor(R.color.font_red)));
 
@@ -101,17 +90,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             }
         });
         binding.recRecycler.setAdapter(recAdapter);
-        binding.recRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
+
+        binding.scroll.setScrollViewListener(new AlphaScrollView.ScrollViewListener() {
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int positions = hotManager.findFirstVisibleItemPosition();
-                if (positions > 0) {
+            public void onScrollChanged(AlphaScrollView scrollView, int x, int y, int oldx, int oldy) {
+                if (y > 800) {
                     binding.imgTop.setVisibility(View.VISIBLE);
                 } else
                     binding.imgTop.setVisibility(View.GONE);
@@ -134,15 +118,18 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 刷新效果
      */
     private void onRefresh() {
-        binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.swipe.setEnableLoadMore(false);
+        binding.swipe.setOnRefreshListener(new OnRefreshListener() {
+
             @Override
-            public void onRefresh() {
-                binding.swipe.setRefreshing(false);
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                binding.swipe.finishRefresh();
                 page = DEF_PAGE;
                 presenter.getCarts(false);
                 notifyData(false, page);
             }
         });
+
         presenter.getCarts(true);
         notifyData(false, page);
     }
@@ -208,17 +195,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.imgTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CoordinatorLayout.Behavior behavior =
-                        ((CoordinatorLayout.LayoutParams) binding.bar.getLayoutParams()).getBehavior();
-                if (behavior instanceof AppBarLayout.Behavior) {
-                    AppBarLayout.Behavior appBarLayoutBehavior = (AppBarLayout.Behavior) behavior;
-                    int topAndBottomOffset = appBarLayoutBehavior.getTopAndBottomOffset();
-                    if (topAndBottomOffset != 0) {
-                        appBarLayoutBehavior.setTopAndBottomOffset(0);
-                        binding.recRecycler.scrollToPosition(0);
-                        binding.imgTop.setVisibility(View.GONE);
-                    }
-                }
+                binding.scroll.smoothScrollTo(0, 0);
             }
         });
     }
