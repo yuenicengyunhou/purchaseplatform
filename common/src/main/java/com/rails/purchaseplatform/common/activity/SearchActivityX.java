@@ -43,7 +43,7 @@ import java.util.Objects;
  * 5 -
  */
 @Route(path = "/common/SearchActivityX")
-public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView, View.OnKeyListener, HotSearchRecyclerAdapter.OnClickCallBack {
+public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView, View.OnKeyListener, HotSearchRecyclerAdapter.OnClickCallBack, SearchHistoryFlowAdapter.OnClickCallBack {
     final private String TAG = SearchActivityX.class.getName();
 
     private SharedPreferences mSp;
@@ -84,6 +84,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
 
         mSearchHistoryFlowAdapter = new SearchHistoryFlowAdapter(this, mHistorySearchList);
         mFlowLayoutManager = new FlowLayoutManager();
+        mSearchHistoryFlowAdapter.setListener(this);
         binding.recyclerSearchHistory.setLayoutManager(mFlowLayoutManager);
         binding.recyclerSearchHistory.addItemDecoration(new SpaceItemDecoration(28));
         binding.recyclerSearchHistory.setAdapter(mSearchHistoryFlowAdapter);

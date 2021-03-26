@@ -1,7 +1,7 @@
 package com.rails.purchaseplatform.common.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,6 +19,7 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private Context mContext;
     private List<String> mData;
+    private OnClickCallBack callBack;
 
     public SearchHistoryFlowAdapter(Context context, List<String> list) {
         mContext = context;
@@ -34,9 +35,15 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TextView textView = ((ViewHolder) holder).textView;
-        textView.setText(mData.get(position));
+        String text = mData.get(position);
+        textView.setText(text);
         textView.setOnClickListener(v -> {
-            ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).navigation();
+
+            callBack.onClickCallBack(text);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("search_key", text);
+            ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation();
         });
     }
 
@@ -53,5 +60,13 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
             super(itemView);
             textView = itemView.findViewById(R.id.tv_search_history);
         }
+    }
+
+    public void setListener(OnClickCallBack callBack) {
+        this.callBack = callBack;
+    }
+
+    public interface OnClickCallBack {
+        void onClickCallBack(String text);
     }
 }
