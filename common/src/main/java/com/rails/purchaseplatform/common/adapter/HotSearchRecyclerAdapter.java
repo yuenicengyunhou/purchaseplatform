@@ -2,15 +2,11 @@ package com.rails.purchaseplatform.common.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 
-import com.alibaba.android.arouter.facade.Postcard;
-import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.HotSearchBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.R;
-import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
 import com.rails.purchaseplatform.common.databinding.ItemHotSearchBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 
