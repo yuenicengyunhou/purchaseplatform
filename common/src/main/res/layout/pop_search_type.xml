@@ -5,9 +5,9 @@
 
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <RelativeLayout
+        android:layout_width="64dp"
+        android:layout_height="84dp"
         android:background="@drawable/bg_search_type_pop"
         android:orientation="vertical">
 
@@ -15,15 +15,29 @@
             android:id="@+id/tv_popTypeSales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_20"
             android:text="@string/items_on_sale"
             android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:id="@+id/baseline"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_44"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:background="#F2F2F2" />
 
         <TextView
             android:id="@+id/tv_popTypeShop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/items_on_sale"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_52"
+            android:text="@string/shop"
             android:textSize="@dimen/font_size_12" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

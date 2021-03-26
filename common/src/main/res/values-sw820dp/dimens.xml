@@ -33,6 +33,7 @@
     <dimen name="dp_45">112.5dp</dimen>
     <dimen name="dp_48">120dp</dimen>
     <dimen name="dp_50">125dp</dimen>
+    <dimen name="dp_52">130dp</dimen>
     <dimen name="dp_53">132dp</dimen>
     <dimen name="dp_54">135dp</dimen>
     <dimen name="dp_55">137.5dp</dimen>
