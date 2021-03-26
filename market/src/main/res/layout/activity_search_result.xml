@@ -82,7 +82,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_up" />
+                        android:src="@mipmap/ic_cancel" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -188,13 +188,19 @@
 
         </LinearLayout>
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-            android:id="@+id/searchResultRecycler"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/rl_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:overScrollMode="never" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
 
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/searchResultRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:overScrollMode="never" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </layout>
