@@ -56,7 +56,7 @@
                             android:layout_toRightOf="@+id/img_logo"
                             android:text="@string/market_index_tip"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_12" />
+                            android:textSize="@dimen/font_size_13" />
 
 
                         <ImageView

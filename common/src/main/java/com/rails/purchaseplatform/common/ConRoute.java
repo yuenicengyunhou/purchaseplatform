@@ -67,7 +67,7 @@ public class ConRoute {
 
     public final static class WEB {
 
-        private final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
+        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
 
         //评价
         public final static String EVALUTE = BASEURL + "evaluate";
