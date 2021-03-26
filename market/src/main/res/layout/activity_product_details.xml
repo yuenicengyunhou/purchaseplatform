@@ -103,9 +103,8 @@
                     android:layout_marginTop="@dimen/dp_6"
                     android:layout_marginEnd="@dimen/dp_16"
                     android:layout_marginBottom="@dimen/dp_12"
-                    android:lineSpacingExtra="@dimen/dp_1"
                     android:text="华硕 玩家国度ROG 电竞显示器 游戏显示屏 27英寸 4K 144Hz刷新率 IPS HDR400 G-SYNC 神光同步 XG27UQ绝影"
-                    android:textColor="#283247"
+                    android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_18"
                     android:textStyle="bold" />
 

@@ -23,6 +23,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
@@ -42,12 +43,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
-    final private String BASE_URL = "http://172.28.20.109:3000/";
-    //    final private String BASE_URL = "https://crmall.rails.cn/purchase-android-web/";
+    final private String BASE_URL = ConRoute.WEB.BASEURL;
     final private String DETAILS = "productInfo";
     final private String LIST = "packingList";
-    final private String SERVICE = "serviceOrPartner?service=0";
-    final private String RECOMMEND = "serviceOrPartner?service=1";
+    final private String SERVICE = "serviceOrPartner?service=1";
+    final private String RECOMMEND = "serviceOrPartner?service=0";
     final private String[] TAB_URLS = {
             BASE_URL + DETAILS,
             BASE_URL + LIST,
@@ -58,12 +58,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     final private ArrayList<String> PICTURE_URLS = new ArrayList<>();
 
     {
-        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/166096/33/15226/156617/605bf332E77bfdb15/f7e4a251e80278bd.jpg");
-        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/107085/16/10632/664379/5e210b19E144ab15c/a67ee480c6362732.png");
-        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/108742/17/4555/146823/5e210b09E0d94b095/da431a26270c8e4f.jpg");
-        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/99612/7/10845/145068/5e210b0bE70e61f44/86289e1d73106363.jpg");
-        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/106992/40/10798/148763/5e210b13E04bfbe5f/6acf46ab1343346a.jpg");
-        PICTURE_URLS.add("https://img14.360buyimg.com/n0/jfs/t1/109976/4/4629/125199/5e210b16E5a1c0d32/1de193281edd0a5f.jpg");
+        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
+        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6901443407217/428_428_4A986AE3579911F078F43B674B4EF611BE841294A15C2C50mp.png");
+        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6901443408887/428_428_8C0DCB8B48F9A0DDDF1C3A8BC7958FBA2AE24D308646AAA2mp.png");
+        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
     }
 
 
