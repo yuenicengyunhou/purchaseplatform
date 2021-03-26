@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="loading_color">#306BE0</color>
+
+
+    <color name="header_color">#d6d6d6</color>
 </resources>
