@@ -1,11 +1,15 @@
 package com.rails.purchaseplatform.common.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +20,7 @@ import com.rails.lib_data.bean.HotSearchBean;
 import com.rails.lib_data.contract.HotSearchContract;
 import com.rails.lib_data.contract.HotSearchPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.R;
 import com.rails.purchaseplatform.common.adapter.FlowLayoutManager;
 import com.rails.purchaseplatform.common.adapter.HotSearchRecyclerAdapter;
 import com.rails.purchaseplatform.common.adapter.SearchHistoryFlowAdapter;
@@ -23,6 +28,7 @@ import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +55,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
     private HotSearchContract.HotSearchPresenter mHotSearchPresenter;
     private HotSearchRecyclerAdapter mHotSearchRecyclerAdapter;
 
+    private PopupWindow mPopupWindow;
 
     @Override
     protected int getColor() {
@@ -152,6 +159,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
         mHotSearchRecyclerAdapter.update(hotSearchBeans, true);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onClick() {
         super.onClick();
@@ -171,6 +179,74 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
 
             ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).navigation();
         });
+
+        // 切换搜索类型按钮
+        binding.tvTypeName.setOnClickListener(v -> {
+            View itemView = (View) binding.tvTypeName.getParent();
+
+            View view = LayoutInflater.from(SearchActivityX.this).inflate(R.layout.pop_search_type, null);
+            int width = ScreenSizeUtil.dp2px(SearchActivityX.this, 64);
+            int height = ScreenSizeUtil.dp2px(SearchActivityX.this, 84);
+            mPopupWindow = new PopupWindow(view, width, height, true);
+            TextView popTypeSales = view.findViewById(R.id.tv_popTypeSales);
+            TextView popTypeShops = view.findViewById(R.id.tv_popTypeShop);
+
+            String showingText = binding.tvTypeName.getText().toString().trim();
+
+            if (showingText.equals("商品"))
+                popTypeSales.setTextColor(R.color.text_blue);
+            if (showingText.equals("店铺"))
+                popTypeShops.setTextColor(R.color.text_blue);
+
+
+            popTypeSales.setOnClickListener(sale -> {
+                binding.tvTypeName.setText(popTypeSales.getText().toString().trim());
+                mPopupWindow.dismiss();
+                mPopupWindow = null;
+            });
+
+            popTypeShops.setOnClickListener(shop -> {
+                binding.tvTypeName.setText(popTypeShops.getText().toString().trim());
+                mPopupWindow.dismiss();
+                mPopupWindow = null;
+            });
+
+            // 点击popupwindow范围以外的地方时隐藏
+            // mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+            mPopupWindow.setOutsideTouchable(true);
+
+            // 控制位置
+            // 显示popupwindow在itemView的下方，偏移量都为0
+            if (isShowBottom(itemView)) {
+                mPopupWindow.showAsDropDown(itemView, 0, 0);
+            }
+            // 显示popupwindow在itemView的上方，偏移量y都为-2*itemView.getHeight()
+            else {
+                mPopupWindow.showAsDropDown(itemView, 0, -2 * itemView.getHeight());
+            }
+
+        });
+    }
+
+    private boolean isShowBottom(View itemView) {
+        // 得到屏幕的高度
+        // int heightPixels =
+        // getResources().getDisplayMetrics().heightPixels;//方式1
+        int screenHeight = getWindowManager().getDefaultDisplay().getHeight();// 方式2
+
+        int[] location = new int[2];
+        // location[0]-->x
+        // location[1]-->y
+        itemView.getLocationInWindow(location);
+        // 得到itemView在屏幕中Y轴的值
+        int itemViewY = location[1];
+
+        // 得到itemView距离屏幕底部的距离
+        int distance = screenHeight - itemViewY - itemView.getHeight();
+
+        // 条目下方放不下popupWindow return false
+        // 条目下方放得下popupWindow return true
+        return distance >= itemView.getHeight();
     }
 
     // TODO: 2021/3/25 软键盘回车键跳转

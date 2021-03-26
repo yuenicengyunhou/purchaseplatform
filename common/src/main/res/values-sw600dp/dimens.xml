@@ -31,6 +31,7 @@
     <dimen name="dp_45">84.375dp</dimen>
     <dimen name="dp_48">90dp</dimen>
     <dimen name="dp_50">93.75dp</dimen>
+    <dimen name="dp_52">97.5dp</dimen>
     <dimen name="dp_55">103.125dp</dimen>
     <dimen name="dp_56">105dp</dimen>
     <dimen name="dp_60">112.5dp</dimen>

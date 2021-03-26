@@ -21,7 +21,7 @@
     <color name="font_black_light">#666666</color>
     <color name="font_gray">#d4d4d4</color>
     <color name="font_hint">#666666</color>
-   <color name="font_grays">#B1B1B1</color>
+    <color name="font_grays">#B1B1B1</color>
     <color name="font_pink">#FF1D51</color>
 
 
@@ -53,6 +53,9 @@
     <color name="tv_gray">#666666</color>
     <color name="tv_blue">#308BE9</color>
     <color name="divider_gray">#d9d9d9</color>
+
+    <color name="text_blue">#387CFC</color>
+    <color name="text_gray">#444444</color>
 
 
 </resources>
