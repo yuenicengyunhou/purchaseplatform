@@ -30,7 +30,7 @@
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_75"
-                android:src="@color/bg_gray"
+                android:src="@drawable/ic_user_avater"
                 app:border_color="@color/white"
                 app:border_width="@dimen/dp_2"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -43,6 +43,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:text="张三三"
                 android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18"
                 app:layout_constraintLeft_toRightOf="@id/image"
                 app:layout_constraintTop_toTopOf="@id/image" />
 
@@ -72,6 +73,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:text="协同办公事业部"
                 android:textColor="@color/white"
+                android:textSize="@dimen/font_size_13"
                 app:layout_constraintBottom_toBottomOf="@id/image"
                 app:layout_constraintLeft_toRightOf="@id/image" />
 
