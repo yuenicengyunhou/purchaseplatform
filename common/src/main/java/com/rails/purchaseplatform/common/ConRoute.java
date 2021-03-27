@@ -43,6 +43,8 @@ public class ConRoute {
         public final static String ORDER_MAIN = "/order/mian";
         //详情页
         public final static String ALL = "/order/all";
+        //核对订单
+        public final static String ORDER_VERITY = "/order/verity";
     }
 
 

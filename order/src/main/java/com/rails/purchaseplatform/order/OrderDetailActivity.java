@@ -24,7 +24,7 @@ import com.rails.purchaseplatform.order.adapter.AdetailPageAdapter;
 import java.util.ArrayList;
 
 @Route(path = ConRoute.ORDER.ALL)
-public class DetailPageActivity extends AppCompatActivity {
+public class OrderDetailActivity extends AppCompatActivity {
 
     private ImageView imageView;
 

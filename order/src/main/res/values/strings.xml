@@ -1,5 +1,23 @@
 <resources>
-    <string name="order">order</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="order">订单</string>
+
+
+    <!--订单核算-->
+    <string name="order_verify">信息核对</string>
+    <string name="order_verify_address">请添加收货地址</string>
+    <string name="order_verify_goods_type">收货方式</string>
+    <string name="order_verify_company">结算单位</string>
+    <string name="order_verify_bill">发票信息</string>
+    <string name="order_verify_bill_input">请添加发票信息</string>
+    <string name="order_verify_pay_type">支付方式</string>
+    <string name="order_verify_freight">运费</string>
+    <string name="order_verify_remark">订单备注</string>
+    <string name="order_verify_remark_hint">您可在此输入45字以内的备注</string>
+    <string name="order_verify_number">共计%d件</string>
+    <string name="order_verify_subtotal">小计：%s</string>
+    <string name="order_verify_year_total">年度预算总额</string>
+    <string name="order_verify_year_extra">年度预算余额</string>
+    <string name="order_verify_total">合计：</string>
+    <string name="order_verify_commit">提交采购单</string>
+
 </resources>

@@ -134,6 +134,14 @@
                     android:textColor="@color/font_gray"
                     android:textSize="@dimen/font_size_12" />
 
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:switchMinWidth="@dimen/dp_50"
+                    app:theme="@style/Switch"
+                    android:layout_height="wrap_content"/>
+
             </RelativeLayout>
 
 

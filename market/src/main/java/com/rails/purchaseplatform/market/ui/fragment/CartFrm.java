@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.ui.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
@@ -12,6 +13,7 @@ import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -196,6 +198,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             @Override
             public void onClick(View v) {
                 binding.scroll.smoothScrollTo(0, 0);
+            }
+        });
+
+
+        binding.btnCommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
             }
         });
     }
