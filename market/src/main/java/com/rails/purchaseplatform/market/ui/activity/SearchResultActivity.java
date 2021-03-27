@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +14,7 @@ import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.activity.SearchActivityX;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 
@@ -31,9 +31,7 @@ import java.util.ArrayList;
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
 @Route(path = "/market/SearchResultActivity")
-public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements SearchResultContract.SearchResultView {
-
-    final private String TAG = SearchResultActivity.class.getSimpleName();
+public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements SearchResultContract.SearchResultView, View.OnClickListener {
 
     private String mSearchKey;
 
@@ -74,13 +72,14 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     protected void onClick() {
         super.onClick();
         // 左上角的返回按钮
-        binding.ibBack.setOnClickListener(v -> SearchResultActivity.this.finish());
+        binding.ibBack.setOnClickListener(this);
         // 筛选器
-        binding.ibFilter.setOnClickListener(v -> Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show());
+        binding.ibFilter.setOnClickListener(this);
         // TODO: 2021/3/25 筛选规则
-
-        binding.llCancel.setOnClickListener(v ->
-                SearchResultActivity.this.startActivity(new Intent(SearchResultActivity.this, SearchActivityX.class)));
+        // 点击搜索关键字
+        binding.tvSearchKey.setOnClickListener(this);
+        // 点击关键字后面的叉叉
+        binding.ivCancel.setOnClickListener(this);
     }
 
     @Override
@@ -95,8 +94,37 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        Log.d(TAG, String.valueOf(extras.isEmpty()));
         mSearchKey = extras.getString("search_key");
-        Log.d(TAG, mSearchKey);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        // 点击返回按钮
+        if (id == R.id.ib_back) {
+            finish();
+        }
+        // 点击筛选按钮
+        else if (id == R.id.ib_filter) {
+            Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
+        }
+
+        // 点击关键字灰色Layout
+        // else if (id == R.id.ll_cancel) { // 这个不要了
+        //     SearchResultActivity.this.startActivity(new Intent(SearchResultActivity.this, SearchActivityX.class));
+        // }
+
+        // 点击搜索关键字
+        else if (id == R.id.tv_search_key) { // 这个按到文字，传入文字
+            Bundle bundle = new Bundle();
+            bundle.putString("search_key", binding.tvSearchKey.getText().toString());
+            Intent intent = new Intent(this, SearchActivityX.class);
+            intent.putExtra("search_key", bundle);
+            startActivity(intent);
+        }
+        // 点击搜索关键字后面的叉叉
+        else if (id == R.id.iv_cancel) { // 这个按到叉叉，不传文字
+            startActivity(new Intent(this, SearchActivityX.class));
+        }
     }
 }

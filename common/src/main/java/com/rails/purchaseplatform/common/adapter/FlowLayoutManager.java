@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.common.adapter;
 
 import android.graphics.Rect;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,6 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
     //该方法主要用来获取每一个item在屏幕上占据的位置
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        Log.d(TAG, "onLayoutChildren");
         totalHeight = 0;
         int cuLineTop = top;
         //当前行使用的宽度
@@ -120,7 +118,6 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
         }
 
         for (int i = 0; i < getItemCount(); i++) {
-            Log.d(TAG, "index:" + i);
             View childAt = recycler.getViewForPosition(i);
             if (View.GONE == childAt.getVisibility()) {
                 continue;
@@ -172,7 +169,6 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
         }
         totalHeight = Math.max(totalHeight, getVerticalSpace());
-        Log.d(TAG, "onLayoutChildren totalHeight:" + totalHeight);
         fillLayout(recycler, state);
     }
 
@@ -259,7 +255,6 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler,
                                   RecyclerView.State state) {
 
-        Log.d("TAG", "totalHeight:" + totalHeight);
         //实际要滑动的距离
         int travel = dy;
 

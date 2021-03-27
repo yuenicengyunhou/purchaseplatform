@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,8 +42,9 @@ import java.util.Objects;
  * 5 -
  */
 @Route(path = "/common/SearchActivityX")
-public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView, View.OnKeyListener, HotSearchRecyclerAdapter.OnClickCallBack, SearchHistoryFlowAdapter.OnClickCallBack {
-    final private String TAG = SearchActivityX.class.getName();
+public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
+        implements HotSearchContract.HotSearchView, View.OnKeyListener,
+        HotSearchRecyclerAdapter.OnClickCallBack, SearchHistoryFlowAdapter.OnClickCallBack {
 
     private SharedPreferences mSp;
     private List<String> mHistorySearchList;
@@ -78,6 +78,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
         mSp = this.getSharedPreferences("SEARCH_HISTORY", Context.MODE_PRIVATE);
         mHistorySearchList = new ArrayList<>();
 
+        if (bundle != null) binding.searchText.setText(bundle.getString("search_key"));
 
         getSharedPreferenceData();
 
@@ -95,6 +96,13 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
         binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
         mHotSearchPresenter.getHotSearch(false, 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Bundle bundle = getIntent().getBundleExtra("search_key");
+        if (bundle != null) binding.searchText.setText(bundle.getString("search_key"));
     }
 
     /**
@@ -127,10 +135,8 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
      * @param text
      */
     private void updateList(String text) {
-        Log.d(TAG, String.valueOf(mHistorySearchList.contains(text)));
         mHistorySearchList.remove(text);
         mHistorySearchList.add(0, text);
-        Log.d(TAG, String.valueOf(mHistorySearchList.size()));
         if (mHistorySearchList.size() > 10) mHistorySearchList.remove(10);
         mSearchHistoryFlowAdapter.notifyDataSetChanged();
     }
@@ -142,7 +148,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
      * @return
      */
     private boolean isEmptyText(String text) {
-        Log.d(TAG, String.valueOf(text.equals("")));
         if (Objects.equals(text, "")) {
             Toast.makeText(SearchActivityX.this, "搜索不能为空", Toast.LENGTH_SHORT).show();
             return true;
