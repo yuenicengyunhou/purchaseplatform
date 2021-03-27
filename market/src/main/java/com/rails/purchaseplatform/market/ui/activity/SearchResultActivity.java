@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
     private SearchResultContract.SearchResultPresenter mSearchResultPresenter;
 
+    private boolean salesSortFlag = true; // false 降序排列
+    private boolean priceSortFlag = true; // true  升序排列
 
     private int mModuleFlag = 0;
 
@@ -80,6 +83,14 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.tvSearchKey.setOnClickListener(this);
         // 点击关键字后面的叉叉
         binding.ivCancel.setOnClickListener(this);
+
+        // 点击综合排序
+        binding.tvSynthesis.setOnClickListener(this);
+        // 点击销量排序
+        binding.rlSales.setOnClickListener(this);
+        // 点击价格排序
+        binding.rlPrice.setOnClickListener(this);
+
     }
 
     @Override
@@ -97,6 +108,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchKey = extras.getString("search_key");
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -125,6 +137,58 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 点击搜索关键字后面的叉叉
         else if (id == R.id.iv_cancel) { // 这个按到叉叉，不传文字
             startActivity(new Intent(this, SearchActivityX.class));
+        }
+        // 点击综合排序
+        else if (id == R.id.tv_synthesis) {
+            binding.tvSynthesis.setTextColor(R.color.font_blue);
+
+            binding.tvSortOderSales.setTextColor(R.color.font_red);
+            binding.tvSortOderPrice.setTextColor(R.color.font_red);
+
+            binding.ivSaleTriangle.setVisibility(View.INVISIBLE);
+            binding.ivPriceTriangle.setVisibility(View.INVISIBLE);
+
+            // TODO: 2021/3/27 发送请求 - 综合排序
+        }
+        // 点击销量排序
+        else if (id == R.id.rl_sales) {
+            binding.tvSortOderSales.setTextColor(R.color.font_blue);
+
+            binding.tvSynthesis.setTextColor(R.color.font_red);
+            binding.tvSortOderPrice.setTextColor(R.color.font_red);
+
+            binding.ivSaleTriangle.setVisibility(View.VISIBLE);
+            binding.ivPriceTriangle.setVisibility(View.INVISIBLE);
+
+            if (salesSortFlag) {
+                binding.ivSaleTriangle.setImageResource(R.mipmap.icon_up);
+            } else {
+                binding.ivSaleTriangle.setImageResource(R.mipmap.icon_down);
+            }
+
+            salesSortFlag = !salesSortFlag;
+
+            // TODO: 2021/3/27 发送请求 - 按销量升序或降序排列
+        }
+        // 点击价格排序
+        else if (id == R.id.rl_price) {
+            binding.tvSortOderPrice.setTextColor(R.color.font_blue);
+
+            binding.tvSynthesis.setTextColor(R.color.font_red);
+            binding.tvSortOderSales.setTextColor(R.color.font_red);
+
+            binding.ivSaleTriangle.setVisibility(View.INVISIBLE);
+            binding.ivPriceTriangle.setVisibility(View.VISIBLE);
+
+            if (priceSortFlag) {
+                binding.ivPriceTriangle.setImageResource(R.mipmap.icon_up);
+            } else {
+                binding.ivPriceTriangle.setImageResource(R.mipmap.icon_down);
+            }
+
+            priceSortFlag = !priceSortFlag;
+
+            // TODO: 2021/3/27 发送请求 - 按价格升序或降序排列
         }
     }
 }
