@@ -1,10 +1,16 @@
 package com.rails.lib_data.bean;
 
+import android.os.Parcel;
+
+import java.io.Serializable;
+
+import androidx.databinding.ObservableField;
+
 /**
  * 张少婷
  * 地址管理页面对象
  */
-public class AddressBean {
+public class AddressBean implements Serializable {
 
 
     /**
@@ -18,6 +24,9 @@ public class AddressBean {
     private String phone;
     private String address;
     private Boolean isdefault;
+
+    public final ObservableField<Boolean> isSel = new ObservableField<>();
+
 
     public String getName() {
         return name;

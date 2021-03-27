@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="address"
             type="com.rails.lib_data.bean.AddressBean" />
@@ -29,11 +31,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_name"
-            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_40"
             android:layout_toRightOf="@+id/tv_name"
             android:text="@{address.phone}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:id="@+id/tv_def"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_phone"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_toRightOf="@+id/tv_phone"
+            android:background="@drawable/bg_corner_gray_20"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingBottom="@dimen/dp_2"
+            android:text="@string/address_main_default"
+            android:textColor="@color/font_black_light"
+            android:textSize="@dimen/font_size_10"
+            android:visibility="@{address.isSel?View.VISIBLE:View.GONE}" />
 
         <TextView
             android:id="@+id/tv_address"
@@ -42,10 +61,10 @@
             android:layout_below="@+id/tv_name"
             android:layout_alignLeft="@+id/tv_name"
             android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_20"
             android:layout_toLeftOf="@+id/img_edit"
             android:maxLines="2"
             android:text="@{address.address}"
-            android:layout_marginBottom="@dimen/dp_20"
             android:textSize="@dimen/font_size_13" />
 
 
@@ -59,9 +78,10 @@
             android:src="@drawable/ic_address_edit" />
 
 
-        <View style="@style/line_thin_gray"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_below="@+id/tv_address"/>
+        <View
+            style="@style/line_thin_gray"
+            android:layout_below="@+id/tv_address"
+            android:layout_marginLeft="@dimen/dp_15" />
 
 
     </RelativeLayout>

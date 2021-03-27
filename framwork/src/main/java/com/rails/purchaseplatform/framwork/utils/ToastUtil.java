@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.common.utils;
+package com.rails.purchaseplatform.framwork.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rails.purchaseplatform.common.R;
+import com.rails.purchaseplatform.framwork.R;
 
 
 /**

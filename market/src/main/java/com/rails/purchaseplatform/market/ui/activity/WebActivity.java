@@ -18,7 +18,7 @@ import android.webkit.WebViewClient;
 
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
-import com.rails.purchaseplatform.common.utils.ToastUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.databinding.ActivityFindWebBinding;
 
 import java.util.HashMap;
