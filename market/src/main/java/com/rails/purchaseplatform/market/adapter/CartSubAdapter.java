@@ -32,6 +32,8 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     //收藏
     public static final int SUB_COLLECT = 7;
 
+    private boolean isSwipe;
+
 
     public CartSubAdapter(Context context) {
         super(context);
@@ -45,6 +47,12 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     @Override
     protected void onBindItem(ItemMarketCartSubBinding binding, CartShopProductBean productBean, int position) {
         binding.setProduct(productBean);
+
+        if (isSwipe){
+            binding.llOperate.setVisibility(View.VISIBLE);
+        }else{
+            binding.llOperate.setVisibility(View.GONE);
+        }
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,5 +144,11 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
 
     public int getSize() {
         return mDataSource.size();
+    }
+
+
+    public void canSwipe(boolean isSwipe) {
+        this.isSwipe = isSwipe;
+        notifyDataSetChanged();
     }
 }

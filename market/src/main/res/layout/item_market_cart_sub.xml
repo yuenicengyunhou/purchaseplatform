@@ -156,6 +156,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_operate"
             android:layout_width="@dimen/dp_140"
             android:layout_height="match_parent">
 

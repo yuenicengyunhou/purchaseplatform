@@ -66,9 +66,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         binding.setCart(cartShopBean);
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
-        binding.getRoot().setTag(adapter);
-
-
+        adapter.canSwipe(isSwipe);
         adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
             @Override
             public void onPosition(CartShopProductBean bean, int len, int... params) {
