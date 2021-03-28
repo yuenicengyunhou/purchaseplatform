@@ -140,17 +140,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_verifyNum" />
 
-        <View
-            android:id="@+id/view_verifyNumInputLine"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_tiny"
-            android:layout_marginStart="@dimen/dp_33"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginEnd="@dimen/dp_33"
-            android:background="#0279FF"
-            app:layout_constraintTop_toBottomOf="@+id/et_verifyNumInput"
-            tools:layout_editor_absoluteX="0dp" />
-
         <TextView
             android:id="@+id/tv_getVerifyNum"
             android:layout_width="wrap_content"
@@ -162,6 +151,28 @@
             app:layout_constraintBottom_toBottomOf="@+id/et_verifyNumInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/et_verifyNumInput" />
+
+        <TextView
+            android:id="@+id/tv_countDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60s"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_getVerifyNum"
+            app:layout_constraintEnd_toEndOf="@+id/tv_getVerifyNum"
+            app:layout_constraintStart_toStartOf="@+id/tv_getVerifyNum"
+            app:layout_constraintTop_toTopOf="@+id/tv_getVerifyNum" />
+
+        <View
+            android:id="@+id/view_verifyNumInputLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_33"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_33"
+            android:background="#0279FF"
+            app:layout_constraintTop_toBottomOf="@+id/et_verifyNumInput"
+            tools:layout_editor_absoluteX="0dp" />
 
         <Button
             android:id="@+id/btn_login"
@@ -193,7 +204,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_login" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
