@@ -229,6 +229,8 @@
             app:is_hide="true"
             app:key="@string/order_verify_year_total"
             app:key_color="@color/font_black_light"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
             app:key_size="@dimen/font_size_14"
             app:value_color="@color/font_black"
             app:value_size="@dimen/font_size_14" />
@@ -244,6 +246,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:is_hide="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
             app:key="@string/order_verify_year_extra"
             app:key_color="@color/font_black_light"
             app:key_size="@dimen/font_size_14"
