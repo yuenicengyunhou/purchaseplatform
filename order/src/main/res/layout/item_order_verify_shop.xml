@@ -46,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/common_border"
             android:layout_marginRight="@dimen/common_border"
+            android:layout_marginTop="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_8">
 
             <TextView
@@ -75,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="@string/order_verify_freight"
+                android:text="@{@string/order_verify_sub_price(cart.freightPrice)}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_13" />
 
@@ -119,7 +120,7 @@
                 android:background="@null"
                 android:gravity="top"
                 android:hint="@string/order_verify_remark_hint"
-                android:lines="2"
+                android:lines="3"
                 android:maxLength="45"
                 android:minWidth="@dimen/dp_40"
                 android:textColor="@color/font_black"
@@ -140,7 +141,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="@string/order_verify_freight"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_13" />
 
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_15"
                 android:layout_toLeftOf="@+id/tv_subtotal"
-                android:text="@string/order_verify_freight"
+                android:text="@{@string/order_verify_number(cart.selectedSkuNum)}"
                 android:textColor="@color/font_black_light"
                 android:textSize="@dimen/font_size_13" />
 

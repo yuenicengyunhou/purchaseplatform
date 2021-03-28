@@ -13,11 +13,14 @@
     <string name="order_verify_freight">运费</string>
     <string name="order_verify_remark">订单备注</string>
     <string name="order_verify_remark_hint">您可在此输入45字以内的备注</string>
-    <string name="order_verify_number">共计%d件</string>
-    <string name="order_verify_subtotal">小计：%s</string>
+    <string name="order_verify_number">共计%s件</string>
+    <string name="order_verify_subtotal">小计：</string>
+    <string name="order_verify_sub_price">¥ %s</string>
+    <string name="order_verify_sub_num">X%s</string>
     <string name="order_verify_year_total">年度预算总额</string>
     <string name="order_verify_year_extra">年度预算余额</string>
     <string name="order_verify_total">合计：</string>
     <string name="order_verify_commit">提交采购单</string>
+    <string name="order_verify_np">%1$s &#160;&#160;&#160;&#160; %2$s</string>
 
 </resources>

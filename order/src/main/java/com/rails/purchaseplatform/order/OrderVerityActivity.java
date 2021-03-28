@@ -1,13 +1,22 @@
 package com.rails.purchaseplatform.order;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.OrderVerifyBean;
+import com.rails.lib_data.contract.OrderVerifyContract;
+import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
+
+import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +27,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/27
  */
 @Route(path = ConRoute.ORDER.ORDER_VERITY)
-public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBinding> {
+public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBinding> implements OrderVerifyContract.OrderVerifyView {
+
+    private OrderVerifyAdapter adapter;
+    private OrderVerifyContract.OrderVerifyPresenter presenter;
+
     @Override
     protected void initialize(Bundle bundle) {
         binding.titleBar.setTitleBar(R.string.order_verify)
@@ -26,12 +39,13 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 .setShowLine(true);
 
 
-//        cartAdapter = new CartAdapter(getActivity());
-//        cartAdapter.setListener(this);
-//        cartAdapter.setMulPositionListener(this);
-//        barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
-//        barBinding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.line_gray));
-//        barBinding.recycler.setAdapter(cartAdapter);
+        adapter = new OrderVerifyAdapter(this);
+        barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        barBinding.recycler.addItemDecoration(new SpaceDecoration(this, 10, R.color.line_gray));
+        barBinding.recycler.setAdapter(adapter);
+
+        presenter = new OrderVerifyPresenterImpl(this, this);
+        presenter.getVerifyOrder();
     }
 
     @Override
@@ -47,5 +61,61 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     @Override
     protected boolean isBindEventBus() {
         return false;
+    }
+
+    @Override
+    public void getVerifyOrder(OrderVerifyBean bean) {
+        adapter.update((ArrayList) bean.getCart().getShopList(), true);
+
+        setAddress(bean.getAddress());
+        setOrderInfo(bean);
+    }
+
+
+    /**
+     * 设置收货地址
+     *
+     * @param bean
+     */
+    private void setAddress(AddressBean bean) {
+        if (bean == null) {
+            barBinding.btnAddress.setVisibility(View.VISIBLE);
+            barBinding.llAddress.setVisibility(View.GONE);
+        } else {
+            barBinding.btnAddress.setVisibility(View.GONE);
+            barBinding.llAddress.setVisibility(View.VISIBLE);
+
+            barBinding.tvArea.setText(bean.getAddress());
+            barBinding.tvAddress.setText(bean.getAddress());
+            barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getName(), bean.getPhone()));
+        }
+    }
+
+    /**
+     * 设置确认单其他信息
+     */
+    private void setOrderInfo(OrderVerifyBean bean) {
+        if (bean == null)
+            return;
+        barBinding.rlGoods.setKey("延迟收货");
+        barBinding.rlGoods.setContent(bean.getTime());
+
+
+        barBinding.rlCompay.setKey(bean.getCompany());
+
+        barBinding.rlBill.setContent("专票");
+        barBinding.rlBill.setKey(bean.getCompany());
+
+        barBinding.rlPay.setKey("账期支付");
+
+        barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getYearTotal())));
+        barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getYearExtra())));
+
+        barBinding.tvTotal.setText(DecimalUtil.formatStrColorSize("合计：",
+                bean.getTotalPay(), "",
+                getResources().getColor(R.color.font_red),
+                16
+        ));
+        barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getTotalNum()));
     }
 }

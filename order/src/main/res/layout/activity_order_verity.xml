@@ -97,12 +97,13 @@
                 android:layout_marginLeft="@dimen/common_border"
                 android:layout_marginTop="@dimen/common_border"
                 android:layout_marginRight="@dimen/common_border"
-                android:text="@string/order_verify_address"
+                android:text="@string/order_verify_goods_type"
                 android:textColor="@color/font_black_light"
                 android:textSize="@dimen/font_size_13" />
 
 
             <com.rails.purchaseplatform.common.widget.LrLableLayout
+                android:id="@+id/rl_goods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_5"
@@ -141,7 +142,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_5"
                 app:is_hide="true"
-                app:key="@string/order_verify_goods_type"
                 app:key_color="@color/font_black"
                 app:key_size="@dimen/font_size_14"
                 app:value_color="@color/font_black"
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_5"
                 app:is_hide="true"
-                app:key="@string/order_verify_goods_type"
+                app:key="@string/order_verify_bill"
                 app:key_color="@color/font_black"
                 app:key_size="@dimen/font_size_14"
                 app:value_color="@color/font_black"
@@ -208,15 +208,16 @@
                 app:value_right_icon="@drawable/svg_arrow_white"
                 app:value_size="@dimen/font_size_13" />
 
-        </LinearLayout>
+            <View style="@style/line_bold_gray_10" />
 
-        <View style="@style/line_bold_gray_10" />
+        </LinearLayout>
 
 
         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"/>
 
 
         <View style="@style/line_bold_gray_10" />
@@ -246,7 +247,7 @@
             app:key="@string/order_verify_year_extra"
             app:key_color="@color/font_black_light"
             app:key_size="@dimen/font_size_14"
-            app:value_color="@color/font_black"
+            app:value_color="@color/font_red"
             app:value_size="@dimen/font_size_14" />
 
 
@@ -264,8 +265,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_border"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/order_verify_pay_type"
-                android:textColor="@color/font_black_light"
+                android:textColor="@color/font_gray"
                 android:textSize="@dimen/font_size_13" />
 
 
@@ -277,8 +277,7 @@
                 android:layout_alignLeft="@+id/tv_total_num"
                 android:layout_marginTop="@dimen/dp_5"
                 android:layout_marginBottom="@dimen/dp_10"
-                android:text="@string/order_verify_pay_type"
-                android:textColor="@color/font_black_light"
+                android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_13" />
 
 
