@@ -1,12 +1,10 @@
-package com.rails.purchaseplatform.order;
+package com.rails.purchaseplatform.order.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
@@ -15,8 +13,8 @@ import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
 
@@ -46,7 +44,6 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
         adapter = new OrderVerifyAdapter(this);
         barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
-        barBinding.recycler.addItemDecoration(new SpaceDecoration(this, 10, R.color.line_gray));
         barBinding.recycler.setAdapter(adapter);
 
         presenter = new OrderVerifyPresenterImpl(this, this);
@@ -141,6 +138,13 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(OrderVerityActivity.this, 0);
             }
         });
+
+        barBinding.btnCommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).navigation();
+            }
+        });
     }
 
     @Override
@@ -153,4 +157,5 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             setAddress(bean);
         }
     }
+
 }

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.purchaseplatform.order.OrderDetailActivity;
+import com.rails.purchaseplatform.order.activity.OrderDetailActivity;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.bean.PurchaseBean;
 

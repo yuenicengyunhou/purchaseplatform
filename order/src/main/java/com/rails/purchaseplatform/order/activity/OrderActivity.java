@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.order;
+package com.rails.purchaseplatform.order.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.MyFragmentAdapter;
 import com.rails.purchaseplatform.order.fragment.AllFragment;
 import com.rails.purchaseplatform.order.fragment.MyFragment;
