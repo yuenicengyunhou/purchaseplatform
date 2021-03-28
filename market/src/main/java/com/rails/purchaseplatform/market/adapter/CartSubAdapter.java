@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
@@ -26,6 +27,10 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     public static final int REDUCE = 3;
     //编辑
     public static final int EDIT = 4;
+    //删除
+    public static final int SUB_DEL = 6;
+    //收藏
+    public static final int SUB_COLLECT = 7;
 
 
     public CartSubAdapter(Context context) {
@@ -92,6 +97,44 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
             }
         });
 
+        binding.btnCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateRemove(position);
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(productBean, position, SUB_COLLECT);
+                }
 
+            }
+        });
+
+        binding.btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateRemove(position);
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(productBean, position, SUB_DEL);
+                }
+
+            }
+        });
+
+    }
+
+    /**
+     * 获取对象
+     *
+     * @param position
+     * @return
+     */
+    public CartShopProductBean getBean(int position) {
+        if (mDataSource.size() > position)
+            return mDataSource.get(position);
+        return null;
+    }
+
+
+    public int getSize() {
+        return mDataSource.size();
     }
 }

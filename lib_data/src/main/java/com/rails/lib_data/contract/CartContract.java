@@ -32,6 +32,13 @@ public interface CartContract {
         void getProjectNumber(int num);
 
 
+        /**
+         * 删除，收藏操作结果
+         * @param type
+         * @param msg
+         */
+        void getResult(int type,String msg);
+
     }
 
 
@@ -65,6 +72,21 @@ public interface CartContract {
          * @param num
          */
         void editProduct(int num);
+
+
+        /**
+         * 删除商品
+         *
+         * @param id
+         */
+        void delProduct(String id);
+
+        /**
+         * 收藏商品
+         *
+         * @param id
+         */
+        void collectProduct(String id);
 
     }
 }

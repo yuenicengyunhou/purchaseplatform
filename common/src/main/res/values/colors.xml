@@ -27,6 +27,8 @@
 
     <!-- 边框颜色-->
     <color name="line_gray">#f5f5f5</color>
+    <color name="line_blue">#3378ff</color>
+    <color name="line_red">#e83e3a</color>
 
 
     <!-- other-->

@@ -11,142 +11,175 @@
             type="com.rails.lib_data.bean.CartShopProductBean" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:orientation="horizontal">
 
-
-        <CheckBox
-            android:id="@+id/img_left"
-            android:layout_width="@dimen/dp_35"
-            android:layout_height="@dimen/dp_35"
-            android:layout_alignTop="@+id/img_product"
-            android:layout_alignBottom="@+id/img_product"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:button="@null"
-            android:checked="@{product.isSel}"
-            android:drawableLeft="@drawable/selector_circle"
-            android:enabled="@{product.canSel}" />
-
-
-        <com.rails.purchaseplatform.common.widget.RatioImage
-            android:id="@+id/img_product"
-            android:layout_width="@dimen/dp_95"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_toRightOf="@+id/img_left"
-            app:imgUrl="@{product.pictureUrl}" />
-
-
-        <TextView
-            android:id="@+id/tv_title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/img_product"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_15"
-            android:layout_toRightOf="@+id/img_product"
-            android:lineSpacingMultiplier="1.1"
-            android:lines="2"
-            android:text="@{product.itemName}"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13" />
+            android:background="@color/white">
 
 
-        <TextView
-            android:id="@+id/tv_property"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_title"
-            android:layout_alignLeft="@+id/tv_title"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="@color/bg_gray"
-            android:padding="@dimen/dp_3"
-            android:singleLine="true"
-            android:text="@{product.attributesName}"
-            android:textSize="@dimen/font_size_12" />
+            <CheckBox
+                android:id="@+id/img_left"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
+                android:layout_alignTop="@+id/img_product"
+                android:layout_alignBottom="@+id/img_product"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:button="@null"
+                android:checked="@{product.isSel}"
+                android:drawableLeft="@drawable/selector_circle"
+                android:enabled="@{product.canSel}" />
 
 
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_property"
-            android:layout_alignLeft="@+id/tv_title"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_15"
-            android:paddingTop="@dimen/dp_3"
-            android:paddingBottom="@dimen/dp_3"
-            android:text="@{@string/market_cart_pay(product.marketPrice)}"
-            android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_14" />
+            <com.rails.purchaseplatform.common.widget.RatioImage
+                android:id="@+id/img_product"
+                android:layout_width="@dimen/dp_95"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_toRightOf="@+id/img_left"
+                app:imgUrl="@{product.pictureUrl}" />
 
-
-        <LinearLayout
-            android:id="@+id/layout"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_25"
-            android:layout_alignTop="@+id/tv_price"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_15"
-            android:layout_marginBottom="@dimen/dp_15"
-            android:background="@drawable/bg_corner_border_gray"
-            android:visibility="@{product.canSel?View.VISIBLE:View.GONE}">
 
             <TextView
-                android:id="@+id/tv_reduce"
-                android:layout_width="@dimen/dp_25"
-                android:layout_height="match_parent"
-                android:background="@color/bg_gray_light"
-                android:enabled="@{product.canReduce}"
-                android:gravity="center"
-                android:text="-"
-                android:textColor="@color/selector_black_gray_color"
-                android:textSize="@dimen/font_size_18" />
-
-            <TextView
-                android:id="@+id/et_num"
-                android:layout_width="wrap_content"
-                android:minWidth="@dimen/dp_30"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@{String.valueOf(product.num)}"
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/img_product"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_toRightOf="@+id/img_product"
+                android:lineSpacingMultiplier="1.1"
+                android:lines="2"
+                android:text="@{product.itemName}"
                 android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_13" />
+
+
+            <TextView
+                android:id="@+id/tv_property"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_alignLeft="@+id/tv_title"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@color/bg_gray"
+                android:padding="@dimen/dp_3"
+                android:singleLine="true"
+                android:text="@{product.attributesName}"
                 android:textSize="@dimen/font_size_12" />
 
 
             <TextView
-                android:id="@+id/tv_add"
-                android:layout_width="@dimen/dp_25"
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_property"
+                android:layout_alignLeft="@+id/tv_title"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingBottom="@dimen/dp_3"
+                android:text="@{@string/market_cart_pay(product.marketPrice)}"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/font_size_14" />
+
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignTop="@+id/tv_price"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:background="@drawable/bg_corner_border_gray"
+                android:visibility="@{product.canSel?View.VISIBLE:View.INVISIBLE}">
+
+                <TextView
+                    android:id="@+id/tv_reduce"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_gray_light"
+                    android:enabled="@{product.canReduce}"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/selector_black_gray_color"
+                    android:textSize="@dimen/font_size_18" />
+
+                <TextView
+                    android:id="@+id/et_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:minWidth="@dimen/dp_30"
+                    android:singleLine="true"
+                    android:text="@{String.valueOf(product.num)}"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_12" />
+
+
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_gray_light"
+                    android:enabled="@{product.canAdd}"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/selector_black_gray_color"
+                    android:textSize="@dimen/font_size_18" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:text="库存不足"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/font_size_11"
+                android:visibility="@{product.isLimit?View.VISIBLE:View.GONE}" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btn_collect"
+                android:layout_width="@dimen/dp_70"
                 android:layout_height="match_parent"
                 android:background="@color/bg_gray_light"
-                android:enabled="@{product.canAdd}"
                 android:gravity="center"
-                android:text="+"
-                android:textColor="@color/selector_black_gray_color"
-                android:textSize="@dimen/font_size_18" />
+                android:text="@string/market_cart_collect"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_12" />
+
+            <TextView
+                android:id="@+id/btn_del"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="match_parent"
+                android:background="@color/font_red"
+                android:gravity="center"
+                android:text="@string/market_cart_del"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12" />
 
         </LinearLayout>
+    </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/tv_limit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_15"
-            android:layout_marginBottom="@dimen/dp_15"
-            android:text="限购5箱"
-            android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_11"
-            android:visibility="@{product.isLimit?View.VISIBLE:View.GONE}" />
-
-
-    </RelativeLayout>
 </layout>

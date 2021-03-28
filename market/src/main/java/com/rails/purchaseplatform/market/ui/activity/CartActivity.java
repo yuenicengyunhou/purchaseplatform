@@ -1,10 +1,8 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketCartBinding;
 import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
@@ -15,7 +13,7 @@ import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
  * @author： sk_comic@163.com
  * @date: 2021/3/23
  */
-public class CartActivity extends ToolbarActivity<ActivityMarketCartBinding> {
+public class CartActivity extends BaseErrorActivity<ActivityMarketCartBinding> {
 
     @Override
     protected int getColor() {
@@ -34,11 +32,6 @@ public class CartActivity extends ToolbarActivity<ActivityMarketCartBinding> {
 
     @Override
     protected void initialize(Bundle bundle) {
-
-        binding.titleBar
-                .setTitleBar(R.string.market_cart)
-                .setImgLeftRes(R.drawable.svg_back_black)
-                .setShowLine(true);
 
         if (bundle == null) {
             getSupportFragmentManager().beginTransaction()
