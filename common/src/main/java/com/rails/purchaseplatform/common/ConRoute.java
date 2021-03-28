@@ -64,6 +64,8 @@ public class ConRoute {
 
         public final static String ADDRESS_MAIN = "/address/main";
 
+        public final static String ADDRESS_SEL = "/address/select";
+
     }
 
 

@@ -1,9 +1,13 @@
 package com.rails.purchaseplatform.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.facade.callback.NavigationCallback;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.contract.OrderVerifyContract;
@@ -18,6 +22,7 @@ import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
 
 import java.util.ArrayList;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -117,5 +122,35 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 16
         ));
         barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getTotalNum()));
+    }
+
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        barBinding.llAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(OrderVerityActivity.this, 0);
+            }
+        });
+
+        barBinding.btnAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(OrderVerityActivity.this, 0);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 0) {
+            if (data == null)
+                return;
+            AddressBean bean = (AddressBean) data.getExtras().getSerializable("bean");
+            setAddress(bean);
+        }
     }
 }

@@ -33,6 +33,14 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
                     positionListener.onPosition(addressBean, position);
             }
         });
+
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mulPositionListener != null)
+                    mulPositionListener.onPosition(addressBean, position);
+            }
+        });
     }
 
 
