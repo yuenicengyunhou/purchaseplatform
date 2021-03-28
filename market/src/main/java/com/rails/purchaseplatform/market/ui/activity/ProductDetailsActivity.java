@@ -27,6 +27,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
@@ -277,6 +278,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         super.onClick();
         binding.tvShowAll.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
+
+        binding.tvPutInCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIntent(CartActivity.class);
+            }
+        });
     }
 
     @Override

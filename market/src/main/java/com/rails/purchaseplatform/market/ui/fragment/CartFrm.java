@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.android.material.appbar.AppBarLayout;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
@@ -23,7 +22,6 @@ import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
-import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
@@ -37,10 +35,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * 购物车
@@ -52,6 +48,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         LoadMoreRecyclerView.LoadMoreListener, ProductContract.ProductView,
         MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean> {
 
+    int type = 0;//是否显示标题
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
 
@@ -66,8 +63,21 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private CartShopProductBean lastBean;
 
 
+    private CartFrm(int type) {
+        this.type = type;
+    }
+
+
+    public static CartFrm newInstance(int type) {
+        return new CartFrm(type);
+    }
+
+
     @Override
     protected void loadData() {
+        if (type == 1) {
+            binding.titleBar.setVisibility(View.GONE);
+        }
 
         binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
                 DecimalUtil.formatDouble(0.0), "", getResources().getColor(R.color.font_red)));
