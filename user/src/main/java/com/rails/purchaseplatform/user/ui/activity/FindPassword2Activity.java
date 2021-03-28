@@ -27,4 +27,11 @@ public class FindPassword2Activity extends BaseErrorActivity<ActivityFindPasswor
     protected void initialize(Bundle bundle) {
 
     }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        binding.ibBack.setOnClickListener(v -> finish());
+        binding.btnConfirm.setOnClickListener(v -> finish());
+    }
 }
