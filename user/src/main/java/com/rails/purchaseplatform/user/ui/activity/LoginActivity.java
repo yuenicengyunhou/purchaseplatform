@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -74,6 +75,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> {
 
         binding.tvForgetPassword.setOnClickListener(v -> {
             Log.d(TAG, "忘记密码按钮");
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent(this, FindPasswordActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "跳转到找回密码页面", Toast.LENGTH_SHORT).show();
         });
     }

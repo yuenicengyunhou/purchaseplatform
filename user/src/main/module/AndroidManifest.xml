@@ -27,6 +27,15 @@
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
 
+        <!-- 找回密码页面 -->
+        <activity
+            android:name=".ui.activity.FindPasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 找回密码2 -->
+        <activity
+            android:name=".ui.activity.FindPassword2Activity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

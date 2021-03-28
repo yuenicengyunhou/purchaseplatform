@@ -90,7 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_6"
-                        android:src="@mipmap/ic_cancel" />
+                        android:src="@mipmap/ic_cancel_gray" />
                 </LinearLayout>
             </RelativeLayout>
 
