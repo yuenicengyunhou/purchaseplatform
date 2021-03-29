@@ -1,6 +1,9 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.SearchResultBean;
@@ -66,5 +69,46 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        barBinding.rbSale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSelected(false, true, false, false);
+            }
+        });
+
+        barBinding.rbPrice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setSelected(false, false, true, false);
+            }
+        });
+
+        barBinding.rbAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSelected(true, false, false, false);
+            }
+        });
+    }
+
+
+    /**
+     * 设置选中的view
+     *
+     * @param booleans
+     */
+    private void setSelected(Boolean... booleans) {
+        int len = booleans.length;
+        if (len <= 0)
+            return;
+        barBinding.rbAll.setSelected(booleans[0]);
+        barBinding.rbSale.setSelected(booleans[1]);
+        barBinding.rbPrice.setSelected(booleans[2]);
+        barBinding.rbSel.setSelected(booleans[3]);
     }
 }
