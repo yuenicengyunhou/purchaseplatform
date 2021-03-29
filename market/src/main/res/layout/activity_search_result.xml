@@ -122,65 +122,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_searchBar">
 
-            <TextView
-                android:id="@+id/tv_commonSort"
+            <CheckBox
+                android:id="@+id/cb_commonSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@null"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/dp_8"
                 android:text="@string/search_result_common"
-                android:textColor="@color/font_blue"
+                android:textColor="@color/selector_blue_gray_sel_color"
                 android:textSize="@dimen/font_size_12"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_saleSort"
+                app:layout_constraintEnd_toStartOf="@+id/cb_saleSort"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_saleSort"
+            <CheckBox
+                android:id="@+id/cb_saleSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableEnd="@drawable/selector_arrow"
                 android:text="@string/search_result_sales"
-                android:textColor="#666666"
+                android:textColor="@color/selector_blue_gray_sel_color"
                 android:textSize="@dimen/font_size_12"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_priceSort"
+                app:layout_constraintEnd_toStartOf="@+id/cb_priceSort"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_commonSort"
+                app:layout_constraintStart_toEndOf="@+id/cb_commonSort"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_saleSort"
+            <CheckBox
+                android:id="@+id/cb_priceSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_2"
-                android:src="@mipmap/icon_down"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_saleSort"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_priceSort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableEnd="@drawable/selector_arrow"
                 android:text="@string/search_result_price"
-                android:textColor="#666666"
+                android:textColor="@color/selector_blue_gray_sel_color"
                 android:textSize="@dimen/font_size_12"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ib_filter"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_saleSort"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_priceSort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_2"
-                android:src="@mipmap/icon_down"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_priceSort"
+                app:layout_constraintStart_toEndOf="@+id/cb_saleSort"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
@@ -193,7 +178,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_priceSort"
+                app:layout_constraintStart_toEndOf="@+id/cb_priceSort"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

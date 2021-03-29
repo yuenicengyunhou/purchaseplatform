@@ -69,6 +69,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchResultPresenter.getSearchResult(false, 1);
 
         binding.tvSearchKey.setText(mSearchKey);
+        binding.cbCommonSort.setSelected(true);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -101,57 +102,22 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         });
 
         // 点击综合排序
-        binding.tvCommonSort.setOnClickListener(v -> {
-            binding.tvCommonSort.setTextColor(getResourcesColor(R.color.font_blue));
-
-            binding.tvSaleSort.setTextColor(getResourcesColor(R.color.font_black_light));
-            binding.tvPriceSort.setTextColor(getResourcesColor(R.color.font_black_light));
-
-            binding.ivSaleSort.setVisibility(View.INVISIBLE);
-            binding.ivPriceSort.setVisibility(View.INVISIBLE);
-
+        binding.cbCommonSort.setOnClickListener(v -> {
+            setSelected(true, false, false);
             // TODO: 2021/3/27 发送请求 - 综合排序
         });
 
         // 点击销量排序
-        binding.tvSaleSort.setOnClickListener(v -> {
-            binding.tvSaleSort.setTextColor(getResourcesColor(R.color.font_blue));
-
-            binding.tvCommonSort.setTextColor(getResourcesColor(R.color.font_black_light));
-            binding.tvPriceSort.setTextColor(getResourcesColor(R.color.font_black_light));
-
-            binding.ivSaleSort.setVisibility(View.VISIBLE);
-            binding.ivPriceSort.setVisibility(View.INVISIBLE);
-
-            if (salesSortFlag) {
-                binding.ivSaleSort.setImageResource(R.mipmap.icon_up);
-            } else {
-                binding.ivSaleSort.setImageResource(R.mipmap.icon_down);
-            }
-
+        binding.cbSaleSort.setOnClickListener(v -> {
+            setSelected(false, true, false);
             salesSortFlag = !salesSortFlag;
-
             // TODO: 2021/3/27 发送请求 - 按销量升序或降序排列
         });
 
         // 点击价格排序
-        binding.tvPriceSort.setOnClickListener(v -> {
-            binding.tvPriceSort.setTextColor(getResourcesColor(R.color.font_blue));
-
-            binding.tvCommonSort.setTextColor(getResourcesColor(R.color.font_black_light));
-            binding.tvSaleSort.setTextColor(getResourcesColor(R.color.font_black_light));
-
-            binding.ivSaleSort.setVisibility(View.INVISIBLE);
-            binding.ivPriceSort.setVisibility(View.VISIBLE);
-
-            if (priceSortFlag) {
-                binding.ivPriceSort.setImageResource(R.mipmap.icon_up);
-            } else {
-                binding.ivPriceSort.setImageResource(R.mipmap.icon_down);
-            }
-
+        binding.cbPriceSort.setOnClickListener(v -> {
+            setSelected(false, false, true);
             priceSortFlag = !priceSortFlag;
-
             // TODO: 2021/3/27 发送请求 - 按价格升序或降序排列
         });
 
@@ -172,13 +138,11 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchKey = extras.getString("search_key");
     }
 
-    /**
-     * 获取颜色
-     *
-     * @param resColorId 颜色
-     * @return 颜色
-     */
-    private int getResourcesColor(int resColorId) {
-        return getResources().getColor(resColorId);
+    private void setSelected(Boolean... booleans) {
+        int length = booleans.length;
+        if (length <= 0) return;
+        binding.cbCommonSort.setSelected(booleans[0]);
+        binding.cbSaleSort.setSelected(booleans[1]);
+        binding.cbPriceSort.setSelected(booleans[2]);
     }
 }
