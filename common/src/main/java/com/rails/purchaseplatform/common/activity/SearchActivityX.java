@@ -43,7 +43,7 @@ import java.util.Objects;
  * 5 -
  */
 @Route(path = "/common/SearchActivityX")
-public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView, View.OnKeyListener {
+public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> implements HotSearchContract.HotSearchView, View.OnKeyListener, HotSearchRecyclerAdapter.OnClickCallBack, SearchHistoryFlowAdapter.OnClickCallBack {
     final private String TAG = SearchActivityX.class.getName();
 
     private SharedPreferences mSp;
@@ -84,12 +84,14 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
 
         mSearchHistoryFlowAdapter = new SearchHistoryFlowAdapter(this, mHistorySearchList);
         mFlowLayoutManager = new FlowLayoutManager();
+        mSearchHistoryFlowAdapter.setListener(this);
         binding.recyclerSearchHistory.setLayoutManager(mFlowLayoutManager);
         binding.recyclerSearchHistory.addItemDecoration(new SpaceItemDecoration(28));
         binding.recyclerSearchHistory.setAdapter(mSearchHistoryFlowAdapter);
 
         mHotSearchRecyclerAdapter = new HotSearchRecyclerAdapter(this);
         mHotSearchPresenter = new HotSearchPresenterImpl(this, this);
+        mHotSearchRecyclerAdapter.setListener(this);
         binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
         mHotSearchPresenter.getHotSearch(false, 1);
@@ -177,7 +179,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
 
             putSearchKeyInSharedPreference();
 
-            ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).navigation();
+            startActivityWithBundle(text);
         });
 
         // 切换搜索类型按钮
@@ -228,6 +230,17 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
         });
     }
 
+    /**
+     * 传入搜索文字
+     *
+     * @param text 搜索文字
+     */
+    private void startActivityWithBundle(String text) {
+        Bundle bundle = new Bundle();
+        bundle.putString("search_key", text);
+        ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation();
+    }
+
     private boolean isShowBottom(View itemView) {
         // 得到屏幕的高度
         // int heightPixels =
@@ -262,10 +275,16 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding> i
 
             putSearchKeyInSharedPreference();
 
-            ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).navigation();
+            startActivityWithBundle(text);
 
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onClickCallBack(String text) {
+        updateList(text);
+        putSearchKeyInSharedPreference();
     }
 }

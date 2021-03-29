@@ -14,6 +14,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.SearchResultActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ProductDetailsActivity"
