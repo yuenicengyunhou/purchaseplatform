@@ -37,6 +37,8 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
                 .setTitleBar(R.string.market_shop);
 
+        barBinding.swipe.setEnableLoadMore(false);
+
         adapter = new SearchResultRecyclerAdapter(this);
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);

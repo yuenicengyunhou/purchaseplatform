@@ -99,7 +99,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dp_3">
 
 
                     <!--综合-->
@@ -161,7 +162,8 @@
                         <CheckBox
                             android:id="@+id/rb_sel"
                             style="@style/market_tab"
-                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:drawableRight="@drawable/svg_sel_gray"
                             android:drawablePadding="@dimen/dp_3"
                             android:gravity="center"
                             android:text="@string/market_shop_sel"
