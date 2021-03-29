@@ -26,6 +26,13 @@
     <string name="market_cart_del">删除</string>
 
 
+    <!--商店-->
+    <string name="market_shop_sale">销量</string>
+    <string name="market_shop_all">综合</string>
+    <string name="market_shop_price">价格</string>
+    <string name="market_shop_sel">筛选</string>
+
+
     <!-- 搜索结果页 -->
     <string name="search_result_onSale">商品</string>
     <string name="search_result_common">综合</string>
@@ -33,6 +40,7 @@
     <string name="search_result_time">时间</string>
     <string name="search_result_sales">销量</string>
     <string name="search_result_search">搜索</string>
+
 
     <!-- 商品详情页-->
     <string name="product_details_productInfo">商品信息</string>
