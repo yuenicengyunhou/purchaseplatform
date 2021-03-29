@@ -27,7 +27,6 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
-import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
@@ -44,7 +43,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
-    final private String BASE_URL = ConRoute.WEB.BASEURL;
+    final private String BASE_URL = ConRoute.WEB.BASEURL; /*"http://172.28.20.109:3000/";*/
     final private String DETAILS = "productInfo";
     final private String LIST = "packingList";
     final private String SERVICE = "serviceOrPartner?service=1";
@@ -65,10 +64,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
     }
 
+    final private ArrayList<View> VIEWS = new ArrayList<>();
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
+        VIEWS.add(binding.viewSplit1);
+        VIEWS.add(binding.viewSplit2);
+        VIEWS.add(binding.viewSplit3);
+        VIEWS.add(binding.viewSplit4);
 
         binding.tvRmbGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         binding.tvPriceGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -247,7 +252,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         };
 
         for (int i = 0; i < WEB_VIEWS.length; i++) {
-            setWeb(WEB_VIEWS[i]);
+            setWeb(WEB_VIEWS[i], i);
             WEB_VIEWS[i].loadUrl(TAB_URLS[i]);
             WEB_VIEWS[i].addJavascriptInterface(OBJECTS[i], FLAGS[i]);
         }
@@ -297,7 +302,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      *
      * @param view WebView
      */
-    private void setWeb(WebView view) {
+    private void setWeb(WebView view, int index) {
         WebSettings webSettings = view.getSettings();
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//设置js可以直接打开窗口，如window.open()，默认为false
         webSettings.setJavaScriptEnabled(true);//是否允许JavaScript脚本运行，默认为false。设置true时，会提醒可能造成XSS漏洞
@@ -315,16 +320,20 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                Log.d(TAG, "FINISHED_URL = " + url);
             }
 
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
+                view.setVisibility(View.GONE);
+                VIEWS.get(index).setVisibility(View.GONE);
             }
 
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
+                Log.d(TAG, "\nERROR_CODE = " + errorCode + "\nDESCRIPTION = " + description + "\nFAILING_URL = " + failingUrl);
             }
         });
     }

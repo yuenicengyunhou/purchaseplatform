@@ -112,7 +112,7 @@
                     android:textSize="@dimen/font_size_18"
                     android:textStyle="bold" />
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_tiny"
                     android:layout_marginStart="@dimen/dp_16"
@@ -186,7 +186,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_12"
                     android:background="#447F7F7F" />
@@ -224,7 +224,7 @@
                         android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_tiny"
                     android:layout_marginStart="@dimen/dp_56"
@@ -272,7 +272,7 @@
                         android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_tiny"
                     android:layout_marginStart="@dimen/dp_56"
@@ -304,7 +304,7 @@
                         android:textSize="@dimen/font_size_13" />
                 </RelativeLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_tiny"
                     android:layout_marginStart="@dimen/dp_56"
@@ -344,7 +344,7 @@
                         android:src="@drawable/ic_go_next" />
                 </RelativeLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_12"
                     android:background="#447F7F7F" />
@@ -413,7 +413,7 @@
                         android:textSize="@dimen/font_size_13" />
                 </RelativeLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_tiny"
                     android:layout_marginStart="@dimen/dp_16"
@@ -478,7 +478,8 @@
                     android:visibility="gone"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-                <ImageView
+                <View
+                    android:id="@+id/view_split1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_12"
                     android:background="#447F7F7F" />
@@ -488,7 +489,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <ImageView
+
+                <View
+                    android:id="@+id/view_split2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_12"
                     android:background="#447F7F7F" />
@@ -498,7 +501,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <ImageView
+                <View
+                    android:id="@+id/view_split3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_12"
                     android:background="#447F7F7F" />
@@ -508,7 +512,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <ImageView
+                <View
+                    android:id="@+id/view_split4"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_12"
                     android:background="#447F7F7F" />
