@@ -556,26 +556,26 @@
                     android:id="@+id/tabItem_productInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_text_1"
+                    android:text="@string/product_details_productInfo"
                     app:tabTextAppearance="@style/TabLayoutTextStyle" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem_packageList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_text_2" />
+                    android:text="@string/product_details_packageList" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem_service"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_text_3" />
+                    android:text="@string/product_details_service" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem_recommend"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_text_4" />
+                    android:text="@string/product_details_recommend" />
             </com.google.android.material.tabs.TabLayout>
 
             <ImageView

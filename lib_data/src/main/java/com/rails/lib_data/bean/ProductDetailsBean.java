@@ -3,22 +3,115 @@ package com.rails.lib_data.bean;
 import java.util.List;
 
 public class ProductDetailsBean {
+
+    /**
+     * 商品ID
+     */
     private int id;
+
+    /**
+     * 商品名称
+     */
     private String name;
+
+    /**
+     * 商品价格
+     */
     private String price;
+
+    /**
+     * 弃用的商品价格
+     */
+    private String deprecatePrice;
+
+    /**
+     * 店铺
+     */
     private String shop;
-    private String type1;
-    private String type2;
-    private String type3;
-    private String webViewUrl1;
-    private String webViewUrl2;
-    private String webViewUrl3;
-    private String webViewUrl4;
-    private String photoUrl1;
-    private String photoUrl2;
-    private String photoUrl3;
-    private String photoUrl4;
+
+    /**
+     * 产品一级分类(固定属性)
+     */
+    private String type11;
+
+    /**
+     * 产品二级分类(固定属性)
+     */
+    private String type12;
+
+    /**
+     * 产品三级分类(固定属性)
+     */
+    private String type13;
+
+    /**
+     * 商品型号(商品一级分类)(固定属性)
+     */
+    private String type21;
+
+    /**
+     * 商品颜色(商品二级分类)(固定属性)
+     */
+    private String type22;
+
+    /**
+     * 商品型号(商品一级分类)(可选属性)
+     */
+    private List<String> type21s;
+
+    /**
+     * 商品颜色(商品二级分类)(可选属性)
+     */
+    private List<String> type22s;
+
+    /**
+     * 商品评分
+     */
+    private int score;
+
+    /**
+     * 销量
+     */
+    private int sales;
+
+    /**
+     * 运费
+     */
+    private String postPrice;
+
+    /**
+     * 其它参数
+     */
+    private List<String> params;
+
+    /**
+     * 需要加载的WebView
+     */
+    private List<String> webViewUrls;
+
+    /**
+     * 产品高清图
+     */
+    private List<String> photoUrls;
+
+    /**
+     * 推荐商品
+     */
     private RecommendItemsBean recommendItemsBean;
+
+    /**
+     * 用户地址（这个不应该在商品详情Bean中，考虑从用户module中获取）
+     */
+    private String address;
+
+    /**
+     * 购物车商品数量（这个不应该在商品详情Bean中，考虑从购物车module中获取）
+     */
+    private String cartCounts;
+
+
+    // ========================================================================================
+
 
     public int getId() {
         return id;
@@ -44,6 +137,14 @@ public class ProductDetailsBean {
         this.price = price;
     }
 
+    public String getDeprecatePrice() {
+        return deprecatePrice;
+    }
+
+    public void setDeprecatePrice(String deprecatePrice) {
+        this.deprecatePrice = deprecatePrice;
+    }
+
     public String getShop() {
         return shop;
     }
@@ -52,95 +153,115 @@ public class ProductDetailsBean {
         this.shop = shop;
     }
 
-    public String getType1() {
-        return type1;
+    public String getType11() {
+        return type11;
     }
 
-    public void setType1(String type1) {
-        this.type1 = type1;
+    public void setType11(String type11) {
+        this.type11 = type11;
     }
 
-    public String getType2() {
-        return type2;
+    public String getType12() {
+        return type12;
     }
 
-    public void setType2(String type2) {
-        this.type2 = type2;
+    public void setType12(String type12) {
+        this.type12 = type12;
     }
 
-    public String getType3() {
-        return type3;
+    public String getType13() {
+        return type13;
     }
 
-    public void setType3(String type3) {
-        this.type3 = type3;
+    public void setType13(String type13) {
+        this.type13 = type13;
     }
 
-    public String getWebViewUrl1() {
-        return webViewUrl1;
+    public String getType21() {
+        return type21;
     }
 
-    public void setWebViewUrl1(String webViewUrl1) {
-        this.webViewUrl1 = webViewUrl1;
+    public void setType21(String type21) {
+        this.type21 = type21;
     }
 
-    public String getWebViewUrl2() {
-        return webViewUrl2;
+    public String getType22() {
+        return type22;
     }
 
-    public void setWebViewUrl2(String webViewUrl2) {
-        this.webViewUrl2 = webViewUrl2;
+    public void setType22(String type22) {
+        this.type22 = type22;
     }
 
-    public String getWebViewUrl3() {
-        return webViewUrl3;
+    public List<String> getType21s() {
+        return type21s;
     }
 
-    public void setWebViewUrl3(String webViewUrl3) {
-        this.webViewUrl3 = webViewUrl3;
+    public void setType21s(List<String> type21s) {
+        this.type21s = type21s;
     }
 
-    public String getWebViewUrl4() {
-        return webViewUrl4;
+    public List<String> getType22s() {
+        return type22s;
     }
 
-    public void setWebViewUrl4(String webViewUrl4) {
-        this.webViewUrl4 = webViewUrl4;
+    public void setType22s(List<String> type22s) {
+        this.type22s = type22s;
     }
 
-    public String getPhotoUrl1() {
-        return photoUrl1;
+    public int getScore() {
+        return score;
     }
 
-    public void setPhotoUrl1(String photoUrl1) {
-        this.photoUrl1 = photoUrl1;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    public String getPhotoUrl2() {
-        return photoUrl2;
+    public int getSales() {
+        return sales;
     }
 
-    public void setPhotoUrl2(String photoUrl2) {
-        this.photoUrl2 = photoUrl2;
+    public void setSales(int sales) {
+        this.sales = sales;
     }
 
-    public String getPhotoUrl3() {
-        return photoUrl3;
+    public String getPostPrice() {
+        return postPrice;
     }
 
-    public void setPhotoUrl3(String photoUrl3) {
-        this.photoUrl3 = photoUrl3;
+    public void setPostPrice(String postPrice) {
+        this.postPrice = postPrice;
     }
 
-    public String getPhotoUrl4() {
-        return photoUrl4;
+    public List<String> getParams() {
+        return params;
     }
 
-    public void setPhotoUrl4(String photoUrl4) {
-        this.photoUrl4 = photoUrl4;
+    public void setParams(List<String> params) {
+        this.params = params;
+    }
+
+    public List<String> getWebViewUrls() {
+        return webViewUrls;
+    }
+
+    public void setWebViewUrls(List<String> webViewUrls) {
+        this.webViewUrls = webViewUrls;
+    }
+
+    public List<String> getPhotoUrls() {
+        return photoUrls;
+    }
+
+    public void setPhotoUrls(List<String> photoUrls) {
+        this.photoUrls = photoUrls;
     }
 
     public RecommendItemsBean getRecommendItemsBean() {
         return recommendItemsBean;
+    }
+
+    public void setRecommendItemsBean(RecommendItemsBean recommendItemsBean) {
+        this.recommendItemsBean = recommendItemsBean;
     }
 }
