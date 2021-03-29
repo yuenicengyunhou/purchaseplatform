@@ -35,6 +35,8 @@ public class ConRoute {
     public static final class MARKET {
         // 搜索结果页面
         public final static String SEARCH_RESULT = "/market/SearchResultActivity";
+        //提交结果页面
+        public final static String COMMIT_RESULT = "/market/result";
     }
 
     //采购单
@@ -43,6 +45,8 @@ public class ConRoute {
         public final static String ORDER_MAIN = "/order/mian";
         //详情页
         public final static String ALL = "/order/all";
+        //核对订单
+        public final static String ORDER_VERITY = "/order/verity";
     }
 
 
@@ -62,6 +66,8 @@ public class ConRoute {
 
         public final static String ADDRESS_MAIN = "/address/main";
 
+        public final static String ADDRESS_SEL = "/address/select";
+
     }
 
 
@@ -70,7 +76,7 @@ public class ConRoute {
         public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
 
         //评价
-        public final static String EVALUTE = BASEURL + "evaluate";
+        public final static String EVALUTE = BASEURL + "evaluate_eg";
         //修改密码
         public final static String MODIFYPAW = BASEURL + "passwordEdit";
         //我的收藏

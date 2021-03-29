@@ -82,4 +82,14 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         baseView.getProjectNumber(num);
     }
 
+    @Override
+    public void delProduct(String id) {
+        baseView.getResult(0, "删除成功");
+    }
+
+    @Override
+    public void collectProduct(String id) {
+        baseView.getResult(1, "收藏成功");
+    }
+
 }

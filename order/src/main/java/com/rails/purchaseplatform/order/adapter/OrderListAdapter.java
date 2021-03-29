@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.purchaseplatform.order.DetailPageActivity;
+import com.rails.purchaseplatform.order.activity.OrderDetailActivity;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.bean.PurchaseBean;
 
@@ -49,7 +49,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         holder1.img_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailPageActivity.class);
+                Intent intent = new Intent(context, OrderDetailActivity.class);
                 context.startActivity(intent);
             }
         });

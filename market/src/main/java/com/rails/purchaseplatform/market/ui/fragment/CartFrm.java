@@ -2,8 +2,9 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 
-import com.google.android.material.appbar.AppBarLayout;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
@@ -12,6 +13,7 @@ import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -21,7 +23,6 @@ import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
-import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
@@ -35,10 +36,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * 购物车
@@ -50,6 +49,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         LoadMoreRecyclerView.LoadMoreListener, ProductContract.ProductView,
         MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean> {
 
+    int type = 0;//是否显示标题
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
 
@@ -64,8 +64,21 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private CartShopProductBean lastBean;
 
 
+    private CartFrm(int type) {
+        this.type = type;
+    }
+
+
+    public static CartFrm newInstance(int type) {
+        return new CartFrm(type);
+    }
+
+
     @Override
     protected void loadData() {
+        if (type == 1) {
+            binding.btnBack.setVisibility(View.VISIBLE);
+        }
 
         binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
                 DecimalUtil.formatDouble(0.0), "", getResources().getColor(R.color.font_red)));
@@ -178,6 +191,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
     }
 
+    @Override
+    public void getResult(int type, String msg) {
+        if (type == 0){
+
+        }
+    }
+
 
     @Override
     protected void onClick() {
@@ -198,6 +218,39 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 binding.scroll.smoothScrollTo(0, 0);
             }
         });
+
+
+        binding.btnCommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
+            }
+        });
+
+
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
+        binding.tvManager.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.tvManager.setText(R.string.market_cart_complement);
+                    binding.llOperate.setVisibility(View.VISIBLE);
+                    binding.llPrice.setVisibility(View.GONE);
+                    cartAdapter.canSwipe(true);
+                } else {
+                    binding.tvManager.setText(R.string.market_cart_manager);
+                    binding.llOperate.setVisibility(View.GONE);
+                    binding.llPrice.setVisibility(View.VISIBLE);
+                    cartAdapter.canSwipe(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -215,6 +268,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         } else if (type == CartAdapter.EDIT) {
             // TODO: 2021/3/23 显示编辑窗口 ，更改产品数量
             showDialog();
+        } else if (type == CartAdapter.SUB_COLLECT) {
+            // TODO: 2021/3/28   调用收藏接口
+        } else if (type == CartAdapter.SUB_DEL) {
+            // TODO: 2021/3/28 调用删除接口
         }
     }
 
@@ -293,4 +350,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                     }
                 }).builder().show();
     }
+
+
 }

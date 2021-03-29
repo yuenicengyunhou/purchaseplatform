@@ -1,24 +1,26 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
-import android.util.SparseBooleanArray;
+import android.graphics.Color;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.view.ViewGroup;
 
-import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.ProductBean;
-import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
-import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
+import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
+import com.yanzhenjie.recyclerview.SwipeMenu;
+import com.yanzhenjie.recyclerview.SwipeMenuBridge;
+import com.yanzhenjie.recyclerview.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.SwipeMenuItem;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -28,6 +30,9 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/10
  */
 public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartBinding> {
+
+
+    private boolean isSwipe = false;
 
     //控制全局
     public static final int CHECK = 0;
@@ -41,6 +46,10 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     public static final int EDIT = 4;
     //商城首页
     public static final int SHOP = 5;
+    //删除
+    public static final int SUB_DEL = 6;
+    //收藏
+    public static final int SUB_COLLECT = 7;
 
 
     public CartAdapter(Context context) {
@@ -55,12 +64,13 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     @Override
     protected void onBindItem(ItemMarketCartBinding binding, CartShopBean cartShopBean, int position) {
         binding.setCart(cartShopBean);
-
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
+        adapter.canSwipe(isSwipe);
         adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
             @Override
             public void onPosition(CartShopProductBean bean, int len, int... params) {
+                int size =adapter.getSize();
                 if (params[0] == CartSubAdapter.CHECK) {
                     boolean isCheck = isAllChecked(cartShopBean);
                     cartShopBean.isSel.set(isCheck);
@@ -77,9 +87,21 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 } else if (params[0] == CartSubAdapter.REDUCE) {
                     // TODO: 2021/3/22 数量加减
                     mulPositionListener.onPosition(bean, len, REDUCE);
-                }else if (params[0]== CartSubAdapter.EDIT){
+                } else if (params[0] == CartSubAdapter.EDIT) {
                     // TODO: 2021/3/22 数量加减
                     mulPositionListener.onPosition(bean, len, EDIT);
+                } else if (params[0] == CartSubAdapter.SUB_COLLECT) {
+                    // TODO: 2021/3/22 收藏
+                    mulPositionListener.onPosition(bean, len, SUB_COLLECT);
+                    if (size == 0){
+                        updateRemove(position);
+                    }
+                } else if (params[0] == CartSubAdapter.SUB_DEL) {
+                    // TODO: 2021/3/22 删除
+                     if (size == 0){
+                         updateRemove(position);
+                     }
+                    mulPositionListener.onPosition(bean, len, SUB_DEL);
                 }
 
             }
@@ -170,9 +192,9 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         try {
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
-                if (bean.canSel.get() ==null)
+                if (bean.canSel.get() == null)
                     continue;
-                if (bean.isSel.get() ==null)
+                if (bean.isSel.get() == null)
                     continue;
                 if (bean.isSel.get() && bean.canSel.get()) {
                     total += bean.num.get() * bean.getMarketPrice();
@@ -208,7 +230,13 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     @Override
     protected void onBindView(ItemMarketCartBinding binding) {
         super.onBindView(binding);
-        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.recycler.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
+    }
+
+
+    public void canSwipe(boolean isSwipe) {
+        this.isSwipe = isSwipe;
+        notifyDataSetChanged();
     }
 }

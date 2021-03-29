@@ -10,8 +10,6 @@ import com.rails.purchaseplatform.databinding.FrmTabMallBinding;
 import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
 import com.rails.purchaseplatform.market.ui.fragment.CategoryFrm;
 import com.rails.purchaseplatform.market.ui.fragment.MallFrm;
-import com.rails.purchaseplatform.msg.fragment.MsgFrm;
-import com.rails.purchaseplatform.user.ui.fragment.MineFrm;
 import com.rails.purchaseplatform.user.ui.fragment.MineMallFrm;
 
 import java.util.ArrayList;
@@ -96,7 +94,7 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         frms = new ArrayList<>();
         frms.add(new MallFrm());
         frms.add(new CategoryFrm());
-        frms.add(new CartFrm());
+        frms.add(CartFrm.newInstance(0));
         frms.add(new MineMallFrm());
         viewPageAdapter = new ViewPageAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPageAdapter.update(frms, true);

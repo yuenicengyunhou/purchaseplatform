@@ -106,8 +106,11 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
+    //测滑
+    api 'com.yanzhenjie.recyclerview:x:1.3.2'
+
 
     //刷新控件
     api "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11"
-    api  'com.scwang.smart:refresh-header-classics:2.0.3'
+    api 'com.scwang.smart:refresh-header-classics:2.0.3'
 }

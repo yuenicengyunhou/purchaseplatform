@@ -17,6 +17,13 @@ public interface JSCallBack {
     void postMessage(String msg);
 
 
+    /**
+     * 返回
+     */
+    @JavascriptInterface
+    void onBack();
+
+
 
 
 

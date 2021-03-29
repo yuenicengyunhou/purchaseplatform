@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.order;
+package com.rails.purchaseplatform.order.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +16,7 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.CdetailPageAdapter;
 import com.rails.purchaseplatform.order.adapter.BdetailPageAdapter;
 import com.rails.purchaseplatform.order.adapter.DdetailPageAdapter;
@@ -24,7 +25,7 @@ import com.rails.purchaseplatform.order.adapter.AdetailPageAdapter;
 import java.util.ArrayList;
 
 @Route(path = ConRoute.ORDER.ALL)
-public class DetailPageActivity extends AppCompatActivity {
+public class OrderDetailActivity extends AppCompatActivity {
 
     private ImageView imageView;
 

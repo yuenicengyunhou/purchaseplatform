@@ -58,15 +58,11 @@
 
         <View style="@style/line_thin_shade" />
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        <com.rails.purchaseplatform.market.widget.SlideRecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_border"
-            android:layout_marginRight="@dimen/common_border"
-            android:overScrollMode="never"
-            app:canH="false"
-            app:canV="false" />
+            android:overScrollMode="never" />
 
     </LinearLayout>
 </layout>

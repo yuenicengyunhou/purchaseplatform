@@ -18,7 +18,8 @@ import android.webkit.WebViewClient;
 
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
-import com.rails.purchaseplatform.common.utils.ToastUtil;
+import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.databinding.ActivityFindWebBinding;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ import java.util.HashMap;
  * author:wangchao
  * date:2018/11/13
  */
-public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> implements JSCallBack{
+public class WebActivity extends BaseErrorActivity<ActivityFindWebBinding> implements JSCallBack{
 
 
     private String url;
@@ -43,10 +44,8 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
     @Override
     protected void initialize(Bundle bundle) {
 //        url = "file:///android_asset/index.html";
-        url="http://172.28.22.92:3000/purchase-android-web/browsingHistory";
-//        url ="http://172.28.20.109:3000/hotGoods";
 
-        initWebView(barBinding.web, this);
+        initWebView(binding.web, this);
     }
 
     @Override
@@ -174,18 +173,17 @@ public class WebActivity extends ToolbarActivity<ActivityFindWebBinding> impleme
     }
 
 
-
-
-
-    @Override
-    public void onBack() {
-        barBinding.web.stopLoading();
-        super.onBack();
-    }
-
     @JavascriptInterface
     @Override
     public void postMessage(String msg) {
         ToastUtil.showCenter(this,msg);
+    }
+
+
+    @JavascriptInterface
+    @Override
+    public void onBack() {
+        binding.web.stopLoading();
+        finish();
     }
 }

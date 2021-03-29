@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.rails.purchaseplatform.common.utils.ToastUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.DialogMarketMumberBinding;
 
