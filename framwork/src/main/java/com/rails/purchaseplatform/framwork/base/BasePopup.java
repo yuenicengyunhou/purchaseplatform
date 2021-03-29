@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.framwork.base;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.hardware.Camera;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -45,6 +46,9 @@ public abstract class BasePopup<T extends ViewBinding> extends BasePopupWindow i
 
         if (WH != null && WH.length >= 2)
             setConfig(WH[0], WH[1]);
+        else{
+            setConfig(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
     }
 
 

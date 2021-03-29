@@ -12,7 +12,7 @@
     </style>
 
     <style name="market_tab_font">
-        <item name="android:textSize">12.0dip</item>
+        <item name="android:textSize">@dimen/font_size_13</item>
         <item name="android:textColor">@color/selector_blue_gray_sel_color</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:singleLine">true</item>

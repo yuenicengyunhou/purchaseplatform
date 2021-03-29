@@ -10,10 +10,13 @@ import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
+import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -30,12 +33,15 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
 
     private SearchResultRecyclerAdapter adapter;
+    private FilterShopPop filterPop;
 
     @Override
     protected void initialize(Bundle bundle) {
 
         binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
                 .setTitleBar(R.string.market_shop);
+
+        barBinding.swipe.setEnableLoadMore(false);
 
         adapter = new SearchResultRecyclerAdapter(this);
 
@@ -94,6 +100,13 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
                 setSelected(true, false, false, false);
             }
         });
+
+        barBinding.rbSel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPop();
+            }
+        });
     }
 
 
@@ -110,5 +123,15 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         barBinding.rbSale.setSelected(booleans[1]);
         barBinding.rbPrice.setSelected(booleans[2]);
         barBinding.rbSel.setSelected(booleans[3]);
+    }
+
+
+    private void showPop() {
+        if (filterPop == null) {
+            filterPop = new FilterShopPop();
+            filterPop.setType(BasePop.MATCH_WRAP);
+        }
+        filterPop.show(getSupportFragmentManager(), "shop");
+
     }
 }
