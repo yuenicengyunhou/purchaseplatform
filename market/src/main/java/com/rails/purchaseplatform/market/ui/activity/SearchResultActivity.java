@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
 @Route(path = "/market/SearchResultActivity")
-public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements SearchResultContract.SearchResultView, View.OnClickListener {
+public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements SearchResultContract.SearchResultView {
 
     private String mSearchKey;
 
@@ -64,32 +64,96 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         mSearchResultRecyclerAdapter = new SearchResultRecyclerAdapter(this);
         mSearchResultPresenter = new SearchResultPresenterImpl(this, this);
-        binding.searchResultRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
-        binding.searchResultRecycler.setAdapter(mSearchResultRecyclerAdapter);
+        binding.brvSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        binding.brvSearchResult.setAdapter(mSearchResultRecyclerAdapter);
         mSearchResultPresenter.getSearchResult(false, 1);
 
         binding.tvSearchKey.setText(mSearchKey);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onClick() {
         super.onClick();
         // 左上角的返回按钮
-        binding.ibBack.setOnClickListener(this);
+        binding.ibBack.setOnClickListener(v -> {
+            finish();
+        });
+
         // 筛选器
-        binding.ibFilter.setOnClickListener(this);
+        binding.ibFilter.setOnClickListener(v -> {
+            Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
+        });
         // TODO: 2021/3/25 筛选规则
+
         // 点击搜索关键字
-        binding.tvSearchKey.setOnClickListener(this);
+        binding.tvSearchKey.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("search_key", binding.tvSearchKey.getText().toString());
+            Intent intent = new Intent(this, SearchActivityX.class);
+            intent.putExtra("search_key", bundle);
+            startActivity(intent);
+        });
+
         // 点击关键字后面的叉叉
-        binding.ivCancel.setOnClickListener(this);
+        binding.ivSearchCancel.setOnClickListener(v -> {
+            startActivity(new Intent(this, SearchActivityX.class));
+        });
 
         // 点击综合排序
-        binding.tvSynthesis.setOnClickListener(this);
+        binding.tvCommonSort.setOnClickListener(v -> {
+            binding.tvCommonSort.setTextColor(getResourcesColor(R.color.font_blue));
+
+            binding.tvSaleSort.setTextColor(getResourcesColor(R.color.font_black_light));
+            binding.tvPriceSort.setTextColor(getResourcesColor(R.color.font_black_light));
+
+            binding.ivSaleSort.setVisibility(View.INVISIBLE);
+            binding.ivPriceSort.setVisibility(View.INVISIBLE);
+
+            // TODO: 2021/3/27 发送请求 - 综合排序
+        });
+
         // 点击销量排序
-        binding.rlSales.setOnClickListener(this);
+        binding.tvSaleSort.setOnClickListener(v -> {
+            binding.tvSaleSort.setTextColor(getResourcesColor(R.color.font_blue));
+
+            binding.tvCommonSort.setTextColor(getResourcesColor(R.color.font_black_light));
+            binding.tvPriceSort.setTextColor(getResourcesColor(R.color.font_black_light));
+
+            binding.ivSaleSort.setVisibility(View.VISIBLE);
+            binding.ivPriceSort.setVisibility(View.INVISIBLE);
+
+            if (salesSortFlag) {
+                binding.ivSaleSort.setImageResource(R.mipmap.icon_up);
+            } else {
+                binding.ivSaleSort.setImageResource(R.mipmap.icon_down);
+            }
+
+            salesSortFlag = !salesSortFlag;
+
+            // TODO: 2021/3/27 发送请求 - 按销量升序或降序排列
+        });
+
         // 点击价格排序
-        binding.rlPrice.setOnClickListener(this);
+        binding.tvPriceSort.setOnClickListener(v -> {
+            binding.tvPriceSort.setTextColor(getResourcesColor(R.color.font_blue));
+
+            binding.tvCommonSort.setTextColor(getResourcesColor(R.color.font_black_light));
+            binding.tvSaleSort.setTextColor(getResourcesColor(R.color.font_black_light));
+
+            binding.ivSaleSort.setVisibility(View.INVISIBLE);
+            binding.ivPriceSort.setVisibility(View.VISIBLE);
+
+            if (priceSortFlag) {
+                binding.ivPriceSort.setImageResource(R.mipmap.icon_up);
+            } else {
+                binding.ivPriceSort.setImageResource(R.mipmap.icon_down);
+            }
+
+            priceSortFlag = !priceSortFlag;
+
+            // TODO: 2021/3/27 发送请求 - 按价格升序或降序排列
+        });
 
     }
 
@@ -108,87 +172,13 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchKey = extras.getString("search_key");
     }
 
-    @SuppressLint("ResourceAsColor")
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        // 点击返回按钮
-        if (id == R.id.ib_back) {
-            finish();
-        }
-        // 点击筛选按钮
-        else if (id == R.id.ib_filter) {
-            Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
-        }
-
-        // 点击关键字灰色Layout
-        // else if (id == R.id.ll_cancel) { // 这个不要了
-        //     SearchResultActivity.this.startActivity(new Intent(SearchResultActivity.this, SearchActivityX.class));
-        // }
-
-        // 点击搜索关键字
-        else if (id == R.id.tv_search_key) { // 这个按到文字，传入文字
-            Bundle bundle = new Bundle();
-            bundle.putString("search_key", binding.tvSearchKey.getText().toString());
-            Intent intent = new Intent(this, SearchActivityX.class);
-            intent.putExtra("search_key", bundle);
-            startActivity(intent);
-        }
-        // 点击搜索关键字后面的叉叉
-        else if (id == R.id.iv_cancel) { // 这个按到叉叉，不传文字
-            startActivity(new Intent(this, SearchActivityX.class));
-        }
-        // 点击综合排序
-        else if (id == R.id.tv_synthesis) {
-            binding.tvSynthesis.setTextColor(R.color.font_blue);
-
-            binding.tvSortOderSales.setTextColor(R.color.font_red);
-            binding.tvSortOderPrice.setTextColor(R.color.font_red);
-
-            binding.ivSaleTriangle.setVisibility(View.INVISIBLE);
-            binding.ivPriceTriangle.setVisibility(View.INVISIBLE);
-
-            // TODO: 2021/3/27 发送请求 - 综合排序
-        }
-        // 点击销量排序
-        else if (id == R.id.rl_sales) {
-            binding.tvSortOderSales.setTextColor(R.color.font_blue);
-
-            binding.tvSynthesis.setTextColor(R.color.font_red);
-            binding.tvSortOderPrice.setTextColor(R.color.font_red);
-
-            binding.ivSaleTriangle.setVisibility(View.VISIBLE);
-            binding.ivPriceTriangle.setVisibility(View.INVISIBLE);
-
-            if (salesSortFlag) {
-                binding.ivSaleTriangle.setImageResource(R.mipmap.icon_up);
-            } else {
-                binding.ivSaleTriangle.setImageResource(R.mipmap.icon_down);
-            }
-
-            salesSortFlag = !salesSortFlag;
-
-            // TODO: 2021/3/27 发送请求 - 按销量升序或降序排列
-        }
-        // 点击价格排序
-        else if (id == R.id.rl_price) {
-            binding.tvSortOderPrice.setTextColor(R.color.font_blue);
-
-            binding.tvSynthesis.setTextColor(R.color.font_red);
-            binding.tvSortOderSales.setTextColor(R.color.font_red);
-
-            binding.ivSaleTriangle.setVisibility(View.INVISIBLE);
-            binding.ivPriceTriangle.setVisibility(View.VISIBLE);
-
-            if (priceSortFlag) {
-                binding.ivPriceTriangle.setImageResource(R.mipmap.icon_up);
-            } else {
-                binding.ivPriceTriangle.setImageResource(R.mipmap.icon_down);
-            }
-
-            priceSortFlag = !priceSortFlag;
-
-            // TODO: 2021/3/27 发送请求 - 按价格升序或降序排列
-        }
+    /**
+     * 获取颜色
+     *
+     * @param resColorId 颜色
+     * @return 颜色
+     */
+    private int getResourcesColor(int resColorId) {
+        return getResources().getColor(resColorId);
     }
 }

@@ -1,220 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dp_16"
-        android:layout_marginRight="@dimen/dp_16"
-        android:orientation="vertical">
+        tools:context=".ui.activity.SearchResultActivity">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_18"
+            android:background="@null"
+            android:src="@mipmap/icon_back"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_searchBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cl_searchBar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_searchBar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_44"
-            android:gravity="center_vertical">
-
-            <ImageButton
-                android:id="@+id/ib_back"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dp_16"
-                android:background="@null"
-                android:scaleType="center"
-                android:src="@mipmap/icon_back" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:layout_toStartOf="@+id/tv_search"
-                android:layout_toEndOf="@+id/ib_back"
-                android:background="@drawable/bg_corner_gray_20">
-
-                <TextView
-                    android:id="@+id/tv_type_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:text="@string/items_on_sale"
-                    android:textColor="#444444"
-                    android:textSize="@dimen/font_size_12" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_2"
-                    android:layout_toEndOf="@+id/tv_type_name"
-                    android:background="@mipmap/icon_down" />
-
-                <ImageView
-                    android:id="@+id/baseline"
-                    android:layout_width="@dimen/dp_1"
-                    android:layout_height="@dimen/dp_12"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_55"
-                    android:background="#22000000" />
-
-                <LinearLayout
-                    android:id="@+id/ll_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_24"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_8"
-                    android:layout_toRightOf="@+id/baseline"
-                    android:background="@drawable/bg_corner_gray_12_8e8e8e"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/dp_8"
-                    android:paddingRight="@dimen/dp_8">
-
-                    <TextView
-                        android:id="@+id/tv_search_key"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="电脑"
-                        android:textColor="#FFFFFF"
-                        android:textSize="@dimen/font_size_12" />
-
-                    <ImageView
-                        android:id="@+id/iv_cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_6"
-                        android:src="@mipmap/ic_cancel_gray" />
-                </LinearLayout>
-            </RelativeLayout>
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginLeft="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_50"
+            android:background="@drawable/bg_corner_gray_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tv_search"
+                android:id="@+id/tv_type_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:gravity="center"
-                android:text="@string/search"
-                android:textSize="@dimen/font_size_13" />
-        </RelativeLayout>
+                android:layout_marginStart="@dimen/dp_10"
+                android:text="商品"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+            <ImageView
+                android:id="@+id/iv_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_2"
+                android:background="@null"
+                android:src="@mipmap/icon_down"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_type_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/baseline"
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_12"
+                android:layout_marginStart="@dimen/dp_14"
+                android:background="#DCDCDC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_type_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_searchKey"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginStart="@dimen/dp_60"
+                android:background="@drawable/bg_corner_gray_12_8e8e8e"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@id/tv_searchKey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:text="电脑"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/font_size_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_searchCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:src="@mipmap/ic_cancel_gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_searchKey"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_18"
+            android:text="搜索"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_12"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_searchBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cl_searchBar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_sortType"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40">
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_searchBar">
 
             <TextView
-                android:id="@+id/tv_synthesis"
+                android:id="@+id/tv_commonSort"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/synthesis"
+                android:layout_height="wrap_content"
+                android:text="综合"
+                android:textColor="@color/font_blue"
+                android:textSize="@dimen/font_size_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_saleSort"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_saleSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="销量"
                 android:textColor="#666666"
-                android:textSize="@dimen/font_size_12" />
+                android:textSize="@dimen/font_size_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_priceSort"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_commonSort"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <RelativeLayout
-                android:id="@+id/rl_sales"
+            <ImageView
+                android:id="@+id/iv_saleSort"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_2"
+                android:src="@mipmap/icon_down"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_saleSort"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_sort_oder_sales"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/sales"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/font_size_12" />
-
-                <ImageView
-                    android:id="@+id/iv_sale_triangle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="@dimen/dp_6"
-                    android:layout_toEndOf="@+id/tv_sort_oder_sales"
-                    android:src="@mipmap/icon_up" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_toEndOf="@+id/tv_sort_oder_sales"
-                    android:src="@mipmap/icon_down"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_price"
+            <TextView
+                android:id="@+id/tv_priceSort"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:text="价格"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ib_filter"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_saleSort"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_sort_oder_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/price"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/font_size_12" />
-
-                <ImageView
-                    android:id="@+id/iv_price_triangle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="@dimen/dp_6"
-                    android:layout_toEndOf="@+id/tv_sort_oder_price"
-                    android:src="@mipmap/icon_up" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_toEndOf="@+id/tv_sort_oder_price"
-                    android:src="@mipmap/icon_down"
-                    android:visibility="gone" />
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_priceSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_2"
+                android:src="@mipmap/icon_down"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_priceSort"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/ib_filter"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_32"
-                android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:background="@null"
-                android:scaleType="center"
                 android:src="@mipmap/icon_filter"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_priceSort"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/srl_ji"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never">
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_sortType">
 
             <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                android:id="@+id/searchResultRecycler"
+                android:id="@+id/brv_searchResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_20"
                 android:overScrollMode="never" />
+
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
