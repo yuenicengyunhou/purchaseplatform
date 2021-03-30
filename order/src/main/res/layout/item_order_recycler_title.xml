@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_10">
+
+
+        <TextView
+            android:id="@+id/tv_orderNumKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ems="5"
+            android:text="采购单号："
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_orderNumValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_orderNumKey"
+            app:layout_constraintStart_toEndOf="@+id/tv_orderNumKey"
+            app:layout_constraintTop_toTopOf="@+id/tv_orderNumKey" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_orderNumKey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_orderNumKey">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:background="@null"
+                android:src="@drawable/ic_go_next" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_generateTimeKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ems="5"
+            android:text="生成时间："
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_orderNumKey" />
+
+        <TextView
+            android:id="@+id/tv_generateTimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_generateTimeKey"
+            app:layout_constraintStart_toEndOf="@+id/tv_generateTimeKey"
+            app:layout_constraintTop_toTopOf="@+id/tv_generateTimeKey"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="44dp" />
+
+        <TextView
+            android:id="@+id/tv_providerKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ems="5"
+            android:text="供应商："
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_generateTimeKey" />
+
+        <TextView
+            android:id="@+id/tv_providerValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_providerKey"
+            app:layout_constraintStart_toEndOf="@+id/tv_providerKey"
+            app:layout_constraintTop_toTopOf="@+id/tv_providerKey"
+            tools:layout_editor_absoluteX="98dp"
+            tools:layout_editor_absoluteY="71dp" />
+
+        <TextView
+            android:id="@+id/tv_buyerKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ems="5"
+            android:text="采购人："
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_providerKey" />
+
+        <TextView
+            android:id="@+id/tv_buyerValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_buyerKey"
+            app:layout_constraintStart_toEndOf="@+id/tv_buyerKey"
+            app:layout_constraintTop_toTopOf="@+id/tv_buyerKey"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="95dp" />
+
+        <TextView
+            android:id="@+id/tv_delayTimeKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ems="5"
+            android:text="延迟收货："
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_buyerKey" />
+
+        <TextView
+            android:id="@+id/tv_delayTimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_delayTimeKey"
+            app:layout_constraintStart_toEndOf="@+id/tv_delayTimeKey"
+            app:layout_constraintTop_toTopOf="@+id/tv_delayTimeKey"
+            tools:layout_editor_absoluteX="100dp"
+            tools:layout_editor_absoluteY="119dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

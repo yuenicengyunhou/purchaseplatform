@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.order.bean;
 
 import java.util.List;
 
+@Deprecated
 public class PurchaseBean {
     public PurchaseBean(String danHao, String time, String address, List<Student> list) {
         this.danHao = danHao;

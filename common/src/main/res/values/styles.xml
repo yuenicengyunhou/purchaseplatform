@@ -65,4 +65,9 @@
         <item name="android:textSize">@dimen/font_size_13</item>
     </style>
 
+
+    <style name="OrdersTabLayoutTextStyle">
+        <item name="android:textSize">@dimen/font_size_15</item>
+    </style>
+
 </resources>

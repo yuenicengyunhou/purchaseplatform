@@ -1,81 +1,56 @@
 package com.rails.purchaseplatform.order.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+import android.os.Bundle;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.reflect.TypeToken;
+import com.rails.lib_data.bean.OrderBean;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.order.R;
-import com.rails.purchaseplatform.order.adapter.MyFragmentAdapter;
-import com.rails.purchaseplatform.order.fragment.AllFragment;
-import com.rails.purchaseplatform.order.fragment.MyFragment;
-import com.flyco.tablayout.SlidingTabLayout;
+import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-/*
-*
-采购单列表
- */
+
 @Route(path = ConRoute.ORDER.ORDER_MAIN)
-public class OrderActivity extends AppCompatActivity {
-    private ImageView left;
-    private EditText search;
-    private ImageView right_add;
-    private SlidingTabLayout slide_layout;
-    private ViewPager vp;
-    private List<String> mTitles=new ArrayList<>();
-    private List<Fragment> mFragment=new ArrayList<>();
-    private MyFragmentAdapter myFragmentAdapter;
-    private final int mine = 1,all = 2;
-    private ArrayList<Fragment> fragments;
+public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
-        initView();
-        initTal();
-        initData();
-    }
-    private void initTal() {
-        slide_layout.setTabSpaceEqual(true);
-        myFragmentAdapter = new MyFragmentAdapter(getSupportFragmentManager(),mFragment,mTitles);
-        vp.setAdapter(myFragmentAdapter);
-        slide_layout.setViewPager(vp);
-    }
-    private void initData() {
-        Collections.addAll(mTitles,"我的采购单","全部采购单");
-        Collections.addAll(mFragment, MyFragment.getInstance(mine), AllFragment.getInstance(all));
-        myFragmentAdapter.notifyDataSetChanged();
-
-        slide_layout.notifyDataSetChanged();
-
-    }
-    private void initView() {
-        left = (ImageView) findViewById(R.id.left);
-        search = (EditText) findViewById(R.id.search);
-        right_add = (ImageView) findViewById(R.id.right_add);
-        slide_layout =  findViewById(R.id.slide_layout);
-        vp = (ViewPager) findViewById(R.id.vp);
-
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               finish();
-            }
-        });
-
+    protected void initialize(Bundle bundle) {
+        Type type = new TypeToken<ArrayList<OrderBean>>() {
+        }.getType();
+        ArrayList<OrderBean> beans = JsonUtil.parseJson(this, "orderList.json", type);
 
     }
 
+    @Override
+    protected int getColor() {
+        return 0;
+    }
+
+    @Override
+    protected boolean isSetSystemBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean isBindEventBus() {
+        return false;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        binding.ibBack.setOnClickListener(v -> finish());
+        binding.ibFilter.setOnClickListener(v -> Toast.makeText(this, "暂时没有内容哦", Toast.LENGTH_SHORT).show());
+    }
 }

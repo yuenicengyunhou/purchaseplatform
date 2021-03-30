@@ -659,14 +659,14 @@
                 android:visibility="visible"
                 app:tabMode="auto"
                 app:tabSelectedTextColor="#387CFC"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
                 app:tabTextColor="#2E2E2E">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem_productInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/product_details_productInfo"
-                    app:tabTextAppearance="@style/TabLayoutTextStyle" />
+                    android:text="@string/product_details_productInfo" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem_packageList"
