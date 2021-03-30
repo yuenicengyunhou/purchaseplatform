@@ -3,9 +3,9 @@ package com.rails.purchaseplatform.user.ui.activity;
 import android.os.Bundle;
 
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
-import com.rails.purchaseplatform.user.databinding.ActivityFindPassword2Binding;
+import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordConfirmBinding;
 
-public class FindPassword2Activity extends BaseErrorActivity<ActivityFindPassword2Binding> {
+public class RetrievePasswordConfirmActivity extends BaseErrorActivity<ActivityRetrievePasswordConfirmBinding> {
 
 
     @Override

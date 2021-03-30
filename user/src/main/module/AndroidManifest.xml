@@ -29,12 +29,12 @@
 
         <!-- 找回密码页面 -->
         <activity
-            android:name=".ui.activity.FindPasswordActivity"
+            android:name=".ui.activity.RetrievePasswordActivity"
             android:screenOrientation="portrait" />
 
         <!-- 找回密码2 -->
         <activity
-            android:name=".ui.activity.FindPassword2Activity"
+            android:name=".ui.activity.RetrievePasswordConfirmActivity"
             android:screenOrientation="portrait" />
     </application>
 

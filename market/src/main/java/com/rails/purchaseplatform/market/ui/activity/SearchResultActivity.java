@@ -1,21 +1,19 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
-import com.rails.purchaseplatform.common.activity.SearchActivityX;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
-import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 
@@ -91,14 +89,12 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.tvSearchKey.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("search_key", binding.tvSearchKey.getText().toString());
-            Intent intent = new Intent(this, SearchActivityX.class);
-            intent.putExtra("search_key", bundle);
-            startActivity(intent);
+            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation(this);
         });
 
         // 点击关键字后面的叉叉
         binding.ivSearchCancel.setOnClickListener(v -> {
-            startActivity(new Intent(this, SearchActivityX.class));
+            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
         });
 
         // 点击综合排序

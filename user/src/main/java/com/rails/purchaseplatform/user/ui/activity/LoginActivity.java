@@ -90,7 +90,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> {
 
         binding.tvForgetPassword.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            Intent intent = new Intent(this, FindPasswordActivity.class);
+            Intent intent = new Intent(this, RetrievePasswordActivity.class);
             startActivity(intent);
         });
     }

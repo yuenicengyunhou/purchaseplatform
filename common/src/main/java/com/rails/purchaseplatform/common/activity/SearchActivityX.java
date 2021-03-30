@@ -57,6 +57,8 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
 
     private PopupWindow mPopupWindow;
 
+    private String mSearchKey;
+
     @Override
     protected int getColor() {
         return 0;
@@ -96,6 +98,8 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
         mHotSearchPresenter.getHotSearch(false, 1);
+
+        binding.tvSearch.setText(mSearchKey);
     }
 
     @Override
@@ -164,6 +168,12 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     @Override
     public void getHotSearch(ArrayList<HotSearchBean> hotSearchBeans, boolean hasMore, boolean isClear) {
         mHotSearchRecyclerAdapter.update(hotSearchBeans, true);
+    }
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        if (extras != null) mSearchKey = extras.getString("search_key", "");
     }
 
     @SuppressLint("ResourceAsColor")

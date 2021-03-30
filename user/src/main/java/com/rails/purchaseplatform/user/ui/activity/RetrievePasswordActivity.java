@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
-import com.rails.purchaseplatform.user.databinding.ActivityFindPasswordBinding;
+import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordBinding;
 
 import java.util.regex.Pattern;
 
-public class FindPasswordActivity extends BaseErrorActivity<ActivityFindPasswordBinding> {
+public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrievePasswordBinding> {
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -50,7 +50,7 @@ public class FindPasswordActivity extends BaseErrorActivity<ActivityFindPassword
             }
 
             Bundle bundle = new Bundle();
-            Intent intent = new Intent(this, FindPassword2Activity.class);
+            Intent intent = new Intent(this, RetrievePasswordConfirmActivity.class);
             startActivity(intent);
             finish();
         });
