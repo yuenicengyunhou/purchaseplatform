@@ -177,7 +177,7 @@
             app:layout_constraintTop_toBottomOf="@+id/et_verifyNumInput"
             tools:layout_editor_absoluteX="0dp" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
@@ -185,6 +185,7 @@
             android:layout_marginTop="@dimen/dp_90"
             android:layout_marginEnd="26dp"
             android:background="@drawable/bg_corner_blue_25"
+            android:gravity="center"
             android:text="登 录"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/font_size_18"
