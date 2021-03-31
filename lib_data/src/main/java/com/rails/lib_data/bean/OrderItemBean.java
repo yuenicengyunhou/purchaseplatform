@@ -4,42 +4,56 @@ package com.rails.lib_data.bean;
  * 采购单内项目（物品） Bean
  */
 public class OrderItemBean {
+
     /**
      * 订单号
      */
     private String orderNumber;
+
     /**
      * 订单生成时间
      */
     private String generateTime;
+
     /**
      * 订单状态
      */
     private String orderState;
+
     /**
      * 商品图片
      */
     private String pictureUrl;
+
     /**
      * 商品名称
      */
     private String itemName;
+
     /**
      * 商品价格
      */
     private String itemPrice;
+
     /**
      * 商品型号
      */
     private String itemType;
+
     /**
      * 商品数量
      */
     private String itemCount;
+
     /**
      * 商品编码
      */
     private String itemNum;
+
+    /**
+     * 商品价格合计
+     */
+    private String totalPrice;
 
 
     // ========================================================================================
@@ -115,5 +129,13 @@ public class OrderItemBean {
 
     public void setItemNum(String itemNum) {
         this.itemNum = itemNum;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
