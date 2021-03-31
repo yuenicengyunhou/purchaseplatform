@@ -1,17 +1,21 @@
 package com.rails.purchaseplatform.address.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.rails.lib_data.bean.AddressBean;
@@ -19,6 +23,7 @@ import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressAddBinding;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.utils.LocationUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -26,6 +31,7 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
 
+import androidx.annotation.Nullable;
 import rx.functions.Action1;
 
 /**
@@ -35,8 +41,6 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
     private AddressBean bean;
     private AddressContract.AddressPresenter presenter;
-    private GeocodeSearch geocoderSearch;
-    private LatLng latLng;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -102,7 +106,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         barBinding.btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startIntent(MappoiActivity.class);
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAP).navigation(AddressAddActivity.this, 0);
             }
         });
     }
@@ -127,11 +131,8 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
             @Override
             public void getMapLocation(AMapLocation mapLocation) {
                 if (null != mapLocation) {
-                    double lat = mapLocation.getLatitude();
-                    double lng = mapLocation.getLongitude();
-                    latLng = new LatLng(lat, lng);
-                    getAddressByLocation(new LatLonPoint(latLng.latitude, latLng.longitude));
                     barBinding.etRemark.setText(mapLocation.getAddress());
+                    barBinding.etArea.setContent(mapLocation.getProvince() + " " + mapLocation.getCity() + " " + mapLocation.getDistrict());
                 } else
                     ToastUtil.show(AddressAddActivity.this, "定位失败");
             }
@@ -139,20 +140,14 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
     }
 
 
-    private void getAddressByLocation(LatLonPoint point) {
-        geocoderSearch = new GeocodeSearch(this);
-        RegeocodeQuery query = new RegeocodeQuery(point, 200, GeocodeSearch.AMAP);
-        geocoderSearch.getFromLocationAsyn(query);
-        geocoderSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
-            @Override
-            public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-                barBinding.etRemark.setText(regeocodeResult.getRegeocodeAddress().getFormatAddress());
-            }
-
-            @Override
-            public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            PoiItem poiItem = data.getParcelableExtra("poi");
+            barBinding.etRemark.setText(poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet());
+            barBinding.etArea.setContent(poiItem.getProvinceName() + " " + poiItem.getCityName() + " " + poiItem.getAdName());
+        }
     }
 
 
