@@ -73,13 +73,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         });
 
         binding.tvGetVerifyNum.setOnClickListener(v -> {
-            binding.tvGetVerifyNum.setVisibility(View.INVISIBLE);
-            binding.tvCountDown.setVisibility(View.VISIBLE);
+            presenter.getCode("15545569785");
 
-            Message msg = new Message();
-            msg.what = COUNTING;
-            msg.obj = COUNT_NUM;
-            mHandler.sendMessageDelayed(msg, 300);
         });
 
         binding.tvForgetPassword.setOnClickListener(v -> {
@@ -93,6 +88,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public void onResult(int type, String msg) {
         ToastUtil.showCenter(this, msg);
+        if (type == 1) {
+            binding.tvGetVerifyNum.setVisibility(View.INVISIBLE);
+            binding.tvCountDown.setVisibility(View.VISIBLE);
+            Message message = new Message();
+            message.what = COUNTING;
+            message.obj = COUNT_NUM;
+            mHandler.sendMessageDelayed(message, 300);
+        }
     }
 
     private static class TimerHandler extends Handler {

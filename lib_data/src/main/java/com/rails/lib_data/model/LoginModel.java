@@ -29,13 +29,27 @@ public class LoginModel {
         HashMap<String, String> params = new HashMap<>();
         params.put("loginType", "1");
         params.put("mobilePhone", phone);
-        params.put("userPassword",MD5Util.MD5(MD5Util.MD5(paw)));
+        params.put("userPassword", MD5Util.MD5(MD5Util.MD5(paw)));
         params.put("mobilePhoneCode", code);
         params.put("isWeakPwd", "0");
         params.put("returnUrl", "aaa");
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(LoginService.class, 1).onLogin(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 获取验证码
+     *
+     * @param phone
+     * @param httpRxObserver
+     */
+    public void getCode(String phone, HttpRxObserver httpRxObserver) {
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(LoginService.class, 1).getCode(phone))
                 .subscribe(httpRxObserver);
     }
 }

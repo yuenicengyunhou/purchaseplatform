@@ -62,4 +62,22 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             }
         });
     }
+
+    @Override
+    public void getCode(String phone) {
+        baseView.showResDialog(R.string.loading);
+        model.getCode(phone, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.dismissDialog();
+                baseView.onResult(1, "response");
+            }
+        });
+    }
 }

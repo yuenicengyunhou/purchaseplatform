@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
+import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.R;
 
 import java.lang.reflect.Method;
@@ -47,7 +48,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
                 Method method = cls.getMethod("inflate", LayoutInflater.class);
                 binding = (T) method.invoke(null, getLayoutInflater());
             } catch (Exception e) {
-
+                Logger.d(e.getMessage()+"____");
             }
             setContentView(binding.getRoot());
         }

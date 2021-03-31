@@ -235,7 +235,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         binding.etSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+//                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
             }
         });
 
@@ -276,9 +277,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
                     public void dismissDialog() {
 
                     }
-                }).onLogin("15545569785", "Pass!word@1234", "a8bn6t");
+                }).getCode("15545569785");
 
-//                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
             }
         });
     }
