@@ -18,6 +18,15 @@ import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 
 import java.util.ArrayList;
 
+/**
+ * 采购单列表页面
+ * <p>
+ * -1- 列表(采购单订单)和子列表(订单内商品)
+ * -2- 搜索
+ * -3- 筛选
+ * -4- PopupWindow切换搜索类型
+ * -5- Tab切换我的采购单和全部采购单
+ */
 @Route(path = ConRoute.ORDER.ORDER_MAIN)
 public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> implements OrderContract.OrderView {
 

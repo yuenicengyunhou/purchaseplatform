@@ -69,11 +69,12 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
                     password = binding.etPasswordInput.getText().toString().trim(),
                     verifyCode = binding.etVerifyNumInput.getText().toString().trim();
 
-            presenter.onLogin("13311111122", "Pass!word@1234", "a8bn6t");
+            presenter.onLogin(phone, password, verifyCode);
+//            presenter.onLogin("13311111122", "Pass!word@1234", "a8bn6t");
         });
 
         binding.tvGetVerifyNum.setOnClickListener(v -> {
-            presenter.getCode("13311111122");
+            presenter.getCode(binding.etPhoneInput.getText().toString().trim());
 
         });
 
