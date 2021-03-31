@@ -28,8 +28,9 @@ public class PoiAdapter extends BaseRecyclerAdapter<PoiItem, ItemAddressPoiBindi
 
     @Override
     protected void onBindItem(ItemAddressPoiBinding binding, PoiItem poiItem, int position) {
-        binding.tvTitle.setText(poiItem.getTitle());
-        binding.tvAddress.setText(poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet());
+        binding.setPoi(poiItem);
+//        binding.tvTitle.setText(poiItem.getTitle());
+//        binding.tvAddress.setText(poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet());
 
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override

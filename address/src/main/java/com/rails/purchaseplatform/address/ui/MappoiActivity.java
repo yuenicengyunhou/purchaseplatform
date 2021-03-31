@@ -4,7 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.View;
+import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.amap.api.location.AMapLocation;
@@ -35,6 +35,8 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import rx.functions.Action1;
@@ -57,35 +59,13 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
     private Marker screenMarker;
 
     private PoiAdapter poiAdapter;
-    private PoiItem poiItem;
-
-
-    @Override
-    protected void getExtraEvent(Bundle extras) {
-        super.getExtraEvent(extras);
-        poiItem = extras.getParcelable("bean");
-    }
-
 
     @Override
     protected void initialize(Bundle bundle) {
 
         binding.titleBar
                 .setShowLine(true).setImgLeftRes(R.drawable.svg_back_black)
-                .setTitle("地图poi")
-                .setBtnRightColor(R.color.bg_blue)
-                .setBtnRightContent("确定")
-                .setRightListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (poiItem != null) {
-                            Intent intent = new Intent();
-                            intent.putExtra("poi", poiItem);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        }
-                    }
-                });
+                .setTitle("地图poi");
 
         barBinding.map.onCreate(bundle);
         if (aMap == null) {
@@ -101,6 +81,10 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
         poiAdapter.setListener(this);
         barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         barBinding.recycler.setAdapter(poiAdapter);
+
+        latLng = new LatLng(0, 0);
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+
         loadData();
     }
 
@@ -119,23 +103,18 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
      * 定位当前的位置
      */
     private void initLocation() {
-        if (poiItem == null) {
-            LocationUtil.getLocation(this, new LocationUtil.CallBack() {
-                @Override
-                public void getMapLocation(AMapLocation mapLocation) {
-                    if (null != mapLocation) {
-                        double lat = mapLocation.getLatitude();
-                        double lng = mapLocation.getLongitude();
-                        latLng = new LatLng(lat, lng);
-                        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                    } else
-                        ToastUtil.show(MappoiActivity.this, "定位失败");
-                }
-            });
-        } else {
-            latLng = new LatLng(poiItem.getLatLonPoint().getLatitude(), poiItem.getLatLonPoint().getLongitude());
-            aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-        }
+        LocationUtil.getLocation(this, new LocationUtil.CallBack() {
+            @Override
+            public void getMapLocation(AMapLocation mapLocation) {
+                if (null != mapLocation) {
+                    double lat = mapLocation.getLatitude();
+                    double lng = mapLocation.getLongitude();
+                    latLng = new LatLng(lat, lng);
+                    aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                } else
+                    ToastUtil.show(MappoiActivity.this, "定位失败");
+            }
+        });
 
 
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
@@ -152,6 +131,10 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
 
             }
         });
+
+        if (latLng != null)
+
+            getStringPoint(new LatLonPoint(latLng.latitude, latLng.longitude));
     }
 
 
@@ -188,7 +171,7 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
         Point screenPosition = aMap.getProjection().toScreenLocation(latLng);
         screenMarker = aMap.addMarker(new MarkerOptions()
                 .anchor(0.5f, 0.5f)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_address_edit)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location)));
         //设置Marker在屏幕上,不跟随地图移动
         screenMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
     }
@@ -212,8 +195,16 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
 
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
-//        for (PoiItem item :poiResult.getPois())
-        poiAdapter.update(poiResult.getPois(), true);
+
+        ArrayList<PoiItem> poiItems = new ArrayList<>();
+        for (PoiItem item : poiResult.getPois()) {
+            if (TextUtils.isEmpty(item.getTitle()))
+                continue;
+            poiItems.add(item);
+        }
+        if (poiItems.isEmpty())
+            return;
+        poiAdapter.update(poiItems, true);
     }
 
     @Override
@@ -223,8 +214,10 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
 
     @Override
     public void onPosition(PoiItem bean, int type) {
-        this.poiItem = bean;
-//        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(bean.getLatLonPoint().getLatitude(), bean.getLatLonPoint().getLongitude()), 14));
+        Intent intent = new Intent();
+        intent.putExtra("poi", bean);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 

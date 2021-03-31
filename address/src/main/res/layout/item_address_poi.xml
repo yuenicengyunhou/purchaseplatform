@@ -25,8 +25,7 @@
             android:singleLine="true"
             android:text="@{poi.title}"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_15"
-            tools:text="d大苏打稍等上的发达a's'f'da's'd'fa's'd'ft" />
+            android:textSize="@dimen/font_size_15" />
 
 
         <TextView
@@ -39,10 +38,9 @@
             android:paddingLeft="@dimen/dp_10"
             android:paddingBottom="@dimen/dp_10"
             android:singleLine="true"
-            android:text="@{poi.cityName}"
+            android:text="@{@string/address_map_address(poi.cityName,poi.adName,poi.adName)}"
             android:textColor="@color/font_gray"
-            android:textSize="@dimen/font_size_13"
-            tools:text="d大苏打稍等上的发达a's'f'da's'd'fa's'd'ft" />
+            android:textSize="@dimen/font_size_13"/>
 
         <ImageView
             android:id="@+id/btn_checked"
