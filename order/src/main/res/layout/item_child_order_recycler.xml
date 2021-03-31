@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="childOrder"
+            type="com.rails.lib_data.bean.OrderItemBean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +29,7 @@
             android:id="@+id/tv_orderNumValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1234567890"
+            android:text="@{childOrder.orderNumber}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_orderNumKey"
             app:layout_constraintStart_toEndOf="@+id/tv_orderNumKey"
             app:layout_constraintTop_toTopOf="@+id/tv_orderNumKey" />
@@ -36,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
-            android:text="已发货"
+            android:text="@{childOrder.orderState}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_orderNumKey"
             app:layout_constraintEnd_toStartOf="@+id/iv_go_next"
             app:layout_constraintTop_toTopOf="@+id/tv_orderNumKey" />
@@ -68,20 +71,20 @@
             android:id="@+id/tv_generateTimeValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2021-01-01 10:10:20"
+            android:text="@{childOrder.generateTime}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_generateTimeKey"
             app:layout_constraintStart_toEndOf="@+id/tv_generateTimeKey"
             app:layout_constraintTop_toTopOf="@+id/tv_generateTimeKey" />
 
         <ImageView
             android:id="@+id/imageView2"
+            imgUrl="@{childOrder.pictureUrl}"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_generateTimeKey"
-            app:srcCompat="@drawable/ic_order_a" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_generateTimeKey" />
 
         <TextView
             android:id="@+id/textView5"
@@ -91,7 +94,7 @@
             android:ellipsize="end"
             android:ems="10"
             android:maxLines="1"
-            android:text="得力正品2B铅笔小学生专用"
+            android:text="@{childOrder.itemName}"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
@@ -108,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="59.90"
+            android:text="@{childOrder.itemPrice}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -126,7 +129,7 @@
             android:id="@+id/tv_typeValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100支/盒"
+            android:text="@{childOrder.itemType}"
             app:layout_constraintStart_toEndOf="@+id/tv_typeKey"
             app:layout_constraintTop_toTopOf="@+id/tv_typeKey" />
 
@@ -135,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="10"
+            android:text="@{childOrder.itemCount}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_typeKey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_typeKey" />
@@ -153,7 +156,7 @@
             android:id="@+id/tv_itemNumValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1111568"
+            android:text="@{childOrder.itemNum}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_itemNumKey"
             app:layout_constraintStart_toEndOf="@+id/tv_itemNumKey"
             app:layout_constraintTop_toTopOf="@+id/tv_itemNumKey" />
@@ -172,7 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="339.90"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_itemNumValue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_itemNumValue" />

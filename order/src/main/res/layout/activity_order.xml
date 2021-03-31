@@ -87,7 +87,8 @@
         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/brv_orderRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
 
     </LinearLayout>
 </layout>

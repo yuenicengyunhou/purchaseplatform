@@ -4,27 +4,34 @@ package com.rails.purchaseplatform.order.activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderBean;
+import com.rails.lib_data.contract.OrderContract;
+import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.order.adapter.OrderRecyclerAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 @Route(path = ConRoute.ORDER.ORDER_MAIN)
-public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
+public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> implements OrderContract.OrderView {
+
+    private OrderRecyclerAdapter mAdapter;
+    private OrderContract.OrderPresenter mPresenter;
 
 
     @Override
     protected void initialize(Bundle bundle) {
-        Type type = new TypeToken<ArrayList<OrderBean>>() {
-        }.getType();
-        ArrayList<OrderBean> beans = JsonUtil.parseJson(this, "orderList.json", type);
-
+        mAdapter = new OrderRecyclerAdapter(this);
+        mPresenter = new OrderPresenterImpl(this, this);
+        binding.brvOrderRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        binding.brvOrderRecycler.setAdapter(mAdapter);
+        mPresenter.getOrder(false, 1);
     }
 
     @Override
@@ -52,5 +59,10 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         super.onClick();
         binding.ibBack.setOnClickListener(v -> finish());
         binding.ibFilter.setOnClickListener(v -> Toast.makeText(this, "暂时没有内容哦", Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    public void getOrder(ArrayList<OrderBean> orderBeans, boolean hasMore, boolean isClear) {
+        mAdapter.update(orderBeans, true);
     }
 }

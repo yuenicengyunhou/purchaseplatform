@@ -55,8 +55,12 @@ public class Title4OrderRecyclerItem extends ConstraintLayout {
         ((TextView) mTitle.findViewById(R.id.tv_providerValue)).setText(texts[2]);
         ((TextView) mTitle.findViewById(R.id.tv_buyerValue)).setText(texts[3]);
         if (texts.length == 5) {
+            if (texts[4].equals("")) {
+                mTitle.findViewById(R.id.tv_delayTimeKey).setVisibility(View.GONE);
+                mTitle.findViewById(R.id.tv_delayTimeValue).setVisibility(View.GONE);
+            }
             ((TextView) mTitle.findViewById(R.id.tv_delayTimeValue)).setText(texts[4]);
-        } else if (texts.length == 4) {
+        } else {
             mTitle.findViewById(R.id.tv_delayTimeKey).setVisibility(View.GONE);
             mTitle.findViewById(R.id.tv_delayTimeValue).setVisibility(View.GONE);
         }
