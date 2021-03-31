@@ -31,20 +31,22 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     @Override
     public void onLogin(String phone, String paw, String code) {
 
-//        if (!VerificationUtil.isMobile(phone)) {
-//            ToastUtil.showCenter(mContext, "手机号码格式错误");
-//            return;
-//        }
-//
-//        if (!VerificationUtil.isPaw(paw)) {
-//            ToastUtil.showCenter(mContext, "密码格式错误");
-//            return;
-//        }
+        // TODO: 2021/3/31 正则 - 验证校验
 
-//        if (!VerificationUtil.isIdentify(code)) {
-//            ToastUtil.showCenter(mContext, "验证码格式错误");
-//            return;
-//        }
+        if (!VerificationUtil.isMobile(phone)) {
+            ToastUtil.showCenter(mContext, "手机号码格式错误");
+            return;
+        }
+
+        if (!VerificationUtil.isPaw(paw)) {
+            ToastUtil.showCenter(mContext, "密码格式错误");
+            return;
+        }
+
+        if (!VerificationUtil.isIdentify(code)) {
+            ToastUtil.showCenter(mContext, "验证码格式错误");
+            return;
+        }
 
 
         baseView.showResDialog(R.string.loading);

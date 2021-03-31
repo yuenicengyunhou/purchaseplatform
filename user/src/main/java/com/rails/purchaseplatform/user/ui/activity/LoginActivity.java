@@ -66,19 +66,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     protected void onClick() {
         super.onClick();
-        binding.btnLogin.setOnClickListener(v -> {
-            String phone = binding.etPhoneInput.getText().toString().trim(),
-                    password = binding.etPasswordInput.getText().toString().trim(),
-                    verifyCode = binding.etVerifyNumInput.getText().toString().trim();
+        binding.btnLogin.setOnClickListener(v -> presenter.onLogin(
+                binding.etPhoneInput.getText().toString().trim(),
+                binding.etPasswordInput.getText().toString().trim(),
+                binding.etVerifyNumInput.getText().toString().trim()
+        ));
 
-            presenter.onLogin(phone, password, verifyCode);
-//            presenter.onLogin("13311111122", "Pass!word@1234", "a8bn6t");
-        });
-
-        binding.tvGetVerifyNum.setOnClickListener(v -> {
-            presenter.getCode(binding.etPhoneInput.getText().toString().trim());
-
-        });
+        binding.tvGetVerifyNum.setOnClickListener(v -> presenter.getCode(binding.etPhoneInput.getText().toString().trim()));
 
         binding.tvForgetPassword.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -98,8 +92,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             message.what = COUNTING;
             message.obj = COUNT_NUM;
             mHandler.sendMessageDelayed(message, 300);
-        }if (type == 0){
-            PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN,msg);
+        }
+        if (type == 0) {
+            PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN, msg);
         }
     }
 
