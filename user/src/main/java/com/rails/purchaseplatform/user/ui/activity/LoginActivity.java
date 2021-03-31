@@ -14,7 +14,9 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.ConShare;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 
@@ -95,6 +97,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             message.what = COUNTING;
             message.obj = COUNT_NUM;
             mHandler.sendMessageDelayed(message, 300);
+        }if (type == 0){
+            PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN,msg);
         }
     }
 
