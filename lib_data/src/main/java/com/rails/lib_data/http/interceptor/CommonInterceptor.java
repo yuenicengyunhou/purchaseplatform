@@ -53,6 +53,8 @@ public class CommonInterceptor implements Interceptor {
     }
 
 
+
+
     /**
      * post网络请求
      *
@@ -78,9 +80,17 @@ public class CommonInterceptor implements Interceptor {
             String paramsStr = buffer.readString(charset);
             jsonObject = JSONObject.parseObject(paramsStr);
             requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
+
+        } else if (requestBody instanceof FormBody) {
+            FormBody oldBody = (FormBody) request.body();
+            for (int i = 0; i < oldBody.size(); i++) {
+                jsonObject.put(oldBody.encodedName(i), oldBody.encodedValue(i));
+            }
+            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
         }
         return builder.post(requestBody).build();
     }
+
 
 
     /**

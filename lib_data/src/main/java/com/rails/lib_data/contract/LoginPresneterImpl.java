@@ -1,11 +1,15 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.widget.Toast;
 
+import com.rails.lib_data.R;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
 import java.util.ArrayList;
 
@@ -23,17 +27,38 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
         model = new LoginModel();
     }
 
+
     @Override
-    public void getTests() {
-        model.getTests(new HttpRxObserver<ArrayList<String>>() {
+    public void onLogin(String phone, String paw, String code) {
+
+//        if (!VerificationUtil.isMobile(phone)) {
+//            ToastUtil.showCenter(mContext, "手机号码格式错误");
+//            return;
+//        }
+//
+//        if (!VerificationUtil.isPaw(paw)) {
+//            ToastUtil.showCenter(mContext, "密码格式错误");
+//            return;
+//        }
+
+//        if (!VerificationUtil.isIdentify(code)) {
+//            ToastUtil.showCenter(mContext, "验证码格式错误");
+//            return;
+//        }
+
+
+        baseView.showResDialog(R.string.loading);
+        model.onLogin(phone, paw, code, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
                 baseView.onError(e);
             }
 
             @Override
-            protected void onSuccess(ArrayList<String> beans) {
-                baseView.getTests(beans);
+            protected void onSuccess(String response) {
+                baseView.dismissDialog();
+                baseView.onResult(0, "response");
             }
         });
     }

@@ -22,7 +22,6 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
     @Override
     protected void initialize(Bundle bundle) {
         presenter = new LoginPresneterImpl(this, this);
-        presenter.getTests();
     }
 
     @Override
@@ -40,8 +39,9 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
         return false;
     }
 
+
     @Override
-    public void getTests(ArrayList<String> testBeans) {
-            startIntent(LoginActivity.class);
+    public void onResult(int type, String msg) {
+
     }
 }
