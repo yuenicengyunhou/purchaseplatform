@@ -38,6 +38,32 @@ public class VerificationUtil {
     }
 
 
+
+    /**
+     * 验证验证码
+     *
+     * @param verifyCode 验证码
+     * @return 验证码不为空并且匹配格式返回true，否则返回false
+     */
+    private boolean matchVerifyCode(String verifyCode) {
+        Pattern pattern = Pattern.compile("^\\d{6}$");
+        return !verifyCode.equals("") && pattern.matcher(verifyCode).matches();
+    }
+
+    /**
+     * 验证密码
+     *
+     * @param password 密码
+     * @return 密码不为空并且匹配格式返回true，否则返回false
+     */
+    private boolean matchPassword(String password) {
+        // TODO: 2021/3/28 密码格式验证 - 正则
+        Pattern pattern = Pattern.compile("^[1]\\d{10}$");
+//        return !password.equals("") && pattern.matcher(password).matches();
+        return true;
+    }
+
+
 //    public static String getHideMobile(String mobile) {
 //        String strPattern = "(\\d{3})\\d*(\\d{4})$";
 //    }
@@ -63,7 +89,7 @@ public class VerificationUtil {
      * @return
      */
     public static boolean isIdentify(String identify) {
-        String strPattern = "\\d{6}";
+        String strPattern = "\\s{6}";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(identify);
         return m.matches();
@@ -113,7 +139,7 @@ public class VerificationUtil {
             return false;
         } else {
             password = password.trim();
-            if (password.length() < 6 || password.length() > 20) {
+            if (password.length() < 8) {
                 return false;
             } else {
                 Pattern p = Pattern.compile("[a-zA-Z0-9\\$@#!,-_\\.\\?]+");

@@ -10,6 +10,8 @@ import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.contract.LoginContract;
+import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.lib_data.contract.ProductContract;
@@ -247,7 +249,36 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         binding.imgMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+
+
+                new LoginPresneterImpl(getActivity(), new LoginContract.LoginView() {
+                    @Override
+                    public void onResult(int type, String msg) {
+
+                    }
+
+                    @Override
+                    public void onError(ErrorBean errorBean) {
+
+                    }
+
+                    @Override
+                    public void showDialog(String msg) {
+
+                    }
+
+                    @Override
+                    public void showResDialog(int res) {
+
+                    }
+
+                    @Override
+                    public void dismissDialog() {
+
+                    }
+                }).onLogin("15545569785", "Pass!word@1234", "a8bn6t");
+
+//                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
             }
         });
     }
