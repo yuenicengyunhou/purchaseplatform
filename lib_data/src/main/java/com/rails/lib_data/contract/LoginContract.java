@@ -37,5 +37,12 @@ public interface LoginContract {
          * @param code  验证码
          */
         void onLogin(String phone, String paw, String code);
+
+
+        /**
+         * 获取验证吗
+         * @param phone
+         */
+        void getCode(String phone);
     }
 }
