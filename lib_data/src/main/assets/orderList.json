@@ -15,7 +15,8 @@
         "itemPrice": "59.90",
         "itemType": "100支/盒",
         "itemCount": "10",
-        "itemNum": "11115649"
+        "itemNum": "11115649",
+        "totalPrice": "599.00"
       },
       {
         "orderNumber": "20210308125400",
@@ -26,7 +27,8 @@
         "itemPrice": "33.99",
         "itemType": "100支/盒",
         "itemCount": "10",
-        "itemNum": "11115650"
+        "itemNum": "11115650",
+        "totalPrice": "339.90"
       },
       {
         "orderNumber": "20210308125400",
@@ -37,9 +39,11 @@
         "itemPrice": "36.99",
         "itemType": "100支/盒",
         "itemCount": "10",
-        "itemNum": "11115651"
+        "itemNum": "11115651",
+        "totalPrice": "369.90"
       }
-    ]
+    ],
+    "totalPrice": "1308.80"
   },
   {
     "orderNumber": "20210312160750",
@@ -54,10 +58,11 @@
         "orderState": "已发货",
         "pictureUrl": "https://oss.mall.95306.cn/mall/a39ac26ef82abd36f1825b068fb3b56b20210129135909663.jpg",
         "itemName": "联想ThinkVision P27i-10（27英寸低蓝光护眼窄边框显示器，分辨率1920*1080，VGA+HDMI+DP接口，支持俯仰、升降、旋转）",
-        "itemPrice": "2288",
+        "itemPrice": "2288.00",
         "itemType": "27英寸低蓝光护眼窄边框显示器",
         "itemCount": "2",
-        "itemNum": "44568953"
+        "itemNum": "44568953",
+        "totalPrice": "4576.00"
       },
       {
         "orderNumber": "20210312160750",
@@ -65,10 +70,11 @@
         "orderState": "未发货",
         "pictureUrl": "https://oss.mall.95306.cn/mall/dfcf28d0734569a6a693bc8194de62bf20210115191114114.jpg",
         "itemName": "联想激光多功能一体机M7675DXF（联想激光多功能一体机M7675DXF）",
-        "itemPrice": "3377",
+        "itemPrice": "3377.00",
         "itemType": "M7675DXF-黑色",
         "itemCount": "2",
-        "itemNum": "44568955"
+        "itemNum": "44568955",
+        "totalPrice": "6754.00"
       },
       {
         "orderNumber": "20210312160750",
@@ -76,10 +82,11 @@
         "orderState": "已送达",
         "pictureUrl": "https://oss.mall.95306.cn/mall/78e15b9d9e633ee6a39f4702db17438c20210129140238461.jpg",
         "itemName": "联想启天A835（B300\\R5 2600\\8G\\128G+1T\\2G\\无线\\Win10Home）",
-        "itemPrice": "4388",
+        "itemPrice": "4388.00",
         "itemType": "高性能主机+键鼠套装",
         "itemCount": "4",
-        "itemNum": "44568959"
+        "itemNum": "44568959",
+        "totalPrice": "17552.00"
       },
       {
         "orderNumber": "20210312160750",
@@ -87,19 +94,21 @@
         "orderState": "正在出库",
         "pictureUrl": "https://oss.mall.95306.cn/mall/6512bd43d9caa6e02c990b0a82652dca20210125091132833.jpg",
         "itemName": "ProBook 440 G8-I5-11135U/8G/256G/14寸/商用笔记本/3年质保（灰色 HP ProBook 440 G8 14.0英寸）",
-        "itemPrice": "5888",
+        "itemPrice": "5888.00",
         "itemType": "银灰色+包+鼠标",
         "itemCount": "4",
-        "itemNum": "44568978"
+        "itemNum": "44568978",
+        "totalPrice": "23552.00"
       }
-    ]
+    ],
+    "totalPrice": "52434.00"
   },
   {
     "orderNumber": "20210319095133",
     "generateTime": "20210319095133",
     "provider": "鲁花香",
     "buyer": "中铁十三局",
-    "delayTime": "",
+    "delayTime": null,
     "orderItemBeans": [
       {
         "orderNumber": "20210319095133",
@@ -110,7 +119,8 @@
         "itemPrice": "208.88",
         "itemType": "4桶/箱",
         "itemCount": "8",
-        "itemNum": "0097498725"
+        "itemNum": "0097498725",
+        "totalPrice": "1671.04"
       },
       {
         "orderNumber": "20210319095133",
@@ -121,7 +131,8 @@
         "itemPrice": "98.00",
         "itemType": "10KG/袋",
         "itemCount": "100",
-        "itemNum": "0097498729"
+        "itemNum": "0097498729",
+        "totalPrice": "9800.00"
       },
       {
         "orderNumber": "20210319095133",
@@ -132,7 +143,8 @@
         "itemPrice": "102.24",
         "itemType": "25KG/袋",
         "itemCount": "100",
-        "itemNum": "0097498737"
+        "itemNum": "0097498737",
+        "totalPrice": "10224.00"
       },
       {
         "orderNumber": "20210319095133",
@@ -143,7 +155,8 @@
         "itemPrice": "59.88",
         "itemType": "2.5L/桶",
         "itemCount": "50",
-        "itemNum": "0097498744"
+        "itemNum": "0097498744",
+        "totalPrice": "2994.00"
       },
       {
         "orderNumber": "20210319095133",
@@ -154,9 +167,11 @@
         "itemPrice": "114.00",
         "itemType": "25KG/袋",
         "itemCount": "50",
-        "itemNum": "0097498762"
+        "itemNum": "0097498762",
+        "totalPrice": "5700.00"
       }
-    ]
+    ],
+    "totalPrice": "30,389.04"
   },
   {
     "orderNumber": "20210327042953",
@@ -171,11 +186,13 @@
         "orderState": "",
         "pictureUrl": "https://oss.mall.95306.cn/mall/d24bade136bc8cd77e37395ea94226eb20210115192423691.jpg",
         "itemName": "得力工具DL-P6_帆布工具包320x110x310mm(新VI)（DL-P6）",
-        "itemPrice": "299",
+        "itemPrice": "299.00",
         "itemType": "DL-P6 320*110*310",
         "itemCount": "2",
-        "itemNum": "0851487348"
+        "itemNum": "0851487348",
+        "totalPrice": "598.00"
       }
-    ]
+    ],
+    "totalPrice": "598.00"
   }
 ]
