@@ -163,6 +163,8 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
      */
     public void addHeader(WebView webView, String url) {
         HashMap<String, String> params = new HashMap<>();
+        String token = "thissitoken";
+        params.put("token", token);
         if (params.size() <= 0)
             webView.loadUrl(url);
         else
@@ -179,5 +181,10 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
     @Override
     public void onBack() {
         this.finish();
+    }
+
+    @JavascriptInterface
+    public String getToken(){
+        return "thisistoken";
     }
 }
