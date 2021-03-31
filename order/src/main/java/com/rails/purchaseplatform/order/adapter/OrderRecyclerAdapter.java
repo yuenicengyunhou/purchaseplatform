@@ -48,4 +48,5 @@ public class OrderRecyclerAdapter extends BaseRecyclerAdapter<OrderBean, ItemOrd
         binding.brvChildOrderRecycler.setAdapter(adapter);
         adapter.update(orderItemBeans, true);
     }
+
 }

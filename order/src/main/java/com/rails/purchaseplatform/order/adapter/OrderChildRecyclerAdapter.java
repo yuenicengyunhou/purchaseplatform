@@ -10,8 +10,6 @@ import com.rails.purchaseplatform.order.databinding.ItemChildOrderRecyclerBindin
 import java.util.List;
 
 public class OrderChildRecyclerAdapter extends BaseRecyclerAdapter<OrderItemBean, ItemChildOrderRecyclerBinding> {
-    private Context mContext;
-    private List<OrderItemBean> mOrderItemBeans;
 
     public OrderChildRecyclerAdapter(Context context) {
         super(context);

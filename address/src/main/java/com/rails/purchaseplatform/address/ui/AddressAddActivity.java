@@ -1,23 +1,42 @@
 package com.rails.purchaseplatform.address.ui;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressAddBinding;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.utils.LocationUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
 
+import rx.functions.Action1;
 
+/**
+ * 添加地址
+ */
 public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBinding> implements AddressContract.AddressView {
 
     private AddressBean bean;
     private AddressContract.AddressPresenter presenter;
+    private GeocodeSearch geocoderSearch;
+    private LatLng latLng;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -45,8 +64,11 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
                 .setTitleBar(R.string.address_add).setShowLine(true);
 
+
         if (bean != null) {
             setDetail(bean);
+        } else {
+            loadData();
         }
 
         presenter = new AddressPresenterImpl(this, this);
@@ -74,6 +96,61 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
             @Override
             public void onClick(View v) {
                 commit();
+            }
+        });
+
+        barBinding.btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIntent(MappoiActivity.class);
+            }
+        });
+    }
+
+
+    protected void loadData() {
+        RxPermissions.getInstance(this).request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                if (aBoolean)
+                    initLocation();
+            }
+        });
+    }
+
+
+    /**
+     * 定位当前的位置
+     */
+    private void initLocation() {
+        LocationUtil.getLocation(this, new LocationUtil.CallBack() {
+            @Override
+            public void getMapLocation(AMapLocation mapLocation) {
+                if (null != mapLocation) {
+                    double lat = mapLocation.getLatitude();
+                    double lng = mapLocation.getLongitude();
+                    latLng = new LatLng(lat, lng);
+                    getAddressByLocation(new LatLonPoint(latLng.latitude, latLng.longitude));
+                    barBinding.etRemark.setText(mapLocation.getAddress());
+                } else
+                    ToastUtil.show(AddressAddActivity.this, "定位失败");
+            }
+        });
+    }
+
+
+    private void getAddressByLocation(LatLonPoint point) {
+        geocoderSearch = new GeocodeSearch(this);
+        RegeocodeQuery query = new RegeocodeQuery(point, 200, GeocodeSearch.AMAP);
+        geocoderSearch.getFromLocationAsyn(query);
+        geocoderSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
+            @Override
+            public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+                barBinding.etRemark.setText(regeocodeResult.getRegeocodeAddress().getFormatAddress());
+            }
+
+            @Override
+            public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
             }
         });
     }

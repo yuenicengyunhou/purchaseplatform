@@ -48,16 +48,35 @@
                 android:layout_marginLeft="@dimen/common_border"
                 android:layout_marginRight="@dimen/common_border" />
 
-
-            <com.rails.purchaseplatform.common.widget.EditLayout
-                android:id="@+id/et_area"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:text="@string/address_add_area"
-                app:hint="@string/address_add_area_hint"
-                app:is_hide="true" />
+                android:layout_height="wrap_content">
+
+                <com.rails.purchaseplatform.common.widget.EditLayout
+                    android:id="@+id/et_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:layout_toLeftOf="@+id/btn_location"
+                    android:text="@string/address_add_area"
+                    android:layout_marginRight="@dimen/dp_10"
+                    app:hint="@string/address_add_area_hint"
+                    app:is_hide="true" />
+
+                <TextView
+                    android:id="@+id/btn_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_border"
+                    android:text="@string/address_add_location"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_15" />
+
+            </RelativeLayout>
+
 
             <View
                 style="@style/line_thin_gray"
@@ -136,11 +155,11 @@
 
                 <Switch
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:switchMinWidth="@dimen/dp_50"
-                    app:theme="@style/Switch"
-                    android:layout_height="wrap_content"/>
+                    app:theme="@style/Switch" />
 
             </RelativeLayout>
 

@@ -14,6 +14,7 @@ import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class AdetailPageAdapter extends RecyclerView.Adapter<AdetailPageAdapter.ViewHolder> {
     Context context;
 

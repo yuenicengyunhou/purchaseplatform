@@ -63,10 +63,12 @@ public class ConRoute {
      * 地址管理页面
      */
     public final static class ADDRESS {
-
+        //地址管理页面列表
         public final static String ADDRESS_MAIN = "/address/main";
-
+        //选择地址
         public final static String ADDRESS_SEL = "/address/select";
+        //地图
+        public final static String ADDRESS_MAP = "/address/map";
 
     }
 

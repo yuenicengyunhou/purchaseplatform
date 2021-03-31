@@ -109,8 +109,19 @@ dependencies {
     //测滑
     api 'com.yanzhenjie.recyclerview:x:1.3.2'
 
+    //权限
+    api 'io.reactivex:rxjava:1.3.8'
+    api 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+
 
     //刷新控件
     api "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11"
     api 'com.scwang.smart:refresh-header-classics:2.0.3'
+
+
+    //高德地图
+//    api 'com.amap.api:3dmap:latest.integration'
+    api 'com.amap.api:navi-3dmap:7.8.0_3dmap7.8.0'
+    api 'com.amap.api:search:7.7.0'
+    api 'com.amap.api:location:5.2.0'
 }

@@ -95,6 +95,8 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
      * @param isClear   是否刷新
      */
     public void update(ArrayList itemDatas, boolean isClear) {
+        if (itemDatas.isEmpty())
+            return;
         if (isClear)
             this.mDataSource.clear();
         if (itemDatas != null && !itemDatas.isEmpty()) {

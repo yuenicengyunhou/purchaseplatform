@@ -12,6 +12,7 @@ import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class BdetailPageAdapter extends RecyclerView.Adapter<BdetailPageAdapter.ViewHolder> {
     Context context;
     public BdetailPageAdapter(Context context) {

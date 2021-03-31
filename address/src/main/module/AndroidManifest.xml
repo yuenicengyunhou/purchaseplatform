@@ -16,9 +16,14 @@
             android:name=".ui.AddressAddActivity"
             android:screenOrientation="portrait" />
 
-        <!--        选择地址-->
+        <!-- 选择地址-->
         <activity
             android:name=".ui.AddressSelActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 选择地址-->
+        <activity
+            android:name=".ui.MappoiActivity"
             android:screenOrientation="portrait" />
 
     </application>

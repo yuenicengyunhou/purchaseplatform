@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
-
+@Deprecated
 public class CdetailPageAdapter extends RecyclerView.Adapter<CdetailPageAdapter.ViewHolder> {
     Context context;
 

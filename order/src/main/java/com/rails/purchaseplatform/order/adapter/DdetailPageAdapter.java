@@ -15,6 +15,8 @@ import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+
+@Deprecated
 public class DdetailPageAdapter extends RecyclerView.Adapter<DdetailPageAdapter.ViewHolder> {
     Context context;
     StringBuffer stringBuffer = new StringBuffer();

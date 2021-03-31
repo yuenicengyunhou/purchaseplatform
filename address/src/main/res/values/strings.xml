@@ -22,6 +22,7 @@
     <string name="address_add_defult">设置默认地址</string>
     <string name="address_add_defult_tip">提醒：每次下单会默认推荐使用该地址</string>
     <string name="address_add_save">保存</string>
+    <string name="address_add_location">定位</string>
 
 
 
