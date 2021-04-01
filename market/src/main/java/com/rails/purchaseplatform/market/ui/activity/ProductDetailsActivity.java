@@ -284,12 +284,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvShowAll.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
-        binding.tvPutInCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startIntent(CartActivity.class);
-            }
-        });
+        binding.tvPutInCart.setOnClickListener(v -> startIntent(CartActivity.class));
+
+        binding.rlTypeChosen.setOnClickListener(v -> Log.d(TAG, "弹出型号选择？？？"));
+        binding.rlAddressChosen.setOnClickListener(v -> Log.d(TAG, "弹出地址选择"));
+        binding.rlParamsCheck.setOnClickListener(v -> Log.d(TAG, "看参数弹窗"));
     }
 
     @Override

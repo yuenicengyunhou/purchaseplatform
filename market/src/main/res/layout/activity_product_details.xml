@@ -190,6 +190,7 @@
                         android:background="#447F7F7F" />
 
                     <RelativeLayout
+                        android:id="@+id/rl_type_chosen"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:layout_marginStart="@dimen/dp_16"
@@ -230,6 +231,7 @@
                         android:background="#447F7F7F" />
 
                     <RelativeLayout
+                        android:id="@+id/rl_address_chosen"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:layout_marginStart="@dimen/dp_16"
@@ -310,6 +312,7 @@
                         android:background="#447F7F7F" />
 
                     <RelativeLayout
+                        android:id="@+id/rl_params_check"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:layout_marginStart="@dimen/dp_16"
