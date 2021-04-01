@@ -74,7 +74,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         presenter.getProducts(true,1,"20","");
 
 
-
+        binding.vp2SearchResult.setCurrentItem(0);
 
 
         binding.tvSearchKey.setText(mSearchKey);

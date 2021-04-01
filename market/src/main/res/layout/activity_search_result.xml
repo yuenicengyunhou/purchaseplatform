@@ -187,6 +187,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_sortType">
@@ -200,6 +201,14 @@
                 android:overScrollMode="never" />
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp2_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_sortType" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
