@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -92,8 +93,13 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         binding.svpSearchResult.setCurrentItem(0);
 
+        // 判断如果取不到到传过来的搜索Key就隐藏View，否则显示搜索Key
+        if (mSearchKey == "" || mSearchKey == null) {
+            binding.clSearchKey.setVisibility(View.GONE);
+        } else {
+            binding.tvSearchKey.setText(mSearchKey);
+        }
 
-        binding.tvSearchKey.setText(mSearchKey);
         binding.cbCommonSort.setSelected(true);
     }
 
