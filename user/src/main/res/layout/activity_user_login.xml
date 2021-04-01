@@ -135,7 +135,7 @@
             android:background="@null"
             android:ems="12"
             android:hint="请输入验证码"
-            android:inputType="number"
+            android:inputType="text"
             android:maxLength="6"
             android:maxLines="1"
             android:textColor="#999999"

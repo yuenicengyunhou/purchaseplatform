@@ -235,8 +235,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.etSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-//                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
+//                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
             }
         });
 
