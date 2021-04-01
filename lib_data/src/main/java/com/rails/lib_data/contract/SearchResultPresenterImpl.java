@@ -5,8 +5,11 @@ import android.app.Activity;
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.lib_data.model.ProductModel;
 import com.rails.lib_data.model.SearchResultModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
 import java.lang.reflect.Type;
@@ -14,11 +17,11 @@ import java.util.ArrayList;
 
 public class SearchResultPresenterImpl extends BasePresenter<SearchResultContract.SearchResultView> implements SearchResultContract.SearchResultPresenter {
 
-    private SearchResultModel model;
+    private ProductModel model;
 
     public SearchResultPresenterImpl(Activity mContext, SearchResultContract.SearchResultView searchResultView) {
         super(mContext, searchResultView);
-        model = new SearchResultModel();
+        model = new ProductModel();
     }
 
     @Override
@@ -37,5 +40,26 @@ public class SearchResultPresenterImpl extends BasePresenter<SearchResultContrac
             baseView.getSearchResult(beans, false, isClear);
         }
 
+    }
+
+    @Override
+    public void getProducts(boolean isDialog, int page, String platformId, String keyWord) {
+        if (isDialog)
+            baseView.showResDialog(R.string.loading);
+        model.getProducts(page, platformId, keyWord, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.dismissDialog();
+                if (isCallBack()) {
+
+                }
+            }
+        });
     }
 }

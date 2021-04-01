@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.lib_data.contract.ProductContract;
+import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -30,12 +33,14 @@ import java.util.ArrayList;
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
 @Route(path = "/market/SearchResultActivity")
-public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements SearchResultContract.SearchResultView {
+public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements
+        SearchResultContract.SearchResultView, ProductContract.ProductView {
 
     private String mSearchKey;
 
     private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
-    private SearchResultContract.SearchResultPresenter mSearchResultPresenter;
+    private SearchResultContract.SearchResultPresenter presenter;
+
 
     private boolean salesSortFlag = true; // false 降序排列
     private boolean priceSortFlag = true; // true  升序排列
@@ -61,10 +66,16 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     protected void initialize(Bundle bundle) {
 
         mSearchResultRecyclerAdapter = new SearchResultRecyclerAdapter(this);
-        mSearchResultPresenter = new SearchResultPresenterImpl(this, this);
+        presenter = new SearchResultPresenterImpl(this, this);
         binding.brvSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.brvSearchResult.setAdapter(mSearchResultRecyclerAdapter);
-        mSearchResultPresenter.getSearchResult(false, 1);
+        presenter.getSearchResult(false, 1);
+
+        presenter.getProducts(true,1,"20","");
+
+
+
+
 
         binding.tvSearchKey.setText(mSearchKey);
         binding.cbCommonSort.setSelected(true);
@@ -140,5 +151,15 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbCommonSort.setSelected(booleans[0]);
         binding.cbSaleSort.setSelected(booleans[1]);
         binding.cbPriceSort.setSelected(booleans[2]);
+    }
+
+    @Override
+    public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
     }
 }
