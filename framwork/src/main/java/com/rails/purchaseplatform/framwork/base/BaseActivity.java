@@ -41,17 +41,20 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
      * 添加子布局
      */
     protected void setLayout() {
-        Type type = this.getClass().getGenericSuperclass();
-        if (type instanceof ParameterizedType) {
-            try {
-                Class<T> cls = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
-                Method method = cls.getMethod("inflate", LayoutInflater.class);
-                binding = (T) method.invoke(null, getLayoutInflater());
-            } catch (Exception e) {
-                Logger.d(e.getMessage()+"____");
+        try {
+            Type type = this.getClass().getGenericSuperclass();
+            if (type instanceof ParameterizedType) {
+                try {
+                    Class<T> cls = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
+                    Method method = cls.getMethod("inflate", LayoutInflater.class);
+                    binding = (T) method.invoke(null, getLayoutInflater());
+                } catch (Exception e) {
+                }
+                setContentView(binding.getRoot());
             }
-            setContentView(binding.getRoot());
+        } catch (Exception e) {
         }
+
     }
 
 

@@ -88,6 +88,11 @@ public class ConRoute {
 
         public final static String MSG = BASEURL + "messageList";
 
+        public final static String ORDER_DETAIL = BASEURL + "purOrderDetails";
+
+
+
+
 //        public final static String EVALUTE = BASEURL + "evaluate";
 //        public final static String EVALUTE = BASEURL + "evaluate";
 //        public final static String EVALUTE = BASEURL + "evaluate";

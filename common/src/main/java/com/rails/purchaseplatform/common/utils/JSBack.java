@@ -13,6 +13,7 @@ public interface JSBack {
 
     /**
      * 获取token
+     *
      * @return
      */
     String getToken();
