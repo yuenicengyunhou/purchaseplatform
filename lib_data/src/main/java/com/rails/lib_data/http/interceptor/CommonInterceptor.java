@@ -1,7 +1,11 @@
 package com.rails.lib_data.http.interceptor;
 
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSONObject;
+import com.rails.purchaseplatform.framwork.BaseApp;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -25,15 +29,20 @@ public class CommonInterceptor implements Interceptor {
 
     private static final MediaType TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+    private String token;
+
+
+    public CommonInterceptor() {
+        token = PrefrenceUtil.getInstance(BaseApp.getContext()).getString("token", "");
+    }
 
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
-//        String token = "";
-//        if (!TextUtils.isEmpty(token))
-//            builder.addHeader("token", token);
+        if (!TextUtils.isEmpty(token))
+            builder.addHeader("Authorization", token);
         //添加网络默认头
 //        builder.addHeader("version", version);
 //        builder.addHeader("appSystem", "android");
@@ -51,8 +60,6 @@ public class CommonInterceptor implements Interceptor {
         Response response = chain.proceed(request);
         return response;
     }
-
-
 
 
     /**
@@ -90,7 +97,6 @@ public class CommonInterceptor implements Interceptor {
         }
         return builder.post(requestBody).build();
     }
-
 
 
     /**

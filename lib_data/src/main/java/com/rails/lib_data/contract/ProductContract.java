@@ -39,6 +39,5 @@ public interface ProductContract {
          */
         void getHotProducts(boolean isDialog, int page);
 
-
     }
 }

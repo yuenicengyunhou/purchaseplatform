@@ -11,6 +11,8 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.model.ProductModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
 import java.lang.reflect.Type;
@@ -48,4 +50,6 @@ public class ProductPresenterImpl extends BasePresenter<ProductContract.ProductV
             baseView.getHotProducts(beans, false, isClear);
         }
     }
+
+
 }

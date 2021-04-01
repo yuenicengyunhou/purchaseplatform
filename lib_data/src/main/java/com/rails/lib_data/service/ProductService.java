@@ -28,4 +28,21 @@ public interface ProductService {
     @GET("platform/platform/floor/queryFloorSettingList")
     Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts(@QueryMap HashMap<String, String> params);
 
+
+    /**
+     * 获取热销商品列表
+     *
+     * @return
+     */
+    @GET("platform/platform/floor/queryFloorSettingList")
+    Observable<HttpResult<ArrayList<ProductRecBean>>> getHotProducts(@QueryMap HashMap<String, String> params);
+
+    /**
+     * 获取商品列表
+     *
+     * @return
+     */
+    @GET("elasticsearch-service/mall/search/queryItemListByKeyword")
+    Observable<HttpResult<String>> getProducts(@QueryMap HashMap<String, String> params);
+
 }

@@ -89,7 +89,7 @@ public class VerificationUtil {
      * @return
      */
     public static boolean isIdentify(String identify) {
-        String strPattern = "\\s{6}";
+        String strPattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6}$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(identify);
         return m.matches();
