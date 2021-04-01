@@ -2,11 +2,13 @@ package com.rails.purchaseplatform.user.ui.activity;
 
 import android.webkit.JavascriptInterface;
 
+import com.rails.purchaseplatform.common.utils.JSBack;
+
 /**
  * webView 通过js调用原生代码
  * date:on 2017/7/5
  */
-public interface JSBrowseBack {
+public interface JSBrowseBack extends JSBack {
 
     /**
      * 测试本地h5
@@ -15,13 +17,6 @@ public interface JSBrowseBack {
      */
     @JavascriptInterface
     void postMessage(String msg);
-
-
-    /**
-     * 返回
-     */
-    @JavascriptInterface
-    void onBack();
 
 
 }
