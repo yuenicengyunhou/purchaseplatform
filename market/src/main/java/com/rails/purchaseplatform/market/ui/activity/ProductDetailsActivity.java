@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;
@@ -26,9 +27,11 @@ import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
+import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 import com.rails.purchaseplatform.market.web.PackageListPage4Js;
 import com.rails.purchaseplatform.market.web.ProductInfoPage4Js;
@@ -62,6 +65,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     final private ArrayList<View> VIEWS = new ArrayList<>();
 
+    private ProductDetailsParamsPop mParamsPop;
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
@@ -71,8 +76,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         VIEWS.add(binding.viewSplit3);
         VIEWS.add(binding.viewSplit4);
 
-        binding.tvRmbGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        binding.tvPriceGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        setTextStyleDeprecated();
 
         binding.fsvScore.setStar(4);
 
@@ -141,6 +145,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 左上角返回按钮
         binding.ibBack.setOnClickListener(v -> finish());
         binding.ibBack1.setOnClickListener(v -> finish());
+    }
+
+    private void setTextStyleDeprecated() {
+        binding.tvRmbGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        binding.tvPriceGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     /**
@@ -282,9 +291,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         binding.tvPutInCart.setOnClickListener(v -> startIntent(CartActivity.class));
 
-        binding.rlTypeChosen.setOnClickListener(v -> Log.d(TAG, "弹出型号选择？？？"));
-        binding.rlAddressChosen.setOnClickListener(v -> Log.d(TAG, "弹出地址选择"));
-        binding.rlParamsCheck.setOnClickListener(v -> Log.d(TAG, "看参数弹窗"));
+        binding.rlTypeChosen.setOnClickListener(v -> {
+            Log.d(TAG, "弹出型号选择？？？");
+        });
+        binding.rlAddressChosen.setOnClickListener(v -> {
+            Log.d(TAG, "弹出地址选择");
+        });
+        binding.rlParamsCheck.setOnClickListener(v -> {
+            Log.d(TAG, "看参数弹窗");
+            showParamsCheckPop();
+        });
     }
 
     @Override
@@ -351,6 +367,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[1];
+    }
+
+    void showParamsCheckPop() {
+        if (mParamsPop == null) {
+            mParamsPop = new ProductDetailsParamsPop();
+            mParamsPop.setType(BasePop.MATCH_WRAP);
+            mParamsPop.setGravity(Gravity.BOTTOM);
+        }
+        mParamsPop.show(getSupportFragmentManager(), "product_details_params");
     }
 
 
