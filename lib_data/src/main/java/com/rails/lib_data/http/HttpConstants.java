@@ -5,7 +5,6 @@ package com.rails.lib_data.http;
  */
 public class HttpConstants {
 
-    //https://shop.rails.cn/proxy/elasticsearch-service/mall/search/queryItemListByKeyword?keyword=&platformId=20&pageNum=1
 
     public static String SHOP_URL = "https://shop.rails.cn/proxy/";
 

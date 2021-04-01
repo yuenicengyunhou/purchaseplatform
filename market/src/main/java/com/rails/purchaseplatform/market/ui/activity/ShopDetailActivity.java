@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -130,6 +131,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         if (filterPop == null) {
             filterPop = new FilterShopPop();
             filterPop.setType(BasePop.MATCH_WRAP);
+            filterPop.setGravity(Gravity.BOTTOM);
         }
         filterPop.show(getSupportFragmentManager(), "shop");
 

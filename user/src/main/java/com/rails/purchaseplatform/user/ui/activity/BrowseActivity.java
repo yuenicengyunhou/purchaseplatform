@@ -1,14 +1,11 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
-import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -18,8 +15,8 @@ import android.webkit.WebViewClient;
 
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityUserBrowseBinding;
-import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 
 import java.util.HashMap;
 
@@ -48,7 +45,7 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
 
     @Override
     protected int getColor() {
-        return android.R.color.white;
+        return R.color.bg_blue;
     }
 
     @Override
@@ -97,25 +94,6 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
                 super.onReceivedTitle(view, title);
             }
 
-
-            @Override
-            public boolean onJsAlert(WebView view, String url, final String message, JsResult result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        new AlertDialog.Builder(BrowseActivity.this)
-                                .setTitle("提示")
-                                .setMessage(message)
-                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                }).show();
-                    }
-                });
-                result.confirm();
-                return true;
-            }
         });
         webView.addJavascriptInterface(jsMsgBack, "app");
         webView.setWebViewClient(new WebViewClient() {
@@ -184,7 +162,21 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
     }
 
     @JavascriptInterface
-    public String getToken(){
+    public String getToken() {
         return "thisistoken";
+    }
+
+
+    @Override
+    public void finish() {
+        try {
+            if (binding.web.canGoBack()) {
+                binding.web.goBack();
+            } else
+                super.finish();
+        } catch (Exception e) {
+            super.finish();
+        }
+
     }
 }

@@ -60,7 +60,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", ConRoute.WEB.BROWSE);
+                bundle.putString("url", ConRoute.WEB.ORDER_DETAIL);
                 startIntent(BrowseActivity.class, bundle);
             }
         });
