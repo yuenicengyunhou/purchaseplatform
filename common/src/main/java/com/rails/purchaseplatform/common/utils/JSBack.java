@@ -17,4 +17,10 @@ public interface JSBack {
      * @return
      */
     String getToken();
+
+
+    /**
+     * 登录过期，跳转app登录
+     */
+    void onLogin();
 }
