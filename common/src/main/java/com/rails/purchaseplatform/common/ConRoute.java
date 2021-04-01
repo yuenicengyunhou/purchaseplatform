@@ -87,8 +87,13 @@ public class ConRoute {
         public final static String BROWSE = BASEURL + "history";
 
         public final static String MSG = BASEURL + "messageList";
-
+        //订单详情
         public final static String ORDER_DETAIL = BASEURL + "purOrderDetails";
+        //待审核
+        public final static String  APPROVAL =BASEURL+"approvalList";
+
+
+
 
 
 

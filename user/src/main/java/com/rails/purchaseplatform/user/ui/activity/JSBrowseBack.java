@@ -19,4 +19,13 @@ public interface JSBrowseBack extends JSBack {
     void postMessage(String msg);
 
 
+    /**
+     * 跳转结果页面
+     *
+     * @param type 0:审批单
+     * @param msg
+     */
+    void onResult(int type, String msg);
+
+
 }

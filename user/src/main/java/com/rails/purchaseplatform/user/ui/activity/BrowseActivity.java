@@ -13,8 +13,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.Logger;
+import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.ConShare;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityUserBrowseBinding;
 
@@ -39,6 +43,7 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
     @Override
     protected void initialize(Bundle bundle) {
 //        url = "file:///android_asset/index.html";
+        url = ConRoute.WEB.ORDER_DETAIL;
 
         initWebView(binding.web, this);
     }
@@ -157,23 +162,44 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
 
     @JavascriptInterface
     @Override
+    public void onResult(int type, String msg) {
+        ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withString("msg", msg).navigation();
+    }
+
+    @JavascriptInterface
+    @Override
     public void onBack() {
         this.finish();
     }
 
     @JavascriptInterface
     public String getToken() {
-        return "thisistoken";
+        return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
+    }
+
+    @Override
+    public void onLogin() {
+
+    }
+
+
+    public void close() {
+        super.finish();
     }
 
 
     @Override
     public void finish() {
         try {
-            if (binding.web.canGoBack()) {
-                binding.web.goBack();
-            } else
-                super.finish();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (binding.web.canGoBack()) {
+                        binding.web.goBack();
+                    } else
+                        close();
+                }
+            });
         } catch (Exception e) {
             super.finish();
         }
