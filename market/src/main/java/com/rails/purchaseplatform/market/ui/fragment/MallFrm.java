@@ -2,7 +2,12 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.BannerBean;
@@ -10,12 +15,11 @@ import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
-import com.rails.lib_data.contract.LoginContract;
-import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
+import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
@@ -40,19 +44,15 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 /**
  * 商城首页
  *
  * @author： sk_comic@163.com
  * @date: 2021/1/28
  */
-public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndexContract.MarketIndexView
-        , PositionListener<ProductBean>, ProductContract.ProductView {
+public class MallFrm extends LazyFragment<FrmMallBinding>
+        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>,
+        ProductContract.ProductView, ConstantH5.Messages {
 
 
     private ProductRecAdapter recAdapter;
@@ -235,8 +235,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
         binding.etSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-//                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
+//                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
             }
         });
 
@@ -247,39 +247,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding> implements MarketIndex
             }
         });
 
-        binding.imgMsg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                new LoginPresneterImpl(getActivity(), new LoginContract.LoginView() {
-                    @Override
-                    public void onResult(int type, String msg) {
-
-                    }
-
-                    @Override
-                    public void onError(ErrorBean errorBean) {
-
-                    }
-
-                    @Override
-                    public void showDialog(String msg) {
-
-                    }
-
-                    @Override
-                    public void showResDialog(int res) {
-
-                    }
-
-                    @Override
-                    public void dismissDialog() {
-
-                    }
-                }).getCode("15545569785");
-
-            }
+        binding.imgMsg.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("url", MSG_URL);
+            ARouter.getInstance().build(ConRoute.MSG.MSG_MAIN).with(bundle).navigation();
         });
     }
 

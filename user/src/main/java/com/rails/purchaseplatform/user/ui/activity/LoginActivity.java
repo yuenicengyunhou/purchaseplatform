@@ -1,12 +1,11 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -21,7 +20,6 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 
 import java.lang.ref.WeakReference;
-import java.util.regex.Pattern;
 
 /**
  * 登录页面
@@ -69,16 +67,40 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         binding.btnLogin.setOnClickListener(v -> presenter.onLogin(
                 binding.etPhoneInput.getText().toString().trim(),
                 binding.etPasswordInput.getText().toString().trim(),
-                binding.etVerifyNumInput.getText().toString().trim()
-        ));
+                binding.etVerifyNumInput.getText().toString().trim()));
 
-        binding.tvGetVerifyNum.setOnClickListener(v -> presenter.getCode(binding.etPhoneInput.getText().toString().trim()));
+        binding.tvGetVerifyNum.setOnClickListener(v ->
+                presenter.getCode(binding.etPhoneInput.getText().toString().trim()));
 
         binding.tvForgetPassword.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             Intent intent = new Intent(this, RetrievePasswordActivity.class);
             startActivity(intent);
         });
+
+        binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) ->
+                setInputLineBackground(hasFocus, binding.viewPhoneInputLine));
+
+        binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) ->
+                setInputLineBackground(hasFocus, binding.viewPasswordInputLine));
+
+        binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) ->
+                setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine));
+    }
+
+    /**
+     * 设置输入框下方的线颜色变化
+     *
+     * @param hasFocus 是否有焦点
+     * @param view     需要改变颜色的View
+     */
+    private void setInputLineBackground(boolean hasFocus, View view) {
+        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5);
+        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5);
+        if (hasFocus)
+            view.setBackground(drawableHasFocus);
+        else
+            view.setBackground(drawableLoseFocus);
     }
 
 

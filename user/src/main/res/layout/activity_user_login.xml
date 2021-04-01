@@ -70,7 +70,7 @@
             android:layout_marginStart="@dimen/dp_33"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginEnd="@dimen/dp_33"
-            android:background="#0279FF"
+            android:background="@drawable/bg_corner_gray_5"
             app:layout_constraintTop_toBottomOf="@+id/et_phoneInput"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -110,7 +110,7 @@
             android:layout_marginStart="@dimen/dp_33"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginEnd="@dimen/dp_33"
-            android:background="#0279FF"
+            android:background="@drawable/bg_corner_gray_5"
             app:layout_constraintTop_toBottomOf="@+id/et_passwordInput"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -135,7 +135,7 @@
             android:background="@null"
             android:ems="12"
             android:hint="请输入验证码"
-            android:inputType="number"
+            android:inputType="text"
             android:maxLength="6"
             android:maxLines="1"
             android:textColor="#999999"
@@ -173,7 +173,7 @@
             android:layout_marginStart="@dimen/dp_33"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginEnd="@dimen/dp_33"
-            android:background="#0279FF"
+            android:background="@drawable/bg_corner_gray_5"
             app:layout_constraintTop_toBottomOf="@+id/et_verifyNumInput"
             tools:layout_editor_absoluteX="0dp" />
 

@@ -99,7 +99,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
         mHotSearchPresenter.getHotSearch(false, 1);
 
-        binding.tvSearch.setText(mSearchKey);
+        binding.searchText.setText(mSearchKey);
     }
 
     @Override

@@ -3,7 +3,9 @@ package com.rails.purchaseplatform.market.web;
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 
-public class PackageListPage4Js {
+import com.rails.purchaseplatform.common.utils.JSBack;
+
+public class PackageListPage4Js implements JSBack {
     Context mContext;
 
     /**
@@ -21,4 +23,13 @@ public class PackageListPage4Js {
 
     }
 
+    @Override
+    public void onBack() {
+
+    }
+
+    @Override
+    public String getToken() {
+        return null;
+    }
 }

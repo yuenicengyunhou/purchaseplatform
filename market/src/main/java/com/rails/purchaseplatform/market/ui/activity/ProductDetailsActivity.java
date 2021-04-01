@@ -23,7 +23,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
-import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
@@ -37,22 +37,18 @@ import com.rails.purchaseplatform.market.web.ServicePage4Js;
 
 import java.util.ArrayList;
 
-public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements RecommendItemsContract.RecommendItemsView {
+public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
+        implements RecommendItemsContract.RecommendItemsView, ConstantH5.ProductDetails {
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
-    final private String BASE_URL = ConRoute.WEB.BASEURL; /*"http://172.28.20.109:3000/";*/
-    final private String DETAILS = "productInfo";
-    final private String LIST = "packingList";
-    final private String SERVICE = "serviceOrPartner?service=1";
-    final private String RECOMMEND = "serviceOrPartner?service=0";
     final private String[] TAB_URLS = {
-            BASE_URL + DETAILS,
-            BASE_URL + LIST,
-            BASE_URL + SERVICE,
-            BASE_URL + RECOMMEND
+            PRODUCT_INFO,
+            PACKAGE_LIST,
+            SERVICES,
+            RECOMMENDS
     };
 
     final private ArrayList<String> PICTURE_URLS = new ArrayList<>();
@@ -284,12 +280,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvShowAll.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
-        binding.tvPutInCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startIntent(CartActivity.class);
-            }
-        });
+        binding.tvPutInCart.setOnClickListener(v -> startIntent(CartActivity.class));
+
+        binding.rlTypeChosen.setOnClickListener(v -> Log.d(TAG, "弹出型号选择？？？"));
+        binding.rlAddressChosen.setOnClickListener(v -> Log.d(TAG, "弹出地址选择"));
+        binding.rlParamsCheck.setOnClickListener(v -> Log.d(TAG, "看参数弹窗"));
     }
 
     @Override
