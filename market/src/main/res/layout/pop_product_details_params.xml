@@ -49,30 +49,36 @@
             app:layout_constraintStart_toEndOf="@+id/tv_brandKey"
             app:layout_constraintTop_toTopOf="@+id/tv_brandKey" />
 
-        <TextView
-            android:id="@+id/tv_nameKey"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="商品名称："
-            android:textColor="@color/font_black_light"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_brandKey" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_brandKey">
 
-        <TextView
-            android:id="@+id/tv_nameValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
-            android:textColor="@color/font_black_light"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_nameKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_nameKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_nameKey" />
+            <TextView
+                android:id="@+id/tv_nameKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/dp_16"
+                android:ems="5"
+                android:text="商品名称："
+                android:textColor="@color/font_black_light"
+                android:textSize="@dimen/font_size_13" />
+
+            <TextView
+                android:id="@+id/tv_nameValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_toRightOf="@+id/tv_nameKey"
+                android:text="联想27英寸 1500R曲面屏原生165HzFreeSync技术 低蓝光可壁挂 游戏电竞显示器"
+                android:textColor="@color/font_black_light"
+                android:textSize="@dimen/font_size_13" />
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/tv_productNumKey"
@@ -85,14 +91,14 @@
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nameKey" />
+            app:layout_constraintTop_toBottomOf="@+id/rl_name" />
 
         <TextView
             android:id="@+id/tv_productNumValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="1175647"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_productNumKey"
@@ -117,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="中国"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_madeInKey"
@@ -144,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="265923"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_itemNumKey"
@@ -171,7 +177,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="HP ProBook 430 GB"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_typeKey"
@@ -196,7 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="暂无"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_itemBarCodeKey"
@@ -221,7 +227,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="2.2kg"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_weightKey"
@@ -248,7 +254,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="360*88*260"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_sizeKey"
@@ -273,7 +279,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="TextView"
+            android:text="台"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_itemUnitKey"
@@ -285,8 +291,8 @@
             android:layout_height="@dimen/dp_40"
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_60"
-            android:layout_marginEnd="@dimen/dp_24"
-            android:layout_marginBottom="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_24"
             android:background="@drawable/bg_corner_blue_20"
             android:gravity="center"
             android:text="确定"

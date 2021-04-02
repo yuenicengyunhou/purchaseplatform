@@ -115,7 +115,7 @@
                         android:layout_height="@dimen/dp_tiny"
                         android:layout_marginStart="@dimen/dp_16"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@color/bg_gray" />
+                        android:background="@color/bg_gray_light" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -348,7 +348,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_12"
-                        android:background="#447F7F7F" />
+                        android:background="@color/bg_gray_light" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -419,7 +419,7 @@
                         android:layout_height="@dimen/dp_tiny"
                         android:layout_marginStart="@dimen/dp_16"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@color/bg_gray" />
+                        android:background="@color/bg_gray_light" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -483,7 +483,7 @@
                         android:id="@+id/view_split1"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_12"
-                        android:background="#447F7F7F" />
+                        android:background="@color/bg_gray_light" />
 
                     <WebView
                         android:id="@+id/web_productInfo"
@@ -495,7 +495,7 @@
                         android:id="@+id/view_split2"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_12"
-                        android:background="#447F7F7F" />
+                        android:background="@color/bg_gray_light" />
 
                     <WebView
                         android:id="@+id/web_packageList"
@@ -506,7 +506,7 @@
                         android:id="@+id/view_split3"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_12"
-                        android:background="#447F7F7F" />
+                        android:background="@color/bg_gray_light" />
 
                     <WebView
                         android:id="@+id/web_service"
@@ -517,7 +517,7 @@
                         android:id="@+id/view_split4"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_12"
-                        android:background="#447F7F7F" />
+                        android:background="@color/bg_gray_light" />
 
                     <WebView
                         android:id="@+id/web_recommend"

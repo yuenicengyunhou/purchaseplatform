@@ -31,6 +31,7 @@ import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
+import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 import com.rails.purchaseplatform.market.web.PackageListPage4Js;
@@ -66,6 +67,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     final private ArrayList<View> VIEWS = new ArrayList<>();
 
     private ProductDetailsParamsPop mParamsPop;
+    private ProductDetailsChooseAddressPop mChooseAddressPop;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -296,6 +298,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             Log.d(TAG, "弹出地址选择");
+            showChooseAddressPop();
         });
         binding.rlParamsCheck.setOnClickListener(v -> {
             Log.d(TAG, "看参数弹窗");
@@ -369,6 +372,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         return location[1];
     }
 
+    /**
+     * 弹出查看商品参数弹窗
+     */
     void showParamsCheckPop() {
         if (mParamsPop == null) {
             mParamsPop = new ProductDetailsParamsPop();
@@ -376,6 +382,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mParamsPop.setGravity(Gravity.BOTTOM);
         }
         mParamsPop.show(getSupportFragmentManager(), "product_details_params");
+    }
+
+    /**
+     * 弹出选择地址弹窗
+     */
+    void showChooseAddressPop() {
+        if (mChooseAddressPop == null) {
+            mChooseAddressPop = new ProductDetailsChooseAddressPop(this);
+            mChooseAddressPop.setType(BasePop.MATCH_WRAP);
+            mChooseAddressPop.setGravity(Gravity.BOTTOM);
+        }
+        mChooseAddressPop.show(getSupportFragmentManager(), "product_details_choose_address");
     }
 
 
