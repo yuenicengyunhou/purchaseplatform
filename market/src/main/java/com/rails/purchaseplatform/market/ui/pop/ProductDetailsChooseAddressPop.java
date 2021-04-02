@@ -25,9 +25,9 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
     @Override
     protected void initialize(Bundle bundle) {
 
-        binding.tvChooseAddress.setOnClickListener(v -> {
-            // TODO: 2021/4/2 把adapter返回的地址数据返回给activity并更新页面
-        });
+//        binding.tvChooseAddress.setOnClickListener(v -> {
+//            // TODO: 2021/4/2 把adapter返回的地址数据返回给activity并更新页面
+//        });
 
     }
 }

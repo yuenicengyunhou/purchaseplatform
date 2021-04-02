@@ -24,4 +24,12 @@
     <string name="order_verify_np">%1$s &#160;&#160;&#160;&#160; %2$s</string>
 
 
+    <!--    采购单列表-->
+    <string-array name="order_list_tab">
+        <item>我的采购单</item>
+        <item>全部采购单</item>
+
+    </string-array>
+
+
 </resources>

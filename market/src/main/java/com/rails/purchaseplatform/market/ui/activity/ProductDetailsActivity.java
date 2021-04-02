@@ -389,7 +389,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showChooseAddressPop() {
         if (mChooseAddressPop == null) {
-            mChooseAddressPop = new ProductDetailsChooseAddressPop(this);
+            mChooseAddressPop = new ProductDetailsChooseAddressPop(this,null);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
         }
