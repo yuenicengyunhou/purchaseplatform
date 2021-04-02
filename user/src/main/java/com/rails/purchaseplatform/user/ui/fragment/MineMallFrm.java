@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.user.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.rails.purchaseplatform.common.ConRoute;
@@ -89,6 +90,18 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             public void onClick(View v) {
                 ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
             }
+        });
+
+        binding.llWaitAudit.setOnClickListener(v -> {
+            // TODO: 2021/4/1 跳转到审批列表页面
+        });
+
+        binding.llRejected.setOnClickListener(v -> {
+            // TODO: 2021/4/1 跳转到驳回页面
+        });
+
+        binding.llPassed.setOnClickListener(v -> {
+            // TODO: 2021/4/1 跳转到通过页面
         });
 
     }

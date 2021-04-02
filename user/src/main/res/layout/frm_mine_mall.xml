@@ -264,6 +264,7 @@
                     android:paddingBottom="@dimen/dp_16">
 
                     <LinearLayout
+                        android:id="@+id/ll_wait_audit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -287,6 +288,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_rejected"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -310,6 +312,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_passed"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

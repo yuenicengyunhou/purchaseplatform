@@ -2,8 +2,11 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -16,9 +19,12 @@ import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SlideViewPager;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
+import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
+import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
 
 import java.util.ArrayList;
 
@@ -40,6 +46,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
     private SearchResultContract.SearchResultPresenter presenter;
+
+    private ArrayList<Fragment> mFragments;
+    private SearchResultViewPagerAdapter mPagerAdapter;
 
 
     private boolean salesSortFlag = true; // false 降序排列
@@ -71,13 +80,26 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.brvSearchResult.setAdapter(mSearchResultRecyclerAdapter);
         presenter.getSearchResult(false, 1);
 
-        presenter.getProducts(true,1,"20","");
+        presenter.getProducts(true, 1, "20", "");
 
 
-        binding.vp2SearchResult.setCurrentItem(0);
+        mFragments = new ArrayList<>();
+        mFragments.add(new SearchResultByProductFragment());
+        mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
+//        mPagerAdapter.notifyDataSetChanged();
+        binding.svpSearchResult.setAdapter(mPagerAdapter);
+        binding.svpSearchResult.setOffscreenPageLimit(1);
 
 
-        binding.tvSearchKey.setText(mSearchKey);
+        binding.svpSearchResult.setCurrentItem(0);
+
+        // 判断如果取不到到传过来的搜索Key就隐藏View，否则显示搜索Key
+        if (mSearchKey == "" || mSearchKey == null) {
+            binding.clSearchKey.setVisibility(View.GONE);
+        } else {
+            binding.tvSearchKey.setText(mSearchKey);
+        }
+
         binding.cbCommonSort.setSelected(true);
     }
 

@@ -176,7 +176,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         if (extras != null) mSearchKey = extras.getString("search_key", "");
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     protected void onClick() {
         super.onClick();
@@ -211,9 +210,9 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
             String showingText = binding.tvTypeName.getText().toString().trim();
 
             if (showingText.equals("商品"))
-                popTypeSales.setTextColor(R.color.text_blue);
+                popTypeSales.setTextColor(getResources().getColor(R.color.text_blue));
             if (showingText.equals("店铺"))
-                popTypeShops.setTextColor(R.color.text_blue);
+                popTypeShops.setTextColor(getResources().getColor(R.color.text_blue));
 
 
             popTypeSales.setOnClickListener(sale -> {
