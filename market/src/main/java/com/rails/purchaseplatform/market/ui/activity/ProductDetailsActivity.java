@@ -389,7 +389,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showChooseAddressPop() {
         if (mChooseAddressPop == null) {
-            mChooseAddressPop = new ProductDetailsChooseAddressPop(this);
+            // TODO: 2021/4/2 在构造方法中传入地址ArrayList
+            mChooseAddressPop = new ProductDetailsChooseAddressPop(this, new ArrayList<>());
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
         }
