@@ -32,4 +32,9 @@ public class PackageListPage4Js implements JSBack {
     public String getToken() {
         return null;
     }
+
+    @Override
+    public void onLogin() {
+
+    }
 }

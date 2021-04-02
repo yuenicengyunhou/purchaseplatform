@@ -5,11 +5,8 @@ import android.view.View;
 
 import com.rails.purchaseplatform.common.ConRoute;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
-import com.rails.purchaseplatform.user.BuildConfig;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
-import com.rails.purchaseplatform.user.ui.activity.BrowseActivity;
 
 /**
  * 购物车--个人中心
@@ -43,9 +40,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
         binding.myChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", ConRoute.WEB.MODIFYPAW);
-                startIntent(BrowseActivity.class, bundle);
+                ARouter.getInstance()
+                        .build(ConRoute.WEB.WEB_MODIFY_PAW)
+                        .withString("url", ConRoute.WEB_URL.MODIFYPAW)
+                        .navigation();
             }
         });
 
@@ -59,9 +57,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
         binding.browse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", ConRoute.WEB.BROWSE);
-                startIntent(BrowseActivity.class, bundle);
+                ARouter.getInstance()
+                        .build(ConRoute.WEB.WEB_BROWSE)
+                        .withString("url", ConRoute.WEB_URL.BROWSE)
+                        .navigation();
             }
         });
 
@@ -69,9 +68,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
         binding.collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", ConRoute.WEB.COLLECT);
-                startIntent(BrowseActivity.class, bundle);
+                ARouter.getInstance()
+                        .build(ConRoute.WEB.WEB_COLLECT)
+                        .withString("url", ConRoute.WEB_URL.COLLECT)
+                        .navigation();
             }
         });
 

@@ -95,6 +95,7 @@ dependencies {
     implementation project(path: ':market')
     implementation project(path: ':order')
     implementation project(path: ':address')
+    implementation project(path: ':web')
 
 
 }

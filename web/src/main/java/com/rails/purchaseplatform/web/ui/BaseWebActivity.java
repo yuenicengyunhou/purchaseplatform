@@ -1,11 +1,11 @@
-package com.rails.purchaseplatform.user.ui.activity;
+package com.rails.purchaseplatform.web.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -13,54 +13,53 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.Logger;
-import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.ConShare;
+import com.rails.purchaseplatform.common.utils.JSBack;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
-import com.rails.purchaseplatform.user.R;
-import com.rails.purchaseplatform.user.databinding.ActivityUserBrowseBinding;
 
 import java.util.HashMap;
 
+import androidx.viewbinding.ViewBinding;
+
+
 /**
- * 浏览记录
+ * webView基层类
  *
  * @author： sk_comic@163.com
- * @date: 2021/3/23
+ * @date: 2021/4/1
  */
-public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding> implements JSBrowseBack {
-    private String url;
+public abstract class BaseWebActivity<T extends ViewBinding> extends BaseErrorActivity<T>{
 
+    protected String url;
+    protected String jsCls;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        url = extras.getString("url");
+        jsCls = extras.getString("module", "app");
+        url = extras.getString("url", "");
     }
 
-    @Override
-    protected void initialize(Bundle bundle) {
-//        url = "file:///android_asset/index.html";
-        url = ConRoute.WEB.ORDER_DETAIL;
-
-        initWebView(binding.web, this);
+    public void onBack(WebView web) {
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (web.canGoBack()) {
+                        web.goBack();
+                    } else
+                        finish();
+                }
+            });
+        } catch (Exception e) {
+            finish();
+        }
     }
 
-    @Override
-    protected int getColor() {
-        return R.color.bg_blue;
-    }
-
-    @Override
-    protected boolean isSetSystemBar() {
-        return true;
-    }
-
-    @Override
-    protected boolean isBindEventBus() {
-        return false;
+    public String getToken() {
+        return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
     }
 
 
@@ -69,7 +68,8 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
      *
      * @param webView
      */
-    private void initWebView(WebView webView, JSBrowseBack jsMsgBack) {
+    @SuppressLint("JavascriptInterface")
+    protected void initWeb(WebView webView, JSBack jsBack) {
 
         addHeader(webView, url);
         WebSettings webSettings = webView.getSettings();
@@ -100,7 +100,7 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
             }
 
         });
-        webView.addJavascriptInterface(jsMsgBack, "app");
+        webView.addJavascriptInterface(jsBack, jsCls);
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -144,65 +144,11 @@ public class BrowseActivity extends BaseErrorActivity<ActivityUserBrowseBinding>
      *
      * @param url
      */
-    public void addHeader(WebView webView, String url) {
+    private void addHeader(WebView webView, String url) {
         HashMap<String, String> params = new HashMap<>();
-        String token = "thissitoken";
-        params.put("token", token);
         if (params.size() <= 0)
             webView.loadUrl(url);
         else
             webView.loadUrl(url, params);
-    }
-
-    @JavascriptInterface
-    @Override
-    public void postMessage(String msg) {
-
-    }
-
-    @JavascriptInterface
-    @Override
-    public void onResult(int type, String msg) {
-        ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withString("msg", msg).navigation();
-    }
-
-    @JavascriptInterface
-    @Override
-    public void onBack() {
-        this.finish();
-    }
-
-    @JavascriptInterface
-    public String getToken() {
-        return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
-    }
-
-    @Override
-    public void onLogin() {
-
-    }
-
-
-    public void close() {
-        super.finish();
-    }
-
-
-    @Override
-    public void finish() {
-        try {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (binding.web.canGoBack()) {
-                        binding.web.goBack();
-                    } else
-                        close();
-                }
-            });
-        } catch (Exception e) {
-            super.finish();
-        }
-
     }
 }

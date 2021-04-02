@@ -1,3 +1,4 @@
+include ':web'
 include ':address'
 include ':order'
 include ':market'
