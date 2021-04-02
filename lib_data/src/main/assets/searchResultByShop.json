@@ -1,0 +1,86 @@
+[
+  {
+    "shopName": "惠普旗舰店",
+    "security": "风险较低",
+    "orderItemBeans": [
+      {
+        "orderNumber": "20210308125400",
+        "generateTime": "20210308125400",
+        "orderState": "准备出库",
+        "pictureUrl": "",
+        "itemName": "得力正品2B铅笔小学生专用考试专用",
+        "itemPrice": "59.90",
+        "itemType": "100支/盒",
+        "itemCount": "10",
+        "itemNum": "11115649",
+        "totalPrice": "599.00"
+      },
+      {
+        "orderNumber": "20210308125400",
+        "generateTime": "20210308125400",
+        "orderState": "已发货",
+        "pictureUrl": "",
+        "itemName": "酒店会议专用幼儿园宝宝用HB铅笔",
+        "itemPrice": "33.99",
+        "itemType": "100支/盒",
+        "itemCount": "10",
+        "itemNum": "11115650",
+        "totalPrice": "339.90"
+      },
+      {
+        "orderNumber": "20210308125400",
+        "generateTime": "20210308125400",
+        "orderState": "未发货",
+        "pictureUrl": "",
+        "itemName": "正品中华牌HB铅笔素描美术专用",
+        "itemPrice": "36.99",
+        "itemType": "100支/盒",
+        "itemCount": "10",
+        "itemNum": "11115651",
+        "totalPrice": "369.90"
+      }
+    ]
+  },
+  {
+    "shopName": "联想旗舰店",
+    "security": "风险较低",
+    "orderItemBeans": [
+      {
+        "orderNumber": "20210308125400",
+        "generateTime": "20210308125400",
+        "orderState": "准备出库",
+        "pictureUrl": "",
+        "itemName": "得力正品2B铅笔小学生专用考试专用",
+        "itemPrice": "59.90",
+        "itemType": "100支/盒",
+        "itemCount": "10",
+        "itemNum": "11115649",
+        "totalPrice": "599.00"
+      },
+      {
+        "orderNumber": "20210308125400",
+        "generateTime": "20210308125400",
+        "orderState": "已发货",
+        "pictureUrl": "",
+        "itemName": "酒店会议专用幼儿园宝宝用HB铅笔",
+        "itemPrice": "33.99",
+        "itemType": "100支/盒",
+        "itemCount": "10",
+        "itemNum": "11115650",
+        "totalPrice": "339.90"
+      },
+      {
+        "orderNumber": "20210308125400",
+        "generateTime": "20210308125400",
+        "orderState": "未发货",
+        "pictureUrl": "",
+        "itemName": "正品中华牌HB铅笔素描美术专用",
+        "itemPrice": "36.99",
+        "itemType": "100支/盒",
+        "itemCount": "10",
+        "itemNum": "11115651",
+        "totalPrice": "369.90"
+      }
+    ]
+  }
+]

@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.lib_data.bean.SearchResultByShopBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public interface SearchResultContract {
         void getSearchResult(boolean isDialog, int page);
 
 
-
         /**
          * 商品列表
          *
@@ -37,6 +37,21 @@ public interface SearchResultContract {
          * @param platformId
          * @param keyWord
          */
-        void getProducts(boolean isDialog,int page, String platformId, String keyWord);
+        void getProducts(boolean isDialog, int page, String platformId, String keyWord);
+    }
+
+
+    /**
+     * 获取商店搜索结果 View接口
+     */
+    interface SearchResultByShopView extends BaseView {
+        void getSearchResultByShop(ArrayList<SearchResultByShopBean> searchResultByShopBeans, boolean hasMore, boolean isClear);
+    }
+
+    /**
+     * 获取商店搜索结果 Presenter接口
+     */
+    interface SearchResultByShopPresenter {
+        void getSearchResultByShop(boolean isDialog, int page);
     }
 }

@@ -214,7 +214,7 @@
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <com.rails.purchaseplatform.common.widget.SlideViewPager
-            android:id="@+id/svp_search_result"
+            android:id="@+id/svp_search_result_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

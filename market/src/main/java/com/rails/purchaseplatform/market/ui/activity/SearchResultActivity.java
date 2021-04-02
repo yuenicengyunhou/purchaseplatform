@@ -14,17 +14,16 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.contract.ProductContract;
-import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.SlideViewPager;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
+import com.rails.purchaseplatform.market.ui.fragment.SearchResultByShopFragment;
 
 import java.util.ArrayList;
 
@@ -85,13 +84,14 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         mFragments = new ArrayList<>();
         mFragments.add(new SearchResultByProductFragment());
+        mFragments.add(new SearchResultByShopFragment());
         mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
 //        mPagerAdapter.notifyDataSetChanged();
-        binding.svpSearchResult.setAdapter(mPagerAdapter);
-        binding.svpSearchResult.setOffscreenPageLimit(1);
+        binding.svpSearchResultPager.setAdapter(mPagerAdapter);
+        binding.svpSearchResultPager.setOffscreenPageLimit(1);
 
 
-        binding.svpSearchResult.setCurrentItem(0);
+        binding.svpSearchResultPager.setCurrentItem(1);
 
         // 判断如果取不到到传过来的搜索Key就隐藏View，否则显示搜索Key
         if (mSearchKey == "" || mSearchKey == null) {

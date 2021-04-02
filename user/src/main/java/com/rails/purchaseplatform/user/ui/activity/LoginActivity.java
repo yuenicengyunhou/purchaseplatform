@@ -117,6 +117,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         }
         if (type == 0) {
             PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN, msg);
+            finish();
         }
     }
 
