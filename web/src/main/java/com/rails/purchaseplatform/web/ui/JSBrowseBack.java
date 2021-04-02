@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.user.ui.activity;
+package com.rails.purchaseplatform.web.ui;
 
 import android.webkit.JavascriptInterface;
 

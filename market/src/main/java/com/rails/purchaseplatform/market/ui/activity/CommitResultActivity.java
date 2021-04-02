@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
@@ -108,9 +109,10 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         barBinding.btnAppraise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", ConRoute.WEB.EVALUTE);
-                startIntent(WebActivity.class,bundle);
+                ARouter.getInstance()
+                        .build(ConRoute.WEB.WEB_EVALUTE)
+                        .withString("url", ConRoute.WEB_URL.EVALUTE)
+                        .navigation();
             }
         });
 
@@ -118,9 +120,10 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         barBinding.btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", ConRoute.WEB.EVALUTE);
-                startIntent(WebActivity.class,bundle);
+                ARouter.getInstance()
+                        .build(ConRoute.WEB.WEB_ORDER)
+                        .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                        .navigation();
             }
         });
     }

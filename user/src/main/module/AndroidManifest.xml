@@ -18,7 +18,7 @@
 
         <!-- 浏览记录-->
         <activity
-            android:name=".ui.activity.BrowseActivity"
+            android:name="com.rails.purchaseplatform.web.ui.BrowseActivity"
             android:screenOrientation="portrait" />
 
 

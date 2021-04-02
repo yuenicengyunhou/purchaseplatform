@@ -1,12 +1,17 @@
 package com.rails.purchaseplatform.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.R;
+import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.ConShare;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.databinding.FrmTabMallBinding;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
 import com.rails.purchaseplatform.market.ui.fragment.CategoryFrm;
 import com.rails.purchaseplatform.market.ui.fragment.MallFrm;
@@ -61,20 +66,20 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         binding.rbIndex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.viewpager.setCurrentItem(1);
+                goLogin(1);
             }
         });
 
         binding.rbZc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.viewpager.setCurrentItem(2);
+                goLogin(2);
             }
         });
         binding.rbMine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.viewpager.setCurrentItem(3);
+                goLogin(3);
             }
         });
 
@@ -100,6 +105,37 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         viewPageAdapter.update(frms, true);
         binding.viewpager.setAdapter(viewPageAdapter);
         binding.viewpager.setOffscreenPageLimit(4);
+    }
+
+
+    /**
+     * token是否存在
+     *
+     * @return
+     */
+    private boolean hasToken() {
+        String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
+        if (TextUtils.isEmpty(token))
+            return false;
+        else
+            return true;
+    }
+
+
+    /**
+     * 跳转页面
+     *
+     * @param page
+     */
+    private void goLogin(int page) {
+        if (!hasToken()) {
+            ARouter.getInstance()
+                    .build(ConRoute.USER.LOGIN)
+                    .navigation();
+        } else {
+            binding.viewpager.setCurrentItem(page);
+        }
+
     }
 
 }

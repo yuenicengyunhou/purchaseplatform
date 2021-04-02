@@ -14,21 +14,14 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
-import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentCategorySubBinding;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
-import com.rails.purchaseplatform.market.ui.activity.WebActivity;
-import com.rails.purchaseplatform.market.widget.MoreLinearLayout;
-import com.rails.purchaseplatform.market.widget.MoreScrollView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
