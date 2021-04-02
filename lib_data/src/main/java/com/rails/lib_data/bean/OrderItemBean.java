@@ -1,9 +1,11 @@
 package com.rails.lib_data.bean;
 
+import com.rails.purchaseplatform.framwork.adapter.MulInterface;
+
 /**
  * 采购单内项目（物品） Bean
  */
-public class OrderItemBean {
+public class OrderItemBean implements MulInterface {
 
     /**
      * 订单号
@@ -137,5 +139,10 @@ public class OrderItemBean {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public int getContentID() {
+        return 0;
     }
 }

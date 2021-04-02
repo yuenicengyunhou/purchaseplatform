@@ -8,18 +8,12 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.rails.lib_data.bean.OrderBean;
-import com.rails.lib_data.contract.OrderContract;
-import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
-import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.order.R;
-import com.rails.purchaseplatform.order.adapter.OrderRecyclerAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 import com.rails.purchaseplatform.order.fragment.OrderFragment;
 

@@ -5,12 +5,15 @@ import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.order.adapter.OrderRecyclerAdapter;
-import com.rails.purchaseplatform.order.databinding.FragmentMyBinding;
+import com.rails.purchaseplatform.order.adapter.order.OrderRecyclerAdapter;
 import com.rails.purchaseplatform.order.databinding.FragmentOrderBinding;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -18,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements OrderContract.OrderView {
 
+    private final int DEF_PAGE = 1;
+    private int page = DEF_PAGE;
     private OrderRecyclerAdapter mAdapter;
-    private OrderContract.OrderPresenter mPresenter;
+    private OrderContract.OrderPresenter presenter;
 
     private static int status;
 
@@ -36,10 +41,10 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     protected void loadData() {
 
         mAdapter = new OrderRecyclerAdapter(getActivity());
-        mPresenter = new OrderPresenterImpl(getActivity(), this);
+        presenter = new OrderPresenterImpl(getActivity(), this);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.recycler.setAdapter(mAdapter);
-        mPresenter.getOrder(false, 1);
+        onRefresh();
     }
 
     @Override
@@ -55,5 +60,41 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     @Override
     public void getOrder(ArrayList<OrderBean> orderBeans, boolean hasMore, boolean isClear) {
         mAdapter.update(orderBeans, true);
+    }
+
+
+    /**
+     * 刷新效果
+     */
+    private void onRefresh() {
+        binding.swipe.setOnRefreshListener(new OnRefreshListener() {
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                binding.swipe.finishRefresh();
+                page = DEF_PAGE;
+                notifyData(false, page);
+            }
+        });
+
+        binding.swipe.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                notifyData(false, page);
+            }
+        });
+        notifyData(false, page);
+    }
+
+
+    /**
+     * 请求推荐商品列表
+     *
+     * @param isDialog
+     * @param page
+     */
+    private void notifyData(boolean isDialog, int page) {
+        presenter.getOrder(isDialog, page);
     }
 }

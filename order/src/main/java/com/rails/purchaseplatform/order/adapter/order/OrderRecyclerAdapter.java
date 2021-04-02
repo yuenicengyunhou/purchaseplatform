@@ -1,0 +1,81 @@
+package com.rails.purchaseplatform.order.adapter.order;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.rails.lib_data.bean.OrderBean;
+import com.rails.lib_data.bean.OrderItemBean;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
+import com.rails.purchaseplatform.order.R;
+
+import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRecyclerAdapter.ItemHolder> {
+
+    private static final int TYPE_V = 0;
+    private static final int TYPE_H = 1;
+
+
+    public OrderRecyclerAdapter(Context context) {
+        super(context);
+        mContext = context;
+    }
+
+
+
+    @Override
+    public int getItemViewType(int position) {
+        int len = mDataSource.get(position).getOrderItemBeans().size();
+        if (len > 1) {
+            return TYPE_H;
+        } else {
+            return TYPE_V;
+        }
+    }
+
+    @NonNull
+    @Override
+    public OrderRecyclerAdapter.ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == TYPE_H){
+            return new ItemHolder(layoutInflater.inflate(R.layout.item_order_recycler,parent,false));
+        }else{
+           return  new ItemHolder(layoutInflater.inflate(R.layout.item_order_recycler,parent,false));
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
+
+        OrderBean mulOrderBean = mDataSource.get(position);
+
+        String orderNumber = mulOrderBean.getOrderNumber();
+        String generateTime = mulOrderBean.getGenerateTime();
+        String provider = mulOrderBean.getProvider();
+        String buyer = mulOrderBean.getBuyer();
+        String delayTime = mulOrderBean.getDelayTime() == null ? "" : mulOrderBean.getDelayTime();
+
+
+        ArrayList<OrderItemBean> orderItemBeans = (ArrayList<OrderItemBean>) mulOrderBean.getOrderItemBeans();
+        OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext,getItemViewType(position));
+        holder.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        holder.recycler.setAdapter(adapter);
+        adapter.update(orderItemBeans, true);
+    }
+
+
+    class ItemHolder extends RecyclerView.ViewHolder {
+
+        private BaseRecyclerView recycler;
+
+        public ItemHolder(@NonNull View itemView) {
+            super(itemView);
+            recycler = itemView.findViewById(R.id.brv_childOrderRecycler);
+
+        }
+    }
+}
