@@ -4,19 +4,20 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
- * 通用webview
+ * 审批单
  *
  * @author： sk_comic@163.com
  * @date: 2021/3/23
  */
 
-@Route(path = ConRoute.WEB.WEB_COLLECT)
-public class CommonActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+@Route(path = ConRoute.WEB.WEB_APPROVAL)
+public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
 
     @Override
@@ -49,7 +50,7 @@ public class CommonActivity extends BaseWebActivity<BaseWebBinding> implements J
     @JavascriptInterface
     @Override
     public void onResult(int type, String msg) {
-
+        ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).navigation();
     }
 
 

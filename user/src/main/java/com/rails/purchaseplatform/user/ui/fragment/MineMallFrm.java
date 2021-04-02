@@ -21,7 +21,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
         onClick();
 
         binding.tabOrder.setNumber(3);
-        binding.tabReceive.setNumber(20);
+        binding.tabReceive.setNumber(100);
     }
 
     @Override
@@ -55,6 +55,32 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             }
         });
 
+        binding.tabOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance()
+                        .build(ConRoute.ORDER.ORDER_MAIN)
+                        .navigation();
+            }
+        });
+
+        binding.tabReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance()
+                        .build(ConRoute.ORDER.ORDER_MAIN)
+                        .navigation();
+            }
+        });
+
+        binding.tabSend.setOnClickListener(v -> {
+                    ARouter.getInstance()
+                            .build(ConRoute.ORDER.ORDER_MAIN)
+                            .navigation();
+                }
+
+        );
+
         binding.browse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +106,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
         binding.orderMeassge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.MSG.MSG_MAIN).navigation();
+                ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
             }
         });
 
@@ -92,16 +118,28 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             }
         });
 
-        binding.llWaitAudit.setOnClickListener(v -> {
+        binding.llAudit.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到审批列表页面
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_APPROVAL)
+                    .withString("url", ConRoute.WEB_URL.APPROVAL)
+                    .navigation();
         });
 
         binding.llRejected.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到驳回页面
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_APPROVAL)
+                    .withString("url", ConRoute.WEB_URL.APPROVAL)
+                    .navigation();
         });
 
-        binding.llPassed.setOnClickListener(v -> {
+        binding.llPass.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到通过页面
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_APPROVAL)
+                    .withString("url", ConRoute.WEB_URL.APPROVAL)
+                    .navigation();
         });
 
     }

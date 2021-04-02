@@ -86,11 +86,11 @@ public class ConRoute {
         //我的消息
         public final static String WEB_MSG = "/web/msg";
         //评价
-        public final static String MSG_EVALUTE = "/web/evalute";
+        public final static String WEB_EVALUTE = "/web/evalute";
         //采购单
-        public final static String MSG_ORDER = "/web/order";
+        public final static String WEB_ORDER = "/web/order";
         //审核单
-        public final static String MSG_APROVAL = "/web/aproval";
+        public final static String WEB_APPROVAL = "/web/approval";
     }
 
 

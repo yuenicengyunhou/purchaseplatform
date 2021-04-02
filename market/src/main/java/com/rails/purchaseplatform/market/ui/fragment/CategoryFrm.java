@@ -144,7 +144,7 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
         binding.imgMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.MSG.MSG_MAIN).navigation();
+                ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
             }
         });
     }

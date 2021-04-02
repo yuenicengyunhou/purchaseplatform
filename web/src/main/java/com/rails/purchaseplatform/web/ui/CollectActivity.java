@@ -6,7 +6,7 @@ import android.webkit.JavascriptInterface;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.web.R;
-import com.rails.purchaseplatform.web.databinding.ActivityUserBrowseBinding;
+import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
  * 我的收藏
@@ -16,7 +16,7 @@ import com.rails.purchaseplatform.web.databinding.ActivityUserBrowseBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_COLLECT)
-public class CollectActivity extends BaseWebActivity<ActivityUserBrowseBinding> implements JSBrowseBack {
+public class CollectActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
 
     @Override

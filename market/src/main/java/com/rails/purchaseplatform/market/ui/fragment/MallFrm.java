@@ -3,11 +3,8 @@ package com.rails.purchaseplatform.market.ui.fragment;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.BannerBean;
@@ -21,6 +18,7 @@ import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.ConShare;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -28,6 +26,7 @@ import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.BrandAdapter;
@@ -43,6 +42,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 商城首页
@@ -80,7 +83,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         categoryAdapter.setListener(new PositionListener<CategorySubBean>() {
             @Override
             public void onPosition(CategorySubBean bean, int position) {
-                startIntent(SearchResultActivity.class);
+                goLogin(SearchResultActivity.class, "", null);
             }
         });
 
@@ -92,7 +95,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter.setListener(new PositionListener<BrandBean>() {
             @Override
             public void onPosition(BrandBean bean, int position) {
-                startIntent(ShopDetailActivity.class);
+                goLogin(ShopDetailActivity.class, "", null);
             }
         });
 
@@ -109,7 +112,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         hotAdapter.setListener(new PositionListener<ProductBean>() {
             @Override
             public void onPosition(ProductBean bean, int position) {
-                startIntent(ProductDetailsActivity.class);
+                goLogin(ProductDetailsActivity.class, "", null);
             }
         });
         binding.hotRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
@@ -235,8 +238,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.etSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
+                goLogin(null, ConRoute.COMMON.SEARCH, null);
             }
         });
 
@@ -249,20 +251,55 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
         binding.imgMsg.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString("url", MSG_URL);
-            ARouter.getInstance().build(ConRoute.MSG.MSG_MAIN).with(bundle).navigation();
+            bundle.putString("url", ConRoute.WEB_URL.MSG);
+            goLogin(null, ConRoute.WEB.WEB_MSG, bundle);
         });
     }
 
     @Override
     public void onPosition(ProductBean bean, int position) {
         // TODO: 2021/3/23 跳转商品详情
-        startIntent(ProductDetailsActivity.class);
+        goLogin(ProductDetailsActivity.class, "", null);
     }
 
     @Override
     public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
         hotAdapter.update(productBeans, true);
+    }
+
+
+    /**
+     * token是否存在
+     *
+     * @return
+     */
+    private boolean hasToken() {
+        String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
+        if (TextUtils.isEmpty(token))
+            return false;
+        else
+            return true;
+    }
+
+
+    /**
+     * 跳转页面
+     *
+     * @param cls
+     * @param aPath
+     */
+    private void goLogin(Class cls, String aPath, Bundle bundle) {
+        if (!hasToken()) {
+            ARouter.getInstance()
+                    .build(ConRoute.USER.LOGIN)
+                    .navigation();
+        } else {
+            if (cls == null) {
+                ARouter.getInstance().build(aPath).with(bundle).navigation();
+            } else
+                startIntent(cls);
+        }
+
     }
 
 

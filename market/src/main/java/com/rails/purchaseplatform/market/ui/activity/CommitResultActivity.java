@@ -110,7 +110,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
-                        .build(ConRoute.WEB.MSG_EVALUTE)
+                        .build(ConRoute.WEB.WEB_EVALUTE)
                         .withString("url", ConRoute.WEB_URL.EVALUTE)
                         .navigation();
             }
@@ -120,9 +120,10 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         barBinding.btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("url", ConRoute.WEB.EVALUTE);
-//                startIntent(WebActivity.class,bundle);
+                ARouter.getInstance()
+                        .build(ConRoute.WEB.WEB_ORDER)
+                        .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                        .navigation();
             }
         });
     }

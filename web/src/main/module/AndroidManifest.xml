@@ -28,6 +28,24 @@
             android:name=".ui.CommonActivity"
             android:screenOrientation="portrait" />
 
+        <!--        更改密码-->
+        <activity
+            android:name=".ui.ModifyPawActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--        审批-->
+        <activity
+            android:name=".ui.ApproveActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--        采购单-->
+        <activity
+            android:name=".ui.OrderActivity"
+            android:screenOrientation="portrait" />
+
+
     </application>
 
 </manifest>

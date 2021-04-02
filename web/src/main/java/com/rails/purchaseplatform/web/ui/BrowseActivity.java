@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.gson.annotations.JsonAdapter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.web.R;
-import com.rails.purchaseplatform.web.databinding.ActivityUserBrowseBinding;
+import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
  * 浏览记录
@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.web.databinding.ActivityUserBrowseBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_BROWSE)
-public class BrowseActivity extends BaseWebActivity<ActivityUserBrowseBinding> implements JSBrowseBack {
+public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
 
 

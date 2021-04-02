@@ -9,14 +9,14 @@ import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
- * 通用webview
+ * 修改密码
  *
  * @author： sk_comic@163.com
  * @date: 2021/3/23
  */
 
-@Route(path = ConRoute.WEB.WEB_COLLECT)
-public class CommonActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+@Route(path = ConRoute.WEB.WEB_MODIFY_PAW)
+public class ModifyPawActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
 
     @Override
