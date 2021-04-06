@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.common.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,6 +57,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     private PopupWindow mPopupWindow;
 
     private String mSearchKey;
+    private int mSearchType = 0; // 0-商品, 1-店铺,
 
     @Override
     protected int getColor() {
@@ -84,7 +84,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
 
         getSharedPreferenceData();
 
-
         mSearchHistoryFlowAdapter = new SearchHistoryFlowAdapter(this, mHistorySearchList);
         mFlowLayoutManager = new FlowLayoutManager();
         mSearchHistoryFlowAdapter.setListener(this);
@@ -98,6 +97,8 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
         mHotSearchPresenter.getHotSearch(false, 1);
+
+        setSearchType(0);
 
         binding.searchText.setText(mSearchKey);
     }
@@ -217,12 +218,14 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
 
             popTypeSales.setOnClickListener(sale -> {
                 binding.tvTypeName.setText(popTypeSales.getText().toString().trim());
+                setSearchType(0);
                 mPopupWindow.dismiss();
                 mPopupWindow = null;
             });
 
             popTypeShops.setOnClickListener(shop -> {
                 binding.tvTypeName.setText(popTypeShops.getText().toString().trim());
+                setSearchType(1);
                 mPopupWindow.dismiss();
                 mPopupWindow = null;
             });
@@ -245,12 +248,24 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     }
 
     /**
+     * 设置搜索类型
+     *
+     * @param type 搜索类型: 0-商品, 1-店铺.
+     */
+    private void setSearchType(int type) {
+        mSearchType = type;
+        mSearchHistoryFlowAdapter.setSearchType(type);
+        mHotSearchRecyclerAdapter.setSearchType(type);
+    }
+
+    /**
      * 传入搜索文字
      *
      * @param text 搜索文字
      */
     private void startActivityWithBundle(String text) {
         Bundle bundle = new Bundle();
+        bundle.putInt("search_type", mSearchType);
         bundle.putString("search_key", text);
         ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation();
     }

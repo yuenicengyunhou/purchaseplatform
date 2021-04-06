@@ -41,7 +41,8 @@ import java.util.ArrayList;
 public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements
         SearchResultContract.SearchResultView, ProductContract.ProductView {
 
-    private String mSearchKey;
+    private int mSearchType = 0;
+    private String mSearchKey = "";
 
     private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
     private SearchResultContract.SearchResultPresenter presenter;
@@ -86,12 +87,14 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mFragments.add(new SearchResultByProductFragment());
         mFragments.add(new SearchResultByShopFragment());
         mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
-//        mPagerAdapter.notifyDataSetChanged();
+
+
         binding.svpSearchResultPager.setAdapter(mPagerAdapter);
         binding.svpSearchResultPager.setOffscreenPageLimit(1);
 
 
-        binding.svpSearchResultPager.setCurrentItem(1);
+        binding.svpSearchResultPager.setCurrentItem(mSearchType);
+
 
         // 判断如果取不到到传过来的搜索Key就隐藏View，否则显示搜索Key
         if (mSearchKey == "" || mSearchKey == null) {
@@ -164,9 +167,15 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
+        mSearchType = extras.getInt("search_type");
         mSearchKey = extras.getString("search_key");
     }
 
+    /**
+     * 点击排序按钮
+     *
+     * @param booleans 被点击的为true否则为false
+     */
     private void setSelected(Boolean... booleans) {
         int length = booleans.length;
         if (length <= 0) return;

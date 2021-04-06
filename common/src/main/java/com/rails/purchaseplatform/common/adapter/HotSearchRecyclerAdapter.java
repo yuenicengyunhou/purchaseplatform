@@ -14,6 +14,7 @@ public class HotSearchRecyclerAdapter extends BaseRecyclerAdapter<HotSearchBean,
 
     private Context mContext;
     private OnClickCallBack callBack;
+    private int mType = 0;
 
     public HotSearchRecyclerAdapter(Context context) {
         super(context);
@@ -35,9 +36,14 @@ public class HotSearchRecyclerAdapter extends BaseRecyclerAdapter<HotSearchBean,
             callBack.onClickCallBack(text);
 
             Bundle bundle = new Bundle();
+            bundle.putInt("search_type", mType);
             bundle.putString("search_key", text);
             ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation();
         });
+    }
+
+    public void setSearchType(int type) {
+        mType = type;
     }
 
     public void setListener(OnClickCallBack callBack) {

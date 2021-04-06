@@ -20,6 +20,7 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
     private Context mContext;
     private List<String> mData;
     private OnClickCallBack callBack;
+    private int mType;
 
     public SearchHistoryFlowAdapter(Context context, List<String> list) {
         mContext = context;
@@ -42,6 +43,7 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
             callBack.onClickCallBack(text);
 
             Bundle bundle = new Bundle();
+            bundle.putInt("search_type", mType);
             bundle.putString("search_key", text);
             ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation();
         });
@@ -60,6 +62,10 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
             super(itemView);
             textView = itemView.findViewById(R.id.tv_search_history);
         }
+    }
+
+    public void setSearchType(int searchType) {
+        mType = searchType;
     }
 
     public void setListener(OnClickCallBack callBack) {
