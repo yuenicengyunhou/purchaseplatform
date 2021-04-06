@@ -21,6 +21,7 @@ public class OrderParentBean {
     private String time;
     private String men;
     private String purchars;
+    private String  totalPrice;
     private List<OrderBean> order;
 
     public String getCode() {
@@ -61,5 +62,13 @@ public class OrderParentBean {
 
     public void setOrder(List<OrderBean> order) {
         this.order = order;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -10,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:is_hide="true"
-        app:key="订单号：待发货"
+        app:key="订单号：1210118143800008"
         app:key_color="@color/font_gray"
         app:key_size="@dimen/font_size_12"
-        app:right_img="@drawable/svg_arrow_white"
+        app:right_img="@drawable/svg_arrow_white_12"
         app:value_color="@color/font_red" />
 
     <com.rails.purchaseplatform.common.widget.LrLableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:is_hide="true"
-        app:key="生成时间"
+        app:key="生成时间：2021-01-01  10:10:20"
         app:key_color="@color/font_gray"
         app:key_size="@dimen/font_size_12" />
 
@@ -67,7 +68,7 @@
                 android:layout_toLeftOf="@+id/tv_price"
                 android:text="小计："
                 android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_14" />
+                android:textSize="@dimen/font_size_13" />
 
 
             <TextView
@@ -77,9 +78,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="@dimen/common_border"
-                android:text="$25.00"
-                android:textColor="@color/font_red"
-                android:textSize="@dimen/font_size_14" />
+                android:text="¥25.00"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_13" />
 
         </RelativeLayout>
 

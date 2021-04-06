@@ -3,47 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
     <com.rails.purchaseplatform.common.widget.LrLableLayout
+        android:id="@+id/lr_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:is_hide="true"
-        app:key="采购单号：1210121172900001"
+        app:key="采购单号："
         app:key_color="@color/font_black"
-        app:key_size="@dimen/font_size_12"
-        app:right_img="@drawable/svg_arrow_white"
+        app:key_size="@dimen/font_size_13"
+        app:right_img="@drawable/svg_arrow_white_12"
         app:value_color="@color/font_red" />
 
     <com.rails.purchaseplatform.common.widget.LrLableLayout
+        android:id="@+id/lr_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:is_hide="true"
-        app:key="生成时间：2021-01-11  17:29:30"
+        app:key="生成时间："
         app:key_color="@color/font_black"
-        app:key_size="@dimen/font_size_12" />
+        app:key_size="@dimen/font_size_13" />
 
     <com.rails.purchaseplatform.common.widget.LrLableLayout
+        android:id="@+id/lr_supplier"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:is_hide="true"
-        app:key="供应商：得力文具"
+        app:key="供应商："
         app:key_color="@color/font_black"
-        app:key_size="@dimen/font_size_12" />
+        app:key_size="@dimen/font_size_13" />
 
     <com.rails.purchaseplatform.common.widget.LrLableLayout
+        android:id="@+id/lr_company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:is_hide="true"
-        app:key="采购人：中国铁路某某局集团有限公司"
+        app:key="采购人："
         app:key_color="@color/font_black"
-        app:key_size="@dimen/font_size_12" />
+        app:key_size="@dimen/font_size_13" />
+
+    <View
+        style="@style/line_thin_gray"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10" />
 
     <com.rails.purchaseplatform.common.widget.BaseRecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:overScrollMode="never" />
 
     <View
@@ -55,6 +66,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10">
 
@@ -72,9 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="$25.00"
             android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_14" />
+            android:textSize="@dimen/font_size_12" />
 
     </RelativeLayout>
 

@@ -5,6 +5,8 @@ import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.order.OrderParentAdapter;
 import com.rails.purchaseplatform.order.databinding.FragmentOrderBinding;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -43,6 +45,7 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
         mAdapter = new OrderParentAdapter(getActivity());
         presenter = new OrderPresenterImpl(getActivity(), this);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(),10, R.color.line_gray));
         binding.recycler.setAdapter(mAdapter);
         onRefresh();
     }

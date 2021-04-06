@@ -30,6 +30,12 @@
         <item>全部采购单</item>
 
     </string-array>
+    <!--    采购-->
+    <string name="order_buy_code">采购单号：%s</string>
+    <string name="order_buy_time">生成时间：%s</string>
+    <string name="order_buy_supplier">供应商：%s</string>
+    <string name="order_buy_company">采购人：%s</string>
+    <string name="order_buy_delaytime">延迟收货：%s</string>
 
 
 </resources>
