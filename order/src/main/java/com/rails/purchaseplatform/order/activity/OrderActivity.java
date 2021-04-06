@@ -36,7 +36,7 @@ import java.util.ArrayList;
  * -4- PopupWindow切换搜索类型
  * -5- Tab切换我的采购单和全部采购单
  */
-//@Route(path = ConRoute.ORDER.ORDER_MAIN)
+@Route(path = ConRoute.ORDER.ORDER_MAIN)
 public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
 
     private ArrayList<Fragment> fragments;

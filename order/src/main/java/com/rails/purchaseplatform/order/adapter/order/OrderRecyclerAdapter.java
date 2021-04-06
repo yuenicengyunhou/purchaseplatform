@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * 订单列表
+ */
 public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRecyclerAdapter.ItemHolder> {
 
     private static final int TYPE_V = 0;

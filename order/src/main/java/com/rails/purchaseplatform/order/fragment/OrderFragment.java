@@ -1,11 +1,11 @@
 package com.rails.purchaseplatform.order.fragment;
 
-import com.rails.lib_data.bean.OrderBean;
+import com.rails.lib_data.bean.OrderParentBean;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.order.adapter.order.OrderRecyclerAdapter;
+import com.rails.purchaseplatform.order.adapter.order.OrderParentAdapter;
 import com.rails.purchaseplatform.order.databinding.FragmentOrderBinding;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -23,7 +23,7 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
 
     private final int DEF_PAGE = 1;
     private int page = DEF_PAGE;
-    private OrderRecyclerAdapter mAdapter;
+    private OrderParentAdapter mAdapter;
     private OrderContract.OrderPresenter presenter;
 
     private static int status;
@@ -40,7 +40,7 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     @Override
     protected void loadData() {
 
-        mAdapter = new OrderRecyclerAdapter(getActivity());
+        mAdapter = new OrderParentAdapter(getActivity());
         presenter = new OrderPresenterImpl(getActivity(), this);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.recycler.setAdapter(mAdapter);
@@ -55,11 +55,6 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     @Override
     protected boolean isBindEventBus() {
         return false;
-    }
-
-    @Override
-    public void getOrder(ArrayList<OrderBean> orderBeans, boolean hasMore, boolean isClear) {
-        mAdapter.update(orderBeans, true);
     }
 
 
@@ -96,5 +91,10 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      */
     private void notifyData(boolean isDialog, int page) {
         presenter.getOrder(isDialog, page);
+    }
+
+    @Override
+    public void getOrder(ArrayList<OrderParentBean> orderBeans, boolean hasMore, boolean isClear) {
+        mAdapter.update(orderBeans, true);
     }
 }

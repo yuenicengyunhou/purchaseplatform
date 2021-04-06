@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.OrderBean;
+import com.rails.lib_data.bean.OrderParentBean;
 import com.rails.lib_data.model.OrderModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
@@ -26,9 +27,9 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
-        Type type = new TypeToken<ArrayList<OrderBean>>() {
+        Type type = new TypeToken<ArrayList<OrderParentBean>>() {
         }.getType();
-        ArrayList<OrderBean> beans = JsonUtil.parseJson(mContext, "orderList.json", type);
+        ArrayList<OrderParentBean> beans = JsonUtil.parseJson(mContext, "orderList.json", type);
 
         if (isCallBack()) {
             baseView.dismissDialog();
