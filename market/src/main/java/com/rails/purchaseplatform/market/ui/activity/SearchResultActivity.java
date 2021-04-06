@@ -93,6 +93,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.svpSearchResultPager.setOffscreenPageLimit(1);
 
 
+        binding.clSortType.setVisibility(mSearchType == 0 ? View.VISIBLE : View.GONE);
         binding.svpSearchResultPager.setCurrentItem(mSearchType);
 
 
