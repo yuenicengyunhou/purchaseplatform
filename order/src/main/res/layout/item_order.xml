@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <com.rails.purchaseplatform.common.widget.LrLableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_hide="true"
+        app:key="订单号：待发货"
+        app:key_color="@color/font_gray"
+        app:key_size="@dimen/font_size_12"
+        app:right_img="@drawable/svg_arrow_white"
+        app:value_color="@color/font_red" />
+
+    <com.rails.purchaseplatform.common.widget.LrLableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:is_hide="true"
+        app:key="生成时间"
+        app:key_color="@color/font_gray"
+        app:key_size="@dimen/font_size_12" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_toStartOf="@+id/ll_price"
+            android:minHeight="@dimen/dp_70"
+            android:overScrollMode="never" />
+
+        <RelativeLayout
+            android:id="@+id/ll_price"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/recycler"
+            android:layout_alignBottom="@+id/recycler"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/common_border"
+                android:text="共10件"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14" />
+
+
+            <TextView
+                android:id="@+id/tv_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_price"
+                android:layout_toLeftOf="@+id/tv_price"
+                android:text="小计："
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14" />
+
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/common_border"
+                android:text="$25.00"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/font_size_14" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+

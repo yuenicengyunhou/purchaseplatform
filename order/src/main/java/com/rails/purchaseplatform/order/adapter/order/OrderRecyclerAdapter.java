@@ -27,7 +27,6 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
     }
 
 
-
     @Override
     public int getItemViewType(int position) {
         int len = mDataSource.get(position).getOrderItemBeans().size();
@@ -41,16 +40,19 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
     @NonNull
     @Override
     public OrderRecyclerAdapter.ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_H){
-            return new ItemHolder(layoutInflater.inflate(R.layout.item_order_recycler,parent,false));
-        }else{
-           return  new ItemHolder(layoutInflater.inflate(R.layout.item_order_recycler,parent,false));
-        }
+//        if (viewType == TYPE_H) {
+//            return new ItemHolder(layoutInflater.inflate(R.layout.item_order_recycler_grid, parent, false));
+//        } else {
+//
+//        }
+        return new ItemHolder(layoutInflater.inflate(R.layout.item_order, parent, false));
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 
+        int type = getItemViewType(position);
         OrderBean mulOrderBean = mDataSource.get(position);
 
         String orderNumber = mulOrderBean.getOrderNumber();
@@ -61,8 +63,9 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
 
 
         ArrayList<OrderItemBean> orderItemBeans = (ArrayList<OrderItemBean>) mulOrderBean.getOrderItemBeans();
-        OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext,getItemViewType(position));
-        holder.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext, getItemViewType(position));
+        holder.recycler.setLayoutManager(BaseRecyclerView.LIST,
+                type == TYPE_V ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL, false, 1);
         holder.recycler.setAdapter(adapter);
         adapter.update(orderItemBeans, true);
     }
@@ -74,7 +77,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-            recycler = itemView.findViewById(R.id.brv_childOrderRecycler);
+            recycler = itemView.findViewById(R.id.recycler);
 
         }
     }

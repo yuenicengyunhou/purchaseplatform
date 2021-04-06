@@ -3,19 +3,15 @@ package com.rails.purchaseplatform.order.adapter.order;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.OrderItemBean;
-import com.rails.purchaseplatform.framwork.adapter.BaseHolder;
-import com.rails.purchaseplatform.framwork.adapter.BaseMulRecyclerAdapter;
+import com.rails.purchaseplatform.common.widget.RatioImage;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
-import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.order.R;
-import com.rails.purchaseplatform.order.databinding.ItemChildOrderRecyclerBinding;
-
-import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean, OrderChildRecyclerAdapter.ItemHolder> {
@@ -40,25 +36,31 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean,
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_V)
-            return new ItemHolder(layoutInflater.inflate(R.layout.item_child_order_recycler, parent, false));
+            return new ItemHolder(layoutInflater.inflate(R.layout.item_order_child, parent, false));
         else
-            return new ItemHolder(layoutInflater.inflate(R.layout.item_child_order_recycler, parent, false));
+            return new ItemHolder(layoutInflater.inflate(R.layout.item_order_child_grid, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-//        if (binding instanceof ItemChildOrderRecyclerBinding) {
-//            ((ItemChildOrderRecyclerBinding) binding).setChildOrder(mulOrderItemBean);
-//            double price = Double.parseDouble(mulOrderItemBean.getItemPrice());
-//            int count = Integer.parseInt(mulOrderItemBean.getItemCount());
-//            ((ItemChildOrderRecyclerBinding) binding).tvPriceValue.setText(String.valueOf(price * count));
-//        }
+        OrderItemBean bean = mDataSource.get(position);
+        Glide.with(mContext).load(bean.getPictureUrl()).into(holder.imgProduct);
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        public ItemHolder(@NonNull View itemView) {
-            super(itemView);
+        RatioImage imgProduct;
+        TextView tvTitle;
+        TextView tvProperty;
+        TextView tvCode;
+
+        public ItemHolder(@NonNull View v) {
+            super(v);
+            imgProduct = v.findViewById(R.id.img_product);
+            tvTitle = v.findViewById(R.id.tv_title);
+            tvProperty = v.findViewById(R.id.tv_property);
+            tvCode = v.findViewById(R.id.tv_code);
+
         }
     }
 
