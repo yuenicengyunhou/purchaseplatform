@@ -6,7 +6,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <com.rails.purchaseplatform.common.widget.LrLableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +24,6 @@
         app:key_color="@color/font_gray"
         app:key_size="@dimen/font_size_12" />
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -34,6 +32,7 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginEnd="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
@@ -54,22 +53,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/common_border"
+                android:layout_marginEnd="@dimen/common_border"
                 android:text="共10件"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_14" />
-
 
             <TextView
                 android:id="@+id/tv_flag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_price"
-                android:layout_toLeftOf="@+id/tv_price"
+                android:layout_toStartOf="@+id/tv_price"
                 android:text="小计："
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_13" />
-
 
             <TextView
                 android:id="@+id/tv_price"
@@ -83,7 +80,6 @@
                 android:textSize="@dimen/font_size_13" />
 
         </RelativeLayout>
-
 
     </RelativeLayout>
 

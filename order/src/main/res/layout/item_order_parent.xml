@@ -47,7 +47,9 @@
 
     <View
         style="@style/line_thin_gray"
+        android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_10" />
 
     <com.rails.purchaseplatform.common.widget.BaseRecyclerView
@@ -56,12 +58,6 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:overScrollMode="never" />
-
-    <View
-        style="@style/line_thin_gray"
-        android:layout_marginLeft="@dimen/common_border"
-        android:layout_marginRight="@dimen/common_border" />
-
 
     <RelativeLayout
         android:layout_width="match_parent"
