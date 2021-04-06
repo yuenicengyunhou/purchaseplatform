@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.AddressBean;
@@ -115,5 +116,17 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
         Bundle bundle = new Bundle();
         bundle.putSerializable("bean", bean);
         startIntent(AddressAddActivity.class, bundle);
+    }
+
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        barBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIntent(AddressAddActivity.class);
+            }
+        });
     }
 }

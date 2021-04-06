@@ -401,7 +401,7 @@ public class SystemBarTintManager {
 		private final float mSmallestWidthDp;
 
 		private SystemBarConfig(Activity activity,
-                                boolean translucentStatusBar, boolean traslucentNavBar) {
+				boolean translucentStatusBar, boolean traslucentNavBar) {
 			Resources res = activity.getResources();
 			mInPortrait = (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 			mSmallestWidthDp = getSmallestWidthDp(activity);
