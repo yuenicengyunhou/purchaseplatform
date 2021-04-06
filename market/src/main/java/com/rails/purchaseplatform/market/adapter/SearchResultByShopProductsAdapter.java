@@ -29,7 +29,7 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<Order
     @Override
     protected void onBindItem(ItemSearchResultByShopProductBinding binding, OrderItemBean OrderItemBean, int position) {
         binding.setResultByShopProduct(mBeans.get(position));
-        binding.llProduct.setOnClickListener(v -> {
+        binding.rcProduct.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class));
         });
     }

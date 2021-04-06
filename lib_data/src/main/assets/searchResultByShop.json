@@ -1,43 +1,43 @@
 [
   {
-    "shopName": "惠普旗舰店",
+    "shopName": "晋思源自营店",
     "security": "风险较低",
     "orderItemBeans": [
       {
-        "orderNumber": "20210308125400",
-        "generateTime": "20210308125400",
-        "orderState": "准备出库",
-        "pictureUrl": "",
-        "itemName": "得力正品2B铅笔小学生专用考试专用",
-        "itemPrice": "59.90",
-        "itemType": "100支/盒",
-        "itemCount": "10",
-        "itemNum": "11115649",
-        "totalPrice": "599.00"
-      },
-      {
-        "orderNumber": "20210308125400",
-        "generateTime": "20210308125400",
+        "orderNumber": "20210319095133",
+        "generateTime": "20210319095133",
         "orderState": "已发货",
-        "pictureUrl": "",
-        "itemName": "酒店会议专用幼儿园宝宝用HB铅笔",
-        "itemPrice": "33.99",
-        "itemType": "100支/盒",
-        "itemCount": "10",
-        "itemNum": "11115650",
-        "totalPrice": "339.90"
+        "pictureUrl": "https://oss.mall.95306.cn/mall/a4a1ba17583cfe90320350fb820ca54120210118102831477.jpg",
+        "itemName": "晋思源 雪花粉（25kg）",
+        "itemPrice": "102.24",
+        "itemType": "25KG/袋",
+        "itemCount": "100",
+        "itemNum": "0097498737",
+        "totalPrice": "10224.00"
       },
       {
-        "orderNumber": "20210308125400",
-        "generateTime": "20210308125400",
-        "orderState": "未发货",
-        "pictureUrl": "",
-        "itemName": "正品中华牌HB铅笔素描美术专用",
-        "itemPrice": "36.99",
-        "itemType": "100支/盒",
-        "itemCount": "10",
-        "itemNum": "11115651",
-        "totalPrice": "369.90"
+        "orderNumber": "20210319095133",
+        "generateTime": "20210319095133",
+        "orderState": "已发货",
+        "pictureUrl": "https://oss.mall.95306.cn/mall/396659e52bb13faf746d147f3edb3d4f20210118102922266.jpg",
+        "itemName": "晋思源 亚麻籽油（2500ml）",
+        "itemPrice": "59.88",
+        "itemType": "2.5L/桶",
+        "itemCount": "50",
+        "itemNum": "0097498744",
+        "totalPrice": "2994.00"
+      },
+      {
+        "orderNumber": "20210319095133",
+        "generateTime": "20210319095133",
+        "orderState": "已发货",
+        "pictureUrl": "https://oss.mall.95306.cn/mall/c0497521d35d66866e3af408094864c320210120141819574.jpg",
+        "itemName": "胡老七蟹田米25kg（25kg）",
+        "itemPrice": "114.00",
+        "itemType": "25KG/袋",
+        "itemCount": "50",
+        "itemNum": "0097498762",
+        "totalPrice": "5700.00"
       }
     ]
   },
@@ -46,40 +46,40 @@
     "security": "风险较低",
     "orderItemBeans": [
       {
-        "orderNumber": "20210308125400",
-        "generateTime": "20210308125400",
-        "orderState": "准备出库",
-        "pictureUrl": "",
-        "itemName": "得力正品2B铅笔小学生专用考试专用",
-        "itemPrice": "59.90",
-        "itemType": "100支/盒",
-        "itemCount": "10",
-        "itemNum": "11115649",
-        "totalPrice": "599.00"
-      },
-      {
-        "orderNumber": "20210308125400",
-        "generateTime": "20210308125400",
-        "orderState": "已发货",
-        "pictureUrl": "",
-        "itemName": "酒店会议专用幼儿园宝宝用HB铅笔",
-        "itemPrice": "33.99",
-        "itemType": "100支/盒",
-        "itemCount": "10",
-        "itemNum": "11115650",
-        "totalPrice": "339.90"
-      },
-      {
-        "orderNumber": "20210308125400",
-        "generateTime": "20210308125400",
+        "orderNumber": "20210312160750",
+        "generateTime": "20210312160750",
         "orderState": "未发货",
-        "pictureUrl": "",
-        "itemName": "正品中华牌HB铅笔素描美术专用",
-        "itemPrice": "36.99",
-        "itemType": "100支/盒",
-        "itemCount": "10",
-        "itemNum": "11115651",
-        "totalPrice": "369.90"
+        "pictureUrl": "https://oss.mall.95306.cn/mall/dfcf28d0734569a6a693bc8194de62bf20210115191114114.jpg",
+        "itemName": "联想激光多功能一体机M7675DXF（联想激光多功能一体机M7675DXF）",
+        "itemPrice": "3377.00",
+        "itemType": "M7675DXF-黑色",
+        "itemCount": "2",
+        "itemNum": "44568955",
+        "totalPrice": "6754.00"
+      },
+      {
+        "orderNumber": "20210312160750",
+        "generateTime": "20210312160750",
+        "orderState": "已送达",
+        "pictureUrl": "https://oss.mall.95306.cn/mall/78e15b9d9e633ee6a39f4702db17438c20210129140238461.jpg",
+        "itemName": "联想启天A835（B300\\R5 2600\\8G\\128G+1T\\2G\\无线\\Win10Home）",
+        "itemPrice": "4388.00",
+        "itemType": "高性能主机+键鼠套装",
+        "itemCount": "4",
+        "itemNum": "44568959",
+        "totalPrice": "17552.00"
+      },
+      {
+        "orderNumber": "20210312160750",
+        "generateTime": "20210312160750",
+        "orderState": "正在出库",
+        "pictureUrl": "https://oss.mall.95306.cn/mall/6512bd43d9caa6e02c990b0a82652dca20210125091132833.jpg",
+        "itemName": "ProBook 440 G8-I5-11135U/8G/256G/14寸/商用笔记本/3年质保（灰色 HP ProBook 440 G8 14.0英寸）",
+        "itemPrice": "5888.00",
+        "itemType": "银灰色+包+鼠标",
+        "itemCount": "4",
+        "itemNum": "44568978",
+        "totalPrice": "23552.00"
       }
     ]
   }
