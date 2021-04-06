@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
+ * author: wangchao {wangchao@changan.com}
  * date:on 2017/8/9
  */
 
@@ -29,7 +30,7 @@ public class StatusBarUtil {
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-        tintManager.setStatusBarTintEnabled(false);
+        tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setStatusBarTintResource(color);
     }
@@ -57,45 +58,6 @@ public class StatusBarUtil {
         }
         return result;
     }
-
-
-
-    public static int StatusBarDarkMode(Activity activity) {
-        int result = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(activity, true)) {
-                setStatusBarColor(activity, android.R.color.white);
-                result = 1;
-            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), true)) {
-                setStatusBarColor(activity, android.R.color.white);
-                result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                result = 3;
-            }
-        }
-        return result;
-    }
-
-
-    public static int StatusBarMode(Activity activity,int color) {
-        int result = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(activity, false)) {
-                setStatusBarColor(activity, color);
-                result = 1;
-            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), false)) {
-                setStatusBarColor(activity, color);
-                result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                result = 3;
-            }
-        }
-        return result;
-    }
-
-
 
     /**
      * 已知系统类型时，设置状态栏黑色文字、图标。
@@ -128,6 +90,25 @@ public class StatusBarUtil {
         }
 
     }
+
+
+    public static int StatusBarMode(Activity activity,int color) {
+        int result = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (MIUISetStatusBarLightMode(activity, false)) {
+                setStatusBarColor(activity, color);
+                result = 1;
+            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), false)) {
+                setStatusBarColor(activity, color);
+                result = 2;
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                result = 3;
+            }
+        }
+        return result;
+    }
+
 
 
     /**

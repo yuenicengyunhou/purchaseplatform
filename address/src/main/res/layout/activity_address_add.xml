@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.rails.purchaseplatform.common.widget.EditLayout
+                <com.rails.purchaseplatform.common.widget.LableLayout
                     android:id="@+id/et_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

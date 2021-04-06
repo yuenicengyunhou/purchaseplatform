@@ -27,5 +27,8 @@
     <!--    地图列表-->
     <string name="address_map_address">%1$s%2$s%3$s</string>
 
+    <!-- 选择地区弹窗-->
+    <string name="address_pop_area">请选择所在地区</string>
+
 
 </resources>

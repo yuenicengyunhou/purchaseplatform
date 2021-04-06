@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.address.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -23,9 +24,11 @@ import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressAddBinding;
+import com.rails.purchaseplatform.address.ui.pop.AreaPop;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.utils.LocationUtil;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
@@ -107,6 +110,16 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
             @Override
             public void onClick(View v) {
                 ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAP).navigation(AddressAddActivity.this, 0);
+            }
+        });
+
+        barBinding.etArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AreaPop pop = new AreaPop();
+                pop.setGravity(Gravity.BOTTOM);
+                pop.setType(BasePop.MATCH_WRAP);
+                pop.show(getSupportFragmentManager(), "area");
             }
         });
     }

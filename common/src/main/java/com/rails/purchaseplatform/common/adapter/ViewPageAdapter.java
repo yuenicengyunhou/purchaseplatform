@@ -37,6 +37,12 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     }
 
 
+    public void updateAdd(Fragment frm){
+        fragments.add(frm);
+        notifyDataSetChanged();
+    }
+
+
     public ViewPageAdapter(FragmentManager fm) {
         super(fm);
     }
