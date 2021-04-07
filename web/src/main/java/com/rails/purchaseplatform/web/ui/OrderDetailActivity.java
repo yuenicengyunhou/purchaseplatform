@@ -16,7 +16,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_ORDER_DETAIL)
-public class OrderActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
+public class OrderDetailActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {

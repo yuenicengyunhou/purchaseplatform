@@ -59,7 +59,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
 
         holder.lrCode.setOnClickListener(v -> {
             ARouter.getInstance()
-                    .build(ConRoute.WEB.WEB_ORDER)
+                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                     .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
                     .navigation();
         });

@@ -76,7 +76,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
         adapter.update(orderItemBeans, true);
         holder.orderItem.setOnClickListener(v -> {
             ARouter.getInstance()
-                    .build(ConRoute.WEB.WEB_ORDER)
+                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                     .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
                     .navigation();
         });

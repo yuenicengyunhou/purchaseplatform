@@ -42,7 +42,7 @@
 
         <!--采购单-->
         <activity
-            android:name=".ui.OrderActivity"
+            android:name=".ui.OrderDetailActivity"
             android:screenOrientation="portrait" />
 
         <!--评价-->

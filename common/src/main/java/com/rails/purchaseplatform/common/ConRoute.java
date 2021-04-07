@@ -121,17 +121,13 @@ public class ConRoute {
         // 消息列表
         public final static String MSG = BASEURL + "messageList";
 
-<<<<<<< HEAD
 
         //订单详情
         public final static String ORDER_DETAIL = BASEURL + "orderDetails";
 
         //采购单详情
         public final static String PURCHASE_DETAIL = BASEURL + "purOrderDetails";
-=======
-        // 采购单详情
-        public final static String ORDER_DETAIL = BASEURL + "purOrderDetails";
->>>>>>> fedcc82402cfb06da4f12cca258760dd61e4d369
+
 
         // 订单详情
         public final static String ORDER_SUB_DETAIL = BASEURL + "orderDetails";
