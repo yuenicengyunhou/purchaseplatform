@@ -53,8 +53,8 @@
 
     <View style="@style/line_bold_gray_10" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+    <com.rails.purchaseplatform.common.widget.ScrollControlledViewPager
+        android:id="@+id/noneScrollViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never" />

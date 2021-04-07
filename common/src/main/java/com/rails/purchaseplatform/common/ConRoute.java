@@ -98,6 +98,9 @@ public class ConRoute {
 
         public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
 
+        // yuhang - local
+//        public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
+
         //评价
         public final static String EVALUTE = BASEURL + "evaluate_eg";
         //修改密码
@@ -112,6 +115,9 @@ public class ConRoute {
         public final static String ORDER_DETAIL = BASEURL + "purOrderDetails";
         //待审核
         public final static String APPROVAL = BASEURL + "approvalList";
+
+        // 已驳回
+        public final static String TURN_DOWN_LIST = BASEURL + "turnDownList";
 
 
 //        public final static String EVALUTE = BASEURL + "evaluate";

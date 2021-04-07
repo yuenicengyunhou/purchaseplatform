@@ -47,6 +47,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
     protected void initialize(Bundle bundle) {
         String[] tabs = getResources().getStringArray(R.array.order_list_tab);
         initPager(tabs);
+        binding.noneScrollViewPager.setPagingEnabled(false);
     }
 
     @Override
@@ -89,8 +90,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         }
 
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        binding.viewpager.setAdapter(viewPageAdapter);
-        binding.viewpager.setOffscreenPageLimit(tabs.length);
+        binding.noneScrollViewPager.setAdapter(viewPageAdapter);
+        binding.noneScrollViewPager.setOffscreenPageLimit(tabs.length);
         viewPageAdapter.update(fragments, true);
 
 
@@ -113,7 +114,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        binding.viewpager.setCurrentItem(index);
+                        binding.noneScrollViewPager.setCurrentItem(index);
                     }
                 });
                 return colorTransitionPagerTitleView;
@@ -128,8 +129,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
             }
         });
         binding.indicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(binding.indicator, binding.viewpager);
-        binding.viewpager.setCurrentItem(0);
+        ViewPagerHelper.bind(binding.indicator, binding.noneScrollViewPager);
+        binding.noneScrollViewPager.setCurrentItem(0);
     }
 
 
