@@ -3,7 +3,10 @@ package com.rails.purchaseplatform.order.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +16,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 import com.rails.purchaseplatform.order.fragment.OrderFragment;
@@ -42,6 +46,15 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
     private ArrayList<Fragment> fragments;
     private ViewPageAdapter viewPageAdapter;
 
+    private PopupWindow mPopup;
+
+    /**
+     * Search type, default 0.
+     * 0 - 采购单号
+     * 1 - 采购人用户名
+     * 2 - 供应商名称
+     */
+    private int mType = 0;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -75,6 +88,77 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         super.onClick();
         binding.ibBack.setOnClickListener(v -> finish());
         binding.ibFilter.setOnClickListener(v -> Toast.makeText(this, "暂时没有内容哦", Toast.LENGTH_SHORT).show());
+
+        binding.tvSelectType.setOnClickListener(v -> {
+            View itemView = (View) binding.tvSelectType.getParent();
+
+            View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
+            int width = ScreenSizeUtil.dp2px(this, 120);
+            int height = ScreenSizeUtil.dp2px(this, 120);
+            mPopup = new PopupWindow(view, width, height, true);
+            TextView orderNum = view.findViewById(R.id.tv_orderNum),
+                    orderUser = view.findViewById(R.id.tv_orderUser),
+                    orderProvider = view.findViewById(R.id.tv_orderProvider);
+
+            String showingText = binding.tvSelectType.getText().toString().trim();
+
+            int colorBlue = getResources().getColor(com.rails.purchaseplatform.common.R.color.font_blue);
+            if (showingText.equals("采购单号")) {
+                orderNum.setTextColor(colorBlue);
+            } else if (showingText.equals("采购人用户名")) {
+                orderUser.setTextColor(colorBlue);
+            } else if (showingText.equals("供应商名称")) {
+                orderProvider.setTextColor(colorBlue);
+            }
+
+            orderNum.setOnClickListener(num -> {
+                binding.tvSelectType.setText("采购单号");
+                mType = 0;
+                mPopup.dismiss();
+                mPopup = null;
+            });
+
+            orderUser.setOnClickListener(user -> {
+                binding.tvSelectType.setText("采购人用户名");
+                mType = 1;
+                mPopup.dismiss();
+                mPopup = null;
+            });
+
+            orderProvider.setOnClickListener(provider -> {
+                binding.tvSelectType.setText("供应商名称");
+                mType = 2;
+                mPopup.dismiss();
+                mPopup = null;
+            });
+
+            mPopup.setOutsideTouchable(true);
+
+            if (isShowBottom(itemView)) {
+                mPopup.showAsDropDown(itemView, 150, -20);
+            } else {
+                mPopup.showAsDropDown(itemView, 0, -2 * itemView.getHeight());
+            }
+
+
+            showPopup();
+        });
+    }
+
+    private boolean isShowBottom(View itemView) {
+        int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
+        int[] location = new int[2];
+        itemView.getLocationInWindow(location);
+        int itemViewY = location[1];
+        int distance = screenHeight - itemViewY - itemView.getHeight();
+        return distance >= itemView.getHeight();
+    }
+
+    /**
+     * 显示PopupWindow
+     */
+    private void showPopup() {
+        // TODO: 2021/4/7 显示PopupWindow
     }
 
 
