@@ -1,37 +1,20 @@
 package com.rails.purchaseplatform.address.ui.pop;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.os.TokenWatcher;
+import android.util.SparseArray;
 import android.view.View;
-import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
-import com.rails.lib_data.bean.SearchResultBean;
-import com.rails.purchaseplatform.address.R;
-import com.rails.purchaseplatform.address.adapter.CityAdapter;
 import com.rails.purchaseplatform.address.adapter.NavigatorAdapter;
 import com.rails.purchaseplatform.address.databinding.PopAddressAreaBinding;
 import com.rails.purchaseplatform.address.ui.AreaFragment;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
-import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 筛选
@@ -41,13 +24,25 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class AreaPop extends BasePop<PopAddressAreaBinding> {
 
-    private ArrayList<Fragment> fragments;
+    private final static int CITY = 0;
+    private final static int AREA = 1;
+    private final static int TOWN = 2;
+
+    private SparseArray<String> areas;
+
+
     private ViewPageAdapter viewPageAdapter;
     private NavigatorAdapter navigatorAdapter;
+    private PareaListener listener;
+
+    public void setListener(PareaListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     protected void initialize(Bundle bundle) {
 
+        areas = new SparseArray<>();
         initPager();
         onClick();
     }
@@ -57,9 +52,7 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
         binding.btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                dismiss();
-                Fragment fragment = new AreaFragment();
-                viewPageAdapter.updateAdd(fragment);
+                dismiss();
             }
         });
     }
@@ -69,17 +62,6 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
      * 初始化pageradapter
      */
     private void initPager() {
-        fragments = new ArrayList<>();
-        AreaFragment fragment = new AreaFragment();
-        fragment.setListener(new AreaFragment.AreaListener() {
-            @Override
-            public void onPosition(String string) {
-                navigatorAdapter.modify(string,0);
-
-            }
-        });
-        fragments.add(fragment);
-
         viewPageAdapter = new ViewPageAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.viewpager.setAdapter(viewPageAdapter);
 
@@ -91,12 +73,44 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
         ViewPagerHelper.bind(binding.indicator, binding.viewpager);
         binding.viewpager.setCurrentItem(0);
 
-
-        viewPageAdapter.update(fragments, true);
-        ArrayList<String> strs = new ArrayList<>();
-        strs.add("请选择");
-        navigatorAdapter.update(strs);
+        addTab();
     }
 
 
+    /**
+     * 添加tab
+     */
+    private void addTab() {
+        int len = viewPageAdapter.getCount();
+        if (len > TOWN) {
+            return;
+        }
+        AreaFragment fragment = AreaFragment.getInstance(len);
+        fragment.setListener(new AreaFragment.AreaListener() {
+            @Override
+            public void onPosition(String string, int type) {
+                areas.put(type, string);
+                if (type == TOWN) {
+                    if (listener != null)
+                        listener.getResult(areas.get(0));
+
+                    dismiss();
+                    return;
+                } else {
+                    viewPageAdapter.delAbovePosition(type);
+                    navigatorAdapter.delAbovePosition(type);
+                }
+                navigatorAdapter.modify(string, type);
+                addTab();
+            }
+        });
+        viewPageAdapter.updateAdd(fragment);
+        navigatorAdapter.updateAdd("请选择");
+        binding.viewpager.setCurrentItem(viewPageAdapter.getCount(), true);
+    }
+
+
+    public interface PareaListener {
+        void getResult(String area);
+    }
 }

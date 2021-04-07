@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.order.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -13,10 +14,13 @@ import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
+import com.rails.purchaseplatform.order.pop.CompanyPop;
+import com.rails.purchaseplatform.order.pop.GoodsPop;
 
 import java.util.ArrayList;
 
@@ -145,6 +149,25 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).navigation();
             }
         });
+
+        barBinding.rlGoods.setOnClickListener(v -> {
+            GoodsPop pop = new GoodsPop();
+            pop.setGravity(Gravity.BOTTOM);
+            pop.setType(BasePop.MATCH_WRAP);
+            pop.show(getSupportFragmentManager(), "goods");
+        });
+
+        barBinding.rlCompay.setOnClickListener(v -> {
+            CompanyPop pop = new CompanyPop();
+            pop.setGravity(Gravity.BOTTOM);
+            pop.setType(BasePop.MATCH_WRAP);
+            pop.show(getSupportFragmentManager(), "company");
+        });
+
+        barBinding.rlBill.setOnClickListener(v -> {
+            startIntent(this, InvoiceActivity.class, null, 1);
+        });
+
     }
 
     @Override

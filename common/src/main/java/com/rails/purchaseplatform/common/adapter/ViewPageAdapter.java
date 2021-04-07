@@ -37,7 +37,7 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     }
 
 
-    public void updateAdd(Fragment frm){
+    public void updateAdd(Fragment frm) {
         fragments.add(frm);
         notifyDataSetChanged();
     }
@@ -68,6 +68,23 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return fragments.size();
+    }
+
+
+    public ArrayList<Fragment> getFragments() {
+        return fragments;
+    }
+
+
+    /**
+     * 移除超越标记的fragment
+     * @param position
+     */
+    public void delAbovePosition(int position) {
+        for (int i = fragments.size()-1; i >position; i--) {
+                fragments.remove(i);
+        }
+        notifyDataSetChanged();
     }
 
 
