@@ -18,6 +18,16 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
 
     private CityAdapter adapter;
     private AreaListener listener;
+    private int type;
+
+    private AreaFragment(int type) {
+        this.type = type;
+    }
+
+
+    public static AreaFragment getInstance(int type) {
+        return new AreaFragment(type);
+    }
 
 
     public void setListener(AreaListener listener) {
@@ -57,13 +67,13 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
     @Override
     public void onPosition(String bean, int position) {
         if (listener != null) {
-            listener.onPosition(bean);
+            listener.onPosition(bean,type);
         }
     }
 
 
     public interface AreaListener {
 
-        void onPosition(String string);
+        void onPosition(String string,int type);
     }
 }

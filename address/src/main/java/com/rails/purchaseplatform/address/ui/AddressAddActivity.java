@@ -119,6 +119,12 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
                 AreaPop pop = new AreaPop();
                 pop.setGravity(Gravity.BOTTOM);
                 pop.setType(BasePop.MATCH_WRAP);
+                pop.setListener(new AreaPop.PareaListener() {
+                    @Override
+                    public void getResult(String area) {
+                        barBinding.etArea.setContent(area);
+                    }
+                });
                 pop.show(getSupportFragmentManager(), "area");
             }
         });

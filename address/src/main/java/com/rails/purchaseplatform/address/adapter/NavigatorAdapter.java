@@ -62,8 +62,23 @@ public class NavigatorAdapter extends CommonNavigatorAdapter {
     }
 
 
-    public void modify(String tab,int index){
-        tabs.set(index,tab);
+    public void modify(String tab, int index) {
+        if (index < tabs.size()) {
+            tabs.set(index, tab);
+            notifyDataSetChanged();
+        }
+    }
+
+
+    /**
+     * 移除超越标记的fragment
+     *
+     * @param position
+     */
+    public void delAbovePosition(int position) {
+        for (int i = tabs.size() - 1; i > position; i--) {
+            tabs.remove(i);
+        }
         notifyDataSetChanged();
     }
 
