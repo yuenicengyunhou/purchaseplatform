@@ -3,15 +3,20 @@
     package="com.rails.purchaseplatform.order">
 
     <application>
-        <activity android:name=".activity.OrderDetailActivity"></activity>
+        <!--订单列表-->
         <activity
             android:name=".activity.OrderActivity"
             android:screenOrientation="portrait" />
 
 
-        <!--        核实订单页面-->
+        <!--核实订单页面-->
         <activity
             android:name=".activity.OrderVerityActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 订单发票页面-->
+        <activity
+            android:name=".activity.InvoiceActivity"
             android:screenOrientation="portrait" />
     </application>
 

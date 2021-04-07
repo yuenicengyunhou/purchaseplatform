@@ -38,4 +38,17 @@
     <string name="order_buy_delaytime">延迟收货：%s</string>
 
 
+
+    <!--    发票信息-->
+    <string name="order_invoice">发票信息</string>
+    <string name="order_invoice_type">发票类型</string>
+    <string name="order_invoice_type_special">增值税专用发票</string>
+    <string name="order_invoice_type_common">企业增值税普通发票</string>
+    <string name="order_invoice_content">发票内容</string>
+    <string name="order_invoice_content_detail">明细</string>
+    <string name="order_invoice_content_cls">大类</string>
+    <string name="order_invoice_title">发票抬头</string>
+    <string name="order_invoice_ok">确定</string>
+
+
 </resources>
