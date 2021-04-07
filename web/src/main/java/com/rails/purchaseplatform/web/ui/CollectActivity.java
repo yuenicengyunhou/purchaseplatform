@@ -20,6 +20,12 @@ public class CollectActivity extends BaseWebActivity<BaseWebBinding> implements 
 
 
     @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        url = ConRoute.WEB_URL.COLLECT;
+    }
+
+    @Override
     protected int getColor() {
         return R.color.bg_blue;
     }
@@ -46,11 +52,13 @@ public class CollectActivity extends BaseWebActivity<BaseWebBinding> implements 
 
     }
 
+
     @JavascriptInterface
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(String json) {
 
     }
+
 
 
     @JavascriptInterface

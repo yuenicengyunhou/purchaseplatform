@@ -5,24 +5,17 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
- * 修改密码
+ * 采购单详情
  *
  * @author： sk_comic@163.com
- * @date: 2021/3/23
+ * @date: 2021/4/7
  */
+@Route(path = ConRoute.WEB.WEB_PURCHASE_DETAIL)
+public class PurchaseDetailActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
-@Route(path = ConRoute.WEB.WEB_MODIFY_PAW)
-public class ModifyPawActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
-
-    @Override
-    protected void getExtraEvent(Bundle extras) {
-        super.getExtraEvent(extras);
-        url = ConRoute.WEB_URL.MODIFYPAW;
-    }
 
     @Override
     protected int getColor() {
@@ -57,6 +50,7 @@ public class ModifyPawActivity extends BaseWebActivity<BaseWebBinding> implement
     public void onResult(String json) {
 
     }
+
 
 
     @JavascriptInterface

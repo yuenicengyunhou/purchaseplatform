@@ -19,6 +19,11 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 @Route(path = ConRoute.WEB.WEB_BROWSE)
 public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        url = ConRoute.WEB_URL.BROWSE;
+    }
 
 
     @Override
@@ -51,9 +56,10 @@ public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements J
 
     @JavascriptInterface
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(String json) {
 
     }
+
 
 
     @JavascriptInterface

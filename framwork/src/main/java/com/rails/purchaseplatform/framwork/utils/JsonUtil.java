@@ -74,4 +74,18 @@ public class JsonUtil {
     }
 
 
+    /**
+     * 解析json字符串
+     *
+     * @param json
+     * @param cls
+     * @param <T>
+     * @return
+     */
+    public static <T> T parseJson(String json, Class<T> cls) {
+        Gson gson = new GsonBuilder().create();
+        return gson.fromJson(json, cls);
+    }
+
+
 }

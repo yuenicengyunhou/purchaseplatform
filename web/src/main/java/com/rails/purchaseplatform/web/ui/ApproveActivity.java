@@ -19,6 +19,11 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 @Route(path = ConRoute.WEB.WEB_APPROVAL)
 public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        url = ConRoute.WEB_URL.APPROVAL;
+    }
 
     @Override
     protected int getColor() {
@@ -49,9 +54,10 @@ public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements 
 
     @JavascriptInterface
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(String json) {
         ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).navigation();
     }
+
 
 
     @JavascriptInterface

@@ -18,6 +18,11 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 @Route(path = ConRoute.WEB.WEB_MSG)
 public class MsgActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        url = ConRoute.WEB_URL.MSG;
+    }
 
     @Override
     protected int getColor() {
@@ -46,9 +51,10 @@ public class MsgActivity extends BaseWebActivity<BaseWebBinding> implements JSBr
 
     }
 
+
     @JavascriptInterface
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(String json) {
 
     }
 
