@@ -14,8 +14,13 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  * @date: 2021/4/7
  */
 @Route(path = ConRoute.WEB.WEB_PURCHASE_DETAIL)
-public class PurchaseDetailActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+public class PurchaseDetailActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
 
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        url = ConRoute.WEB_URL.PURCHASE_DETAIL;
+    }
 
     @Override
     protected int getColor() {

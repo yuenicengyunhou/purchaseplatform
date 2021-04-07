@@ -20,11 +20,13 @@ import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -41,6 +43,7 @@ import com.rails.purchaseplatform.market.web.ServicePage4Js;
 
 import java.util.ArrayList;
 
+@Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
         implements RecommendItemsContract.RecommendItemsView, ConstantH5.ProductDetails {
     final private String TAG = ProductDetailsActivity.class.getSimpleName();

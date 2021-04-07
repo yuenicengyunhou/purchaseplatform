@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
@@ -53,6 +54,10 @@ public class CommonActivity extends BaseWebActivity<BaseWebBinding> implements J
 
     }
 
+    @Override
+    public void goDetail(String id) {
+        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).navigation();
+    }
 
 
     @JavascriptInterface

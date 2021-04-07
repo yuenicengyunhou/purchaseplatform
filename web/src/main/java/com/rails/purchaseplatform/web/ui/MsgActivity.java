@@ -16,7 +16,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_MSG)
-public class MsgActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+public class MsgActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {

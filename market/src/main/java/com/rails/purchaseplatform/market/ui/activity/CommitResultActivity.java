@@ -51,6 +51,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     protected void initialize(Bundle bundle) {
 
         binding.titleBar.setImgLeftRes(R.drawable.svg_close);
+        setStyle(webBean);
 
         recAdapter = new ProductHotAdapter(this, 0);
         hotManager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false);
@@ -116,23 +117,21 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     @Override
     protected void onClick() {
         super.onClick();
-        barBinding.btnAppraise.setOnClickListener(new View.OnClickListener() {
+        barBinding.btnLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
-                        .build(webBean == null ? ConRoute.WEB.WEB_EVALUTE : webBean.getUrlright())
-                        .withString("url", ConRoute.WEB_URL.EVALUTE)
+                        .build(webBean.getUrlright())
                         .navigation();
             }
         });
 
 
-        barBinding.btnList.setOnClickListener(new View.OnClickListener() {
+        barBinding.btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
-                        .build(ConRoute.WEB.WEB_ORDER)
-                        .withString("url", webBean == null ? ConRoute.WEB_URL.ORDER_DETAIL : webBean.getUrlleft())
+                        .build( webBean.getUrlright())
                         .navigation();
             }
         });
@@ -142,7 +141,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     private void setStyle(ResultWebBean bean) {
         if (bean == null)
             return;
-        barBinding.btnList.setText(bean.getBtnleft());
-        barBinding.btnAppraise.setText(bean.getBtnright());
+        barBinding.btnLeft.setText(bean.getBtnleft());
+        barBinding.btnRight.setText(bean.getBtnright());
     }
 }

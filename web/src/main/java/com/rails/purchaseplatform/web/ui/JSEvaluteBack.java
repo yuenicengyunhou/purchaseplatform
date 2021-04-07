@@ -8,7 +8,7 @@ import com.rails.purchaseplatform.common.utils.JSBack;
  * webView 通过js调用原生代码
  * date:on 2017/7/5
  */
-public interface JSBrowseBack extends JSBack {
+public interface JSEvaluteBack extends JSBack {
 
     /**
      * 测试本地h5
@@ -35,12 +35,6 @@ public interface JSBrowseBack extends JSBack {
      * @param json 返回json
      */
     void onResult(String json);
-
-    /**
-     * 跳转详情页面
-     * @param id
-     */
-    void goDetail(String id);
 
 
 }

@@ -16,7 +16,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_MODIFY_PAW)
-public class ModifyPawActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+public class ModifyPawActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {

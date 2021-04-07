@@ -37,6 +37,8 @@ public class ConRoute {
         public final static String SEARCH_RESULT = "/market/SearchResultActivity";
         //提交结果页面
         public final static String COMMIT_RESULT = "/market/result";
+
+        public final static String PRODUCT_DETAIL ="/market/detail";
     }
 
     //采购单
@@ -87,8 +89,8 @@ public class ConRoute {
         public final static String WEB_MSG = "/web/msg";
         //评价
         public final static String WEB_EVALUTE = "/web/evalute";
-        //采购单
-        public final static String WEB_ORDER = "/web/order";
+        //订单详情
+        public final static String WEB_ORDER_DETAIL = "/web/order/detail";
         //审核单
         public final static String WEB_APPROVAL = "/web/approval";
         //采购单详情
@@ -114,8 +116,12 @@ public class ConRoute {
 
         public final static String MSG = BASEURL + "messageList";
 
+
         //订单详情
-        public final static String ORDER_DETAIL = BASEURL + "purOrderDetails";
+        public final static String ORDER_DETAIL = BASEURL + "orderDetails";
+
+        //采购单详情
+        public final static String PURCHASE_DETAIL = BASEURL + "purOrderDetails";
 
         //待审核
         public final static String APPROVAL = BASEURL + "approvalList";

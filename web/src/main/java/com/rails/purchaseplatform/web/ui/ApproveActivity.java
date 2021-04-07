@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_APPROVAL)
-public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {

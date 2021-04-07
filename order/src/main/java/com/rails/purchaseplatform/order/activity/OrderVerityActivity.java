@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
+import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.contract.OrderVerifyContract;
 import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -16,6 +17,7 @@ import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
@@ -146,7 +148,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.btnCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).navigation();
+                String json = "{\"type\":1,\"msg\":\"评价成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/web/purchase/detail\",\"urlright\":\"/web/evalute\"}";
+                ResultWebBean bean= JsonUtil.parseJson(json,ResultWebBean.class);
+                ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean",bean).navigation();
             }
         });
 

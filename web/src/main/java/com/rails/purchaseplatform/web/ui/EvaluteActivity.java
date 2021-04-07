@@ -21,7 +21,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_EVALUTE)
-public class EvaluteActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+public class EvaluteActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -31,7 +31,7 @@ public class EvaluteActivity extends BaseWebActivity<BaseWebBinding> implements 
 
     @Override
     protected int getColor() {
-        return R.color.bg_blue;
+        return android.R.color.white;
     }
 
     @Override
@@ -64,7 +64,8 @@ public class EvaluteActivity extends BaseWebActivity<BaseWebBinding> implements 
         ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
         ARouter.getInstance()
                 .build(ConRoute.MARKET.COMMIT_RESULT)
-                .withParcelable("bean", bean).navigation();
+                .withParcelable("bean", bean)
+                .navigation();
     }
 
 
