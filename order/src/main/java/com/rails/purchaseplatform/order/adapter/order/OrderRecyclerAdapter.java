@@ -3,9 +3,12 @@ package com.rails.purchaseplatform.order.adapter.order;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.OrderBean;
 import com.rails.lib_data.bean.OrderItemBean;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.order.R;
@@ -71,17 +74,24 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
                 type == TYPE_V ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL, false, 1);
         holder.recycler.setAdapter(adapter);
         adapter.update(orderItemBeans, true);
+        holder.orderItem.setOnClickListener(v -> {
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_ORDER)
+                    .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
+                    .navigation();
+        });
     }
 
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
         private BaseRecyclerView recycler;
+        private LinearLayout orderItem;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             recycler = itemView.findViewById(R.id.recycler);
-
+            orderItem = itemView.findViewById(R.id.ll_order);
         }
     }
 }

@@ -100,34 +100,50 @@ public class ConRoute {
 
     public final static class WEB_URL {
 
-        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
+//        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
 
         // yuhang - local
-//        public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
+        public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
 
-        //评价
+
+        // 评价
         public final static String EVALUTE = BASEURL + "evaluate";
-        //修改密码
+
+        // 修改密码
         public final static String MODIFYPAW = BASEURL + "passwordEdit";
-        //我的收藏
+
+        // 我的收藏
         public final static String COLLECT = BASEURL + "collection";
-        //浏览记录
+
+        // 浏览记录
         public final static String BROWSE = BASEURL + "history";
 
+        // 消息列表
         public final static String MSG = BASEURL + "messageList";
 
+<<<<<<< HEAD
 
         //订单详情
         public final static String ORDER_DETAIL = BASEURL + "orderDetails";
 
         //采购单详情
         public final static String PURCHASE_DETAIL = BASEURL + "purOrderDetails";
+=======
+        // 采购单详情
+        public final static String ORDER_DETAIL = BASEURL + "purOrderDetails";
+>>>>>>> fedcc82402cfb06da4f12cca258760dd61e4d369
 
-        //待审核
+        // 订单详情
+        public final static String ORDER_SUB_DETAIL = BASEURL + "orderDetails";
+
+        // 待审核
         public final static String APPROVAL = BASEURL + "approvalList";
 
         // 已驳回
         public final static String TURN_DOWN_LIST = BASEURL + "turnDownList";
+
+        // 已通过
+        public final static String PASS_LIST = BASEURL + "passList";
 
 
 //        public final static String EVALUTE = BASEURL + "evaluate";

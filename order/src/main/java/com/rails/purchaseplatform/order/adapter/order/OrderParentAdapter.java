@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.Resource;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.OrderBean;
-import com.rails.lib_data.bean.OrderItemBean;
 import com.rails.lib_data.bean.OrderParentBean;
-import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LrLableLayout;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
@@ -19,9 +21,6 @@ import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.order.R;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 采购单列表
@@ -57,6 +56,13 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
         OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mContext);
         holder.recycler.setAdapter(adapter);
         adapter.update(orderItemBeans, true);
+
+        holder.lrCode.setOnClickListener(v -> {
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_ORDER)
+                    .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                    .navigation();
+        });
     }
 
 
