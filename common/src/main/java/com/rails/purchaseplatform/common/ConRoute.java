@@ -91,6 +91,8 @@ public class ConRoute {
         public final static String WEB_ORDER = "/web/order";
         //审核单
         public final static String WEB_APPROVAL = "/web/approval";
+        //采购单详情
+        public final static String WEB_PURCHASE_DETAIL = "/web/purchase/detail";
     }
 
 
@@ -102,7 +104,7 @@ public class ConRoute {
 //        public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
 
         //评价
-        public final static String EVALUTE = BASEURL + "evaluate_eg";
+        public final static String EVALUTE = BASEURL + "evaluate";
         //修改密码
         public final static String MODIFYPAW = BASEURL + "passwordEdit";
         //我的收藏
@@ -111,8 +113,10 @@ public class ConRoute {
         public final static String BROWSE = BASEURL + "history";
 
         public final static String MSG = BASEURL + "messageList";
+
         //订单详情
         public final static String ORDER_DETAIL = BASEURL + "purOrderDetails";
+
         //待审核
         public final static String APPROVAL = BASEURL + "approvalList";
 

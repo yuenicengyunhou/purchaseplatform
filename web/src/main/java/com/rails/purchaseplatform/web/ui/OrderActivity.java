@@ -18,6 +18,11 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 @Route(path = ConRoute.WEB.WEB_ORDER)
 public class OrderActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
 
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        url = ConRoute.WEB_URL.ORDER_DETAIL;
+    }
 
     @Override
     protected int getColor() {
@@ -48,7 +53,7 @@ public class OrderActivity extends BaseWebActivity<BaseWebBinding> implements JS
 
     @JavascriptInterface
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(String json) {
 
     }
 

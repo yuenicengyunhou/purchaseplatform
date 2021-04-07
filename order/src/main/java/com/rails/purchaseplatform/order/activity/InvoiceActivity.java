@@ -27,7 +27,7 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
 
     @Override
     protected boolean isSetSystemBar() {
-        return false;
+        return true;
     }
 
     @Override

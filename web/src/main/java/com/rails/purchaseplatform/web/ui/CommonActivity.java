@@ -46,11 +46,13 @@ public class CommonActivity extends BaseWebActivity<BaseWebBinding> implements J
 
     }
 
+
     @JavascriptInterface
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(String json) {
 
     }
+
 
 
     @JavascriptInterface

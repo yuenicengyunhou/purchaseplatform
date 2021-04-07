@@ -20,12 +20,21 @@ public interface JSBrowseBack extends JSBack {
 
 
     /**
+     * {
+     * "type":1,
+     * "msg":"评价成功",
+     * "btnleft":"查看采购单",
+     * "btnright":"返回我的",
+     * "urlleft":"/web/purchase/detail",
+     * "urlright":"/rails/main"
+     * }
+     * <p>
+     * <p>
      * 跳转结果页面
      *
-     * @param type 0:审批单
-     * @param msg
+     * @param json 返回json
      */
-    void onResult(int type, String msg);
+    void onResult(String json);
 
 
 }
