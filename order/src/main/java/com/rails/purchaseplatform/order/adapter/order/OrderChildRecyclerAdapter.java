@@ -5,14 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.OrderItemBean;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.RatioImage;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.order.R;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean, OrderChildRecyclerAdapter.ItemHolder> {
 
@@ -45,6 +47,11 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean,
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         OrderItemBean bean = mDataSource.get(position);
         Glide.with(mContext).load(bean.getPictureUrl()).into(holder.imgProduct);
+        holder.itemView.setOnClickListener(v -> {
+//            ARouter.getInstance()
+//                    .build(ConRoute.MARKET.PRODUCT_DETAIL)
+//                    .navigation();
+        });
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
