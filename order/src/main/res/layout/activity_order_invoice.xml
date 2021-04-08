@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/typeRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:canH="false"
+            app:canV="false" />
+
+        <View style="@style/line_bold_gray_10" />
+
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/contentRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:canH="false"
+            app:canV="false" />
+
+        <View style="@style/line_bold_gray_10" />
+
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:canH="false"
+            app:canV="false" />
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

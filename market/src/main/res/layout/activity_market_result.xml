@@ -37,7 +37,6 @@
                     android:layout_below="@+id/img_result"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dp_5"
-                    android:text="提交成功"
                     android:textStyle="bold"
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_15" />

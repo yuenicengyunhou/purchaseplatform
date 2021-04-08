@@ -131,7 +131,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
-                        .build( webBean.getUrlright())
+                        .build(webBean.getUrlright())
                         .navigation();
             }
         });
@@ -141,6 +141,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     private void setStyle(ResultWebBean bean) {
         if (bean == null)
             return;
+        barBinding.tvMsg.setText(bean.getMsg());
         barBinding.btnLeft.setText(bean.getBtnleft());
         barBinding.btnRight.setText(bean.getBtnright());
     }
