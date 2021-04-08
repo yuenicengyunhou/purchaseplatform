@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/common_border"
-            android:text="筛选"
+            android:text="收货方式"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_18" />
 
@@ -35,65 +35,66 @@
 
     </RelativeLayout>
 
-    <com.rails.purchaseplatform.common.widget.MaxHeightScrollView
-        android:id="@+id/scroll"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_top"
-        android:overScrollMode="never">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-    </com.rails.purchaseplatform.common.widget.MaxHeightScrollView>
-
-
-    <LinearLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dp_25"
-        android:layout_marginBottom="@dimen/dp_25">
+        android:layout_marginLeft="@dimen/common_border"
+        android:layout_marginTop="@dimen/dp_25">
 
         <TextView
-            android:id="@+id/btn_reset"
+            android:id="@+id/btn_normal"
             android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_35"
-            android:background="@drawable/bg_corner_border_gray_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/selector_corner_blue_white_20"
             android:gravity="center"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:text="重置"
-            android:textColor="@color/font_black_light"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="正常收货"
+            android:textColor="@color/selector_white_gray_color"
             android:textSize="@dimen/font_size_15" />
 
 
         <TextView
-            android:id="@+id/btn_ok"
+            android:id="@+id/btn_delay"
             android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_corner_blue_20"
+            android:background="@drawable/selector_corner_blue_white_20"
             android:gravity="center"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:text="完成"
-            android:textColor="@color/white"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="延迟收货"
+            android:textColor="@color/selector_white_gray_color"
             android:textSize="@dimen/font_size_15" />
 
     </LinearLayout>
+
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:visibility="invisible"
+        android:dayOfWeekBackground="@color/white"
+        android:headerBackground="@color/bg_gray" />
+
+
+    <TextView
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:background="@drawable/bg_corner_blue_20"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_15" />
 
 
 </LinearLayout>

@@ -2,13 +2,16 @@ package com.rails.purchaseplatform.order.activity;
 
 import android.os.Bundle;
 
+import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.lib_data.contract.InvoiceContract;
 import com.rails.lib_data.contract.InvoicePresenterImpl;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.InvoiceContentAdapter;
 import com.rails.lib_data.bean.InvoiceContentBean;
+import com.rails.purchaseplatform.order.adapter.InvoiceTitleAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderInvoiceBinding;
 
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding> implements InvoiceContract.InvoiceView {
 
     private InvoiceContentAdapter typeAdapter, contentAdapter;
+    private InvoiceTitleAdapter titleAdapter;
     private InvoiceContract.InvoicePresenter presenter;
 
     @Override
@@ -42,9 +46,14 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         barBinding.contentRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         barBinding.contentRecycler.setAdapter(contentAdapter);
 
+        titleAdapter = new InvoiceTitleAdapter(this);
+        barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        barBinding.recycler.setAdapter(titleAdapter);
+
 
         presenter = new InvoicePresenterImpl(this, this);
         presenter.getInvoiceContents();
+        presenter.getInvoiceTitles();
     }
 
     @Override
@@ -66,5 +75,10 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
     public void getInvoiceContents(ArrayList<InvoiceContentBean> types, ArrayList<InvoiceContentBean> contents) {
         typeAdapter.update(types, true);
         contentAdapter.update(contents, true);
+    }
+
+    @Override
+    public void getInvoiceTitles(ArrayList<InvoiceTitleBean> beans) {
+        titleAdapter.update(beans, true);
     }
 }

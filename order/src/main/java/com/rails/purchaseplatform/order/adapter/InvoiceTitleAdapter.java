@@ -3,30 +3,30 @@ package com.rails.purchaseplatform.order.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.order.R;
-import com.rails.lib_data.bean.InvoiceContentBean;
-import com.rails.purchaseplatform.order.databinding.ItemOrderInvoiceRadioBinding;
+import com.rails.purchaseplatform.order.databinding.ItemOrderInvoiceTitleBinding;
 
 /**
- * 发票页面顶部内容选择adapter
+ * 发票title列表
  *
  * @author： sk_comic@163.com
  * @date: 2021/4/8
  */
-public class InvoiceContentAdapter extends BaseRecyclerAdapter<InvoiceContentBean, ItemOrderInvoiceRadioBinding> {
-    public InvoiceContentAdapter(Context context) {
+public class InvoiceTitleAdapter extends BaseRecyclerAdapter<InvoiceTitleBean, ItemOrderInvoiceTitleBinding> {
+    public InvoiceTitleAdapter(Context context) {
         super(context);
     }
 
     @Override
     protected int getContentID() {
-        return R.layout.item_order_invoice_radio;
+        return R.layout.item_order_invoice_title;
     }
 
     @Override
-    protected void onBindItem(ItemOrderInvoiceRadioBinding binding, InvoiceContentBean bean, int position) {
-        binding.setContent(bean);
+    protected void onBindItem(ItemOrderInvoiceTitleBinding binding, InvoiceTitleBean invoiceTitleBean, int position) {
+        binding.setContent(invoiceTitleBean);
         if (position != 0)
             binding.tvModule.setVisibility(View.GONE);
         else
@@ -38,6 +38,5 @@ public class InvoiceContentAdapter extends BaseRecyclerAdapter<InvoiceContentBea
             binding.line.setVisibility(View.VISIBLE);
         }
     }
-
 
 }

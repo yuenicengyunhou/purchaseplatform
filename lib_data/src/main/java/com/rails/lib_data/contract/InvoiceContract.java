@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.InvoiceContentBean;
+import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -22,6 +23,13 @@ public interface InvoiceContract {
          * @param contents
          */
         void getInvoiceContents(ArrayList<InvoiceContentBean> types, ArrayList<InvoiceContentBean> contents);
+
+        /**
+         * 发票抬头
+         *
+         * @param beans
+         */
+        void getInvoiceTitles(ArrayList<InvoiceTitleBean> beans);
 
     }
 
