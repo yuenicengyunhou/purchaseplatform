@@ -18,16 +18,16 @@
             android:id="@+id/img_product"
             android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
-            android:background="@color/font_red"
-            android:layout_marginLeft="@dimen/common_border" />
+            android:layout_marginLeft="@dimen/common_border"
+            android:background="@color/font_red" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="¥3888.00"
             android:layout_above="@+id/tv_send"
             android:layout_alignLeft="@+id/tv_send"
+            android:layout_centerInParent="true"
+            android:text="¥3888.00"
             android:textColor="@color/font_red"
             android:textSize="@dimen/font_size_18" />
 
@@ -43,8 +43,6 @@
             android:text="店铺满9999.00元包邮"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13" />
-
-
 
 
         <ImageView
@@ -64,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_top"
+        android:layout_marginTop="@dimen/dp_10"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -73,6 +72,8 @@
             <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/common_border"
+                android:layout_marginRight="@dimen/common_border"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

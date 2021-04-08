@@ -8,6 +8,7 @@ import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
 import com.rails.purchaseplatform.market.databinding.PopMarketShopFilterBinding;
@@ -25,23 +26,24 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
 
-    private SearchResultRecyclerAdapter adapter;
+    private PropertyAdapter adapter;
 
     @Override
     protected void initialize(Bundle bundle) {
 
-        adapter = new SearchResultRecyclerAdapter(getActivity());
+        adapter = new PropertyAdapter(getActivity());
 
-        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(adapter);
 
-
-        Type type = new TypeToken<ArrayList<SearchResultBean>>() {
-        }.getType();
-
-        ArrayList<SearchResultBean> beans = JsonUtil.parseJson(getActivity(), "searchResult.json", type);
-
-        adapter.update(beans, true);
+        ArrayList<String> propertys = new ArrayList<>();
+        propertys.add("颜色");
+        propertys.add("尺寸");
+        propertys.add("颜色");
+        propertys.add("尺寸");
+        propertys.add("颜色");
+        propertys.add("尺寸");
+        adapter.update(propertys, true);
 
         onClick();
     }
