@@ -29,7 +29,7 @@ public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements J
 
     @Override
     protected int getColor() {
-        return R.color.bg_blue;
+        return android.R.color.white;
     }
 
     @Override
@@ -61,6 +61,7 @@ public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements J
 
     }
 
+    @JavascriptInterface
     @Override
     public void goDetail(String id) {
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).navigation();
