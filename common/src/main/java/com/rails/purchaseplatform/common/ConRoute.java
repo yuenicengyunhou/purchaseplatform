@@ -38,7 +38,7 @@ public class ConRoute {
         //提交结果页面
         public final static String COMMIT_RESULT = "/market/result";
 
-        public final static String PRODUCT_DETAIL ="/market/detail";
+        public final static String PRODUCT_DETAIL = "/market/detail";
     }
 
     //采购单
@@ -102,9 +102,11 @@ public class ConRoute {
 
 //        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
 
-        // yuhang - local
+        // WangYuhang - local
         public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
 
+        // SongYanxia - local
+//        public final static String BASEURL = "http://172.28.20.135:3000/purchase-android-web/#/";
 
         // 评价
         public final static String EVALUTE = BASEURL + "evaluate";
@@ -113,7 +115,7 @@ public class ConRoute {
         public final static String MODIFYPAW = BASEURL + "passwordEdit";
 
         // 我的收藏
-        public final static String COLLECT = BASEURL + "collection";
+        public final static String COLLECT = BASEURL + "goodsCollection";
 
         // 浏览记录
         public final static String BROWSE = BASEURL + "history";

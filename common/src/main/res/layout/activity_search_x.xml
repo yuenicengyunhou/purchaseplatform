@@ -75,7 +75,8 @@
                     android:layout_toEndOf="@+id/baseline"
                     android:background="@null"
                     android:hint="@string/keys_searching"
-                    android:lines="1"
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
                     android:textSize="@dimen/font_size_12" />
             </RelativeLayout>
 

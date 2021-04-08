@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ import java.util.Objects;
  */
 @Route(path = "/common/SearchActivityX")
 public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
-        implements HotSearchContract.HotSearchView, View.OnKeyListener,
+        implements HotSearchContract.HotSearchView,
         HotSearchRecyclerAdapter.OnClickCallBack, SearchHistoryFlowAdapter.OnClickCallBack {
 
     private SharedPreferences mSp;
@@ -197,6 +198,19 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
             startActivityWithBundle(text);
         });
 
+        // Override ENTER key on soft keyboard.
+        binding.searchText.setOnEditorActionListener((view, action, event) -> {
+            if (action == EditorInfo.IME_ACTION_SEARCH) {
+                String text = binding.searchText.getText().toString().trim();
+                if (isEmptyText(text)) return false;
+                updateList(text);
+                putSearchKeyInSharedPreference();
+                startActivityWithBundle(text);
+                return true;
+            }
+            return false;
+        });
+
         // 切换搜索类型按钮
         binding.tvTypeName.setOnClickListener(v -> {
             View itemView = (View) binding.tvTypeName.getParent();
@@ -289,26 +303,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         // 条目下方放不下popupWindow return false
         // 条目下方放得下popupWindow return true
         return distance >= itemView.getHeight();
-    }
-
-    // TODO: 2021/3/25 软键盘回车键跳转
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_ENTER) {
-
-            String text = binding.searchText.getText().toString().trim();
-
-            if (isEmptyText(text)) return false;
-
-            updateList(text);
-
-            putSearchKeyInSharedPreference();
-
-            startActivityWithBundle(text);
-
-            return true;
-        }
-        return false;
     }
 
     @Override
