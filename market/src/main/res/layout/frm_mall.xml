@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
+                    <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
                         android:id="@+id/recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -220,7 +220,7 @@
                         app:key_size="@dimen/font_size_15" />
 
 
-                    <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
+                    <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
                         android:id="@+id/hotRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

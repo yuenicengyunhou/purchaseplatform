@@ -176,7 +176,7 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView
+            <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
                 android:id="@+id/recRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

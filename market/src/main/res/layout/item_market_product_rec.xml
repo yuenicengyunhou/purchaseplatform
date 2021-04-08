@@ -90,7 +90,7 @@
 
             </FrameLayout>
 
-            <com.rails.purchaseplatform.common.widget.PageRecyclerView
+            <com.rails.purchaseplatform.common.widget.recycler.PageRecycler
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
