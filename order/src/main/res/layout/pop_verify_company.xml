@@ -17,8 +17,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="筛选"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_border"
+            android:text="结算单位"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_18" />
 
@@ -35,65 +36,79 @@
 
     </RelativeLayout>
 
-    <com.rails.purchaseplatform.common.widget.MaxHeightScrollView
-        android:id="@+id/scroll"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_top"
-        android:overScrollMode="never">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-    </com.rails.purchaseplatform.common.widget.MaxHeightScrollView>
-
-
-    <LinearLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/common_border"
         android:layout_marginTop="@dimen/dp_25"
-        android:layout_marginBottom="@dimen/dp_25">
-
-        <TextView
-            android:id="@+id/btn_reset"
-            android:layout_width="@dimen/dp_100"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_35"
-            android:background="@drawable/bg_corner_border_gray_20"
-            android:gravity="center"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:text="重置"
-            android:textColor="@color/font_black_light"
-            android:textSize="@dimen/font_size_15" />
+        android:layout_marginRight="@dimen/common_border"
+        android:singleLine="true"
+        android:text="集团公司集中结算"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_13" />
 
 
-        <TextView
-            android:id="@+id/btn_ok"
-            android:layout_width="@dimen/dp_100"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_corner_blue_20"
-            android:gravity="center"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:text="完成"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_size_15" />
+    <CheckBox
+        android:id="@+id/btn_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_border"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/common_border"
+        android:background="@drawable/bg_corner_gray_light_5"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/selector_circle"
+        android:drawablePadding="@dimen/dp_10"
 
-    </LinearLayout>
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_16"
+        android:text="中国铁路上海局集团有限公司"
+        android:textColor="@color/selector_blue_gray_color" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_border"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/common_border"
+        android:text="集团公司集中结算是由集团公司(路局级)统一对账、申请开票并支付，一经提交，不可修改，请谨慎选择"
+        android:textColor="@color/font_red"
+        android:textSize="@dimen/font_size_13" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_border"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginRight="@dimen/common_border"
+        android:singleLine="true"
+        android:text="本单位结算"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_13" />
+
+
+    <CheckBox
+        android:id="@+id/btn_self"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_border"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/common_border"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:background="@drawable/bg_corner_gray_light_5"
+        android:button="@null"
+        android:checked="false"
+        android:drawableLeft="@drawable/selector_circle"
+        android:drawablePadding="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_16"
+        android:text="xx车务段"
+        android:textColor="@color/selector_blue_gray_color" />
 
 
 </LinearLayout>

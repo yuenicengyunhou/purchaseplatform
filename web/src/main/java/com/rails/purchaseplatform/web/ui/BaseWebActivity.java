@@ -72,6 +72,7 @@ public abstract class BaseWebActivity<T extends ViewBinding> extends BaseErrorAc
     protected void initWeb(WebView webView, JSBack jsBack) {
 
         addHeader(webView, url);
+        Logger.d(url);
         WebSettings webSettings = webView.getSettings();
         webSettings.setSupportZoom(false);
         webSettings.setLoadWithOverviewMode(true);

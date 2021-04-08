@@ -201,11 +201,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_5"
                 app:is_hide="true"
-                app:key="@string/order_verify_goods_type"
                 app:key_color="@color/font_black"
                 app:key_size="@dimen/font_size_14"
                 app:value_color="@color/font_black"
-                app:value_right_icon="@drawable/svg_arrow_white"
                 app:value_size="@dimen/font_size_13" />
 
             <View style="@style/line_bold_gray_10" />

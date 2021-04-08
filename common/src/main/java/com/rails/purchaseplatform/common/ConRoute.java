@@ -113,7 +113,7 @@ public class ConRoute {
         public final static String MODIFYPAW = BASEURL + "passwordEdit";
 
         // 我的收藏
-        public final static String COLLECT = BASEURL + "collection";
+        public final static String COLLECT = BASEURL + "goodsCollection";
 
         // 浏览记录
         public final static String BROWSE = BASEURL + "history";
