@@ -14,6 +14,8 @@
             android:id="@+id/typeRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_border"
+            android:layout_marginRight="@dimen/common_border"
             android:overScrollMode="never"
             app:canH="false"
             app:canV="false" />
@@ -24,6 +26,8 @@
             android:id="@+id/contentRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_border"
+            android:layout_marginRight="@dimen/common_border"
             android:overScrollMode="never"
             app:canH="false"
             app:canV="false" />
@@ -35,6 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
+            android:layout_marginLeft="@dimen/common_border"
+            android:layout_marginRight="@dimen/common_border"
             app:canH="false"
             app:canV="false" />
 

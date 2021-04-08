@@ -1,10 +1,14 @@
 package com.rails.purchaseplatform.web.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
@@ -53,7 +57,13 @@ public class PurchaseDetailActivity extends BaseWebActivity<BaseWebBinding> impl
     @JavascriptInterface
     @Override
     public void onResult(String json) {
-
+        if (TextUtils.isEmpty(json))
+            return;
+        ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
+        ARouter.getInstance()
+                .build(ConRoute.MARKET.COMMIT_RESULT)
+                .withParcelable("bean", bean)
+                .navigation();
     }
 
 
