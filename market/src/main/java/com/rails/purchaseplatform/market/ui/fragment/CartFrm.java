@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -21,6 +22,7 @@ import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.market.R;
@@ -30,6 +32,7 @@ import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
+import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -193,7 +196,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getResult(int type, String msg) {
-        if (type == 0){
+        if (type == 0) {
 
         }
     }
@@ -272,6 +275,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             // TODO: 2021/3/28   调用收藏接口
         } else if (type == CartAdapter.SUB_DEL) {
             // TODO: 2021/3/28 调用删除接口
+        } else if (type == CartAdapter.PROPERTY) {
+            PropertyPop pop = new PropertyPop();
+            pop.setGravity(Gravity.BOTTOM);
+            pop.setType(BasePop.MATCH_WRAP);
+            pop.show(getChildFragmentManager(), "property");
         }
     }
 
