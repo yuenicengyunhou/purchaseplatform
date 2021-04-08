@@ -3,11 +3,11 @@ package com.rails.purchaseplatform.order.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -16,10 +16,12 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
 import com.rails.purchaseplatform.order.fragment.OrderFragment;
+import com.rails.purchaseplatform.order.pop.OrderSearchFilterPop;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
@@ -46,7 +48,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
     private ArrayList<Fragment> fragments;
     private ViewPageAdapter viewPageAdapter;
 
-    private PopupWindow mPopup;
+    private PopupWindow mTypePopup;
+    private OrderSearchFilterPop mFilterPopup;
 
     /**
      * Search type, default 0.
@@ -87,63 +90,84 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
     protected void onClick() {
         super.onClick();
         binding.ibBack.setOnClickListener(v -> finish());
-        binding.ibFilter.setOnClickListener(v -> Toast.makeText(this, "暂时没有内容哦", Toast.LENGTH_SHORT).show());
+        binding.ibFilter.setOnClickListener(v -> {
+            showFilterPopup();
+        });
 
         binding.tvSelectType.setOnClickListener(v -> {
-            View itemView = (View) binding.tvSelectType.getParent();
-
-            View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
-            int width = ScreenSizeUtil.dp2px(this, 120);
-            int height = ScreenSizeUtil.dp2px(this, 120);
-            mPopup = new PopupWindow(view, width, height, true);
-            TextView orderNum = view.findViewById(R.id.tv_orderNum),
-                    orderUser = view.findViewById(R.id.tv_orderUser),
-                    orderProvider = view.findViewById(R.id.tv_orderProvider);
-
-            String showingText = binding.tvSelectType.getText().toString().trim();
-
-            int colorBlue = getResources().getColor(com.rails.purchaseplatform.common.R.color.font_blue);
-            if (showingText.equals("采购单号")) {
-                orderNum.setTextColor(colorBlue);
-            } else if (showingText.equals("采购人用户名")) {
-                orderUser.setTextColor(colorBlue);
-            } else if (showingText.equals("供应商名称")) {
-                orderProvider.setTextColor(colorBlue);
-            }
-
-            orderNum.setOnClickListener(num -> {
-                binding.tvSelectType.setText("采购单号");
-                mType = 0;
-                mPopup.dismiss();
-                mPopup = null;
-            });
-
-            orderUser.setOnClickListener(user -> {
-                binding.tvSelectType.setText("采购人用户名");
-                mType = 1;
-                mPopup.dismiss();
-                mPopup = null;
-            });
-
-            orderProvider.setOnClickListener(provider -> {
-                binding.tvSelectType.setText("供应商名称");
-                mType = 2;
-                mPopup.dismiss();
-                mPopup = null;
-            });
-
-            mPopup.setOutsideTouchable(true);
-
-            if (isShowBottom(itemView)) {
-                mPopup.showAsDropDown(itemView, 150, -20);
-            } else {
-                mPopup.showAsDropDown(itemView, 0, -2 * itemView.getHeight());
-            }
-
-
-            showPopup();
+            showTypePopup();
         });
     }
+
+
+    /**
+     * 显示筛选PopupWindow
+     */
+    private void showFilterPopup() {
+        if (mFilterPopup == null) {
+            mFilterPopup = new OrderSearchFilterPop();
+            mFilterPopup.setType(BasePop.MATCH_WRAP);
+            mFilterPopup.setGravity(Gravity.BOTTOM);
+        }
+        mFilterPopup.show(getSupportFragmentManager(), "orderStatus");
+    }
+
+
+    /**
+     * 显示选择搜索类型的PopupWindow.
+     */
+    private void showTypePopup() {
+        View itemView = (View) binding.tvSelectType.getParent();
+
+        View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
+        int width = ScreenSizeUtil.dp2px(this, 120);
+        int height = ScreenSizeUtil.dp2px(this, 120);
+        mTypePopup = new PopupWindow(view, width, height, true);
+        TextView orderNum = view.findViewById(R.id.tv_orderNum),
+                orderUser = view.findViewById(R.id.tv_orderUser),
+                orderProvider = view.findViewById(R.id.tv_orderProvider);
+
+        String showingText = binding.tvSelectType.getText().toString().trim();
+
+        int colorBlue = getResources().getColor(com.rails.purchaseplatform.common.R.color.font_blue);
+        if (showingText.equals("采购单号")) {
+            orderNum.setTextColor(colorBlue);
+        } else if (showingText.equals("采购人用户名")) {
+            orderUser.setTextColor(colorBlue);
+        } else if (showingText.equals("供应商名称")) {
+            orderProvider.setTextColor(colorBlue);
+        }
+
+        orderNum.setOnClickListener(num -> {
+            binding.tvSelectType.setText("采购单号");
+            mType = 0;
+            mTypePopup.dismiss();
+            mTypePopup = null;
+        });
+
+        orderUser.setOnClickListener(user -> {
+            binding.tvSelectType.setText("采购人用户名");
+            mType = 1;
+            mTypePopup.dismiss();
+            mTypePopup = null;
+        });
+
+        orderProvider.setOnClickListener(provider -> {
+            binding.tvSelectType.setText("供应商名称");
+            mType = 2;
+            mTypePopup.dismiss();
+            mTypePopup = null;
+        });
+
+        mTypePopup.setOutsideTouchable(true);
+
+        if (isShowBottom(itemView)) {
+            mTypePopup.showAsDropDown(itemView, 150, -20);
+        } else {
+            mTypePopup.showAsDropDown(itemView, 0, -2 * itemView.getHeight());
+        }
+    }
+
 
     private boolean isShowBottom(View itemView) {
         int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
@@ -152,13 +176,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         int itemViewY = location[1];
         int distance = screenHeight - itemViewY - itemView.getHeight();
         return distance >= itemView.getHeight();
-    }
-
-    /**
-     * 显示PopupWindow
-     */
-    private void showPopup() {
-        // TODO: 2021/4/7 显示PopupWindow
     }
 
 

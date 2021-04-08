@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="orderStatus"
+            type="com.rails.lib_data.bean.OrderStatusBean" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{orderStatus.status}" />
+
+    </RelativeLayout>
+</layout>
