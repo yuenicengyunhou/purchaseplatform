@@ -1,9 +1,10 @@
-package com.rails.purchaseplatform.common.widget;
+package com.rails.purchaseplatform.common.widget.recycler;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 
@@ -11,7 +12,7 @@ import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
  * Created by sk on 2016/7/15.
  * recycler 水平分页操作
  */
-public class PageRecyclerView extends BaseRecyclerView {
+public class PageRecycler extends BaseRecyclerView {
 
     private float downX;
     private float MIN_DISTANCE = 100;
@@ -25,15 +26,15 @@ public class PageRecyclerView extends BaseRecyclerView {
     private int width;
 
 
-    public PageRecyclerView(Context context) {
+    public PageRecycler(Context context) {
         super(context);
     }
 
-    public PageRecyclerView(Context context, AttributeSet attrs) {
+    public PageRecycler(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PageRecyclerView(Context context, AttributeSet attrs, int defStyle) {
+    public PageRecycler(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

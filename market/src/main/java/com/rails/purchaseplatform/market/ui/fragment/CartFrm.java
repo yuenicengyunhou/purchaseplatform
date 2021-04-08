@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.LoadMoreRecyclerView;
+import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
@@ -46,7 +46,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/9
  */
 public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContract.CartView,
-        LoadMoreRecyclerView.LoadMoreListener, ProductContract.ProductView,
+        LoadMoreRecycler.LoadMoreListener, ProductContract.ProductView,
         MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean> {
 
     int type = 0;//是否显示标题

@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2015 All Rights Reserved.
  */
-package com.rails.purchaseplatform.common.widget;
+package com.rails.purchaseplatform.common.widget.recycler;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rails.purchaseplatform.common.R;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,7 +23,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 /**
  * 支持上拉加载更多的
  */
-public class LoadMoreRecyclerView extends BaseRecyclerView {
+public class LoadMoreRecycler extends BaseRecyclerView {
     /**
      * item 类型
      */
@@ -50,17 +51,17 @@ public class LoadMoreRecyclerView extends BaseRecyclerView {
      */
     private LoadMoreListener mListener;
 
-    public LoadMoreRecyclerView(Context context) {
+    public LoadMoreRecycler(Context context) {
         super(context);
         init();
     }
 
-    public LoadMoreRecyclerView(Context context, AttributeSet attrs) {
+    public LoadMoreRecycler(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public LoadMoreRecyclerView(Context context, AttributeSet attrs, int defStyle) {
+    public LoadMoreRecycler(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
