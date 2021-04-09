@@ -99,7 +99,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
 
         // 判断如果取不到到传过来的搜索Key就隐藏View，否则显示搜索Key
-        if (mSearchKey == "" || mSearchKey == null) {
+        if (mSearchKey.equals("") || mSearchKey == null) {
             binding.clSearchKey.setVisibility(View.GONE);
         } else {
             binding.tvSearchKey.setText(mSearchKey);
