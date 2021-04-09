@@ -35,6 +35,7 @@ import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
+import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 import com.rails.purchaseplatform.market.web.PackageListPage4Js;
 import com.rails.purchaseplatform.market.web.ProductInfoPage4Js;
@@ -297,14 +298,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvPutInCart.setOnClickListener(v -> startIntent(CartActivity.class));
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-            Log.d(TAG, "弹出型号选择？？？");
+            showPropertyPop();
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
-            Log.d(TAG, "弹出地址选择");
             showChooseAddressPop();
         });
         binding.rlParamsCheck.setOnClickListener(v -> {
-            Log.d(TAG, "看参数弹窗");
             showParamsCheckPop();
         });
     }
@@ -376,6 +375,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     /**
+     * 选择型号/规格弹窗
+     */
+    private void showPropertyPop() {
+        PropertyPop pop = new PropertyPop();
+        pop.setGravity(Gravity.BOTTOM);
+        pop.setType(BasePop.MATCH_WRAP);
+        pop.show(getSupportFragmentManager(), "property");
+    }
+
+    /**
      * 弹出查看商品参数弹窗
      */
     void showParamsCheckPop() {
@@ -392,8 +401,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showChooseAddressPop() {
         if (mChooseAddressPop == null) {
-            // TODO: 2021/4/2 在构造方法中传入地址ArrayList
-            mChooseAddressPop = new ProductDetailsChooseAddressPop(this, new ArrayList<>());
+            mChooseAddressPop = new ProductDetailsChooseAddressPop(this);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
         }
