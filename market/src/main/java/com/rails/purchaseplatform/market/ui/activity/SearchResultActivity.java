@@ -93,6 +93,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.svpSearchResultPager.setOffscreenPageLimit(1);
 
 
+        binding.tvTypeName.setText(mSearchType == 0 ? "商品" : "店铺");
         binding.cbPriceSort.setVisibility(mSearchType == 0 ? View.VISIBLE : View.INVISIBLE);
         binding.svpSearchResultPager.setCurrentItem(mSearchType);
 
