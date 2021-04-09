@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.order.adapter;
+package com.rails.purchaseplatform.common.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.purchaseplatform.order.R;
+import com.rails.purchaseplatform.common.R;
 
 import java.util.List;
 

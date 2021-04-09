@@ -4,9 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.rails.lib_data.bean.OrderStatusBean;
+import com.rails.purchaseplatform.common.databinding.ItemOrderStatusBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
-import com.rails.purchaseplatform.order.R;
-import com.rails.purchaseplatform.order.databinding.ItemOrderStatusBinding;
 
 
 /**
@@ -23,7 +22,7 @@ public class OrderSearchFilterAdapter extends BaseRecyclerAdapter<OrderStatusBea
 
     @Override
     protected int getContentID() {
-        return R.layout.item_order_status;
+        return com.rails.purchaseplatform.common.R.layout.item_order_status;
     }
 
     @Override

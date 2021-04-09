@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,13 +18,16 @@ import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByShopFragment;
+import com.rails.purchaseplatform.market.ui.pop.SearchResultFilterPop;
 
 import java.util.ArrayList;
 
@@ -55,6 +59,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     private boolean priceSortFlag = true; // true  升序排列
 
     private int mModuleFlag = 0;
+
+    private OrderSearchFilterPop mFilterPop;
 
     @Override
     protected int getColor() {
@@ -120,6 +126,12 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
             Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
+            if (mFilterPop == null) {
+                mFilterPop = new OrderSearchFilterPop();
+                mFilterPop.setType(BasePop.MATCH_WRAP);
+                mFilterPop.setGravity(Gravity.BOTTOM);
+            }
+            mFilterPop.show(getSupportFragmentManager(), "searchFilter");
             // TODO: 2021/4/9 自定义筛选器
         });
         // TODO: 2021/3/25 筛选规则

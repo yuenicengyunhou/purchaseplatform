@@ -1,16 +1,16 @@
-package com.rails.purchaseplatform.order.pop;
+package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.purchaseplatform.common.adapter.FlowLayoutManager;
+import com.rails.purchaseplatform.common.adapter.OrderSearchFilterAdapter2;
 import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
+import com.rails.purchaseplatform.common.databinding.PopOrderSearchFilterBinding;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.order.adapter.OrderSearchFilterAdapter;
-import com.rails.purchaseplatform.order.adapter.OrderSearchFilterAdapter2;
-import com.rails.purchaseplatform.order.databinding.PopOrderSearchFilterBinding;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 
-    private OrderSearchFilterAdapter mAdapter;
+//    private OrderSearchFilterAdapter mAdapter;
 
     private OrderSearchFilterAdapter2 mAdapter2;
     private ArrayList<String> mData;
@@ -39,7 +39,7 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         mData.add("已收货");
         mData.add("采购人取消");
 
-        mAdapter = new OrderSearchFilterAdapter(getActivity());
+//        mAdapter = new OrderSearchFilterAdapter(getActivity());
         mAdapter2 = new OrderSearchFilterAdapter2(getActivity(), mData);
 
         binding.recyclerStatus.setLayoutManager(new FlowLayoutManager());
@@ -50,7 +50,7 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         }.getType();
         ArrayList<OrderStatusBean> beans = JsonUtil.parseJson(getActivity(), "orderStatus.json", type);
 
-        mAdapter.update(beans, true);
+//        mAdapter.update(beans, true);
 
         binding.tvReset.setOnClickListener(v -> dismiss());
         binding.tvComplete.setOnClickListener(v -> dismiss());

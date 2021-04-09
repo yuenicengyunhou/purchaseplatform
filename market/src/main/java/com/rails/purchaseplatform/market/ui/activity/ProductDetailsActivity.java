@@ -29,6 +29,7 @@ import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -74,6 +75,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ProductDetailsParamsPop mParamsPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
+
+    private OrderSearchFilterPop mAddCartPop;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -300,7 +303,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvPutInCart.setOnClickListener(v -> {
             // TODO: 2021/4/9 加入购物车弹窗
             Log.d(TAG, "购物车弹窗");
-            Toast.makeText(this, "购物车弹窗呢？？？", Toast.LENGTH_SHORT).show();
+            if (mAddCartPop == null) {
+                mAddCartPop = new OrderSearchFilterPop();
+                mAddCartPop.setType(BasePop.MATCH_WRAP);
+                mAddCartPop.setGravity(Gravity.BOTTOM);
+            }
+            mAddCartPop.show(getSupportFragmentManager(), "addCart");
+//            Toast.makeText(this, "购物车弹窗呢？？？", Toast.LENGTH_SHORT).show();
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
