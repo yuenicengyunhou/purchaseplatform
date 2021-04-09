@@ -67,6 +67,11 @@ public class OrderDetailActivity extends BaseWebActivity<BaseWebBinding> impleme
                 .navigation();
     }
 
+    @Override
+    public void onCopy(String code) {
+
+    }
+
 
     @JavascriptInterface
     @Override

@@ -37,4 +37,11 @@ public interface JSEvaluteBack extends JSBack {
     void onResult(String json);
 
 
+    /**
+     * 粘贴
+     * @param code
+     */
+    void onCopy(String code);
+
+
 }

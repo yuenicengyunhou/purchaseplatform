@@ -66,6 +66,10 @@ public class PurchaseDetailActivity extends BaseWebActivity<BaseWebBinding> impl
                 .navigation();
     }
 
+    @Override
+    public void onCopy(String code) {
+
+    }
 
 
     @JavascriptInterface

@@ -68,6 +68,11 @@ public class EvaluteActivity extends BaseWebActivity<BaseWebBinding> implements 
                 .navigation();
     }
 
+    @Override
+    public void onCopy(String code) {
+
+    }
+
 
     @JavascriptInterface
     @Override

@@ -58,6 +58,11 @@ public class MsgActivity extends BaseWebActivity<BaseWebBinding> implements JSEv
 
     }
 
+    @Override
+    public void onCopy(String code) {
+
+    }
+
 
     @JavascriptInterface
     @Override
