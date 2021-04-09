@@ -120,6 +120,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
             Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
+            // TODO: 2021/4/9 自定义筛选器
         });
         // TODO: 2021/3/25 筛选规则
 

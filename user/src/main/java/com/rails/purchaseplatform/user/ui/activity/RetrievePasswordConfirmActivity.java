@@ -5,6 +5,14 @@ import android.os.Bundle;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordConfirmBinding;
 
+/**
+ * @author ZhangXiaofu
+ * @version 1
+ * <p>
+ * 找回密码确认页面
+ * 用户名和邮箱验证通过
+ * @since 2021.03.28
+ */
 public class RetrievePasswordConfirmActivity extends BaseErrorActivity<ActivityRetrievePasswordConfirmBinding> {
 
 
