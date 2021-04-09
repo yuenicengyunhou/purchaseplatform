@@ -175,23 +175,38 @@
                 android:textColor="@color/selector_blue_gray_sel_color"
                 android:textSize="@dimen/font_size_12"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ib_filter"
+                app:layout_constraintEnd_toStartOf="@+id/rl_filter"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/cb_saleSort"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/ib_filter"
+            <LinearLayout
+                android:id="@+id/rl_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:src="@mipmap/icon_filter"
-                android:visibility="invisible"
+                android:layout_marginStart="@dimen/dp_16"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/cb_priceSort"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="筛选"
+                    android:textColor="@color/font_gray"
+                    android:textSize="@dimen/font_size_12" />
+
+                <ImageButton
+                    android:id="@+id/ib_filt2er"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@mipmap/icon_filter"
+                    android:visibility="visible" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

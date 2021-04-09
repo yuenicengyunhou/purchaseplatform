@@ -22,10 +22,9 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
     private ArrayList<String> mAddresses;
     private PopChooseAddressAdapter mAdapter;
 
-    public ProductDetailsChooseAddressPop(Context context, ArrayList<String> addresses) {
+    public ProductDetailsChooseAddressPop(Context context) {
         super();
         mContext = context;
-        mAddresses = addresses;
     }
 
     @Override

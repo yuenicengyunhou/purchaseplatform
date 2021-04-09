@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
@@ -30,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/3/23
  */
+@Route(path = ConRoute.MARKET.SHOP_DETAILS)
 public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBinding> {
 
 

@@ -141,10 +141,12 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
      * @param text
      */
     private void updateList(String text) {
-        mHistorySearchList.remove(text);
-        mHistorySearchList.add(0, text);
-        if (mHistorySearchList.size() > 10) mHistorySearchList.remove(10);
-        mSearchHistoryFlowAdapter.notifyDataSetChanged();
+        if (!text.equals("")) {
+            mHistorySearchList.remove(text);
+            mHistorySearchList.add(0, text);
+            if (mHistorySearchList.size() > 10) mHistorySearchList.remove(10);
+            mSearchHistoryFlowAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -189,7 +191,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
 
             String text = binding.searchText.getText().toString().trim();
 
-            if (isEmptyText(text)) return;
+//            if (isEmptyText(text)) return;
 
             updateList(text);
 

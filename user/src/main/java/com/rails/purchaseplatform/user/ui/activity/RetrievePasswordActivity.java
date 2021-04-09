@@ -9,6 +9,14 @@ import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordBindi
 
 import java.util.regex.Pattern;
 
+/**
+ * @author ZhangXiaofu
+ * @version 1
+ * <p>
+ * 找回密码页面
+ * 输入用户名和邮箱进行验证
+ * @since 2021.03.28
+ */
 public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrievePasswordBinding> {
 
     @Override

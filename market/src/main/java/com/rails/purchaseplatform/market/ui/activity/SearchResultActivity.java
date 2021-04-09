@@ -93,12 +93,13 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.svpSearchResultPager.setOffscreenPageLimit(1);
 
 
+        binding.tvTypeName.setText(mSearchType == 0 ? "商品" : "店铺");
         binding.cbPriceSort.setVisibility(mSearchType == 0 ? View.VISIBLE : View.INVISIBLE);
         binding.svpSearchResultPager.setCurrentItem(mSearchType);
 
 
         // 判断如果取不到到传过来的搜索Key就隐藏View，否则显示搜索Key
-        if (mSearchKey == "" || mSearchKey == null) {
+        if (mSearchKey.equals("") || mSearchKey == null) {
             binding.clSearchKey.setVisibility(View.GONE);
         } else {
             binding.tvSearchKey.setText(mSearchKey);
@@ -117,8 +118,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         });
 
         // 筛选器
-        binding.ibFilter.setOnClickListener(v -> {
+        binding.rlFilter.setOnClickListener(v -> {
             Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
+            // TODO: 2021/4/9 自定义筛选器
         });
         // TODO: 2021/3/25 筛选规则
 

@@ -38,7 +38,11 @@ public class ConRoute {
         //提交结果页面
         public final static String COMMIT_RESULT = "/market/result";
 
+        // 商品详情页
         public final static String PRODUCT_DETAIL = "/market/detail";
+
+        // 店铺详情页
+        public final static String SHOP_DETAILS = "/market/shopDetails";
     }
 
     //采购单

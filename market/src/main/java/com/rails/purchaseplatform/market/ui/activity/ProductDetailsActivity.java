@@ -15,12 +15,14 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
@@ -35,6 +37,7 @@ import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
+import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 import com.rails.purchaseplatform.market.web.PackageListPage4Js;
 import com.rails.purchaseplatform.market.web.ProductInfoPage4Js;
@@ -294,19 +297,34 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvShowAll.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
-        binding.tvPutInCart.setOnClickListener(v -> startIntent(CartActivity.class));
+        binding.tvPutInCart.setOnClickListener(v -> {
+            // TODO: 2021/4/9 加入购物车弹窗
+            Log.d(TAG, "购物车弹窗");
+            Toast.makeText(this, "购物车弹窗呢？？？", Toast.LENGTH_SHORT).show();
+        });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-            Log.d(TAG, "弹出型号选择？？？");
+            showPropertyPop();
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
-            Log.d(TAG, "弹出地址选择");
             showChooseAddressPop();
         });
         binding.rlParamsCheck.setOnClickListener(v -> {
-            Log.d(TAG, "看参数弹窗");
             showParamsCheckPop();
         });
+
+        // 点击店铺按钮 跳转到店铺详情页
+        binding.llShop.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).navigation();
+        });
+
+        // 点击收藏按钮 跳转到商品收藏页面
+        binding.llCollection.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.WEB.WEB_COLLECT).navigation();
+        });
+
+        // 点击购物车按钮 跳转到购物车页面
+        binding.llCart.setOnClickListener(v -> startIntent(CartActivity.class));
     }
 
     @Override
@@ -376,6 +394,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     /**
+     * 选择型号/规格弹窗
+     */
+    private void showPropertyPop() {
+        PropertyPop pop = new PropertyPop();
+        pop.setGravity(Gravity.BOTTOM);
+        pop.setType(BasePop.MATCH_WRAP);
+        pop.show(getSupportFragmentManager(), "property");
+    }
+
+    /**
      * 弹出查看商品参数弹窗
      */
     void showParamsCheckPop() {
@@ -392,8 +420,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showChooseAddressPop() {
         if (mChooseAddressPop == null) {
-            // TODO: 2021/4/2 在构造方法中传入地址ArrayList
-            mChooseAddressPop = new ProductDetailsChooseAddressPop(this, new ArrayList<>());
+            mChooseAddressPop = new ProductDetailsChooseAddressPop(this);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
         }
