@@ -58,6 +58,11 @@ public class ModifyPawActivity extends BaseWebActivity<BaseWebBinding> implement
 
     }
 
+    @Override
+    public void onCopy(String code) {
+
+    }
+
 
     @JavascriptInterface
     @Override

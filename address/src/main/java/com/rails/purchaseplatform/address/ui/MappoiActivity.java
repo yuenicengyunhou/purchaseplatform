@@ -65,7 +65,7 @@ public class MappoiActivity extends ToolbarActivity<ActivityAddressMappoiBinding
 
         binding.titleBar
                 .setShowLine(true).setImgLeftRes(R.drawable.svg_back_black)
-                .setTitle("地图poi");
+                .setTitle("地图");
 
         barBinding.map.onCreate(bundle);
         if (aMap == null) {
