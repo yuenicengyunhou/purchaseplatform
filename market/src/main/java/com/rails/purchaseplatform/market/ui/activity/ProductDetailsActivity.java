@@ -15,12 +15,14 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.RecommendItemsContract;
@@ -295,7 +297,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvShowAll.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
-        binding.tvPutInCart.setOnClickListener(v -> startIntent(CartActivity.class));
+        binding.tvPutInCart.setOnClickListener(v -> {
+            // TODO: 2021/4/9 加入购物车弹窗
+            Log.d(TAG, "购物车弹窗");
+            Toast.makeText(this, "购物车弹窗呢？？？", Toast.LENGTH_SHORT).show();
+        });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
             showPropertyPop();
@@ -306,6 +312,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.rlParamsCheck.setOnClickListener(v -> {
             showParamsCheckPop();
         });
+
+        // 点击店铺按钮 跳转到店铺详情页
+        binding.llShop.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).navigation();
+        });
+
+        // 点击收藏按钮 跳转到商品收藏页面
+        binding.llCollection.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.WEB.WEB_COLLECT).navigation();
+        });
+
+        // 点击购物车按钮 跳转到购物车页面
+        binding.llCart.setOnClickListener(v -> startIntent(CartActivity.class));
     }
 
     @Override

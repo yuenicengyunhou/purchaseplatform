@@ -5,7 +5,8 @@ public interface ConstantH5 {
      * BaseUrl
      */
 //    String BASE_H5_URL = "http://172.28.22.92:3000/purchase-android-web/#/";
-    String BASE_H5_URL = "http://172.28.20.135:3000/purchase-android-web/";
+//    String BASE_H5_URL = "http://172.28.20.135:3000/purchase-android-web/#/";
+    String BASE_H5_URL = "http://172.28.20.109:3000/purchase-android-web/#/";
 //    String BASE_H5_URL = "http://172.28.20.109:3000/";
 
     /**
