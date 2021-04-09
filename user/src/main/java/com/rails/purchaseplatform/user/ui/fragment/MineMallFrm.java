@@ -5,7 +5,9 @@ import android.view.View;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
+import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
 
 /**
  * 购物车--个人中心
@@ -18,8 +20,13 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     protected void loadData() {
         onClick();
 
-        binding.tabOrder.setNumber(3);
-        binding.tabReceive.setNumber(100);
+        binding.tabOrder.setNumber(100);
+        binding.tabReceive.setNumber(3);
+        binding.tabSend.setNumber(50);
+
+
+        binding.tvWatch.setKey(String.format(getResources().getString(R.string.mine_seek), "30"));
+        binding.tvCollect.setKey(String.format(getResources().getString(R.string.mine_collect), "30"));
     }
 
     @Override
@@ -36,15 +43,19 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
     @Override
     protected void onClick() {
         super.onClick();
-        binding.myChangePassword.setOnClickListener(new View.OnClickListener() {
+
+        binding.btnMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance()
-                        .build(ConRoute.WEB.WEB_MODIFY_PAW)
-                        .withString("url", ConRoute.WEB_URL.MODIFYPAW)
-                        .navigation();
+                ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
             }
         });
+
+
+        binding.btnSetting.setOnClickListener(v -> {
+            startIntent(SettingActivity.class);
+        });
+
 
         binding.orderAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +90,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
 
         );
 
-        binding.browse.setOnClickListener(new View.OnClickListener() {
+        binding.tvWatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
@@ -90,7 +101,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
         });
 
 
-        binding.collect.setOnClickListener(new View.OnClickListener() {
+        binding.tvCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
@@ -100,21 +111,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
             }
         });
 
-
-        binding.orderMeassge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
-            }
-        });
-
-
-        binding.myAddressAdministration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
-            }
-        });
 
         binding.llAudit.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到审批列表页面
