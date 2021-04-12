@@ -26,7 +26,7 @@ public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        url = ConRoute.WEB_URL.APPROVAL;
+        url = ConRoute.WEB_URL.PASS_LIST;
     }
 
     @Override

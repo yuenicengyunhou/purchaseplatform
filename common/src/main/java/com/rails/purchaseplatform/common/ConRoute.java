@@ -139,7 +139,7 @@ public class ConRoute {
         public final static String ORDER_SUB_DETAIL = BASEURL + "orderDetails";
 
         // 待审核
-        public final static String APPROVAL = BASEURL + "passList";
+        public final static String APPROVAL = BASEURL + "approvalList";
 
         // 已驳回
         public final static String TURN_DOWN_LIST = BASEURL + "turnDownList";

@@ -99,7 +99,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
 
         binding.tvTypeName.setText(mSearchType == 0 ? "商品" : "店铺");
-        binding.cbPriceSort.setVisibility(mSearchType == 0 ? View.VISIBLE : View.INVISIBLE);
+        binding.cbPriceSort.setVisibility(mSearchType == 0 ? View.VISIBLE : View.GONE);
         binding.svpSearchResultPager.setCurrentItem(mSearchType);
 
 

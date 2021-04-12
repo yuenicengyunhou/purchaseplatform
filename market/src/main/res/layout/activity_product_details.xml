@@ -75,7 +75,8 @@
                             android:gravity="bottom"
                             android:text="3456.00"
                             android:textColor="#E85454"
-                            android:textSize="@dimen/font_size_26" />
+                            android:textSize="@dimen/font_size_26"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_rmb_gray"
@@ -419,7 +420,7 @@
                         android:layout_height="@dimen/dp_tiny"
                         android:layout_marginStart="@dimen/dp_16"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@color/bg_gray_light" />
+                        android:background="@color/bg_gray" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -559,7 +560,7 @@
                     android:id="@+id/ll_collection"
                     android:layout_width="@dimen/dp_48"
                     android:layout_height="@dimen/dp_55"
-                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_marginStart="@dimen/dp_8"
                     android:layout_toRightOf="@+id/ll_shop"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -580,7 +581,7 @@
                 <RelativeLayout
                     android:layout_width="@dimen/dp_48"
                     android:layout_height="@dimen/dp_55"
-                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_toRightOf="@+id/ll_collection">
 
                     <LinearLayout
@@ -658,7 +659,7 @@
                 android:layout_height="@dimen/dp_48"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/dp_50"
-                android:layout_marginEnd="@dimen/dp_50"
+                android:layout_marginEnd="@dimen/dp_30"
                 android:visibility="visible"
                 app:tabMode="auto"
                 app:tabSelectedTextColor="#387CFC"
@@ -690,11 +691,6 @@
                     android:text="@string/product_details_recommend" />
             </com.google.android.material.tabs.TabLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_tiny"
-                android:layout_alignParentBottom="true"
-                android:background="#447F7F7F" />
         </RelativeLayout>
 
         <ImageButton

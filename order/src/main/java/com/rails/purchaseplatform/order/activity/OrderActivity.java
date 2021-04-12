@@ -105,7 +105,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
      */
     private void showFilterPopup() {
         if (mFilterPopup == null) {
-            mFilterPopup = new OrderSearchFilterPop();
+            String[] text = {"选择品牌", "价格区间", "上架时间"};
+            mFilterPopup = new OrderSearchFilterPop(text);
             mFilterPopup.setType(BasePop.MATCH_WRAP);
             mFilterPopup.setGravity(Gravity.BOTTOM);
         }
