@@ -302,14 +302,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         binding.tvPutInCart.setOnClickListener(v -> {
             // TODO: 2021/4/9 加入购物车弹窗
-            Log.d(TAG, "购物车弹窗");
-            if (mAddCartPop == null) {
-                mAddCartPop = new OrderSearchFilterPop();
-                mAddCartPop.setType(BasePop.MATCH_WRAP);
-                mAddCartPop.setGravity(Gravity.BOTTOM);
-            }
-            mAddCartPop.show(getSupportFragmentManager(), "addCart");
+//            Log.d(TAG, "购物车弹窗");
+//            if (mAddCartPop == null) {
+//                String[] text = {"选择型号", "选择数量", "选择颜色"};
+//                mAddCartPop = new OrderSearchFilterPop(text);
+//                mAddCartPop.setType(BasePop.MATCH_WRAP);
+//                mAddCartPop.setGravity(Gravity.BOTTOM);
+//            }
+//            mAddCartPop.show(getSupportFragmentManager(), "addCart");
 //            Toast.makeText(this, "购物车弹窗呢？？？", Toast.LENGTH_SHORT).show();
+            showPropertyPop();
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {

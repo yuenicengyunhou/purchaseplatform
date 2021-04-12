@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderStatusBean;
@@ -25,6 +24,14 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     private OrderSearchFilterAdapter2 mAdapter2;
     private ArrayList<String> mData;
     private FlowLayoutManager mManager;
+    private String[] mTexts;
+
+    public OrderSearchFilterPop() {
+    }
+
+    public OrderSearchFilterPop(String[] text) {
+        mTexts = text;
+    }
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -55,5 +62,15 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         binding.tvReset.setOnClickListener(v -> dismiss());
         binding.tvComplete.setOnClickListener(v -> dismiss());
 
+        setText(mTexts);
+
+    }
+
+    public void setText(String[] texts) {
+        if (texts.length > 0) {
+            binding.tvStatus.setText(texts[0]);
+            binding.tvPrice.setText(texts[1]);
+            binding.tvTime.setText(texts[2]);
+        }
     }
 }

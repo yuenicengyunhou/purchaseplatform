@@ -27,7 +27,6 @@ import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByShopFragment;
-import com.rails.purchaseplatform.market.ui.pop.SearchResultFilterPop;
 
 import java.util.ArrayList;
 
@@ -127,7 +126,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.rlFilter.setOnClickListener(v -> {
             Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
             if (mFilterPop == null) {
-                mFilterPop = new OrderSearchFilterPop();
+                String[] text = {"选择品牌", "价格区间", "上架时间"};
+                mFilterPop = new OrderSearchFilterPop(text);
                 mFilterPop.setType(BasePop.MATCH_WRAP);
                 mFilterPop.setGravity(Gravity.BOTTOM);
             }
