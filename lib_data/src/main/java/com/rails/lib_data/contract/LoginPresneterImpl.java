@@ -3,6 +3,7 @@ package com.rails.lib_data.contract;
 import android.app.Activity;
 import android.widget.Toast;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import com.rails.lib_data.R;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -47,26 +48,27 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        if (!VerificationUtil.isIdentify(code)) {
-            ToastUtil.showCenter(mContext, "验证码格式错误");
-            return;
-        }
+//        if (!VerificationUtil.isIdentify(code)) {
+//            ToastUtil.showCenter(mContext, "验证码格式错误");
+//            return;
+//        }
 
+        baseView.onResult(0, "登录成功","dddd");
 
-        baseView.showResDialog(R.string.loading);
-        model.onLogin(phone, paw, code, new HttpRxObserver<String>() {
-            @Override
-            protected void onError(ErrorBean e) {
-                baseView.dismissDialog();
-                baseView.onError(e);
-            }
-
-            @Override
-            protected void onSuccess(String response) {
-                baseView.dismissDialog();
-                baseView.onResult(0, response);
-            }
-        });
+//        baseView.showResDialog(R.string.loading);
+//        model.onLogin(phone, paw, code, new HttpRxObserver<String>() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//                baseView.dismissDialog();
+//                baseView.onError(e);
+//            }
+//
+//            @Override
+//            protected void onSuccess(String response) {
+//                baseView.dismissDialog();
+//                baseView.onResult(0, response);
+//            }
+//        });
     }
 
     @Override
@@ -89,7 +91,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             @Override
             protected void onSuccess(String response) {
                 baseView.dismissDialog();
-                baseView.onResult(1, "response");
+                baseView.onResult(1, "获取成功", response);
             }
         });
     }

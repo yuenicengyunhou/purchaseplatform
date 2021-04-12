@@ -15,6 +15,7 @@ import com.rails.purchaseplatform.address.adapter.AddressAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -25,6 +26,7 @@ import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,7 +36,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * 地址管理列表页面
  */
 @Route(path = ConRoute.ADDRESS.ADDRESS_MAIN)
-public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> implements AddressContract.AddressView, PositionListener<AddressBean> {
+public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> implements AddressContract.AddressView,
+        PositionListener<AddressBean>, MulPositionListener<AddressBean> {
 
     private AddressAdapter addressAdapter;
     private AddressContract.AddressPresenter presenter;
@@ -45,14 +48,14 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int position) {
             int width = getResources().getDimensionPixelSize(R.dimen.dp_70);
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            SwipeMenuItem addItem = new SwipeMenuItem(AddressActivity.this)
-                    .setText(getResources().getString(R.string.address_main_def))
-                    .setTextColor(getResources().getColor(R.color.font_black_light))
-                    .setTextSize(12)
-                    .setBackgroundColor(getResources().getColor(R.color.bg_gray))
-                    .setWidth(width)
-                    .setHeight(height);
-            swipeRightMenu.addMenuItem(addItem); // 添加菜单到右侧。
+//            SwipeMenuItem addItem = new SwipeMenuItem(AddressActivity.this)
+//                    .setText(getResources().getString(R.string.address_main_def))
+//                    .setTextColor(getResources().getColor(R.color.font_black_light))
+//                    .setTextSize(12)
+//                    .setBackgroundColor(getResources().getColor(R.color.bg_gray))
+//                    .setWidth(width)
+//                    .setHeight(height);
+//            swipeRightMenu.addMenuItem(addItem); // 添加菜单到右侧。
 
             {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(AddressActivity.this)
@@ -94,6 +97,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         barBinding.smart.setEnableLoadMore(false);
         addressAdapter = new AddressAdapter(this);
         addressAdapter.setListener(this);
+        addressAdapter.setMulPositionListener(this);
         barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
         barBinding.recycler.setOnItemMenuClickListener(new OnItemMenuClickListener() {
             @Override
@@ -101,13 +105,14 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
                 menuBridge.closeMenu();
                 int position = menuBridge.getPosition();
                 if (position == 0) {
-                    //设为默认
-                    presenter.setDefAddress("0", adapterPosition);
-                } else {
                     //删除
                     AddressBean bean = addressAdapter.getBean(adapterPosition);
                     if (bean != null)
                         presenter.delAddress("0", adapterPosition);
+                } else {
+                    //设为默认
+                    presenter.setDefAddress("0", adapterPosition);
+
                 }
             }
         });
@@ -153,7 +158,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         if (type == 0) {
             addressAdapter.updateRemove(position);
         } else if (type == 1) {
-            addressAdapter.modifyDef(position);
+            addressAdapter.swapData(position, 0);
         }
     }
 
@@ -167,5 +172,10 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         Bundle bundle = new Bundle();
         bundle.putSerializable("bean", bean);
         startIntent(AddressAddActivity.class, bundle);
+    }
+
+    @Override
+    public void onPosition(AddressBean bean, int position, int... params) {
+        presenter.setDefAddress("0", position);
     }
 }

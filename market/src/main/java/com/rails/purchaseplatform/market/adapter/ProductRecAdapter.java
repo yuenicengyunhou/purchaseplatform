@@ -5,12 +5,14 @@ import android.content.Context;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,8 +36,9 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
-        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 0);
-        binding.recycler.setAdapter(adapter, ScreenSizeUtil.dp2px(mContext, 42));
+        binding.recycler.setLayoutManager(new GridLayoutManager(mContext, 3));
+//        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
+        binding.recycler.setAdapter(adapter);
         adapter.update(bean.getFloorList(), true);
 
         adapter.setListener(new PositionListener<ProductBean>() {
@@ -50,4 +53,10 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
 
     }
 
+
+    @Override
+    protected void onBindView(ItemMarketProductRecBinding binding) {
+        super.onBindView(binding);
+        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 0, 15, 0, 15, R.color.white));
+    }
 }

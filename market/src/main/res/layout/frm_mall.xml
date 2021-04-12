@@ -194,10 +194,8 @@
                         android:id="@+id/recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/common_border"
                         android:overScrollMode="never"
                         android:paddingTop="@dimen/dp_20"
-                        android:paddingRight="@dimen/common_border"
                         app:canH="false"
                         app:canV="true" />
 

@@ -41,7 +41,7 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
 
 
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(int type, String msg, String token) {
 
     }
 }

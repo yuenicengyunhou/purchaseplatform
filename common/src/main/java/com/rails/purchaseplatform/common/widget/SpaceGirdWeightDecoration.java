@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -49,7 +50,7 @@ public class SpaceGirdWeightDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 //        parent.setBackgroundColor(bgColor);
-        int size = parent.getAdapter().getItemCount();
+        int size = ((GridLayoutManager) parent.getLayoutManager()).getSpanCount();
         int position = parent.getChildAdapterPosition(view);
         outRect.left = left;
 
@@ -60,7 +61,6 @@ public class SpaceGirdWeightDecoration extends RecyclerView.ItemDecoration {
         outRect.top = top;
         outRect.bottom = bottom;
     }
-
 
 
     @Override

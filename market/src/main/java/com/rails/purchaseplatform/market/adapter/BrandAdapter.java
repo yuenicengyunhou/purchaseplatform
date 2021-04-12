@@ -29,7 +29,7 @@ public class BrandAdapter extends BaseRecyclerAdapter<BrandBean, ItemMarketBrand
     @Override
     protected void onBindItem(ItemMarketBrandBinding binding, BrandBean brandBean, int position) {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) binding.imgBrand.getLayoutParams();
-        params.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 62)) >> 2;
+        params.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 77)) >> 2;
         binding.setBrand(brandBean);
 
         binding.getRoot().setOnClickListener(new View.OnClickListener() {

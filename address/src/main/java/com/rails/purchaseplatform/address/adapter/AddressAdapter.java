@@ -8,6 +8,9 @@ import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.databinding.ItemAddressBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * 地址列表adapter
  */
@@ -41,6 +44,17 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
                     mulPositionListener.onPosition(addressBean, position);
             }
         });
+    }
+
+
+    public ArrayList<AddressBean> getResourse(){
+        return mDataSource;
+    }
+
+
+    public void swapData(int fromPos, int toPos) {
+        notifyItemMoved(fromPos, toPos);
+        Collections.swap(mDataSource, fromPos, toPos);
     }
 
 

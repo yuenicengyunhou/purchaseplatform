@@ -16,50 +16,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_name"
+
+        <LinearLayout
+            android:id="@+id/ll_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/common_border"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="@{address.name}"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_16" />
+            android:layout_marginTop="@dimen/dp_20">
+
+            <ImageView
+                android:id="@+id/tv_def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp_10"
+                android:src="@drawable/svg_circle_checked"
+                android:visibility="@{address.isSel?View.VISIBLE:View.GONE}" />
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@{address.name}"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_16" />
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_name"
+            android:layout_alignTop="@+id/ll_name"
             android:layout_marginLeft="@dimen/dp_40"
-            android:layout_toRightOf="@+id/tv_name"
+            android:layout_toRightOf="@+id/ll_name"
             android:text="@{address.phone}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_16" />
 
         <TextView
-            android:id="@+id/tv_def"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tv_phone"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_toRightOf="@+id/tv_phone"
-            android:background="@drawable/bg_corner_gray_20"
-            android:paddingLeft="@dimen/dp_5"
-            android:paddingRight="@dimen/dp_5"
-            android:paddingTop="@dimen/dp_2"
-            android:paddingBottom="@dimen/dp_2"
-            android:text="@string/address_main_default"
-            android:textColor="@color/font_black_light"
-            android:textSize="@dimen/font_size_10"
-            android:visibility="@{address.isSel?View.VISIBLE:View.GONE}" />
-
-        <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_name"
-            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/ll_name"
+            android:layout_alignLeft="@+id/ll_name"
             android:layout_marginTop="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_toLeftOf="@+id/img_edit"

@@ -53,7 +53,7 @@
             android:layout_centerVertical="true"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_20"
-            android:src="@drawable/svg_market_msg" />
+            android:src="@drawable/ic_market_msg_black" />
 
     </RelativeLayout>
 

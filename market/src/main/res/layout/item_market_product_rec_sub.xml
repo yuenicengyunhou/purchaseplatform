@@ -13,13 +13,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
         android:orientation="vertical">
 
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_5"
+            android:layout_margin="@dimen/dp_1"
+            android:padding="@dimen/dp_3"
             app:cardCornerRadius="@dimen/dp_5"
             app:cardElevation="@dimen/dp_1"
             tools:ignore="MissingDefaultResource">
@@ -27,6 +30,8 @@
             <com.rails.purchaseplatform.common.widget.RatioImage
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:h="64"
+                app:w="53"
                 android:layout_gravity="center"
                 android:overScrollMode="never"
                 app:imgUrl="@{product.pictureUrl}" />
@@ -41,6 +46,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_5"
             android:lines="2"
             android:ellipsize="end"
             android:text="@{product.pictureName}"
