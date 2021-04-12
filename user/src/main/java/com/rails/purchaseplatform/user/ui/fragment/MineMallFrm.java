@@ -5,6 +5,7 @@ import android.view.View;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
@@ -31,7 +32,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> {
 
     @Override
     protected void loadPreVisitData() {
-
+        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
     }
 
     @Override
