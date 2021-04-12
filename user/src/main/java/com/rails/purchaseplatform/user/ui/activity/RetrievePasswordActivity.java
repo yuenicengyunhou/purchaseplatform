@@ -1,7 +1,9 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
@@ -62,6 +64,11 @@ public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrieve
             startActivity(intent);
             finish();
         });
+
+        binding.etEmailInput.setOnFocusChangeListener((v, hasFocus) ->
+                setInputLineBackground(hasFocus, binding.viewUserEmailInputLine));
+        binding.etUserNameInput.setOnFocusChangeListener((v, hasFocus) ->
+                setInputLineBackground(hasFocus, binding.viewUserNameInputLine));
     }
 
     /**
@@ -88,5 +95,22 @@ public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrieve
         Pattern pattern = Pattern.compile("^\\d{6}$");
 //        return !username.equals("") && pattern.matcher(username).matches();
         return true;
+    }
+
+    /**
+     * 设置输入框下方的线颜色变化
+     *
+     * @param hasFocus 是否有焦点
+     * @param view     需要改变颜色的View
+     */
+    private void setInputLineBackground(boolean hasFocus, View view) {
+        Drawable drawableHasFocus = getResources().getDrawable(
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5);
+        Drawable drawableLoseFocus = getResources().getDrawable(
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5);
+        if (hasFocus)
+            view.setBackground(drawableHasFocus);
+        else
+            view.setBackground(drawableLoseFocus);
     }
 }

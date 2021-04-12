@@ -29,7 +29,6 @@
             android:layout_marginTop="@dimen/dp_6"
             android:ellipsize="end"
             android:maxLines="2"
-            android:lineSpacingMultiplier="1.3"
             android:text="@{recommend.name}"
             android:textColor="#3C3C3C"
             android:textSize="@dimen/font_size_12" />
