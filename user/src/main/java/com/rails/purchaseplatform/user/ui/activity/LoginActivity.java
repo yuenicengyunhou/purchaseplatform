@@ -104,8 +104,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     }
 
 
+
     @Override
-    public void onResult(int type, String msg) {
+    public void onResult(int type, String msg, String token) {
         ToastUtil.showCenter(this, msg);
         if (type == 1) {
             binding.tvGetVerifyNum.setVisibility(View.INVISIBLE);
@@ -116,7 +117,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             mHandler.sendMessageDelayed(message, 300);
         }
         if (type == 0) {
-            PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN, msg);
+            PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN, token);
             finish();
         }
     }

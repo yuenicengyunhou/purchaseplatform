@@ -43,11 +43,25 @@ public class ProductRecSubAdapter extends BaseRecyclerAdapter<ProductBean, ItemM
 
 
     @Override
+    public int getItemCount() {
+
+        if (super.getItemCount() > 6) {
+            return 6;
+        }
+
+        if (super.getItemCount() % 3 == 0) {
+            return super.getItemCount();
+        } else {
+            return super.getItemCount() / 3 * 3;
+        }
+    }
+
+    @Override
     protected void onBindView(ItemMarketProductRecSubBinding binding) {
         super.onBindView(binding);
         RecyclerView.LayoutParams linearParams =
                 (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
-        linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 42)) / 3;
+        linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 64)) / 3;
         binding.getRoot().setLayoutParams(linearParams);
     }
 }

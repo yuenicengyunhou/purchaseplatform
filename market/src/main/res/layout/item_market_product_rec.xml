@@ -13,7 +13,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dp_8"
+        app:cardCornerRadius="@dimen/dp_0"
         app:cardElevation="@dimen/dp_1"
         tools:ignore="MissingDefaultResource">
 
@@ -25,33 +25,52 @@
             android:overScrollMode="never">
 
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
                 <com.rails.purchaseplatform.common.widget.RatioImage
-                    android:id="@+id/img_pic"
-                    android:layout_width="match_parent"
+                    android:id="@+id/img_left"
+                    android:layout_width="@dimen/dp_10"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="@dimen/dp_tiny"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_title"
                     android:scaleType="centerCrop"
-                    app:h="8"
-                    app:imgRes="@{floor.res}"
-                    app:w="35" />
+                    android:src="@drawable/svg_market_threeline"
+                    app:h="2"
+                    app:w="1" />
 
 
                 <TextView
                     android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_centerInParent="true"
                     android:text="@{floor.floorTitle}"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_20"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_15"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_16"
                     android:textStyle="bold" />
+
+
+                <com.rails.purchaseplatform.common.widget.RatioImage
+                    android:id="@+id/img_right"
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dp_tiny"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_title"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/svg_market_threeline"
+                    app:h="2"
+                    app:w="1" />
 
                 <!--将来可能还需要-->
                 <!--                <LinearLayout-->
@@ -88,16 +107,17 @@
                 <!--                </LinearLayout>-->
 
 
-            </FrameLayout>
+            </RelativeLayout>
 
-            <com.rails.purchaseplatform.common.widget.recycler.PageRecycler
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_8"
                 android:overScrollMode="never"
-                android:padding="@dimen/dp_5"
-                app:canH="true"
+                app:canH="false"
                 app:canV="false" />
 
 

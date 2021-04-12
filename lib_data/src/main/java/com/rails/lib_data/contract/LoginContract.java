@@ -21,7 +21,7 @@ public interface LoginContract {
          * @param type
          * @param msg
          */
-        void onResult(int type, String msg);
+        void onResult(int type, String msg,String token);
 
     }
 
