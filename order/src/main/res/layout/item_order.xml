@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_order"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/ll_order"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -89,9 +89,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dp_2"
                 android:text="共10件"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_13" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_num"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp"
+                android:text="x10"
+                android:textSize="@dimen/font_size_12" />
 
             <TextView
                 android:id="@+id/tv_flag"

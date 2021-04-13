@@ -51,7 +51,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
 //        holder.lrTime.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getTime()));
 //        holder.lrSupplier.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getMen()));
 //        holder.lrCompany.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getPurchars()));
-        holder.tvPrice.setText(DecimalUtil.formatStrSize("¥", parentBean.getTotalPrice(), "", 16));
+        holder.tvPrice.setText(parentBean.getTotalPrice());
 
         String orderNumber = parentBean.getCode();
         String generateTime = parentBean.getTime();

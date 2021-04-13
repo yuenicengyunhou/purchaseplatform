@@ -47,6 +47,7 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean,
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         OrderItemBean bean = mDataSource.get(position);
         Glide.with(mContext).load(bean.getPictureUrl()).into(holder.imgProduct);
+//        bean.getItemType()
         holder.itemView.setOnClickListener(v -> {
 //            ARouter.getInstance()
 //                    .build(ConRoute.MARKET.PRODUCT_DETAIL)

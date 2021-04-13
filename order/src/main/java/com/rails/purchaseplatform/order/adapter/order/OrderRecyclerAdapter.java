@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.OrderBean;
@@ -73,6 +74,10 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
         holder.recycler.setLayoutManager(BaseRecyclerView.LIST,
                 type == TYPE_V ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL, false, 1);
         holder.recycler.setAdapter(adapter);
+        // TODO: 2021/4/13 count 需要设置文字 从bean中获取
+        holder.count.setVisibility(type == TYPE_V ? View.VISIBLE : View.GONE);
+        // TODO: 2021/4/13 singlePrice 需要设置文字 从bean中获取
+        holder.singlePrice.setText(type == TYPE_V ? "456.20" : "共100件");
         adapter.update(orderItemBeans, true);
         holder.orderItem.setOnClickListener(v -> {
             ARouter.getInstance()
@@ -87,11 +92,15 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
 
         private BaseRecyclerView recycler;
         private LinearLayout orderItem;
+        private TextView singlePrice;
+        private TextView count;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             recycler = itemView.findViewById(R.id.recycler);
             orderItem = itemView.findViewById(R.id.ll_order);
+            count = itemView.findViewById(R.id.tv_count);
+            singlePrice = itemView.findViewById(R.id.tv_num);
         }
     }
 }
