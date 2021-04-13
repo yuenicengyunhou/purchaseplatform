@@ -140,6 +140,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         }
 
         orderNum.setOnClickListener(num -> {
+            binding.etSearchKey.setHint("搜索单号");
             binding.tvSelectType.setText("采购单号");
             mType = 0;
             mTypePopup.dismiss();
@@ -147,6 +148,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         });
 
         orderUser.setOnClickListener(user -> {
+            binding.etSearchKey.setHint("搜索用户名");
             binding.tvSelectType.setText("采购人用户名");
             mType = 1;
             mTypePopup.dismiss();
@@ -154,6 +156,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         });
 
         orderProvider.setOnClickListener(provider -> {
+            binding.etSearchKey.setHint("搜索供应商");
             binding.tvSelectType.setText("供应商名称");
             mType = 2;
             mTypePopup.dismiss();
