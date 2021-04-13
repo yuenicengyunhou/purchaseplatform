@@ -7,6 +7,7 @@
     <string name="market_index_tip">国铁商城</string>
     <string name="market_index_search">搜索</string>
     <string name="market_index_hot">热销商品</string>
+    <string name="market_index_brand">品牌推荐</string>
 
 
     <string name="market_category_search">搜索关键字</string>
@@ -53,5 +54,10 @@
     <string name="market_result_orderlist">查看采购单</string>
     <string name="market_result_appraise">立即评价</string>
     <string name="market_result_hot">热销商品</string>
+
+
+    <!--分类-->
+    <string name="market_category_bold">1</string>
+    <string name="market_category_normal">0</string>
 
 </resources>

@@ -8,8 +8,8 @@
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlPrimaryColor="@color/bg_blue"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        app:srlPrimaryColor="@color/bg_blue">
 
 
         <com.rails.purchaseplatform.common.widget.AlphaScrollView
@@ -21,18 +21,20 @@
             android:overScrollMode="never">
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
                 <LinearLayout
+                    android:id="@+id/ll_top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_blue"
                     android:orientation="vertical"
-                    android:paddingTop="@dimen/dp_35">
+                    android:paddingTop="@dimen/dp_35"
+                    android:paddingBottom="@dimen/dp_120">
 
 
                     <RelativeLayout
@@ -93,7 +95,7 @@
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_marginRight="@dimen/common_border"
                         android:background="@drawable/bg_corner_border_gray_20"
-                        android:drawableLeft="@drawable/svg_search_blue"
+                        android:drawableLeft="@drawable/svg_search_gray"
                         android:drawablePadding="@dimen/dp_5"
                         android:hint="@string/market_index_search"
                         android:lines="1"
@@ -105,6 +107,22 @@
                         android:textColor="@color/font_black"
                         android:textColorHint="@color/font_hint"
                         android:textSize="@dimen/font_size_13" />
+
+
+                </LinearLayout>
+
+
+                <com.rails.purchaseplatform.common.widget.LineLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_top"
+                    android:layout_marginTop="-120dp"
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/dp_35"
+                    app:fill_color="@color/white"
+                    app:start_angle="0"
+                    app:sweep_angle="180">
 
 
                     <com.rails.purchaseplatform.common.widget.RatioCard
@@ -127,110 +145,166 @@
                     </com.rails.purchaseplatform.common.widget.RatioCard>
 
 
-                    <FrameLayout
-                        android:id="@+id/ll_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_50"
-                            android:layout_gravity="bottom"
-                            android:background="@drawable/ic_market_rect" />
-
-                        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                            android:id="@+id/categoryRecycler"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:layout_marginRight="@dimen/dp_20"
-                            android:overScrollMode="never"
-                            app:canH="false"
-                            app:canV="false" />
-
-
-                    </FrameLayout>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_border"
-                    android:layout_marginTop="@dimen/dp_25"
-                    android:layout_marginRight="@dimen/common_border"
-                    android:background="@color/bg"
-                    android:orientation="vertical">
-
-                    <com.rails.purchaseplatform.common.widget.RatioImage
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_market_brand"
-                        app:h="103"
-                        app:w="701" />
-
                     <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                        android:id="@+id/brandRecycler"
+                        android:id="@+id/categoryRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="-1dp"
-                        android:background="@drawable/bg_corner_red_5"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginBottom="@dimen/dp_15"
                         android:overScrollMode="never"
-                        android:paddingLeft="@dimen/dp_3"
-                        android:paddingRight="@dimen/dp_3"
-                        app:canH="true"
+                        app:canH="false"
                         app:canV="false" />
 
-                </LinearLayout>
+                    <View style="@style/line_bold_gray_10" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <com.rails.purchaseplatform.common.widget.RatioImage
+                                android:id="@+id/img_left"
+                                android:layout_width="@dimen/dp_10"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/dp_tiny"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/tv_title"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/svg_market_threeline"
+                                app:h="2"
+                                app:w="1" />
+
+
+                            <TextView
+                                android:id="@+id/tv_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/market_index_brand"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:layout_marginRight="@dimen/dp_10"
+                                android:paddingTop="@dimen/dp_15"
+                                android:paddingBottom="@dimen/dp_15"
+                                android:textColor="@color/font_black"
+                                android:textSize="@dimen/font_size_16"
+                                android:textStyle="bold" />
+
+
+                            <com.rails.purchaseplatform.common.widget.RatioImage
+                                android:id="@+id/img_right"
+                                android:layout_width="@dimen/dp_10"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/dp_tiny"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/tv_title"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/svg_market_threeline"
+                                app:h="2"
+                                app:w="1" />
+
+                            <!--将来可能还需要-->
+                            <!--                <LinearLayout-->
+                            <!--                    android:layout_width="match_parent"-->
+                            <!--                    android:layout_height="wrap_content"-->
+                            <!--                    android:layout_gravity="bottom"-->
+                            <!--                    android:orientation="vertical">-->
+
+                            <!--                    <TextView-->
+                            <!--                        android:id="@+id/tv_title"-->
+                            <!--                        android:layout_width="match_parent"-->
+                            <!--                        android:layout_height="wrap_content"-->
+                            <!--                        android:layout_marginLeft="@dimen/dp_20"-->
+                            <!--                        android:text="@{floor.floorTitle}"-->
+                            <!--                        android:textColor="@color/white"-->
+                            <!--                        android:layout_gravity="center_vertical"-->
+                            <!--                        android:textSize="@dimen/font_size_20"-->
+                            <!--                        android:textStyle="bold" />-->
+
+
+                            <!--                    <TextView-->
+                            <!--                        android:layout_width="wrap_content"-->
+                            <!--                        android:layout_height="wrap_content"-->
+                            <!--                        android:layout_marginLeft="@dimen/dp_20"-->
+                            <!--                        android:layout_marginTop="@dimen/dp_5"-->
+                            <!--                        android:layout_marginBottom="@dimen/dp_15"-->
+                            <!--                        android:drawablePadding="@dimen/dp_3"-->
+                            <!--                        android:singleLine="true"-->
+                            <!--                        android:text="@{floor.operatorName}"-->
+                            <!--                        android:visibility="gone"-->
+                            <!--                        android:textColor="@color/white"-->
+                            <!--                        android:textSize="@dimen/font_size_12" />-->
+
+                            <!--                </LinearLayout>-->
+
+
+                        </RelativeLayout>
+
+
+                        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                            android:id="@+id/brandRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/common_border"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:paddingBottom="@dimen/dp_20"
+                            android:overScrollMode="never"
+                            app:canH="true"
+                            app:canV="false" />
+
+                    </LinearLayout>
+
+
+
 
                     <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
                         android:id="@+id/recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:overScrollMode="never"
-                        android:paddingTop="@dimen/dp_20"
+                        android:paddingTop="@dimen/dp_10"
                         app:canH="false"
                         app:canV="true" />
 
-                </FrameLayout>
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <com.rails.purchaseplatform.common.widget.LrLableLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_10"
-                        app:is_hide="true"
-                        app:key="@string/market_index_hot"
-                        app:key_color="@color/font_pink"
-                        app:key_size="@dimen/font_size_15" />
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <com.rails.purchaseplatform.common.widget.LrLableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            app:is_hide="true"
+                            app:key="@string/market_index_hot"
+                            app:key_color="@color/font_pink"
+                            app:key_size="@dimen/font_size_15" />
 
 
-                    <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
-                        android:id="@+id/hotRecycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/common_border"
-                        android:overScrollMode="never"
-                        android:paddingRight="@dimen/common_border"
-                        app:canH="false"
-                        app:canV="true" />
+                        <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
+                            android:id="@+id/hotRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/common_border"
+                            android:overScrollMode="never"
+                            android:paddingRight="@dimen/common_border"
+                            app:canH="false"
+                            app:canV="true" />
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </LinearLayout>
+                </com.rails.purchaseplatform.common.widget.LineLayout>
+
+            </RelativeLayout>
 
 
         </com.rails.purchaseplatform.common.widget.AlphaScrollView>

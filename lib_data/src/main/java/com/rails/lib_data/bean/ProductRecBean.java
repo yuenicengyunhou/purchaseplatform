@@ -45,7 +45,7 @@ public class ProductRecBean {
     private Integer yn;
     private String linkUrl;
     private ArrayList<ProductBean> floorList;
-    private int res;
+    private String color;
 
 
 
@@ -180,11 +180,11 @@ public class ProductRecBean {
         this.floorList = floorList;
     }
 
-    public int getRes() {
-        return res;
+    public String getColor() {
+        return color;
     }
 
-    public void setRes(int res) {
-        this.res = res;
+    public void setColor(String color) {
+        this.color = color;
     }
 }

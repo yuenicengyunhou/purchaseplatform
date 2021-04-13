@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -18,11 +19,18 @@
         android:paddingRight="@dimen/dp_3"
         android:paddingBottom="@dimen/dp_6">
 
-        <com.rails.purchaseplatform.common.widget.RatioImage
+
+        <com.rails.purchaseplatform.common.widget.RoundImage
             android:id="@+id/img_brand"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/dp_3"
+            app:border_width="@dimen/dp_1"
+            app:corner_radius="@dimen/dp_5"
+            app:border_color="@color/line_gray"
+            app:type="round"
             app:imgUrl="@{brand.pictureUrl}" />
+
 
     </FrameLayout>
 

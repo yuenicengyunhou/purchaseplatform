@@ -61,6 +61,7 @@ public class LrLableLayout extends RelativeLayout {
             int keyColor = typedArray.getColor(R.styleable.LrLable_key_color, res.getColor(R.color.font_black));
             int keySize = typedArray.getDimensionPixelSize(R.styleable.LrLable_key_size, 0);
             CharSequence content = typedArray.getText(R.styleable.LrLable_value_content);
+            boolean isBold = typedArray.getBoolean(R.styleable.LrLable_isBold, false);
             valueColor = typedArray.getColor(R.styleable.LrLable_value_color, res.getColor(R.color.font_black));
             boolean isHide = typedArray.getBoolean(R.styleable.LrLable_is_hide, false);
             int valueSize = typedArray.getDimensionPixelSize(R.styleable.LrLable_value_size, 0);
@@ -77,6 +78,10 @@ public class LrLableLayout extends RelativeLayout {
                 binding.tvKey.setTextSize(TypedValue.COMPLEX_UNIT_PX, keySize);
             }
             binding.tvKey.setTextColor(keyColor);
+
+            if (isBold) {
+                binding.tvKey.getPaint().setFakeBoldText(true);
+            }
 
             binding.tvKey.setPadding(0, paddingTop, 0, paddingBottom);
 
@@ -169,10 +174,10 @@ public class LrLableLayout extends RelativeLayout {
 
     public String getKey() {
         String key;
-        if ( binding.tvKey == null)
+        if (binding.tvKey == null)
             key = "";
         else
-            key =  binding.tvKey.getText().toString().trim();
+            key = binding.tvKey.getText().toString().trim();
         return key;
     }
 }
