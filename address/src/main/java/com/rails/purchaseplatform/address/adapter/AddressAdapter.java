@@ -16,6 +16,8 @@ import java.util.Collections;
  */
 public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddressBinding> {
 
+    private int selPosition = 0;
+
     public AddressAdapter(Context context) {
         super(context);
     }
@@ -28,7 +30,6 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
     @Override
     protected void onBindItem(ItemAddressBinding binding, AddressBean addressBean, int position) {
         binding.setAddress(addressBean);
-
         binding.imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,21 +41,24 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mulPositionListener != null)
+                if (mulPositionListener != null){
                     mulPositionListener.onPosition(addressBean, position);
+                }
+
             }
         });
     }
 
 
-    public ArrayList<AddressBean> getResourse(){
+    public ArrayList<AddressBean> getResourse() {
         return mDataSource;
     }
 
 
     public void swapData(int fromPos, int toPos) {
-        notifyItemMoved(fromPos, toPos);
         Collections.swap(mDataSource, fromPos, toPos);
+        notifyItemMoved(fromPos, toPos);
+        notifyDataSetChanged();
     }
 
 

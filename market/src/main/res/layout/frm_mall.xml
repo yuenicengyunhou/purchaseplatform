@@ -2,128 +2,122 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/rl_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        app:srlPrimaryColor="@color/bg_blue">
+        android:overScrollMode="never">
 
 
         <com.rails.purchaseplatform.common.widget.AlphaScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg"
             android:orientation="vertical"
             android:overScrollMode="never">
 
 
             <RelativeLayout
+                android:id="@+id/ll_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
-                <LinearLayout
-                    android:id="@+id/ll_top"
+                <com.rails.purchaseplatform.common.widget.RatioImage
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/bg_blue"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/dp_35"
-                    android:paddingBottom="@dimen/dp_120">
+                    android:src="@drawable/ic_market_bg"
+                    app:h="38"
+                    app:w="75" />
 
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/rl_flag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15">
 
-                        <ImageView
-                            android:id="@+id/img_logo"
-                            android:layout_width="@dimen/dp_35"
-                            android:layout_height="@dimen/dp_35"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/common_border"
-                            android:src="@drawable/ic_market_logo" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_8"
-                            android:layout_toRightOf="@+id/img_logo"
-                            android:text="@string/market_index_tip"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_13" />
-
-
-                        <ImageView
-                            android:id="@+id/img_scan"
-                            android:layout_width="@dimen/dp_35"
-                            android:layout_height="@dimen/dp_35"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/img_msg"
-                            android:padding="@dimen/dp_8"
-                            android:src="@drawable/ic_market_scan"
-                            android:visibility="gone" />
-
-
-                        <ImageView
-                            android:id="@+id/img_msg"
-                            android:layout_width="@dimen/dp_35"
-                            android:layout_height="@dimen/dp_35"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_marginRight="@dimen/common_border"
-                            android:padding="@dimen/dp_8"
-                            android:src="@drawable/ic_market_msg" />
-
-                    </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/img_logo"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_border"
+                        android:src="@drawable/ic_market_logo" />
 
 
                     <TextView
-                        android:id="@+id/et_search"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/common_border"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/common_border"
-                        android:background="@drawable/bg_corner_border_gray_20"
-                        android:drawableLeft="@drawable/svg_search_gray"
-                        android:drawablePadding="@dimen/dp_5"
-                        android:hint="@string/market_index_search"
-                        android:lines="1"
-                        android:paddingLeft="@dimen/dp_15"
-                        android:paddingTop="@dimen/dp_8"
-                        android:paddingRight="@dimen/dp_15"
-                        android:paddingBottom="@dimen/dp_8"
-                        android:singleLine="true"
-                        android:textColor="@color/font_black"
-                        android:textColorHint="@color/font_hint"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_toRightOf="@+id/img_logo"
+                        android:text="@string/market_index_tip"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/font_size_13" />
 
 
-                </LinearLayout>
+                    <ImageView
+                        android:id="@+id/img_scan"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/img_msg"
+                        android:padding="@dimen/dp_8"
+                        android:src="@drawable/ic_market_scan"
+                        android:visibility="gone" />
 
 
-                <com.rails.purchaseplatform.common.widget.LineLayout
+                    <ImageView
+                        android:id="@+id/img_msg"
+                        android:layout_width="@dimen/dp_35"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/common_border"
+                        android:padding="@dimen/dp_8"
+                        android:src="@drawable/ic_market_msg" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_top"
-                    android:layout_marginTop="-120dp"
+                    android:layout_below="@+id/rl_flag"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/common_border"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/common_border"
+                    android:background="@drawable/bg_corner_border_gray_20"
+                    android:drawableLeft="@drawable/svg_search_gray"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:hint="@string/market_index_search"
+                    android:lines="1"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:singleLine="true"
+                    android:textColor="@color/font_black"
+                    android:textColorHint="@color/font_hint"
+                    android:textSize="@dimen/font_size_13" />
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_search"
                     android:background="@android:color/transparent"
                     android:orientation="vertical"
-                    android:paddingTop="@dimen/dp_35"
-                    app:fill_color="@color/white"
-                    app:start_angle="0"
-                    app:sweep_angle="180">
-
+                    android:paddingTop="@dimen/dp_0">
 
                     <com.rails.purchaseplatform.common.widget.RatioCard
                         android:id="@+id/card"
@@ -172,10 +166,10 @@
                                 android:id="@+id/img_left"
                                 android:layout_width="@dimen/dp_10"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:padding="@dimen/dp_tiny"
                                 android:layout_centerVertical="true"
+                                android:layout_gravity="center"
                                 android:layout_toLeftOf="@+id/tv_title"
+                                android:padding="@dimen/dp_tiny"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/svg_market_threeline"
                                 app:h="2"
@@ -187,11 +181,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="@string/market_index_brand"
                                 android:layout_marginLeft="@dimen/dp_10"
                                 android:layout_marginRight="@dimen/dp_10"
                                 android:paddingTop="@dimen/dp_15"
                                 android:paddingBottom="@dimen/dp_15"
+                                android:text="@string/market_index_brand"
                                 android:textColor="@color/font_black"
                                 android:textSize="@dimen/font_size_16"
                                 android:textStyle="bold" />
@@ -201,10 +195,10 @@
                                 android:id="@+id/img_right"
                                 android:layout_width="@dimen/dp_10"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:padding="@dimen/dp_tiny"
                                 android:layout_centerVertical="true"
+                                android:layout_gravity="center"
                                 android:layout_toRightOf="@+id/tv_title"
+                                android:padding="@dimen/dp_tiny"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/svg_market_threeline"
                                 app:h="2"
@@ -254,14 +248,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/common_border"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:paddingBottom="@dimen/dp_20"
                             android:overScrollMode="never"
+                            android:paddingBottom="@dimen/dp_20"
                             app:canH="true"
                             app:canV="false" />
 
                     </LinearLayout>
-
-
 
 
                     <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
@@ -302,7 +294,8 @@
 
                     </LinearLayout>
 
-                </com.rails.purchaseplatform.common.widget.LineLayout>
+                </LinearLayout>
+
 
             </RelativeLayout>
 

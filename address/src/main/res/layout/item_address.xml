@@ -64,7 +64,7 @@
             android:layout_below="@+id/ll_name"
             android:layout_alignLeft="@+id/ll_name"
             android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_15"
             android:layout_toLeftOf="@+id/img_edit"
             android:maxLines="2"
             android:text="@{address.address}"
@@ -81,9 +81,53 @@
             android:src="@drawable/ic_address_edit" />
 
 
+        <LinearLayout
+            android:id="@+id/ll_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:layout_below="@+id/tv_address"
+            android:layout_marginRight="@dimen/common_border"
+            android:layout_marginLeft="@dimen/common_border">
+
+            <TextView
+                android:id="@+id/btn_recivice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@drawable/bg_corner_gray_20"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_5"
+                android:singleLine="true"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="@string/address_add_recevice"
+                android:textColor="@color/selector_white_gray_color"
+                android:textSize="@dimen/font_size_12" />
+
+
+            <TextView
+                android:id="@+id/btn_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corner_gray_20"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingBottom="@dimen/dp_5"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:singleLine="true"
+                android:text="@string/address_add_bill"
+                android:textColor="@color/selector_white_gray_color"
+                android:textSize="@dimen/font_size_12" />
+
+        </LinearLayout>
+
+
         <View
             style="@style/line_thin_gray"
-            android:layout_below="@+id/tv_address"
+            android:layout_below="@+id/ll_type"
             android:layout_marginLeft="@dimen/dp_15" />
 
 

@@ -14,8 +14,15 @@
         <RelativeLayout
             android:id="@+id/rl_info"
             android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:background="@color/bg_blue">
+            android:layout_height="wrap_content">
+
+            <com.rails.purchaseplatform.common.widget.RatioImage
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mine_bg"
+                android:scaleType="fitXY"
+                app:h="242"
+                app:w="411" />
 
             <com.rails.purchaseplatform.common.widget.CircleImageView
                 android:id="@+id/img_avatar"
@@ -115,17 +122,13 @@
         </RelativeLayout>
 
 
-        <com.rails.purchaseplatform.common.widget.LineLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_info"
-            android:layout_marginTop="-80dp"
             android:background="@android:color/transparent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/dp_60"
-            app:fill_color="@color/bg"
-            app:start_angle="0"
-            app:sweep_angle="180">
+            android:paddingTop="@dimen/dp_15">
 
 
             <LinearLayout
@@ -280,7 +283,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </com.rails.purchaseplatform.common.widget.LineLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
