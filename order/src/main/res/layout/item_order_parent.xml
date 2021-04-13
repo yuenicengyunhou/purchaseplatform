@@ -6,11 +6,16 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <com.rails.purchaseplatform.order.widget.Title4OrderRecyclerItem
+        android:id="@+id/t4oci_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <com.rails.purchaseplatform.common.widget.LrLableLayout
         android:id="@+id/lr_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:is_hide="true"
         app:key="采购单号："
         app:key_color="@color/font_black"
@@ -22,6 +27,7 @@
         android:id="@+id/lr_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:is_hide="true"
         app:key="生成时间："
         app:key_color="@color/font_black"
@@ -31,6 +37,7 @@
         android:id="@+id/lr_supplier"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:is_hide="true"
         app:key="供应商："
         app:key_color="@color/font_black"
@@ -40,6 +47,7 @@
         android:id="@+id/lr_company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:is_hide="true"
         app:key="采购人："
         app:key_color="@color/font_black"
