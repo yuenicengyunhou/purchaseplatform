@@ -37,12 +37,15 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
-        binding.tvTitle.setTextColor(Color.parseColor(bean.getColor()));
-        VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(mContext.getResources(), R.drawable.svg_market_threeline, null);
-        //你需要改变的颜色
-        vectorDrawableCompat.setTint(Color.parseColor(bean.getColor()));
-        binding.imgLeft.setImageDrawable(vectorDrawableCompat);
-        binding.imgRight.setImageDrawable(vectorDrawableCompat);
+        try {
+            binding.tvTitle.setTextColor(Color.parseColor(bean.getColor()));
+            VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(mContext.getResources(), R.drawable.svg_market_threeline, null);
+            vectorDrawableCompat.setTint(Color.parseColor(bean.getColor()));
+            binding.imgLeft.setImageDrawable(vectorDrawableCompat);
+            binding.imgRight.setImageDrawable(vectorDrawableCompat);
+        } catch (Exception e) {
+
+        }
 
 
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
