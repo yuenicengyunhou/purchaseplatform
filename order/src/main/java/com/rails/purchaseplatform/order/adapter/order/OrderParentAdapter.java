@@ -19,6 +19,7 @@ import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.order.R;
+import com.rails.purchaseplatform.order.widget.Title4OrderRecyclerItem;
 
 import java.util.ArrayList;
 
@@ -46,29 +47,42 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
 
         OrderParentBean parentBean = mDataSource.get(position);
         Resources res = mContext.getResources();
-        holder.lrCode.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getCode()));
-        holder.lrTime.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getTime()));
-        holder.lrSupplier.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getMen()));
-        holder.lrCompany.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getPurchars()));
+//        holder.lrCode.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getCode()));
+//        holder.lrTime.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getTime()));
+//        holder.lrSupplier.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getMen()));
+//        holder.lrCompany.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getPurchars()));
         holder.tvPrice.setText(DecimalUtil.formatStrSize("¥", parentBean.getTotalPrice(), "", 16));
+
+        String orderNumber = parentBean.getCode();
+        String generateTime = parentBean.getTime();
+        String provider = parentBean.getMen();
+        String buyer = parentBean.getPurchars();
+        String delayTime = parentBean.getDelayTime() == null ? "" : parentBean.getDelayTime();
+        holder.title.setText(orderNumber, generateTime, provider, buyer, delayTime);
+        holder.title.setOnClickListener(v -> ARouter.getInstance()
+                .build(ConRoute.WEB.WEB_ORDER_DETAIL)
+                .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                .navigation());
+
 
         ArrayList<OrderBean> orderItemBeans = (ArrayList<OrderBean>) parentBean.getOrder();
         OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mContext);
         holder.recycler.setAdapter(adapter);
         adapter.update(orderItemBeans, true);
 
-        holder.lrCode.setOnClickListener(v -> {
-            ARouter.getInstance()
-                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
-                    .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
-                    .navigation();
-        });
+//        holder.lrCode.setOnClickListener(v -> {
+//            ARouter.getInstance()
+//                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
+//                    .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+//                    .navigation();
+//        });
     }
 
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
         private BaseRecyclerView recycler;
+        private Title4OrderRecyclerItem title;
         private LrLableLayout lrCode;
         private LrLableLayout lrTime;
         private LrLableLayout lrSupplier;
@@ -78,6 +92,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             recycler = itemView.findViewById(R.id.recycler);
+            title = itemView.findViewById(R.id.t4oci_title);
             lrCode = itemView.findViewById(R.id.lr_code);
             lrTime = itemView.findViewById(R.id.lr_time);
             lrSupplier = itemView.findViewById(R.id.lr_supplier);

@@ -21,6 +21,7 @@ public class OrderParentBean {
     private String time;
     private String men;
     private String purchars;
+    private String delayTime;
     private String  totalPrice;
     private List<OrderBean> order;
 
@@ -70,5 +71,13 @@ public class OrderParentBean {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getDelayTime() {
+        return delayTime;
+    }
+
+    public void setDelayTime(String delayTime) {
+        this.delayTime = delayTime;
     }
 }
