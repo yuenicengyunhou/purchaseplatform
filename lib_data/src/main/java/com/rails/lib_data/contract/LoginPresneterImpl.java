@@ -48,10 +48,10 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-//        if (!VerificationUtil.isIdentify(code)) {
-//            ToastUtil.showCenter(mContext, "验证码格式错误");
-//            return;
-//        }
+        if (!VerificationUtil.isIdentify(code)) {
+            ToastUtil.showCenter(mContext, "验证码格式错误");
+            return;
+        }
 
         baseView.onResult(0, "登录成功","dddd");
 
@@ -66,7 +66,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 //            @Override
 //            protected void onSuccess(String response) {
 //                baseView.dismissDialog();
-//                baseView.onResult(0, response);
+//                baseView.onResult(0, "登录成功",response);
 //            }
 //        });
     }

@@ -2,15 +2,15 @@
     <string name="address">地址管理</string>
 
 
-    <string name="address_main">地址管理</string>
-    <string name="address_main_add">+&#160;添加收货地址</string>
+    <string name="address_main">我的地址</string>
+    <string name="address_main_add">+&#160;新建地址</string>
     <string name="address_main_default">默认</string>
     <string name="address_main_def">设为默认</string>
     <string name="address_main_del">删除</string>
 
 
     <!--    添加地址-->
-    <string name="address_add">+&#160;添加收货地址</string>
+    <string name="address_add">新建地址</string>
     <string name="address_add_men">收货人</string>
     <string name="address_add_men_hint">请填写收货人</string>
     <string name="address_add_phone">手机号码</string>
@@ -23,6 +23,9 @@
     <string name="address_add_defult_tip">提醒：每次下单会默认推荐使用该地址</string>
     <string name="address_add_save">保存</string>
     <string name="address_add_location">定位</string>
+    <string name="address_add_type">地址类型</string>
+    <string name="address_add_recevice">收货地址</string>
+    <string name="address_add_bill">收发票地址</string>
 
     <!--    地图列表-->
     <string name="address_map_address">%1$s%2$s%3$s</string>

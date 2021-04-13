@@ -34,7 +34,7 @@
                 android:layout_height="@dimen/dp_18"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_10"
-                android:background="@color/line_blue"
+                android:background="@drawable/line_blue"
                 android:visibility="@{category.isSel?View.VISIBLE : View.INVISIBLE}" />
 
             <TextView

@@ -158,6 +158,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         if (type == 0) {
             addressAdapter.updateRemove(position);
         } else if (type == 1) {
+            addressAdapter.modifyDef(position);
             addressAdapter.swapData(position, 0);
         }
     }
