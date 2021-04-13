@@ -10,8 +10,7 @@
     <RelativeLayout
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:layout_marginTop="@dimen/dp_15">
+        android:layout_height="@dimen/dp_50">
 
         <TextView
             android:layout_width="wrap_content"
@@ -20,7 +19,8 @@
             android:layout_marginLeft="@dimen/common_border"
             android:text="收货方式"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_18" />
+            android:textSize="@dimen/font_size_18"
+            android:textStyle="bold" />
 
 
         <ImageView
@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_5"
             android:padding="@dimen/dp_12"
-            android:src="@drawable/svg_close" />
+            android:src="@mipmap/ic_cancel_gray" />
 
     </RelativeLayout>
 
@@ -76,9 +76,9 @@
         android:layout_weight="1"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
-        android:visibility="invisible"
         android:dayOfWeekBackground="@color/white"
-        android:headerBackground="@color/bg_gray" />
+        android:headerBackground="@color/bg_gray"
+        android:visibility="invisible" />
 
 
     <TextView

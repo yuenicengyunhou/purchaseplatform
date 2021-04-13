@@ -26,7 +26,6 @@ public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        url = ConRoute.WEB_URL.PASS_LIST;
     }
 
     @Override
@@ -72,7 +71,7 @@ public class ApproveActivity extends BaseWebActivity<BaseWebBinding> implements 
     @JavascriptInterface
     @Override
     public void onCopy(String code) {
-        ToastUtil.show(this,code);
+        ToastUtil.show(this, code);
     }
 
 
