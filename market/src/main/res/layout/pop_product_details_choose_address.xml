@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_corner_white_top_half_10"
-    android:orientation="vertical">
+    android:background="@drawable/bg_corner_white_top_half_10">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_16"
         android:text="送至"
         android:textColor="@color/font_black"
         android:textSize="@dimen/font_size_18" />
 
+    <ImageButton
+        android:id="@+id/ib_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginEnd="@dimen/dp_18"
+        android:background="@null"
+        android:src="@mipmap/ic_cancel_gray" />
+
     <com.rails.purchaseplatform.common.widget.BaseRecyclerView
         android:id="@+id/brv_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
         android:overScrollMode="never" />
 
     <TextView
         android:id="@+id/tv_chooseAddress"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
+        android:layout_below="@+id/brv_address"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_32"
         android:layout_marginEnd="@dimen/dp_16"
@@ -36,4 +47,4 @@
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_15" />
 
-</LinearLayout>
+</RelativeLayout>
