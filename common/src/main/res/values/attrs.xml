@@ -64,6 +64,7 @@
         <attr name="value_color" format="color" />
         <attr name="is_hide" />
         <attr name="hint" />
+        <attr name="isBold" format="boolean"/>
         <attr name="left_icon" />
         <attr name="left_img" format="integer" />
         <attr name="right_img" format="integer" />

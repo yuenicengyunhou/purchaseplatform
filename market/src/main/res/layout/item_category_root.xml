@@ -6,6 +6,8 @@
 
         <import type="android.view.View" />
 
+        <import type="android.graphics.Typeface" />
+
         <variable
             name="category"
             type="com.rails.lib_data.bean.CategoryRootBean" />
@@ -32,7 +34,7 @@
                 android:layout_height="@dimen/dp_18"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_10"
-                android:background="@drawable/ic_market_category_checked"
+                android:background="@color/line_blue"
                 android:visibility="@{category.isSel?View.VISIBLE : View.INVISIBLE}" />
 
             <TextView

@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
@@ -15,6 +16,7 @@ import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 /**
  * 商城首页列表adapter
@@ -35,6 +37,14 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
+        binding.tvTitle.setTextColor(Color.parseColor(bean.getColor()));
+        VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(mContext.getResources(), R.drawable.svg_market_threeline, null);
+        //你需要改变的颜色
+        vectorDrawableCompat.setTint(Color.parseColor(bean.getColor()));
+        binding.imgLeft.setImageDrawable(vectorDrawableCompat);
+        binding.imgRight.setImageDrawable(vectorDrawableCompat);
+
+
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
         binding.recycler.setLayoutManager(new GridLayoutManager(mContext, 3));
 //        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);

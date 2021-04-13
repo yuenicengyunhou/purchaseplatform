@@ -50,10 +50,9 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
         Type type = new TypeToken<ArrayList<ProductRecBean>>() {
         }.getType();
         ArrayList<ProductRecBean> beans = JsonUtil.parseJson(mContext, "mall.json", type);
-        int[] resourese = new int[]{R.drawable.ic_market_bg_one, R.drawable.ic_market_bg_two,
-                R.drawable.ic_market_bg_three, R.drawable.ic_market_bg_four};
+        String[] resourese = new String[]{"#5566DF", "#47ACF1", "#DDA15B", "#4F5468", "#3DC999"};
         for (int i = 0; i < beans.size(); i++) {
-            beans.get(i).setRes(resourese[i % 4]);
+            beans.get(i).setColor(resourese[i % 5]);
         }
         baseView.getRecProducts(beans);
 

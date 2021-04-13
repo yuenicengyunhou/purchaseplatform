@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 
 import com.rails.lib_data.bean.CategoryBean;
@@ -34,13 +35,25 @@ public class CategoryRootAdapter extends BaseRecyclerAdapter<CategoryRootBean, I
     protected void onBindItem(ItemCategoryRootBinding binding, CategoryRootBean categoryBean, int position) {
         binding.setCategory(categoryBean);
 
+        try{
+            if (categoryBean.isSel.get()){
+                binding.tvName.getPaint().setFakeBoldText(true);
+            }else
+                binding.tvName.getPaint().setFakeBoldText(false);
+        }catch (Exception e){
+
+        }
+
+
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (lastBean != null) {
                     lastBean.isSel.set(false);
+                    notifyItemChanged(mDataSource.indexOf(lastBean));
                 }
                 categoryBean.isSel.set(true);
+                notifyItemChanged(position);
                 lastBean = categoryBean;
 
                 if (positionListener != null) {

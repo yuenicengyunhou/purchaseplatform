@@ -29,6 +29,7 @@
                 android:layout_marginLeft="@dimen/dp_20"
                 android:gravity="left"
                 android:text="@{category.name}"
+                android:textStyle="bold"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_14" />
 

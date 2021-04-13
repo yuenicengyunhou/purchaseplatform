@@ -106,7 +106,8 @@ public class TabRadio extends AppCompatRadioButton {
     private void drawTab(Canvas canvas) {
         if (TextUtils.isEmpty(number))
             return;
-        canvas.drawOval(new RectF(rect), bgPaint);
+        canvas.drawRoundRect(new RectF(rect),30,30,bgPaint);
+//        canvas.drawOval(new RectF(rect), bgPaint);
         if (!isHidetxt)
             canvas.drawText(number, fontPoint.x, fontPoint.y, fontPaint);
 

@@ -18,26 +18,22 @@
         android:orientation="vertical">
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_1"
-            android:padding="@dimen/dp_3"
-            app:cardCornerRadius="@dimen/dp_5"
-            app:cardElevation="@dimen/dp_1"
-            tools:ignore="MissingDefaultResource">
-
-            <com.rails.purchaseplatform.common.widget.RatioImage
+            <com.rails.purchaseplatform.common.widget.RoundImage
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:h="64"
                 app:w="53"
                 android:layout_gravity="center"
+                app:leftTop_corner_radius="@dimen/dp_5"
+                app:rightTop_corner_radius="@dimen/dp_5"
+                app:border_color="@color/line_gray"
+                app:border_width="@dimen/dp_1"
+                app:type="round"
+                android:scaleType="centerInside"
                 android:overScrollMode="never"
                 app:imgUrl="@{product.pictureUrl}" />
 
 
-        </androidx.cardview.widget.CardView>
 
 
         <TextView

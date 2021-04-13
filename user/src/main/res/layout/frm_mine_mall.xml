@@ -25,7 +25,7 @@
                 android:layout_marginTop="@dimen/dp_75"
                 android:src="@drawable/ic_user_avater"
                 app:border_color="@color/white"
-                app:border_width="@dimen/dp_2" />
+                app:border_width="@dimen/dp_0" />
 
 
             <LinearLayout
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/img_avatar"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
                 android:layout_toRightOf="@+id/img_avatar"
                 android:text="张三三"
                 android:textColor="@color/white"
@@ -143,6 +143,7 @@
                     android:id="@+id/orderAll"
                     style="@style/mine_tab"
                     android:layout_marginTop="@dimen/dp_15"
+                    app:isBold="true"
                     app:is_hide="true"
                     app:key="@string/mine_order"
                     app:key_color="@color/font_black"
@@ -156,9 +157,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/dp_15"
                     android:paddingTop="@dimen/dp_2"
-                    android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_20">
 
                     <com.rails.purchaseplatform.common.widget.TabRadio
@@ -180,7 +179,7 @@
                         android:text="@string/mine_order_receive"
                         app:distance="@dimen/dp_18"
                         app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_2"
+                        app:font_padding="@dimen/dp_3"
                         app:font_size="@dimen/font_size_10"
                         app:is_hide="false"
                         app:is_hide_txt="false" />
@@ -193,7 +192,7 @@
                         android:text="@string/mine_order_comment"
                         app:distance="@dimen/dp_18"
                         app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_2"
+                        app:font_padding="@dimen/dp_3"
                         app:font_size="@dimen/font_size_10"
                         app:is_hide="false"
                         app:is_hide_txt="false" />
@@ -205,7 +204,7 @@
                         android:text="@string/mine_order_aftersale"
                         app:distance="@dimen/dp_18"
                         app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_2"
+                        app:font_padding="@dimen/dp_3"
                         app:font_size="@dimen/font_size_10"
                         app:is_hide="false"
                         app:is_hide_txt="false" />
@@ -224,6 +223,7 @@
                 <com.rails.purchaseplatform.common.widget.LrLableLayout
                     style="@style/mine_tab"
                     android:layout_marginTop="@dimen/dp_15"
+                    app:isBold="true"
                     app:is_hide="true"
                     app:key="@string/mine_approve"
                     app:key_color="@color/font_black"
@@ -242,13 +242,14 @@
                         android:text="@string/mine_approve_audit"
                         app:distance="@dimen/dp_18"
                         app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_2"
+                        app:font_padding="@dimen/dp_3"
                         app:font_size="@dimen/font_size_10"
                         app:is_hide="false" />
 
-                    <View android:layout_width="@dimen/dp_tiny"
+                    <View
+                        android:layout_width="@dimen/dp_tiny"
                         android:layout_height="@dimen/dp_40"
-                        android:background="@color/line_gray"/>
+                        android:background="@color/line_gray" />
 
                     <com.rails.purchaseplatform.common.widget.TabRadio
                         android:id="@+id/ll_pass"
@@ -257,13 +258,14 @@
                         android:text="@string/mine_approve_pass"
                         app:distance="@dimen/dp_18"
                         app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_2"
+                        app:font_padding="@dimen/dp_3"
                         app:font_size="@dimen/font_size_10"
                         app:is_hide="false" />
 
-                    <View android:layout_width="@dimen/dp_tiny"
+                    <View
+                        android:layout_width="@dimen/dp_tiny"
                         android:layout_height="@dimen/dp_40"
-                        android:background="@color/line_gray"/>
+                        android:background="@color/line_gray" />
 
                     <com.rails.purchaseplatform.common.widget.TabRadio
                         android:id="@+id/ll_rejected"
@@ -272,7 +274,7 @@
                         android:text="@string/mine_approve_refuse"
                         app:distance="@dimen/dp_18"
                         app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_2"
+                        app:font_padding="@dimen/dp_3"
                         app:font_size="@dimen/font_size_10"
                         app:is_hide="false" />
                 </LinearLayout>

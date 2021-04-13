@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/dp_0"
-        app:cardElevation="@dimen/dp_1"
+        app:cardElevation="@dimen/dp_0"
         tools:ignore="MissingDefaultResource">
 
 

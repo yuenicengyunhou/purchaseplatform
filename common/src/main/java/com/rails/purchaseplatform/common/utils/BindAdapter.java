@@ -46,7 +46,7 @@ public class BindAdapter {
     public static void bindImageUrl(ImageView view, String imageUrl) {
         RequestOptions options =
                 new RequestOptions()
-                        .centerCrop()
+                        .centerInside()
                         .dontAnimate();
 
         Glide.with(view)
