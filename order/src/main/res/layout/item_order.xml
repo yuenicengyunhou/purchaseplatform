@@ -29,10 +29,22 @@
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12" />
 
+        <TextView
+            android:id="@+id/tv_orderStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:layout_toStartOf="@+id/iv_next"
+            android:text="已发货"
+            android:textColor="@color/font_red"
+            android:textSize="@dimen/font_size_12" />
+
         <ImageView
+            android:id="@+id/iv_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_gravity=""
             android:src="@mipmap/ic_go_next_dark_gray" />
 
