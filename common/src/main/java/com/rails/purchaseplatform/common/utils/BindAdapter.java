@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.common.utils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.BaseRequestOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.rails.purchaseplatform.common.R;
 
@@ -45,7 +46,7 @@ public class BindAdapter {
 
         Glide.with(view)
                 .load(imageUrl)
-
+                .centerInside()
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_placeholder)
                 .into(view);

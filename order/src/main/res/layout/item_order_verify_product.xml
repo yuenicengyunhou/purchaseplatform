@@ -24,11 +24,12 @@
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_toRightOf="@+id/img_left"
-            app:border_color="@color/line_gray"
-            app:border_width="@dimen/dp_1"
-            app:corner_radius="@dimen/dp_1"
-            app:imgUrl="@{product.pictureUrl}"
-            app:type="round" />
+            android:radius="@dimen/dp_1"
+            app:borderColor="@color/line_gray"
+            app:borderWidth="@dimen/dp_1"
+            app:displayBorder="true"
+            app:displayType="round_rect"
+            app:imgUrl="@{product.pictureUrl}" />
 
 
         <TextView

@@ -10,9 +10,6 @@
             android:name=".ui.activity.MarketActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.WebActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.SearchResultActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />

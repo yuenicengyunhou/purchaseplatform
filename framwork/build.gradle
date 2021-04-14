@@ -119,7 +119,7 @@ dependencies {
     api 'com.scwang.smart:refresh-header-classics:2.0.3'
 
     //圆角
-    api 'org.raphets:roundimageview:1.2.0'
+    api 'com.github.thomhurst:RoundImageView:1.0.2'
 
 
     //高德地图

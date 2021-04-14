@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 
 import com.rails.purchaseplatform.common.R;
 
-import org.raphets.roundimageview.RoundImageView;
-
 import androidx.annotation.Nullable;
 
 /**

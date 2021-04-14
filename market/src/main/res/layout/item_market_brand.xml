@@ -24,11 +24,11 @@
             android:id="@+id/img_brand"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/dp_3"
-            app:border_width="@dimen/dp_1"
-            app:corner_radius="@dimen/dp_5"
-            app:border_color="@color/line_gray"
-            app:type="round"
+            android:radius="@dimen/dp_5"
+            app:borderColor="@color/line_gray"
+            app:borderWidth="@dimen/dp_1"
+            app:displayBorder="true"
+            app:displayType="round_rect"
             app:imgUrl="@{brand.pictureUrl}" />
 
 
