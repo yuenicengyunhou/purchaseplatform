@@ -2,12 +2,16 @@ package com.rails.lib_data.model;
 
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
+import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.MarketIndexService;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
+import java.text.FieldPosition;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +21,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.Subject;
 
@@ -26,79 +33,72 @@ import io.reactivex.subjects.Subject;
  */
 public class MarketIndexModel {
 
-
-    public void getMarketIndexInfo() {
-
+    /**
+     * 获取楼层列表
+     *
+     * @return
+     */
+    public Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts() {
         HashMap<String, String> params = new HashMap<>();
         params.put("platformId", "20");
-        Observable<HttpResult<ArrayList<ProductRecBean>>> recProducts;
-        recProducts = HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(MarketIndexService.class, 1).getRecProducts(params));
+        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(MarketIndexService.class).getRecProducts(params));
+    }
 
 
-        Observable<HttpResult<ArrayList<BrandBean>>> brands;
-        brands = HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(MarketIndexService.class, 1).getRecBrands(params));
+    /**
+     * 获取品牌列表
+     *
+     * @return
+     */
+    public Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("platformId", "20");
+        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(MarketIndexService.class).getRecBrands(params));
+    }
 
 
+    /**
+     * 获取banner图列表
+     *
+     * @return
+     */
+    public Observable<HttpResult<ArrayList<BannerBean>>> getBanners() {
         HashMap<String, String> bannerParams = new HashMap<>();
         bannerParams.put("platformId", "20");
         bannerParams.put("status", "1");
-        Observable<HttpResult<ArrayList<BannerBean>>> banners;
-        banners = HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(MarketIndexService.class, 1).getBanners(bannerParams));
+    }
 
 
-        Observable.merge(recProducts,brands,banners)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subject<HttpResult<? extends ArrayList<?>>>() {
-                    @Override
-                    public boolean hasObservers() {
-                        return false;
-                    }
+    public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
-                    @Override
-                    public boolean hasThrowable() {
-                        return false;
-                    }
+        Observable recProducts;
+        recProducts = getRecProducts().subscribeOn(Schedulers.io());
 
-                    @Override
-                    public boolean hasComplete() {
-                        return false;
-                    }
 
-                    @Nullable
-                    @Override
-                    public Throwable getThrowable() {
-                        return null;
-                    }
+        Observable brands;
+        brands = getRecBrands().subscribeOn(Schedulers.io());
 
-                    @Override
-                    protected void subscribeActual(Observer<? super HttpResult<? extends ArrayList<?>>> observer) {
+        Observable<HttpResult<ArrayList<BannerBean>>> banners;
+        banners = getBanners();
 
-                    }
 
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+        Observable.zip(recProducts, brands, (BiFunction<ArrayList<ProductRecBean>, ArrayList<BrandBean>, MarketIndexBean>) (products, hBrand) -> {
+            MarketIndexBean marketIndexBean = new MarketIndexBean();
 
-                    }
-
-                    @Override
-                    public void onNext(@NonNull HttpResult<? extends ArrayList<?>> httpResult) {
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+            String[] resourese = new String[]{"#5566DF", "#47ACF1", "#DDA15B", "#4F5468", "#3DC999"};
+            for (int i = 0; i < products.size(); i++) {
+                products.get(i).setColor(resourese[i % 5]);
+            }
+            marketIndexBean.setRecBeans(products);
+            marketIndexBean.setBrandBeans(hBrand);
+            return marketIndexBean;
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(httpRxObserver);
 
     }
+
 }

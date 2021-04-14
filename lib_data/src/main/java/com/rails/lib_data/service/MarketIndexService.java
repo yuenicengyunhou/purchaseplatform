@@ -40,7 +40,6 @@ public interface MarketIndexService {
 
 
     /**
-     * 获取商城首页推荐品牌
      *
      * @param params
      * @return

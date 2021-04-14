@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
@@ -167,14 +168,14 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.rlRecycler.finishRefresh();
                 presenter.getRectProducts(false);
+                presenter.getMarketIndexInfo(false);
             }
         });
 
-        presenter.getRectProducts(true);
         presenter.getBanners();
         presenter.getRecCategorys();
-        presenter.getBrands();
         productPresenter.getHotProducts(false, 1);
+        presenter.getMarketIndexInfo(true);
     }
 
     @Override
@@ -228,6 +229,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     @Override
     public void getRecCategorys(ArrayList<CategorySubBean> beans) {
         categoryAdapter.update(beans, true);
+    }
+
+    @Override
+    public void getIndexInfo(MarketIndexBean bean) {
+        brandAdapter.update(bean.getBrandBeans(), true);
+        recAdapter.update(bean.getRecBeans(), true);
+
     }
 
     @Override
