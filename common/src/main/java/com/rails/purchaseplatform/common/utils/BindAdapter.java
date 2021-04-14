@@ -1,12 +1,12 @@
 package com.rails.purchaseplatform.common.utils;
 
-import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.BaseRequestOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.rails.purchaseplatform.common.R;
 
-import androidx.databinding.BindingAdapter;
 
 /**
  * 绑定
@@ -24,14 +24,11 @@ public class BindAdapter {
      */
     @androidx.databinding.BindingAdapter("imgRes")
     public static void bindImageUrl(ImageView view, int imgRes) {
-        RequestOptions options =
-                new RequestOptions()
-                        .centerCrop()
-                        .dontAnimate();
-
         Glide.with(view)
                 .load(imgRes)
-                .apply(options)
+                .centerInside()
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
                 .into(view);
     }
 
@@ -46,14 +43,12 @@ public class BindAdapter {
     public static void bindImageUrl(ImageView view, String imageUrl) {
         if (!imageUrl.contains("https"))
             imageUrl = "https:" + imageUrl;
-        RequestOptions options =
-                new RequestOptions()
-                        .centerInside()
-                        .dontAnimate();
 
         Glide.with(view)
                 .load(imageUrl)
-                .apply(options)
+                .centerInside()
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
                 .into(view);
     }
 

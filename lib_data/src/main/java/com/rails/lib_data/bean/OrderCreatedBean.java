@@ -2,22 +2,22 @@ package com.rails.lib_data.bean;
 
 public class OrderCreatedBean {
 
-    private String number;
-    private String generatedTime;
+    private String orderNum;
+    private String generateTime;
 
-    public String getNumber() {
-        return number;
+    public String getOrderNum() {
+        return orderNum;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
     }
 
-    public String getGeneratedTime() {
-        return generatedTime;
+    public String getGenerateTime() {
+        return generateTime;
     }
 
-    public void setGeneratedTime(String generatedTime) {
-        this.generatedTime = generatedTime;
+    public void setGenerateTime(String generateTime) {
+        this.generateTime = generateTime;
     }
 }

@@ -13,19 +13,40 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/dp_90">
+
 
         <ImageView
             android:id="@+id/iv_audit_line"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:layout_gravity="center_vertical"
-            android:paddingTop="@dimen/paddingL"
             android:layout_marginStart="@dimen/marginL"
+            android:layout_marginTop="@dimen/paddingL"
             android:src="@drawable/ic_mine_check"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/up_line"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp_45"
+            android:background="@color/bg_blue"
+            app:layout_constraintBottom_toTopOf="@id/iv_audit_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_weight="1" />
+
+        <View
+            android:id="@+id/down_line"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp_45"
+            android:background="@color/bg_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_audit_line"
+            app:layout_constraintVertical_weight="1" />
 
         <TextView
             android:id="@+id/tv_audit_state"
@@ -33,10 +54,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginTop="@dimen/paddingL"
-            android:text="@{audit.auditState,default=一级审批}"
+            android:layout_marginTop="@dimen/marginM"
+            android:text="@{audit.state,default=一级审批}"
             android:textColor="@color/textDark"
-            android:textSize="@dimen/textSize"
+            android:textSize="@dimen/font_size_15"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/iv_audit_line"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginTop="@dimen/paddingL"
+            android:layout_marginTop="@dimen/padding"
             android:layout_marginBottom="@dimen/paddingL"
             android:text="@{audit.auditMan,default=admin}"
             android:textColor="@color/textCardGrayDark"
@@ -61,9 +82,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginTop="@dimen/paddingL"
+            android:layout_marginTop="@dimen/paddingS"
             android:paddingBottom="@dimen/paddingL"
-            android:text="@{audit.auditTime,default=124324125152345}"
+            android:text="@{audit.time,default=124324125152345}"
             android:textColor="@color/textCardGrayDark"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintStart_toEndOf="@id/iv_audit_line"

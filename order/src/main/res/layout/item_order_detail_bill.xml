@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/paddingL"
             android:layout_marginTop="@dimen/paddingL"
-            android:text="@{order.number,default=@string/orderNum}"
+            android:text="@{order.orderNum,default=@string/orderNum}"
             android:textColor="@color/font_gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,7 @@
             android:layout_marginStart="@dimen/paddingL"
             android:layout_marginTop="@dimen/paddingL"
             android:paddingBottom="@dimen/paddingL"
-            android:text="@{order.generatedTime,default=@string/createdTime}"
+            android:text="@{order.generateTime,default=@string/createdTime}"
             android:textColor="@color/font_gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_orderNum" />

@@ -2,16 +2,16 @@ package com.rails.lib_data.bean;
 
 public class OrderAuditBean {
 
-    private String auditState;
+    private String state;
     private String auditMan;
-    private String auditTime;
+    private String time;
 
-    public String getAuditState() {
-        return auditState;
+    public String getState() {
+        return state;
     }
 
-    public void setAuditState(String auditState) {
-        this.auditState = auditState;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getAuditMan() {
@@ -22,11 +22,11 @@ public class OrderAuditBean {
         this.auditMan = auditMan;
     }
 
-    public String getAuditTime() {
-        return auditTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setAuditTime(String auditTime) {
-        this.auditTime = auditTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 }

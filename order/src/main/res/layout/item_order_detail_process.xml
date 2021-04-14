@@ -1,46 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="process"
             type="com.rails.lib_data.bean.OrderProcessBean" />
 
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/paddingL"
+        android:paddingBottom="@dimen/paddingL">
 
         <ImageView
-            android:id="@+id/ivProcessLine"
-            android:layout_width="match_parent"
+            android:id="@+id/center_spot"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/shape_spot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/left_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/padding"
+            android:background="@color/bg_blue"
+            app:layout_constraintEnd_toEndOf="@id/center_spot"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/right_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/padding"
+            android:background="@color/bg_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@id/center_spot"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvProcessState"
             style="@style/textSmallSingle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding"
-            android:text="@{process.processState,default=提交订单}"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@{process.state,default=提交订单}"
             android:textColor="@color/textDark"
-            android:textSize="@dimen/font_size_13" />
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/center_spot" />
 
         <TextView
             android:id="@+id/tvProcessTime"
             style="@style/textSmallDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/paddingL"
+            android:layout_marginTop="@dimen/paddingS"
+            android:gravity="center_horizontal"
             android:maxLines="2"
-            android:text="@{process.processTime,default=ceshi }"
-            android:textColor="@color/textCardGrayLight" />
+            android:text="@{process.time,default=ceshi }"
+            android:textColor="@color/textCardGrayLight"
+            android:textSize="@dimen/font_size_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProcessState" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
 </layout>
