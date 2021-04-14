@@ -32,9 +32,9 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     @Override
     public void onLogin(String phone, String paw, String code) {
 
-        phone ="15545569785";
+        phone = "15545569785";
         paw = "Pass!word@1234";
-        code="a8bn6t";
+        code = "a8bn6t";
 
         // TODO: 2021/3/31 正则 - 验证校验
 
@@ -53,28 +53,28 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        baseView.onResult(0, "登录成功","dddd");
+//        baseView.onResult(0, "登录成功","dddd");
 
-//        baseView.showResDialog(R.string.loading);
-//        model.onLogin(phone, paw, code, new HttpRxObserver<String>() {
-//            @Override
-//            protected void onError(ErrorBean e) {
-//                baseView.dismissDialog();
-//                baseView.onError(e);
-//            }
-//
-//            @Override
-//            protected void onSuccess(String response) {
-//                baseView.dismissDialog();
-//                baseView.onResult(0, "登录成功",response);
-//            }
-//        });
+        baseView.showResDialog(R.string.loading);
+        model.onLogin(phone, paw, code, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.dismissDialog();
+                baseView.onResult(0, "登录成功", response);
+            }
+        });
     }
 
     @Override
     public void getCode(String phone) {
 
-        phone ="15545569785";
+        phone = "15545569785";
         if (!VerificationUtil.isMobile(phone)) {
             ToastUtil.showCenter(mContext, "手机号码格式错误");
             return;
