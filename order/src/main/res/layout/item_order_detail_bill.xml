@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="order"
+            type="com.rails.lib_data.bean.OrderCreatedBean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_orderNum"
+            style="@style/textSmallSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/paddingL"
+            android:layout_marginTop="@dimen/paddingL"
+            android:text="@{order.orderNum,default=@string/orderNum}"
+            android:textColor="@color/font_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/textSmallSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/paddingL"
+            android:drawableEnd="@drawable/ic_order_next"
+            android:drawablePadding="@dimen/padding"
+            android:gravity="center_vertical"
+            android:text="@string/toSee"
+            android:textColor="@color/font_gray"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_orderNum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TextView
+            android:id="@+id/tv_creatTime"
+            style="@style/textSmallSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/paddingL"
+            android:layout_marginTop="@dimen/paddingL"
+            android:paddingBottom="@dimen/paddingL"
+            android:text="@{order.generateTime,default=@string/createdTime}"
+            android:textColor="@color/font_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_orderNum" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

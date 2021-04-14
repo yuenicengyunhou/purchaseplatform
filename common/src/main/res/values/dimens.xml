@@ -107,4 +107,41 @@
 
     <dimen name="fab_margin">16dp</dimen>
 
+
+    <!--text & margin & padding-->
+    <!--margin-->
+    <dimen name="margin">@dimen/dp_16</dimen>
+    <dimen name="marginS">@dimen/dp_12</dimen>
+    <dimen name="marginM">@dimen/dp_14</dimen>
+    <dimen name="marginL">@dimen/dp_30</dimen>
+
+    <!--padding-->
+    <dimen name="paddingL">@dimen/dp_10</dimen>
+    <dimen name="padding2">@dimen/dp_8</dimen>
+    <dimen name="padding">@dimen/dp_5</dimen>
+    <dimen name="paddingS">@dimen/dp_3</dimen>
+
+
+    <!--控件宽高-->
+    <dimen name="barHeight">@dimen/dp_44</dimen>
+
+
+
+    <!--个性化控件宽高-->
+
+
+
+    <!--圆角、stroke-->
+    <dimen name="buttonRadius">@dimen/dp_10</dimen>
+    <dimen name="radius">@dimen/dp_5</dimen>
+    <dimen name="stroke">@dimen/dp_1</dimen>
+
+
+    <!--字体-->
+
+    <dimen name="textSize">@dimen/font_size_14</dimen>
+    <dimen name="textSize12">@dimen/font_size_12</dimen>
+    <dimen name="textSizeL">@dimen/font_size_16</dimen>
+    <dimen name="textSizeSmall">@dimen/font_size_10</dimen>
+
 </resources>

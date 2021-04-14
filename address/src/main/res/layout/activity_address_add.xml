@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
@@ -57,9 +58,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
                     android:layout_marginBottom="@dimen/dp_10"
-                    android:layout_toLeftOf="@+id/btn_location"
+                    android:layout_toStartOf="@+id/btn_location"
                     android:text="@string/address_add_area"
                     app:hint="@string/address_add_area_hint"
                     app:is_hide="true" />
@@ -68,10 +69,10 @@
                     android:id="@+id/btn_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/common_border"
-                    android:drawableLeft="@drawable/ic_address_location"
+                    android:layout_marginEnd="@dimen/common_border"
+                    android:drawableStart="@drawable/ic_address_location"
                     android:drawablePadding="@dimen/dp_5"
                     android:text="@string/address_add_location"
                     android:textColor="@color/font_black_light"
@@ -98,10 +99,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginRight="@dimen/dp_15"
+                    android:layout_marginEnd="@dimen/dp_15"
                     android:layout_marginBottom="@dimen/dp_10"
                     android:drawablePadding="@dimen/dp_3"
-                    android:gravity="left"
+                    android:gravity="start"
                     android:minWidth="@dimen/dp_80"
                     android:text="@string/address_add_address"
                     android:textColor="@color/font_black"
@@ -112,9 +113,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:layout_marginBottom="@dimen/dp_10"
-                    android:layout_toRightOf="@+id/tv_key"
+                    android:layout_toEndOf="@+id/tv_key"
                     android:background="@null"
                     android:gravity="top"
                     android:hint="@string/address_add_address_hint"
@@ -132,8 +133,8 @@
                 android:layout_width="match_parent"
                 android:textSize="@dimen/font_size_15"
                 android:textColor="@color/font_black"
-                android:layout_marginLeft="@dimen/common_border"
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginStart="@dimen/common_border"
+                android:layout_marginTop="@dimen/dp_25"
                 android:text="@string/address_add_type"
                 android:layout_height="wrap_content"/>
 
@@ -141,7 +142,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_25"
+                android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginRight="@dimen/common_border"
                 android:layout_marginLeft="@dimen/common_border">
 
@@ -149,7 +150,7 @@
                     android:id="@+id/btn_recivice"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@drawable/selector_corner_blue_white_20"
                     android:gravity="center"
                     android:paddingTop="@dimen/dp_5"
@@ -157,7 +158,7 @@
                     android:paddingBottom="@dimen/dp_5"
                     android:text="@string/address_add_recevice"
                     android:textColor="@color/selector_white_gray_color"
-                    android:textSize="@dimen/font_size_15" />
+                    android:textSize="@dimen/font_size_13" />
 
 
                 <TextView
@@ -171,7 +172,7 @@
                     android:singleLine="true"
                     android:text="@string/address_add_bill"
                     android:textColor="@color/selector_white_gray_color"
-                    android:textSize="@dimen/font_size_15" />
+                    android:textSize="@dimen/font_size_13" />
 
             </LinearLayout>
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/paddingL"
+    android:paddingTop="@dimen/paddingL"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSize12"
+        android:textColor="@color/textDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin"
+        android:text="@string/app_name"
+        android:id="@+id/tv_price_sum"
+        android:layout_marginBottom="@dimen/paddingS"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSize12"
+        android:textColor="@color/textDark"
+        app:layout_constraintTop_toBottomOf="@id/tv_price_sum"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin"
+        android:text="@string/app_name"
+        android:id="@+id/tv_fare"
+        android:layout_marginBottom="@dimen/paddingS"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSizeL"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin"
+        app:layout_constraintTop_toBottomOf="@id/tv_fare"
+        android:textStyle="bold"
+        android:id="@+id/tv_price_final"
+        android:textColor="@color/textPrice"
+        android:text="@string/app_name"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSizeL"
+        android:textColor="@color/textDark"
+        android:textStyle="bold"
+        android:text="实付款："
+        app:layout_constraintEnd_toStartOf="@id/tv_price_final"
+        app:layout_constraintTop_toBottomOf="@id/tv_fare"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
