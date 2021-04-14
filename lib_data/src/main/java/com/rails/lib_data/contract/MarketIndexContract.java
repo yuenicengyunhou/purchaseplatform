@@ -3,6 +3,7 @@ package com.rails.lib_data.contract;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -49,6 +50,13 @@ public interface MarketIndexContract {
          * @param beans
          */
         void getRecCategorys(ArrayList<CategorySubBean> beans);
+
+
+        /**
+         * 获取首页数据
+         * @param bean
+         */
+        void getIndexInfo(MarketIndexBean bean);
     }
 
 
@@ -78,6 +86,11 @@ public interface MarketIndexContract {
          * 获取推荐分类
          */
         void getRecCategorys();
+
+        /**
+         * 首页列表聚合
+         */
+        void getMarketIndexInfo(boolean isDialog);
 
     }
 
