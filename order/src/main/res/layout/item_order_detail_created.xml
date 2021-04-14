@@ -12,8 +12,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:paddingTop="@dimen/paddingL"
-        android:paddingBottom="@dimen/paddingL"
         android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+
+             android:background="@color/divider_gray"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_time"
+            android:layout_marginTop="@dimen/paddingL"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +36,7 @@
             android:layout_marginEnd="@dimen/paddingL"
             android:textSize="@dimen/textSize12"
             android:textColor="@color/textCardGrayDark"
-            android:text="@{order.number,default=@string/orderNum}"
+            android:text="@{order.orderNum,default=@string/orderNum}"
             android:id="@+id/tv_order_number" />
 
         <TextView
@@ -37,7 +49,7 @@
             android:layout_marginEnd="@dimen/paddingL"
             android:textSize="@dimen/textSize12"
             android:textColor="@color/textCardGrayDark"
-            android:text="@{order.generatedTime,default=@string/createdTime}"
+            android:text="@{order.generateTime,default=@string/createdTime}"
             android:id="@+id/tv_order_time" />
 
         <TextView
