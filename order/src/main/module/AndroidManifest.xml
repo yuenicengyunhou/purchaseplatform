@@ -18,6 +18,12 @@
         <activity
             android:name=".activity.InvoiceActivity"
             android:screenOrientation="portrait" />
+
+        <!--采购单详情页面-->
+        <activity android:name=".activity.OrderDetailsActivity"
+            android:screenOrientation="sensorPortrait"
+            />
+
     </application>
 
 </manifest>

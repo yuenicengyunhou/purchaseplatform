@@ -57,4 +57,17 @@
     <string name="order_invoice_bankcode">银行账号：%s</string>
 
 
+    <!--采购单详情-->
+    <string name="order_detail_title">采购单详情</string>
+    <string name="order_settle_account">结算单位</string>
+    <string name="order_comment">采购单备注：</string>
+    <string name="order_created">已生成订单</string>
+    <string name="order_audit_process">审批流程</string>
+    <string name="toSee">查看</string>
+    <string name="orderNum">订单编号</string>
+    <string name="createdTime">生成时间</string>
+    <string name="word_order_comm_">采购单备注：</string>
+    <string name="toCheck">查看</string>
+
+
 </resources>

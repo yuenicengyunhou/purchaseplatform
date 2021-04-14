@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="process"
+            type="com.rails.lib_data.bean.OrderProcessBean" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivProcessLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvProcessState"
+            style="@style/textSmallSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding"
+            android:text="@{process.processState,default=提交订单}"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/font_size_13" />
+
+        <TextView
+            android:id="@+id/tvProcessTime"
+            style="@style/textSmallDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingL"
+            android:maxLines="2"
+            android:text="@{process.processTime,default=ceshi }"
+            android:textColor="@color/textCardGrayLight" />
+
+    </LinearLayout>
+</layout>

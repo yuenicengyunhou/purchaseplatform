@@ -7,4 +7,37 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="dividerStyle"><!--分割线-->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/font_gray</item>
+        <item name="android:layout_marginStart">@dimen/margin</item>
+        <item name="android:layout_marginEnd">@dimen/margin</item>
+    </style>
+
+
+    <style name="textStyleDefault"><!--默认的阅读字体-->
+        <item name="text_size">@dimen/textSize</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="textStyleSingle" parent="textStyleDefault"><!--默认的阅读单行字体-->
+        <item name="singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textSmallDefault" parent="textStyleDefault" ><!--条目中小版的阅读字体-->
+        <item name="text_size">@dimen/textSize12</item>
+    </style>
+    <style name="textSmallSingle" parent="textStyleSingle"><!--条目中小版的阅读字体,单行-->
+        <item name="text_size">@dimen/textSize12</item>
+    </style>
+
+    <style name="TextOrderCard">
+        <item name="android:layout_marginTop">@dimen/padding</item>
+        <item name="android:textSize">@dimen/textSize12</item>
+        <item name="android:layout_marginStart">@dimen/paddingL</item>
+        <item name="android:layout_marginEnd">@dimen/margin</item>
+    </style>
+
 </resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shap_white_card"
+    android:paddingTop="@dimen/paddingL"
+    android:paddingBottom="@dimen/paddingL">
+
+    <com.rails.purchaseplatform.common.widget.RatioImage
+        android:id="@+id/iv_detail_map"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/margin"
+        android:src="@drawable/ic_order_map"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/paddingL"
+        android:layout_marginEnd="@dimen/paddingL"
+        android:text="@string/app_name"
+        android:textColor="@color/textDark"
+        android:textSize="@dimen/font_size_13"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_map"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/paddingL"
+        android:layout_marginEnd="@dimen/margin"
+        android:text="@string/app_name"
+        android:id="@+id/tv_detali_phone"
+        android:textColor="@color/textCardGrayLight"
+        android:textSize="@dimen/font_size_13"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/textDark"
+        android:layout_marginStart="@dimen/paddingL"
+        android:textSize="@dimen/font_size_13"
+        android:layout_marginTop="@dimen/padding"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_map"
+        app:layout_constraintTop_toBottomOf="@id/tv_detali_phone"
+
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -212,6 +212,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

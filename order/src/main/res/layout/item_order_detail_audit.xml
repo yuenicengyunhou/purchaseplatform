@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="audit"
+            type="com.rails.lib_data.bean.OrderAuditBean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_audit_line"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="@dimen/paddingL"
+            android:layout_marginStart="@dimen/marginL"
+            android:src="@drawable/ic_mine_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_audit_state"
+            style="@style/textSmallSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/paddingL"
+            android:text="@{audit.auditState,default=一级审批}"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/textSize"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_audit_line"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_audit_man"
+            style="@style/textSmallSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/paddingL"
+            android:layout_marginBottom="@dimen/paddingL"
+            android:text="@{audit.auditMan,default=admin}"
+            android:textColor="@color/textCardGrayDark"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toEndOf="@id/iv_audit_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_audit_state" />
+
+        <TextView
+            android:id="@+id/tv_audit_time"
+            style="@style/textSmallSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/paddingL"
+            android:paddingBottom="@dimen/paddingL"
+            android:text="@{audit.auditTime,default=124324125152345}"
+            android:textColor="@color/textCardGrayDark"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toEndOf="@id/iv_audit_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_audit_man" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

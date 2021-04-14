@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray_light"
+    tools:context=".activity.OrderDetailsActivity">
+
+    <com.rails.purchaseplatform.common.widget.AlphaScrollView
+        android:id="@+id/detail_scorll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/orderStateRecycler"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@android:color/white" />-->
+
+            <include layout="@layout/layout_order_state" />
+
+            <include
+                layout="@layout/layout_order_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingL" />
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/orderAddressRecycler"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/paddingL"-->
+            <!--                android:background="@android:color/white" />-->
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/orderProcessRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingL"
+                android:background="@drawable/shap_white_card" />
+
+            <include
+                layout="@layout/layout_order_detail_settle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingL" />
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/orderSettleRecycler"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/paddingL"-->
+            <!--                android:background="@drawable/shap_white_card"  />-->
+
+            <!--            <View style="@style/dividerStyle" />-->
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/orderInvoiceRecycler"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/shap_white_card"  />-->
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/orderGoodsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingL"
+                android:background="@drawable/shap_white_card" />
+
+            <include layout="@layout/layout_order_detail_price" />
+
+            <!-- <androidx.recyclerview.widget.RecyclerView
+                 android:id="@+id/orderPriceRecycler"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@android:color/white" />-->
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/orderCommentRecycler"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/paddingL"-->
+            <!--                android:background="@android:color/white" />-->
+
+            <include
+                layout="@layout/layout_order_detail_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingL"
+                android:layout_marginBottom="@dimen/paddingL" />
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/orderCreatedRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingL"
+                android:background="@drawable/shap_white_card" />
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/orderAuditRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingL"
+                android:layout_marginBottom="@dimen/paddingL"
+                android:background="@drawable/shap_white_card" />
+        </LinearLayout>
+
+    </com.rails.purchaseplatform.common.widget.AlphaScrollView>
+
+    <ImageView
+        android:id="@+id/iv_backTop"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:src="@drawable/ic_gotop"
+        android:layout_gravity="end|bottom"
+        tools:ignore="ContentDescription" />
+
+</FrameLayout>

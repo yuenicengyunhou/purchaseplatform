@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="order"
+            type="com.rails.lib_data.bean.OrderCreatedBean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/paddingL"
+        android:paddingBottom="@dimen/paddingL"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/paddingL"
+            android:textSize="@dimen/textSize12"
+            android:textColor="@color/textCardGrayDark"
+            android:text="@{order.number,default=@string/orderNum}"
+            android:id="@+id/tv_order_number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_number"
+            android:layout_marginTop="@dimen/paddingL"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/paddingL"
+            android:textSize="@dimen/textSize12"
+            android:textColor="@color/textCardGrayDark"
+            android:text="@{order.generatedTime,default=@string/createdTime}"
+            android:id="@+id/tv_order_time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toCheck"
+            android:id="@+id/tv_order_nextPage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/margin"
+            android:textColor="@color/textCardGrayDark"
+            android:textSize="@dimen/font_size_10"
+            android:drawableEnd="@drawable/ic_order_next"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/paddingS"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

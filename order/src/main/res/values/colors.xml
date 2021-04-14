@@ -16,4 +16,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="hui">#E5E5E5</color>
+
+    <!--采购单详情-->
+    <color name="textDark">#ff333333</color>
+
+    <color name="textGoodsTitle">#FF3C3C3C</color>
+
+    <color name="textCardGray">#FF666666</color>
+
+    <color name="textCardGrayLight">#FF999999</color>
+
+    <color name="textCardGrayDark">#FF666666</color>
+
+    <color name="textPrice">#FFE85454</color>
 </resources>
