@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;

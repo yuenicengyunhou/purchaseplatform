@@ -24,12 +24,10 @@
                 app:h="64"
                 app:w="53"
                 android:layout_gravity="center"
-                app:leftTop_corner_radius="@dimen/dp_5"
-                app:rightTop_corner_radius="@dimen/dp_5"
+                app:corner_radius="@dimen/dp_5"
                 app:border_color="@color/line_gray"
                 app:border_width="@dimen/dp_1"
                 app:type="round"
-                android:scaleType="centerInside"
                 android:overScrollMode="never"
                 app:imgUrl="@{product.pictureUrl}" />
 
