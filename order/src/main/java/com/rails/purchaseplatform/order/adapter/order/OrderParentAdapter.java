@@ -64,6 +64,11 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
                 .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
                 .navigation());
 
+        // 跳转到Android原生的 采购单详情页
+//        holder.title.setOnClickListener(v -> {
+//            ARouter.getInstance().build(ConRoute.ORDER.ORDER_DETAILS).navigation();
+//        });
+
 
         ArrayList<OrderBean> orderItemBeans = (ArrayList<OrderBean>) parentBean.getOrder();
         OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mContext);

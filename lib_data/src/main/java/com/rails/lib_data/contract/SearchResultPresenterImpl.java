@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
@@ -31,8 +32,9 @@ public class SearchResultPresenterImpl extends BasePresenter<SearchResultContrac
 
         Type type = new TypeToken<ArrayList<SearchResultBean>>() {
         }.getType();
-
         ArrayList<SearchResultBean> beans = JsonUtil.parseJson(mContext, "searchResult.json", type);
+
+//        model.getProducts();
 
         if (isCallBack()) {
             baseView.dismissDialog();
@@ -43,10 +45,11 @@ public class SearchResultPresenterImpl extends BasePresenter<SearchResultContrac
     }
 
     @Override
-    public void getProducts(boolean isDialog, int page, String platformId, String keyWord) {
+    public void getProducts(boolean isDialog, int pageNum, long platformId, String keyword) {
         if (isDialog)
             baseView.showResDialog(R.string.loading);
-        model.getProducts(page, platformId, keyWord, new HttpRxObserver<String>() {
+
+        model.getProducts(pageNum, platformId, keyword, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();

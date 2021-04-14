@@ -85,7 +85,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.brvSearchResult.setAdapter(mSearchResultRecyclerAdapter);
         presenter.getSearchResult(false, 1);
 
-        presenter.getProducts(true, 1, "20", "");
+        presenter.getProducts(true, 1, 20L, mSearchKey);
 
 
         mFragments = new ArrayList<>();
