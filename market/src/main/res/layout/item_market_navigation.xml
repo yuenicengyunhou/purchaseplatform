@@ -6,7 +6,7 @@
 
         <variable
             name="sub"
-            type="com.rails.lib_data.bean.CategorySubBean" />
+            type="com.rails.lib_data.bean.NavigationBean" />
     </data>
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@{sub.name}"
+            android:text="@{sub.navigationBarName}"
             android:layout_marginTop="@dimen/dp_8"
             android:singleLine="true"
             android:textColor="@color/font_black_light"

@@ -87,11 +87,12 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     @Override
     public void getMarketIndexInfo(boolean isDialog) {
         if (isDialog)
-            baseView.dismissDialog();
+            baseView.showResDialog(R.string.loading);
         model.getMarketIndexInfo(new HttpRxObserver<MarketIndexBean>() {
             @Override
             protected void onError(ErrorBean e) {
-
+                baseView.dismissDialog();
+                baseView.onError(e);
             }
 
             @Override

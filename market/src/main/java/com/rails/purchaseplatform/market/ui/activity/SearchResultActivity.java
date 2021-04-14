@@ -208,4 +208,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     public void getProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
     }
+
+    @Override
+    public void onSuccess() {
+
+    }
 }

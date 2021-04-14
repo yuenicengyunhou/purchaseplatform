@@ -34,7 +34,7 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCateg
     @Override
     protected void onBindItem(ItemCategoryBinding binding, CategoryBean categoryBean, int position) {
         binding.setCategory(categoryBean);
-        CategorySub2Adapter adapter = new CategorySub2Adapter(mContext);
+        CategorySubAdapter adapter = new CategorySubAdapter(mContext);
         binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recycler.addItemDecoration(new CategoryDecoration(mContext));
         binding.recycler.setAdapter(adapter);

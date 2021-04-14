@@ -17,6 +17,8 @@ public class MarketIndexBean {
     //banner列表
     ArrayList<BannerBean> bannerBeans;
 
+    ArrayList<NavigationBean> categorySubBeans;
+
 
     public ArrayList<ProductRecBean> getRecBeans() {
         return recBeans;
@@ -40,5 +42,13 @@ public class MarketIndexBean {
 
     public void setBannerBeans(ArrayList<BannerBean> bannerBeans) {
         this.bannerBeans = bannerBeans;
+    }
+
+    public ArrayList<NavigationBean> getCategorySubBeans() {
+        return categorySubBeans;
+    }
+
+    public void setCategorySubBeans(ArrayList<NavigationBean> categorySubBeans) {
+        this.categorySubBeans = categorySubBeans;
     }
 }
