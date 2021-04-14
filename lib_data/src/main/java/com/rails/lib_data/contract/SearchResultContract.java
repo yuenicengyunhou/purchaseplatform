@@ -25,7 +25,7 @@ public interface SearchResultContract {
          */
         void getProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear);
 
-        void onSuccess();
+//        void onSuccess();
     }
 
     interface SearchResultPresenter {
