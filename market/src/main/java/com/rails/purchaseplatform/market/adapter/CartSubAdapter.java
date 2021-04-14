@@ -8,6 +8,7 @@ import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
 
@@ -32,8 +33,6 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     //收藏
     public static final int SUB_COLLECT = 7;
 
-    private boolean isSwipe;
-
 
     public CartSubAdapter(Context context) {
         super(context);
@@ -48,11 +47,8 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     protected void onBindItem(ItemMarketCartSubBinding binding, CartShopProductBean productBean, int position) {
         binding.setProduct(productBean);
 
-        if (isSwipe){
-            binding.llOperate.setVisibility(View.VISIBLE);
-        }else{
-            binding.llOperate.setVisibility(View.GONE);
-        }
+        String price = DecimalUtil.formatDouble(productBean.getMarketPrice());
+        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, "", 18));
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,8 +143,8 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     }
 
 
-    public void canSwipe(boolean isSwipe) {
-        this.isSwipe = isSwipe;
-        notifyDataSetChanged();
-    }
+//    public void canSwipe(boolean isSwipe) {
+//        this.isSwipe = isSwipe;
+//        notifyDataSetChanged();
+//    }
 }

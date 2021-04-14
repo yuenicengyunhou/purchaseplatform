@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
@@ -40,7 +41,14 @@ public class SpaceDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         parent.setBackgroundColor(bgColor);
-        outRect.bottom = space;
+        int size = parent.getLayoutManager().getItemCount();
+        int position = parent.getChildAdapterPosition(view);
+
+        if (position == size - 1)
+            outRect.bottom = 0;
+        else
+            outRect.bottom = space;
+
     }
 
     @Override

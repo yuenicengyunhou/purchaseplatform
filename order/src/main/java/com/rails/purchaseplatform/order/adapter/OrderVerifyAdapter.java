@@ -49,5 +49,6 @@ public class OrderVerifyAdapter extends BaseRecyclerAdapter<CartShopBean, ItemOr
     protected void onBindView(ItemOrderVerifyShopBinding binding) {
         super.onBindView(binding);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
     }
 }

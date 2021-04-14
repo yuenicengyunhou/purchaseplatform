@@ -16,7 +16,7 @@
     <string name="order_verify_number">共计%s件</string>
     <string name="order_verify_subtotal">小计：</string>
     <string name="order_verify_sub_price">¥ %s</string>
-    <string name="order_verify_sub_num">X%s</string>
+    <string name="order_verify_sub_num">x%s</string>
     <string name="order_verify_year_total">年度预算总额</string>
     <string name="order_verify_year_extra">年度预算余额</string>
     <string name="order_verify_total">合计：</string>

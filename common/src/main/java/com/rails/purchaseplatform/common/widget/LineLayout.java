@@ -93,6 +93,7 @@ public class LineLayout extends LinearLayout {
         radius = (float) (mWidth / 2 / Math.sin(radian));
         float cosCalculate = (float) Math.cos(radian);
         float disHeight = radius - radius * cosCalculate;
+
         drawFillPath(canvas, disHeight);
     }
 

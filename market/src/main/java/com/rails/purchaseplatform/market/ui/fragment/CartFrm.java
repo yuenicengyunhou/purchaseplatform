@@ -83,8 +83,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             binding.btnBack.setVisibility(View.VISIBLE);
         }
 
-        binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
-                DecimalUtil.formatDouble(0.0), "", getResources().getColor(R.color.font_red)));
+        binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
+                DecimalUtil.formatDouble(0.0), "", 18));
 
         cartAdapter = new CartAdapter(getActivity());
         cartAdapter.setListener(this);
@@ -210,8 +210,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onClick(View v) {
                 boolean isChecked = binding.imgTotal.isChecked();
                 cartAdapter.checkAll(isChecked);
-                binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
-                        DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", getResources().getColor(R.color.font_red)));
+                binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
+                        DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
             }
         });
 
@@ -245,12 +245,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                     binding.tvManager.setText(R.string.market_cart_complement);
                     binding.llOperate.setVisibility(View.VISIBLE);
                     binding.llPrice.setVisibility(View.GONE);
-                    cartAdapter.canSwipe(true);
                 } else {
                     binding.tvManager.setText(R.string.market_cart_manager);
                     binding.llOperate.setVisibility(View.GONE);
                     binding.llPrice.setVisibility(View.VISIBLE);
-                    cartAdapter.canSwipe(false);
                 }
             }
         });
@@ -303,8 +301,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      */
     private void setTotal() {
         binding.imgTotal.setChecked(cartAdapter.isAll());
-        binding.tvTotal.setText(DecimalUtil.formatStrColor(getResources().getString(R.string.market_cart_total),
-                DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", getResources().getColor(R.color.font_red)));
+        binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
+                DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
     }
 
 

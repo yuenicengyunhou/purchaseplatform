@@ -32,8 +32,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartBinding> {
 
 
-    private boolean isSwipe = false;
-
     //控制全局
     public static final int CHECK = 0;
     //产品规格弹窗
@@ -66,7 +64,6 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         binding.setCart(cartShopBean);
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
-        adapter.canSwipe(isSwipe);
         adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
             @Override
             public void onPosition(CartShopProductBean bean, int len, int... params) {
@@ -234,9 +231,4 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
     }
 
-
-    public void canSwipe(boolean isSwipe) {
-        this.isSwipe = isSwipe;
-        notifyDataSetChanged();
-    }
 }

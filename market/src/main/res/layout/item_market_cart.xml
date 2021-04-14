@@ -56,7 +56,7 @@
 
         </RelativeLayout>
 
-        <View style="@style/line_thin_shade" />
+        <View style="@style/line_thin_gray" />
 
         <com.rails.purchaseplatform.market.widget.SlideRecyclerView
             android:id="@+id/recycler"

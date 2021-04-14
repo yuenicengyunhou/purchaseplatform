@@ -119,11 +119,8 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getYearTotal())));
         barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getYearExtra())));
 
-        barBinding.tvTotal.setText(DecimalUtil.formatStrColorSize("合计：",
-                bean.getTotalPay(), "",
-                getResources().getColor(R.color.font_red),
-                16
-        ));
+
+        barBinding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", bean.getTotalPay(), "", 18));
         barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getTotalNum()));
     }
 
@@ -149,8 +146,8 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             @Override
             public void onClick(View v) {
                 String json = "{\"type\":1,\"msg\":\"评价成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/web/purchase/detail\",\"urlright\":\"/web/evalute\"}";
-                ResultWebBean bean= JsonUtil.parseJson(json,ResultWebBean.class);
-                ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean",bean).navigation();
+                ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
+                ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean", bean).navigation();
             }
         });
 
