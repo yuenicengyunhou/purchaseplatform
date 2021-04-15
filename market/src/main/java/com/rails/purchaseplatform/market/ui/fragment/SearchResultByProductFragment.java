@@ -49,9 +49,4 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     public void getProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
     }
-
-    @Override
-    public void onSuccess() {
-
-    }
 }
