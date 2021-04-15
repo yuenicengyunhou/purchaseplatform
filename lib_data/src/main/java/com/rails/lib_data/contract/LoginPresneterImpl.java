@@ -1,9 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.widget.Toast;
-
-import com.google.gson.internal.$Gson$Preconditions;
 import com.rails.lib_data.R;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -12,11 +9,10 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
-import java.util.ArrayList;
 
 /**
- * @author： sk_comic@163.com
- * @date: 2021/2/23
+ * author： sk_comic@163.com
+ * date: 2021/2/23
  */
 public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> implements LoginContract.LoginPresenter {
 

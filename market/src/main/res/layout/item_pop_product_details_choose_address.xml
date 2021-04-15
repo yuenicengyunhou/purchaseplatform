@@ -33,7 +33,7 @@
             android:layout_marginStart="@dimen/dp_4"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{chooseAddress.address}"
+            android:text="@{chooseAddress.receivingAddress}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13" />
 

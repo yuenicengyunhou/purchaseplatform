@@ -41,8 +41,11 @@ public class CommonInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
-        if (!TextUtils.isEmpty(token))
+        if (!TextUtils.isEmpty(token)) {
+
             builder.addHeader("Authorization", token);
+            builder.addHeader("accountId", token);
+        }
         //添加网络默认头
 //        builder.addHeader("version", version);
 //        builder.addHeader("appSystem", "android");

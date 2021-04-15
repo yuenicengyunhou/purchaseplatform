@@ -2,11 +2,9 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
@@ -17,18 +15,11 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
-import com.yanzhenjie.recyclerview.SwipeMenu;
-import com.yanzhenjie.recyclerview.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,11 +34,9 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     private AddressContract.AddressPresenter presenter;
 
     //测滑删除按钮
-    private SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
-        @Override
-        public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int position) {
-            int width = getResources().getDimensionPixelSize(R.dimen.dp_70);
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+    private final SwipeMenuCreator swipeMenuCreator = (swipeLeftMenu, swipeRightMenu, position) -> {
+        int width = getResources().getDimensionPixelSize(R.dimen.dp_70);
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
 //            SwipeMenuItem addItem = new SwipeMenuItem(AddressActivity.this)
 //                    .setText(getResources().getString(R.string.address_main_def))
 //                    .setTextColor(getResources().getColor(R.color.font_black_light))
@@ -57,16 +46,15 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 //                    .setHeight(height);
 //            swipeRightMenu.addMenuItem(addItem); // 添加菜单到右侧。
 
-            {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(AddressActivity.this)
-                        .setText(getResources().getString(R.string.address_main_del))
-                        .setTextColor(Color.WHITE)
-                        .setBackgroundColor(getResources().getColor(R.color.bg_red))
-                        .setTextSize(12)
-                        .setWidth(width)
-                        .setHeight(height);
-                swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
-            }
+        {
+            SwipeMenuItem deleteItem = new SwipeMenuItem(AddressActivity.this)
+                    .setText(getResources().getString(R.string.address_main_del))
+                    .setTextColor(Color.WHITE)
+                    .setBackgroundColor(getResources().getColor(R.color.bg_red))
+                    .setTextSize(12)
+                    .setWidth(width)
+                    .setHeight(height);
+            swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
         }
     };
 
@@ -99,21 +87,18 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         addressAdapter.setListener(this);
         addressAdapter.setMulPositionListener(this);
         barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
-        barBinding.recycler.setOnItemMenuClickListener(new OnItemMenuClickListener() {
-            @Override
-            public void onItemClick(SwipeMenuBridge menuBridge, int adapterPosition) {
-                menuBridge.closeMenu();
-                int position = menuBridge.getPosition();
-                if (position == 0) {
-                    //删除
-                    AddressBean bean = addressAdapter.getBean(adapterPosition);
-                    if (bean != null)
-                        presenter.delAddress("0", adapterPosition);
-                } else {
-                    //设为默认
-                    presenter.setDefAddress("0", adapterPosition);
+        barBinding.recycler.setOnItemMenuClickListener((menuBridge, adapterPosition) -> {
+            menuBridge.closeMenu();
+            int position = menuBridge.getPosition();
+            if (position == 0) {
+                //删除
+                AddressBean bean = addressAdapter.getBean(adapterPosition);
+                if (bean != null)
+                    presenter.delAddress("0", adapterPosition);
+            } else {
+                //设为默认
+                presenter.setDefAddress("0", adapterPosition);
 
-                }
             }
         });
         barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
@@ -130,12 +115,9 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
      * 刷新请求
      */
     private void onRefresh() {
-        barBinding.smart.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                barBinding.smart.finishRefresh();
-                presenter.getAddresses(false);
-            }
+        barBinding.smart.setOnRefreshListener(refreshLayout -> {
+            barBinding.smart.finishRefresh();
+            presenter.getAddresses(false);
         });
         presenter.getAddresses(true);
     }
@@ -144,12 +126,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     @Override
     protected void onClick() {
         super.onClick();
-        barBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startIntent(AddressAddActivity.class);
-            }
-        });
+        barBinding.btnAdd.setOnClickListener(v -> startIntent(AddressAddActivity.class));
     }
 
 

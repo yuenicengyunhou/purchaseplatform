@@ -2,47 +2,59 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.google.gson.reflect.TypeToken;
-import com.rails.lib_data.R;
-import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.model.UserModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * 地址管理presneter
- *
- * @author： sk_comic@163.com
- * @date: 2021/3/27
+ * <p>
+ * author： sk_comic@163.com
+ * date: 2021/3/27
  */
 public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressView> implements AddressContract.AddressPresenter {
 
+    private final UserModel model;
+
     public AddressPresenterImpl(Activity mContext, AddressContract.AddressView addressView) {
         super(mContext, addressView);
+        model = new UserModel();
     }
 
     @Override
     public void getAddresses(Boolean isDialog) {
+//        String token = PrefrenceUtil.getInstance(mContext).getString("token", "");
+//        long accountId = Long.parseLong(token);
+        model.queryAddressList(20, 111, 2, 1, 10, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
 
-        if (isDialog)
-            baseView.showResDialog(R.string.loading);
+            @Override
+            protected void onSuccess(String response) {
+                Log.e("WQ", "onSuccess: " + response);
+            }
+        });
 
-        if (isCallBack()) {
-            baseView.dismissDialog();
-            Type type = new TypeToken<ArrayList<AddressBean>>() {
-            }.getType();
-            ArrayList<AddressBean> beans = JsonUtil.parseJson(mContext, "address.json", type);
-            for (AddressBean bean : beans)
-                bean.isSel.set(bean.getIsdefault());
-            baseView.getAddresses(beans);
-        }
+//        if (isDialog)
+//            baseView.showResDialog(R.string.loading);
+//
+//        if (isCallBack()) {
+//            baseView.dismissDialog();
+//            Type type = new TypeToken<ArrayList<AddressBean>>() {
+//            }.getType();
+//            ArrayList<AddressBean> beans = JsonUtil.parseJson(mContext, "address.json", type);
+//            for (AddressBean bean : beans)
+//                bean.isSel.set(bean.getIsdefault());
+//            baseView.getAddresses(beans);
+//        }
 
     }
 

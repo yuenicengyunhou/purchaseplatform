@@ -93,9 +93,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             barBinding.btnAddress.setVisibility(View.GONE);
             barBinding.llAddress.setVisibility(View.VISIBLE);
 
-            barBinding.tvArea.setText(bean.getAddress());
-            barBinding.tvAddress.setText(bean.getAddress());
-            barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getName(), bean.getPhone()));
+            barBinding.tvArea.setText(bean.getReceivingAddress());
+            barBinding.tvAddress.setText(bean.getReceivingAddress());
+//            barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getReceiverName(), bean.getPhone()));
         }
     }
 

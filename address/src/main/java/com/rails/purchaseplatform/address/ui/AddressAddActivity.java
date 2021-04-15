@@ -89,10 +89,10 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
      * @param bean
      */
     private void setDetail(AddressBean bean) {
-        barBinding.etName.setContent(bean.getName());
+        barBinding.etName.setContent(bean.getReceiverName());
         barBinding.etPhone.setContent(bean.getPhone());
-        barBinding.etArea.setContent(bean.getAddress());
-        barBinding.etRemark.setText(bean.getAddress());
+        barBinding.etArea.setContent(bean.getFullAddress());
+        barBinding.etRemark.setText(bean.getReceivingAddress());
     }
 
 
