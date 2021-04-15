@@ -6,8 +6,8 @@ import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.lib_data.bean.SearchResultBeanX;
 import com.rails.lib_data.model.ProductModel;
-import com.rails.lib_data.model.SearchResultModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class SearchResultPresenterImpl extends BasePresenter<SearchResultContract.SearchResultView> implements SearchResultContract.SearchResultPresenter {
+    final private String TAG = SearchResultPresenterImpl.class.getSimpleName();
 
     private ProductModel model;
 
@@ -45,22 +46,31 @@ public class SearchResultPresenterImpl extends BasePresenter<SearchResultContrac
     }
 
     @Override
-    public void getProducts(boolean isDialog, int pageNum, long platformId, String keyword) {
-        if (isDialog)
-            baseView.showResDialog(R.string.loading);
-
-        model.getProducts(pageNum, platformId, keyword, new HttpRxObserver<String>() {
+    public void getSearchResultWithKeywordOnly(boolean isDialog, int pageNum, long platformId, String keyword) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+        model.getSearchResultWithKeywordOnly(pageNum, platformId, keyword, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
+                Log.d(TAG, " ======= " + " == Error == " + e.getMsg());
                 baseView.dismissDialog();
                 baseView.onError(e);
             }
 
             @Override
             protected void onSuccess(String response) {
-                baseView.dismissDialog();
-                if (isCallBack()) {
+//                baseView.onResult(response);
+                Type type = new TypeToken<SearchResultBeanX>() {
+                }.getType();
+                SearchResultBeanX bean = JsonUtil.parseJson(mContext, response, type);
 
+                Log.d(TAG, " ======= " + bean.getMsg());
+
+                baseView.dismissDialog();
+
+                if (isCallBack()) {
+                    baseView.dismissDialog();
+                    boolean isClear = pageNum <= 1;
+//                    baseView.getProducts(response, true, isClear);
                 }
             }
         });

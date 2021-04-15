@@ -25,7 +25,6 @@ public interface SearchResultContract {
          */
         void getProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear);
 
-//        void onSuccess();
     }
 
     interface SearchResultPresenter {
@@ -39,7 +38,7 @@ public interface SearchResultContract {
          * @param platformId
          * @param keyWord
          */
-        void getProducts(boolean isDialog, int page, long platformId, String keyWord);
+        void getSearchResultWithKeywordOnly(boolean isDialog, int page, long platformId, String keyWord);
     }
 
 

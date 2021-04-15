@@ -26,7 +26,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         mPresenter = new SearchResultPresenterImpl(this.getActivity(), this);
         binding.brvProductSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.brvProductSearchResult.setAdapter(mAdapter);
-        mPresenter.getSearchResult(false, 1);
+        mPresenter.getSearchResultWithKeywordOnly(true, 1, 20L, "电脑");
 
     }
 

@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -16,10 +15,8 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.SearchResultContract;
-import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
-import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
@@ -78,15 +75,6 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     @Override
     protected void initialize(Bundle bundle) {
-
-        mSearchResultRecyclerAdapter = new SearchResultRecyclerAdapter(this);
-        presenter = new SearchResultPresenterImpl(this, this);
-        binding.brvSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
-        binding.brvSearchResult.setAdapter(mSearchResultRecyclerAdapter);
-        presenter.getSearchResult(false, 1);
-
-        presenter.getProducts(true, 1, 20L, mSearchKey);
-
 
         mFragments = new ArrayList<>();
         mFragments.add(new SearchResultByProductFragment());

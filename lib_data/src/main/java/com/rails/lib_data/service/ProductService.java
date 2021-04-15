@@ -1,6 +1,5 @@
 package com.rails.lib_data.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.request.SearchProductBody;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
@@ -12,7 +11,6 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 /**
@@ -48,13 +46,13 @@ public interface ProductService {
      * @return
      */
     @POST("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<String>> getProducts(@Body SearchProductBody body);
+    Observable<HttpResult<String>> getSearchResultWithKeywordOnly(@Body SearchProductBody body);
 
 
     /**
      * 获取商品列表
      */
     @GET("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<String>> getProducts(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<String>> getSearchResultWithKeywordOnly(@QueryMap HashMap<String, Object> params);
 
 }

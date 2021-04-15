@@ -1,0 +1,290 @@
+{
+  "code": "0",
+  "msg": "查询商品列表信息成功！",
+  "data": {
+    "brands": [],
+    "selectedCAttr": [],
+    "selectedEAttr": [],
+    "categoryAttrs": [],
+    "itemList": {
+      "resultList": [
+        {
+          "itemId": 1001635,
+          "item_sku": [
+            {
+              "skuName": "ThinkCentreM720t商用电脑",
+              "itemId": 1001635,
+              "upTime": 1583604805000,
+              "pictureUrl": "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021203845.jpg",
+              "brandId": null,
+              "sellPrice": 4494.0,
+              "shopId": 202003030108,
+              "skuId": 12997,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001637,
+          "item_sku": [
+            {
+              "skuName": "ThinkCentre M920t商用电脑",
+              "itemId": 1001637,
+              "upTime": 1583604893000,
+              "pictureUrl": "//xsky.rails.cn/mall/bb31ea05ab52a4ed615248a878ddff2720200308021323091.png",
+              "brandId": null,
+              "sellPrice": 4028.0,
+              "shopId": 202003030108,
+              "skuId": 12999,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001633,
+          "item_sku": [
+            {
+              "skuName": "ThinkCentreM720t商用电脑",
+              "itemId": 1001633,
+              "upTime": 1583604713000,
+              "pictureUrl": "//xsky.rails.cn/mall/3437c318b80f7baa4e9b49aac4da52d820200308021018342.png",
+              "brandId": null,
+              "sellPrice": 4372.0,
+              "shopId": 202003030108,
+              "skuId": 12995,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001527,
+          "item_sku": [
+            {
+              "skuName": "惠普（HP) 台式计算机HP 288G5 I5-9500/8G/1T/2G独立显卡/DVDRW/主机",
+              "itemId": 1001527,
+              "upTime": 1583553415000,
+              "pictureUrl": "//xsky.rails.cn/mall/b48ca334e54c5fbc9aea629d2ef5eea520200307170940619.png",
+              "brandId": null,
+              "sellPrice": 3950.0,
+              "shopId": 202003030109,
+              "skuId": 12887,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "惠普"
+        },
+        {
+          "itemId": 1001639,
+          "item_sku": [
+            {
+              "skuName": "P3330图形工作站",
+              "itemId": 1001639,
+              "upTime": 1583605040000,
+              "pictureUrl": "//xsky.rails.cn/mall/bcfac18ea55c153f033a7be32bdcd6e220200308021511311.png",
+              "brandId": null,
+              "sellPrice": 8888.0,
+              "shopId": 202003030108,
+              "skuId": 13001,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001563,
+          "item_sku": [
+            {
+              "skuName": "HP EliteDesk 705 G4 MT R5-2600/8G/1T/2G独显/21.5寸显示器",
+              "itemId": 1001563,
+              "upTime": 1583572720000,
+              "pictureUrl": "//xsky.rails.cn/mall/10c819055291969d803133b597a3b81320200307171659333.jpg",
+              "brandId": null,
+              "sellPrice": 4990.0,
+              "shopId": 202003030109,
+              "skuId": 12925,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "惠普"
+        },
+        {
+          "itemId": 1001529,
+          "item_sku": [
+            {
+              "skuName": "HP(惠普)台式计算机 ProDesk 680 G4 Intel I5-8500/8G/1T",
+              "itemId": 1001529,
+              "upTime": 1583553469000,
+              "pictureUrl": "//xsky.rails.cn/mall/10c819055291969d803133b597a3b81320200307171945321.jpg",
+              "brandId": null,
+              "sellPrice": 4990.0,
+              "shopId": 202003030109,
+              "skuId": 12889,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "惠普"
+        },
+        {
+          "itemId": 1001565,
+          "item_sku": [
+            {
+              "skuName": "惠普（HP) 台式计算机288G5 ​I3-9100/8G/256G/集成显卡/DVDRW/主机",
+              "itemId": 1001565,
+              "upTime": 1583573373000,
+              "pictureUrl": "//xsky.rails.cn/mall/b48ca334e54c5fbc9aea629d2ef5eea520200307172743555.png",
+              "brandId": null,
+              "sellPrice": 3450.0,
+              "shopId": 202003030109,
+              "skuId": 12927,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "惠普"
+        },
+        {
+          "itemId": 1001525,
+          "item_sku": [
+            {
+              "skuName": "惠普（HP) 台式计算机288G5 ​I3-9100/8G/1T/集成显卡/DVDRW/主机",
+              "itemId": 1001525,
+              "upTime": 1583553374000,
+              "pictureUrl": "//xsky.rails.cn/mall/b48ca334e54c5fbc9aea629d2ef5eea520200307170711175.png",
+              "brandId": null,
+              "sellPrice": 3250.0,
+              "shopId": 202003030109,
+              "skuId": 12885,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "惠普"
+        },
+        {
+          "itemId": 1001631,
+          "item_sku": [
+            {
+              "skuName": "ThinkCentre M720t",
+              "itemId": 1001631,
+              "upTime": 1583604607000,
+              "pictureUrl": "//xsky.rails.cn/mall/3437c318b80f7baa4e9b49aac4da52d820200308020827963.png",
+              "brandId": null,
+              "sellPrice": 4174.0,
+              "shopId": 202003030108,
+              "skuId": 12993,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001323,
+          "item_sku": [
+            {
+              "skuName": "史泰博 241一联一等分无压线 电脑打印纸 白色 1000页/箱 ",
+              "itemId": 1001323,
+              "upTime": 1583486445000,
+              "pictureUrl": "http://testvpimg.staplescn.com/cn1100708753EA_4_xnl.jpg",
+              "brandId": null,
+              "sellPrice": 79.0,
+              "shopId": 4021000101,
+              "skuId": 12683,
+              "contrastFlag": null,
+              "cid": 1000911
+            }
+          ],
+          "shopName": "史泰博"
+        },
+        {
+          "itemId": 1014720,
+          "item_sku": [
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" RTX2060 3GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3688.0,
+              "shopId": 202003030108,
+              "skuId": 1111211,
+              "contrastFlag": null,
+              "cid": 1001051
+            },
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" RTX2060 12GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3788.0,
+              "shopId": 202003030108,
+              "skuId": 1111212,
+              "contrastFlag": null,
+              "cid": 1001051
+            },
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" GTX1660 3GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3888.0,
+              "shopId": 202003030108,
+              "skuId": 1111213,
+              "contrastFlag": null,
+              "cid": 1001051
+            },
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" GTX1660 12GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3988.0,
+              "shopId": 202003030108,
+              "skuId": 1111214,
+              "contrastFlag": null,
+              "cid": 1001051
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        }
+      ],
+      "pageSize": 30,
+      "page": 1,
+      "count": 12,
+      "customAggMap": null,
+      "aggResultMap": null
+    },
+    "totalCount": "15",
+    "expandAttrs": [],
+    "allCids": [
+      {
+        "id": 1000911,
+        "name": "打印纸",
+        "flag": 2
+      },
+      {
+        "id": 1001047,
+        "name": "商用电脑",
+        "flag": 2
+      },
+      {
+        "id": 1001051,
+        "name": "一体机",
+        "flag": 2
+      }
+    ]
+  }
+}
