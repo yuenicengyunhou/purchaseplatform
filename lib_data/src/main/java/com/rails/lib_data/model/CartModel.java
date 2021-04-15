@@ -1,0 +1,49 @@
+package com.rails.lib_data.model;
+
+import com.rails.lib_data.http.RetrofitUtil;
+import com.rails.lib_data.service.CartService;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+
+import java.util.HashMap;
+
+/**
+ * 购物车相关接口
+ *
+ * @author： sk_comic@163.com
+ * @date: 2021/4/15
+ */
+public class CartModel {
+
+
+    /**
+     * 获取购物车列表
+     *
+     * @param httpRxObserver
+     */
+    public void getCarts(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", "20");
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class).getCarts(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 编辑商品数量
+     *
+     * @param num            商品数量
+     * @param httpRxObserver
+     */
+    public void modifyProduct(int num, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", "20");
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class).getCarts(params))
+                .subscribe(httpRxObserver);
+    }
+
+}
