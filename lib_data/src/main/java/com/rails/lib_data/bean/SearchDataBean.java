@@ -3,44 +3,44 @@ package com.rails.lib_data.bean;
 import java.util.List;
 
 public class SearchDataBean {
-    private Object[] brands;
-    private Object[] selectedCAttr;
-    private Object[] selectedEAttr;
-    private Object[] categoryAttrs;
+    private List brands;
+    private List selectedCAttr;
+    private List selectedEAttr;
+    private List categoryAttrs;
     private SearchResultListBean itemList;
     private String totalCount;
-    private Object[] expandAttrs;
+    private List expandAttrs;
     private List<CidBean> allCids;
 
-    public Object[] getBrands() {
+    public List getBrands() {
         return brands;
     }
 
-    public void setBrands(Object[] brands) {
+    public void setBrands(List brands) {
         this.brands = brands;
     }
 
-    public Object[] getSelectedCAttr() {
+    public List getSelectedCAttr() {
         return selectedCAttr;
     }
 
-    public void setSelectedCAttr(Object[] selectedCAttr) {
+    public void setSelectedCAttr(List selectedCAttr) {
         this.selectedCAttr = selectedCAttr;
     }
 
-    public Object[] getSelectedEAttr() {
+    public List getSelectedEAttr() {
         return selectedEAttr;
     }
 
-    public void setSelectedEAttr(Object[] selectedEAttr) {
+    public void setSelectedEAttr(List selectedEAttr) {
         this.selectedEAttr = selectedEAttr;
     }
 
-    public Object[] getCategoryAttrs() {
+    public List getCategoryAttrs() {
         return categoryAttrs;
     }
 
-    public void setCategoryAttrs(Object[] categoryAttrs) {
+    public void setCategoryAttrs(List categoryAttrs) {
         this.categoryAttrs = categoryAttrs;
     }
 
@@ -60,11 +60,11 @@ public class SearchDataBean {
         this.totalCount = totalCount;
     }
 
-    public Object[] getExpandAttrs() {
+    public List getExpandAttrs() {
         return expandAttrs;
     }
 
-    public void setExpandAttrs(Object[] expandAttrs) {
+    public void setExpandAttrs(List expandAttrs) {
         this.expandAttrs = expandAttrs;
     }
 

@@ -5,8 +5,10 @@ import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.SearchDataBean;
+import com.rails.lib_data.bean.SearchItemBean;
 import com.rails.lib_data.bean.SearchResultBean;
-import com.rails.lib_data.bean.SearchResultBeanX;
+import com.rails.lib_data.bean.SkuItemBean;
 import com.rails.lib_data.model.ProductModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -48,7 +50,7 @@ public class SearchResultPresenterImpl extends BasePresenter<SearchResultContrac
     @Override
     public void getSearchResultWithKeywordOnly(boolean isDialog, int pageNum, long platformId, String keyword) {
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.getSearchResultWithKeywordOnly(pageNum, platformId, keyword, new HttpRxObserver<String>() {
+        model.getSearchResultWithKeywordOnly(pageNum, platformId, keyword, new HttpRxObserver<SearchDataBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 Log.d(TAG, " ======= " + " == Error == " + e.getMsg());
@@ -57,13 +59,14 @@ public class SearchResultPresenterImpl extends BasePresenter<SearchResultContrac
             }
 
             @Override
-            protected void onSuccess(String response) {
+            protected void onSuccess(SearchDataBean response) {
 //                baseView.onResult(response);
-                Type type = new TypeToken<SearchResultBeanX>() {
-                }.getType();
-                SearchResultBeanX bean = JsonUtil.parseJson(mContext, response, type);
+                Log.d(TAG, " ======= " + " == Success == " + response.getTotalCount());
 
-                Log.d(TAG, " ======= " + bean.getMsg());
+                for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
+                    SkuItemBean sku = searchItemBean.getItem_sku().get(0);
+                    sku.getSkuName();
+                }
 
                 baseView.dismissDialog();
 

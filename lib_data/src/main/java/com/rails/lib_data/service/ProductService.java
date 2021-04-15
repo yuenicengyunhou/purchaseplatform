@@ -1,6 +1,7 @@
 package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.bean.SearchDataBean;
 import com.rails.lib_data.request.SearchProductBody;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
@@ -53,6 +54,7 @@ public interface ProductService {
      * 获取商品列表
      */
     @GET("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<String>> getSearchResultWithKeywordOnly(@QueryMap HashMap<String, Object> params);
+//    @GET("mall/search/queryItemListByKeyword")
+    Observable<HttpResult<SearchDataBean>> getSearchResultWithKeywordOnly(@QueryMap HashMap<String, Object> params);
 
 }

@@ -1,0 +1,177 @@
+{
+  "code": "0",
+  "msg": "查询商品列表信息成功！",
+  "data": {
+    "brands": [
+      "品牌2(pp2)"
+    ],
+    "selectedCAttr": [],
+    "selectedEAttr": [],
+    "categoryAttrs": [
+      {
+        "attrId": null,
+        "attrName": "续航时间",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "1",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "21",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "5235",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      },
+      {
+        "attrId": null,
+        "attrName": "屏幕尺寸",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "8.9英寸",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "8英寸",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "9.6英寸",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      },
+      {
+        "attrId": null,
+        "attrName": "系统",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "Android",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "ios系统",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "windows",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      }
+    ],
+    "itemList": {
+      "resultList": [
+        {
+          "itemId": 1002512,
+          "item_sku": [
+            {
+              "skuName": "测试123456",
+              "itemId": 1002512,
+              "upTime": 1614493633000,
+              "pictureUrl": "//xsky.rails.cn/mall/b84142627abb2bd11f1f66e39462291220210223165306573.png",
+              "sellPrice": 12.22,
+              "shopId": 4021000093,
+              "skuId": 16258,
+              "contrastFlag": null,
+              "cid": 1001234
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002415,
+          "item_sku": [
+            {
+              "skuName": "测试修改库存需要审核问题",
+              "itemId": 1002415,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/97c75b947a9b3db3211eccb05d44957c20201105085101576.jpg",
+              "sellPrice": 1,
+              "shopId": 4021000093,
+              "skuId": 16069,
+              "contrastFlag": null,
+              "cid": 1001234
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002410,
+          "item_sku": [
+            {
+              "skuName": "测试商品发布1",
+              "itemId": 1002410,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/c0a073346b18b15ace3afbf5842b84b720201103142118119.jpg",
+              "sellPrice": 1,
+              "shopId": 4021000093,
+              "skuId": 16060,
+              "contrastFlag": null,
+              "cid": 1001234
+            }
+          ],
+          "shopName": "线下供应商2"
+        }
+      ],
+      "pageSize": 30,
+      "page": 1,
+      "count": 3,
+      "customAggMap": null,
+      "aggResultMap": null
+    },
+    "totalCount": "3",
+    "expandAttrs": [
+      {
+        "attrId": null,
+        "attrName": "像素",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "1200万",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      }
+    ],
+    "allCids": [
+      {
+        "id": 1000052,
+        "name": "铁路交通",
+        "flag": 1
+      }
+    ]
+  }
+}
