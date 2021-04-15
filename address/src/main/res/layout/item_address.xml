@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,69 +12,66 @@
             type="com.rails.lib_data.bean.AddressBean" />
     </data>
 
-
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dp_16">
 
-
-        <LinearLayout
-            android:id="@+id/ll_name"
+        <ImageView
+            android:id="@+id/tv_def"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_border"
-            android:layout_marginTop="@dimen/common_border">
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/svg_circle_checked"
+            android:visibility="@{address.isSel?View.VISIBLE:View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:id="@+id/tv_def"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:src="@drawable/svg_circle_checked"
-                android:visibility="@{address.isSel?View.VISIBLE:View.GONE}"
-                tools:ignore="ContentDescription" />
-
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@{address.name}"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_16" />
-
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/paddingL"
+            android:text="@{address.receiverName,default=名字}"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_16"
+            app:layout_constraintStart_toEndOf="@id/tv_def"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ll_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_name"
             android:layout_marginStart="@dimen/dp_45"
-            android:layout_toEndOf="@+id/ll_name"
-            android:text="@{address.phone}"
+            android:text="@{address.phone,default=asdfsaf}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_16" />
 
         <TextView
+            app:layout_constraintStart_toEndOf="@id/tv_def"
             android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginStart="@dimen/paddingL"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_name"
-            android:layout_alignStart="@+id/ll_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
             android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/dp_15"
-            android:layout_toStartOf="@+id/img_edit"
+            app:layout_constraintEnd_toStartOf="@id/img_edit"
             android:maxLines="2"
+            android:text="@{address.fullAddress,default=地址}"
             android:textColor="@color/font_gray"
-            android:text="@{address.address}"
             android:textSize="@dimen/font_size_13" />
 
-
         <ImageView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
             android:id="@+id/img_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,57 +81,44 @@
             android:src="@drawable/ic_address_edit"
             tools:ignore="ContentDescription" />
 
-
-        <LinearLayout
-            android:id="@+id/ll_type"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/btn_recivice"
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
+            app:layout_constraintStart_toEndOf="@id/tv_def"
+            android:layout_marginStart="@dimen/paddingL"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_15"
-            android:layout_below="@+id/tv_address"
-            android:layout_marginRight="@dimen/common_border"
-            android:layout_marginLeft="@dimen/common_border">
-
-            <TextView
-                android:id="@+id/btn_recivice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:background="@drawable/bg_corner_gray_20"
-                android:gravity="center"
-                android:paddingTop="@dimen/dp_5"
-                android:singleLine="true"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_5"
-                android:text="@string/address_add_recevice"
-                android:textColor="@color/selector_white_gray_color"
-                android:textSize="@dimen/font_size_12" />
+            android:background="@drawable/bg_corner_gray_20"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            android:singleLine="true"
+            android:text="@string/address_add_recevice"
+            android:textColor="@color/selector_white_gray_color"
+            android:textSize="@dimen/font_size_12" />
 
 
-            <TextView
-                android:id="@+id/btn_bill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_corner_gray_20"
-                android:gravity="center"
-                android:paddingTop="@dimen/dp_5"
-                android:paddingBottom="@dimen/dp_5"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:singleLine="true"
-                android:text="@string/address_add_bill"
-                android:textColor="@color/selector_white_gray_color"
-                android:textSize="@dimen/font_size_12" />
-
-        </LinearLayout>
-
-
-        <View
-            style="@style/line_thin_gray"
-            android:layout_below="@+id/ll_type"
-            android:layout_marginStart="@dimen/common_border" />
-
-
-    </RelativeLayout>
+        <TextView
+            app:layout_constraintStart_toEndOf="@id/btn_recivice"
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
+            android:layout_marginTop="@dimen/margin"
+            android:id="@+id/btn_bill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corner_gray_20"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/paddingL"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            android:singleLine="true"
+            android:text="@string/address_add_bill"
+            android:textColor="@color/selector_white_gray_color"
+            android:textSize="@dimen/font_size_12" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -30,22 +30,16 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
     @Override
     protected void onBindItem(ItemAddressBinding binding, AddressBean addressBean, int position) {
         binding.setAddress(addressBean);
-        binding.imgEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (positionListener != null)
-                    positionListener.onPosition(addressBean, position);
-            }
+        binding.imgEdit.setOnClickListener(v -> {
+            if (positionListener != null)
+                positionListener.onPosition(addressBean, position);
         });
 
-        binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null){
-                    mulPositionListener.onPosition(addressBean, position);
-                }
-
+        binding.getRoot().setOnClickListener(v -> {
+            if (mulPositionListener != null){
+                mulPositionListener.onPosition(addressBean, position);
             }
+
         });
     }
 

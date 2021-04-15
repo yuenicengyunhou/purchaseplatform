@@ -115,11 +115,7 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
      */
     private boolean hasToken() {
         String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
-        token = "wqTemp";
-        if (TextUtils.isEmpty(token))
-            return false;
-        else
-            return true;
+        return !TextUtils.isEmpty(token);
     }
 
 

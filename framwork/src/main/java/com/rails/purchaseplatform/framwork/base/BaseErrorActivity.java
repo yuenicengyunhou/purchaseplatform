@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.framwork.base;
 
 
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import androidx.viewbinding.ViewBinding;
 
@@ -17,5 +18,6 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
     public void onError(ErrorBean errorBean) {
         int errorCode = errorBean.getCode();
         String msg = errorBean.getMsg();
+        ToastUtil.show(this,msg);
     }
 }

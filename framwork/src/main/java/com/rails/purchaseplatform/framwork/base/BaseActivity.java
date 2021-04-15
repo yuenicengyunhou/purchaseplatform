@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.R;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -67,6 +68,10 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
 
     }
 
+    @Override
+    public void onError(ErrorBean errorBean) {
+
+    }
 
     /**
      * 对象初始化，方法调用
