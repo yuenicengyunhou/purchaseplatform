@@ -1,8 +1,11 @@
 package com.rails.lib_data.model;
 
+import com.rails.lib_data.R;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
+import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
+import com.rails.lib_data.bean.NavigationBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.MarketIndexService;
@@ -24,6 +27,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function4;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.Subject;
 
@@ -69,32 +73,55 @@ public class MarketIndexModel {
         bannerParams.put("platformId", "20");
         bannerParams.put("status", "1");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(MarketIndexService.class, 1).getBanners(bannerParams));
+                .create(MarketIndexService.class).getBanners(bannerParams));
     }
 
 
+    /**
+     * 获取分类导航列表
+     *
+     * @return
+     */
+    public Observable<HttpResult<ArrayList<NavigationBean>>> getCategorys() {
+        HashMap<String, String> bannerParams = new HashMap<>();
+        bannerParams.put("platformId", "20");
+        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(MarketIndexService.class).getNavigations(bannerParams));
+    }
+
+
+    /**
+     * 获取首页信息
+     *
+     * @param httpRxObserver
+     */
     public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
-        Observable recProducts;
-        recProducts = getRecProducts().subscribeOn(Schedulers.io());
+        Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());
+        Observable brands = getRecBrands().subscribeOn(Schedulers.io());
+        Observable banners = getBanners().subscribeOn(Schedulers.io());
+        Observable categorys = getCategorys().subscribeOn(Schedulers.io());
 
 
-        Observable brands;
-        brands = getRecBrands().subscribeOn(Schedulers.io());
-
-        Observable<HttpResult<ArrayList<BannerBean>>> banners;
-        banners = getBanners();
-
-
-        Observable.zip(recProducts, brands, (BiFunction<ArrayList<ProductRecBean>, ArrayList<BrandBean>, MarketIndexBean>) (products, hBrand) -> {
+        Observable.zip(recProducts, brands, banners, categorys, (Function4<ArrayList<ProductRecBean>, ArrayList<BrandBean>, ArrayList<BannerBean>,
+                ArrayList<NavigationBean>, MarketIndexBean>) (products, hBrands, hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
 
             String[] resourese = new String[]{"#5566DF", "#47ACF1", "#DDA15B", "#4F5468", "#3DC999"};
+            int[] res = new int[]{R.drawable.ic_category_electronic, R.drawable.ic_category_office, R.drawable.ic_category_food, R.drawable.ic_category_tool, R.drawable.ic_category_goods};
+
             for (int i = 0; i < products.size(); i++) {
                 products.get(i).setColor(resourese[i % 5]);
             }
             marketIndexBean.setRecBeans(products);
-            marketIndexBean.setBrandBeans(hBrand);
+            marketIndexBean.setBrandBeans(hBrands);
+            marketIndexBean.setBannerBeans(hBanners);
+
+            for (int i = 0; i < hCategorys.size(); i++) {
+                hCategorys.get(i).setRes(res[i % 5]);
+            }
+            marketIndexBean.setCategorySubBeans(hCategorys);
+
             return marketIndexBean;
         }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(httpRxObserver);

@@ -1,7 +1,5 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
-import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,8 +13,6 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
-import com.rails.lib_data.contract.ProductContract;
-import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.ConShare;
@@ -31,8 +27,7 @@ import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.BrandAdapter;
-import com.rails.purchaseplatform.market.adapter.CategorySubAdapter;
-import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
+import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
@@ -55,17 +50,14 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding>
-        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>,
-        ProductContract.ProductView, ConstantH5.Messages {
+        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>, ConstantH5.Messages {
 
 
     private ProductRecAdapter recAdapter;
-    private CategorySubAdapter categoryAdapter;
+    private NavigationAdapter categoryAdapter;
     private BrandAdapter brandAdapter;
-    private ProductHotAdapter hotAdapter;
 
     private MarketIndexContract.MarketIndexPresenter presenter;
-    private ProductContract.ProductPresenter productPresenter;
 
 
     @Override
@@ -78,7 +70,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.banner.setLayoutParams(linearParams);
 
         //推荐分类列表
-        categoryAdapter = new CategorySubAdapter(getActivity());
+        categoryAdapter = new NavigationAdapter(getActivity());
         binding.categoryRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 5);
         binding.categoryRecycler.setAdapter(categoryAdapter);
         categoryAdapter.setListener(new PositionListener<CategorySubBean>() {
@@ -109,17 +101,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.recycler.setAdapter(recAdapter);
 
 
-        hotAdapter = new ProductHotAdapter(getActivity(), 1);
-        hotAdapter.setListener(new PositionListener<ProductBean>() {
-            @Override
-            public void onPosition(ProductBean bean, int position) {
-                goLogin(ProductDetailsActivity.class, "", null);
-            }
-        });
-        binding.hotRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
-        binding.hotRecycler.setAdapter(hotAdapter);
-
-
         binding.scroll.setScrollViewListener(new AlphaScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(AlphaScrollView scrollView, int x, int y, int oldx, int oldy) {
@@ -131,7 +112,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         });
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
-        productPresenter = new ProductPresenterImpl(getActivity(), this);
 
 
         onRefresh();
@@ -167,16 +147,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.rlRecycler.finishRefresh();
-                presenter.getRectProducts(false);
-//                presenter.getMarketIndexInfo(false);
+                presenter.getMarketIndexInfo(false);
             }
         });
-
-        presenter.getBanners();
-        presenter.getRecCategorys();
-        presenter.getRectProducts(false);
-        presenter.getBrands();
-//        presenter.getMarketIndexInfo(true);
+        presenter.getMarketIndexInfo(true);
     }
 
     @Override
@@ -194,21 +168,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     @Override
     public void onError(ErrorBean errorBean) {
 
-    }
-
-
-    public boolean getLocalVisibleRect(Context context, View view) {
-        int screenWidth = ScreenSizeUtil.getScreenWidth(context);
-        int screenHeight = ScreenSizeUtil.getScreenHeight(context);
-        Rect rect = new Rect(0, 0, screenWidth, screenHeight);
-        int[] location = new int[2];
-        view.getLocationInWindow(location);
-        view.setTag(location[1]);//存储y方向的位置
-        if (view.getLocalVisibleRect(rect)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 
@@ -236,6 +195,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     public void getIndexInfo(MarketIndexBean bean) {
         brandAdapter.update(bean.getBrandBeans(), true);
         recAdapter.update(bean.getRecBeans(), true);
+        categoryAdapter.update(bean.getCategorySubBeans(), true);
+        setBanners(bean.getBannerBeans());
 
     }
 
@@ -269,11 +230,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     public void onPosition(ProductBean bean, int position) {
         // TODO: 2021/3/23 跳转商品详情
         goLogin(ProductDetailsActivity.class, "", null);
-    }
-
-    @Override
-    public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
-        hotAdapter.update(productBeans, true);
     }
 
 
