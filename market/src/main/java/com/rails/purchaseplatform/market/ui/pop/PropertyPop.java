@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.lib_data.contract.CartContract;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
@@ -19,9 +18,10 @@ import java.util.ArrayList;
  * @date: 2021/3/29
  */
 public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
+    final private String TAG = PropertyPop.class.getSimpleName();
 
     private PropertyAdapter adapter;
-    private CartContract.CartPresenter2 mPresenter;
+    private AddToCart mAddToCart;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -48,9 +48,15 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
         binding.btnClose.setOnClickListener(v -> dismiss());
 
         binding.btnOk.setOnClickListener(v -> {
-            mPresenter.addCart(20L, 20L, 40L, 50, "99999", true);
-            // TODO: 2021/4/15 调添加购物车接口
-            dismiss();
+            mAddToCart.addToCart("{\"saleNum\":\"1\",\"skuId\":\"12883\"}");
         });
+    }
+
+    public void setAddToCartListener(AddToCart addToCart) {
+        this.mAddToCart = addToCart;
+    }
+
+    public interface AddToCart {
+        void addToCart(String skuSaleNumJson);
     }
 }

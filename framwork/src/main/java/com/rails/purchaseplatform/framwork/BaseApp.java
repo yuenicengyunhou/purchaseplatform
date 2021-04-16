@@ -36,6 +36,8 @@ public class BaseApp extends Application {
         initAroute();
         MultiDex.install(this);
         context = getApplicationContext();
+        AppCrashHandler handler = new AppCrashHandler();
+        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
 

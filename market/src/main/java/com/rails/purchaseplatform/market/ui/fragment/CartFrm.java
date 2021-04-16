@@ -201,11 +201,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
     }
 
-    @Override
-    public void addCart() {
-
-    }
-
 
     @Override
     protected void onClick() {
