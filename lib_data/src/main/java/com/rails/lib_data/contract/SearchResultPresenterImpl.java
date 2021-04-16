@@ -66,6 +66,7 @@ public class SearchResultPresenterImpl extends BasePresenter<SearchResultContrac
                 for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
                     SkuItemBean sku = searchItemBean.getItem_sku().get(0);
                     sku.getSkuName();
+                    // TODO: 2021/04/16 处理数据
                 }
 
                 baseView.dismissDialog();

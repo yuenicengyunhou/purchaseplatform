@@ -1,22 +1,16 @@
 package com.rails.purchaseplatform.market.ui.pop;
 
 import android.os.Bundle;
-import android.view.View;
-
-import com.google.gson.reflect.TypeToken;
-import com.rails.lib_data.bean.SearchResultBean;
-import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
-import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
-import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
-import com.rails.purchaseplatform.market.databinding.PopMarketShopFilterBinding;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.rails.lib_data.contract.CartContract;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
+import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
+
+import java.util.ArrayList;
 
 /**
  * 商品/购物车规格弹窗
@@ -27,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
 
     private PropertyAdapter adapter;
+    private CartContract.CartPresenter2 mPresenter;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -50,11 +45,12 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
 
 
     void onClick() {
-        binding.btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
+        binding.btnClose.setOnClickListener(v -> dismiss());
+
+        binding.btnOk.setOnClickListener(v -> {
+            mPresenter.addCart(20L, 20L, 40L, 50, "99999", true);
+            // TODO: 2021/4/15 调添加购物车接口
+            dismiss();
         });
     }
 }

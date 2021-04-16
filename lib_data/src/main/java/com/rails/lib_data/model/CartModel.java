@@ -2,6 +2,7 @@ package com.rails.lib_data.model;
 
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.CartService;
+import com.rails.lib_data.service.LoginService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
@@ -46,4 +47,32 @@ public class CartModel {
                 .subscribe(httpRxObserver);
     }
 
+
+    /**
+     * 加入购物车
+     *
+     * @param platformId
+     * @param organizeId
+     * @param accountId
+     * @param accountType
+     * @param skuSaleNumJson
+     * @param httpRxObserver
+     */
+    public void addCart(
+            long platformId, long organizeId, long accountId,
+            int accountType, String skuSaleNumJson, HttpRxObserver httpRxObserver) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", 20L);
+        params.put("organizeId", 30L);
+        params.put("accountId", 40L);
+        params.put("accountType", 50);
+        params.put("skuSaleNumJson", "12345");
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class, 1)
+                .addCart(params))
+                .subscribe(httpRxObserver);
+
+    }
 }

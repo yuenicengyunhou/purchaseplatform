@@ -34,10 +34,16 @@ public interface CartContract {
 
         /**
          * 删除，收藏操作结果
+         *
          * @param type
          * @param msg
          */
-        void getResult(int type,String msg);
+        void getResult(int type, String msg);
+
+        /**
+         * 商品详情页 添加商品到购物车
+         */
+        void addCart();
 
     }
 
@@ -88,5 +94,17 @@ public interface CartContract {
          */
         void collectProduct(String id);
 
+    }
+
+
+    /**
+     * 购物车相关
+     */
+    interface CartPresenter2 {
+        /**
+         * 在商品详情页添加商品到购物车
+         */
+        void addCart(long platformId, long organizeId, long accountId,
+                     int accountType, String skuSaleNumJson, boolean isDialog);
     }
 }
