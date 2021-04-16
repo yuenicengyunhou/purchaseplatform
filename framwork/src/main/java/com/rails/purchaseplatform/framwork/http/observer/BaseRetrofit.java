@@ -145,8 +145,8 @@ public abstract class BaseRetrofit {
         InputStream inputStream = null;
         try {
 //            inputStream = BaseApp.getContext().getAssets().open("crmall.crt");
-//            inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
-            inputStream = BaseApp.getContext().getAssets().open("shop.cer");
+            inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
+//            inputStream = BaseApp.getContext().getAssets().open("shop.cer");
         } catch (IOException e) {
             e.printStackTrace();
         }
