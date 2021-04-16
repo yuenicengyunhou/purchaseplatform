@@ -38,25 +38,21 @@ public class CategoryPresenterImpl extends BasePresenter<CategoryContract.Catego
      */
     @Override
     public void getCategorys(boolean isReadCache) {
-//        model.getCategorys(new HttpRxObserver<ArrayList<CategoryRootBean>>() {
-//            @Override
-//            protected void onError(ErrorBean e) {
-//                baseView.onError(e);
-//            }
-//
-//            @Override
-//            protected void onSuccess(ArrayList<CategoryRootBean> beans) {
-//                if (isCallBack()) {
-//                    baseView.getCategorys(beans);
-//                }
-//            }
-//        });
 
-        Type type = new TypeToken<ArrayList<CategoryRootBean>>() {
-        }.getType();
-        ArrayList<CategoryRootBean> beans = JsonUtil.parseJson(mContext, "classical.json", type);
-        baseView.getCategorys(beans);
+        model.getCategorys(new HttpRxObserver<ArrayList<CategoryRootBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
 
-
+            @Override
+            protected void onSuccess(ArrayList<CategoryRootBean> beans) {
+                if (isCallBack()) {
+                    baseView.dismissDialog();
+                    baseView.getCategorys(beans);
+                }
+            }
+        });
     }
 }

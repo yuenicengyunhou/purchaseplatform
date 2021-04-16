@@ -30,6 +30,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
+
+
+
         CartBean cartBean = JsonUtil.parseJson(mContext, "cart.json", CartBean.class);
         for (CartShopBean shopBean : cartBean.getShopList()) {
             for (CartShopProductBean productBean : shopBean.getSkuList()) {
