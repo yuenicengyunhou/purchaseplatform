@@ -15,7 +15,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
@@ -25,6 +24,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
+import com.rails.lib_data.contract.CartContract;
+import com.rails.lib_data.contract.CartPresenterImpl2;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
@@ -49,11 +50,13 @@ import java.util.ArrayList;
 
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
-        implements RecommendItemsContract.RecommendItemsView, ConstantH5.ProductDetails {
+        implements RecommendItemsContract.RecommendItemsView, ConstantH5.ProductDetails, CartContract.DetailsCartView {
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
+
+    private CartContract.CartPresenter2 mPresenter;
 
     final private String[] TAB_URLS = {
             PRODUCT_INFO,
@@ -63,6 +66,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     };
 
     final private ArrayList<String> PICTURE_URLS = new ArrayList<>();
+    private PropertyPop mPop;
 
     {
         PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
@@ -88,6 +92,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         VIEWS.add(binding.viewSplit4);
 
         setTextStyleDeprecated();
+
+        mPresenter = new CartPresenterImpl2(this, this);
 
         binding.fsvScore.setStar(4);
 
@@ -408,10 +414,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 选择型号/规格弹窗
      */
     private void showPropertyPop() {
-        PropertyPop pop = new PropertyPop();
-        pop.setGravity(Gravity.BOTTOM);
-        pop.setType(BasePop.MATCH_WRAP);
-        pop.show(getSupportFragmentManager(), "property");
+        mPop = new PropertyPop();
+        mPop.setGravity(Gravity.BOTTOM);
+        mPop.setType(BasePop.MATCH_WRAP);
+        mPop.setAddToCartListener(skuSaleNumJson ->
+                mPresenter.addCart(20L, 30L, 40L, 50, skuSaleNumJson, true));
+        mPop.show(getSupportFragmentManager(), "property");
     }
 
     /**
@@ -439,4 +447,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
 
+    @Override
+    public void addCartSuccess() {
+        mPop.dismiss();
+    }
 }

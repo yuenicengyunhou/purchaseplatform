@@ -44,7 +44,8 @@ public interface CartService {
      * @param params
      * @return
      */
-    @POST("app/v1/mall/cart/addCart")
+    @POST("app-order-service/app/v1/mall/cart/addCart")
+//    @POST("order/mall/cart/addCart")
     Observable<HttpResult<Object>> addCart(@QueryMap HashMap<String, Object> params);
 
 }

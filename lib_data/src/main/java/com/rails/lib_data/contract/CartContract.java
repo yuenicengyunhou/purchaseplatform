@@ -40,11 +40,15 @@ public interface CartContract {
          */
         void getResult(int type, String msg);
 
+
+    }
+
+    interface DetailsCartView extends BaseView {
+
         /**
          * 商品详情页 添加商品到购物车
          */
-        void addCart();
-
+        void addCartSuccess();
     }
 
 

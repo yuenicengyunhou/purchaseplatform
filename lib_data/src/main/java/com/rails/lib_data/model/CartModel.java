@@ -63,11 +63,11 @@ public class CartModel {
             int accountType, String skuSaleNumJson, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("platformId", 20L);
-        params.put("organizeId", 30L);
-        params.put("accountId", 40L);
-        params.put("accountType", 50);
-        params.put("skuSaleNumJson", "12345");
+//        params.put("platformId", platformId);
+//        params.put("organizeId", organizeId);
+//        params.put("accountId", accountId);
+//        params.put("accountType", accountType);
+        params.put("skuSaleNumJson", skuSaleNumJson);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class, 1)
