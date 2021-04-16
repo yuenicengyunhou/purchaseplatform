@@ -9,6 +9,7 @@ import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
+import com.rails.lib_data.bean.NavigationBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
@@ -73,9 +74,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         categoryAdapter = new NavigationAdapter(getActivity());
         binding.categoryRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 5);
         binding.categoryRecycler.setAdapter(categoryAdapter);
-        categoryAdapter.setListener(new PositionListener<CategorySubBean>() {
+        categoryAdapter.setListener(new PositionListener<NavigationBean>() {
             @Override
-            public void onPosition(CategorySubBean bean, int position) {
+            public void onPosition(NavigationBean bean, int position) {
                 goLogin(SearchResultActivity.class, "", null);
             }
         });

@@ -7,7 +7,7 @@ public class HttpConstants {
 
 
 //    final public static String SHOP_URL = "https://shop.rails.cn/proxy/";
-    final public static String SHOP_URL = "http://shop-dev1.rails.cn/proxy/";
+    final public static String SHOP_URL = "https://shop-dev1.rails.cn/proxy/";
 
     /**
      * Swagger给的新的地址
