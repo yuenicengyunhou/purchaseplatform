@@ -2,7 +2,6 @@ package com.rails.lib_data.model;
 
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.CartService;
-import com.rails.lib_data.service.LoginService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
@@ -70,7 +69,7 @@ public class CartModel {
         params.put("skuSaleNumJson", skuSaleNumJson);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(CartService.class, 1)
+                .create(CartService.class)
                 .addCart(params))
                 .subscribe(httpRxObserver);
 

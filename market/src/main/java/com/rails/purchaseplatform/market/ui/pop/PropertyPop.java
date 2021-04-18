@@ -47,8 +47,13 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
     void onClick() {
         binding.btnClose.setOnClickListener(v -> dismiss());
 
+        String saleNum = "1";
+        String skuId = "12883";
+
         binding.btnOk.setOnClickListener(v -> {
-            mAddToCart.addToCart("{\"saleNum\":\"1\",\"skuId\":\"12883\"}");
+            mAddToCart.addToCart(String.format(
+                    "{\"saleNum\":\"%s\",\"skuId\":\"%s\"}",
+                    saleNum, skuId));
         });
     }
 

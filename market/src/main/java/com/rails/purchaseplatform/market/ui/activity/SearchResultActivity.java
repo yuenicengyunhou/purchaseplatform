@@ -75,10 +75,15 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        Bundle fragmentBundle = new Bundle();
+        fragmentBundle.putString("search_key", mSearchKey);
+        SearchResultByProductFragment fragment1 = new SearchResultByProductFragment();
+        fragment1.setArguments(fragmentBundle);
+        SearchResultByShopFragment fragment2 = new SearchResultByShopFragment();
+        fragment2.setArguments(fragmentBundle);
         mFragments = new ArrayList<>();
-        mFragments.add(new SearchResultByProductFragment());
-        mFragments.add(new SearchResultByShopFragment());
+        mFragments.add(fragment1);
+        mFragments.add(fragment2);
         mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
 
 
