@@ -1,5 +1,6 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -21,7 +22,15 @@ public interface LoginContract {
          * @param type
          * @param msg
          */
-        void onResult(int type, String msg,String token);
+        void onResult(int type, String msg, String token);
+
+
+        /**
+         * 用户信息
+         *
+         * @param bean
+         */
+        void getUserInfo(UserInfoBean bean);
 
     }
 
@@ -41,8 +50,17 @@ public interface LoginContract {
 
         /**
          * 获取验证吗
+         *
          * @param phone
          */
         void getCode(String phone);
+
+
+        /**
+         * 获取用户信息
+         *
+         * @param isDialog 是否显示loading窗口
+         */
+        void getUserInfo(boolean isDialog,String token);
     }
 }

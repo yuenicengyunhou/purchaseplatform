@@ -8,7 +8,10 @@ import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
 import java.util.ArrayList;
@@ -21,8 +24,11 @@ import java.util.ArrayList;
  */
 public class CartPresenterImpl extends BasePresenter<CartContract.CartView> implements CartContract.CartPresenter {
 
+    CartModel model;
+
     public CartPresenterImpl(Activity mContext, CartContract.CartView cartView) {
         super(mContext, cartView);
+        model = new CartModel();
     }
 
     @Override
@@ -30,33 +36,49 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
-        CartBean cartBean = JsonUtil.parseJson(mContext, "cart.json", CartBean.class);
-        for (CartShopBean shopBean : cartBean.getShopList()) {
-            for (CartShopProductBean productBean : shopBean.getSkuList()) {
-                productBean.num.set(productBean.getSkuNum());
-                productBean.isSel.set(false);
-
-                productBean.canSel.set(productBean.getCanUser());
-
-                if (productBean.num.get() > 99) {
-                    productBean.canAdd.set(false);
-                } else
-                    productBean.canAdd.set(true);
-
-                if (productBean.num.get() <= 1) {
-                    productBean.canReduce.set(false);
-                } else
-                    productBean.canReduce.set(true);
-
-                productBean.isLimit.set(productBean.getLimit());
+        model.getCarts(new HttpRxObserver<CartBean>() {
+            @Override
+            protected void onError(ErrorBean e) {
 
             }
-        }
 
-        if (isCallBack()) {
-            baseView.dismissDialog();
-            baseView.getCartInfo(cartBean);
-        }
+            @Override
+            protected void onSuccess(CartBean response) {
+
+            }
+
+        });
+
+
+
+//
+//        CartBean cartBean = JsonUtil.parseJson(mContext, "cart.json", CartBean.class);
+//        for (CartShopBean shopBean : cartBean.getShopList()) {
+//            for (CartShopProductBean productBean : shopBean.getSkuList()) {
+//                productBean.num.set(productBean.getSkuNum());
+//                productBean.isSel.set(false);
+//
+//                productBean.canSel.set(productBean.getCanUser());
+//
+//                if (productBean.num.get() > 99) {
+//                    productBean.canAdd.set(false);
+//                } else
+//                    productBean.canAdd.set(true);
+//
+//                if (productBean.num.get() <= 1) {
+//                    productBean.canReduce.set(false);
+//                } else
+//                    productBean.canReduce.set(true);
+//
+//                productBean.isLimit.set(productBean.getLimit());
+//
+//            }
+//        }
+//
+//        if (isCallBack()) {
+//            baseView.dismissDialog();
+//            baseView.getCartInfo(cartBean);
+//        }
 
 
     }

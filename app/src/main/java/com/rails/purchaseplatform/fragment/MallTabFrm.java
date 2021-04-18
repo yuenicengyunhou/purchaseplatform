@@ -7,7 +7,7 @@ import android.view.View;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.common.ConShare;
+import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.databinding.FrmTabMallBinding;

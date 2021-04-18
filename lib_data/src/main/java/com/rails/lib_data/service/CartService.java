@@ -24,7 +24,7 @@ public interface CartService {
      *
      * @return
      */
-    @GET("app/v1/mall/cart/queryCart")
+    @GET("app-order-service/app/v1/mall/cart/queryCart")
     Observable<HttpResult<CartBean>> getCarts(@QueryMap HashMap<String, Object> params);
 
 

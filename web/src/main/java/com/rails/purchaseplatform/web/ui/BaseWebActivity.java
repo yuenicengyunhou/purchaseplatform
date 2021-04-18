@@ -14,7 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.orhanobut.logger.Logger;
-import com.rails.purchaseplatform.common.ConShare;
+import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.utils.JSBack;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;

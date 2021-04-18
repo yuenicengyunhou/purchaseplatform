@@ -1,10 +1,6 @@
 package com.rails.lib_data.service;
 
-import android.util.SparseArray;
-
-import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.CategoryRootBean;
-import com.rails.lib_data.bean.ListBeen;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.ArrayList;

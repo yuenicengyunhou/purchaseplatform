@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.common;
+package com.rails.lib_data;
 
 /**
  * 存储数据
@@ -9,4 +9,6 @@ package com.rails.purchaseplatform.common;
 public class ConShare {
 
     public static final String TOKEN = "token";
+    //用户信息
+    public static final String USERINFO = "user_info";
 }

@@ -24,7 +24,7 @@ public class CategoryModel {
         params.put("businessType", "1");
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(CategoryService.class, 1).getCategorys(params))
+                .create(CategoryService.class).getCategorys(params))
                 .subscribe(httpRxObserver);
 
     }
