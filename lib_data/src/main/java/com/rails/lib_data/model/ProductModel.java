@@ -60,4 +60,17 @@ public class ProductModel {
                 .getSearchResultWithKeywordOnly(params))
                 .subscribe(httpRxObserver);
     }
+
+
+    public void getProductDetails(long platformId, long shopId, long itemId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("keyword", platformId);
+        params.put("platformId", shopId);
+        params.put("pageNum", itemId);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .getProductDetails(params))
+                .subscribe(httpRxObserver);
+    }
 }

@@ -57,4 +57,13 @@ public interface ProductService {
 //    @GET("mall/search/queryItemListByKeyword")
     Observable<HttpResult<SearchDataBean>> getSearchResultWithKeywordOnly(@QueryMap HashMap<String, Object> params);
 
+    /**
+     * 获取商品详情
+     *
+     * @param params
+     * @return
+     */
+    @GET("item-search-controller/app/v1/mall/search/queryNormalItemDetails ")
+    Observable<HttpResult<Object>> getProductDetails(@QueryMap HashMap<String, Object> params);
+
 }

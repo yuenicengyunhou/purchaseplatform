@@ -23,9 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
+import com.rails.lib_data.bean.ProductDetailsBean;
 import com.rails.lib_data.bean.RecommendItemsBean;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl2;
+import com.rails.lib_data.contract.ProductDetailsContract;
+import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
@@ -34,6 +37,7 @@ import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
@@ -55,7 +59,8 @@ import java.util.ArrayList;
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements
         RecommendItemsContract.RecommendItemsView,
         ConstantH5.ProductDetails,
-        CartContract.DetailsCartView {
+        CartContract.DetailsCartView,
+        ProductDetailsContract.ProductDetailsView {
 
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
@@ -89,10 +94,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private OrderSearchFilterPop mAddCartPop;
 
+    private BasePresenter mGetProductDetailsPresenter;
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
+        mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
+
         VIEWS.add(binding.viewSplit1);
         VIEWS.add(binding.viewSplit2);
         VIEWS.add(binding.viewSplit3);
@@ -314,16 +323,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
         binding.tvPutInCart.setOnClickListener(v -> {
-            // TODO: 2021/4/9 加入购物车弹窗
-//            Log.d(TAG, "购物车弹窗");
-//            if (mAddCartPop == null) {
-//                String[] text = {"选择型号", "选择数量", "选择颜色"};
-//                mAddCartPop = new OrderSearchFilterPop(text);
-//                mAddCartPop.setType(BasePop.MATCH_WRAP);
-//                mAddCartPop.setGravity(Gravity.BOTTOM);
-//            }
-//            mAddCartPop.show(getSupportFragmentManager(), "addCart");
-//            Toast.makeText(this, "购物车弹窗呢？？？", Toast.LENGTH_SHORT).show();
             showPropertyPop();
         });
 
@@ -458,5 +457,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void addCartSuccess() {
         mPop.dismiss();
+    }
+
+    @Override
+    public void onGetProductDetailsSuccess(boolean bean) {
+
     }
 }

@@ -52,7 +52,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
 
         binding.btnOk.setOnClickListener(v -> {
             mAddToCart.addToCart(String.format(
-                    "{\"saleNum\":\"%s\",\"skuId\":\"%s\"}",
+                    "[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]",
                     saleNum, skuId));
         });
     }
