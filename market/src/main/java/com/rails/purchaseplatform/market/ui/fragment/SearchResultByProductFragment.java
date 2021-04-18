@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
 import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.lib_data.contract.SearchResultPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -19,7 +19,8 @@ import java.util.ArrayList;
 /**
  * 搜索结果 - 按商品搜索
  */
-public class SearchResultByProductFragment extends LazyFragment<FragmentSearchResultByProductBinding> implements SearchResultContract.SearchResultView {
+public class SearchResultByProductFragment extends LazyFragment<FragmentSearchResultByProductBinding> implements
+        SearchResultContract.SearchResultView {
 
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
@@ -33,11 +34,12 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         Bundle bundle = this.getArguments();
         mSearchKey = bundle.getString("search_key", "");
 
-        mAdapter = new SearchResultRecyclerAdapter(this.getContext());
         mPresenter = new SearchResultPresenterImpl(this.getActivity(), this);
+        mPresenter.getSearchResultWithKeywordOnly(true, 1, 20L, mSearchKey);
+
+        mAdapter = new SearchResultRecyclerAdapter(this.getContext());
         binding.brvProductSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.brvProductSearchResult.setAdapter(mAdapter);
-        mPresenter.getSearchResultWithKeywordOnly(true, 1, 20L, mSearchKey);
     }
 
     @Override
@@ -51,8 +53,8 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void getSearchResult(ArrayList<SearchResultBean> searchResultBeans, boolean hasMore, boolean isClear) {
-        mAdapter.update(searchResultBeans, isClear);
+    public void getSearchResultWithKeywordOnly(ArrayList<BaseItemAttribute> baseItemAttributes, boolean hasMore, boolean isClear) {
+        mAdapter.update(baseItemAttributes, isClear);
     }
 
     @Override

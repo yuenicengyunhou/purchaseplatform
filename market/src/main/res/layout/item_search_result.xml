@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="result"
-            type="com.rails.lib_data.bean.SearchResultBean" />
+            name="itemAttribute"
+            type="com.rails.lib_data.bean.showOnApp.BaseItemAttribute" />
     </data>
 
     <LinearLayout
@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_4"
-            android:scaleType="center"
-            app:imgUrl="@{result.iconUrl}" />
+            android:scaleType="centerInside"
+            app:imgUrl="@{itemAttribute.pictureUrl}" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -34,7 +34,7 @@
             android:lineSpacingExtra="@dimen/dp_12"
             android:lines="2"
             android:padding="@dimen/dp_4"
-            android:text="@{result.name}"
+            android:text="@{itemAttribute.skuName}"
             android:textColor="#FF0F0F0F"
             android:textSize="@dimen/font_size_14" />
 
@@ -45,7 +45,7 @@
             android:layout_marginStart="@dimen/dp_8"
             android:layout_marginEnd="@dimen/dp_8"
             android:padding="@dimen/dp_4"
-            android:text="@{result.shop}"
+            android:text="@{itemAttribute.shopName}"
             android:textColor="#FF3C3C3C"
             android:textSize="@dimen/font_size_12" />
 
@@ -69,7 +69,6 @@
                 android:id="@+id/tv_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{result.price}"
                 android:textColor="#FFFF003F"
                 android:textSize="@dimen/font_size_12" />
         </LinearLayout>

@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.common.utils;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +42,9 @@ public class BindAdapter {
      */
     @androidx.databinding.BindingAdapter("imgUrl")
     public static void bindImageUrl(ImageView view, String imageUrl) {
+        if (TextUtils.isEmpty(imageUrl))
+            imageUrl ="";
+
         if (!imageUrl.contains("https"))
             imageUrl = "https:" + imageUrl;
 
