@@ -29,14 +29,14 @@ public class CartShopBean {
 
     private Integer platformId;
     private Long shopId;
-    private Integer sellerId;
+    private String sellerId;
     private String shopName;
-    private Integer shopType;
+    private String shopType;
     private String shopTypeView;
     private Boolean selected;
     private String subtotalPrice;
     private String selectedSubPrice;
-    private Integer selectedSkuNum;
+    private int selectedSkuNum;
     private String freightPrice;
     private List<CartShopProductBean> skuList;
     public final ObservableField<Boolean> isSel = new ObservableField<>();
@@ -57,11 +57,11 @@ public class CartShopBean {
         this.shopId = shopId;
     }
 
-    public Integer getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(Integer sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
     }
 
@@ -73,11 +73,11 @@ public class CartShopBean {
         this.shopName = shopName;
     }
 
-    public Integer getShopType() {
+    public String getShopType() {
         return shopType;
     }
 
-    public void setShopType(Integer shopType) {
+    public void setShopType(String shopType) {
         this.shopType = shopType;
     }
 
@@ -113,11 +113,11 @@ public class CartShopBean {
         this.selectedSubPrice = selectedSubPrice;
     }
 
-    public Integer getSelectedSkuNum() {
+    public int getSelectedSkuNum() {
         return selectedSkuNum;
     }
 
-    public void setSelectedSkuNum(Integer selectedSkuNum) {
+    public void setSelectedSkuNum(int selectedSkuNum) {
         this.selectedSkuNum = selectedSkuNum;
     }
 

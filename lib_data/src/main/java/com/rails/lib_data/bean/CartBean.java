@@ -23,56 +23,55 @@ public class CartBean {
      * updateTime : 1616134017524
      */
 
-    private Integer platformId;
-    private Integer userId;
-    private Integer organizeId;
-    private Integer goodsNum;
-    private Integer totalSkuNum;
+    private String platformId;
+    private String userId;
+    private String organizeId;
+    private String goodsNum;
+    private String totalSkuNum;
     private String totalPrice;
     private String paymentPrice;
     private String freightPrice;
     private Boolean selected;
-    private Long updateTime;
+    private String updateTime;
     private List<CartShopBean> shopList;
 
-
-    public Integer getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(Integer platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Integer getOrganizeId() {
+    public String getOrganizeId() {
         return organizeId;
     }
 
-    public void setOrganizeId(Integer organizeId) {
+    public void setOrganizeId(String organizeId) {
         this.organizeId = organizeId;
     }
 
-    public Integer getGoodsNum() {
+    public String getGoodsNum() {
         return goodsNum;
     }
 
-    public void setGoodsNum(Integer goodsNum) {
+    public void setGoodsNum(String goodsNum) {
         this.goodsNum = goodsNum;
     }
 
-    public Integer getTotalSkuNum() {
+    public String getTotalSkuNum() {
         return totalSkuNum;
     }
 
-    public void setTotalSkuNum(Integer totalSkuNum) {
+    public void setTotalSkuNum(String totalSkuNum) {
         this.totalSkuNum = totalSkuNum;
     }
 
@@ -108,11 +107,11 @@ public class CartBean {
         this.selected = selected;
     }
 
-    public Long getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Long updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -123,4 +122,5 @@ public class CartBean {
     public void setShopList(List<CartShopBean> shopList) {
         this.shopList = shopList;
     }
+
 }
