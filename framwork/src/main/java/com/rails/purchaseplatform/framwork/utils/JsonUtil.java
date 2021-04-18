@@ -88,4 +88,17 @@ public class JsonUtil {
     }
 
 
+    /**
+     * 解析jsonArray
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> T parseJson(String json, Type type) {
+        Gson gson = new GsonBuilder().create();
+        return gson.fromJson(json, type);
+
+    }
+
+
 }

@@ -24,11 +24,10 @@ public class CartModel {
      */
     public void getCarts(HttpRxObserver httpRxObserver) {
 
-//        https://shop.rails.cn/proxy/order/mall/cart/queryCart?v=0.7794941713598147&addressId=1001550
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("platformId", "20");
-//        params.put("addressId", "1001550");
+        params.put("addressId", "1001550");
         params.put("organizeId", "13");
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()

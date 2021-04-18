@@ -1,7 +1,9 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
+import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
@@ -14,6 +16,7 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -39,16 +42,29 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         model.getCarts(new HttpRxObserver<CartBean>() {
             @Override
             protected void onError(ErrorBean e) {
-
+                baseView.dismissDialog();
+                baseView.onError(e);
             }
 
             @Override
-            protected void onSuccess(CartBean response) {
+            protected void onSuccess(CartBean cartBean) {
+                baseView.dismissDialog();
+                if (isCallBack()) {
+//                    if (!TextUtils.isEmpty(cartBean.getShopList())) {
+//                        Type type = new TypeToken<ArrayList<CartShopBean>>() {
+//                        }.getType();
+//                        ArrayList<CartShopBean> beans = JsonUtil.parseJson(cartBean.getShopList(), type);
+//                        cartBean.setShops(beans);
+//                    } else {
+//                        ArrayList<CartShopBean> beans = new ArrayList<>();
+//                        cartBean.setShops(beans);
+//                    }
+                    baseView.getCartInfo(cartBean);
+                }
 
             }
 
         });
-
 
 
 //
