@@ -1,8 +1,8 @@
 package com.rails.lib_data.service;
 
+import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
@@ -11,7 +11,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Url;
+import retrofit2.http.QueryMap;
 
 /**
  * @author： sk_comic@163.com
@@ -38,5 +38,12 @@ public interface LoginService {
      */
     @POST("phoneCode/send/{phone}")
     Observable<HttpResult<String>> getCode(@Path("phone") String phone);
+
+
+    /**
+     * @return
+     */
+    @GET("user/buyer/user/login")
+    Observable<HttpResult<UserInfoBean>> getUserInfo(@QueryMap HashMap<String, String> params);
 
 }

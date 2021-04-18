@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.user.ui.activity;
 
 import android.os.Bundle;
 
+import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
@@ -42,6 +43,11 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
 
     @Override
     public void onResult(int type, String msg, String token) {
+
+    }
+
+    @Override
+    public void getUserInfo(UserInfoBean bean) {
 
     }
 }

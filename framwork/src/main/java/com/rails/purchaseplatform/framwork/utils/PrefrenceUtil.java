@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -278,16 +279,14 @@ public class PrefrenceUtil {
      * @param <T>
      * @return
      */
-    public <T> T getBean(String key) {
-        T bean;
+    public <T> T getBean(String key,Class<T> cls) {
         String str = preferences.getString(key, null);
         if (TextUtils.isEmpty(str)) {
             return null;
         }
-        Gson gson = new Gson();
-        bean = gson.fromJson(str, new TypeToken<T>() {
-        }.getType());
-        return bean;
+        Gson gson = new GsonBuilder().create();
+        return  gson.fromJson(str, cls);
+
     }
 
 

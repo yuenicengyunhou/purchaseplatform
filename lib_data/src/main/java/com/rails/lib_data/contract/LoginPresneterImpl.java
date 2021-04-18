@@ -1,11 +1,16 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.TextUtils;
+
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
@@ -49,8 +54,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-//        baseView.onResult(0, "登录成功","dddd");
-
         baseView.showResDialog(R.string.loading);
         model.onLogin(phone, paw, code, new HttpRxObserver<String>() {
             @Override
@@ -88,6 +91,32 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             protected void onSuccess(String response) {
                 baseView.dismissDialog();
                 baseView.onResult(1, "获取成功", response);
+            }
+        });
+    }
+
+
+    /**
+     * 获取用户信息
+     */
+    @Override
+    public void getUserInfo(boolean isDialog, String token) {
+        if (TextUtils.isEmpty(token))
+            return;
+
+        if (isDialog)
+            baseView.showResDialog(R.string.loading);
+        model.getUserInfo(token, new HttpRxObserver<UserInfoBean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(UserInfoBean bean) {
+                baseView.dismissDialog();
+                baseView.getUserInfo(bean);
             }
         });
     }

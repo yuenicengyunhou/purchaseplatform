@@ -52,4 +52,22 @@ public class LoginModel {
                 .create(LoginService.class, 1).getCode(phone))
                 .subscribe(httpRxObserver);
     }
+
+
+    /**
+     * 获取用户信息
+     *
+     * @param httpRxObserver
+     */
+    public void getUserInfo(String token, HttpRxObserver httpRxObserver) {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("serviceTicket", token);
+        params.put("platformId", "30");
+
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(LoginService.class).getUserInfo(params))
+                .subscribe(httpRxObserver);
+    }
 }
