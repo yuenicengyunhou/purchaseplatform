@@ -1,8 +1,8 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.bean.SearchResultByShopBean;
+import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -13,7 +13,15 @@ import java.util.ArrayList;
 public interface SearchResultContract {
 
     interface SearchResultView extends BaseView {
-        void getSearchResult(ArrayList<SearchResultBean> searchResultBeans, boolean hasMore, boolean isClear);
+
+        /**
+         * 获取商品列表成功 回调
+         *
+         * @param searchResultBeans
+         * @param hasMore
+         * @param isClear
+         */
+        void getSearchResultWithKeywordOnly(ArrayList<BaseItemAttribute> searchResultBeans, boolean hasMore, boolean isClear);
 
 
         /**
@@ -28,7 +36,6 @@ public interface SearchResultContract {
     }
 
     interface SearchResultPresenter {
-        void getSearchResult(boolean isDialog, int page);
 
 
         /**

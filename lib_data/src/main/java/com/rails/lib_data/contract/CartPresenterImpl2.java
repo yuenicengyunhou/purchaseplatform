@@ -7,6 +7,9 @@ import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
+/**
+ * 商品详情页 请求添加到购物车
+ */
 public class CartPresenterImpl2 extends BasePresenter<CartContract.DetailsCartView> implements CartContract.CartPresenter2 {
 
     private CartModel mModel;

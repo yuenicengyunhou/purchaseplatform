@@ -11,15 +11,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.SearchResultBean;
-import com.rails.lib_data.contract.ProductContract;
-import com.rails.lib_data.contract.SearchResultContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
@@ -38,14 +33,10 @@ import java.util.ArrayList;
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
 @Route(path = "/market/SearchResultActivity")
-public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> implements
-        SearchResultContract.SearchResultView, ProductContract.ProductView {
+public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> {
 
     private int mSearchType = 0;
     private String mSearchKey = "";
-
-    private SearchResultRecyclerAdapter mSearchResultRecyclerAdapter;
-    private SearchResultContract.SearchResultPresenter presenter;
 
     private ArrayList<Fragment> mFragments;
     private SearchResultViewPagerAdapter mPagerAdapter;
@@ -75,10 +66,15 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        Bundle fragmentBundle = new Bundle();
+        fragmentBundle.putString("search_key", mSearchKey);
+        SearchResultByProductFragment fragment1 = new SearchResultByProductFragment();
+        fragment1.setArguments(fragmentBundle);
+        SearchResultByShopFragment fragment2 = new SearchResultByShopFragment();
+        fragment2.setArguments(fragmentBundle);
         mFragments = new ArrayList<>();
-        mFragments.add(new SearchResultByProductFragment());
-        mFragments.add(new SearchResultByShopFragment());
+        mFragments.add(fragment1);
+        mFragments.add(fragment2);
         mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
 
 
@@ -163,11 +159,6 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     }
 
     @Override
-    public void getSearchResult(ArrayList<SearchResultBean> searchResultBeans, boolean hasMore, boolean isClear) {
-        mSearchResultRecyclerAdapter.update(searchResultBeans, isClear);
-    }
-
-    @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         mSearchType = extras.getInt("search_type");
@@ -185,15 +176,5 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbCommonSort.setSelected(booleans[0]);
         binding.cbSaleSort.setSelected(booleans[1]);
         binding.cbPriceSort.setSelected(booleans[2]);
-    }
-
-    @Override
-    public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
-
-    }
-
-    @Override
-    public void getProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
-
     }
 }

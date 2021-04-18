@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.rails.lib_data.bean.SearchResultBean;
+import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 
-public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<SearchResultBean, ItemSearchResultBinding> {
+public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<BaseItemAttribute, ItemSearchResultBinding> {
 
     private Context mContext;
 
@@ -24,13 +25,13 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<SearchResul
     }
 
     @Override
-    protected void onBindItem(ItemSearchResultBinding binding, SearchResultBean searchResultBean, int position) {
-        binding.setResult(searchResultBean);
-
+    protected void onBindItem(ItemSearchResultBinding binding, BaseItemAttribute baseItemAttribute, int position) {
+        binding.setItemAttribute(baseItemAttribute);
 //        binding.ivIcon.setImageURI(searchResultBean.getIconUrl());
 //        binding.tvName.setText(searchResultBean.getName());
 //        binding.tvShop.setText(searchResultBean.getShop());
 //        binding.tvPrice.setText(searchResultBean.getPrice());
+        binding.tvPrice.setText(String.valueOf(baseItemAttribute.getSellPrice()));
         binding.llItems.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class));
         });

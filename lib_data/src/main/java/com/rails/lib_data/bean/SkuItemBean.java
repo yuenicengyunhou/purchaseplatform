@@ -7,7 +7,7 @@ public class SkuItemBean {
     private String pictureUrl;
     private int brandId;
     private double sellPrice;
-    private String shopId;
+    private long shopId;
     private int skuId;
     private int contrastFlag;
     private int cid;
@@ -60,11 +60,11 @@ public class SkuItemBean {
         this.sellPrice = sellPrice;
     }
 
-    public String getShopId() {
+    public long getShopId() {
         return shopId;
     }
 
-    public void setShopId(String shopId) {
+    public void setShopId(long shopId) {
         this.shopId = shopId;
     }
 

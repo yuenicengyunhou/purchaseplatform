@@ -48,9 +48,16 @@ import com.rails.purchaseplatform.market.web.ServicePage4Js;
 
 import java.util.ArrayList;
 
+/**
+ * 商品详情页
+ */
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
-public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
-        implements RecommendItemsContract.RecommendItemsView, ConstantH5.ProductDetails, CartContract.DetailsCartView {
+public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements
+        RecommendItemsContract.RecommendItemsView,
+        ConstantH5.ProductDetails,
+        CartContract.DetailsCartView {
+
+
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
@@ -335,9 +342,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).navigation();
         });
 
-        // 点击收藏按钮 跳转到商品收藏页面
+        // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            ARouter.getInstance().build(ConRoute.WEB.WEB_COLLECT).navigation();
+            // TODO: 2021/04/18 添加到收藏
+//            ARouter.getInstance().build(ConRoute.WEB.WEB_COLLECT).navigation();
         });
 
         // 点击购物车按钮 跳转到购物车页面
