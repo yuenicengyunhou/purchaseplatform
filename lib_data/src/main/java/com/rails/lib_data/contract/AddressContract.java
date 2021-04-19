@@ -8,8 +8,8 @@ import java.util.ArrayList;
 /**
  * 地址管理contract
  *
- * @author： sk_comic@163.com
- * @date: 2021/3/26
+ * author： sk_comic@163.com
+ * date: 2021/3/26
  */
 public interface AddressContract {
 
@@ -19,8 +19,8 @@ public interface AddressContract {
         /**
          * 获取增删改查的变更信息
          *
-         * @param type
-         * @param msg
+         * param type
+         * param msg
          */
         void getResult(int type, int position, String msg);
 
@@ -28,9 +28,14 @@ public interface AddressContract {
         /**
          * 获取地址列表
          *
-         * @param addressBeans
+         * param addressBeans
          */
         void getAddresses(ArrayList<AddressBean> addressBeans);
+
+        /**
+         * 删除地址成功，通知页面
+         */
+        void deleteAddressSuccess(int position);
 
     }
 
@@ -41,7 +46,7 @@ public interface AddressContract {
         /**
          * 获取地址列表
          *
-         * @param isDialog 是否显示dialog
+         * param isDialog 是否显示dialog
          */
         void getAddresses(Boolean isDialog);
 
@@ -49,7 +54,7 @@ public interface AddressContract {
         /**
          * 设置为默认地址
          *
-         * @param id
+         * param id
          */
         void setDefAddress(String id, int position);
 
@@ -57,20 +62,20 @@ public interface AddressContract {
         /**
          * 删除地址
          *
-         * @param id
+         * param id
          */
-        void delAddress(String id, int position);
+        void delAddress(long buyerAddressId, int position);
 
 
         /**
          * 新增地址
          *
-         * @param men     联系人
-         * @param phone   联系人电话
-         * @param area    地区
-         * @param address 联系地址
-         * @param isDef   是否是默认地址
+         * param men     联系人
+         * param phone   联系人电话
+         * param area    地区
+         * param address 联系地址
+         * param isDef   是否是默认地址
          */
-        void addAddress(String men, String phone, String area, String address, boolean isDef);
+        void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress);
     }
 }

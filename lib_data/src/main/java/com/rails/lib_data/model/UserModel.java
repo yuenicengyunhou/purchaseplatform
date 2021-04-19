@@ -19,9 +19,18 @@ public class UserModel {
     /**
      * 添加地址
      */
-    public void addAddress(long platformId, long accountId, long organizationId, String requestStr,HttpRxObserver httpRxObserver) {
+    public void addAddress(long platformId, long accountId, String requestStr,HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(UserService.class, 1).insertAddress(platformId,accountId,organizationId,requestStr))
+                .create(UserService.class).insertAddress(platformId,accountId,requestStr))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
+     * 删除地址
+     */
+    public void deleteAddress(long platformId, long accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(UserService.class).deleteAddress(platformId,accountId,buyerAddressId))
                 .subscribe(httpRxObserver);
     }
 }
