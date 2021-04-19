@@ -64,6 +64,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     @Override
     protected void loadData() {
 
+//        PrefrenceUtil.getInstance(getActivity()).setString(ConShare.TOKEN, "9dc1892ae7cf941c14a0355d5d2f18cd");
+
         //设置banner的宽高
         CardView.LayoutParams linearParams = (CardView.LayoutParams) binding.banner.getLayoutParams();
         linearParams.width = ScreenSizeUtil.getScreenWidth(getActivity()) - ScreenSizeUtil.dp2px(getActivity(), 32);

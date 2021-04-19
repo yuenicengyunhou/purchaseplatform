@@ -30,7 +30,7 @@ import okio.Buffer;
 
 public class CommonInterceptor implements Interceptor {
 
-    private static final MediaType TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType TYPE_JSON = MediaType.parse("multipart/form-data; charset=utf-8");
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
     private String token;
     private UserInfoBean userInfoBean;
@@ -82,6 +82,28 @@ public class CommonInterceptor implements Interceptor {
      */
     private Request methodPost(Request request, Request.Builder builder) {
         RequestBody requestBody = request.body();
+//        if ((requestBody instanceof FormBody)) {
+//            Buffer buffer = new Buffer();
+//            try {
+//                requestBody.writeTo(buffer);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            Charset charset = Charset.forName("UTF-8");
+//            MediaType contentType = requestBody.contentType();
+//            if (contentType != null) {
+//                charset = contentType.charset(charset);
+//            }
+//            String paramsStr = buffer.readString(charset);
+//            requestBody = RequestBody.Companion.create(paramsStr, TYPE_JSON);
+//        }
+//        else if (requestBody instanceof FormBody) {
+//            FormBody oldBody = (FormBody) request.body();
+//            for (int i = 0; i < oldBody.size(); i++) {
+//                jsonObject.put(oldBody.encodedName(i), oldBody.encodedValue(i));
+//            }
+//            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
+//        }
         return builder.post(requestBody).build();
     }
 

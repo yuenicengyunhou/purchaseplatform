@@ -6,6 +6,7 @@ import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -47,8 +48,9 @@ public interface CartService {
      * @param params
      * @return
      */
+    @FormUrlEncoded
     @POST("app-order-service/app/v1/mall/cart/addCart")
 //    @POST("order/mall/cart/addCart")
-    Observable<HttpResult<Object>> addCart(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<String>> addCart(@FieldMap HashMap<String, Object> params);
 
 }
