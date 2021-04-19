@@ -63,7 +63,7 @@ public interface ProductService {
      * @param params
      * @return
      */
-    @GET("item-search-controller/app/v1/mall/search/queryNormalItemDetails ")
+    @GET("item-search-controller/app/v1/mall/search/queryItemDetails ")
     Observable<HttpResult<Object>> getProductDetails(@QueryMap HashMap<String, Object> params);
 
 }

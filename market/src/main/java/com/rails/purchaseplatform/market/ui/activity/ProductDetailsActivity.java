@@ -56,7 +56,8 @@ import java.util.ArrayList;
  * 商品详情页
  */
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
-public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding> implements
+public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
+        implements
         RecommendItemsContract.RecommendItemsView,
         ConstantH5.ProductDetails,
         CartContract.DetailsCartView,
@@ -94,13 +95,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private OrderSearchFilterPop mAddCartPop;
 
-    private BasePresenter mGetProductDetailsPresenter;
+    private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
+        mGetProductDetailsPresenter.getProductDetails(20L, 20L, 20L, true);
 
         VIEWS.add(binding.viewSplit1);
         VIEWS.add(binding.viewSplit2);
