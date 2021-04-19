@@ -4,6 +4,7 @@ package com.rails.lib_data.http.interceptor;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.BaseApp;
@@ -37,7 +38,7 @@ public class CommonInterceptor implements Interceptor {
 
     public CommonInterceptor() {
         token = PrefrenceUtil.getInstance(BaseApp.getContext()).getString(ConShare.TOKEN, "");
-        userInfoBean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO,UserInfoBean.class);
+        userInfoBean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
     }
 
 
@@ -80,31 +81,31 @@ public class CommonInterceptor implements Interceptor {
      * @return
      */
     private Request methodPost(Request request, Request.Builder builder) {
-        JSONObject jsonObject = new JSONObject();
         RequestBody requestBody = request.body();
-        if (!(requestBody instanceof FormBody) && !(requestBody instanceof MultipartBody)) {
-            Buffer buffer = new Buffer();
-            try {
-                requestBody.writeTo(buffer);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Charset charset = Charset.forName("UTF-8");
-            MediaType contentType = requestBody.contentType();
-            if (contentType != null) {
-                charset = contentType.charset(charset);
-            }
-            String paramsStr = buffer.readString(charset);
-            jsonObject = JSONObject.parseObject(paramsStr);
-            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
-
-        } else if (requestBody instanceof FormBody) {
-            FormBody oldBody = (FormBody) request.body();
-            for (int i = 0; i < oldBody.size(); i++) {
-                jsonObject.put(oldBody.encodedName(i), oldBody.encodedValue(i));
-            }
-            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
-        }
+//        JSONObject jsonObject = new JSONObject();
+//        if (!(requestBody instanceof FormBody) && !(requestBody instanceof MultipartBody)) {
+//            Buffer buffer = new Buffer();
+//            try {
+//                requestBody.writeTo(buffer);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            Charset charset = Charset.forName("UTF-8");
+//            MediaType contentType = requestBody.contentType();
+//            if (contentType != null) {
+//                charset = contentType.charset(charset);
+//            }
+//            String paramsStr = buffer.readString(charset);
+//            jsonObject = JSONObject.parseObject(paramsStr);
+//            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
+//        }
+//        else if (requestBody instanceof FormBody) {
+//            FormBody oldBody = (FormBody) request.body();
+//            for (int i = 0; i < oldBody.size(); i++) {
+//                jsonObject.put(oldBody.encodedName(i), oldBody.encodedValue(i));
+//            }
+//            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
+//        }
         return builder.post(requestBody).build();
     }
 
