@@ -36,11 +36,22 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
         });
 
         binding.getRoot().setOnClickListener(v -> {
-            if (mulPositionListener != null){
+            if (mulPositionListener != null) {
                 mulPositionListener.onPosition(addressBean, position);
             }
 
         });
+        if (addressBean.getReceivingAddress() == 1) {
+            binding.btnRecivice.setVisibility(View.VISIBLE);
+        } else {
+            binding.btnRecivice.setVisibility(View.GONE);
+        }
+
+        if (addressBean.getInvoiceAddress() == 1) {
+            binding.btnBill.setVisibility(View.VISIBLE);
+        } else {
+            binding.btnBill.setVisibility(View.GONE);
+        }
     }
 
 
@@ -58,9 +69,9 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
 
     /**
      * 获取对象
-     *
-     * @param position
-     * @return
+     * <p>
+     * param position
+     * return
      */
     public AddressBean getBean(int position) {
         if (mDataSource.size() > position)
@@ -71,17 +82,13 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
 
     /**
      * 变更选中状态
-     *
-     * @param position
+     * <p>
+     * param position
      */
     public void modifyDef(int position) {
         for (int i = 0; i < mDataSource.size(); i++) {
-            if (i == position)
-                mDataSource.get(i).isSel.set(true);
-            else
-                mDataSource.get(i).isSel.set(false);
+            mDataSource.get(i).setHasDefault(i == position ? 1 : 0);
         }
-
     }
 
 }

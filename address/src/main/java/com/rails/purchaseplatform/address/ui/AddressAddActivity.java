@@ -4,21 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.amap.api.location.AMapLocation;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.geocoder.GeocodeResult;
-import com.amap.api.services.geocoder.GeocodeSearch;
-import com.amap.api.services.geocoder.RegeocodeAddress;
-import com.amap.api.services.geocoder.RegeocodeQuery;
-import com.amap.api.services.geocoder.RegeocodeResult;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
@@ -32,10 +20,10 @@ import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
-import rx.functions.Action1;
 
 /**
  * 添加地址
@@ -44,6 +32,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
     private AddressBean bean;
     private AddressContract.AddressPresenter presenter;
+    private long addressId = 0;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -74,6 +63,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
         if (bean != null) {
             setDetail(bean);
+            addressId = bean.getAddressId();
         } else {
             loadData();
         }
@@ -85,59 +75,40 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
     /**
      * 设置内容
-     *
-     * @param bean
+     * <p>
+     * bean
      */
     private void setDetail(AddressBean bean) {
         barBinding.etName.setContent(bean.getReceiverName());
         barBinding.etPhone.setContent(bean.getPhone());
         barBinding.etArea.setContent(bean.getFullAddress());
-        barBinding.etRemark.setText(bean.getReceivingAddress());
+        barBinding.etRemark.setText(bean.getFullAddress());
+        barBinding.cbReceive.setChecked(bean.getReceivingAddress() == 1);
+        barBinding.cbInvoice.setChecked(bean.getInvoiceAddress() == 1);
     }
 
 
     @Override
     protected void onClick() {
         super.onClick();
-        barBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commit();
-            }
-        });
+        barBinding.btnAdd.setOnClickListener(v -> commit());
 
-        barBinding.btnLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAP).navigation(AddressAddActivity.this, 0);
-            }
-        });
+        barBinding.btnLocation.setOnClickListener(v -> ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAP).navigation(AddressAddActivity.this, 0));
 
-        barBinding.etArea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AreaPop pop = new AreaPop();
-                pop.setGravity(Gravity.BOTTOM);
-                pop.setType(BasePop.MATCH_WRAP);
-                pop.setListener(new AreaPop.PareaListener() {
-                    @Override
-                    public void getResult(String area) {
-                        barBinding.etArea.setContent(area);
-                    }
-                });
-                pop.show(getSupportFragmentManager(), "area");
-            }
+        barBinding.etArea.setOnClickListener(v -> {
+            AreaPop pop = new AreaPop();
+            pop.setGravity(Gravity.BOTTOM);
+            pop.setType(BasePop.MATCH_WRAP);
+            pop.setListener(area -> barBinding.etArea.setContent(area));
+            pop.show(getSupportFragmentManager(), "area");
         });
     }
 
 
     protected void loadData() {
-        RxPermissions.getInstance(this).request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(new Action1<Boolean>() {
-            @Override
-            public void call(Boolean aBoolean) {
-                if (aBoolean)
-                    initLocation();
-            }
+        RxPermissions.getInstance(this).request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(aBoolean -> {
+            if (aBoolean)
+                initLocation();
         });
     }
 
@@ -146,15 +117,12 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
      * 定位当前的位置
      */
     private void initLocation() {
-        LocationUtil.getLocation(this, new LocationUtil.CallBack() {
-            @Override
-            public void getMapLocation(AMapLocation mapLocation) {
-                if (null != mapLocation) {
-                    barBinding.etRemark.setText(mapLocation.getAddress());
-                    barBinding.etArea.setContent(mapLocation.getProvince() + " " + mapLocation.getCity() + " " + mapLocation.getDistrict());
-                } else
-                    ToastUtil.show(AddressAddActivity.this, "定位失败");
-            }
+        LocationUtil.getLocation(this, mapLocation -> {
+            if (null != mapLocation) {
+                barBinding.etRemark.setText(mapLocation.getAddress());
+                barBinding.etArea.setContent(mapLocation.getProvince() + " " + mapLocation.getCity() + " " + mapLocation.getDistrict());
+            } else
+                ToastUtil.show(AddressAddActivity.this, "定位失败");
         });
     }
 
@@ -164,7 +132,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             PoiItem poiItem = data.getParcelableExtra("poi");
-            barBinding.etRemark.setText(poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet());
+            barBinding.etRemark.setText(MessageFormat.format("{0}{1}{2}", poiItem.getCityName(), poiItem.getAdName(), poiItem.getSnippet()));
             barBinding.etArea.setContent(poiItem.getProvinceName() + " " + poiItem.getCityName() + " " + poiItem.getAdName());
         }
     }
@@ -178,7 +146,9 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String phone = barBinding.etPhone.getContent().trim();
         String area = barBinding.etArea.getContent().trim();
         String remark = barBinding.etRemark.getText().toString().trim();
-        presenter.addAddress(men, phone, area, remark, false);
+        int isReceivingAddress = barBinding.cbReceive.isChecked() ? 1 : 0;
+        int isInvoiceAddress = barBinding.cbInvoice.isChecked() ? 1 : 0;
+        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress,addressId);
     }
 
     @Override
@@ -189,6 +159,11 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
     @Override
     public void getAddresses(ArrayList<AddressBean> addressBeans) {
+
+    }
+
+    @Override
+    public void deleteAddressSuccess(int position) {
 
     }
 }
