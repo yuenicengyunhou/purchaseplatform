@@ -43,22 +43,13 @@ public interface ProductService {
 
 
     /**
-     * 获取商品列表
-     *
-     * @return
-     */
-    @POST("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<String>> getItemListWithKeywordOnly(@Body SearchProductBody body);
-
-
-    /**
      * 获取商品详情
      *
      * @param params
      * @return
      */
     @FormUrlEncoded
-    @POST("item-search-service/app/v1/mall/search/queryItemDetails ")
+    @POST("app-item-service/app/v1/mall/search/queryNormalItemDetails")
     Observable<HttpResult<Object>> getProductDetails(@FieldMap HashMap<String, Object> params);
 
 }
