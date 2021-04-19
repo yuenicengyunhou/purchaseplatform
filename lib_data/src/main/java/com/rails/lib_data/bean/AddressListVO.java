@@ -24,14 +24,14 @@ public class AddressListVO<T>{
     private int prevPage;
     private int totalCount;
     private int totalPageCount;
-    private ArrayList<T> list;
+    private ArrayList<T> result;
 
     public ArrayList<T> getList() {
-        return list;
+        return result;
     }
 
     public void setList(ArrayList<T> list) {
-        this.list = list;
+        this.result = list;
     }
 
     public boolean isFirstPage() {

@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -15,6 +16,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 
@@ -90,14 +92,17 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         barBinding.recycler.setOnItemMenuClickListener((menuBridge, adapterPosition) -> {
             menuBridge.closeMenu();
             int position = menuBridge.getPosition();
+            AddressBean bean = addressAdapter.getBean(adapterPosition);
+            long addressId = bean.getAddressId();
             if (position == 0) {
                 //删除
-                AddressBean bean = addressAdapter.getBean(adapterPosition);
                 if (bean != null)
-                    presenter.delAddress("0", adapterPosition);
+                    presenter.delAddress(addressId, adapterPosition);
             } else {
                 //设为默认
-                presenter.setDefAddress("0", adapterPosition);
+                int receivingAddress = bean.getReceivingAddress();
+                int invoiceAddress = bean.getInvoiceAddress();
+                presenter.setDefAddress(addressId, adapterPosition, receivingAddress == 1, invoiceAddress == 1);
 
             }
         });
@@ -138,15 +143,31 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
             addressAdapter.modifyDef(position);
             addressAdapter.swapData(position, 0);
         }
+        if (null != msg) {
+            ToastUtil.show(this, msg);
+        }
     }
 
     @Override
     public void getAddresses(ArrayList<AddressBean> addressBeans) {
         addressAdapter.update(addressBeans, true);
+        int defPosition = 0;
+        boolean defExist = false;
+        for (int i = 0; i < addressBeans.size(); i++) {
+            if (addressBeans.get(i).getHasDefault() == 1) {
+                defPosition = i;
+                defExist = true;
+                break;
+            }
+        }
+        if (defExist) {
+            getResult(1, defPosition, null);
+        }
     }
 
     @Override
     public void onPosition(AddressBean bean, int position) {
+        Log.e("WQ", "====bbb");
         Bundle bundle = new Bundle();
         bundle.putSerializable("bean", bean);
         startIntent(AddressAddActivity.class, bundle);
@@ -154,6 +175,21 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
     @Override
     public void onPosition(AddressBean bean, int position, int... params) {
-        presenter.setDefAddress("0", position);
+        presenter.setDefAddress(bean.getAddressId(), position, bean.getReceivingAddress() == 1, bean.getInvoiceAddress() == 1);
+    }
+
+    /**
+     * 删除地址成功，通知页面adapter 删除条目
+     */
+    @Override
+    public void deleteAddressSuccess(int position) {
+        addressAdapter.notifyItemRemoved(position);
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onRefresh();
     }
 }

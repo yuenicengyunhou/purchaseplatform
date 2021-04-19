@@ -38,7 +38,7 @@ public class RetrofitUtil extends BaseRetrofit {
 
     @Override
     public String getBaseUrl(int type) {
-        return HttpConstants.PLATFORM_URL;
+            return HttpConstants.PLATFORM_URL;
     }
 
     @Override

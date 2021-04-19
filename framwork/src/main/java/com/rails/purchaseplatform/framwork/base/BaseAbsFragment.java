@@ -55,7 +55,6 @@ public abstract class BaseAbsFragment<T extends ViewBinding> extends Fragment im
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         Type type = this.getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             try {
