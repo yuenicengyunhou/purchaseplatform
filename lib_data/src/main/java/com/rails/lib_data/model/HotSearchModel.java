@@ -9,12 +9,13 @@ import java.util.HashMap;
 
 public class HotSearchModel {
 
-    public void getRecHotSearch(HttpRxObserver httpRxObserver) {
+    public void getHotSearch(HttpRxObserver httpRxObserver) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("platformId", "20");
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(HotSearchService.class, 1).getHotSearch(params))
+                .create(HotSearchService.class)
+                .getHotSearch(params))
                 .subscribe(httpRxObserver);
     }
 }

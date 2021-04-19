@@ -12,6 +12,7 @@ import retrofit2.http.QueryMap;
 
 public interface HotSearchService {
 
+    // TODO: 2021/04/19 修改请求地址
     @GET("platform/platform/floor/queryFloorSettingList")
     Observable<HttpResult<ArrayList<HotSearchBean>>> getHotSearch(@QueryMap HashMap<String, String> params);
 }
