@@ -121,6 +121,9 @@ dependencies {
     //圆角
     api 'com.github.thomhurst:RoundImageView:1.0.2'
 
+    //字体库
+    api 'uk.co.chrisjenx:calligraphy:2.3.0'
+
 
     //高德地图
 //    api 'com.amap.api:3dmap:latest.integration'

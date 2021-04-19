@@ -1,10 +1,5 @@
 {
-  "address": {
-    "name": "张三三",
-    "phone": "139******583",
-    "address": "北京市海淀区大钟寺颐和家园8号院",
-    "isdefault": true
-  },
+
   "cart": {
     "platformId": 20,
     "userId": 1000090104,

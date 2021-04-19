@@ -49,32 +49,48 @@ public class CartShopProductBean {
      * thirdCategoryName :
      */
 
-    private Long shopId;
-    private Integer itemId;
+    //店铺id
+    private String shopId;
+    //商品id
+    private String itemId;
+    //spu名称
     private String itemName;
+    // sku名称
     private String skuName;
-    private Integer skuId;
+    private String skuId;
+    //第三方skuId
     private String sourceSkuId;
-    private Integer categoryId;
+    private String categoryId;
     private String shortCode;
     private String attributes;
     private String attributesName;
     private String pictureUrl;
+    //商品状态 0：无效 1：有效
     private Integer saleStatus;
+    //sku状态 0：停用 1：启用
     private String skuStatus;
+    //计量单位
     private String unit;
-    private Integer skuNum;
+    //sku 采购数量
+    private int skuNum;
+    // 市场价格
     private double marketPrice;
-    private String sellPrice;
-    private String subtotalPrice;
+    //销售价格
+    private double sellPrice;
+    // sku小计
+    private double subtotalPrice;
     private Boolean selected;
+    //是否收藏该商品 true：已收藏   false：未收藏
     private Boolean collect;
+    // sku税率
     private String taxRate;
     private String packageDis;
     private String packinglist;
     private String weight;
+    //供应商是否锁定
     private Boolean lockout;
     private String materialCode;
+    //推荐路局id
     private String recommendOrgId;
     private String brandId;
     private String brandName;
@@ -88,7 +104,6 @@ public class CartShopProductBean {
     private Boolean canUser;
 
 
-
     public final ObservableField<Boolean> isSel = new ObservableField<>();
     public final ObservableField<Integer> num = new ObservableField<>();
     public final ObservableField<Boolean> canReduce = new ObservableField<>();
@@ -96,19 +111,19 @@ public class CartShopProductBean {
     public final ObservableField<Boolean> canSel = new ObservableField<>();
     public final ObservableField<Boolean> isLimit = new ObservableField<>();
 
-    public Long getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(Long shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
-    public Integer getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
@@ -128,11 +143,11 @@ public class CartShopProductBean {
         this.skuName = skuName;
     }
 
-    public Integer getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(Integer skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 
@@ -144,11 +159,11 @@ public class CartShopProductBean {
         this.sourceSkuId = sourceSkuId;
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -208,15 +223,15 @@ public class CartShopProductBean {
         this.unit = unit;
     }
 
-    public Integer getSkuNum() {
+    public int getSkuNum() {
         return skuNum;
     }
 
-    public void setSkuNum(Integer skuNum) {
-        num.set(skuNum);
+    public void setSkuNum(int skuNum) {
+        this.skuNum = skuNum;
     }
 
-    public double getMarketPrice() {
+    public Double getMarketPrice() {
         return marketPrice;
     }
 
@@ -224,19 +239,19 @@ public class CartShopProductBean {
         this.marketPrice = marketPrice;
     }
 
-    public String getSellPrice() {
+    public double getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(String sellPrice) {
+    public void setSellPrice(double sellPrice) {
         this.sellPrice = sellPrice;
     }
 
-    public String getSubtotalPrice() {
+    public double getSubtotalPrice() {
         return subtotalPrice;
     }
 
-    public void setSubtotalPrice(String subtotalPrice) {
+    public void setSubtotalPrice(double subtotalPrice) {
         this.subtotalPrice = subtotalPrice;
     }
 

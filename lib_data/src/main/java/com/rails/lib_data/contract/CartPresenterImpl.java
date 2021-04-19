@@ -50,44 +50,31 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             protected void onSuccess(CartBean cartBean) {
                 baseView.dismissDialog();
                 if (isCallBack()) {
+
+                    for (CartShopBean shopBean : cartBean.getShopList()) {
+                        for (CartShopProductBean productBean : shopBean.getSkuList()) {
+                            productBean.num.set(productBean.getSkuNum());
+                            productBean.isSel.set(productBean.getSelected());
+
+                            productBean.canSel.set(productBean.getSaleStatus() == 1 ? true : false);
+                            productBean.canAdd.set(true);
+
+                            if (productBean.num.get() <= 1) {
+                                productBean.canReduce.set(false);
+                            } else
+                                productBean.canReduce.set(true);
+
+                            productBean.isLimit.set(productBean.getLimit());
+
+                        }
+                    }
+
                     baseView.getCartInfo(cartBean);
                 }
 
             }
 
         });
-
-
-//
-//        CartBean cartBean = JsonUtil.parseJson(mContext, "cart.json", CartBean.class);
-//        for (CartShopBean shopBean : cartBean.getShopList()) {
-//            for (CartShopProductBean productBean : shopBean.getSkuList()) {
-//                productBean.num.set(productBean.getSkuNum());
-//                productBean.isSel.set(false);
-//
-//                productBean.canSel.set(productBean.getCanUser());
-//
-//                if (productBean.num.get() > 99) {
-//                    productBean.canAdd.set(false);
-//                } else
-//                    productBean.canAdd.set(true);
-//
-//                if (productBean.num.get() <= 1) {
-//                    productBean.canReduce.set(false);
-//                } else
-//                    productBean.canReduce.set(true);
-//
-//                productBean.isLimit.set(productBean.getLimit());
-//
-//            }
-//        }
-//
-//        if (isCallBack()) {
-//            baseView.dismissDialog();
-//            baseView.getCartInfo(cartBean);
-//        }
-
-
     }
 
     @Override

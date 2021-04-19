@@ -27,8 +27,8 @@ public class CartShopBean {
      * freightPrice : 2.00
      */
 
-    private Integer platformId;
-    private Long shopId;
+    private String platformId;
+    private String shopId;
     private String sellerId;
     private String shopName;
     private String shopType;
@@ -36,24 +36,25 @@ public class CartShopBean {
     private Boolean selected;
     private String subtotalPrice;
     private String selectedSubPrice;
-    private int selectedSkuNum;
+    private String selectedSkuNum;
     private String freightPrice;
     private List<CartShopProductBean> skuList;
     public final ObservableField<Boolean> isSel = new ObservableField<>();
 
-    public Integer getPlatformId() {
+
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(Integer platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
-    public Long getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(Long shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
@@ -113,11 +114,11 @@ public class CartShopBean {
         this.selectedSubPrice = selectedSubPrice;
     }
 
-    public int getSelectedSkuNum() {
+    public String getSelectedSkuNum() {
         return selectedSkuNum;
     }
 
-    public void setSelectedSkuNum(int selectedSkuNum) {
+    public void setSelectedSkuNum(String selectedSkuNum) {
         this.selectedSkuNum = selectedSkuNum;
     }
 
