@@ -82,30 +82,6 @@ public class CommonInterceptor implements Interceptor {
      */
     private Request methodPost(Request request, Request.Builder builder) {
         RequestBody requestBody = request.body();
-//        JSONObject jsonObject = new JSONObject();
-//        if (!(requestBody instanceof FormBody) && !(requestBody instanceof MultipartBody)) {
-//            Buffer buffer = new Buffer();
-//            try {
-//                requestBody.writeTo(buffer);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            Charset charset = Charset.forName("UTF-8");
-//            MediaType contentType = requestBody.contentType();
-//            if (contentType != null) {
-//                charset = contentType.charset(charset);
-//            }
-//            String paramsStr = buffer.readString(charset);
-//            jsonObject = JSONObject.parseObject(paramsStr);
-//            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
-//        }
-//        else if (requestBody instanceof FormBody) {
-//            FormBody oldBody = (FormBody) request.body();
-//            for (int i = 0; i < oldBody.size(); i++) {
-//                jsonObject.put(oldBody.encodedName(i), oldBody.encodedValue(i));
-//            }
-//            requestBody = RequestBody.Companion.create(JSONObject.toJSONString(jsonObject), TYPE_JSON);
-//        }
         return builder.post(requestBody).build();
     }
 
