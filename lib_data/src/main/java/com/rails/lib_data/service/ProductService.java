@@ -1,7 +1,6 @@
 package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.ProductRecBean;
-import com.rails.lib_data.bean.SearchDataBean;
 import com.rails.lib_data.request.SearchProductBody;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
@@ -10,6 +9,8 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
@@ -47,15 +48,8 @@ public interface ProductService {
      * @return
      */
     @POST("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<String>> getSearchResultWithKeywordOnly(@Body SearchProductBody body);
+    Observable<HttpResult<String>> getItemListWithKeywordOnly(@Body SearchProductBody body);
 
-
-    /**
-     * 获取商品列表
-     */
-    @GET("elasticsearch-service/mall/search/queryItemListByKeyword")
-//    @GET("mall/search/queryItemListByKeyword")
-    Observable<HttpResult<SearchDataBean>> getSearchResultWithKeywordOnly(@QueryMap HashMap<String, Object> params);
 
     /**
      * 获取商品详情
@@ -63,7 +57,8 @@ public interface ProductService {
      * @param params
      * @return
      */
-    @GET("item-search-controller/app/v1/mall/search/queryItemDetails ")
-    Observable<HttpResult<Object>> getProductDetails(@QueryMap HashMap<String, Object> params);
+    @FormUrlEncoded
+    @POST("item-search-service/app/v1/mall/search/queryItemDetails ")
+    Observable<HttpResult<Object>> getProductDetails(@FieldMap HashMap<String, Object> params);
 
 }

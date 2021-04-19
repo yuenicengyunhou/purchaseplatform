@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -90,12 +89,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter.setListener(new PositionListener<BrandBean>() {
             @Override
             public void onPosition(BrandBean bean, int position) {
-                long id = bean.getId();
-//                Bundle bundle = new Bundle();
-//                bundle.putLong("shopInfoId", id);
-                PrefrenceUtil.getInstance(getContext()).setLong("shopInfoId", id);
                 goLogin(ShopDetailActivity.class, "", null);
-//                goLogin(ShopDetailActivity.class, "", id);
             }
         });
 

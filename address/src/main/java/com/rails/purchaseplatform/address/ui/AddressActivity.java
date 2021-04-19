@@ -93,9 +93,8 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
             if (position == 0) {
                 //删除
                 AddressBean bean = addressAdapter.getBean(adapterPosition);
-                long addressId = bean.getAddressId();
                 if (bean != null)
-                    presenter.delAddress(addressId, adapterPosition);
+                    presenter.delAddress("0", adapterPosition);
             } else {
                 //设为默认
                 presenter.setDefAddress("0", adapterPosition);
@@ -156,13 +155,5 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     @Override
     public void onPosition(AddressBean bean, int position, int... params) {
         presenter.setDefAddress("0", position);
-    }
-
-    /**
-     * 删除地址成功，通知页面adapter 删除条目
-     */
-    @Override
-    public void deleteAddressSuccess(int position) {
-        addressAdapter.notifyItemRemoved(position);
     }
 }

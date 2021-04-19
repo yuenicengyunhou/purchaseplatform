@@ -27,7 +27,7 @@ public class ProductDetailsModel {
         HashMap<String, Object> params = new HashMap<>();
         params.put("platformId", platformId);
         params.put("itemId", itemId);
-        params.put("companyId", companyId);
+//        params.put("companyId", companyId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(ProductService.class)

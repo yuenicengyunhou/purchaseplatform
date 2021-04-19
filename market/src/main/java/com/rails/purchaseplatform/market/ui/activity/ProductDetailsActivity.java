@@ -102,7 +102,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     protected void initialize(Bundle bundle) {
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
-        mGetProductDetailsPresenter.getProductDetails(20L, 20L, 20L, true);
+        mGetProductDetailsPresenter.getProductDetails(20L, 1001635L, 20L, true);
 
         VIEWS.add(binding.viewSplit1);
         VIEWS.add(binding.viewSplit2);

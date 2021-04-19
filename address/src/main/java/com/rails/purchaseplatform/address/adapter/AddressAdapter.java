@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.address.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.purchaseplatform.address.R;
@@ -58,8 +59,8 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
     /**
      * 获取对象
      *
-     * param position
-     * return
+     * @param position
+     * @return
      */
     public AddressBean getBean(int position) {
         if (mDataSource.size() > position)
@@ -71,11 +72,14 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
     /**
      * 变更选中状态
      *
-     * param position
+     * @param position
      */
     public void modifyDef(int position) {
         for (int i = 0; i < mDataSource.size(); i++) {
-            mDataSource.get(i).isSel.set(i == position);
+            if (i == position)
+                mDataSource.get(i).isSel.set(true);
+            else
+                mDataSource.get(i).isSel.set(false);
         }
 
     }

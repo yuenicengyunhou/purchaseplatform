@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.AddressBean;
@@ -9,22 +10,28 @@ import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressAdapter;
+import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressSelBinding;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
+import com.yanzhenjie.recyclerview.SwipeMenuBridge;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 选择地址
  *
- * author： sk_comic@163.com
- * date: 2021/3/28
+ * @author： sk_comic@163.com
+ * @date: 2021/3/28
  */
 @Route(path = ConRoute.ADDRESS.ADDRESS_SEL)
 public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBinding> implements
@@ -60,9 +67,12 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
      * 刷新请求
      */
     private void onRefresh() {
-        barBinding.smart.setOnRefreshListener(refreshLayout -> {
-            barBinding.smart.finishRefresh();
-            presenter.getAddresses(false);
+        barBinding.smart.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                barBinding.smart.finishRefresh();
+                presenter.getAddresses(false);
+            }
         });
         presenter.getAddresses(true);
     }
@@ -94,11 +104,6 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     }
 
     @Override
-    public void deleteAddressSuccess(int position) {
-
-    }
-
-    @Override
     public void onPosition(AddressBean bean, int position, int... params) {
         Intent intent = new Intent();
         intent.putExtra("bean", bean);
@@ -117,6 +122,11 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     protected void onClick() {
         super.onClick();
-        barBinding.btnAdd.setOnClickListener(v -> startIntent(AddressAddActivity.class));
+        barBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIntent(AddressAddActivity.class);
+            }
+        });
     }
 }

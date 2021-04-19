@@ -1,10 +1,11 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import android.os.Bundle;
+
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.lib_data.bean.SearchResultByShopBean;
-import com.rails.lib_data.contract.SearchResultByShopPresenterImpl;
-import com.rails.lib_data.contract.SearchResultContract;
+import com.rails.lib_data.contract.SearchContract;
+import com.rails.lib_data.contract.SearchShopPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.market.adapter.SearchResultByShopAdapter;
@@ -12,20 +13,28 @@ import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByShopB
 
 import java.util.ArrayList;
 
-public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResultByShopBinding> implements SearchResultContract.SearchResultByShopView {
+public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResultByShopBinding>
+        implements SearchContract.SearchShopView {
 
     final private String TAG = SearchResultByShopFragment.class.getSimpleName();
 
     private SearchResultByShopAdapter mAdapter;
-    private SearchResultByShopPresenterImpl mPresenter;
+    private SearchContract.SearchShopPresenter mPresenter;
+
+    private String mSearchKey;
 
     @Override
     protected void loadData() {
+        Bundle bundle = this.getArguments();
+        mSearchKey = bundle.getString("search_key", "");
+        mSearchKey = "惠普";
+
+        mPresenter = new SearchShopPresenterImpl(this.getActivity(), this);
+        mPresenter.getShopListWithKeywordOnly(20L, 1L, mSearchKey, true, 1, 30, false);
+
         mAdapter = new SearchResultByShopAdapter(this.getContext());
-        mPresenter = new SearchResultByShopPresenterImpl(this.getActivity(), this);
         binding.brvSearchResultByShopRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvSearchResultByShopRecycler.setAdapter(mAdapter);
-        mPresenter.getSearchResultByShop(false, 1);
     }
 
     @Override
@@ -39,7 +48,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     }
 
     @Override
-    public void getSearchResultByShop(ArrayList<SearchResultByShopBean> searchResultByShopBeans, boolean hasMore, boolean isClear) {
-        mAdapter.update(searchResultByShopBeans, isClear);
+    public void getShopListWithKeywordOnly(ArrayList<String> searchResultBeans, boolean hasMore, boolean isClear) {
+        mAdapter.update(searchResultBeans, isClear);
     }
 }
