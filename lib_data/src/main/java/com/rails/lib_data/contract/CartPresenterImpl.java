@@ -50,15 +50,6 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             protected void onSuccess(CartBean cartBean) {
                 baseView.dismissDialog();
                 if (isCallBack()) {
-//                    if (!TextUtils.isEmpty(cartBean.getShopList())) {
-//                        Type type = new TypeToken<ArrayList<CartShopBean>>() {
-//                        }.getType();
-//                        ArrayList<CartShopBean> beans = JsonUtil.parseJson(cartBean.getShopList(), type);
-//                        cartBean.setShops(beans);
-//                    } else {
-//                        ArrayList<CartShopBean> beans = new ArrayList<>();
-//                        cartBean.setShops(beans);
-//                    }
                     baseView.getCartInfo(cartBean);
                 }
 
