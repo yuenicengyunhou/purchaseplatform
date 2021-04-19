@@ -32,6 +32,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
     private AddressBean bean;
     private AddressContract.AddressPresenter presenter;
+    private long addressId = 0;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -62,6 +63,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
         if (bean != null) {
             setDetail(bean);
+            addressId = bean.getAddressId();
         } else {
             loadData();
         }
@@ -80,7 +82,9 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         barBinding.etName.setContent(bean.getReceiverName());
         barBinding.etPhone.setContent(bean.getPhone());
         barBinding.etArea.setContent(bean.getFullAddress());
-        barBinding.etRemark.setText(bean.getReceivingAddress());
+        barBinding.etRemark.setText(bean.getFullAddress());
+        barBinding.cbReceive.setChecked(bean.getReceivingAddress() == 1);
+        barBinding.cbInvoice.setChecked(bean.getInvoiceAddress() == 1);
     }
 
 
@@ -144,7 +148,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String remark = barBinding.etRemark.getText().toString().trim();
         int isReceivingAddress = barBinding.cbReceive.isChecked() ? 1 : 0;
         int isInvoiceAddress = barBinding.cbInvoice.isChecked() ? 1 : 0;
-        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress);
+        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress,addressId);
     }
 
     @Override

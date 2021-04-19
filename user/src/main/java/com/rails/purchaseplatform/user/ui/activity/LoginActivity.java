@@ -154,4 +154,5 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             }
         }
     }
+
 }

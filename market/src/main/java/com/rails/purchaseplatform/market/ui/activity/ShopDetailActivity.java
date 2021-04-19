@@ -1,29 +1,23 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.gson.reflect.TypeToken;
-import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.bean.ShopVO;
+import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
 import com.rails.lib_data.contract.ShopContract;
 import com.rails.lib_data.contract.ShopPresenterImp;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
 import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
 
-import java.lang.reflect.Type;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
@@ -58,12 +52,12 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         barBinding.recRecycler.setAdapter(adapter);
 
 
-        Type type = new TypeToken<ArrayList<SearchResultBean>>() {
-        }.getType();
+//        Type type = new TypeToken<ArrayList<SearchResultBean>>() {
+//        }.getType();
+//
+//        ArrayList<SearchResultBean> beans = JsonUtil.parseJson(this, "searchResult.json", type);
 
-        ArrayList<SearchResultBean> beans = JsonUtil.parseJson(this, "searchResult.json", type);
-
-        adapter.update(beans, true);
+//        adapter.update(beans, true);
 
         presenter = new ShopPresenterImp(this, this);
         presenter.getShopDetails(shopInfoId);
@@ -138,7 +132,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     }
 
     @Override
-    public void loadShopProductList(ArrayList<SearchResultBean> list) {
+    public void loadShopProductList(ArrayList<BaseItemAttribute> list) {
         adapter.update(list,true);
     }
 }

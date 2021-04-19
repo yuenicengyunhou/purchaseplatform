@@ -1,0 +1,244 @@
+{
+  "code": "0",
+  "msg": "查询店铺列表信息成功！",
+  "data": {
+    "shopList": {
+      "resultList": [
+        {
+          "shopSaleCount": 2614428,
+          "supplierName": "<em>惠普</em>",
+          "shopPicture": "//xsky.rails.cn/mall/cb5eee128dd69d509268d0abd6a38b9120210325094752571.jpg",
+          "saleArea": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "21",
+            "22",
+            "23",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65"
+          ],
+          "shopName": "<em>惠普</em>",
+          "platformId": 20,
+          "shopId": 202003030109,
+          "shopType": 2,
+          "shop_sku": [
+            {
+              "skuName": "测试商品主图问题（墨蓝）",
+              "itemId": 1315833,
+              "upTime": 1616124477000,
+              "sellPrice": 2.0,
+              "skuPicture": "//xsky.rails.cn/mall/955b0cf6184a6dea63d26cfb574f5df120210319112626925.jpg",
+              "skuId": 1427349,
+              "cid": 1000887
+            },
+            {
+              "skuName": "测试商品主图问题（红色）",
+              "itemId": 1315833,
+              "upTime": 1616124477000,
+              "sellPrice": 1.0,
+              "skuPicture": "//xsky.rails.cn/mall/00d33dd688fc2d11bda13336e7e745c220210319112619632.jpg",
+              "skuId": 1427348,
+              "cid": 1000887
+            },
+            {
+              "skuName": "惠普（HP) 台式计算机HP 288G5 I5-9500/8G/1T/2G独立显卡/DVDRW/主机",
+              "itemId": 1001527,
+              "upTime": 1583553415000,
+              "sellPrice": 3950.0,
+              "skuPicture": "//xsky.rails.cn/mall/b48ca334e54c5fbc9aea629d2ef5eea520200307170940619.png",
+              "skuId": 12887,
+              "cid": 1001047
+            },
+            {
+              "skuName": "惠普（HP) 台式计算机288G5 ​I3-9100/8G/256G/集成显卡/DVDRW/主机",
+              "itemId": 1001565,
+              "upTime": 1583573373000,
+              "sellPrice": 3450.0,
+              "skuPicture": "//xsky.rails.cn/mall/b48ca334e54c5fbc9aea629d2ef5eea520200307172743555.png",
+              "skuId": 12927,
+              "cid": 1001047
+            },
+            {
+              "skuName": "HP ScanJet Enterprise Flow 5000 s4财务集中版扫描仪 含三年原厂服务",
+              "itemId": 1001507,
+              "upTime": 1583552609000,
+              "sellPrice": 7499.0,
+              "skuPicture": "//xsky.rails.cn/mall/e953a39b2debac58cf7be4295f2ce84f20200307142655606.png",
+              "skuId": 12867,
+              "cid": 1000955
+            }
+          ]
+        },
+        {
+          "shopSaleCount": 1977125,
+          "supplierName": "博世公司we",
+          "shopPicture": "//xsky.rails.cn/mall/b15d47e99831ee63e3f47cf3d4478e9a20200925111115924.jpg",
+          "saleArea": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "21",
+            "22",
+            "23",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65"
+          ],
+          "shopName": "博世",
+          "platformId": 20,
+          "shopId": 202003030110,
+          "shopType": 2,
+          "shop_sku": [
+            {
+              "skuName": "惠普(HP)战66四代 锐龙版 15.6英寸轻薄笔记本电脑",
+              "itemId": 1014865,
+              "skuId": 1111650,
+              "cid": 1001035
+            }
+          ]
+        },
+        {
+          "shopSaleCount": 6840,
+          "supplierName": "联想（北京）有限公司",
+          "shopPicture": "//xsky.rails.cn/mall/c4ca4238a0b923820dcc509a6f75849b20200923194105737.jpg",
+          "saleArea": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "21",
+            "22",
+            "23",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65"
+          ],
+          "shopName": "联想（北京）有限公司（修改1）",
+          "platformId": 20,
+          "shopId": 202003030108,
+          "shopType": 2,
+          "shop_sku": [
+            {
+              "skuName": "惠普 HP 803 黑色经济适用墨盒（适用HP DJ 1111, 1112, 2131, 2132,（黑色单支 标准版）",
+              "itemId": 1014751,
+              "upTime": 1606208561000,
+              "sellPrice": 56.0,
+              "skuPicture": "//xsky.rails.cn/mall/c772f602e42a3786e53d73efd767c3b420201124165843500.jpg",
+              "skuId": 1111392,
+              "cid": 1000875
+            },
+            {
+              "skuName": "惠普 HP 803 黑色经济适用墨盒（适用HP DJ 1111, 1112, 2131, 2132,（黑彩套装 特别版）",
+              "itemId": 1014751,
+              "upTime": 1606208561000,
+              "sellPrice": 69.0,
+              "skuPicture": "//xsky.rails.cn/mall/c772f602e42a3786e53d73efd767c3b420201124170038055.jpg",
+              "skuId": 1111405,
+              "cid": 1000875
+            },
+            {
+              "skuName": "惠普 HP 803 黑色经济适用墨盒（适用HP DJ 1111, 1112, 2131, 2132,（双黑套装 标准版）",
+              "itemId": 1014751,
+              "upTime": 1606208561000,
+              "sellPrice": 65.0,
+              "skuPicture": "//xsky.rails.cn/mall/03d5f6023393c0a2f44a600fa62efde320201124170023695.jpg",
+              "skuId": 1111401,
+              "cid": 1000875
+            },
+            {
+              "skuName": "惠普 HP 803 黑色经济适用墨盒（适用HP DJ 1111, 1112, 2131, 2132,（双黑套装 特别版）",
+              "itemId": 1014751,
+              "upTime": 1606208561000,
+              "sellPrice": 66.0,
+              "skuPicture": "//xsky.rails.cn/mall/18f759d71974cdff6de6cfd4e7a2f19320201124170026541.jpg",
+              "skuId": 1111402,
+              "cid": 1000875
+            },
+            {
+              "skuName": "惠普 HP 803 黑色经济适用墨盒（适用HP DJ 1111, 1112, 2131, 2132,（彩色单支 特别版）",
+              "itemId": 1014751,
+              "upTime": 1606208561000,
+              "sellPrice": 60.0,
+              "skuPicture": "//xsky.rails.cn/mall/102bbca5b9daba3f1f44e85074c3d1b620201124165854849.jpg",
+              "skuId": 1111396,
+              "cid": 1000875
+            }
+          ]
+        }
+      ],
+      "pageSize": 20,
+      "page": 1,
+      "count": 3,
+      "customAggMap": null,
+      "aggResultMap": null
+    },
+    "totalCount": "123"
+  }
+}

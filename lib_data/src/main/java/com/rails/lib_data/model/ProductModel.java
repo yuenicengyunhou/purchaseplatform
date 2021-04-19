@@ -40,25 +40,4 @@ public class ProductModel {
                 .subscribe(httpRxObserver);
     }
 
-
-    /**
-     * 请求商品列表
-     *
-     * @param pageNum
-     * @param platformId
-     * @param keyword
-     * @param httpRxObserver
-     */
-    public void getSearchResultWithKeywordOnly(int pageNum, long platformId, String keyword, HttpRxObserver httpRxObserver) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("keyword", keyword);
-        params.put("platformId", platformId);
-        params.put("pageNum", pageNum);
-
-        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(ProductService.class)
-                .getSearchResultWithKeywordOnly(params))
-                .subscribe(httpRxObserver);
-    }
-
 }

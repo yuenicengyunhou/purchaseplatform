@@ -56,7 +56,7 @@ public interface AddressContract {
          *
          * param id
          */
-        void setDefAddress(String id, int position);
+        void setDefAddress(long id, int position,boolean isReceiveDef,boolean isInvoiceDef);
 
 
         /**
@@ -76,6 +76,6 @@ public interface AddressContract {
          * param address 联系地址
          * param isDef   是否是默认地址
          */
-        void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress);
+        void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress,long addressId);
     }
 }

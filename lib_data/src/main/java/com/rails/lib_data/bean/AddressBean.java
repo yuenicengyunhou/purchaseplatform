@@ -47,7 +47,7 @@ public class AddressBean implements Serializable {
     private String zip;
     private Boolean isdefault;
 
-    public final ObservableField<Boolean> isSel = new ObservableField<>();
+//    public final ObservableField<Boolean> isSel = new ObservableField<>();
 
     public long getAddressId() {
         return addressId;
@@ -169,9 +169,9 @@ public class AddressBean implements Serializable {
         this.zip = zip;
     }
 
-    public ObservableField<Boolean> getIsSel() {
-        return isSel;
-    }
+//    public ObservableField<Boolean> getIsSel() {
+//        return isSel;
+//    }
 
     public Boolean getIsdefault() {
         return isdefault;
