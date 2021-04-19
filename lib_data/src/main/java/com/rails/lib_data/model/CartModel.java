@@ -2,10 +2,16 @@ package com.rails.lib_data.model;
 
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.CartService;
+import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
 import java.util.HashMap;
+
+import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 /**
  * 购物车相关接口
@@ -46,7 +52,7 @@ public class CartModel {
         params.put("platformId", "20");
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(CartService.class).getCarts(params))
+                .create(CartService.class).modifySelect(params))
                 .subscribe(httpRxObserver);
     }
 
@@ -78,4 +84,101 @@ public class CartModel {
                 .subscribe(httpRxObserver);
 
     }
+
+
+    /**
+     * 获取购物车总数量
+     *
+     * @return
+     */
+
+    public void getCartNumber(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+//        params.put("platformId", platformId);
+//        params.put("organizeId", organizeId);
+//        params.put("accountId", accountId);
+//        params.put("accountType", accountType);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class)
+                .getCartNumber(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 更改单个商品选中状态
+     *
+     * @return
+     */
+    public void modifySelect(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+//        params.put("platformId", platformId);
+//        params.put("organizeId", organizeId);
+//        params.put("accountId", accountId);
+//        params.put("accountType", accountType);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class)
+                .modifySelect(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 更改全部商品选中状态
+     *
+     * @return
+     */
+    public void modifyAllSelect(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+//        params.put("platformId", platformId);
+//        params.put("organizeId", organizeId);
+//        params.put("accountId", accountId);
+//        params.put("accountType", accountType);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class)
+                .modifyAllSelect(params))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
+     * 校对购物车选中商品
+     *
+     * @return
+     */
+    public void verifyCart(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+//        params.put("platformId", platformId);
+//        params.put("organizeId", organizeId);
+//        params.put("accountId", accountId);
+//        params.put("accountType", accountType);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class)
+                .verifyCart(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 变更商品数量
+     *
+     * @param httpRxObserver
+     */
+    public void modifyProductNum(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+//        params.put("platformId", platformId);
+//        params.put("organizeId", organizeId);
+//        params.put("accountId", accountId);
+//        params.put("accountType", accountType);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class)
+                .verifyCart(params))
+                .subscribe(httpRxObserver);
+    }
+
+
 }

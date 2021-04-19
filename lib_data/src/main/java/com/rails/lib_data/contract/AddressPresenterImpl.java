@@ -2,7 +2,6 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rails.lib_data.ConShare;
@@ -14,7 +13,6 @@ import com.rails.lib_data.model.AddressModel;
 import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
-import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -68,14 +66,14 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     public void setDefAddress(long id, int position, boolean isReceiveDef, boolean isInvoiceDef) {
 
         if (isReceiveDef) {
-            setDefaultReceiveAddress(id,position);
+            setDefaultReceiveAddress(id, position);
         }
         if (isInvoiceDef) {
-            setDefaultInvoiceAddress(id,position);
+            setDefaultInvoiceAddress(id, position);
         }
     }
 
-    private void setDefaultReceiveAddress(long id,int position) {
+    private void setDefaultReceiveAddress(long id, int position) {
         model.updateDefaultReceiveAddress(20, accountId, id, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
@@ -84,12 +82,12 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
             @Override
             protected void onSuccess(String response) {
-                baseView.getResult(1,position,"设置默认成功");
+                baseView.getResult(1, position, "设置默认成功");
             }
         });
     }
 
-    private void setDefaultInvoiceAddress(long id,int position) {
+    private void setDefaultInvoiceAddress(long id, int position) {
         model.updateDefaultInvoiceAddress(20, accountId, id, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
@@ -99,7 +97,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
             @Override
             protected void onSuccess(String response) {
-                baseView.getResult(1,position,"设置默认成功");
+                baseView.getResult(1, position, "设置默认成功");
             }
         });
     }
@@ -125,7 +123,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     }
 
     @Override
-    public void addAddress(String men, String phone, String area, String address, boolean isDef, int isReceiAddress, int isInvoiceAddress,long addressId) {
+    public void addAddress(String men, String phone, String area, String address, boolean isDef, int isReceiAddress, int isInvoiceAddress, long addressId) {
         if (TextUtils.isEmpty(men)) {
             ToastUtil.show(mContext, "请输入收货人");
             return;
@@ -162,7 +160,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
                 @Override
                 protected void onSuccess(Boolean response) {
                     if (response) {
-                        baseView.getResult(0,0,"操作成功");
+                        baseView.getResult(0, 0, "操作成功");
                     }
                 }
             });
@@ -176,7 +174,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
                 @Override
                 protected void onSuccess(Boolean response) {
                     if (response) {
-                        baseView.getResult(0,0,"操作成功");
+                        baseView.getResult(0, 0, "操作成功");
                     }
                 }
             });

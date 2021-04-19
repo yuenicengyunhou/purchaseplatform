@@ -23,16 +23,27 @@ public class CartBean {
      * updateTime : 1616134017524
      */
 
+    //平台id
     private String platformId;
+    //用户id
     private String userId;
+    //组织机构id
     private String organizeId;
+    //选中了几种货品
     private String goodsNum;
+    //选中的sku货品数量
     private String totalSkuNum;
+    //sku总金额
     private String totalPrice;
+    //应付总金额
     private String paymentPrice;
+    //运费金额
     private String freightPrice;
+    //是否全选 true：是  false：否
     private Boolean selected;
+    // 购物车最后一次更新时间
     private String updateTime;
+    // 店铺集合
     private List<CartShopBean> shopList;
 
     public String getPlatformId() {

@@ -49,7 +49,55 @@ public interface CartService {
      */
     @FormUrlEncoded
     @POST("app-order-service/app/v1/mall/cart/addCart")
-//    @POST("order/mall/cart/addCart")
-    Observable<HttpResult<Object>> addCart(@FieldMap HashMap<String, Object> params);
+    Observable<HttpResult<String>> addCart(@FieldMap HashMap<String, Object> params);
+
+
+    /**
+     * 获取购物车总数量
+     *
+     * @param params
+     * @return
+     */
+    @GET("app-order-service/app/v1/mall/cart/queryCartItemNum")
+    Observable<HttpResult<String>> getCartNumber(@FieldMap HashMap<String, Object> params);
+
+
+    /**
+     * 更改单个商品选中状态
+     *
+     * @param params
+     * @return
+     */
+    @POST("app-order-service/app/v1/mall/cart/selectedSku")
+    Observable<HttpResult<String>> modifySelect(@FieldMap HashMap<String, Object> params);
+
+
+    /**
+     * 更改全部商品选中状态
+     *
+     * @param params
+     * @return
+     */
+    @POST("app-order-service/POST /app/v1/mall/cart/selectedSkuAll")
+    Observable<HttpResult<String>> modifyAllSelect(@FieldMap HashMap<String, Object> params);
+
+    /**
+     * 校对购物车选中商品
+     *
+     * @param params
+     * @return
+     */
+    @POST("app-order-service/app/v1/mall/cart/verifyCart")
+    Observable<HttpResult<String>> verifyCart(@FieldMap HashMap<String, Object> params);
+
+
+    /**
+     * 加/减/编辑，商品数量
+     *
+     * @param params
+     * @return
+     */
+    @POST("app-order-service/app/v1/mall/cart/changeSkuNum")
+    Observable<HttpResult<String>> modifyProductNum(@FieldMap HashMap<String, Object> params);
 
 }
