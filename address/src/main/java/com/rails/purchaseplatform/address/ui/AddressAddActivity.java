@@ -148,7 +148,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String remark = barBinding.etRemark.getText().toString().trim();
         int isReceivingAddress = barBinding.cbReceive.isChecked() ? 1 : 0;
         int isInvoiceAddress = barBinding.cbInvoice.isChecked() ? 1 : 0;
-        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress,addressId);
+        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId);
     }
 
     @Override
