@@ -146,9 +146,10 @@
                 android:layout_marginRight="@dimen/common_border"
                 android:layout_marginLeft="@dimen/common_border">
 
-                <TextView
-                    android:id="@+id/btn_recivice"
+                <CheckBox
+                    android:id="@+id/cb_receive"
                     android:layout_width="@dimen/dp_100"
+                    android:button="@null"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp_20"
                     android:background="@drawable/selector_corner_blue_white_20"
@@ -161,8 +162,9 @@
                     android:textSize="@dimen/font_size_13" />
 
 
-                <TextView
-                    android:id="@+id/btn_bill"
+                <CheckBox
+                    android:button="@null"
+                    android:id="@+id/cb_invoice"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_corner_blue_white_20"

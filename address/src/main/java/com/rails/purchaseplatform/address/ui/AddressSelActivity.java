@@ -104,6 +104,11 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     }
 
     @Override
+    public void deleteAddressSuccess(int position) {
+
+    }
+
+    @Override
     public void onPosition(AddressBean bean, int position, int... params) {
         Intent intent = new Intent();
         intent.putExtra("bean", bean);
