@@ -26,10 +26,10 @@ public class ProductDetailsPresenterImpl
     }
 
     @Override
-    public void getProductDetails(long platformId, long shopId, long itemId, boolean isDialog) {
+    public void getProductDetails(long platformId, long itemId, long companyId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-        mModel.getProductDetails(platformId, shopId, itemId, new HttpRxObserver<ProductDetailsBean>() {
+        mModel.getProductDetails(platformId, itemId, companyId, new HttpRxObserver<ProductDetailsBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();

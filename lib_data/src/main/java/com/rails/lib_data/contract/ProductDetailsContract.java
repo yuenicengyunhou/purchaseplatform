@@ -32,6 +32,6 @@ public interface ProductDetailsContract {
          *
          * @param isDialog
          */
-        void getProductDetails(long platformId, long shopId, long itemId, boolean isDialog);
+        void getProductDetails(long platformId, long itemId, long companyId, boolean isDialog);
     }
 }

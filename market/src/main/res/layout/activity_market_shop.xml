@@ -1,206 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/bottom"
-    android:layout_below="@+id/titleBar"
-    android:background="@color/bg">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/swipe"
+    <data>
+
+        <variable
+            name="shop"
+            type="com.rails.lib_data.bean.ShopVO" />
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/titleBar"
+        android:background="@color/bg">
 
-
-        <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-                <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:contentScrim="?attr/colorPrimary"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent">
 
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingTop="@dimen/dp_25"
-                        android:paddingBottom="@dimen/dp_25">
-
-                        <com.rails.purchaseplatform.common.widget.RatioImage
-                            android:id="@+id/img_shop"
-                            android:layout_width="@dimen/dp_70"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/common_border"
-                            android:src="@drawable/ic_shop_lx"
-                            app:h="6"
-                            app:w="7" />
-
-                        <TextView
-                            android:id="@+id/tv_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/img_shop"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_toLeftOf="@+id/tv_level"
-                            android:layout_toRightOf="@+id/img_shop"
-                            android:text="联想官网旗舰店"
-                            android:textColor="@color/font_black"
-                            android:textSize="@dimen/font_size_16" />
-
-
-                        <TextView
-                            android:id="@+id/tv_level"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/tv_name"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/common_border"
-                            android:drawableLeft="@drawable/ic_shop_defend"
-                            android:drawablePadding="@dimen/dp_5"
-                            android:text="风险较低"
-                            android:textColor="@color/font_black_light"
-                            android:textSize="@dimen/font_size_12" />
-
-
-                        <TextView
-                            android:id="@+id/tv_phone"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/tv_name"
-                            android:layout_alignBottom="@+id/img_shop"
-                            android:layout_marginRight="@dimen/common_border"
-                            android:layout_marginBottom="@dimen/dp_10"
-                            android:text="联系电话：15688888889"
-                            android:textColor="@color/font_gray"
-                            android:textSize="@dimen/font_size_12" />
-
-
-                    </RelativeLayout>
-
-
-                </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/dp_3">
-
-
-                    <!--综合-->
-                    <CheckBox
-                        android:id="@+id/rb_all"
-                        style="@style/market_tab"
-                        android:layout_weight="1"
-                        android:drawablePadding="@dimen/dp_3"
-                        android:gravity="center"
-                        android:text="@string/market_shop_all"
-                        android:textColor="@color/selector_blue_gray_sel_color" />
-
-                    <!--销量-->
-                    <LinearLayout
-                        android:id="@+id/ll_sale"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <CheckBox
-                            android:id="@+id/rb_sale"
-                            style="@style/market_tab"
-                            android:layout_width="wrap_content"
-                            android:drawableRight="@drawable/selector_arrow"
-                            android:gravity="center"
-                            android:text="@string/market_shop_sale"
-                            android:textColor="@color/selector_blue_gray_sel_color" />
-                    </LinearLayout>
-
-
-                    <!--价格-->
-                    <LinearLayout
-                        android:id="@+id/ll_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <CheckBox
-                            android:id="@+id/rb_price"
-                            style="@style/market_tab"
-                            android:layout_width="wrap_content"
-                            android:drawableRight="@drawable/selector_arrow"
-                            android:gravity="center"
-                            android:text="@string/market_shop_price"
-                            android:textColor="@color/selector_blue_gray_sel_color" />
-
-                    </LinearLayout>
-
-
-                    <!--筛选-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <CheckBox
-                            android:id="@+id/rb_sel"
-                            style="@style/market_tab"
-                            android:layout_width="wrap_content"
-                            android:drawableRight="@drawable/svg_sel_gray"
-                            android:drawablePadding="@dimen/dp_3"
-                            android:gravity="center"
-                            android:text="@string/market_shop_sel"
-                            android:textColor="@color/font_gray" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
-                android:id="@+id/recRecycler"
+            <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:layout_marginRight="@dimen/dp_8"
-                android:overScrollMode="never"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:orientation="vertical">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:id="@+id/collapsing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:contentScrim="?attr/colorPrimary"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
-        </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:paddingTop="@dimen/dp_25"
+                            android:paddingBottom="@dimen/dp_25">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                            <com.rails.purchaseplatform.common.widget.RatioImage
+                                android:id="@+id/img_shop"
+                                android:layout_width="@dimen/dp_70"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/common_border"
+                                android:src="@drawable/ic_shop_lx"
+                                app:h="6"
+                                app:w="7" />
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:text="@{shop.shopName}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@+id/img_shop"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_toStartOf="@+id/tv_level"
+                                android:layout_toEndOf="@+id/img_shop"
+                                android:textColor="@color/font_black"
+                                android:textSize="@dimen/font_size_16" />
 
 
-    <ImageView
-        android:id="@+id/img_top"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="@dimen/common_border"
-        android:layout_marginBottom="@dimen/common_border"
-        android:padding="@dimen/dp_5"
-        android:src="@drawable/ic_go_top"
-        android:visibility="gone" />
+                            <TextView
+                                android:id="@+id/tv_level"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/tv_name"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="@dimen/common_border"
+                                android:drawableStart="@drawable/ic_shop_defend"
+                                android:drawablePadding="@dimen/dp_5"
+                                android:textColor="@color/font_black_light"
+                                android:textSize="@dimen/font_size_12"
+                                tools:ignore="UseCompatTextViewDrawableXml" />
 
-</FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tv_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@+id/tv_name"
+                                android:layout_alignBottom="@+id/img_shop"
+                                android:layout_marginEnd="@dimen/common_border"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:textColor="@color/font_gray"
+                                android:textSize="@dimen/font_size_12" />
+
+
+                        </RelativeLayout>
+
+
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_45"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/dp_3">
+
+
+                        <!--综合-->
+                        <CheckBox
+                            android:id="@+id/rb_all"
+                            style="@style/market_tab"
+                            android:layout_weight="1"
+                            android:drawablePadding="@dimen/dp_3"
+                            android:gravity="center"
+                            android:text="@string/market_shop_all"
+                            android:textColor="@color/selector_blue_gray_sel_color" />
+
+                        <!--销量-->
+                        <LinearLayout
+                            android:id="@+id/ll_sale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <CheckBox
+                                android:id="@+id/rb_sale"
+                                style="@style/market_tab"
+                                android:layout_width="wrap_content"
+                                android:drawableEnd="@drawable/selector_arrow"
+                                android:gravity="center"
+                                android:text="@string/market_shop_sale"
+                                android:textColor="@color/selector_blue_gray_sel_color" />
+                        </LinearLayout>
+
+
+                        <!--价格-->
+                        <LinearLayout
+                            android:id="@+id/ll_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <CheckBox
+                                android:id="@+id/rb_price"
+                                style="@style/market_tab"
+                                android:layout_width="wrap_content"
+                                android:drawableEnd="@drawable/selector_arrow"
+                                android:gravity="center"
+                                android:text="@string/market_shop_price"
+                                android:textColor="@color/selector_blue_gray_sel_color" />
+
+                        </LinearLayout>
+
+
+                        <!--筛选-->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <CheckBox
+                                android:id="@+id/rb_sel"
+                                style="@style/market_tab"
+                                android:layout_width="wrap_content"
+                                android:drawableEnd="@drawable/svg_sel_gray"
+                                android:drawablePadding="@dimen/dp_3"
+                                android:gravity="center"
+                                android:text="@string/market_shop_sel"
+                                android:textColor="@color/font_gray" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
+                    android:id="@+id/recRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:overScrollMode="never"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+            </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+        <ImageView
+            android:id="@+id/img_top"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/common_border"
+            android:layout_marginBottom="@dimen/common_border"
+            android:padding="@dimen/dp_5"
+            android:src="@drawable/ic_go_top"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
+
+    </FrameLayout>
+</layout>
 
