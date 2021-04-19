@@ -6,6 +6,7 @@ import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -26,9 +27,8 @@ public interface LoginService {
      * @param params
      * @return
      */
-    @FormUrlEncoded
     @POST("appLogin")
-    Observable<HttpResult<String>> onLogin(@FieldMap HashMap<String, String> params);
+    Observable<HttpResult<String>> onLogin(@Body HashMap<String, String> params);
 
 
     /**
