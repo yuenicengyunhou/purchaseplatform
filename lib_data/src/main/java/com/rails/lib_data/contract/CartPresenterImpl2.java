@@ -35,7 +35,8 @@ public class CartPresenterImpl2 extends BasePresenter<CartContract.DetailsCartVi
                     @Override
                     protected void onSuccess(Object response) {
                         baseView.dismissDialog();
-                        baseView.addCartSuccess();
+                        // TODO: 2021/04/19 处理数据（data字段返回值为true）并传递返回值
+                        baseView.addCartSuccess(true);
                     }
                 });
     }

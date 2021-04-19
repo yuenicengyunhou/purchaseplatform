@@ -455,7 +455,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 
     @Override
-    public void addCartSuccess() {
+    public void addCartSuccess(boolean isComplete) {
         mPop.dismiss();
     }
 

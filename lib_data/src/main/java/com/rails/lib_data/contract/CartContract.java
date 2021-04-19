@@ -48,7 +48,7 @@ public interface CartContract {
         /**
          * 商品详情页 添加商品到购物车
          */
-        void addCartSuccess();
+        void addCartSuccess(boolean isComplete);
     }
 
 
