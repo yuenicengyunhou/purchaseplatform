@@ -13,6 +13,10 @@ import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByShopB
 
 import java.util.ArrayList;
 
+
+/**
+ * 搜索结果 - 按店铺搜索
+ */
 public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResultByShopBinding>
         implements SearchContract.SearchShopView {
 
@@ -48,7 +52,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     }
 
     @Override
-    public void getShopListWithKeywordOnly(ArrayList<String> searchResultBeans, boolean hasMore, boolean isClear) {
-        mAdapter.update(searchResultBeans, isClear);
+    public void getShopListWithKeywordOnly(ArrayList<Object> beans, boolean hasMore, boolean isClear) {
+        mAdapter.update(beans, isClear);
     }
 }

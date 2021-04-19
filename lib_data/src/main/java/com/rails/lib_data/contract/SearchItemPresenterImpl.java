@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.rails.lib_data.R;
-import com.rails.lib_data.bean.SearchDataBean;
+import com.rails.lib_data.bean.SearchDataByItemBean;
 import com.rails.lib_data.bean.SearchItemBean;
 import com.rails.lib_data.bean.SkuItemBean;
 import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
@@ -31,7 +31,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
     @Override
     public void getItemListWithKeywordOnly(boolean isDialog, int pageNum, long platformId, String keyword) {
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.getItemListWithKeywordOnly(pageNum, platformId, keyword, new HttpRxObserver<SearchDataBean>() {
+        model.getItemListWithKeywordOnly(pageNum, platformId, keyword, new HttpRxObserver<SearchDataByItemBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 Log.d(TAG, " ======= " + " == Error == " + e.getMsg());
@@ -40,7 +40,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
             }
 
             @Override
-            protected void onSuccess(SearchDataBean response) {
+            protected void onSuccess(SearchDataByItemBean response) {
                 ArrayList<BaseItemAttribute> baseItemAttributes = new ArrayList<>();
                 for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
                     BaseItemAttribute attribute = new BaseItemAttribute();

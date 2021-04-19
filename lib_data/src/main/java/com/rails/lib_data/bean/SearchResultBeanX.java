@@ -3,7 +3,7 @@ package com.rails.lib_data.bean;
 public class SearchResultBeanX {
     private String code;
     private String msg;
-    private SearchDataBean data;
+    private SearchDataByItemBean data;
 
     public String getCode() {
         return code;
@@ -21,11 +21,11 @@ public class SearchResultBeanX {
         this.msg = msg;
     }
 
-    public SearchDataBean getData() {
+    public SearchDataByItemBean getData() {
         return data;
     }
 
-    public void setData(SearchDataBean data) {
+    public void setData(SearchDataByItemBean data) {
         this.data = data;
     }
 }

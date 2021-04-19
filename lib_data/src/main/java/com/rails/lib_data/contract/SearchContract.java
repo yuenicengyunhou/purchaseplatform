@@ -39,12 +39,12 @@ public interface SearchContract {
         /**
          * 获取商品列表成功 回调
          *
-         * @param strings
+         * @param bean
          * @param hasMore
          * @param isClear
          */
         // TODO: 2021/04/19 修改参数
-        void getShopListWithKeywordOnly(ArrayList<String> strings, boolean hasMore, boolean isClear);
+        void getShopListWithKeywordOnly(ArrayList<Object> bean, boolean hasMore, boolean isClear);
     }
 
 

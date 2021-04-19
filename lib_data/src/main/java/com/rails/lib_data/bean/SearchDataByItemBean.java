@@ -2,7 +2,7 @@ package com.rails.lib_data.bean;
 
 import java.util.List;
 
-public class SearchDataBean {
+public class SearchDataByItemBean {
     private List brands;
     private List selectedCAttr;
     private List selectedEAttr;
