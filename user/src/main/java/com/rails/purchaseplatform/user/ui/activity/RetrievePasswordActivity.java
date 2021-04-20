@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordBinding;
 
 import java.util.regex.Pattern;

@@ -18,7 +18,6 @@ import android.webkit.WebViewClient;
 import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.utils.JSBack;
-import com.rails.purchaseplatform.framwork.base.BaseWebActivity;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import java.util.HashMap;

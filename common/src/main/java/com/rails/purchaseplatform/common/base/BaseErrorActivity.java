@@ -1,8 +1,9 @@
 package com.rails.purchaseplatform.common.base;
 
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.framwork.base.BaseAbsFragment;
+import com.rails.purchaseplatform.framwork.base.BaseActivity;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
@@ -10,14 +11,13 @@ import androidx.viewbinding.ViewBinding;
 
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
 
-
 /**
- * fragment 错误页面
- * author:wangchao
- * date:2019/6/10
+ * 错误异常统一处理
+ * author wangchao
+ * date   on 2018/2/12.
  */
-public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFragment<T> {
 
+public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActivity<T> {
 
     @Override
     public void onError(ErrorBean errorBean) {
@@ -29,7 +29,7 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
             break;
             default:
                 String msg = errorBean.getMsg();
-                ToastUtil.show(getActivity(), msg);
+                ToastUtil.show(this, msg);
                 break;
         }
 

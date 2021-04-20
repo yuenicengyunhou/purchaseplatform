@@ -13,6 +13,8 @@ import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivitySettingBinding;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 
+import java.util.Set;
+
 /**
  * 设置页面
  *
@@ -86,6 +88,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
                         @Override
                         public void onRight() {
                             PrefrenceUtil.getInstance(SettingActivity.this).setString(ConShare.TOKEN, "");
+                            PrefrenceUtil.getInstance(SettingActivity.this).setBean(ConShare.USERINFO,null);
                             ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                             dismissDialog();
                         }

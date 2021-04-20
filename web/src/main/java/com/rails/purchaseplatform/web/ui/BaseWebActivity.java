@@ -1,7 +1,9 @@
-package com.rails.purchaseplatform.framwork.base;
+package com.rails.purchaseplatform.web.ui;
 
 import android.content.Context;
 import android.webkit.SslErrorHandler;
+
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 
 import java.io.IOException;
 import java.io.InputStream;

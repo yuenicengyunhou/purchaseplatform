@@ -3,7 +3,6 @@ package com.rails.purchaseplatform.common.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -26,7 +25,7 @@ import com.rails.purchaseplatform.common.adapter.SearchHistoryFlowAdapter;
 import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 import java.util.ArrayList;

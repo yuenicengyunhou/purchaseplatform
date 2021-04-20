@@ -2,7 +2,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
 
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketCartBinding;
 import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
