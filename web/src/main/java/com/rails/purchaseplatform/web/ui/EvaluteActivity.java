@@ -6,11 +6,9 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
@@ -21,7 +19,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_EVALUTE)
-public class EvaluteActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
+public class EvaluteActivity extends WebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {

@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import com.rails.purchaseplatform.common.R;
 import com.rails.purchaseplatform.common.databinding.BaseToolbarBinding;
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.NetWorkUtil;
 

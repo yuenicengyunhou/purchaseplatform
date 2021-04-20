@@ -5,10 +5,8 @@ import android.os.Bundle;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.user.databinding.ActivityUserRegisterBinding;
-
-import java.util.ArrayList;
 
 /**
  * 注册页面

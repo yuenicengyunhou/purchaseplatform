@@ -24,11 +24,11 @@ public class ExceptionEngine {
     public static final int HTTP_ERROR = 9999;
     //解析(服务器)数据错误
     public static final int DATA_ERROR = 9998;
-    //解析(服务器)数据错误
+    //网络超时
     public static final int TIMEOUT_ERROR = 9997;
-    //解析(服务器)数据错误
+    //连接网络错误
     public static final int CONNECT_ERROR = 9996;
-    //解析(服务器)数据错误
+    //未知错误
     public static final int UN_KNOWN_ERROR = 9995;
 
 

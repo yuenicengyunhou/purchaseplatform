@@ -117,6 +117,8 @@ public class ConRoute {
         // SongYanxia - local
 //        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
 
+        public final static String HOME = BASEURL + "home";
+
         // 评价
         public final static String EVALUTE = BASEURL + "evaluate";
 
