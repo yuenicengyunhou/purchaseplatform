@@ -19,6 +19,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import androidx.annotation.Nullable;
 import androidx.multidex.MultiDex;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * author:wangchao
@@ -34,6 +35,7 @@ public class BaseApp extends Application {
         initLogger();
         initUM();
         initAroute();
+        initFont();
         MultiDex.install(this);
         context = getApplicationContext();
         AppCrashHandler handler = new AppCrashHandler();
@@ -78,6 +80,17 @@ public class BaseApp extends Application {
     private void initAroute() {
         ARouter.openDebug();
         ARouter.init(this);
+    }
+
+
+    /**
+     * 设置字体
+     */
+    private void initFont() {
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("lantinghei.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
     }
 
 

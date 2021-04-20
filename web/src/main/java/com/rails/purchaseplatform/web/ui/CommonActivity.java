@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_COLLECT)
-public class CommonActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+public class CommonActivity extends WebActivity<BaseWebBinding> implements JSBrowseBack {
 
 
     @Override

@@ -5,9 +5,7 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.gson.annotations.JsonAdapter;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
@@ -18,7 +16,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_BROWSE)
-public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements JSBrowseBack {
+public class BrowseActivity extends WebActivity<BaseWebBinding> implements JSBrowseBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {

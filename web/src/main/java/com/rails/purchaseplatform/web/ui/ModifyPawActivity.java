@@ -5,7 +5,6 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
@@ -16,7 +15,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_MODIFY_PAW)
-public class ModifyPawActivity extends BaseWebActivity<BaseWebBinding> implements JSEvaluteBack {
+public class ModifyPawActivity extends WebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override
     protected void getExtraEvent(Bundle extras) {
