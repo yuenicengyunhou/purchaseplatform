@@ -1,6 +1,7 @@
 package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.request.SearchProductBody;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
@@ -50,6 +51,6 @@ public interface ProductService {
      */
     @FormUrlEncoded
     @POST("app-item-service/app/v1/mall/search/queryNormalItemDetails")
-    Observable<HttpResult<Object>> getProductDetails(@FieldMap HashMap<String, Object> params);
+    Observable<HttpResult<ProductDetailsBean>> getProductDetails(@FieldMap HashMap<String, Object> params);
 
 }

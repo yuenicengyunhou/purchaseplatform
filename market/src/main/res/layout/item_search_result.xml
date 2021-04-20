@@ -6,7 +6,7 @@
 
         <variable
             name="itemAttribute"
-            type="com.rails.lib_data.bean.showOnApp.BaseItemAttribute" />
+            type="com.rails.lib_data.bean.forAppShow.BaseItemAttribute" />
     </data>
 
     <LinearLayout

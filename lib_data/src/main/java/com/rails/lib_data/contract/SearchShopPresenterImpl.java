@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.SearchDataByShopBean;
-import com.rails.lib_data.bean.showOnApp.BaseShopAttribute;
+import com.rails.lib_data.bean.forAppShow.BaseShopAttribute;
 import com.rails.lib_data.model.SearchModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;

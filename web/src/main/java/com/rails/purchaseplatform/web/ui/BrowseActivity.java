@@ -44,9 +44,8 @@ public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements J
 
     @Override
     protected void initialize(Bundle bundle) {
-        initWeb(binding.web,this);
+        initWeb(binding.web, this);
     }
-
 
 
     @JavascriptInterface
@@ -78,5 +77,14 @@ public class BrowseActivity extends BaseWebActivity<BaseWebBinding> implements J
     @Override
     public void onLogin() {
 
+    }
+
+
+    @JavascriptInterface
+    public void goProductDetails(long platformId, long itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("platformId", platformId);
+        bundle.putLong("itemId", itemId);
+        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 }

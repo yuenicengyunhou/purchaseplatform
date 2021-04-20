@@ -1,4 +1,4 @@
-package com.rails.lib_data.bean.showOnApp;
+package com.rails.lib_data.bean.forAppShow;
 
 import com.rails.lib_data.bean.RecommendItemsBean;
 

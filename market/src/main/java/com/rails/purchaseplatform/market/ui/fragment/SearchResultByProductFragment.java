@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
+import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchItemPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;

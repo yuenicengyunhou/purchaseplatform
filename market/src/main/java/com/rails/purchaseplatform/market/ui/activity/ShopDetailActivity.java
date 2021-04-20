@@ -5,7 +5,7 @@ import android.view.Gravity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.ShopVO;
-import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
+import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.lib_data.contract.ShopContract;
 import com.rails.lib_data.contract.ShopPresenterImp;
 import com.rails.purchaseplatform.common.ConRoute;

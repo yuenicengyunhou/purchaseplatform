@@ -115,7 +115,7 @@ public class ConRoute {
         public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
 
         // SongYanxia - local
-//        public final static String BASEURL = "http://172.28.20.135:3000/purchase-android-web/#/";
+//        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
 
         // 评价
         public final static String EVALUTE = BASEURL + "evaluate";

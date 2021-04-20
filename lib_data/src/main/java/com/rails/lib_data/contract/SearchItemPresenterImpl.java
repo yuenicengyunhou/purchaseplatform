@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.rails.lib_data.R;
-import com.rails.lib_data.bean.SearchDataByItemBean;
-import com.rails.lib_data.bean.SearchItemBean;
-import com.rails.lib_data.bean.SkuItemBean;
-import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
+import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
+import com.rails.lib_data.bean.forNetRequest.searchResult.SearchItemBean;
+import com.rails.lib_data.bean.forNetRequest.searchResult.SkuItemBean;
+import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.lib_data.model.SearchModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;

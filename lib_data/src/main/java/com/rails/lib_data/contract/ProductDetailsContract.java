@@ -1,7 +1,5 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.ProductDetailsBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 

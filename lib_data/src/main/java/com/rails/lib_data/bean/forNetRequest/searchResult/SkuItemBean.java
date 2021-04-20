@@ -1,4 +1,4 @@
-package com.rails.lib_data.bean;
+package com.rails.lib_data.bean.forNetRequest.searchResult;
 
 public class SkuItemBean {
     private String skuName;

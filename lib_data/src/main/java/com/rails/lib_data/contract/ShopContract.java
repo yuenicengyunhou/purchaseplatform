@@ -1,8 +1,7 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.bean.SearchResultBean;
 import com.rails.lib_data.bean.ShopVO;
-import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
+import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
  */
 public interface ShopContract {
 
-    interface ShopView extends BaseView{
+    interface ShopView extends BaseView {
 
         /**
          * 加载店铺商品列表
@@ -30,12 +29,10 @@ public interface ShopContract {
     }
 
 
-
-    interface ShopPresenter{
+    interface ShopPresenter {
 
 
         /**
-         *
          * param 店铺信息详情
          */
         void getShopDetails(long id);

@@ -3,8 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.content.Intent;
 
-import com.rails.lib_data.bean.SearchResultBean;
-import com.rails.lib_data.bean.showOnApp.BaseItemAttribute;
+import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
