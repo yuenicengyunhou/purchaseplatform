@@ -1,8 +1,8 @@
 package com.rails.purchaseplatform.address.adapter;
 
 import android.content.Context;
-import android.view.View;
 
+import com.rails.lib_data.AddressArea;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.databinding.ItemAddressCityBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
@@ -10,10 +10,10 @@ import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 /**
  * 城市列表
  *
- * @author： sk_comic@163.com
- * @date: 2021/4/6
+ * author： sk_comic@163.com
+ * date: 2021/4/6
  */
-public class CityAdapter extends BaseRecyclerAdapter<String, ItemAddressCityBinding> {
+public class CityAdapter extends BaseRecyclerAdapter<AddressArea, ItemAddressCityBinding> {
 
     public CityAdapter(Context context) {
         super(context);
@@ -25,15 +25,12 @@ public class CityAdapter extends BaseRecyclerAdapter<String, ItemAddressCityBind
     }
 
     @Override
-    protected void onBindItem(ItemAddressCityBinding binding, String s, int position) {
-        binding.tvName.setText(s);
+    protected void onBindItem(ItemAddressCityBinding binding, AddressArea bean, int position) {
+        binding.tvName.setText(bean.getName());
 
-        binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (positionListener != null) {
-                    positionListener.onPosition(s, position);
-                }
+        binding.getRoot().setOnClickListener(v -> {
+            if (positionListener != null) {
+                positionListener.onPosition(bean, position);
             }
         });
     }

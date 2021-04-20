@@ -35,12 +35,17 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private SearchResultRecyclerAdapter adapter;
     private FilterShopPop filterPop;
     private ShopPresenterImp presenter;
-//    private long shopInfoId;
+    private long shopInfoId;
 
 
     @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        shopInfoId = extras.getLong("shopInfoId");
+    }
+
+    @Override
     protected void initialize(Bundle bundle) {
-        Long shopInfoId = PrefrenceUtil.getInstance(this).getLong("shopInfoId", 0);
         binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
                 .setTitleBar(R.string.market_shop);
 

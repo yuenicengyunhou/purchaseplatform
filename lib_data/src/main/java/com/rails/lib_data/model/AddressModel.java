@@ -1,9 +1,13 @@
 package com.rails.lib_data.model;
 
+import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.AddressService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class AddressModel {
     /**
@@ -59,5 +63,25 @@ public class AddressModel {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).updateAddress(platformId,accountId,json,addressId))
                 .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 获取地区
+     */
+    public void getArea(long platformId, String parentCode, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("parentCode", parentCode);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(AddressService.class).getAddressCode(map))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
+     * 地区信息缓存
+     */
+    public void saveAreaInfo(List<AddressArea> areas) {
+
     }
 }

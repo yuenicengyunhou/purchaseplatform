@@ -1,9 +1,8 @@
 package com.rails.purchaseplatform.address.ui.pop;
 
 import android.os.Bundle;
-import android.os.TokenWatcher;
+import android.util.Log;
 import android.util.SparseArray;
-import android.view.View;
 
 import com.rails.purchaseplatform.address.adapter.NavigatorAdapter;
 import com.rails.purchaseplatform.address.databinding.PopAddressAreaBinding;
@@ -19,8 +18,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 /**
  * 筛选
  *
- * @author： sk_comic@163.com
- * @date: 2021/3/29
+ * author： sk_comic@163.com
+ * date: 2021/3/29
  */
 public class AreaPop extends BasePop<PopAddressAreaBinding> {
 
@@ -49,12 +48,7 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
 
 
     void onClick() {
-        binding.btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        binding.btnClose.setOnClickListener(v -> dismiss());
     }
 
 
@@ -73,36 +67,39 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
         ViewPagerHelper.bind(binding.indicator, binding.viewpager);
         binding.viewpager.setCurrentItem(0);
 
-        addTab();
+        addTab("0");
     }
 
 
     /**
      * 添加tab
      */
-    private void addTab() {
+    private void addTab(String code) {
         int len = viewPageAdapter.getCount();
         if (len > TOWN) {
             return;
         }
-        AreaFragment fragment = AreaFragment.getInstance(len);
-        fragment.setListener(new AreaFragment.AreaListener() {
-            @Override
-            public void onPosition(String string, int type) {
-                areas.put(type, string);
-                if (type == TOWN) {
-                    if (listener != null)
-                        listener.getResult(areas.get(0));
-
-                    dismiss();
-                    return;
-                } else {
-                    viewPageAdapter.delAbovePosition(type);
-                    navigatorAdapter.delAbovePosition(type);
+        AreaFragment fragment = AreaFragment.getInstance(len,code);
+        fragment.setListener((bean, type) -> {
+            Log.e("WQ", "name==" + bean.getName());
+            areas.put(type, bean.getName());
+            String mCode = bean.getCode();
+            StringBuilder buffer = new StringBuilder();
+            if (type == TOWN) {
+                if (listener != null) {
+                    for (int i = 0; i < areas.size(); i++) {
+                        buffer.append(areas.get(i));
+                    }
+                    listener.getResult(buffer.toString());
                 }
-                navigatorAdapter.modify(string, type);
-                addTab();
+                dismiss();
+                return;
+            } else {
+                viewPageAdapter.delAbovePosition(type);
+                navigatorAdapter.delAbovePosition(type);
             }
+            navigatorAdapter.modify(bean.getName(), type);
+            addTab(mCode);
         });
         viewPageAdapter.updateAdd(fragment);
         navigatorAdapter.updateAdd("请选择");

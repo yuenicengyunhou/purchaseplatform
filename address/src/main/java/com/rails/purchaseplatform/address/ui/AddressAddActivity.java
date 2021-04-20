@@ -7,6 +7,7 @@ import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.services.core.PoiItem;
+import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
@@ -69,6 +70,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         }
 
         presenter = new AddressPresenterImpl(this, this);
+//        presenter.getArea(20,"0");
 
     }
 
@@ -163,7 +165,8 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
     }
 
     @Override
-    public void deleteAddressSuccess(int position) {
+    public void getArea(ArrayList<AddressArea> list) {
 
     }
+
 }

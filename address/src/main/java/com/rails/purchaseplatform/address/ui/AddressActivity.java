@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
@@ -166,8 +167,12 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     }
 
     @Override
+    public void getArea(ArrayList<AddressArea> list) {
+
+    }
+
+    @Override
     public void onPosition(AddressBean bean, int position) {
-        Log.e("WQ", "====bbb");
         Bundle bundle = new Bundle();
         bundle.putSerializable("bean", bean);
         startIntent(AddressAddActivity.class, bundle);
@@ -177,15 +182,6 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     public void onPosition(AddressBean bean, int position, int... params) {
         presenter.setDefAddress(bean.getAddressId(), position, bean.getReceivingAddress() == 1, bean.getInvoiceAddress() == 1);
     }
-
-    /**
-     * 删除地址成功，通知页面adapter 删除条目
-     */
-    @Override
-    public void deleteAddressSuccess(int position) {
-        addressAdapter.notifyItemRemoved(position);
-    }
-
 
     @Override
     protected void onRestart() {

@@ -1,14 +1,22 @@
 package com.rails.lib_data.service;
 
+import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.BaseAddress;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressListVO;
+import com.rails.lib_data.bean.BaseAddressResultVo;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface AddressService {
 
@@ -49,4 +57,11 @@ public interface AddressService {
      */
     @GET("user/buyer/address/update")
     Observable<HttpResult<Boolean>> updateAddress(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("requestStr") String addressJson, @Query("buyerAddressId") long buyerAddressId);
+
+
+    /**
+     * 获取省市区
+     */
+    @POST("app-user-service/app/v1/mall/base/address/queryEnableAddsByParentCode")
+    Observable<HttpResult<ArrayList<AddressArea>>> getAddressCode(@QueryMap HashMap<String, Object> map);
 }

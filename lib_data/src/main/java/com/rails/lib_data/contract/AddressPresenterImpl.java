@@ -2,12 +2,16 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
+import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.BaseAddress;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressDTO;
 import com.rails.lib_data.bean.AddressListVO;
+import com.rails.lib_data.bean.BaseAddressResultVo;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.AddressModel;
 import com.rails.purchaseplatform.framwork.BaseApp;
@@ -18,8 +22,9 @@ import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+import java.util.List;
 
 /**
  * 地址管理presneter
@@ -181,5 +186,26 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         }
 
 
+    }
+
+    /**
+     * 获取省市区
+     * 获取一级 parentCode: 0
+     * 获取二级 使用一级code
+     */
+    @Override
+    public void getArea(long platformId, String parentCode) {
+        model.getArea(platformId, parentCode, new HttpRxObserver<ArrayList<AddressArea>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(ArrayList<AddressArea> response) {
+                model.saveAreaInfo(response);//缓存
+                baseView.getArea(response);
+            }
+        });
     }
 }

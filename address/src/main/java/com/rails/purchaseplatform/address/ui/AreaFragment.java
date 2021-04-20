@@ -1,5 +1,9 @@
 package com.rails.purchaseplatform.address.ui;
 
+import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.contract.AddressContract;
+import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.purchaseplatform.address.adapter.CityAdapter;
 import com.rails.purchaseplatform.address.databinding.FragmentAddressAreaBinding;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -10,23 +14,26 @@ import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+
 /**
- * @author： sk_comic@163.com
- * @date: 2021/4/6
+ * author： sk_comic@163.com
+ * date: 2021/4/6
  */
-public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> implements PositionListener<String> {
+public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> implements PositionListener<AddressArea>, AddressContract.AddressView {
 
     private CityAdapter adapter;
     private AreaListener listener;
-    private int type;
+    private final int type;
+    private String code="";
 
-    private AreaFragment(int type) {
+    private AreaFragment(int type,String code) {
         this.type = type;
+        this.code = code;
     }
 
 
-    public static AreaFragment getInstance(int type) {
-        return new AreaFragment(type);
+    public static AreaFragment getInstance(int type,String code) {
+        return new AreaFragment(type,code);
     }
 
 
@@ -41,17 +48,9 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
 
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.recycler.setAdapter(adapter);
-
-
-        ArrayList<String> beans = new ArrayList<>();
-        beans.add("北京市");
-        beans.add("天津市");
-        beans.add("石家庄市");
-        beans.add("合肥市");
-        beans.add("广州市");
-        beans.add("上海市");
-        beans.add("深圳市");
-        adapter.update(beans, true);
+        AddressPresenterImpl presenter = new AddressPresenterImpl(mActivity, this);
+        presenter.getArea(20, code);
+//        refreshArea();
     }
 
     @Override
@@ -65,15 +64,40 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
     }
 
     @Override
-    public void onPosition(String bean, int position) {
+    public void onPosition(AddressArea bean, int position) {
         if (listener != null) {
-            listener.onPosition(bean,type);
+            listener.onPosition(bean, type);
         }
+    }
+
+    @Override
+    public void getResult(int type, int position, String msg) {
+
+    }
+
+    @Override
+    public void getAddresses(ArrayList<AddressBean> addressBeans) {
+
+    }
+
+    /**
+     * 获取地区
+     */
+    @Override
+    public void getArea(ArrayList<AddressArea> list) {
+        adapter.update(list,true);
+//        if (type == 0) {
+//            adapter.update(list,true);
+//        } else if (type == 1) {
+//            updateArea();
+//        } else {
+//            updateTown();
+//        }
     }
 
 
     public interface AreaListener {
 
-        void onPosition(String string,int type);
+        void onPosition(AddressArea string, int type);
     }
 }

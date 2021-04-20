@@ -89,7 +89,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter.setListener(new PositionListener<BrandBean>() {
             @Override
             public void onPosition(BrandBean bean, int position) {
-                goLogin(ShopDetailActivity.class, "", null);
+                Integer id = bean.getId();
+                Bundle bundle = new Bundle();
+                bundle.putLong("shopInfoId", id);
+                goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
             }
         });
 

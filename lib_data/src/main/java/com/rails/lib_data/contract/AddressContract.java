@@ -1,5 +1,6 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -32,10 +33,12 @@ public interface AddressContract {
          */
         void getAddresses(ArrayList<AddressBean> addressBeans);
 
+
         /**
-         * 删除地址成功，通知页面
+         * 获取地区信息
          */
-        void deleteAddressSuccess(int position);
+        void getArea(ArrayList<AddressArea> list);
+
 
     }
 
@@ -77,5 +80,13 @@ public interface AddressContract {
          * param isDef   是否是默认地址
          */
         void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress,long addressId);
+
+
+        /**
+         * 获取省市区
+         * 获取一级 parentCode: 0
+         * 获取二级 使用一级code
+         */
+        void getArea(long platformId, String parentCode);
     }
 }
