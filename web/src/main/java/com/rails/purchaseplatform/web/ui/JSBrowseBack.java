@@ -37,10 +37,12 @@ public interface JSBrowseBack extends JSBack {
     void onResult(String json);
 
     /**
-     * 跳转详情页面
-     * @param id
+     * 跳转商品详情页面
+     *
+     * @param platformId
+     * @param itemId
      */
-    void goDetail(String id);
+    void goProductDetails(long platformId, long itemId);
 
 
 }

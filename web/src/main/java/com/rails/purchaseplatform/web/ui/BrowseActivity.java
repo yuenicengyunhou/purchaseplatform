@@ -60,8 +60,11 @@ public class BrowseActivity extends WebActivity<BaseWebBinding> implements JSBro
 
     @JavascriptInterface
     @Override
-    public void goDetail(String id) {
-        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).navigation();
+    public void goProductDetails(long platformId, long itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("platformId", platformId);
+        bundle.putLong("itemId", itemId);
+        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 
 
@@ -75,14 +78,5 @@ public class BrowseActivity extends WebActivity<BaseWebBinding> implements JSBro
     @Override
     public void onLogin() {
 
-    }
-
-
-    @JavascriptInterface
-    public void goProductDetails(long platformId, long itemId) {
-        Bundle bundle = new Bundle();
-        bundle.putLong("platformId", platformId);
-        bundle.putLong("itemId", itemId);
-        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 }
