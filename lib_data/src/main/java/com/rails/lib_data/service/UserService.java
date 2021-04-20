@@ -3,7 +3,6 @@ package com.rails.lib_data.service;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
@@ -18,10 +17,10 @@ public interface UserService {
 
 
     /**
-     * 我的页面，数据统计
+     * 我的页面，数据统计数
      */
-    @GET("/app/v1/buyer/order/statisticsProcurementOrder")
-    Observable<HttpResult<UserStatisticsBean>> getShopListWithKeywordOnly(@QueryMap HashMap<String, Object> params);
+    @GET("app-order-service/app/v1/buyer/order/statisticsProcurementOrder")
+    Observable<HttpResult<UserStatisticsBean>> getUserStatictics(@QueryMap HashMap<String, Object> params);
 
 
 }

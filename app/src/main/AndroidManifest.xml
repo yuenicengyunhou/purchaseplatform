@@ -52,9 +52,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
-<!--                <data-->
-<!--                    android:host="oidcnativeapp"-->
-<!--                    android:scheme="shop" />-->
+                <data
+                    android:host="oidcnativeapp"
+                    android:scheme="shop" />
 
             </intent-filter>
         </activity>

@@ -74,4 +74,5 @@ public class MsgActivity extends WebActivity<BaseWebBinding> implements JSEvalut
     public void onLogin() {
 
     }
+
 }
