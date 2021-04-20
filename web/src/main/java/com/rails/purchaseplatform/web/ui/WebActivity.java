@@ -67,6 +67,8 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
     }
 
 
+
+
     /**
      * init webView
      *

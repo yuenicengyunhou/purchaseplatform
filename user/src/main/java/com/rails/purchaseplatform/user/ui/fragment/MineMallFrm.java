@@ -5,8 +5,11 @@ import android.view.View;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
@@ -21,16 +24,20 @@ import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
-public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements LoginContract.LoginView {
+public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements LoginContract.LoginView, UserToolContract.UserToolView {
 
     private LoginContract.LoginPresenter presenter;
+    private UserToolContract.UserToolPresenter toolPresenter;
     private String token;
+    private UserInfoBean bean;
 
     @Override
     protected void loadData() {
 
         token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
+        bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         presenter = new LoginPresneterImpl(getActivity(), this);
+        toolPresenter = new UserToolPresenterImpl(getActivity(), this);
 
     }
 
@@ -38,6 +45,8 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Log
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
         presenter.getUserInfo(false, token);
+        if (bean != null)
+            toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
     }
 
     @Override
@@ -168,12 +177,34 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Log
         binding.tvName.setText(String.valueOf(bean.getUserName()));
         binding.tvDepartment.setText(bean.getDepartmentOrganizationName());
 
-        binding.tabOrder.setNumber(100);
-        binding.tabReceive.setNumber(3);
-        binding.tabSend.setNumber(50);
-
-
         binding.tvWatch.setKey(String.format(getResources().getString(R.string.mine_seek), "30"));
         binding.tvCollect.setKey(String.format(getResources().getString(R.string.mine_collect), "30"));
+    }
+
+
+    /**
+     * 设置统计信息
+     *
+     * @param bean
+     */
+    private void setStaticticsInfo(UserStatisticsBean bean) {
+        if (bean == null)
+            return;
+
+        binding.tabOrder.setNumber(bean.getStayAuditCount());
+        binding.tabReceive.setNumber(bean.getStayReceiveCount());
+        binding.tabSend.setNumber(bean.getStayDeliverCount());
+
+
+        binding.llAudit.setNumber(bean.getStayAuditCount());
+        binding.llPass.setNumber(bean.getPassedCount());
+        binding.llRejected.setNumber(bean.getRejectCount());
+
+
+    }
+
+    @Override
+    public void getUserStatictics(UserStatisticsBean bean) {
+        setStaticticsInfo(bean);
     }
 }

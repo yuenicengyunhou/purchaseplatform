@@ -1,5 +1,6 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 /**
@@ -11,6 +12,11 @@ public interface UserToolContract {
 
     interface UserToolView extends BaseView{
 
+        /**
+         * 获取我的页面统计的数据
+         * @param bean
+         */
+        void getUserStatictics(UserStatisticsBean bean);
     }
 
 
@@ -18,7 +24,7 @@ public interface UserToolContract {
     interface UserToolPresenter{
 
         /**
-         *
+         *获取我的页面统计的数据
          * @param userId
          * @param userType
          */

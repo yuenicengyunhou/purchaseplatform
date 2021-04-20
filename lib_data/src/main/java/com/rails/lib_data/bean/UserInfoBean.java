@@ -17,7 +17,7 @@ public class UserInfoBean {
     private Object pid;
     private String synUserId;
     private Object synPid;
-    private Integer accountType;
+    private String accountType;
     private String accountTypeShow;
     private String userName;
     private String accountName;
@@ -112,11 +112,11 @@ public class UserInfoBean {
         this.synPid = synPid;
     }
 
-    public Integer getAccountType() {
+    public String getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(Integer accountType) {
+    public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
 
