@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -60,6 +61,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
         }
     }
 
+    @JavascriptInterface
     public String getToken() {
         return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
     }
