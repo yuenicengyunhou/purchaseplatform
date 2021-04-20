@@ -88,7 +88,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Log
             }
         });
 
-        binding.tabReceive.setOnClickListener(new View.OnClickListener() {
+        binding.tabRecivice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
@@ -191,9 +191,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Log
         if (bean == null)
             return;
 
-        binding.tabOrder.setNumber(bean.getStayAuditCount());
-        binding.tabReceive.setNumber(bean.getStayReceiveCount());
+        binding.tabOrder.setNumber(bean.getStayDeliverCount());
         binding.tabSend.setNumber(bean.getStayDeliverCount());
+        binding.tabRecivice.setNumber(bean.getStayReceiveCount());
+        binding.tabQuit.setNumber(bean.getFailureCount());
 
 
         binding.llAudit.setNumber(bean.getStayAuditCount());

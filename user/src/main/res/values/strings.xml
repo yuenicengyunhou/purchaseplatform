@@ -25,7 +25,7 @@
 
 
     <string name="mine_order">采购单</string>
-    <string name="mine_order_pay">待下单</string>
+    <string name="mine_order_order">待下单</string>
     <string name="mine_order_send">待发货</string>
     <string name="mine_order_receive">待收货</string>
     <string name="mine_order_aftersale">已取消</string>
