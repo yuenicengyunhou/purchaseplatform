@@ -64,7 +64,7 @@ public class BaseApp extends Application {
                 .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
                 .methodCount(0)         // (Optional) How many method line to show. Default 2
                 .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
-                .tag("nb")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .tag("mall")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
                 .build();
 
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
@@ -88,7 +88,7 @@ public class BaseApp extends Application {
      */
     private void initFont() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("lantinghei.ttf")
+                .setDefaultFontPath("lantingzhongcuhei.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
     }
