@@ -17,7 +17,8 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  */
 
 @Route(path = ConRoute.WEB.WEB_COLLECT)
-public class CommonActivity extends WebActivity<BaseWebBinding> implements JSBrowseBack {
+public
+class CommonActivity extends WebActivity<BaseWebBinding> implements JSBrowseBack {
 
 
     @Override
@@ -55,8 +56,8 @@ public class CommonActivity extends WebActivity<BaseWebBinding> implements JSBro
     }
 
     @Override
-    public void goDetail(String id) {
-        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).navigation();
+    public void goProductDetails(long platformId, long itemId) {
+
     }
 
 
