@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -19,7 +18,6 @@ import android.webkit.WebViewClient;
 import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.utils.JSBack;
-import com.rails.purchaseplatform.framwork.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BaseWebActivity;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
