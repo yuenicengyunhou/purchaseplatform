@@ -72,7 +72,7 @@ public class CartShopProductBean {
     //计量单位
     private String unit;
     //sku 采购数量
-    private int skuNum;
+    private long skuNum;
     // 市场价格
     private double marketPrice;
     //销售价格
@@ -105,7 +105,7 @@ public class CartShopProductBean {
 
 
     public final ObservableField<Boolean> isSel = new ObservableField<>();
-    public final ObservableField<Integer> num = new ObservableField<>();
+    public final ObservableField<Long> num = new ObservableField<>();
     public final ObservableField<Boolean> canReduce = new ObservableField<>();
     public final ObservableField<Boolean> canAdd = new ObservableField<>();
     public final ObservableField<Boolean> canSel = new ObservableField<>();
@@ -223,11 +223,11 @@ public class CartShopProductBean {
         this.unit = unit;
     }
 
-    public int getSkuNum() {
+    public long getSkuNum() {
         return skuNum;
     }
 
-    public void setSkuNum(int skuNum) {
+    public void setSkuNum(long skuNum) {
         this.skuNum = skuNum;
     }
 

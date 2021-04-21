@@ -185,7 +185,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
     @Override
-    public void getProjectNumber(int num) {
+    public void getProjectNumber(long num) {
         if (lastBean != null) {
             lastBean.num.set(num);
 
@@ -263,12 +263,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             // TODO: 2021/3/22 更改选中按钮，计算总价
             setTotal();
         } else if (type == CartAdapter.ADD) {
-            presenter.addProduct(bean.num.get());
+            presenter.addProduct(bean, bean.num.get());
         } else if (type == CartAdapter.REDUCE) {
-            presenter.reduceProduct(bean.num.get());
+            presenter.reduceProduct(bean, bean.num.get());
         } else if (type == CartAdapter.EDIT) {
             // TODO: 2021/3/23 显示编辑窗口 ，更改产品数量
-            showDialog();
+            showEditDialog(bean);
         } else if (type == CartAdapter.SUB_COLLECT) {
             // TODO: 2021/3/28   调用收藏接口
         } else if (type == CartAdapter.SUB_DEL) {
@@ -328,10 +328,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param bean
      */
     private void isNumberUser(CartShopProductBean bean) {
-        if (bean.num.get() > 99) {
-            bean.canAdd.set(false);
-        } else
-            bean.canAdd.set(true);
 
         if (bean.num.get() <= 1) {
             bean.canReduce.set(false);
@@ -340,7 +336,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
 
-    private void showDialog() {
+    private void showEditDialog(CartShopProductBean bean) {
+        if (bean == null)
+            return;
         new CartEditDialog.Builder()
                 .context(getActivity())
                 .title("输入您要购买的数量")
@@ -352,7 +350,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
                     @Override
                     public void onRight(String paw) {
-                        presenter.editProduct(Integer.parseInt(paw));
+                        presenter.editProduct(bean, Long.parseLong(paw));
+
                     }
                 }).builder().show();
     }

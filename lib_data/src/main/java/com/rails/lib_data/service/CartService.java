@@ -97,7 +97,8 @@ public interface CartService {
      * @param params
      * @return
      */
+    @FormUrlEncoded
     @POST("app-order-service/app/v1/mall/cart/changeSkuNum")
-    Observable<HttpResult<String>> modifyProductNum(@FieldMap HashMap<String, Object> params);
+    Observable<HttpResult<Boolean>> modifyProductNum(@FieldMap HashMap<String, Object> params);
 
 }

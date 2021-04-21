@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.CartBean;
+import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -29,7 +30,7 @@ public interface CartContract {
          *
          * @param num
          */
-        void getProjectNumber(int num);
+        void getProjectNumber(long num);
 
 
         /**
@@ -66,7 +67,7 @@ public interface CartContract {
          *
          * @param num 传递的数量
          */
-        void addProduct(int num);
+        void addProduct(CartShopProductBean bean,long num);
 
 
         /**
@@ -74,14 +75,14 @@ public interface CartContract {
          *
          * @param num
          */
-        void reduceProduct(int num);
+        void reduceProduct(CartShopProductBean bean,long num);
 
         /**
          * 编辑框输入的数量
          *
          * @param num
          */
-        void editProduct(int num);
+        void editProduct(CartShopProductBean bean,long num);
 
 
         /**

@@ -4,17 +4,20 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -28,10 +31,14 @@ import java.util.ArrayList;
 public class CartPresenterImpl extends BasePresenter<CartContract.CartView> implements CartContract.CartPresenter {
 
     CartModel model;
+    private String userId;
+
 
     public CartPresenterImpl(Activity mContext, CartContract.CartView cartView) {
         super(mContext, cartView);
         model = new CartModel();
+        UserInfoBean userInfoBean = PrefrenceUtil.getInstance(mContext).getBean(ConShare.USERINFO, UserInfoBean.class);
+        userId = userInfoBean.getId();
     }
 
     @Override
@@ -78,25 +85,76 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
     }
 
     @Override
-    public void addProduct(int num) {
-//        baseView.showResDialog(R.string.loading);
+    public void addProduct(CartShopProductBean bean, long num) {
+        if (bean == null)
+            return;
         num++;
-        baseView.getProjectNumber(num);
 
+        baseView.showResDialog(R.string.loading);
+        long finalNum = num;
+        model.modifyProduct(bean.getShopId(), userId, bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Boolean response) {
+                baseView.dismissDialog();
+                baseView.getProjectNumber(finalNum);
+            }
+        });
     }
 
     @Override
-    public void reduceProduct(int num) {
-//        baseView.showResDialog(R.string.loading);
+    public void reduceProduct(CartShopProductBean bean, long num) {
+        if (bean == null)
+            return;
+        if (num < 1)
+            return;
         num--;
-        baseView.getProjectNumber(num);
+        baseView.showResDialog(R.string.loading);
+        long finalNum = num;
+        model.modifyProduct(bean.getShopId(), userId, bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Boolean response) {
+                baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getProjectNumber(finalNum);
+            }
+        });
+
+
     }
 
     @Override
-    public void editProduct(int num) {
-//        baseView.showResDialog(R.string.loading);
-        baseView.getProjectNumber(num);
+    public void editProduct(CartShopProductBean bean, long num) {
+        if (bean == null)
+            return;
+        baseView.showResDialog(R.string.loading);
+        model.modifyProduct(bean.getShopId(), userId, bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Boolean response) {
+                baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getProjectNumber(num);
+            }
+        });
     }
+
 
     @Override
     public void delProduct(String id) {

@@ -44,15 +44,24 @@ public class CartModel {
     /**
      * 编辑商品数量
      *
+     * @param shopId
+     * @param userId
+     * @param skuId
+     * @param organizeId
      * @param num            商品数量
      * @param httpRxObserver
      */
-    public void modifyProduct(int num, HttpRxObserver httpRxObserver) {
+    public void modifyProduct(String shopId, String userId, String skuId, String organizeId, long num, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("platformId", "20");
+        params.put("shopId", shopId);
+        params.put("organizeId", organizeId);
+        params.put("accountId", userId);
+        params.put("skuId", skuId);
+        params.put("skuNum", num);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(CartService.class).modifySelect(params))
+                .create(CartService.class).modifyProductNum(params))
                 .subscribe(httpRxObserver);
     }
 
@@ -162,23 +171,23 @@ public class CartModel {
     }
 
 
-    /**
-     * 变更商品数量
-     *
-     * @param httpRxObserver
-     */
-    public void modifyProductNum(HttpRxObserver httpRxObserver) {
-        HashMap<String, Object> params = new HashMap<>();
-//        params.put("platformId", platformId);
-//        params.put("organizeId", organizeId);
-//        params.put("accountId", accountId);
-//        params.put("accountType", accountType);
-
-        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(CartService.class)
-                .verifyCart(params))
-                .subscribe(httpRxObserver);
-    }
+//    /**
+//     * 变更商品数量
+//     *
+//     * @param httpRxObserver
+//     */
+//    public void modifyProductNum(HttpRxObserver httpRxObserver) {
+//        HashMap<String, Object> params = new HashMap<>();
+////        params.put("platformId", platformId);
+////        params.put("organizeId", organizeId);
+////        params.put("accountId", accountId);
+////        params.put("accountType", accountType);
+//
+//        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+//                .create(CartService.class)
+//                .verifyCart(params))
+//                .subscribe(httpRxObserver);
+//    }
 
 
 }
