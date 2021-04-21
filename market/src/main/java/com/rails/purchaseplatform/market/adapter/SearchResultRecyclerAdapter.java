@@ -2,8 +2,11 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
@@ -32,7 +35,12 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<BaseItemAtt
 //        binding.tvPrice.setText(searchResultBean.getPrice());
         binding.tvPrice.setText(String.valueOf(baseItemAttribute.getSellPrice()));
         binding.llItems.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class));
+            Bundle bundle = new Bundle();
+            bundle.putLong("platformId", 20L);
+            bundle.putLong("itemId", baseItemAttribute.getItemId());
+            ARouter.getInstance()
+                    .build(ConRoute.MARKET.PRODUCT_DETAIL)
+                    .with(bundle).navigation();
         });
 
     }

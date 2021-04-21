@@ -7,8 +7,8 @@ public class ProductDetailsBean {
     //    private int minPriceSkuId;
 //    private int itemId;
     private ItemPublishVo itemPublishVo;
-//    private List<ItemPictureVo> itemPictureVoList; // todo 12345
-//    private List<ItemSkuInfo> itemSkuInfoList; // todo 12345
+    private List<ItemPictureVo> itemPictureVoList; // todo 12345
+    private List<ItemSkuInfo> itemSkuInfoList;
 //    private int priceShowType;
 //    private String scoreViewName;
 
@@ -39,22 +39,22 @@ public class ProductDetailsBean {
     public void setItemPublishVo(ItemPublishVo itemPublishVo) {
         this.itemPublishVo = itemPublishVo;
     }
-// TODO: 2021/04/20 12345
-//    public List<ItemPictureVo> getItemPictureVoList() {
-//        return itemPictureVoList;
-//    }
-//
-//    public void setItemPictureVoList(List<ItemPictureVo> itemPictureVoList) {
-//        this.itemPictureVoList = itemPictureVoList;
-//    }
-//
-//    public List<ItemSkuInfo> getItemSkuInfoList() {
-//        return itemSkuInfoList;
-//    }
-//
-//    public void setItemSkuInfoList(List<ItemSkuInfo> itemSkuInfoList) {
-//        this.itemSkuInfoList = itemSkuInfoList;
-//    }
+
+    public List<ItemPictureVo> getItemPictureVoList() {
+        return itemPictureVoList;
+    }
+
+    public void setItemPictureVoList(List<ItemPictureVo> itemPictureVoList) {
+        this.itemPictureVoList = itemPictureVoList;
+    }
+
+    public List<ItemSkuInfo> getItemSkuInfoList() {
+        return itemSkuInfoList;
+    }
+
+    public void setItemSkuInfoList(List<ItemSkuInfo> itemSkuInfoList) {
+        this.itemSkuInfoList = itemSkuInfoList;
+    }
 
 //    public int getPriceShowType() {
 //        return priceShowType;

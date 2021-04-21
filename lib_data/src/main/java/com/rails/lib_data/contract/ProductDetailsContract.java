@@ -1,5 +1,7 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.forAppShow.ProductInfoBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 
@@ -15,9 +17,9 @@ public interface ProductDetailsContract {
         /**
          * 商品详情 请求成功后的回调方法
          *
-         * @param success
+         * @param bean
          */
-        void onGetProductDetailsSuccess(boolean success);
+        void onGetProductDetailsSuccess(ProductDetailsBean bean);
     }
 
 

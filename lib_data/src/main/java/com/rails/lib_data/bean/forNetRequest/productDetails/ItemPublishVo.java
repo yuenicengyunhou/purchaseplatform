@@ -6,152 +6,104 @@ public class ItemPublishVo {
     private int id;
     private int platformId;
     private int sellerId;
-    private int shopId;
+    private long shopId;
     private String shopName;
-    //    private long operatorId;
     private String itemName;
     private int cid;
     private int brandId;
-    //    private Object unit;
     private String origin;
-    //    private String ad;
     private String categoryAttributes;
     private String specAttributes;
     private int saleStatus;
-    //    private List packingList;
     private String describeUrl;
     private String created;
     private String modified;
     private String listingTime;
     private String delistingTime;
-    //    private Object operator;
-//    private int addSource;
-//    private Object yn;
-//    private int deliveryType;
-//    private String brandName;
-//    private String brandNameCh;
-//    private String brandNameEn;
-//    private ItemSaleInfoVo  itemSaleInfoVo;
-//    private ItemDeliveryInfoVo itemDeliveryInfoVo;
     private ItemAfterSaleVo itemAfterSaleVo;
-    //    private String pictureUrl;
-//    private String altImages;
-//    private Object sortNumber;
-//    private Object tmplId;
-//    private List<ItemDeliveryInfoVo> itemDeliveryInfoVoList;
-//    private List<ItemPictureVo> itemPictureVoList;
-//    private List itemSkuPictureVoList;
-//    private List<ItemPicpdfManualVo> itemPicpdfManualVoList;
-//    private List itemSkuVoList;
-//    private Object perfectItemParamVo;
     private int publishuserId;
-    //    private List<AttrNameValueResultVo> attrNameValueReaultVos;
-//    private List<String> attrNameArray;
     private String categoryFullName;
     private List<String> specAttrNameArray;
     private int itemType;
-    //    private int hasInventoryFlag;
-//    private Object recycleStatus;
     private String rejectReason;
-    //    private int bizId;
-//    private ItemFareTmplInfo itemFareTmplInfo;
-//    private int itemSaleCount;
-//    private List<FrontCategoryVo> frontCategoryVoList;
     private SupplierInfoImportData supplierInfoImportData;
     private int orgId;
-    //    private SkuSpecMap skuSpecMap;
     private String creditLevel;
 
 
     // ===========================================================================================
 
 
-    public int getId() {
-        return id;
+    public SupplierInfoImportData getSupplierInfoImportData() {
+        return supplierInfoImportData;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSupplierInfoImportData(SupplierInfoImportData supplierInfoImportData) {
+        this.supplierInfoImportData = supplierInfoImportData;
     }
 
-    public int getPlatformId() {
-        return platformId;
+    public List<String> getSpecAttrNameArray() {
+        return specAttrNameArray;
     }
 
-    public void setPlatformId(int platformId) {
-        this.platformId = platformId;
+    public void setSpecAttrNameArray(List<String> specAttrNameArray) {
+        this.specAttrNameArray = specAttrNameArray;
     }
 
-    public int getSellerId() {
-        return sellerId;
+    public ItemAfterSaleVo getItemAfterSaleVo() {
+        return itemAfterSaleVo;
     }
 
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
+    public void setItemAfterSaleVo(ItemAfterSaleVo itemAfterSaleVo) {
+        this.itemAfterSaleVo = itemAfterSaleVo;
     }
 
-    public int getShopId() {
-        return shopId;
+    public int getOrgId() {
+        return orgId;
     }
 
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
+    public void setOrgId(int orgId) {
+        this.orgId = orgId;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getCreditLevel() {
+        return creditLevel;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setCreditLevel(String creditLevel) {
+        this.creditLevel = creditLevel;
     }
 
-    public String getItemName() {
-        return itemName;
+    public int getItemType() {
+        return itemType;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 
-    public int getCid() {
-        return cid;
+    public String getRejectReason() {
+        return rejectReason;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 
-    public int getBrandId() {
-        return brandId;
+    public int getPublishuserId() {
+        return publishuserId;
     }
 
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
+    public void setPublishuserId(int publishuserId) {
+        this.publishuserId = publishuserId;
     }
 
-    public String getOrigin() {
-        return origin;
+    public String getCategoryFullName() {
+        return categoryFullName;
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getCategoryAttributes() {
-        return categoryAttributes;
-    }
-
-    public void setCategoryAttributes(String categoryAttributes) {
-        this.categoryAttributes = categoryAttributes;
-    }
-
-    public String getSpecAttributes() {
-        return specAttributes;
-    }
-
-    public void setSpecAttributes(String specAttributes) {
-        this.specAttributes = specAttributes;
+    public void setCategoryFullName(String categoryFullName) {
+        this.categoryFullName = categoryFullName;
     }
 
     public int getSaleStatus() {
@@ -202,75 +154,91 @@ public class ItemPublishVo {
         this.delistingTime = delistingTime;
     }
 
-    public ItemAfterSaleVo getItemAfterSaleVo() {
-        return itemAfterSaleVo;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setItemAfterSaleVo(ItemAfterSaleVo itemAfterSaleVo) {
-        this.itemAfterSaleVo = itemAfterSaleVo;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
-    public int getPublishuserId() {
-        return publishuserId;
+    public String getCategoryAttributes() {
+        return categoryAttributes;
     }
 
-    public void setPublishuserId(int publishuserId) {
-        this.publishuserId = publishuserId;
+    public void setCategoryAttributes(String categoryAttributes) {
+        this.categoryAttributes = categoryAttributes;
     }
 
-    public String getCategoryFullName() {
-        return categoryFullName;
+    public String getSpecAttributes() {
+        return specAttributes;
     }
 
-    public void setCategoryFullName(String categoryFullName) {
-        this.categoryFullName = categoryFullName;
+    public void setSpecAttributes(String specAttributes) {
+        this.specAttributes = specAttributes;
     }
 
-    public List<String> getSpecAttrNameArray() {
-        return specAttrNameArray;
+    public int getCid() {
+        return cid;
     }
 
-    public void setSpecAttrNameArray(List<String> specAttrNameArray) {
-        this.specAttrNameArray = specAttrNameArray;
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 
-    public int getItemType() {
-        return itemType;
+    public int getBrandId() {
+        return brandId;
     }
 
-    public void setItemType(int itemType) {
-        this.itemType = itemType;
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
-    public String getRejectReason() {
-        return rejectReason;
+    public long getShopId() {
+        return shopId;
     }
 
-    public void setRejectReason(String rejectReason) {
-        this.rejectReason = rejectReason;
+    public void setShopId(long shopId) {
+        this.shopId = shopId;
     }
 
-    public SupplierInfoImportData getSupplierInfoImportData() {
-        return supplierInfoImportData;
+    public int getSellerId() {
+        return sellerId;
     }
 
-    public void setSupplierInfoImportData(SupplierInfoImportData supplierInfoImportData) {
-        this.supplierInfoImportData = supplierInfoImportData;
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public int getOrgId() {
-        return orgId;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setOrgId(int orgId) {
-        this.orgId = orgId;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
-    public String getCreditLevel() {
-        return creditLevel;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setCreditLevel(String creditLevel) {
-        this.creditLevel = creditLevel;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(int platformId) {
+        this.platformId = platformId;
     }
 }

@@ -5,7 +5,7 @@ public class ItemAfterSaleVo {
     private int platformId;
     private int itemId;
     private int sellerId;
-    private int shopId;
+    private long shopId;
     private int refundService;
     private int changeService;
     private int refundDuration;
@@ -51,11 +51,11 @@ public class ItemAfterSaleVo {
         this.sellerId = sellerId;
     }
 
-    public int getShopId() {
+    public long getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(long shopId) {
         this.shopId = shopId;
     }
 
