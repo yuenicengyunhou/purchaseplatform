@@ -24,19 +24,15 @@ import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
-public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements LoginContract.LoginView, UserToolContract.UserToolView {
+public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements UserToolContract.UserToolView {
 
-    private LoginContract.LoginPresenter presenter;
     private UserToolContract.UserToolPresenter toolPresenter;
-    private String token;
     private UserInfoBean bean;
 
     @Override
     protected void loadData() {
 
-        token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
         bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
-        presenter = new LoginPresneterImpl(getActivity(), this);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
 
     }
@@ -44,9 +40,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Log
     @Override
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
-        presenter.getUserInfo(false, token);
-        if (bean != null)
+        if (bean != null) {
             toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
+            toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
+        }
     }
 
     @Override
@@ -153,34 +150,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Log
 
     }
 
-    @Override
-    public void onResult(int type, String msg, String token) {
-
-    }
-
-    @Override
-    public void getUserInfo(UserInfoBean bean) {
-        PrefrenceUtil.getInstance(getActivity()).setBean(ConShare.USERINFO, bean);
-        setUserInfo(bean);
-    }
-
-
-    /**
-     * 设置用户信息
-     *
-     * @param bean
-     */
-    private void setUserInfo(UserInfoBean bean) {
-        if (bean == null)
-            return;
-
-        binding.tvName.setText(String.valueOf(bean.getUserName()));
-        binding.tvDepartment.setText(bean.getDepartmentOrganizationName());
-
-        binding.tvWatch.setKey(String.format(getResources().getString(R.string.mine_seek), "30"));
-        binding.tvCollect.setKey(String.format(getResources().getString(R.string.mine_collect), "30"));
-    }
-
 
     /**
      * 设置统计信息
@@ -207,5 +176,27 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Log
     @Override
     public void getUserStatictics(UserStatisticsBean bean) {
         setStaticticsInfo(bean);
+    }
+
+    @Override
+    public void getUserInfoStatictics(UserStatisticsBean bean) {
+        setUserInfo(bean);
+    }
+
+
+    /**
+     * 设置用户信息
+     *
+     * @param bean
+     */
+    private void setUserInfo(UserStatisticsBean bean) {
+        if (bean == null)
+            return;
+
+        binding.tvName.setText(String.valueOf(bean.getUserName()));
+        binding.tvDepartment.setText(bean.getDepartmentOrganizationName());
+
+        binding.tvWatch.setKey(String.format(getResources().getString(R.string.mine_seek), bean.getVisitTrackCount()));
+        binding.tvCollect.setKey(String.format(getResources().getString(R.string.mine_collect), bean.getCollectCount()));
     }
 }

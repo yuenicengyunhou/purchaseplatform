@@ -39,4 +39,21 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
             }
         });
     }
+
+    @Override
+    public void getUserInfoStatictics(String userId, String userType) {
+        model.getUserInfoStatictics(userId, userType, new HttpRxObserver<UserStatisticsBean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(UserStatisticsBean bean) {
+                if (isCallBack()) {
+                    baseView.getUserInfoStatictics(bean);
+                }
+            }
+        });
+    }
 }

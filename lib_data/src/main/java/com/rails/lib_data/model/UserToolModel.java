@@ -34,4 +34,24 @@ public class UserToolModel {
                 .create(UserService.class).getUserStatictics(params))
                 .subscribe(httpRxObserver);
     }
+
+
+    /**
+     * 获取用户统计信息
+     *
+     * @param userId
+     * @param userType
+     * @param httpRxObserver
+     */
+    public void getUserInfoStatictics(String userId, String userType, HttpRxObserver httpRxObserver) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", "20");
+        params.put("accountType", userType);
+        params.put("accountId", userId);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(UserService.class).getUserInfoStatictics(params))
+                .subscribe(httpRxObserver);
+    }
 }
