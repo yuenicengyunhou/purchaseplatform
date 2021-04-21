@@ -14,7 +14,18 @@ public class OrderModel {
         HashMap<String, String> params = new HashMap<>();
         params.put("platformId", "20");
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(OrderService.class, 1).getOrder(params))
+                .create(OrderService.class).getOrder(params))
+                .subscribe(httpRxObserver);
+    }
+
+    public void getPurchasePageList(long platformId, long accountId, int queryType, int accountType,HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("queryType", queryType);
+        map.put("accountType", accountType);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class).purchasePageList(map))
                 .subscribe(httpRxObserver);
     }
 }

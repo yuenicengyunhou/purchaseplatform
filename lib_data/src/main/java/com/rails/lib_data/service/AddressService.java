@@ -1,16 +1,13 @@
 package com.rails.lib_data.service;
 
 import com.rails.lib_data.AddressArea;
-import com.rails.lib_data.BaseAddress;
 import com.rails.lib_data.bean.AddressBean;
-import com.rails.lib_data.bean.AddressListVO;
-import com.rails.lib_data.bean.BaseAddressResultVo;
+import com.rails.lib_data.bean.ListVO;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -24,8 +21,11 @@ public interface AddressService {
      * 根据采购商查询地址列表      账号类型，1，运营方，2.采购商，3供应商   platformId都写20
      */
     @GET("app-user-service/app/v1/buyer/address/queryAddressPageList")
-    Observable<HttpResult<AddressListVO<AddressBean>>> getAddressList(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("accountType")
+    Observable<HttpResult<ListVO<AddressBean>>> getAddressList(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("accountType")
             int accountType, @Query("pageNum") long pageNum, @Query("pageSize") int pageSize);
+
+    @GET("app-user-service/app/v1/buyer/address/queryAddressPageList")
+    Observable<HttpResult<ListVO<AddressBean>>> getAddressList(@QueryMap HashMap<String, Object> map);
 
     /**
      * 新增地址信息

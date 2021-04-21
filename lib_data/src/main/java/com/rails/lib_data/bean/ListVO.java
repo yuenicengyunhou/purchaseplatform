@@ -2,7 +2,7 @@ package com.rails.lib_data.bean;
 
 import java.util.ArrayList;
 
-public class AddressListVO<T>{
+public class ListVO<T>{
 
 
     /**

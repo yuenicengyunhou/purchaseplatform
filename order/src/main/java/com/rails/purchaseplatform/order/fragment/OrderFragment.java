@@ -93,7 +93,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        presenter.getOrder(isDialog, page);
+        int queryType = status == 0 ? 1 : 0;
+        presenter.getOrder(isDialog, page, queryType);
     }
 
     @Override

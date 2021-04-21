@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.OrderBean;
+import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.OrderParentBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 /**
  * 采购单列表
  */
-public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, OrderParentAdapter.ItemHolder> {
+public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderParentAdapter.ItemHolder> {
 
 
     public OrderParentAdapter(Context context) {
@@ -45,7 +46,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 
-        OrderParentBean parentBean = mDataSource.get(position);
+        OrderInfoBean parentBean = mDataSource.get(position);
         Resources res = mContext.getResources();
 //        holder.lrCode.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getCode()));
 //        holder.lrTime.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getTime()));
@@ -53,12 +54,12 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
 //        holder.lrCompany.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getPurchars()));
         holder.tvPrice.setText(parentBean.getTotalPrice());
 
-        String orderNumber = parentBean.getCode();
-        String generateTime = parentBean.getTime();
-        String provider = parentBean.getMen();
-        String buyer = parentBean.getPurchars();
-        String delayTime = parentBean.getDelayTime() == null ? "" : parentBean.getDelayTime();
-        holder.title.setText(orderNumber, generateTime, provider, buyer, delayTime);
+        long orderNo = parentBean.getOrderNo();
+//        String generateTime = parentBean.();
+        String provider = parentBean.getShopName();
+        String buyer = parentBean.getRealName();
+        String delayTime = parentBean.getDelayReceiveTime() == null ? "" : parentBean.getDelayReceiveTime();
+        holder.title.setText(String.valueOf(orderNo), "generateTime", provider, buyer, delayTime);
         holder.title.setOnClickListener(v -> ARouter.getInstance()
                 .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                 .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
@@ -70,10 +71,10 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderParentBean, Orde
 //        });
 
 
-        ArrayList<OrderBean> orderItemBeans = (ArrayList<OrderBean>) parentBean.getOrder();
-        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mContext);
-        holder.recycler.setAdapter(adapter);
-        adapter.update(orderItemBeans, true);
+//        ArrayList<OrderBean> orderItemBeans = (ArrayList<OrderBean>) parentBean.getSubOrderInfo();
+//        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mContext);
+//        holder.recycler.setAdapter(adapter);
+//        adapter.update(orderItemBeans, true);
 
 //        holder.lrCode.setOnClickListener(v -> {
 //            ARouter.getInstance()
