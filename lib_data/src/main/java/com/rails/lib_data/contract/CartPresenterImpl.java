@@ -59,6 +59,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 if (isCallBack()) {
 
                     for (CartShopBean shopBean : cartBean.getShopList()) {
+                        shopBean.isSel.set(shopBean.getSelected());
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
                             productBean.num.set(productBean.getSkuNum());
                             productBean.isSel.set(productBean.getSelected());
@@ -164,6 +165,63 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
     @Override
     public void collectProduct(String id) {
         baseView.getResult(1, "收藏成功");
+    }
+
+    @Override
+    public void modifySel(CartShopProductBean bean) {
+        if (bean == null)
+            return;
+        baseView.showResDialog(R.string.loading);
+        model.modifySelect(bean.getShopId(), bean.getSkuId(), bean.isSel.get(), new HttpRxObserver() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+
+            }
+
+            @Override
+            protected void onSuccess(Object response) {
+                baseView.dismissDialog();
+            }
+        });
+    }
+
+    @Override
+    public void modifyShopSel(String shopId, String skuIds, boolean isSel) {
+        baseView.showResDialog(R.string.loading);
+        model.modifySelect(shopId, skuIds, isSel, new HttpRxObserver() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+
+            }
+
+            @Override
+            protected void onSuccess(Object response) {
+                baseView.dismissDialog();
+            }
+        });
+
+    }
+
+    @Override
+    public void modifySelAll(boolean isSel) {
+
+        baseView.showResDialog(R.string.loading);
+        model.modifyAllSelect(isSel, new HttpRxObserver<Boolean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.getSelStatus(2,!isSel);
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Boolean response) {
+                baseView.dismissDialog();
+                baseView.getSelStatus(2,isSel);
+            }
+        });
     }
 
 }

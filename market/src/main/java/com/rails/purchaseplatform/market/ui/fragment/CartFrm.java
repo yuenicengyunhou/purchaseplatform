@@ -182,6 +182,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getCartInfo(CartBean cartBean) {
         cartAdapter.update((ArrayList) cartBean.getShopList(), true);
+        setDefTotal(cartBean);
     }
 
     @Override
@@ -196,8 +197,22 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getResult(int type, String msg) {
+
+    }
+
+    /**
+     * @param type 0：商品  1：店铺  2：全选
+     */
+    @Override
+    public void getSelStatus(int type, Boolean isSel) {
         if (type == 0) {
 
+        } else if (type == 1) {
+
+        } else if (type == 2) {
+            cartAdapter.checkAll(isSel);
+            binding.imgTotal.setSelected(isSel);
+            binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
         }
     }
 
@@ -205,14 +220,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     protected void onClick() {
         super.onClick();
-        binding.imgTotal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isChecked = binding.imgTotal.isChecked();
-                cartAdapter.checkAll(isChecked);
-                binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                        DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
-            }
+        binding.imgTotal.setOnClickListener(v -> {
+
+            boolean isChecked = binding.imgTotal.isSelected();
+            presenter.modifySelAll(!isChecked);
+
         });
 
         binding.imgTop.setOnClickListener(new View.OnClickListener() {
@@ -261,6 +273,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         int type = params[0];
         if (type == CartAdapter.CHECK) {
             // TODO: 2021/3/22 更改选中按钮，计算总价
+            presenter.modifySel(bean);
             setTotal();
         } else if (type == CartAdapter.ADD) {
             presenter.addProduct(bean, bean.num.get());
@@ -300,9 +313,23 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 设置底部总计
      */
     private void setTotal() {
-        binding.imgTotal.setChecked(cartAdapter.isAll());
+        binding.imgTotal.setSelected(cartAdapter.isAll());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
                 DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
+    }
+
+
+    /**
+     * 设置底部默认状态
+     *
+     * @param bean
+     */
+    private void setDefTotal(CartBean bean) {
+        if (bean == null)
+            return;
+        binding.imgTotal.setSelected(bean.getSelected());
+        binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
+                DecimalUtil.formatDouble(Double.parseDouble(bean.getTotalPrice())), "", 18));
     }
 
 

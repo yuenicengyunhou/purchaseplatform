@@ -33,7 +33,7 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:button="@null"
                 android:checked="@{cart.isSel}"
-                android:drawableLeft="@drawable/selector_circle" />
+                android:drawableLeft="@drawable/selector_circle_checked" />
 
             <TextView
                 android:id="@+id/shopName"

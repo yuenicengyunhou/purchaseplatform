@@ -46,6 +46,7 @@ public class ProductRecBean {
     private String linkUrl;
     private ArrayList<ProductBean> floorList;
     private String color;
+    private int res;
 
 
 
@@ -186,5 +187,13 @@ public class ProductRecBean {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public int getRes() {
+        return res;
+    }
+
+    public void setRes(int res) {
+        this.res = res;
     }
 }

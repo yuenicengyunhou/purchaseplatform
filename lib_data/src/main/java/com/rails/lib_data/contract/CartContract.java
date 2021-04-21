@@ -42,6 +42,14 @@ public interface CartContract {
         void getResult(int type, String msg);
 
 
+        /**
+         * 获取选中结果
+         *
+         * @param type 0：商品  1：店铺  2：全选
+         */
+        void getSelStatus(int type,Boolean isSel);
+
+
     }
 
     interface DetailsCartView extends BaseView {
@@ -67,7 +75,7 @@ public interface CartContract {
          *
          * @param num 传递的数量
          */
-        void addProduct(CartShopProductBean bean,long num);
+        void addProduct(CartShopProductBean bean, long num);
 
 
         /**
@@ -75,14 +83,14 @@ public interface CartContract {
          *
          * @param num
          */
-        void reduceProduct(CartShopProductBean bean,long num);
+        void reduceProduct(CartShopProductBean bean, long num);
 
         /**
          * 编辑框输入的数量
          *
          * @param num
          */
-        void editProduct(CartShopProductBean bean,long num);
+        void editProduct(CartShopProductBean bean, long num);
 
 
         /**
@@ -98,6 +106,32 @@ public interface CartContract {
          * @param id
          */
         void collectProduct(String id);
+
+
+        /**
+         * 单选按钮操作
+         *
+         * @param bean
+         */
+        void modifySel(CartShopProductBean bean);
+
+
+        /**
+         * 店铺选中
+         *
+         * @param shopId 店铺ID
+         * @param skuIds 商品id  逗号间隔
+         * @param isSel  选中状态
+         */
+        void modifyShopSel(String shopId, String skuIds, boolean isSel);
+
+
+        /**
+         * 全选操作
+         *
+         * @param isSel 是否选中
+         */
+        void modifySelAll(boolean isSel);
 
     }
 
