@@ -224,4 +224,21 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         });
     }
 
+    @Override
+    public void verifyCart() {
+        baseView.showResDialog(R.string.loading);
+        model.verifyCart(new HttpRxObserver() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Object response) {
+                baseView.dismissDialog();
+            }
+        });
+    }
+
 }

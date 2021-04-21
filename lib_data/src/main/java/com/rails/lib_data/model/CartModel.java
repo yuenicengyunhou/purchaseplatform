@@ -155,10 +155,7 @@ public class CartModel {
      */
     public void verifyCart(HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-//        params.put("platformId", platformId);
-//        params.put("organizeId", organizeId);
-//        params.put("accountId", accountId);
-//        params.put("accountType", accountType);
+        params.put("addressId", "10");
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class)

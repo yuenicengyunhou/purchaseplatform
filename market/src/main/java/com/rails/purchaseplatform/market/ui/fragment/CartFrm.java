@@ -234,34 +234,25 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             }
         });
 
-
-        binding.btnCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
-            }
+        binding.btnCommit.setOnClickListener(v -> {
+//            ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
+            presenter.verifyCart();
         });
 
 
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
+        binding.btnBack.setOnClickListener(v -> {
+            getActivity().finish();
         });
 
-        binding.tvManager.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    binding.tvManager.setText(R.string.market_cart_complement);
-                    binding.llOperate.setVisibility(View.VISIBLE);
-                    binding.llPrice.setVisibility(View.GONE);
-                } else {
-                    binding.tvManager.setText(R.string.market_cart_manager);
-                    binding.llOperate.setVisibility(View.GONE);
-                    binding.llPrice.setVisibility(View.VISIBLE);
-                }
+        binding.tvManager.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                binding.tvManager.setText(R.string.market_cart_complement);
+                binding.llOperate.setVisibility(View.VISIBLE);
+                binding.llPrice.setVisibility(View.GONE);
+            } else {
+                binding.tvManager.setText(R.string.market_cart_manager);
+                binding.llOperate.setVisibility(View.GONE);
+                binding.llPrice.setVisibility(View.VISIBLE);
             }
         });
     }

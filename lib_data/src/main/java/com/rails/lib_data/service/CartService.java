@@ -89,6 +89,7 @@ public interface CartService {
      * @param params
      * @return
      */
+    @FormUrlEncoded
     @POST("app-order-service/app/v1/mall/cart/verifyCart")
     Observable<HttpResult<String>> verifyCart(@FieldMap HashMap<String, Object> params);
 

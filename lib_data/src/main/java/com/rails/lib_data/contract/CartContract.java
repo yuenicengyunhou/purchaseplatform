@@ -47,7 +47,7 @@ public interface CartContract {
          *
          * @param type 0：商品  1：店铺  2：全选
          */
-        void getSelStatus(int type,Boolean isSel);
+        void getSelStatus(int type, Boolean isSel);
 
 
     }
@@ -132,6 +132,12 @@ public interface CartContract {
          * @param isSel 是否选中
          */
         void modifySelAll(boolean isSel);
+
+
+        /**
+         * 确认审核单
+         */
+        void verifyCart();
 
     }
 
