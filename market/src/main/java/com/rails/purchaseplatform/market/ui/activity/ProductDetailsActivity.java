@@ -23,17 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
-import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
+import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
+import com.rails.lib_data.contract.AddressToolContract;
+import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl2;
 import com.rails.lib_data.contract.ProductDetailsContract;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
-import com.rails.lib_data.contract.RecommendItemsContract;
-import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
@@ -62,7 +63,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         implements
         ConstantH5.ProductDetails,
         CartContract.DetailsCartView,
-        ProductDetailsContract.ProductDetailsView {
+        ProductDetailsContract.ProductDetailsView, AddressToolContract.AddressToolView {
 
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
@@ -84,6 +85,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private long mPlatformId;
     private long mItemId;
     private int mSkuId;
+    private int mCid;
+    private long mShopId;
+    private String mKeyword;
+    private ArrayList<AddressBean> addresses;
 
 //    {
 //        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
@@ -100,6 +105,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private OrderSearchFilterPop mAddCartPop;
 
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
+    private AddressToolContract.AddressToolPresenter mAddressPresenter;
 
     private ProductDetailsBean productDetailsBean;
 
@@ -110,16 +116,23 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mPlatformId = extras.getLong("platformId");
         mItemId = extras.getLong("itemId");
         mSkuId = extras.getInt("skuId");
+        mKeyword = extras.getString("keyword");
+        mCid = extras.getInt("cid");
+        mShopId = extras.getLong("shopId");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
+
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
-//        mGetProductDetailsPresenter.getProductDetails(20L, 1001635L, 20L, true);
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-        mGetProductDetailsPresenter.getHotSale(mPlatformId, mItemId, false);
+//        mGetProductDetailsPresenter.getHotSale(mPlatformId, mKeyword, mCid, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
+
+        mAddressPresenter = new AddressToolPresenterImpl(this, this);
+        mAddressPresenter.getAddress("", "1");
+        mAddressPresenter.getDefAddress("", "1");
 
         VIEWS.add(binding.viewSplit1);
         VIEWS.add(binding.viewSplit2);
@@ -471,7 +484,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showChooseAddressPop() {
         if (mChooseAddressPop == null) {
-            mChooseAddressPop = new ProductDetailsChooseAddressPop(this);
+            mChooseAddressPop = new ProductDetailsChooseAddressPop(this, addresses);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
         }
@@ -507,5 +520,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans) {
         recommendItemsRecyclerAdapter.update(beans, false);
+    }
+
+    @Override
+    public void getAddress(ArrayList<AddressBean> addressBeans) {
+        this.addresses = addressBeans;
+    }
+
+    @Override
+    public void getDefAddress(AddressBean bean) {
+        binding.tvAddressDefault.setText(bean.getFullAddress());
     }
 }

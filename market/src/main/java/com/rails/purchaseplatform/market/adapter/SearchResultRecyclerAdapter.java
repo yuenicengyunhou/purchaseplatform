@@ -37,6 +37,9 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<BaseItemAtt
             bundle.putLong("platformId", 20L);
             bundle.putLong("itemId", baseItemAttribute.getItemId());
             bundle.putInt("skuId", baseItemAttribute.getSkuId());
+            bundle.putInt("cid", baseItemAttribute.getCid());
+            bundle.putString("keyword", baseItemAttribute.getSkuName());
+            bundle.putLong("shopId", baseItemAttribute.getShopId());
             ARouter.getInstance()
                     .build(ConRoute.MARKET.PRODUCT_DETAIL)
                     .with(bundle).navigation();

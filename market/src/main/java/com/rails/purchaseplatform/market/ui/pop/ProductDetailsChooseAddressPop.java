@@ -5,26 +5,24 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.market.adapter.PopChooseAddressAdapter;
 import com.rails.purchaseplatform.market.databinding.PopProductDetailsChooseAddressBinding;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsChooseAddressBinding> {
 
     private Context mContext;
-    private ArrayList<String> mAddresses;
+    private ArrayList<AddressBean> mAddresses;
     private PopChooseAddressAdapter mAdapter;
 
-    public ProductDetailsChooseAddressPop(Context context) {
+    public ProductDetailsChooseAddressPop(Context context, ArrayList<AddressBean> addresses) {
         super();
         mContext = context;
+        mAddresses = addresses;
     }
 
     @Override
@@ -34,11 +32,7 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
         binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvAddress.setAdapter(mAdapter);
 
-        Type type = new TypeToken<ArrayList<AddressBean>>() {
-        }.getType();
-        ArrayList<AddressBean> beans = JsonUtil.parseJson(getActivity(), "address.json", type);
-
-        mAdapter.update(beans, true);
+        mAdapter.update(mAddresses, true);
 
         binding.tvChooseAddress.setOnClickListener(v -> {
             dismiss();

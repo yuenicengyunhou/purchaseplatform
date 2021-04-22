@@ -6,6 +6,8 @@ import android.widget.Toast;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemResult;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSku;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.model.ProductDetailsModel;
@@ -76,10 +78,10 @@ public class ProductDetailsPresenterImpl
     }
 
     @Override
-    public void getHotSale(long platformId, long itemId, boolean isDialog) {
+    public void getHotSale(long platformId, String keyword, int cid, long shopId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-        mModel.getHotSale(platformId, itemId, new HttpRxObserver<ArrayList<HotSaleBean>>() {
+        mModel.getHotSale(platformId, keyword, cid, shopId, new HttpRxObserver<HotSaleBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -87,13 +89,14 @@ public class ProductDetailsPresenterImpl
             }
 
             @Override
-            protected void onSuccess(ArrayList<HotSaleBean> response) {
+            protected void onSuccess(HotSaleBean response) {
                 ArrayList<RecommendItemsBean> beans = new ArrayList<>();
-                for (HotSaleBean element : response) {
+                for (ItemResult element : response.getItemList().getResultList()) {
                     RecommendItemsBean bean = new RecommendItemsBean();
-                    bean.setName(element.getItemName());
-                    bean.setImageUrl(element.getPictureUrl());
-                    bean.setPrice(String.valueOf(element.getMaxPrice()));
+                    ItemSku sku = element.getItem_sku().get(0);
+                    bean.setName(sku.getSkuName());
+                    bean.setImageUrl(sku.getPictureUrl());
+                    bean.setPrice(String.valueOf(sku.getSellPrice()));
                     beans.add(bean);
                 }
 

@@ -57,13 +57,20 @@ public class ProductDetailsModel {
      * 请求店铺推荐（热销商品）
      *
      * @param platformId
-     * @param itemId
+     * @param keyword
+     * @param cid
+     * @param shopId
      * @param httpRxObserver
      */
-    public void getHotSale(long platformId, long itemId, HttpRxObserver httpRxObserver) {
+    public void getHotSale(long platformId, String keyword, int cid, long shopId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
+        // TODO: 2021/4/22 传入数据
         params.put("platformId", platformId);
-        params.put("itemId", itemId);
+        params.put("keyword", "11");
+        params.put("businessType", 1);
+        params.put("pageNum", 1);
+        params.put("cid", 1001047); // 1001047
+        params.put("shopId", 202003030108L); //202003030108L
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(ProductService.class)

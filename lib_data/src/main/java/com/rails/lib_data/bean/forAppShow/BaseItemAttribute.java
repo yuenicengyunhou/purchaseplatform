@@ -10,7 +10,7 @@ public class BaseItemAttribute {
     /**
      * CID
      */
-    private long cid;
+    private int cid;
 
     /**
      * 商品ID
@@ -144,11 +144,11 @@ public class BaseItemAttribute {
         this.pictureUrl = pictureUrl;
     }
 
-    public long getCid() {
+    public int getCid() {
         return cid;
     }
 
-    public void setCid(long cid) {
+    public void setCid(int cid) {
         this.cid = cid;
     }
 

@@ -1,0 +1,47 @@
+{
+  "information": "dev环境返回的json",
+  "code": "0",
+  "msg": "查询商品列表信息成功！",
+  "data": {
+    "cidFullName": [
+      {
+        "cid": 1001047,
+        "parentCid": 1000404,
+        "platformId": 20,
+        "categoryName": "办公椅",
+        "fullCategoryName": null,
+        "lev": 3,
+        "sortNumber": 5
+      },
+      {
+        "cid": 1000404,
+        "parentCid": 1000215,
+        "platformId": 20,
+        "categoryName": "商业办公",
+        "fullCategoryName": null,
+        "lev": 2,
+        "sortNumber": 10
+      },
+      {
+        "cid": 1000215,
+        "parentCid": 0,
+        "platformId": 20,
+        "categoryName": "装修建材",
+        "fullCategoryName": null,
+        "lev": 1,
+        "sortNumber": 14
+      }
+    ],
+    "selectedBrands": null,
+    "selectedCAttr": [],
+    "selectedEAttr": [],
+    "itemList": {
+      "resultList": [],
+      "pageSize": null,
+      "page": null,
+      "count": null,
+      "customAggMap": null,
+      "aggResultMap": null
+    }
+  }
+}

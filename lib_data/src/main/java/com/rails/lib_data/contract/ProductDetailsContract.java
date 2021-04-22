@@ -65,9 +65,11 @@ public interface ProductDetailsContract {
          * 获取店铺推荐商品（热销商品）
          *
          * @param platformId
-         * @param itemId
+         * @param keyword
+         * @param cid
+         * @param shopId
          * @param isDialog
          */
-        void getHotSale(long platformId, long itemId, boolean isDialog);
+        void getHotSale(long platformId, String keyword, int cid, long shopId, boolean isDialog);
     }
 }

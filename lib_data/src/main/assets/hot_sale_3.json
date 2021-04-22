@@ -1,0 +1,782 @@
+{
+  "information": "dev-1环境返回的json, 以此为标准",
+  "code": "0",
+  "msg": "查询商品列表信息成功！",
+  "data": {
+    "cidFullName": [
+      {
+        "cid": 1000023,
+        "parentCid": 1000022,
+        "platformId": 30,
+        "categoryName": "手机三级",
+        "fullCategoryName": null,
+        "lev": 3,
+        "sortNumber": 1
+      },
+      {
+        "cid": 1000022,
+        "parentCid": 1000020,
+        "platformId": 30,
+        "categoryName": "手机耳机",
+        "fullCategoryName": null,
+        "lev": 2,
+        "sortNumber": 1
+      },
+      {
+        "cid": 1000020,
+        "parentCid": 0,
+        "platformId": 30,
+        "categoryName": "手机014",
+        "fullCategoryName": null,
+        "lev": 1,
+        "sortNumber": 6
+      }
+    ],
+    "brands": [
+      "测试品牌1(cs1)"
+    ],
+    "selectedBrands": null,
+    "selectedCAttr": [],
+    "selectedEAttr": [],
+    "categoryAttrs": [
+      {
+        "attrId": null,
+        "attrName": "颜色",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "蓝色",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "淡黄色",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "透明",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "陈酿颜色清亮淡黄色透明黄等等等清澈透底",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      }
+    ],
+    "itemList": {
+      "resultList": [
+        {
+          "itemId": 1001527,
+          "item_sku": [
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（透明 高度数67度68度69度70度等等等等高度数67度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 神农架往西三百里炎黄洞府酿酒库）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13482,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（透明 30度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 神农架往西三百里炎黄洞府酿酒库）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13484,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（透明 30度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 广州）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13483,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（陈酿颜色清亮淡黄色透明黄等等等清澈透底 高度数67度68度69度70度等等等等高度数67度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 神农架往西三百里炎黄洞府酿酒库）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13488,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（透明 30度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 广州）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13485,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（陈酿颜色清亮淡黄色透明黄等等等清澈透底 高度数67度68度69度70度等等等等高度数67度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 广州）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13487,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（透明 30度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 神农架往西三百里炎黄洞府酿酒库）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13486,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "xhp名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商品陈年老酒陈年佳酿名称特长商（透明 高度数67度68度69度70度等等等等高度数67度 陈酿佳酿百年产品仙人酿造独家配方陈年老酒 广州）",
+              "itemId": 1001527,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200427095401142.jpg",
+              "sellPrice": 99999.0,
+              "shopId": 4021000093,
+              "skuId": 13481,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002211,
+          "item_sku": [
+            {
+              "skuName": "测试酒13",
+              "itemId": 1002211,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/5aae38377809da7bf2a6dd549b4e496920200811160444091.jpg",
+              "sellPrice": 43534.0,
+              "shopId": 4021000093,
+              "skuId": 15567,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002384,
+          "item_sku": [
+            {
+              "skuName": "测试酒33",
+              "itemId": 1002384,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/ef751d46d46588a59f1fb2a8b6ff4c7420201021143504244.jpg",
+              "sellPrice": 1.01,
+              "shopId": 4021000093,
+              "skuId": 16030,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002317,
+          "item_sku": [
+            {
+              "skuName": "测试酒30",
+              "itemId": 1002317,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/c4ca4238a0b923820dcc509a6f75849b20200903150022521.jpg",
+              "sellPrice": 3333.0,
+              "shopId": 4021000093,
+              "skuId": 15783,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002204,
+          "item_sku": [
+            {
+              "skuName": "测试酒6",
+              "itemId": 1002204,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20cdd265ebd1a148a85e669a417202d420200811154533262.jpg",
+              "sellPrice": 4324.0,
+              "shopId": 4021000093,
+              "skuId": 15560,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002206,
+          "item_sku": [
+            {
+              "skuName": "测试酒8",
+              "itemId": 1002206,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/7790ceddcbda6596d8d6225914a29c4e20200811154623041.jpg",
+              "sellPrice": 234.0,
+              "shopId": 4021000093,
+              "skuId": 15562,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002432,
+          "item_sku": [
+            {
+              "skuName": "测试酒42",
+              "itemId": 1002432,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/6866dc458872e489061ba996a0e0aaa120201112151914415.jpg",
+              "sellPrice": 2134.0,
+              "shopId": 4021000093,
+              "skuId": 16098,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002208,
+          "item_sku": [
+            {
+              "skuName": "测试酒10",
+              "itemId": 1002208,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/810f1ef5760afb5593297999408ed35420200811154715642.jpg",
+              "sellPrice": 123.0,
+              "shopId": 4021000093,
+              "skuId": 15564,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002209,
+          "item_sku": [
+            {
+              "skuName": "测试酒11",
+              "itemId": 1002209,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/2c2340682101687e4f2d4ca9c114175220200811154742292.jpg",
+              "sellPrice": 324.0,
+              "shopId": 4021000093,
+              "skuId": 15565,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1001907,
+          "item_sku": [
+            {
+              "skuName": "测试酒多sku（透明 150mm 45度 Plus）",
+              "itemId": 1001907,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200521161439179.jpg",
+              "sellPrice": 100.0,
+              "shopId": 4021000093,
+              "skuId": 14689,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "测试酒多sku（淡黄色 150mm 30度 Plus）",
+              "itemId": 1001907,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200521161439179.jpg",
+              "sellPrice": 100.0,
+              "shopId": 4021000093,
+              "skuId": 14688,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "测试酒多sku（淡黄色 150mm 45度 Plus）",
+              "itemId": 1001907,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200521161439179.jpg",
+              "sellPrice": 100.0,
+              "shopId": 4021000093,
+              "skuId": 14687,
+              "contrastFlag": null,
+              "cid": 1000882
+            },
+            {
+              "skuName": "测试酒多sku（透明 150mm 30度 Plus）",
+              "itemId": 1001907,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/20200521161439179.jpg",
+              "sellPrice": 100.0,
+              "shopId": 4021000093,
+              "skuId": 14690,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002315,
+          "item_sku": [
+            {
+              "skuName": "测试酒27",
+              "itemId": 1002315,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/810f1ef5760afb5593297999408ed35420200903104615865.jpg",
+              "sellPrice": 324324.0,
+              "shopId": 4021000093,
+              "skuId": 15781,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002382,
+          "item_sku": [
+            {
+              "skuName": "测试酒31",
+              "itemId": 1002382,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/b15d47e99831ee63e3f47cf3d4478e9a20201021143233304.jpg",
+              "sellPrice": 98.99,
+              "shopId": 4021000093,
+              "skuId": 16028,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002316,
+          "item_sku": [
+            {
+              "skuName": "测试酒28",
+              "itemId": 1002316,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/c4ca4238a0b923820dcc509a6f75849b20200903145937693.jpg",
+              "sellPrice": 32432.0,
+              "shopId": 4021000093,
+              "skuId": 15782,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002429,
+          "item_sku": [
+            {
+              "skuName": "测试酒39",
+              "itemId": 1002429,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/eb392f101b146af99c18c0763f71a0e020201112151645466.jpg",
+              "sellPrice": 412.0,
+              "shopId": 4021000093,
+              "skuId": 16095,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002221,
+          "item_sku": [
+            {
+              "skuName": "测试酒22",
+              "itemId": 1002221,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/bcac3f7d4577485d68ac8eb7943d79b520200811173519602.jpg",
+              "sellPrice": 213.0,
+              "shopId": 4021000093,
+              "skuId": 15577,
+              "contrastFlag": null,
+              "cid": 1000883
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002200,
+          "item_sku": [
+            {
+              "skuName": "测试酒2",
+              "itemId": 1002200,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/7eacc95f8d49bfee3b8ea9bfe7070eb820200811154331650.jpg",
+              "sellPrice": 222.0,
+              "shopId": 4021000093,
+              "skuId": 15556,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002212,
+          "item_sku": [
+            {
+              "skuName": "测试酒14",
+              "itemId": 1002212,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/fc145371ff234262743c5c123374bede20200811160523806.jpg",
+              "sellPrice": 213.0,
+              "shopId": 4021000093,
+              "skuId": 15568,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002428,
+          "item_sku": [
+            {
+              "skuName": "测试酒38",
+              "itemId": 1002428,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/96c3f4d684948ede60baba388c21e1db20201112151557445.jpg",
+              "sellPrice": 3121.0,
+              "shopId": 4021000093,
+              "skuId": 16094,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002430,
+          "item_sku": [
+            {
+              "skuName": "测试酒40",
+              "itemId": 1002430,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/7e5cdd19c6f2121a3877aaca5a1a15b120201112151801910.jpg",
+              "sellPrice": 32423.0,
+              "shopId": 4021000093,
+              "skuId": 16096,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002218,
+          "item_sku": [
+            {
+              "skuName": "测试酒19",
+              "itemId": 1002218,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/aae684a065ede8f5cc3c470b145a8cc520200811173248642.jpg",
+              "sellPrice": 213.0,
+              "shopId": 4021000093,
+              "skuId": 15574,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002425,
+          "item_sku": [
+            {
+              "skuName": "测试酒35",
+              "itemId": 1002425,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/b15d47e99831ee63e3f47cf3d4478e9a20201112151349231.jpg",
+              "sellPrice": 123.0,
+              "shopId": 4021000093,
+              "skuId": 16091,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002201,
+          "item_sku": [
+            {
+              "skuName": "测试酒3",
+              "itemId": 1002201,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/1efb23b7f6c8a9f18db1801a81a9f31020200811154353627.jpg",
+              "sellPrice": 123.0,
+              "shopId": 4021000093,
+              "skuId": 15557,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002205,
+          "item_sku": [
+            {
+              "skuName": "测试酒7",
+              "itemId": 1002205,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/8904e1fc8750d52e96d7e6e288871d1a20200811154554243.jpg",
+              "sellPrice": 313.0,
+              "shopId": 4021000093,
+              "skuId": 15561,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002202,
+          "item_sku": [
+            {
+              "skuName": "测试酒4",
+              "itemId": 1002202,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/08c60970ef9593c1f95f9de952f10e1520200811154415951.jpg",
+              "sellPrice": 5435.0,
+              "shopId": 4021000093,
+              "skuId": 15558,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002215,
+          "item_sku": [
+            {
+              "skuName": "测试酒16",
+              "itemId": 1002215,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/f7d99511d0d89af80405f197299f69cb20200811173037346.jpg",
+              "sellPrice": 234.0,
+              "shopId": 4021000093,
+              "skuId": 15571,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002431,
+          "item_sku": [
+            {
+              "skuName": "测试酒41",
+              "itemId": 1002431,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/a1cdea05801669cf94a2e6f7f9161a6020201112151841345.jpg",
+              "sellPrice": 123.0,
+              "shopId": 4021000093,
+              "skuId": 16097,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002199,
+          "item_sku": [
+            {
+              "skuName": "测试酒1",
+              "itemId": 1002199,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/6fb787afde2523f334f3c550157c111720200811154240068.jpg",
+              "sellPrice": 111.0,
+              "shopId": 4021000093,
+              "skuId": 15555,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002314,
+          "item_sku": [
+            {
+              "skuName": "测试酒26",
+              "itemId": 1002314,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/fc145371ff234262743c5c123374bede20200903104339487.jpg",
+              "sellPrice": 2113213.0,
+              "shopId": 4021000093,
+              "skuId": 15780,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002313,
+          "item_sku": [
+            {
+              "skuName": "测试酒25",
+              "itemId": 1002313,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/8904e1fc8750d52e96d7e6e288871d1a20200903104237843.jpg",
+              "sellPrice": 342423.0,
+              "shopId": 4021000093,
+              "skuId": 15779,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        },
+        {
+          "itemId": 1002213,
+          "item_sku": [
+            {
+              "skuName": "测试酒15",
+              "itemId": 1002213,
+              "upTime": null,
+              "pictureUrl": "//xsky.rails.cn/mall/b4e656bdf86fe4cf207f4bb13f42668520200811160558801.jpg",
+              "sellPrice": 3242.0,
+              "shopId": 4021000093,
+              "skuId": 15569,
+              "contrastFlag": null,
+              "cid": 1000882
+            }
+          ],
+          "shopName": "线下供应商2"
+        }
+      ],
+      "pageSize": 30,
+      "page": 1,
+      "count": 47,
+      "customAggMap": null,
+      "aggResultMap": null
+    },
+    "expandAttrs": [
+      {
+        "attrId": null,
+        "attrName": "产地",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "江苏",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "广州",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "神农架往西三百里炎黄洞府酿酒库",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      },
+      {
+        "attrId": null,
+        "attrName": "尺寸",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "150mm",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      },
+      {
+        "attrId": null,
+        "attrName": "型号",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "陈酿佳酿百年产品仙人酿造独家配方陈年老酒",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "Plus",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      },
+      {
+        "attrId": null,
+        "attrName": "形状",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "片形",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      }
+    ]
+  }
+}

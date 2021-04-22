@@ -53,6 +53,8 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     attribute.setSellPrice(sku.getSellPrice());
                     attribute.setItemId(sku.getItemId());
                     attribute.setSkuId(sku.getSkuId());
+                    attribute.setCid(sku.getCid());
+                    attribute.setShopId(sku.getShopId());
                     baseItemAttributes.add(attribute);
                 }
 
