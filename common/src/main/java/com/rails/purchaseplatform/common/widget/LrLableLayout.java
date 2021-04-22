@@ -132,6 +132,8 @@ public class LrLableLayout extends RelativeLayout {
                 binding.etValue.setTextColor(valueColor);
             else
                 binding.etValue.setTextColor(valueColor);
+        } else {
+            binding.etValue.setText("");
         }
     }
 

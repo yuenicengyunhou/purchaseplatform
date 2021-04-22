@@ -10,6 +10,81 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/ll_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/common_border">
+
+                <TextView
+                    android:id="@+id/tv_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:textColor="@color/font_black_light"
+                    android:textSize="@dimen/font_size_13" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:drawableRight="@drawable/svg_arrow_white"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/font_black_light"
+                    android:textSize="@dimen/font_size_13" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ll_address"
+                android:layout_alignBottom="@+id/ll_address"
+                android:background="@color/white"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/svg_arrow_white"
+                    android:drawablePadding="@dimen/dp_3"
+                    android:text="@string/order_verify_address"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_18" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/typeRecycler"
             android:layout_width="match_parent"

@@ -102,10 +102,9 @@ public class OrderVerifyModel {
                     OrderVerifyBean verifyBean = new OrderVerifyBean();
 
                     verifyBean.setCart(cartBean);
-                    for (AddressBean bean : addressBeans) {
-                        if (bean.getHasDefault() == 1) {
-                            verifyBean.setInvoiceAddress(bean);
-                        }
+                    
+                    if (!addressBeans.isEmpty()) {
+                        verifyBean.setInvoiceAddress(addressBeans.get(0));
                     }
 
                     verifyBean.setBudgetBean(budgetBean);
