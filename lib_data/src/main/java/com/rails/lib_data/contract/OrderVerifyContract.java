@@ -26,9 +26,11 @@ public interface OrderVerifyContract {
 
 
         /**
-         * 获取确认单
+         * 获取确认单列表
+         *
+         * @param addressId 收货地址Id
          */
-        void getVerifyOrder();
+        void getVerifyOrder(String addressId);
 
     }
 }

@@ -27,13 +27,12 @@ public class CartModel {
      *
      * @param httpRxObserver
      */
-    public void getCarts(HttpRxObserver httpRxObserver) {
+    public void getCarts(String addressId, HttpRxObserver httpRxObserver) {
 
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("platformId", "20");
-        params.put("addressId", "1001550");
-        params.put("organizeId", "13");
+        params.put("addressId", addressId);
+//        params.put("organizeId", organizeId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class).getCarts(params))
@@ -120,12 +119,11 @@ public class CartModel {
      *
      * @return
      */
-    public void modifySelect(HttpRxObserver httpRxObserver) {
+    public void modifySelect(String shopId, String skuIds, Boolean isSel, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-//        params.put("platformId", platformId);
-//        params.put("organizeId", organizeId);
-//        params.put("accountId", accountId);
-//        params.put("accountType", accountType);
+        params.put("shopId", shopId);
+        params.put("skuIds", skuIds);
+        params.put("selected", isSel);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class)
@@ -139,12 +137,9 @@ public class CartModel {
      *
      * @return
      */
-    public void modifyAllSelect(HttpRxObserver httpRxObserver) {
+    public void modifyAllSelect(Boolean isSel, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-//        params.put("platformId", platformId);
-//        params.put("organizeId", organizeId);
-//        params.put("accountId", accountId);
-//        params.put("accountType", accountType);
+        params.put("selected", isSel);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class)
@@ -157,37 +152,15 @@ public class CartModel {
      *
      * @return
      */
-    public void verifyCart(HttpRxObserver httpRxObserver) {
+    public void verifyCart(String addressId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-//        params.put("platformId", platformId);
-//        params.put("organizeId", organizeId);
-//        params.put("accountId", accountId);
-//        params.put("accountType", accountType);
+        params.put("addressId", addressId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class)
                 .verifyCart(params))
                 .subscribe(httpRxObserver);
     }
-
-
-//    /**
-//     * 变更商品数量
-//     *
-//     * @param httpRxObserver
-//     */
-//    public void modifyProductNum(HttpRxObserver httpRxObserver) {
-//        HashMap<String, Object> params = new HashMap<>();
-////        params.put("platformId", platformId);
-////        params.put("organizeId", organizeId);
-////        params.put("accountId", accountId);
-////        params.put("accountType", accountType);
-//
-//        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-//                .create(CartService.class)
-//                .verifyCart(params))
-//                .subscribe(httpRxObserver);
-//    }
 
 
 }

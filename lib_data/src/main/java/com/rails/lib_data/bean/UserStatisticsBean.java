@@ -17,6 +17,14 @@ public class UserStatisticsBean {
     private int rejectCount;
     private int passedCount;
 
+
+
+    private String visitTrackCount;
+    private String collectCount;
+    private String userName;
+    private String departmentOrganizationName;
+
+
     public int getStayPayCount() {
         return stayPayCount;
     }
@@ -71,5 +79,37 @@ public class UserStatisticsBean {
 
     public void setPassedCount(int passedCount) {
         this.passedCount = passedCount;
+    }
+
+    public String getVisitTrackCount() {
+        return visitTrackCount;
+    }
+
+    public void setVisitTrackCount(String visitTrackCount) {
+        this.visitTrackCount = visitTrackCount;
+    }
+
+    public String getCollectCount() {
+        return collectCount;
+    }
+
+    public void setCollectCount(String collectCount) {
+        this.collectCount = collectCount;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getDepartmentOrganizationName() {
+        return departmentOrganizationName;
+    }
+
+    public void setDepartmentOrganizationName(String departmentOrganizationName) {
+        this.departmentOrganizationName = departmentOrganizationName;
     }
 }

@@ -3,8 +3,6 @@ package com.rails.lib_data.bean;
 
 import java.io.Serializable;
 
-import androidx.databinding.ObservableField;
-
 /**
  * 张少婷
  * 地址管理页面对象
@@ -46,6 +44,29 @@ public class AddressBean implements Serializable {
     private int returnAddress;
     private String zip;
     private Boolean isdefault;
+    private String code;
+    private String msg;
+
+
+    /**
+     * 专属收货地址
+     */
+    private String id;
+    private String key;
+    private String platformId;
+    private String buyerId;
+    private String organizeId;
+    private String provinceCode;
+    private String cityCode;
+    private String countryCode;
+    private String townCode;
+    private String villageCode;
+    private String attachAddress;
+    private String hasInvoiceDefault;
+    private String created;
+    private String modified;
+    private String yn;
+    private String icon;
 
 //    public final ObservableField<Boolean> isSel = new ObservableField<>();
 
@@ -179,5 +200,149 @@ public class AddressBean implements Serializable {
 
     public void setIsdefault(Boolean isdefault) {
         this.isdefault = isdefault;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(String platformId) {
+        this.platformId = platformId;
+    }
+
+    public String getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public String getOrganizeId() {
+        return organizeId;
+    }
+
+    public void setOrganizeId(String organizeId) {
+        this.organizeId = organizeId;
+    }
+
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getTownCode() {
+        return townCode;
+    }
+
+    public void setTownCode(String townCode) {
+        this.townCode = townCode;
+    }
+
+    public String getVillageCode() {
+        return villageCode;
+    }
+
+    public void setVillageCode(String villageCode) {
+        this.villageCode = villageCode;
+    }
+
+    public String getAttachAddress() {
+        return attachAddress;
+    }
+
+    public void setAttachAddress(String attachAddress) {
+        this.attachAddress = attachAddress;
+    }
+
+    public String getHasInvoiceDefault() {
+        return hasInvoiceDefault;
+    }
+
+    public void setHasInvoiceDefault(String hasInvoiceDefault) {
+        this.hasInvoiceDefault = hasInvoiceDefault;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public void setModified(String modified) {
+        this.modified = modified;
+    }
+
+    public String getYn() {
+        return yn;
+    }
+
+    public void setYn(String yn) {
+        this.yn = yn;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

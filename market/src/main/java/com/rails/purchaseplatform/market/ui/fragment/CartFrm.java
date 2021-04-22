@@ -6,10 +6,13 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.contract.AddressToolContract;
+import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
 import com.rails.lib_data.contract.ProductContract;
@@ -25,6 +28,7 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
@@ -49,18 +53,20 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/9
  */
 public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContract.CartView,
-        LoadMoreRecycler.LoadMoreListener, ProductContract.ProductView,
+        LoadMoreRecycler.LoadMoreListener, ProductContract.ProductView, AddressToolContract.AddressToolView,
         MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean> {
 
     int type = 0;//是否显示标题
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
+    AddressBean addressBean;
 
     CartAdapter cartAdapter;
     ProductHotAdapter recAdapter;
     private GridLayoutManager hotManager;
 
     CartContract.CartPresenter presenter;
+    AddressToolContract.AddressToolPresenter addressPresenter;
     ProductContract.ProductPresenter productPresenter;
 
 
@@ -121,6 +127,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         presenter = new CartPresenterImpl(getActivity(), this);
         productPresenter = new ProductPresenterImpl(getActivity(), this);
+        addressPresenter = new AddressToolPresenterImpl(getActivity(), this);
         onRefresh();
     }
 
@@ -141,12 +148,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.swipe.finishRefresh();
                 page = DEF_PAGE;
-                presenter.getCarts(false);
+                addressPresenter.getDefAddress("20", "1");
                 notifyData(false, page);
             }
         });
-
-        presenter.getCarts(true);
+        addressPresenter.getDefAddress("20", "1");
         notifyData(false, page);
     }
 
@@ -182,6 +188,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getCartInfo(CartBean cartBean) {
         cartAdapter.update((ArrayList) cartBean.getShopList(), true);
+        setDefTotal(cartBean);
     }
 
     @Override
@@ -196,8 +203,23 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getResult(int type, String msg) {
+        ToastUtil.show(getActivity(), msg);
+        ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).withSerializable("address", addressBean).navigation();
+    }
+
+    /**
+     * @param type 0：商品  1：店铺  2：全选
+     */
+    @Override
+    public void getSelStatus(int type, Boolean isSel) {
         if (type == 0) {
 
+        } else if (type == 1) {
+
+        } else if (type == 2) {
+            cartAdapter.checkAll(isSel);
+            binding.imgTotal.setSelected(isSel);
+            binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
         }
     }
 
@@ -205,14 +227,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     protected void onClick() {
         super.onClick();
-        binding.imgTotal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isChecked = binding.imgTotal.isChecked();
-                cartAdapter.checkAll(isChecked);
-                binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                        DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
-            }
+        binding.imgTotal.setOnClickListener(v -> {
+
+            boolean isChecked = binding.imgTotal.isSelected();
+            presenter.modifySelAll(!isChecked);
+
         });
 
         binding.imgTop.setOnClickListener(new View.OnClickListener() {
@@ -222,34 +241,26 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             }
         });
 
-
-        binding.btnCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
-            }
+        binding.btnCommit.setOnClickListener(v -> {
+            if (addressBean == null)
+                return;
+            presenter.verifyCart(String.valueOf(addressBean.getId()));
         });
 
 
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
+        binding.btnBack.setOnClickListener(v -> {
+            getActivity().finish();
         });
 
-        binding.tvManager.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    binding.tvManager.setText(R.string.market_cart_complement);
-                    binding.llOperate.setVisibility(View.VISIBLE);
-                    binding.llPrice.setVisibility(View.GONE);
-                } else {
-                    binding.tvManager.setText(R.string.market_cart_manager);
-                    binding.llOperate.setVisibility(View.GONE);
-                    binding.llPrice.setVisibility(View.VISIBLE);
-                }
+        binding.tvManager.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                binding.tvManager.setText(R.string.market_cart_complement);
+                binding.llOperate.setVisibility(View.VISIBLE);
+                binding.llPrice.setVisibility(View.GONE);
+            } else {
+                binding.tvManager.setText(R.string.market_cart_manager);
+                binding.llOperate.setVisibility(View.GONE);
+                binding.llPrice.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -261,6 +272,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         int type = params[0];
         if (type == CartAdapter.CHECK) {
             // TODO: 2021/3/22 更改选中按钮，计算总价
+            presenter.modifySel(bean);
             setTotal();
         } else if (type == CartAdapter.ADD) {
             presenter.addProduct(bean, bean.num.get());
@@ -300,9 +312,23 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 设置底部总计
      */
     private void setTotal() {
-        binding.imgTotal.setChecked(cartAdapter.isAll());
+        binding.imgTotal.setSelected(cartAdapter.isAll());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
                 DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
+    }
+
+
+    /**
+     * 设置底部默认状态
+     *
+     * @param bean
+     */
+    private void setDefTotal(CartBean bean) {
+        if (bean == null)
+            return;
+        binding.imgTotal.setSelected(bean.getSelected());
+        binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
+                DecimalUtil.formatDouble(Double.parseDouble(bean.getTotalPrice())), "", 18));
     }
 
 
@@ -357,4 +383,16 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
 
+    @Override
+    public void getAddress(ArrayList<AddressBean> addressBeans) {
+
+    }
+
+    @Override
+    public void getDefAddress(AddressBean bean) {
+        if (bean == null)
+            return;
+        addressBean = bean;
+        presenter.getCarts(true, String.valueOf(bean.getId()));
+    }
 }

@@ -2,16 +2,13 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rails.lib_data.AddressArea;
-import com.rails.lib_data.BaseAddress;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressDTO;
-import com.rails.lib_data.bean.AddressListVO;
-import com.rails.lib_data.bean.BaseAddressResultVo;
+import com.rails.lib_data.bean.ListVO;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.AddressModel;
 import com.rails.purchaseplatform.framwork.BaseApp;
@@ -22,9 +19,7 @@ import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 地址管理presneter
@@ -51,14 +46,14 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
     @Override
     public void getAddresses(Boolean isDialog) {
-        model.queryAddressList(20, accountId, 2, 1, 10, new HttpRxObserver<AddressListVO<AddressBean>>() {
+        model.queryAddressList(20, accountId, 2, 1, 10, new HttpRxObserver<ListVO<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
             }
 
             @Override
-            protected void onSuccess(AddressListVO<AddressBean> response) {
+            protected void onSuccess(ListVO<AddressBean> response) {
                 ArrayList<AddressBean> list = response.getList();
                 if (list != null) {
                     baseView.getAddresses(list);

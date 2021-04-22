@@ -1,17 +1,58 @@
 package com.rails.lib_data.service;
 
+import com.rails.lib_data.bean.CartBean;
+import com.rails.lib_data.bean.ListVO;
 import com.rails.lib_data.bean.OrderBean;
+import com.rails.lib_data.bean.OrderBudgetBean;
+import com.rails.lib_data.bean.OrderInfoBean;
+import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 public interface OrderService {
 
     @GET("platform/platform/floor/queryFloorSettingList")
     Observable<HttpResult<ArrayList<OrderBean>>> getOrder(@QueryMap HashMap<String, String> params);
+
+    @GET("app-order-service/app/v1/buyer/order/purchasePageList")
+    Observable<HttpResult<ListVO<OrderInfoBean>>> purchasePageList(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 核对信息--获取订单信息核对单商品
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app-order-service/app/v1/mall/cart/queryCartByOrder")
+    Observable<HttpResult<CartBean>> getOrderCarts(@FieldMap HashMap<String, Object> params);
+
+
+    /**
+     * 核对信息--获取预算总额
+     *
+     * @return
+     */
+    @GET("app-order-service/app/v1/mall/cart/queryBudget")
+    Observable<HttpResult<OrderBudgetBean>> getBudget();
+
+
+    /**
+     * 核对信息--获取结算单位
+     *
+     * @param params
+     * @return
+     */
+    @GET("settlement/buyer/accounting/queryAccountingUnitByOrgId")
+    Observable<HttpResult<ArrayList<OrderPurchaseBean>>> getOrderCompanys(@QueryMap HashMap<String, Object> params);
 }

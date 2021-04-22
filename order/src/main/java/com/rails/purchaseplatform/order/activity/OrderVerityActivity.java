@@ -40,6 +40,14 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
     private OrderVerifyAdapter adapter;
     private OrderVerifyContract.OrderVerifyPresenter presenter;
+    private AddressBean addressBean;
+
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        addressBean = (AddressBean) extras.getSerializable("address");
+    }
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -53,7 +61,11 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.recycler.setAdapter(adapter);
 
         presenter = new OrderVerifyPresenterImpl(this, this);
-        presenter.getVerifyOrder();
+
+        if (addressBean != null) {
+            setAddress(addressBean);
+            presenter.getVerifyOrder(addressBean.getId());
+        }
     }
 
     @Override
@@ -74,8 +86,6 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     @Override
     public void getVerifyOrder(OrderVerifyBean bean) {
         adapter.update((ArrayList) bean.getCart().getShopList(), true);
-
-        setAddress(bean.getAddress());
         setOrderInfo(bean);
     }
 
@@ -88,14 +98,14 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     private void setAddress(AddressBean bean) {
         if (bean == null) {
             barBinding.btnAddress.setVisibility(View.VISIBLE);
-            barBinding.llAddress.setVisibility(View.GONE);
+            barBinding.llAddress.setVisibility(View.INVISIBLE);
         } else {
-            barBinding.btnAddress.setVisibility(View.VISIBLE);
-            barBinding.llAddress.setVisibility(View.GONE);
+            barBinding.btnAddress.setVisibility(View.GONE);
+            barBinding.llAddress.setVisibility(View.VISIBLE);
 
-//            barBinding.tvArea.setText(bean.getFullAddress());
-//            barBinding.tvAddress.setText(bean.getFullAddress());
-//            barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getReceiverName(), bean.getPhone()));
+            barBinding.tvArea.setText(bean.getFullAddress());
+            barBinding.tvAddress.setText(bean.getFullAddress());
+            barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getReceiverName(), bean.getPhone()));
         }
     }
 
@@ -108,16 +118,21 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.rlGoods.setKey("延迟收货");
         barBinding.rlGoods.setContent(bean.getTime());
 
+        if (bean.getCompany() != null)
+            barBinding.rlCompay.setKey(bean.getCompany().getFullName());
 
-        barBinding.rlCompay.setKey(bean.getCompany());
+        if (bean.getInvoiceAddress() != null) {
+            barBinding.tvBillAddress.setText(bean.getInvoiceAddress().getFullAddress());
+            barBinding.tvBillPhone.setText(bean.getInvoiceAddress().getReceiverName() + "  " + bean.getInvoiceAddress().getMobile());
+        }
 
-        barBinding.rlBill.setContent("专票");
-        barBinding.rlBill.setKey(bean.getCompany());
 
         barBinding.rlPay.setKey("账期支付");
 
-        barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getYearTotal())));
-        barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getYearExtra())));
+        if (bean.getBudgetBean() != null) {
+            barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getBudgetAmount())));
+            barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getUsedAmount())));
+        }
 
 
         barBinding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", bean.getTotalPay(), "", 18));

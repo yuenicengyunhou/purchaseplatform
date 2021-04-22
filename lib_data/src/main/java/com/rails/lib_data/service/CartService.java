@@ -68,8 +68,9 @@ public interface CartService {
      * @param params
      * @return
      */
+    @FormUrlEncoded
     @POST("app-order-service/app/v1/mall/cart/selectedSku")
-    Observable<HttpResult<String>> modifySelect(@FieldMap HashMap<String, Object> params);
+    Observable<HttpResult<Boolean>> modifySelect(@FieldMap HashMap<String, Object> params);
 
 
     /**
@@ -78,8 +79,9 @@ public interface CartService {
      * @param params
      * @return
      */
-    @POST("app-order-service/POST /app/v1/mall/cart/selectedSkuAll")
-    Observable<HttpResult<String>> modifyAllSelect(@FieldMap HashMap<String, Object> params);
+    @FormUrlEncoded
+    @POST("app-order-service/app/v1/mall/cart/selectedSkuAll")
+    Observable<HttpResult<Boolean>> modifyAllSelect(@FieldMap HashMap<String, Object> params);
 
     /**
      * 校对购物车选中商品
@@ -87,6 +89,7 @@ public interface CartService {
      * @param params
      * @return
      */
+    @FormUrlEncoded
     @POST("app-order-service/app/v1/mall/cart/verifyCart")
     Observable<HttpResult<String>> verifyCart(@FieldMap HashMap<String, Object> params);
 

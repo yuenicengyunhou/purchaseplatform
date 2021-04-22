@@ -15,7 +15,7 @@ public class AddressModel {
      */
     public void queryAddressList(long platformId, long accountId, int accountType, long pageNum, int pageSize, HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).getAddressList(platformId,accountId,accountType,pageNum,pageSize))
+                .create(AddressService.class).getAddressList(platformId, accountId, accountType, pageNum, pageSize))
                 .subscribe(httpRxObserver);
     }
 
@@ -23,9 +23,9 @@ public class AddressModel {
     /**
      * 添加地址
      */
-    public void addAddress(long platformId, long accountId, String requestStr,HttpRxObserver httpRxObserver) {
+    public void addAddress(long platformId, long accountId, String requestStr, HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).insertAddress(platformId,accountId,requestStr))
+                .create(AddressService.class).insertAddress(platformId, accountId, requestStr))
                 .subscribe(httpRxObserver);
     }
 
@@ -34,7 +34,7 @@ public class AddressModel {
      */
     public void deleteAddress(long platformId, long accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).deleteAddress(platformId,accountId,buyerAddressId))
+                .create(AddressService.class).deleteAddress(platformId, accountId, buyerAddressId))
                 .subscribe(httpRxObserver);
     }
 
@@ -42,9 +42,9 @@ public class AddressModel {
      * 收货地址--重置默认地址  type=0 ：收货地址     type=1:发票地址
      */
     public void updateDefaultReceiveAddress(long platformId, long accountId, long id, HttpRxObserver httpRxObserver) {
-            HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                    .create(AddressService.class).updateDefaultAddress(platformId, accountId, id))
-                    .subscribe(httpRxObserver);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(AddressService.class).updateDefaultAddress(platformId, accountId, id))
+                .subscribe(httpRxObserver);
     }
 
     /**
@@ -52,7 +52,7 @@ public class AddressModel {
      */
     public void updateDefaultInvoiceAddress(long platformId, long accountId, long id, HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).updateDefaultInvoiceAddress(platformId,accountId,id))
+                .create(AddressService.class).updateDefaultInvoiceAddress(platformId, accountId, id))
                 .subscribe(httpRxObserver);
     }
 
@@ -61,7 +61,7 @@ public class AddressModel {
      */
     public void editAddress(long platformId, long accountId, long addressId, String json, HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).updateAddress(platformId,accountId,json,addressId))
+                .create(AddressService.class).updateAddress(platformId, accountId, json, addressId))
                 .subscribe(httpRxObserver);
     }
 
@@ -83,5 +83,25 @@ public class AddressModel {
      */
     public void saveAreaInfo(List<AddressArea> areas) {
 
+    }
+
+
+    /**
+     * 获取专属地址列表
+     *
+     * @param platformId
+     * @param addressType    1：收货地址   2：收发票地址
+     * @param httpRxObserver
+     */
+    public void getAddress(String platformId, String addressType,String userId,String userType,  HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+//        params.put("platformId", platformId);
+        params.put("addressType", addressType);
+//        params.put("accountId",userId);
+//        params.put("accountType",userType);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(AddressService.class)
+                .getAddress(params))
+                .subscribe(httpRxObserver);
     }
 }

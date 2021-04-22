@@ -1,6 +1,5 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.bean.OrderBean;
 import com.rails.lib_data.bean.OrderParentBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -12,6 +11,6 @@ public interface OrderContract {
     }
 
     interface OrderPresenter {
-        void getOrder(boolean isDialog, int page);
+        void getOrder(boolean isDialog, int page,int queryType);
     }
 }

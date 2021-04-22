@@ -23,4 +23,10 @@ public interface UserService {
     Observable<HttpResult<UserStatisticsBean>> getUserStatictics(@QueryMap HashMap<String, Object> params);
 
 
+    /**
+     * 我的页面，数据统计数
+     */
+    @GET("app-user-service/app/v1/buyer/user/personal")
+    Observable<HttpResult<UserStatisticsBean>> getUserInfoStatictics(@QueryMap HashMap<String, Object> params);
+
 }

@@ -23,9 +23,15 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 @Route(path = ConRoute.WEB.WEB_APPROVAL)
 public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEvaluteBack {
 
+    int type = 0;
+
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
+        type = extras.getInt("type", 0);
+        if (type != 0) {
+            url = url + "?kindApproval=" + type;
+        }
     }
 
     @Override
