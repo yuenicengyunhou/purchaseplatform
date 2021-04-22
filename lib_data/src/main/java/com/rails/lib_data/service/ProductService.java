@@ -58,6 +58,6 @@ public interface ProductService {
      */
     @FormUrlEncoded
     @POST("app-item-service/app/v1/mall/search/querySaleHotItem")
-    Observable<HttpResult<HotSaleBean>> getHotSale(@FieldMap HashMap<String, Object> params);
+    Observable<HttpResult<ArrayList<HotSaleBean>>> getHotSale(@FieldMap HashMap<String, Object> params);
 
 }

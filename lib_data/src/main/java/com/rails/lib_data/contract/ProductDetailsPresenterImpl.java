@@ -82,7 +82,7 @@ public class ProductDetailsPresenterImpl
     public void getHotSale(long platformId, long itemId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-        mModel.getHotSale(platformId, itemId, new HttpRxObserver<HotSaleBean>() {
+        mModel.getHotSale(platformId, itemId, new HttpRxObserver<ArrayList<HotSaleBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -90,7 +90,8 @@ public class ProductDetailsPresenterImpl
             }
 
             @Override
-            protected void onSuccess(HotSaleBean response) {
+            protected void onSuccess(ArrayList<HotSaleBean> response) {
+                HotSaleBean bean = response.get(0);
                 Toast.makeText(mContext, "12345 - 店铺推荐", Toast.LENGTH_LONG).show();
 
                 baseView.onGetHotSaleSuccess();
