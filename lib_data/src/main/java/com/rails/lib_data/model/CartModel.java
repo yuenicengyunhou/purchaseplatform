@@ -27,13 +27,11 @@ public class CartModel {
      *
      * @param httpRxObserver
      */
-    public void getCarts(HttpRxObserver httpRxObserver) {
+    public void getCarts(String addressId, HttpRxObserver httpRxObserver) {
 
 
         HashMap<String, Object> params = new HashMap<>();
-//        params.put("platformId", "20");
-        params.put("addressId", "1001550");
-//        params.put("organizeId", "13");
+        params.put("addressId", addressId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class).getCarts(params))

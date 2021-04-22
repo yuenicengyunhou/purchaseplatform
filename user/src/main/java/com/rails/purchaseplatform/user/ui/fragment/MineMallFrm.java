@@ -136,6 +136,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             // TODO: 2021/4/1 跳转到驳回页面
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_APPROVAL)
+                    .withInt("type",2)
                     .withString("url", ConRoute.WEB_URL.TURN_DOWN_LIST)
                     .navigation();
         });
@@ -144,7 +145,8 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             // TODO: 2021/4/1 跳转到通过页面
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_APPROVAL)
-                    .withString("url", ConRoute.WEB_URL.PASS_LIST)
+                    .withInt("type",1)
+                    .withString("url", ConRoute.WEB_URL.TURN_DOWN_LIST)
                     .navigation();
         });
 

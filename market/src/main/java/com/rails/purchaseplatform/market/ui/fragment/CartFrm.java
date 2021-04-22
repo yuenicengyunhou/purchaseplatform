@@ -6,10 +6,13 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.contract.AddressToolContract;
+import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
 import com.rails.lib_data.contract.ProductContract;
@@ -49,7 +52,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/9
  */
 public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContract.CartView,
-        LoadMoreRecycler.LoadMoreListener, ProductContract.ProductView,
+        LoadMoreRecycler.LoadMoreListener, ProductContract.ProductView, AddressToolContract.AddressToolView,
         MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean> {
 
     int type = 0;//是否显示标题
@@ -61,6 +64,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private GridLayoutManager hotManager;
 
     CartContract.CartPresenter presenter;
+    AddressToolContract.AddressToolPresenter addressPresenter;
     ProductContract.ProductPresenter productPresenter;
 
 
@@ -121,6 +125,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         presenter = new CartPresenterImpl(getActivity(), this);
         productPresenter = new ProductPresenterImpl(getActivity(), this);
+        addressPresenter = new AddressToolPresenterImpl(getActivity(), this);
         onRefresh();
     }
 
@@ -141,12 +146,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.swipe.finishRefresh();
                 page = DEF_PAGE;
-                presenter.getCarts(false);
+                addressPresenter.getDefAddress("20", "1");
                 notifyData(false, page);
             }
         });
-
-        presenter.getCarts(true);
+        addressPresenter.getDefAddress("20", "1");
         notifyData(false, page);
     }
 
@@ -375,4 +379,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
 
+    @Override
+    public void getAddress(ArrayList<AddressBean> addressBeans) {
+
+    }
+
+    @Override
+    public void getDefAddress(AddressBean bean) {
+        presenter.getCarts(true, String.valueOf(bean.getAddressId()));
+    }
 }

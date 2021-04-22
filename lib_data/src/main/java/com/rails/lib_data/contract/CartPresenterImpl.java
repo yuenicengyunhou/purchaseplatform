@@ -42,11 +42,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
     }
 
     @Override
-    public void getCarts(boolean isDialog) {
+    public void getCarts(boolean isDialog,String addressId) {
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
-        model.getCarts(new HttpRxObserver<CartBean>() {
+        model.getCarts(addressId,new HttpRxObserver<CartBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();

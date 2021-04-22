@@ -67,7 +67,7 @@ public interface CartContract {
          * @param isDialog 是否显示loading窗口
          *                 获取购物车列表
          */
-        void getCarts(boolean isDialog);
+        void getCarts(boolean isDialog, String addressId);
 
 
         /**

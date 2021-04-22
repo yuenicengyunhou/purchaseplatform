@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -64,4 +65,16 @@ public interface AddressService {
      */
     @POST("app-user-service/app/v1/mall/base/address/queryEnableAddsByParentCode")
     Observable<HttpResult<ArrayList<AddressArea>>> getAddressCode(@QueryMap HashMap<String, Object> map);
+
+
+    /**
+     * 获取专属（收货地址/收发票地址）地址列表
+     *
+     * @param map
+     * @return
+     */
+//    https://shop.rails.cn/proxy/app-user-service/app/v1/buyer/address/queryBuyerAddressListByBuyer?addressType=1&platformId=20
+//    https://shop.rails.cn/proxy/user/buyer/address/queryBuyerAddressListByBuyer?addressType=1&platformId=20
+    @GET("app-user-service/app/v1/buyer/address/queryBuyerAddressListByBuyer")
+    Observable<HttpResult<ArrayList<AddressBean>>> getAddress(@QueryMap HashMap<String, Object> map);
 }
