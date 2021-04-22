@@ -101,6 +101,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
 
+    private ProductDetailsBean productDetailsBean;
+
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -443,9 +445,21 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     void showParamsCheckPop() {
         if (mParamsPop == null) {
             ItemParams params = new ItemParams();
-            // TODO: 2021/4/21 添加属性
-//            params.setBrand();
-            mParamsPop = new ProductDetailsParamsPop();
+            params.setBrand(productDetailsBean.getItemPublishVo().getBrandName());
+            params.setName(productDetailsBean.getItemPublishVo().getItemName());
+            params.setProductNum(String.valueOf(productDetailsBean.getItemPublishVo().getId()));
+            params.setMadeIn(productDetailsBean.getItemPublishVo().getOrigin());
+            params.setItemNum(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getId()));
+            params.setType(productDetailsBean.getItemSkuInfoList().get(0).getModelCode());
+            params.setItemBarCode(productDetailsBean.getItemSkuInfoList().get(0).getBarCode());
+            params.setWeight(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getWeight()));
+            params.setWeightUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            // TODO: 2021/4/22 包装尺寸从哪里取？
+            params.setSize(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            // TODO: 2021/4/22 商品单位从哪里取？
+            params.setItemUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+
+            mParamsPop = new ProductDetailsParamsPop(params);
             mParamsPop.setType(BasePop.MATCH_WRAP);
             mParamsPop.setGravity(Gravity.BOTTOM);
         }
@@ -473,6 +487,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
 //        binding.tvPriceGray.setText(bean.get);
+        this.productDetailsBean = bean;
         for (ItemPictureVo itemPictureVo : bean.getItemPictureVoList()) {
             pictureUrls.add(itemPictureVo.getPictureUrl());
         }

@@ -18,11 +18,29 @@ public class ItemSkuInfo {
     private int shortCode;
     private int saleStatus;
     private long upTime;
+    private String barCode;
+    private double weight;
     private ItemSkuPriceResultVo itemSkuPriceResultVo;
 
 
     // ===========================================================================================
 
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
 
     public ItemSkuPriceResultVo getItemSkuPriceResultVo() {
         return itemSkuPriceResultVo;

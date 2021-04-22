@@ -11,6 +11,7 @@ public class ItemPublishVo {
     private String itemName;
     private int cid;
     private int brandId;
+    private String BrandName;
     private String origin;
     private String categoryAttributes;
     private String specAttributes;
@@ -33,6 +34,14 @@ public class ItemPublishVo {
 
     // ===========================================================================================
 
+
+    public String getBrandName() {
+        return BrandName;
+    }
+
+    public void setBrandName(String brandName) {
+        BrandName = brandName;
+    }
 
     public SupplierInfoImportData getSupplierInfoImportData() {
         return supplierInfoImportData;

@@ -43,6 +43,11 @@ public class ItemParams {
     private String weight;
 
     /**
+     * 重量单位
+     */
+    private String weightUnit;
+
+    /**
      * 包装尺寸
      */
     private String size;
@@ -55,6 +60,14 @@ public class ItemParams {
 
     // =========================================================================================
 
+
+    public String getWeightUnit() {
+        return weightUnit;
+    }
+
+    public void setWeightUnit(String weightUnit) {
+        this.weightUnit = weightUnit;
+    }
 
     public String getBrand() {
         return brand;
