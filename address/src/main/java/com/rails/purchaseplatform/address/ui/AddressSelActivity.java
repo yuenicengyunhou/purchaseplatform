@@ -9,8 +9,11 @@ import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
+import com.rails.lib_data.contract.AddressToolContract;
+import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressAdapter;
+import com.rails.purchaseplatform.address.adapter.AddressSelAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressSelBinding;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -36,10 +39,17 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 @Route(path = ConRoute.ADDRESS.ADDRESS_SEL)
 public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBinding> implements
-        AddressContract.AddressView, MulPositionListener<AddressBean>, PositionListener<AddressBean> {
+        AddressToolContract.AddressToolView, MulPositionListener<AddressBean>, PositionListener<AddressBean> {
 
-    private AddressAdapter addressAdapter;
-    private AddressContract.AddressPresenter presenter;
+    private AddressSelAdapter addressAdapter;
+    private AddressToolContract.AddressToolPresenter presenter;
+    private String type;
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        type = extras.getString("type", "0");
+    }
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -51,14 +61,14 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
 
 
         barBinding.smart.setEnableLoadMore(false);
-        addressAdapter = new AddressAdapter(this);
+        addressAdapter = new AddressSelAdapter(this);
         addressAdapter.setMulPositionListener(this);
         addressAdapter.setListener(this);
         barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         barBinding.recycler.setAdapter(addressAdapter);
 
 
-        presenter = new AddressPresenterImpl(this, this);
+        presenter = new AddressToolPresenterImpl(this, this);
         onRefresh();
 
     }
@@ -72,10 +82,10 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 barBinding.smart.finishRefresh();
-                presenter.getAddresses(false);
+                presenter.getAddress("", type);
             }
         });
-        presenter.getAddresses(true);
+        presenter.getAddress("", type);
     }
 
 
@@ -94,20 +104,6 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
         return false;
     }
 
-    @Override
-    public void getResult(int type, int position, String msg) {
-
-    }
-
-    @Override
-    public void getAddresses(ArrayList<AddressBean> addressBeans) {
-        addressAdapter.update(addressBeans, true);
-    }
-
-    @Override
-    public void getArea(ArrayList<AddressArea> list) {
-
-    }
 
     @Override
     public void onPosition(AddressBean bean, int position, int... params) {
@@ -134,5 +130,15 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
                 startIntent(AddressAddActivity.class);
             }
         });
+    }
+
+    @Override
+    public void getAddress(ArrayList<AddressBean> addressBeans) {
+        addressAdapter.update(addressBeans, true);
+    }
+
+    @Override
+    public void getDefAddress(AddressBean bean) {
+
     }
 }

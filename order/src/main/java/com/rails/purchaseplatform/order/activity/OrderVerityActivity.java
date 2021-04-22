@@ -42,6 +42,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     private OrderVerifyContract.OrderVerifyPresenter presenter;
     private AddressBean addressBean;
 
+    //是否延迟收货 1：延迟收货 0：无延迟收货
+    private int receiveType = 0;
+
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -115,8 +118,8 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     private void setOrderInfo(OrderVerifyBean bean) {
         if (bean == null)
             return;
-        barBinding.rlGoods.setKey("延迟收货");
-        barBinding.rlGoods.setContent(bean.getTime());
+
+        setReceiveType(receiveType, "");
 
         if (bean.getCompany() != null)
             barBinding.rlCompay.setKey(bean.getCompany().getFullName());
@@ -140,13 +143,30 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     }
 
 
+    /**
+     * 设置收货方式
+     *
+     * @param type
+     * @param time
+     */
+    private void setReceiveType(int type, String time) {
+        if (type == 0) {
+            barBinding.rlGoods.setKey("正常收货");
+            barBinding.rlGoods.setContent(" ");
+        } else {
+            barBinding.rlGoods.setKey("延迟收货");
+            barBinding.rlGoods.setContent(time);
+        }
+    }
+
+
     @Override
     protected void onClick() {
         super.onClick();
         barBinding.llAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(OrderVerityActivity.this, 0);
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", "1").navigation(OrderVerityActivity.this, 0);
             }
         });
 
@@ -170,6 +190,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             GoodsPop pop = new GoodsPop();
             pop.setGravity(Gravity.BOTTOM);
             pop.setType(BasePop.MATCH_WRAP);
+            pop.setListener((type, time) -> {
+                setReceiveType(type, time);
+            });
             pop.show(getSupportFragmentManager(), "goods");
         });
 

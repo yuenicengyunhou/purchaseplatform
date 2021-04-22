@@ -8,6 +8,7 @@ import android.widget.CalendarView;
 import android.widget.DatePicker;
 
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.TimeUtil;
 import com.rails.purchaseplatform.order.databinding.ItemOrderRecyclerTitleBinding;
 import com.rails.purchaseplatform.order.databinding.PopVerifyGoodsBinding;
 
@@ -23,9 +24,18 @@ import androidx.annotation.NonNull;
  */
 public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
 
+    private GoodsListener listener;
+    private String time = "";
+
+    public void setListener(GoodsListener listener) {
+        this.listener = listener;
+    }
+
 
     @Override
     protected void initialize(Bundle bundle) {
+
+        time = TimeUtil.LongtoStringFormat(System.currentTimeMillis(), TimeUtil.YMD);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
@@ -36,7 +46,7 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
                     calendar.set(datePicker.getYear(), datePicker.getMonth(),
                             datePicker.getDayOfMonth());
                     // 格式化字符串
-//                    tvTitle.setText(TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.MDHM));
+                    time = TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD);
                 }
             });
         } else {
@@ -48,7 +58,7 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
                     calendar.set(binding.datePicker.getYear(), binding.datePicker.getMonth(),
                             binding.datePicker.getDayOfMonth());
                     // 格式化字符串
-//                    tvTitle.setText(TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.MDHM));
+                    time = TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD);
                 }
             });
         }
@@ -89,7 +99,17 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
         });
 
         binding.btnOk.setOnClickListener(v -> {
+            if (listener != null) {
+                int type = binding.btnNormal.isSelected() ? 0 : 1;
+                listener.setType(type, time);
+            }
             dismiss();
         });
+    }
+
+
+    public interface GoodsListener {
+
+        void setType(int type, String time);
     }
 }
