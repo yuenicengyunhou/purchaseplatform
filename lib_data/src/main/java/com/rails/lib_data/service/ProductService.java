@@ -51,7 +51,7 @@ public interface ProductService {
      */
     @FormUrlEncoded
     @POST("app-item-service/app/v1/mall/search/querySkuPrice")
-    Observable<HttpResult<ProductPriceBean>> getProductPrice(@FieldMap HashMap<String, Object> params);
+    Observable<HttpResult<ArrayList<ProductPriceBean>>> getProductPrice(@FieldMap HashMap<String, Object> params);
 
     /**
      * 获取店铺推荐

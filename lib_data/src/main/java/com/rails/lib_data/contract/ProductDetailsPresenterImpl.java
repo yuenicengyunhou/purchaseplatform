@@ -12,6 +12,8 @@ import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
+import java.util.ArrayList;
+
 /**
  * 商品详情 presenter实现类
  */
@@ -57,7 +59,7 @@ public class ProductDetailsPresenterImpl
     public void getProductPrice(long platformId, int skuId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-        mModel.getProductPrice(platformId, skuId, new HttpRxObserver<ProductPriceBean>() {
+        mModel.getProductPrice(platformId, skuId, new HttpRxObserver<ArrayList<ProductPriceBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -65,7 +67,8 @@ public class ProductDetailsPresenterImpl
             }
 
             @Override
-            protected void onSuccess(ProductPriceBean response) {
+            protected void onSuccess(ArrayList<ProductPriceBean> response) {
+                ProductPriceBean bean = response.get(0);
                 Toast.makeText(mContext, "12345 - 商品价格", Toast.LENGTH_LONG).show();
 
 
