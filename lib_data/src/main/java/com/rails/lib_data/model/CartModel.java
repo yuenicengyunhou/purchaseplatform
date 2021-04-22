@@ -32,6 +32,7 @@ public class CartModel {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("addressId", addressId);
+//        params.put("organizeId", organizeId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class).getCarts(params))
@@ -151,9 +152,9 @@ public class CartModel {
      *
      * @return
      */
-    public void verifyCart(HttpRxObserver httpRxObserver) {
+    public void verifyCart(String addressId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("addressId", "10");
+        params.put("addressId", addressId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class)

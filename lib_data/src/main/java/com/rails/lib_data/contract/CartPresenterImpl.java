@@ -32,6 +32,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
     CartModel model;
     private String userId;
+    private String organizeId;
 
 
     public CartPresenterImpl(Activity mContext, CartContract.CartView cartView) {
@@ -225,9 +226,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
     }
 
     @Override
-    public void verifyCart() {
+    public void verifyCart(String addressId) {
         baseView.showResDialog(R.string.loading);
-        model.verifyCart(new HttpRxObserver() {
+        model.verifyCart(addressId,new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -235,9 +236,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             }
 
             @Override
-            protected void onSuccess(Object response) {
+            protected void onSuccess(String response) {
                 baseView.dismissDialog();
+                baseView.getResult(0,"校验成功");
             }
+
         });
     }
 

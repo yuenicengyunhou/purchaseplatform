@@ -28,6 +28,7 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
@@ -58,6 +59,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     int type = 0;//是否显示标题
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
+    AddressBean addressBean;
 
     CartAdapter cartAdapter;
     ProductHotAdapter recAdapter;
@@ -201,7 +203,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getResult(int type, String msg) {
-
+        ToastUtil.show(getActivity(), msg);
+        ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
     }
 
     /**
@@ -239,8 +242,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
         binding.btnCommit.setOnClickListener(v -> {
-//            ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
-            presenter.verifyCart();
+            if (addressBean == null)
+                return;
+            presenter.verifyCart(String.valueOf(addressBean.getId()));
         });
 
 
@@ -386,6 +390,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getDefAddress(AddressBean bean) {
-        presenter.getCarts(true, String.valueOf(bean.getAddressId()));
+        if (bean == null)
+            return;
+        addressBean = bean;
+        presenter.getCarts(true, String.valueOf(bean.getId()));
     }
 }

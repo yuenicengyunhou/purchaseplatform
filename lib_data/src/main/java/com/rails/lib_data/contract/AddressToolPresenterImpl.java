@@ -23,17 +23,19 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
 
     private AddressModel model;
     private String userId;
+    private String userType;
 
     public AddressToolPresenterImpl(Activity mContext, AddressToolContract.AddressToolView addressToolView) {
         super(mContext, addressToolView);
         model = new AddressModel();
-        UserInfoBean userInfoBean = PrefrenceUtil.getInstance(mContext).getBean(ConShare.USERINFO,UserInfoBean.class);
+        UserInfoBean userInfoBean = PrefrenceUtil.getInstance(mContext).getBean(ConShare.USERINFO, UserInfoBean.class);
         userId = userInfoBean.getId();
+        userType = userInfoBean.getAccountType();
     }
 
     @Override
     public void getAddress(String paltId, String addressType) {
-        model.getAddress(paltId, addressType,userId, new HttpRxObserver<ArrayList<AddressBean>>() {
+        model.getAddress(paltId, addressType, userId, userType, new HttpRxObserver<ArrayList<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -48,7 +50,7 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
 
     @Override
     public void getDefAddress(String paltId, String addressType) {
-        model.getAddress(paltId, addressType,userId, new HttpRxObserver<ArrayList<AddressBean>>() {
+        model.getAddress(paltId, addressType, userId, userType, new HttpRxObserver<ArrayList<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -57,11 +59,12 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
             @Override
             protected void onSuccess(ArrayList<AddressBean> addressBeans) {
                 for (AddressBean bean : addressBeans) {
-                    if (bean.getIsdefault()) {
+                    if (bean.getHasDefault() == 1) {
                         baseView.getDefAddress(bean);
                         return;
                     }
                 }
+                baseView.getDefAddress(addressBeans.get(0));
             }
         });
     }

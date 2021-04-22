@@ -93,11 +93,12 @@ public class AddressModel {
      * @param addressType    1：收货地址   2：收发票地址
      * @param httpRxObserver
      */
-    public void getAddress(String platformId, String addressType,String userId, HttpRxObserver httpRxObserver) {
+    public void getAddress(String platformId, String addressType,String userId,String userType,  HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("platformId", platformId);
+//        params.put("platformId", platformId);
         params.put("addressType", addressType);
-        params.put("accountId",userId);
+//        params.put("accountId",userId);
+//        params.put("accountType",userType);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class)
                 .getAddress(params))
