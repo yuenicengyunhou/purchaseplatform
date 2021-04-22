@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SkuItemBean;
-import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.lib_data.model.SearchModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -51,6 +51,8 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     attribute.setShopId(sku.getShopId());
                     attribute.setShopName(searchItemBean.getShopName());
                     attribute.setSellPrice(sku.getSellPrice());
+                    attribute.setItemId(sku.getItemId());
+                    attribute.setSkuId(sku.getSkuId());
                     baseItemAttributes.add(attribute);
                 }
 

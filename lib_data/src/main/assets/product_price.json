@@ -1,0 +1,112 @@
+{
+  "code": "0",
+  "msg": "查询sku区域价格成功",
+  "data": [
+    {
+      "skuId": 12997,
+      "shopId": 202003030108,
+      "shopType": 2,
+      "marketPrice": 5099.00,
+      "sellPrice": 4494.00,
+      "skuName": "ThinkCentreM720t商用电脑",
+      "shopName": "联想（北京）有限公司（修改1）",
+      "pictureUrl": [
+        {
+          "id": 122535,
+          "platformId": 20,
+          "itemId": 1001635,
+          "shopId": 202003030108,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021203845.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 1,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12997,
+          "annexType": 1
+        },
+        {
+          "id": 122537,
+          "platformId": 20,
+          "itemId": 1001635,
+          "shopId": 202003030108,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021209740.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 2,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12997,
+          "annexType": 1
+        },
+        {
+          "id": 122539,
+          "platformId": 20,
+          "itemId": 1001635,
+          "shopId": 202003030108,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021209843.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 3,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12997,
+          "annexType": 1
+        },
+        {
+          "id": 122541,
+          "platformId": 20,
+          "itemId": 1001635,
+          "shopId": 202003030108,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021209915.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 4,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12997,
+          "annexType": 1
+        },
+        {
+          "id": 122543,
+          "platformId": 20,
+          "itemId": 1001635,
+          "shopId": 202003030108,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021209796.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 5,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12997,
+          "annexType": 1
+        },
+        {
+          "id": 122545,
+          "platformId": 20,
+          "itemId": 1001635,
+          "shopId": 202003030108,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021210036.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 6,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12997,
+          "annexType": 1
+        }
+      ],
+      "packageDis": "**",
+      "packinglist": [],
+      "score": 0,
+      "saleNum": 2,
+      "creditLevel": "B"
+    }
+  ]
+}

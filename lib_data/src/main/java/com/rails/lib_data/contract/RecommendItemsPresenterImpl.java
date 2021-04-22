@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
-import com.rails.lib_data.bean.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.model.RecommendItemsModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;

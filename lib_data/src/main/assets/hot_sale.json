@@ -1,0 +1,66 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "itemId": 1001563,
+      "itemName": "HP EliteDesk 705 G4 MT R5-2600/8G/1T/2G独显/21.5寸显示器",
+      "pictureUrl": "//xsky.rails.cn/mall/10c819055291969d803133b597a3b81320200307171659333.jpg",
+      "skuCount": 1,
+      "maxPrice": 4990.00,
+      "minPrice": 4990.00,
+      "brandId": null,
+      "brandName": null,
+      "salesVolume": 0,
+      "cid": 1001047
+    },
+    {
+      "itemId": 1001525,
+      "itemName": "惠普（HP) 台式计算机288G5 ​I3-9100/8G/1T/集成显卡/DVDRW/主机",
+      "pictureUrl": "//xsky.rails.cn/mall/b48ca334e54c5fbc9aea629d2ef5eea520200307170711175.png",
+      "skuCount": 1,
+      "maxPrice": 3250.00,
+      "minPrice": 3250.00,
+      "brandId": null,
+      "brandName": null,
+      "salesVolume": 0,
+      "cid": 1001047
+    },
+    {
+      "itemId": 1001637,
+      "itemName": "ThinkCentre M920t商用电脑",
+      "pictureUrl": "//xsky.rails.cn/mall/bb31ea05ab52a4ed615248a878ddff2720200308021323091.png",
+      "skuCount": 1,
+      "maxPrice": 4028.00,
+      "minPrice": 4028.00,
+      "brandId": null,
+      "brandName": null,
+      "salesVolume": 0,
+      "cid": 1001047
+    },
+    {
+      "itemId": 1001527,
+      "itemName": "惠普（HP) 台式计算机HP 288G5 I5-9500/8G/1T/2G独立显卡/DVDRW/主机",
+      "pictureUrl": "//xsky.rails.cn/mall/b48ca334e54c5fbc9aea629d2ef5eea520200307170940619.png",
+      "skuCount": 1,
+      "maxPrice": 3950.00,
+      "minPrice": 3950.00,
+      "brandId": null,
+      "brandName": null,
+      "salesVolume": 0,
+      "cid": 1001047
+    },
+    {
+      "itemId": 1001639,
+      "itemName": "P3330图形工作站",
+      "pictureUrl": "//xsky.rails.cn/mall/bcfac18ea55c153f033a7be32bdcd6e220200308021511311.png",
+      "skuCount": 1,
+      "maxPrice": 8888.00,
+      "minPrice": 8888.00,
+      "brandId": null,
+      "brandName": null,
+      "salesVolume": 0,
+      "cid": 1001047
+    }
+  ]
+}

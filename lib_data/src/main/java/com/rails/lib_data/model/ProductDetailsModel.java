@@ -34,4 +34,40 @@ public class ProductDetailsModel {
                 .getProductDetails(params))
                 .subscribe(httpRxObserver);
     }
+
+    /**
+     * 请求商品价格
+     *
+     * @param platformId
+     * @param skuId
+     * @param httpRxObserver
+     */
+    public void getProductPrice(long platformId, int skuId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", platformId);
+        params.put("skuIds", skuId);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .getProductPrice(params))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
+     * 请求店铺推荐（热销商品）
+     *
+     * @param platformId
+     * @param itemId
+     * @param httpRxObserver
+     */
+    public void getHotSale(long platformId, long itemId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", platformId);
+        params.put("itemId", itemId);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .getHotSale(params))
+                .subscribe(httpRxObserver);
+    }
 }

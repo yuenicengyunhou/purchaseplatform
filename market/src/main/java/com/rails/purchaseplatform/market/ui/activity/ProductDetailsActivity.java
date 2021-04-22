@@ -23,7 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
-import com.rails.lib_data.bean.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.ItemParams;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl2;
 import com.rails.lib_data.contract.ProductDetailsContract;
@@ -32,9 +36,9 @@ import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
@@ -56,7 +60,6 @@ import java.util.ArrayList;
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
         implements
-        RecommendItemsContract.RecommendItemsView,
         ConstantH5.ProductDetails,
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView {
@@ -65,7 +68,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
-    private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
     private CartContract.CartPresenter2 mPresenter;
 
@@ -76,15 +78,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             RECOMMENDS
     };
 
-    final private ArrayList<String> PICTURE_URLS = new ArrayList<>();
+    private ArrayList<String> pictureUrls = new ArrayList<>();
     private PropertyPop mPop;
 
-    {
-        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
-        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6901443407217/428_428_4A986AE3579911F078F43B674B4EF611BE841294A15C2C50mp.png");
-        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6901443408887/428_428_8C0DCB8B48F9A0DDDF1C3A8BC7958FBA2AE24D308646AAA2mp.png");
-        PICTURE_URLS.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
-    }
+    private long mPlatformId;
+    private long mItemId;
+    private int mSkuId;
+
+//    {
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443407217/428_428_4A986AE3579911F078F43B674B4EF611BE841294A15C2C50mp.png");
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443408887/428_428_8C0DCB8B48F9A0DDDF1C3A8BC7958FBA2AE24D308646AAA2mp.png");
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
+//    }
 
     final private ArrayList<View> VIEWS = new ArrayList<>();
 
@@ -95,12 +101,25 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
 
+    private ProductDetailsBean productDetailsBean;
+
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        mPlatformId = extras.getLong("platformId");
+        mItemId = extras.getLong("itemId");
+        mSkuId = extras.getInt("skuId");
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
-        mGetProductDetailsPresenter.getProductDetails(20L, 1001635L, 20L, true);
+//        mGetProductDetailsPresenter.getProductDetails(20L, 1001635L, 20L, true);
+        mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
+        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
+        mGetProductDetailsPresenter.getHotSale(mPlatformId, mItemId, false);
 
         VIEWS.add(binding.viewSplit1);
         VIEWS.add(binding.viewSplit2);
@@ -111,21 +130,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         mPresenter = new CartPresenterImpl2(this, this);
 
-        binding.fsvScore.setStar(4);
-
         // 设置banner宽高
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
         layoutParams.width = ScreenSizeUtil.getScreenWidth(this);
         layoutParams.height = layoutParams.width * 24 / 25;
         binding.productPictureHD.setLayoutParams(layoutParams);
 
-        binding.productPictureHD.setImages(PICTURE_URLS).setImageLoader(new GlideImageLoader4ProductDetails()).start();
+//        binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
 
         recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
-        recommendItemsPresenter = new RecommendItemsPresenterImpl(this, this);
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
-        recommendItemsPresenter.getRecommendItems(false, 1);
 
 
         loadWebView();
@@ -351,11 +366,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.llCart.setOnClickListener(v -> startIntent(CartActivity.class));
     }
 
-    @Override
-    public void getRecommendItems(ArrayList<RecommendItemsBean> recommendItemsBeans, boolean hasMore, boolean isClear) {
-        recommendItemsRecyclerAdapter.update(recommendItemsBeans, false);
-    }
-
     /**
      * WebView属性设置
      *
@@ -434,7 +444,22 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showParamsCheckPop() {
         if (mParamsPop == null) {
-            mParamsPop = new ProductDetailsParamsPop();
+            ItemParams params = new ItemParams();
+            params.setBrand(productDetailsBean.getItemPublishVo().getBrandName());
+            params.setName(productDetailsBean.getItemPublishVo().getItemName());
+            params.setProductNum(String.valueOf(productDetailsBean.getItemPublishVo().getId()));
+            params.setMadeIn(productDetailsBean.getItemPublishVo().getOrigin());
+            params.setItemNum(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getId()));
+            params.setType(productDetailsBean.getItemSkuInfoList().get(0).getModelCode());
+            params.setItemBarCode(productDetailsBean.getItemSkuInfoList().get(0).getBarCode());
+            params.setWeight(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getWeight()));
+            params.setWeightUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            // TODO: 2021/4/22 包装尺寸从哪里取？
+            params.setSize(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            // TODO: 2021/4/22 商品单位从哪里取？
+            params.setItemUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+
+            mParamsPop = new ProductDetailsParamsPop(params);
             mParamsPop.setType(BasePop.MATCH_WRAP);
             mParamsPop.setGravity(Gravity.BOTTOM);
         }
@@ -460,7 +485,27 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     @Override
-    public void onGetProductDetailsSuccess(boolean bean) {
+    public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
+//        binding.tvPriceGray.setText(bean.get);
+        this.productDetailsBean = bean;
+        for (ItemPictureVo itemPictureVo : bean.getItemPictureVoList()) {
+            pictureUrls.add(itemPictureVo.getPictureUrl());
+        }
+        binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
+        binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
+        binding.textView.setText(bean.getItemPublishVo().getShopName());
 
+    }
+
+    @Override
+    public void onGetProductPriceSuccess(ProductPriceBean bean) {
+        binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
+        binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
+        binding.fsvScore.setStar(bean.getScore());
+    }
+
+    @Override
+    public void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans) {
+        recommendItemsRecyclerAdapter.update(beans, false);
     }
 }

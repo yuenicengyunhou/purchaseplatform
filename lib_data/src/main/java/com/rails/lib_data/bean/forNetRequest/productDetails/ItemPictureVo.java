@@ -5,8 +5,8 @@ public class ItemPictureVo {
     private int platformId;
     private int itemId;
     private int skuId;
-    private int shopId;
-//    private int sellerId;
+    private long shopId;
+    private int sellerId;
     private String pictureUrl;
     private String altImages;
     private int sortNumber;
@@ -48,21 +48,21 @@ public class ItemPictureVo {
         this.skuId = skuId;
     }
 
-    public int getShopId() {
+    public long getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(long shopId) {
         this.shopId = shopId;
     }
 
-//    public int getSellerId() {
-//        return sellerId;
-//    }
-//
-//    public void setSellerId(int sellerId) {
-//        this.sellerId = sellerId;
-//    }
+    public int getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
 
     public String getPictureUrl() {
         return pictureUrl;

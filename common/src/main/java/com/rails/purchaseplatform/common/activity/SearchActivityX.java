@@ -98,7 +98,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
 
         // TODO: 2021/04/19 presenter获取hotSearch
-        mHotSearchPresenter.getHotSearch(false, 1);
+        // mHotSearchPresenter.getHotSearch(false, 1);
 
         setSearchType(0);
 

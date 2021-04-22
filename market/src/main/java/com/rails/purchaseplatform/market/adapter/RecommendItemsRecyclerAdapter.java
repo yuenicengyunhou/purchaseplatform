@@ -2,9 +2,8 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
-import com.rails.lib_data.bean.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemRecommendItemsBinding;

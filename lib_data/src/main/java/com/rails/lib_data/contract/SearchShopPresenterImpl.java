@@ -43,7 +43,7 @@ public class SearchShopPresenterImpl extends BasePresenter<SearchContract.Search
                     @Override
                     protected void onSuccess(SearchDataByShopBean bean) {
 
-                        ArrayList<BaseShopAttribute> shops = new ArrayList();
+                        ArrayList<BaseShopAttribute> shops = new ArrayList<>();
                         for (SearchDataByShopBean.ShopListBean.ShopBean shopBean : bean.getShopList().getResultList()) {
                             // TODO: 2021/04/19 处理数据 使用BaseShopAttribute类，<另外需要其它类？>
 //                            shopBean.getShopName()

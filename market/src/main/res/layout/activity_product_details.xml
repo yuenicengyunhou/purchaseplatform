@@ -68,12 +68,12 @@
                             android:textSize="@dimen/font_size_16" />
 
                         <TextView
+                            android:id="@+id/tvSellPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_2"
                             android:layout_marginEnd="@dimen/dp_4"
                             android:gravity="bottom"
-                            android:text="3456.00"
                             android:textColor="#E85454"
                             android:textSize="@dimen/font_size_26"
                             android:textStyle="bold" />
@@ -93,7 +93,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="bottom"
-                            android:text="4456.00"
                             android:textColor="#BDBDBD"
                             android:textSize="@dimen/font_size_16" />
                     </LinearLayout>
@@ -150,7 +149,7 @@
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_30"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/tv_item_score"
+                            android:layout_toEndOf="@+id/tv_item_score"
                             android:src="@mipmap/ic_star"
                             android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -375,6 +374,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_60"
                             android:layout_marginTop="@dimen/dp_16"
+                            android:ellipsize="end"
+                            android:lines="1"
                             android:text="联想官方旗舰店"
                             android:textColor="#2E2E2E"
                             android:textSize="@dimen/font_size_16"
