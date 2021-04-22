@@ -24,6 +24,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.contract.CartContract;
@@ -34,9 +35,9 @@ import com.rails.lib_data.contract.RecommendItemsContract;
 import com.rails.lib_data.contract.RecommendItemsPresenterImpl;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
@@ -83,13 +84,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private long mPlatformId;
     private long mItemId;
+    private int mSkuId;
 
-    {
-        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
-        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443407217/428_428_4A986AE3579911F078F43B674B4EF611BE841294A15C2C50mp.png");
-        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443408887/428_428_8C0DCB8B48F9A0DDDF1C3A8BC7958FBA2AE24D308646AAA2mp.png");
-        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
-    }
+//    {
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443407217/428_428_4A986AE3579911F078F43B674B4EF611BE841294A15C2C50mp.png");
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443408887/428_428_8C0DCB8B48F9A0DDDF1C3A8BC7958FBA2AE24D308646AAA2mp.png");
+//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
+//    }
 
     final private ArrayList<View> VIEWS = new ArrayList<>();
 
@@ -106,6 +108,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         super.getExtraEvent(extras);
         mPlatformId = extras.getLong("platformId");
         mItemId = extras.getLong("itemId");
+        mSkuId = extras.getInt("skuId");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -114,6 +117,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
 //        mGetProductDetailsPresenter.getProductDetails(20L, 1001635L, 20L, true);
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
+        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
+        mGetProductDetailsPresenter.getHotSale(mPlatformId, mItemId, false);
 
         VIEWS.add(binding.viewSplit1);
         VIEWS.add(binding.viewSplit2);
@@ -447,6 +452,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showParamsCheckPop() {
         if (mParamsPop == null) {
+            ItemParams params = new ItemParams();
+            // TODO: 2021/4/21 添加属性
+//            params.setBrand();
             mParamsPop = new ProductDetailsParamsPop();
             mParamsPop.setType(BasePop.MATCH_WRAP);
             mParamsPop.setGravity(Gravity.BOTTOM);
@@ -481,6 +489,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
+
+    }
+
+    @Override
+    public void onGetProductPriceSuccess() {
+
+    }
+
+    @Override
+    public void onGetHotSaleSuccess() {
 
     }
 }

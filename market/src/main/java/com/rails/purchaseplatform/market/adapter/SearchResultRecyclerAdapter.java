@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -10,7 +9,6 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
-import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 
 public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<BaseItemAttribute, ItemSearchResultBinding> {
 
@@ -38,6 +36,7 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<BaseItemAtt
             Bundle bundle = new Bundle();
             bundle.putLong("platformId", 20L);
             bundle.putLong("itemId", baseItemAttribute.getItemId());
+            bundle.putInt("skuId", baseItemAttribute.getSkuId());
             ARouter.getInstance()
                     .build(ConRoute.MARKET.PRODUCT_DETAIL)
                     .with(bundle).navigation();
