@@ -166,7 +166,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.llAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(OrderVerityActivity.this, 0);
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", "1").navigation(OrderVerityActivity.this, 0);
             }
         });
 
