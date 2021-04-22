@@ -23,10 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
-import com.rails.lib_data.bean.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl2;
 import com.rails.lib_data.contract.ProductDetailsContract;
@@ -59,7 +60,6 @@ import java.util.ArrayList;
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
         implements
-        RecommendItemsContract.RecommendItemsView,
         ConstantH5.ProductDetails,
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView {
@@ -68,7 +68,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
-    private RecommendItemsContract.RecommendItemsPresenter recommendItemsPresenter;
 
     private CartContract.CartPresenter2 mPresenter;
 
@@ -140,10 +139,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //        binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
 
         recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
-        recommendItemsPresenter = new RecommendItemsPresenterImpl(this, this);
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
-        recommendItemsPresenter.getRecommendItems(false, 1);
 
 
         loadWebView();
@@ -369,11 +366,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.llCart.setOnClickListener(v -> startIntent(CartActivity.class));
     }
 
-    @Override
-    public void getRecommendItems(ArrayList<RecommendItemsBean> recommendItemsBeans, boolean hasMore, boolean isClear) {
-        recommendItemsRecyclerAdapter.update(recommendItemsBeans, false);
-    }
-
     /**
      * WebView属性设置
      *
@@ -493,12 +485,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     @Override
-    public void onGetProductPriceSuccess() {
+    public void onGetProductPriceSuccess(ProductPriceBean bean) {
 
     }
 
     @Override
-    public void onGetHotSaleSuccess() {
-
+    public void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans) {
+        recommendItemsRecyclerAdapter.update(beans, false);
     }
 }

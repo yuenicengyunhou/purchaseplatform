@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
@@ -72,7 +73,7 @@ public class ProductDetailsPresenterImpl
                 Toast.makeText(mContext, "12345 - 商品价格", Toast.LENGTH_LONG).show();
 
 
-                baseView.onGetProductPriceSuccess();
+                baseView.onGetProductPriceSuccess(bean);
                 baseView.dismissDialog();
             }
         });
@@ -91,10 +92,18 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ArrayList<HotSaleBean> response) {
-                HotSaleBean bean = response.get(0);
+                ArrayList<RecommendItemsBean> beans = new ArrayList<>();
+                for (HotSaleBean element : response) {
+                    RecommendItemsBean bean = new RecommendItemsBean();
+                    bean.setName(element.getItemName());
+                    bean.setImageUrl(element.getPictureUrl());
+                    bean.setPrice(String.valueOf(element.getMaxPrice()));
+                    beans.add(bean);
+                }
+//                HotSaleBean bean = response.get(0);
                 Toast.makeText(mContext, "12345 - 店铺推荐", Toast.LENGTH_LONG).show();
 
-                baseView.onGetHotSaleSuccess();
+                baseView.onGetHotSaleSuccess(beans);
                 baseView.dismissDialog();
             }
         });

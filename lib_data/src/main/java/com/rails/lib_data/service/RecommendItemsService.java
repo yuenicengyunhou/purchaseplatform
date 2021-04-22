@@ -1,6 +1,6 @@
 package com.rails.lib_data.service;
 
-import com.rails.lib_data.bean.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.ArrayList;

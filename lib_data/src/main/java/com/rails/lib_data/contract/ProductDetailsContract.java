@@ -1,7 +1,11 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -23,13 +27,13 @@ public interface ProductDetailsContract {
          * 商品评分
          */
         // TODO: 2021/4/22 参数
-        void onGetProductPriceSuccess();
+        void onGetProductPriceSuccess(ProductPriceBean bean);
 
         /**
          * 店铺推荐（热销商品）
          */
         // TODO: 2021/4/22 参数
-        void onGetHotSaleSuccess();
+        void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans);
     }
 
 
