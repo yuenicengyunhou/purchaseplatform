@@ -204,7 +204,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getResult(int type, String msg) {
         ToastUtil.show(getActivity(), msg);
-        ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).navigation();
+        ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).withSerializable("address", addressBean).navigation();
     }
 
     /**

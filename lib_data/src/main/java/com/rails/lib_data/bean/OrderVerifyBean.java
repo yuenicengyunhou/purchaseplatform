@@ -21,22 +21,21 @@ public class OrderVerifyBean {
      * yearExtra : 9999999.0
      */
 
-    private AddressBean address;
+    private AddressBean invoiceAddress;
     private CartBean cart;
     private String time;
-    private String company;
     private String payType;
     private String totalNum;
     private String totalPay;
-    private Double yearTotal;
-    private Double yearExtra;
+    private OrderBudgetBean budgetBean;
+    private OrderPurchaseBean company;
 
-    public AddressBean getAddress() {
-        return address;
+    public AddressBean getInvoiceAddress() {
+        return invoiceAddress;
     }
 
-    public void setAddress(AddressBean address) {
-        this.address = address;
+    public void setInvoiceAddress(AddressBean invoiceAddress) {
+        this.invoiceAddress = invoiceAddress;
     }
 
     public CartBean getCart() {
@@ -53,14 +52,6 @@ public class OrderVerifyBean {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
     }
 
     public String getPayType() {
@@ -87,19 +78,19 @@ public class OrderVerifyBean {
         this.totalPay = totalPay;
     }
 
-    public Double getYearTotal() {
-        return yearTotal;
+    public OrderBudgetBean getBudgetBean() {
+        return budgetBean;
     }
 
-    public void setYearTotal(Double yearTotal) {
-        this.yearTotal = yearTotal;
+    public void setBudgetBean(OrderBudgetBean budgetBean) {
+        this.budgetBean = budgetBean;
     }
 
-    public Double getYearExtra() {
-        return yearExtra;
+    public void setCompany(OrderPurchaseBean company) {
+        this.company = company;
     }
 
-    public void setYearExtra(Double yearExtra) {
-        this.yearExtra = yearExtra;
+    public OrderPurchaseBean getCompany() {
+        return company;
     }
 }

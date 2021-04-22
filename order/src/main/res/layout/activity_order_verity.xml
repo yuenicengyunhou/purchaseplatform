@@ -28,7 +28,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:singleLine="true"
-                    android:text="@string/order_verify_address"
+                    android:layout_marginRight="@dimen/dp_20"
                     android:textColor="@color/font_black_light"
                     android:textSize="@dimen/font_size_13" />
 
@@ -42,7 +42,6 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:singleLine="true"
-                    android:text="@string/order_verify_address"
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_18"
                     android:textStyle="bold" />
@@ -54,7 +53,6 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:singleLine="true"
-                    android:text="@string/order_verify_address"
                     android:textColor="@color/font_black_light"
                     android:textSize="@dimen/font_size_13" />
 
@@ -185,7 +183,6 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:singleLine="true"
-                android:text="发票寄送至：北京市海淀区西二旗 西二旗智学院3号楼1单元102"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_12" />
 
@@ -198,7 +195,6 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:singleLine="true"
-                android:text="张某某 188****1234"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_12" />
 
