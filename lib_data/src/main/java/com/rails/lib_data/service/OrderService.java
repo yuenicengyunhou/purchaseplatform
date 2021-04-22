@@ -1,7 +1,7 @@
 package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.CartBean;
-import com.rails.lib_data.bean.ListVO;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.OrderBean;
 import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderInfoBean;
@@ -24,7 +24,7 @@ public interface OrderService {
     Observable<HttpResult<ArrayList<OrderBean>>> getOrder(@QueryMap HashMap<String, String> params);
 
     @GET("app-order-service/app/v1/buyer/order/purchasePageList")
-    Observable<HttpResult<ListVO<OrderInfoBean>>> purchasePageList(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<ListBeen<OrderInfoBean>>> purchasePageList(@QueryMap HashMap<String, Object> params);
 
 
     /**
@@ -55,4 +55,30 @@ public interface OrderService {
      */
     @GET("settlement/buyer/accounting/queryAccountingUnitByOrgId")
     Observable<HttpResult<ArrayList<OrderPurchaseBean>>> getOrderCompanys(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 提交采购单调用 ---获取一个token
+     *
+     * @param params
+     * @return
+     */
+    @GET("platform/mall/token/generateToken")
+    Observable<HttpResult<ArrayList<OrderPurchaseBean>>> getOrderToken(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * @param params
+     * @return
+     */
+    @POST("app-order-service/app/v1/mall/order/orderByCart")
+    Observable<HttpResult<String>> commitOrder(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     *
+     */
+    @GET("settlement/mall/invoice/getInvoiceTitle")
+    Observable<HttpResult<ArrayList<OrderPurchaseBean>>> getInvoiceTitle(@QueryMap HashMap<String, Object> params);
+
 }

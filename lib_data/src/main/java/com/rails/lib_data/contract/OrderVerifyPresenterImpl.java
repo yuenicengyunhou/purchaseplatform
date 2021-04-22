@@ -47,4 +47,38 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
 
 
     }
+
+    @Override
+    public void getOrderToken() {
+        model.getOrderToken(new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.getOrderToken(response);
+            }
+        });
+    }
+
+    @Override
+    public void commitOrder(String token, Object obj) {
+
+        baseView.showResDialog(R.string.loading);
+        model.commitOrder(obj, token, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.dismissDialog();
+                baseView.getResult(response);
+            }
+        });
+    }
 }

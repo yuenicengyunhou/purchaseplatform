@@ -8,7 +8,7 @@ import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressDTO;
-import com.rails.lib_data.bean.ListVO;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.AddressModel;
 import com.rails.purchaseplatform.framwork.BaseApp;
@@ -46,14 +46,14 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
     @Override
     public void getAddresses(Boolean isDialog) {
-        model.queryAddressList(20, accountId, 2, 1, 10, new HttpRxObserver<ListVO<AddressBean>>() {
+        model.queryAddressList(20, accountId, 2, 1, 10, new HttpRxObserver<ListBeen<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
             }
 
             @Override
-            protected void onSuccess(ListVO<AddressBean> response) {
+            protected void onSuccess(ListBeen<AddressBean> response) {
                 ArrayList<AddressBean> list = response.getList();
                 if (list != null) {
                     baseView.getAddresses(list);

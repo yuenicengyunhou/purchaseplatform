@@ -44,6 +44,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
     //是否延迟收货 1：延迟收货 0：无延迟收货
     private int receiveType = 0;
+    private String orderToken = "";
 
 
     @Override
@@ -64,7 +65,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.recycler.setAdapter(adapter);
 
         presenter = new OrderVerifyPresenterImpl(this, this);
-
+        presenter.getOrderToken();
         if (addressBean != null) {
             setAddress(addressBean);
             presenter.getVerifyOrder(addressBean.getId());
@@ -90,6 +91,18 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     public void getVerifyOrder(OrderVerifyBean bean) {
         adapter.update((ArrayList) bean.getCart().getShopList(), true);
         setOrderInfo(bean);
+    }
+
+    @Override
+    public void getOrderToken(String token) {
+        orderToken = token;
+    }
+
+    @Override
+    public void getResult(String msg) {
+        String json = "{\"type\":1,\"msg\":\"评价成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/web/purchase/detail\",\"urlright\":\"/web/evalute\"}";
+        ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
+        ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean", bean).navigation();
     }
 
 
@@ -137,9 +150,11 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getUsedAmount())));
         }
 
+        if (bean.getCart() != null){
+            barBinding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", bean.getCart().getPaymentPrice(), "", 18));
+            barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getCart().getTotalSkuNum()));
+        }
 
-        barBinding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", bean.getTotalPay(), "", 18));
-        barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getTotalNum()));
     }
 
 
@@ -177,13 +192,8 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             }
         });
 
-        barBinding.btnCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String json = "{\"type\":1,\"msg\":\"评价成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/web/purchase/detail\",\"urlright\":\"/web/evalute\"}";
-                ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
-                ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean", bean).navigation();
-            }
+        barBinding.btnCommit.setOnClickListener(v -> {
+            presenter.commitOrder(orderToken, null);
         });
 
         barBinding.rlGoods.setOnClickListener(v -> {

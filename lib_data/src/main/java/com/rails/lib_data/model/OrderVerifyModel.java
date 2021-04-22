@@ -3,10 +3,12 @@ package com.rails.lib_data.model;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.OrderBudgetBean;
+import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.AddressService;
 import com.rails.lib_data.service.OrderService;
+import com.rails.lib_data.service.ProductService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
@@ -16,6 +18,7 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function4;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -46,11 +49,11 @@ public class OrderVerifyModel {
      * 获取结算单位
      */
     private Observable getPurchaseCompanys() {
-//        HashMap<String, Object> params = new HashMap<>();
-//        params.put("addressType", "20");
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("addressType", "20");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class)
-                .getOrderCompanys(null))
+                .getOrderCompanys(params))
                 .subscribeOn(Schedulers.io());
     }
 
@@ -97,19 +100,19 @@ public class OrderVerifyModel {
         Observable companys = getPurchaseCompanys();
 
 
-        Observable.zip(carts, verifys, budget, (Function3<CartBean, ArrayList<AddressBean>, OrderBudgetBean, OrderVerifyBean>)
-                (cartBean, addressBeans, budgetBean) -> {
+        Observable.zip(carts, verifys, budget, companys, (Function4<CartBean, ArrayList<AddressBean>, OrderBudgetBean, ArrayList<OrderPurchaseBean>, OrderVerifyBean>)
+                (cartBean, addressBeans, budgetBean, purchaseBeans) -> {
                     OrderVerifyBean verifyBean = new OrderVerifyBean();
 
                     verifyBean.setCart(cartBean);
-                    
+
                     if (!addressBeans.isEmpty()) {
                         verifyBean.setInvoiceAddress(addressBeans.get(0));
                     }
 
                     verifyBean.setBudgetBean(budgetBean);
-//                    if (!purchaseBeans.isEmpty())
-//                        verifyBean.setCompany(purchaseBeans.get(0));
+                    if (!purchaseBeans.isEmpty())
+                        verifyBean.setCompany(purchaseBeans.get(0));
 
                     return verifyBean;
                 }).observeOn(AndroidSchedulers.mainThread())
@@ -117,5 +120,48 @@ public class OrderVerifyModel {
 
     }
 
+
+    /**
+     * 提交采购单需要token
+     *
+     * @param httpRxObserver
+     */
+    public void getOrderToken(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class)
+                .getOrderToken(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 获取订单确认信息商品列表
+     */
+    public void commitOrder(Object obj, String busToken, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("orderRequestVo", obj);
+        params.put("businessToken", busToken);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class)
+                .commitOrder(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 获取订单确认信息商品列表
+     */
+    public void getInvoiceTitle(int pageSize, String invoiceType, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageSize", pageSize);
+        params.put("invoiceType", invoiceType);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class)
+                .getInvoiceTitle(params))
+                .subscribe(httpRxObserver);
+    }
 
 }
