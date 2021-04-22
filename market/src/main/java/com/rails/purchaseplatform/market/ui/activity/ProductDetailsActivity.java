@@ -128,8 +128,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         mPresenter = new CartPresenterImpl2(this, this);
 
-        binding.fsvScore.setStar(4);
-
         // 设置banner宽高
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
         layoutParams.width = ScreenSizeUtil.getScreenWidth(this);
@@ -486,7 +484,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetProductPriceSuccess(ProductPriceBean bean) {
-
+        binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
+        binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
+        binding.fsvScore.setStar(bean.getScore());
     }
 
     @Override

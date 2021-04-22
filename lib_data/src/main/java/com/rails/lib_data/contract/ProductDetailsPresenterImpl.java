@@ -69,11 +69,7 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ArrayList<ProductPriceBean> response) {
-                ProductPriceBean bean = response.get(0);
-                Toast.makeText(mContext, "12345 - 商品价格", Toast.LENGTH_LONG).show();
-
-
-                baseView.onGetProductPriceSuccess(bean);
+                baseView.onGetProductPriceSuccess(response.get(0));
                 baseView.dismissDialog();
             }
         });
@@ -100,8 +96,6 @@ public class ProductDetailsPresenterImpl
                     bean.setPrice(String.valueOf(element.getMaxPrice()));
                     beans.add(bean);
                 }
-//                HotSaleBean bean = response.get(0);
-                Toast.makeText(mContext, "12345 - 店铺推荐", Toast.LENGTH_LONG).show();
 
                 baseView.onGetHotSaleSuccess(beans);
                 baseView.dismissDialog();
