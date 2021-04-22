@@ -40,6 +40,7 @@ public class CartShopBean {
     private String freightPrice;
     private List<CartShopProductBean> skuList;
     public final ObservableField<Boolean> isSel = new ObservableField<>();
+    public final ObservableField<String> remark = new ObservableField<>();
 
 
     public String getPlatformId() {

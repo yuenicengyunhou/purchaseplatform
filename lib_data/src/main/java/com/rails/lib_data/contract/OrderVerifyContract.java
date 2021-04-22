@@ -58,9 +58,9 @@ public interface OrderVerifyContract {
          * 提交采购单
          *
          * @param token
-         * @param obj
+         * @param json
          */
-        void commitOrder(String token, Object obj);
+        void commitOrder(String token, String  json);
 
     }
 }

@@ -1,5 +1,9 @@
 package com.rails.lib_data.request;
 
+import com.alibaba.fastjson.JSONObject;
+import com.rails.lib_data.bean.AddressBean;
+
+
 import java.util.List;
 
 /**
@@ -9,13 +13,13 @@ import java.util.List;
 public class OrderVerifyBody {
 
 
-    private Integer platformId;
-    private Integer accountId;
+    private String platformId;
+    private String accountId;
     private List<SkuListBean> skuList;
-    private Integer organizeId;
+    private String organizeId;
     private OrderAddressBean orderAddress;
     private OrderInvoiceBean orderInvoice;
-    private RemarkMapBean remarkMap;
+    private JSONObject remarkMap;
     private Integer through;
     private Integer settleType;
     private String paymentPrice;
@@ -24,20 +28,29 @@ public class OrderVerifyBody {
     private String accountingType;
     private String delayFlag;
 
-    public Integer getPlatformId() {
+
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(Integer platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
-    public Integer getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public String getOrganizeId() {
+        return organizeId;
+    }
+
+    public void setOrganizeId(String organizeId) {
+        this.organizeId = organizeId;
     }
 
     public List<SkuListBean> getSkuList() {
@@ -46,14 +59,6 @@ public class OrderVerifyBody {
 
     public void setSkuList(List<SkuListBean> skuList) {
         this.skuList = skuList;
-    }
-
-    public Integer getOrganizeId() {
-        return organizeId;
-    }
-
-    public void setOrganizeId(Integer organizeId) {
-        this.organizeId = organizeId;
     }
 
     public OrderAddressBean getOrderAddress() {
@@ -72,11 +77,11 @@ public class OrderVerifyBody {
         this.orderInvoice = orderInvoice;
     }
 
-    public RemarkMapBean getRemarkMap() {
+    public JSONObject getRemarkMap() {
         return remarkMap;
     }
 
-    public void setRemarkMap(RemarkMapBean remarkMap) {
+    public void setRemarkMap(JSONObject remarkMap) {
         this.remarkMap = remarkMap;
     }
 

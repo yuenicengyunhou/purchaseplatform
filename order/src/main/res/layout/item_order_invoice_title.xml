@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
-            android:text="@{content.module}"
+            android:text="发票抬头"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_13" />
 
@@ -37,12 +37,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_20"
                 android:layout_toStartOf="@+id/img_right"
-                android:text="@{@string/order_invoice_company(content.company)}"
+                android:text="@{@string/order_invoice_company(content.invoiceTitle)}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_15" />
 
-<!--20dp-->
-            <CheckBox
+            <!--20dp-->
+            <RadioButton
                 android:id="@+id/img_right"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
@@ -51,7 +51,7 @@
                 android:layout_centerVertical="true"
                 android:button="@null"
                 android:checked="@{content.isSel}"
-                android:drawableEnd="@drawable/selector_circle" />
+                android:drawableEnd="@drawable/selector_circle_checked" />
 
 
         </RelativeLayout>
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
-            android:text="@{@string/order_invoice_code(content.invoiceCode)}"
+            android:text="@{@string/order_invoice_code(content.creator)}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_15" />
 
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
-            android:text="@{@string/order_invoice_phone(content.phone)}"
+            android:text="@{@string/order_invoice_phone(content.telephone)}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_15" />
 
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginBottom="@dimen/dp_20"
-            android:text="@{@string/order_invoice_bankcode(content.bankCode)}"
+            android:text="@{@string/order_invoice_bankcode(content.account)}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_15" />
 

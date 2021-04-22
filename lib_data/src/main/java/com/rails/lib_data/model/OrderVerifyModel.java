@@ -2,6 +2,8 @@ package com.rails.lib_data.model;
 
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartBean;
+import com.rails.lib_data.bean.InvoiceTitleBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
@@ -19,6 +21,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function4;
+import io.reactivex.functions.Function5;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -87,6 +90,22 @@ public class OrderVerifyModel {
 
 
     /**
+     * 获取订单确认信息商品列表
+     */
+    private Observable getInvoiceTitle() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageSize", "20");
+        params.put("invoiceType", "2");
+        params.put("pageNum", 1);
+
+        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class)
+                .getInvoiceTitle(params))
+                .subscribeOn(Schedulers.io());
+    }
+
+
+    /**
      * 获取订单核对信息页面数据
      *
      * @param addressId
@@ -98,10 +117,11 @@ public class OrderVerifyModel {
         Observable verifys = getAddress("2");
         Observable budget = getBudget();
         Observable companys = getPurchaseCompanys();
+        Observable invoices = getInvoiceTitle();
 
 
-        Observable.zip(carts, verifys, budget, companys, (Function4<CartBean, ArrayList<AddressBean>, OrderBudgetBean, ArrayList<OrderPurchaseBean>, OrderVerifyBean>)
-                (cartBean, addressBeans, budgetBean, purchaseBeans) -> {
+        Observable.zip(carts, verifys, budget, companys, invoices, (Function5<CartBean, ArrayList<AddressBean>, OrderBudgetBean, ArrayList<OrderPurchaseBean>, ListBeen<InvoiceTitleBean>, OrderVerifyBean>)
+                (cartBean, addressBeans, budgetBean, purchaseBeans, listBeen) -> {
                     OrderVerifyBean verifyBean = new OrderVerifyBean();
 
                     verifyBean.setCart(cartBean);
@@ -113,6 +133,9 @@ public class OrderVerifyModel {
                     verifyBean.setBudgetBean(budgetBean);
                     if (!purchaseBeans.isEmpty())
                         verifyBean.setCompany(purchaseBeans.get(0));
+
+                    if (listBeen != null && !listBeen.getList().isEmpty())
+                        verifyBean.setInvoice(listBeen.getList().get(0));
 
                     return verifyBean;
                 }).observeOn(AndroidSchedulers.mainThread())
@@ -138,7 +161,7 @@ public class OrderVerifyModel {
     /**
      * 获取订单确认信息商品列表
      */
-    public void commitOrder(Object obj, String busToken, HttpRxObserver httpRxObserver) {
+    public void commitOrder(String obj, String busToken, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("orderRequestVo", obj);
         params.put("businessToken", busToken);
@@ -153,10 +176,11 @@ public class OrderVerifyModel {
     /**
      * 获取订单确认信息商品列表
      */
-    public void getInvoiceTitle(int pageSize, String invoiceType, HttpRxObserver httpRxObserver) {
+    public void getInvoiceTitle(int page, int pageSize, String invoiceType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageSize", pageSize);
         params.put("invoiceType", invoiceType);
+        params.put("pageNum", page);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class)

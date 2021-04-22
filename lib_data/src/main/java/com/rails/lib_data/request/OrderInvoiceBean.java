@@ -1,29 +1,31 @@
 package com.rails.lib_data.request;
 
+import com.rails.lib_data.bean.InvoiceTitleBean;
+
 /**
  * @author： sk_comic@163.com
  * @date: 2021/4/22
  */
 public class OrderInvoiceBean {
-    private InvoiceAddressBean invoiceAddress;
-    private Integer invoiceTitleId;
+    private InvoiceTitleBean invoiceAddress;
+    private String invoiceTitleId;
     private Integer invoiceType;
     private Integer content;
     private Integer invoiceModality;
 
-    public InvoiceAddressBean getInvoiceAddress() {
+    public InvoiceTitleBean getInvoiceAddress() {
         return invoiceAddress;
     }
 
-    public void setInvoiceAddress(InvoiceAddressBean invoiceAddress) {
+    public void setInvoiceAddress(InvoiceTitleBean invoiceAddress) {
         this.invoiceAddress = invoiceAddress;
     }
 
-    public Integer getInvoiceTitleId() {
+    public String getInvoiceTitleId() {
         return invoiceTitleId;
     }
 
-    public void setInvoiceTitleId(Integer invoiceTitleId) {
+    public void setInvoiceTitleId(String invoiceTitleId) {
         this.invoiceTitleId = invoiceTitleId;
     }
 

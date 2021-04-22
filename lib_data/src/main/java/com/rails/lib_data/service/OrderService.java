@@ -1,6 +1,7 @@
 package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.CartBean;
+import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.OrderBean;
 import com.rails.lib_data.bean.OrderBudgetBean;
@@ -64,7 +65,7 @@ public interface OrderService {
      * @return
      */
     @GET("platform/mall/token/generateToken")
-    Observable<HttpResult<ArrayList<OrderPurchaseBean>>> getOrderToken(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<String>> getOrderToken(@QueryMap HashMap<String, Object> params);
 
 
     /**
@@ -76,9 +77,9 @@ public interface OrderService {
 
 
     /**
-     *
+     * 获取发票抬头
      */
     @GET("settlement/mall/invoice/getInvoiceTitle")
-    Observable<HttpResult<ArrayList<OrderPurchaseBean>>> getInvoiceTitle(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<ListBeen<InvoiceTitleBean>>> getInvoiceTitle(@QueryMap HashMap<String, Object> params);
 
 }

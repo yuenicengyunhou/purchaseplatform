@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.order.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -39,6 +41,24 @@ public class OrderVerifyAdapter extends BaseRecyclerAdapter<CartShopBean, ItemOr
                 .formatStrColor(mContext.getResources().getString(R.string.order_verify_subtotal),
                         "¥" + bean.getSubtotalPrice(), "",
                         mContext.getResources().getColor(R.color.font_red)));
+
+        binding.etRemark.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                bean.remark.set(s.toString());
+            }
+        });
+
 
         OrderVerifySubAdapter adapter = new OrderVerifySubAdapter(mContext);
         binding.recycler.setAdapter(adapter);

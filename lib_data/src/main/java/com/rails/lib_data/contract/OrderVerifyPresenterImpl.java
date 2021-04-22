@@ -64,7 +64,7 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
     }
 
     @Override
-    public void commitOrder(String token, Object obj) {
+    public void commitOrder(String token, String obj) {
 
         baseView.showResDialog(R.string.loading);
         model.commitOrder(obj, token, new HttpRxObserver<String>() {

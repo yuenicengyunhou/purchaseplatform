@@ -35,15 +35,15 @@
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/img_right"
-                android:layout_marginEnd="@dimen/dp_20"
-                android:text="@{content.name}"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_toStartOf="@+id/img_right"
+                android:text="@{content.name}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_15" />
 
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/img_right"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
@@ -52,7 +52,7 @@
                 android:layout_centerVertical="true"
                 android:button="@null"
                 android:checked="@{content.isSel}"
-                android:drawableEnd="@drawable/selector_circle" />
+                android:drawableEnd="@drawable/selector_circle_checked" />
 
 
         </RelativeLayout>
