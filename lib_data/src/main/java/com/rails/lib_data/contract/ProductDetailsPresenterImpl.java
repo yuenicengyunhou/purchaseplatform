@@ -124,6 +124,10 @@ public class ProductDetailsPresenterImpl
                         bean.setName(itemSku.getSkuName());
                         bean.setImageUrl(itemSku.getPictureUrl());
                         bean.setPrice(String.valueOf(itemSku.getSellPrice()));
+                        bean.setCid(itemSku.getCid());
+                        bean.setShopId(itemSku.getShopId());
+                        bean.setItemId(itemSku.getItemId());
+                        bean.setSkuId(itemSku.getSkuId());
                         beans.add(bean);
                         if (beans.size() == 6) break;
                     }

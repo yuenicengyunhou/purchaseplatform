@@ -108,7 +108,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
-            Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "功能未完善", Toast.LENGTH_SHORT).show();
             if (mFilterPop == null) {
                 String[] text = {"选择品牌", "价格区间", "上架时间"};
                 mFilterPop = new OrderSearchFilterPop(text);

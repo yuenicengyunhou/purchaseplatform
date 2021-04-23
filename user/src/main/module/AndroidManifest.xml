@@ -13,6 +13,7 @@
         <!-- 登录页面 -->
         <activity
             android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!-- 找回密码页面 -->

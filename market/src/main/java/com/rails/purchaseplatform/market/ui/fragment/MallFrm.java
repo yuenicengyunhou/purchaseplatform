@@ -232,7 +232,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void onPosition(ProductBean bean, int position) {
-        // TODO: 2021/3/23 跳转商品详情
+        // TODO: 2021/3/23 跳转商品详情 数据
         Bundle bundle = new Bundle();
         bundle.putLong("platformId", bean.getPlatformId());
         bundle.putString("keyword", bean.getSkuName());
