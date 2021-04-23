@@ -19,6 +19,7 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;
 
@@ -114,10 +115,18 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
 
         //下拉刷新和上拉加载
-        barBinding.smart.setOnLoadMoreListener(refreshLayout -> {
-            mPage++;
-            onRefresh(true);
-        });
+//        barBinding.smart.setOnLoadMoreListener(refreshLayout -> {
+//            mPage++;
+//            onRefresh(true);
+//        });
+//        barBinding.recycler.useDefaultLoadMore();
+//        barBinding.recycler.setLoadMoreListener(new SwipeRecyclerView.LoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+//                mPage++;
+//                onRefresh(true);
+//            }
+//        });
 
         barBinding.smart.setOnRefreshListener(refreshLayout -> {
             barBinding.smart.finishRefresh();
