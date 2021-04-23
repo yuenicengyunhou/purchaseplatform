@@ -194,7 +194,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 if (bean.isSel.get() == null)
                     continue;
                 if (bean.isSel.get() && bean.canSel.get()) {
-                    total += bean.num.get() * bean.getMarketPrice();
+                    total += bean.num.get() * bean.getSellPrice();
                 }
             }
         } catch (Exception e) {
