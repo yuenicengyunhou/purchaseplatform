@@ -205,7 +205,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         binding.searchText.setOnEditorActionListener((view, action, event) -> {
             if (action == EditorInfo.IME_ACTION_SEARCH) {
                 String text = binding.searchText.getText().toString().trim();
-                if (isEmptyText(text)) return false;
+//                if (isEmptyText(text)) return false;
                 updateList(text);
                 putSearchKeyInSharedPreference();
                 startActivityWithBundle(text);

@@ -21,8 +21,10 @@
                 android:id="@+id/ib_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_18"
+                android:layout_marginStart="@dimen/dp_4"
                 android:background="@null"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingEnd="@dimen/dp_12"
                 android:src="@mipmap/icon_back"
                 app:layout_constraintBottom_toBottomOf="@+id/cl_searchBar"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,14 +117,17 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_18"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:gravity="center"
+                android:paddingEnd="@dimen/dp_12"
                 android:text="@string/search_result_search"
                 android:textColor="#666666"
                 android:textSize="@dimen/font_size_12"
                 app:layout_constraintBottom_toBottomOf="@+id/cl_searchBar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cl_searchBar" />
+                app:layout_constraintTop_toTopOf="@+id/cl_searchBar"
+                tools:ignore="RtlSymmetry" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

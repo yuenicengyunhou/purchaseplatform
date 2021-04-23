@@ -5,6 +5,7 @@ import android.webkit.JavascriptInterface;
 
 import com.rails.purchaseplatform.common.utils.JSBack;
 
+@Deprecated
 public class ProductInfoPage4Js implements JSBack {
     Context mContext;
 

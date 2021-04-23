@@ -132,6 +132,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
         });
 
+        binding.clSearchBar.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
+        });
+
         // 点击综合排序
         binding.cbCommonSort.setOnClickListener(v -> {
             setSelected(true, false, false);
