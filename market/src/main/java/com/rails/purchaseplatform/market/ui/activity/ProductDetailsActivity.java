@@ -431,8 +431,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mPop = new PropertyPop();
         mPop.setGravity(Gravity.BOTTOM);
         mPop.setType(BasePop.MATCH_WRAP);
+        mPop.setSkuId(mSkuId);
         mPop.setAddToCartListener(skuSaleNumJson ->
-                mPresenter.addCart(20L, 30L, 40L, 50, skuSaleNumJson, true));
+                mPresenter.addCart(20L,
+                        30L, 40L, 50, // 非必要属性
+                        skuSaleNumJson, true));
+//        mPop.set
         mPop.show(getSupportFragmentManager(), "property");
     }
 

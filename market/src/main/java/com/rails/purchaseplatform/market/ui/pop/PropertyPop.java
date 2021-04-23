@@ -22,6 +22,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
 
     private PropertyAdapter adapter;
     private AddToCart mAddToCart;
+    private int mSkuId;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -47,13 +48,12 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
     void onClick() {
         binding.btnClose.setOnClickListener(v -> dismiss());
 
-        String saleNum = "1";
-        String skuId = "12883";
+        final String SALE_NUM = "1"; // 固定1
 
         binding.btnOk.setOnClickListener(v -> {
             mAddToCart.addToCart(String.format(
                     "[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]",
-                    saleNum, skuId));
+                    SALE_NUM, mSkuId));
         });
     }
 
@@ -63,5 +63,9 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
 
     public interface AddToCart {
         void addToCart(String skuSaleNumJson);
+    }
+
+    public void setSkuId(int skuId) {
+        this.mSkuId = skuId;
     }
 }
