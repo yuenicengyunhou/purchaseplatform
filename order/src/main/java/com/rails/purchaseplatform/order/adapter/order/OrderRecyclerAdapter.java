@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -64,7 +63,8 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         int type = getItemViewType(position);
         SubOrderInfoBean subOrderInfoBean = mDataSource.get(position);
         ArrayList<SubSkuDemandInfoBean> subSkuDemandInfo = subOrderInfoBean.getSubSkuDemandInfo();
-
+        long orderNo = subOrderInfoBean.getOrderNo();
+        String orderTime = subOrderInfoBean.getOrderTime();
 //        String orderNumber = subOrderInfoBean.getSkuNum();
 //        String generateTime = subOrderInfoBean.getOrderTime();
 //        String provider = subOrderInfoBean.getProvider();
@@ -72,8 +72,8 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
 //        String delayTime = subOrderInfoBean.getDelayTime() == null ? "" : subOrderInfoBean.getDelayTime();
 
 
-
-//        ArrayList<OrderItemBean> orderItemBeans = (ArrayList<OrderItemBean>) subOrderInfoBean.getOrderItemBeans();
+        holder.tvOrderNum.setText(String.valueOf(orderNo));
+        holder.tvOrderTime.setText(orderTime);
         OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext, getItemViewType(position));
         holder.recycler.setLayoutManager(BaseRecyclerView.LIST,
                 type == TYPE_SKU_DETAIL_MODE ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL, false, 1);
@@ -105,12 +105,10 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         }
 //        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? subSkuDemandInfo : "共100件");
         adapter.update(subSkuDemandInfo, true);
-        holder.orderItem.setOnClickListener(v -> {
-            ARouter.getInstance()
-                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
-                    .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
-                    .navigation();
-        });
+        holder.orderItem.setOnClickListener(v -> ARouter.getInstance()
+                .build(ConRoute.WEB.WEB_ORDER_DETAIL)
+                .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
+                .navigation());
     }
 
 
@@ -121,6 +119,8 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         private TextView singlePrice;
         private TextView count;
         private TextView tvPrice;
+        private final TextView tvOrderNum;
+        private final TextView tvOrderTime;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -129,6 +129,8 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             count = itemView.findViewById(R.id.tv_count);
             singlePrice = itemView.findViewById(R.id.tv_num);
             tvPrice = itemView.findViewById(R.id.tv_price);
+            tvOrderNum = itemView.findViewById(R.id.tv_orderNumValue);
+            tvOrderTime = itemView.findViewById(R.id.tv_TimeValue);
         }
     }
 }
