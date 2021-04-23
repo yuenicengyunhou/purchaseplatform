@@ -28,6 +28,12 @@ public class ProductDetailsPresenterImpl
 
     private ProductDetailsModel mModel;
 
+    /**
+     * Constructor
+     *
+     * @param mContext
+     * @param productDetailsView
+     */
     public ProductDetailsPresenterImpl(
             Activity mContext,
             ProductDetailsContract.ProductDetailsView productDetailsView) {
@@ -35,6 +41,14 @@ public class ProductDetailsPresenterImpl
         mModel = new ProductDetailsModel();
     }
 
+    /**
+     * 获取商品详情
+     *
+     * @param platformId
+     * @param itemId
+     * @param companyId
+     * @param isDialog
+     */
     @Override
     public void getProductDetails(long platformId, long itemId, long companyId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
@@ -48,9 +62,6 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ProductDetailsBean response) {
-                Toast.makeText(mContext, "12345 - 商品详情", Toast.LENGTH_LONG).show();
-
-
                 baseView.onGetProductDetailsSuccess(response);
                 baseView.dismissDialog();
             }
@@ -58,6 +69,13 @@ public class ProductDetailsPresenterImpl
 
     }
 
+    /**
+     * 获取商品价格、评分
+     *
+     * @param platformId
+     * @param skuId
+     * @param isDialog
+     */
     @Override
     public void getProductPrice(long platformId, int skuId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
@@ -77,6 +95,15 @@ public class ProductDetailsPresenterImpl
         });
     }
 
+    /**
+     * 获取店铺推荐
+     *
+     * @param platformId
+     * @param keyword
+     * @param cid
+     * @param shopId
+     * @param isDialog
+     */
     @Override
     public void getHotSale(long platformId, String keyword, int cid, long shopId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
