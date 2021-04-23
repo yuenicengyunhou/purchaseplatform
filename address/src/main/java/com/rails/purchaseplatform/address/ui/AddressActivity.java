@@ -86,7 +86,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
                 .setImgLeftRes(R.drawable.svg_back_black);
 
 
-        barBinding.smart.setEnableLoadMore(false);
+//        barBinding.smart.setEnableLoadMore(false);
         addressAdapter = new AddressAdapter(this);
         addressAdapter.setListener(this);
         addressAdapter.setMulPositionListener(this);

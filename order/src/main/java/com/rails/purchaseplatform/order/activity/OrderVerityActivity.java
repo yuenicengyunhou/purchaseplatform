@@ -233,10 +233,10 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         });
 
         barBinding.rlCompay.setOnClickListener(v -> {
-            CompanyPop pop = new CompanyPop();
-            pop.setGravity(Gravity.BOTTOM);
-            pop.setType(BasePop.MATCH_WRAP);
-            pop.show(getSupportFragmentManager(), "company");
+//            CompanyPop pop = new CompanyPop();
+//            pop.setGravity(Gravity.BOTTOM);
+//            pop.setType(BasePop.MATCH_WRAP);
+//            pop.show(getSupportFragmentManager(), "company");
         });
 
         barBinding.rlBill.setOnClickListener(v -> {
