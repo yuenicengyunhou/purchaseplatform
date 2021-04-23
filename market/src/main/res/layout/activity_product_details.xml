@@ -187,7 +187,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_12"
-                        android:background="#447F7F7F" />
+                        android:background="@color/bg_gray_light" />
 
                     <RelativeLayout
                         android:id="@+id/rl_type_chosen"
