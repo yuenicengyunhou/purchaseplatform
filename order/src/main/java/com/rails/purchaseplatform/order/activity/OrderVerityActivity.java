@@ -14,6 +14,7 @@ import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
+import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.contract.OrderVerifyContract;
@@ -120,6 +121,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         String json = "{\"type\":1,\"msg\":\"评价成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/web/purchase/detail\",\"urlright\":\"/web/evalute\"}";
         ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
         ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean", bean).navigation();
+        finish();
     }
 
 
@@ -247,10 +249,19 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 0) {
-            if (data == null)
-                return;
-            AddressBean bean = (AddressBean) data.getExtras().getSerializable("bean");
-            setAddress(bean);
+            if (requestCode == 0) {
+                if (data == null)
+                    return;
+                AddressBean bean = (AddressBean) data.getExtras().getSerializable("bean");
+                addressBean = bean;
+                setAddress(bean);
+            } else if (requestCode == 1) {
+                if (data == null)
+                    return;
+                InvoiceTitleBean bean = data.getExtras().getParcelable("invoiceBean");
+                verifyBean.setInvoice(bean);
+            }
+
         }
     }
 
@@ -259,6 +270,8 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         OrderVerifyBody body = new OrderVerifyBody();
 
         //组织地址
+
+
         OrderAddressBean orderAddressBean = new OrderAddressBean();
         orderAddressBean.setReceiverName(addressBean.getReceiverName());
         orderAddressBean.setMobile(addressBean.getMobile());

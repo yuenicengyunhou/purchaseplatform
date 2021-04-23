@@ -10,6 +10,8 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
+import java.util.ArrayList;
+
 /**
  * 订单确认单
  *
@@ -67,7 +69,7 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
     public void commitOrder(String token, String obj) {
 
         baseView.showResDialog(R.string.loading);
-        model.commitOrder(obj, token, new HttpRxObserver<String>() {
+        model.commitOrder(obj, token, new HttpRxObserver<ArrayList<String>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -75,9 +77,9 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             }
 
             @Override
-            protected void onSuccess(String response) {
+            protected void onSuccess(ArrayList<String> response) {
                 baseView.dismissDialog();
-                baseView.getResult(response);
+                baseView.getResult("提交成功");
             }
         });
     }

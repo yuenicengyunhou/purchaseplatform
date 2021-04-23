@@ -14,6 +14,7 @@ import com.rails.lib_data.contract.InvoicePresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.InvoiceContentAdapter;
 import com.rails.purchaseplatform.order.adapter.InvoiceTitleAdapter;
@@ -149,6 +150,18 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
             public void onClick(View v) {
                 ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(InvoiceActivity.this, 0);
             }
+        });
+
+        barBinding.btnAdd.setOnClickListener(v -> {
+            InvoiceTitleBean bean = titleAdapter.getLastBean();
+            if (bean == null) {
+                ToastUtil.showCenter(InvoiceActivity.this, "请选择发票抬头");
+                return;
+            }
+            Intent intent = new Intent();
+            intent.putExtra("invoiceBean", bean);
+            setResult(RESULT_OK, intent);
+            finish();
         });
     }
 }

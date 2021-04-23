@@ -1,5 +1,8 @@
 package com.rails.lib_data.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.databinding.ObservableField;
 
 /**
@@ -8,7 +11,7 @@ import androidx.databinding.ObservableField;
  * @author： sk_comic@163.com
  * @date: 2021/4/8
  */
-public class InvoiceTitleBean {
+public class InvoiceTitleBean implements Parcelable {
 
 
     private String operator;
@@ -28,6 +31,41 @@ public class InvoiceTitleBean {
     private String telephone;
 
     public final ObservableField<Boolean> isSel = new ObservableField<>();
+
+
+    public InvoiceTitleBean(){
+
+    }
+
+    protected InvoiceTitleBean(Parcel in) {
+        operator = in.readString();
+        modified = in.readString();
+        creator = in.readString();
+        created = in.readString();
+        id = in.readString();
+        platformId = in.readString();
+        accountId = in.readString();
+        accountName = in.readString();
+        invoiceType = in.readInt();
+        invoiceTitle = in.readString();
+        itins = in.readString();
+        bank = in.readString();
+        account = in.readString();
+        address = in.readString();
+        telephone = in.readString();
+    }
+
+    public static final Creator<InvoiceTitleBean> CREATOR = new Creator<InvoiceTitleBean>() {
+        @Override
+        public InvoiceTitleBean createFromParcel(Parcel in) {
+            return new InvoiceTitleBean(in);
+        }
+
+        @Override
+        public InvoiceTitleBean[] newArray(int size) {
+            return new InvoiceTitleBean[size];
+        }
+    };
 
     public String getOperator() {
         return operator;
@@ -147,5 +185,29 @@ public class InvoiceTitleBean {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(operator);
+        dest.writeString(modified);
+        dest.writeString(creator);
+        dest.writeString(created);
+        dest.writeString(id);
+        dest.writeString(platformId);
+        dest.writeString(accountId);
+        dest.writeString(accountName);
+        dest.writeInt(invoiceType);
+        dest.writeString(invoiceTitle);
+        dest.writeString(itins);
+        dest.writeString(bank);
+        dest.writeString(account);
+        dest.writeString(address);
+        dest.writeString(telephone);
     }
 }

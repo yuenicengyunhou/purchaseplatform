@@ -73,7 +73,7 @@ public interface OrderService {
      * @return
      */
     @POST("app-order-service/app/v1/mall/order/orderByCart")
-    Observable<HttpResult<String>> commitOrder(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<ArrayList<String>>> commitOrder(@QueryMap HashMap<String, Object> params);
 
 
     /**
