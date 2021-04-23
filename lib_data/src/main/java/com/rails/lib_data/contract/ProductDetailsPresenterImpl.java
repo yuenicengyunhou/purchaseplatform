@@ -119,12 +119,15 @@ public class ProductDetailsPresenterImpl
             protected void onSuccess(HotSaleBean response) {
                 ArrayList<RecommendItemsBean> beans = new ArrayList<>();
                 for (ItemResult element : response.getItemList().getResultList()) {
-                    RecommendItemsBean bean = new RecommendItemsBean();
-                    ItemSku sku = element.getItem_sku().get(0);
-                    bean.setName(sku.getSkuName());
-                    bean.setImageUrl(sku.getPictureUrl());
-                    bean.setPrice(String.valueOf(sku.getSellPrice()));
-                    beans.add(bean);
+                    for (ItemSku itemSku : element.getItem_sku()) {
+                        RecommendItemsBean bean = new RecommendItemsBean();
+                        bean.setName(itemSku.getSkuName());
+                        bean.setImageUrl(itemSku.getPictureUrl());
+                        bean.setPrice(String.valueOf(itemSku.getSellPrice()));
+                        beans.add(bean);
+                        if (beans.size() == 6) break;
+                    }
+                    if (beans.size() == 6) break;
                 }
 
                 baseView.onGetHotSaleSuccess(beans);
