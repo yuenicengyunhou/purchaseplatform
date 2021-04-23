@@ -106,7 +106,7 @@ public class ConRoute {
 
     public final static class WEB_URL {
 
-        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
+//        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
 
         // WangYuhang - local
 //        public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
@@ -115,7 +115,7 @@ public class ConRoute {
 //        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
 
         // SongYanxia - local
-//        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
+        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
 
         public final static String HOME = BASEURL + "home";
 
@@ -150,6 +150,19 @@ public class ConRoute {
 
         // 已驳回   // 已通过
         public final static String TURN_DOWN_LIST = BASEURL + "kindsApproval";
+
+
+        // 商品信息
+        public final static String PRODUCT_INFO = BASEURL + "productInfo";
+
+        // 包装列表
+        public final static String PACKAGE_LIST = BASEURL + "packingList";
+
+        // 售后服务
+        public final static String SERVICES = BASEURL + "serviceOrPartner?service=1";
+
+        // 推荐单位
+        public final static String RECOMMENDS = BASEURL + "serviceOrPartner?service=0";
 
 
 //        public final static String EVALUTE = BASEURL + "evaluate";

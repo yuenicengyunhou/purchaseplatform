@@ -62,7 +62,6 @@ import java.util.ArrayList;
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
         implements
         JSBack,
-        ConstantH5.ProductDetails,
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView, AddressToolContract.AddressToolView {
 
@@ -74,10 +73,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private CartContract.CartPresenter2 mPresenter;
 
     final private String[] TAB_URLS = {
-            PRODUCT_INFO,
-            PACKAGE_LIST,
-            SERVICES,
-            RECOMMENDS
+            ConRoute.WEB_URL.PRODUCT_INFO,
+            ConRoute.WEB_URL.PACKAGE_LIST,
+            ConRoute.WEB_URL.SERVICES,
+            ConRoute.WEB_URL.RECOMMENDS,
     };
 
     private ArrayList<String> pictureUrls = new ArrayList<>();
@@ -494,7 +493,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.textView.setText(bean.getItemPublishVo().getShopName());
 
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-//        mGetProductDetailsPresenter.getHotSale(mPlatformId, mKeyword, mCid, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
+        mGetProductDetailsPresenter.getHotSale(mPlatformId, "测试", 1000812, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
     }
 
     @Override
