@@ -9,7 +9,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
-
+//BaseItemAttribute
 public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<BaseItemAttribute, ItemSearchResultBinding> {
 
     private Context mContext;
