@@ -35,21 +35,13 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
                 mParams.getType() == null ? "暂无" : mParams.getType());
         binding.tvItemBarCodeValue.setText(
                 mParams.getItemBarCode() == null ? "暂无" : mParams.getItemBarCode());
-        String weight
-                = mParams.getWeight() == null ? "暂无" : mParams.getWeight();
-        String weightUnit
-                = mParams.getWeightUnit() == null
-                ? "暂无"
-                : mParams.getWeightUnit();
-        String x = weight.equals("暂无") && weight.equals("暂无")
-                ? "暂无"
-                : weight + weightUnit;
         binding.tvWeightValue.setText(
-                x);
+                mParams.getWeight() == null ? "暂无" : mParams.getWeight() + mParams.getWeightUnit() == null ? "" : mParams.getWeightUnit());
         binding.tvSizeValue.setText(
                 mParams.getSize() == null ? "暂无" : mParams.getSize());
         binding.tvItemUnitValue.setText(
                 mParams.getItemUnit() == null ? "暂无" : mParams.getItemUnit());
+
         binding.ibClose.setOnClickListener(v -> {
             dismiss();
         });
