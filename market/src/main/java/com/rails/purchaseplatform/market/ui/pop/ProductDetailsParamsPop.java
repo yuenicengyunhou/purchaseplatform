@@ -50,5 +50,8 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
                 mParams.getSize() == null ? "暂无" : mParams.getSize());
         binding.tvItemUnitValue.setText(
                 mParams.getItemUnit() == null ? "暂无" : mParams.getItemUnit());
+        binding.ibClose.setOnClickListener(v -> {
+            dismiss();
+        });
     }
 }
