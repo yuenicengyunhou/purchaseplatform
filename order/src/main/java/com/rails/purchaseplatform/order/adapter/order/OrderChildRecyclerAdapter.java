@@ -35,15 +35,17 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<SubSkuDemandIn
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_SKU_DETAIL_MODE)
+        if (viewType == TYPE_SKU_DETAIL_MODE) {
             return new ItemHolder(layoutInflater.inflate(R.layout.item_order_child, parent, false));
-        else
+        } else {
             return new ItemHolder(layoutInflater.inflate(R.layout.item_order_child_grid, parent, false));
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         SubSkuDemandInfoBean bean = mDataSource.get(position);
+        String sellPrice = bean.getSellPrice();
         Glide.with(mContext).load(bean.getPictureUrl()).into(holder.imgProduct);
         holder.tvTitle.setText(bean.getItemName());
         holder.tvProperty.setText(bean.getAttributes());

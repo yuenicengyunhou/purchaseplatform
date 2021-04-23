@@ -23,7 +23,6 @@
 
     <TextView
         android:id="@+id/btn_add"
-        android:visibility="gone"
         style="@style/btn_commit.blue"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp_15"

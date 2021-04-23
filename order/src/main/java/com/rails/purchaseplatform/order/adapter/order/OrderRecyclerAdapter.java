@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.order.R;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -63,11 +65,12 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         SubOrderInfoBean subOrderInfoBean = mDataSource.get(position);
         ArrayList<SubSkuDemandInfoBean> subSkuDemandInfo = subOrderInfoBean.getSubSkuDemandInfo();
 
-        String orderNumber = subOrderInfoBean.getSkuNum();
-        String generateTime = subOrderInfoBean.getOrderTime();
+//        String orderNumber = subOrderInfoBean.getSkuNum();
+//        String generateTime = subOrderInfoBean.getOrderTime();
 //        String provider = subOrderInfoBean.getProvider();
 //        String buyer = subOrderInfoBean.getBuyer();
 //        String delayTime = subOrderInfoBean.getDelayTime() == null ? "" : subOrderInfoBean.getDelayTime();
+
 
 
 //        ArrayList<OrderItemBean> orderItemBeans = (ArrayList<OrderItemBean>) subOrderInfoBean.getOrderItemBeans();
@@ -78,7 +81,29 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         // TODO: 2021/4/13 count 需要设置文字 从bean中获取
         holder.count.setVisibility(type == TYPE_SKU_DETAIL_MODE ? View.VISIBLE : View.GONE);
         // TODO: 2021/4/13 singlePrice 需要设置文字 从bean中获取
-        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? "456.20" : "共100件");
+        if (type == TYPE_SKU_DETAIL_MODE) {
+            if (!subSkuDemandInfo.isEmpty()) {
+                SubSkuDemandInfoBean subSkuDemandInfoBean = subSkuDemandInfo.get(0);
+                String sellPrice = subSkuDemandInfoBean.getSellPrice();
+                int skuNums = subSkuDemandInfoBean.getSkuNums();
+                holder.singlePrice.setText(MessageFormat.format("¥{0}", sellPrice));
+                holder.count.setText(MessageFormat.format("×{0}", skuNums));
+                String totalPrice = subSkuDemandInfoBean.getTotalPrice();
+                holder.tvPrice.setText(totalPrice);
+            } else {
+                holder.singlePrice.setText("");
+                holder.tvPrice.setText("");
+            }
+        } else {
+            int temp = 0;
+            for (int i = 0; i < subSkuDemandInfo.size(); i++) {
+                int skuNums = subSkuDemandInfo.get(i).getSkuNums();
+                temp = temp + skuNums;
+            }
+            holder.singlePrice.setText(MessageFormat.format("共{0}件", temp));
+            holder.tvPrice.setText("0");
+        }
+//        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? subSkuDemandInfo : "共100件");
         adapter.update(subSkuDemandInfo, true);
         holder.orderItem.setOnClickListener(v -> {
             ARouter.getInstance()
@@ -95,6 +120,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         private LinearLayout orderItem;
         private TextView singlePrice;
         private TextView count;
+        private TextView tvPrice;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +128,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             orderItem = itemView.findViewById(R.id.ll_order);
             count = itemView.findViewById(R.id.tv_count);
             singlePrice = itemView.findViewById(R.id.tv_num);
+            tvPrice = itemView.findViewById(R.id.tv_price);
         }
     }
 }
