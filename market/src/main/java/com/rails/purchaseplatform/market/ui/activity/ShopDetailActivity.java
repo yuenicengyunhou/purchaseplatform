@@ -125,12 +125,12 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
 
     private void showPop() {
-        if (filterPop == null) {
-            filterPop = new FilterShopPop();
-            filterPop.setType(BasePop.MATCH_WRAP);
-            filterPop.setGravity(Gravity.BOTTOM);
-        }
-        filterPop.show(getSupportFragmentManager(), "shop");
+//        if (filterPop == null) {
+//            filterPop = new FilterShopPop();
+//            filterPop.setType(BasePop.MATCH_WRAP);
+//            filterPop.setGravity(Gravity.BOTTOM);
+//        }
+//        filterPop.show(getSupportFragmentManager(), "shop");
 
     }
 
