@@ -4,98 +4,50 @@ import java.util.ArrayList;
 
 public class OrderInfoBean {
 
-
-    /**
-     * id : 624323
-     * key : 624323
-     * platformId : 20
-     * orderNo : 1210421104800004
-     * orderNoStr : 1210421104800004
-     * parentNo : 0
-     * orderTime : 2021-04-21 10:48:46
-     * deliverTime :
-     * finishTime :
-     * buyerId : 1000090101
-     * buyerName : shcg01
-     * organizeId : 114370
-     * organizeName : 上海工务段
-     * secondOrganizeId :
-     * secondOrganizeName : 中国铁路上海局集团有限公司
-     * settleType : 20
-     * shopId : 202102240139
-     * shopName : 峥嵘供应商001
-     * totalPrice : 1665.00
-     * paymentPrice : 1665.00
-     * freightPrice : 0.00
-     * orderSplitType : 0
-     * orderStatus : 23
-     * orderStatusView : 部分发货
-     * commentStatus : 10
-     * commentStatusView : 待评价
-     * orderSource : 1
-     * orderSourceView : 购物车订单
-     * subOrderInfo : []
-     * receiverName : 霖子
-     * address : 河北省唐山市路北区嗯嗯嗯
-     * mobile : 13854126542
-     * accountingUnitId : 114370
-     * accountingUnitName : 上海工务段
-     * settleTypeView : 其他物资
-     * demands :
-     * isWuliu : false
-     * cancelStatus : 0
-     * processInstanceId : 9405171
-     * cancelReason :
-     * twoLevelOrgIdName : 中国铁路上海局集团有限公司
-     * realName : ss
-     * delayFlag : 0
-     * delayReceiveTime :
-     */
-
     private long id;
     private long key;
-    private int platformId;
-    private long orderNo;
+    private int platformId;// 平台id ,
+    private long orderNo;// 订单编号 ,
     private String orderNoStr;
-    private int parentNo;
-    private String orderTime;
-    private String deliverTime;
-    private String finishTime;
-    private int buyerId;
-    private String buyerName;
-    private int organizeId;
-    private String organizeName;
-    private String secondOrganizeId;
-    private String secondOrganizeName;
-    private int settleType;
-    private long shopId;
-    private String shopName;
-    private String totalPrice;
-    private String paymentPrice;
-    private String freightPrice;
-    private int orderSplitType;
-    private int orderStatus;
-    private String orderStatusView;
-    private int commentStatus;
+    private int parentNo;//采购单编号 ,
+    private String orderTime;//订单提交时间 ,
+    private String deliverTime;//订单全部发货时间 ,
+    private String finishTime;//订单完成(确认收货)时间 ,
+    private int buyerId;//采购人id ,
+    private String buyerName;//采购人名称 ,
+    private int organizeId;//采购人所属组织机构id ,
+    private String organizeName;//采购人所属组织机构名称 ,
+    private String secondOrganizeId;// 采购人所属组织机构的二级机构的id ,
+    private String secondOrganizeName;//采购人所属组织机构的二级机构的名称 ,
+    private int settleType;//结算类型：10暂不选择 15运营物资 20其他物资 ,
+    private long shopId;// 供应商id ,
+    private String shopName;//: 供应商名称 ,
+    private String totalPrice;//订单商品金额 ,
+    private String paymentPrice;//订单实际支付金额 ,
+    private String freightPrice;// 订单总运费 ,
+    private int orderSplitType;//0:包含子单,1:叶子单（不包含子单） ,
+    private int orderStatus;// 订单状态 ,
+    private String orderStatusView;//: 订单状态：10待付款 15已付款 20待发货 30待收货 40已完成 60已驳回 70已取消 ,
+    private int commentStatus;//10待评价 20部分评价 30已评价 ,
     private String commentStatusView;
-    private int orderSource;
-    private String orderSourceView;
-    private String receiverName;
-    private String address;
-    private String mobile;
-    private int accountingUnitId;
-    private String accountingUnitName;
-    private String settleTypeView;
+    private int orderSource;//订单来源：1、购物车订单 2、需求单转订单
+    private String orderSourceView;// 订单来源：1、购物车订单 2、需求单转订单 ,
+    private String receiverName;// 收货人姓名 ,
+    private String address;//收货人完整地址(带省市县镇) ,
+    private String mobile;//: 收货人电话号码 ,
+    private int accountingUnitId;//结算单位ID ,
+    private String accountingUnitName;//结算单位名称 ,
+    private String settleTypeView;//结算类型：10暂不选择 15运营物资 20其他物资 ,
     private String demands;
-    private boolean isWuliu;
-    private int cancelStatus;
-    private String processInstanceId;
-    private String cancelReason;
-    private String twoLevelOrgIdName;
-    private String realName;
-    private int delayFlag;
-    private String delayReceiveTime;
-    private ArrayList<SubOrderInfoBean> subOrderInfo;
+    private boolean isWuliu;//是否是物流平台发货的订单,默认设置不是物流平台 ,
+    private int cancelStatus;//订单取消状态 ,
+    private String processInstanceId;// 工作流实例id ,
+    private String cancelReason;//订单取消原因 ,
+    private String twoLevelOrgIdName;//采购单位（路局级）
+    private String realName;//采购人真实姓名 ,
+    private int delayFlag;//是否延迟收货 1:延迟收货 0：无延迟收货 ,
+    private String delayReceiveTime;//延迟收货时间 ,
+    private ArrayList<SubOrderInfoBean> subOrderInfo;//子订单详情列表 ,
 
     public long getId() {
         return id;

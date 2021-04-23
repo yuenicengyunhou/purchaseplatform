@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -32,7 +31,8 @@ import androidx.recyclerview.widget.RecyclerView;
 @Route(path = ConRoute.ADDRESS.ADDRESS_MAIN)
 public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> implements AddressContract.AddressView,
         PositionListener<AddressBean>, MulPositionListener<AddressBean> {
-
+    private final int PAGE_DEF = 0;
+    private int mPage = PAGE_DEF;
     private AddressAdapter addressAdapter;
     private AddressContract.AddressPresenter presenter;
 
@@ -96,9 +96,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
             AddressBean bean = addressAdapter.getBean(adapterPosition);
             long addressId = bean.getAddressId();
             if (position == 0) {
-                //删除
-                if (bean != null)
-                    presenter.delAddress(addressId, adapterPosition);
+                presenter.delAddress(addressId, adapterPosition);
             } else {
                 //设为默认
                 int receivingAddress = bean.getReceivingAddress();
@@ -112,7 +110,20 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
 
         presenter = new AddressPresenterImpl(this, this);
-        onRefresh();
+        onRefresh(true);
+
+
+        //下拉刷新和上拉加载
+        barBinding.smart.setOnLoadMoreListener(refreshLayout -> {
+            mPage++;
+            onRefresh(true);
+        });
+
+        barBinding.smart.setOnRefreshListener(refreshLayout -> {
+            barBinding.smart.finishRefresh();
+            mPage = PAGE_DEF;
+            onRefresh(false);
+        });
 
     }
 
@@ -120,12 +131,8 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     /**
      * 刷新请求
      */
-    private void onRefresh() {
-        barBinding.smart.setOnRefreshListener(refreshLayout -> {
-            barBinding.smart.finishRefresh();
-            presenter.getAddresses(false);
-        });
-        presenter.getAddresses(true);
+    private void onRefresh(boolean isDialog) {
+        presenter.getAddresses(isDialog,mPage);
     }
 
 
@@ -151,11 +158,11 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
     @Override
     public void getAddresses(ArrayList<AddressBean> addressBeans) {
-        addressAdapter.update(addressBeans, true);
+        addressAdapter.update(addressBeans, mPage==PAGE_DEF);
         int defPosition = 0;
         boolean defExist = false;
         for (int i = 0; i < addressBeans.size(); i++) {
-            if (addressBeans.get(i).getHasDefault() == 1) {
+            if (addressBeans.get(i).getHasDefault()==1) {
                 defPosition = i;
                 defExist = true;
                 break;
@@ -186,6 +193,6 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     @Override
     protected void onRestart() {
         super.onRestart();
-        onRefresh();
+        onRefresh(true);
     }
 }

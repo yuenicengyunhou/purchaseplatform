@@ -7,8 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.bean.OrderBean;
-import com.rails.lib_data.bean.OrderItemBean;
+import com.rails.lib_data.SubSkuDemandInfoBean;
+import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
@@ -22,10 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * 订单列表
  */
-public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRecyclerAdapter.ItemHolder> {
+public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, OrderRecyclerAdapter.ItemHolder> {
 
-    private static final int TYPE_V = 0;
-    private static final int TYPE_H = 1;
+    private static final int TYPE_SKU_DETAIL_MODE = 0;//商品为一件时，显示条目详情模式
+    private static final int TYPE_SKU_PIC_GRID_MODE = 1;//商品一件以上时，显示grid视图模式
 
 
     public OrderRecyclerAdapter(Context context) {
@@ -36,11 +36,11 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
 
     @Override
     public int getItemViewType(int position) {
-        int len = mDataSource.get(position).getOrderItemBeans().size();
+        int len = mDataSource.get(position).getSubSkuDemandInfo().size();
         if (len > 1) {
-            return TYPE_H;
+            return TYPE_SKU_PIC_GRID_MODE;
         } else {
-            return TYPE_V;
+            return TYPE_SKU_DETAIL_MODE;
         }
     }
 
@@ -60,25 +60,26 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<OrderBean, OrderRec
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 
         int type = getItemViewType(position);
-        OrderBean mulOrderBean = mDataSource.get(position);
+        SubOrderInfoBean subOrderInfoBean = mDataSource.get(position);
+        ArrayList<SubSkuDemandInfoBean> subSkuDemandInfo = subOrderInfoBean.getSubSkuDemandInfo();
 
-        String orderNumber = mulOrderBean.getOrderNumber();
-        String generateTime = mulOrderBean.getGenerateTime();
-        String provider = mulOrderBean.getProvider();
-        String buyer = mulOrderBean.getBuyer();
-        String delayTime = mulOrderBean.getDelayTime() == null ? "" : mulOrderBean.getDelayTime();
+        String orderNumber = subOrderInfoBean.getSkuNum();
+        String generateTime = subOrderInfoBean.getOrderTime();
+//        String provider = subOrderInfoBean.getProvider();
+//        String buyer = subOrderInfoBean.getBuyer();
+//        String delayTime = subOrderInfoBean.getDelayTime() == null ? "" : subOrderInfoBean.getDelayTime();
 
 
-        ArrayList<OrderItemBean> orderItemBeans = (ArrayList<OrderItemBean>) mulOrderBean.getOrderItemBeans();
+//        ArrayList<OrderItemBean> orderItemBeans = (ArrayList<OrderItemBean>) subOrderInfoBean.getOrderItemBeans();
         OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext, getItemViewType(position));
         holder.recycler.setLayoutManager(BaseRecyclerView.LIST,
-                type == TYPE_V ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL, false, 1);
+                type == TYPE_SKU_DETAIL_MODE ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL, false, 1);
         holder.recycler.setAdapter(adapter);
         // TODO: 2021/4/13 count 需要设置文字 从bean中获取
-        holder.count.setVisibility(type == TYPE_V ? View.VISIBLE : View.GONE);
+        holder.count.setVisibility(type == TYPE_SKU_DETAIL_MODE ? View.VISIBLE : View.GONE);
         // TODO: 2021/4/13 singlePrice 需要设置文字 从bean中获取
-        holder.singlePrice.setText(type == TYPE_V ? "456.20" : "共100件");
-        adapter.update(orderItemBeans, true);
+        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? "456.20" : "共100件");
+        adapter.update(subSkuDemandInfo, true);
         holder.orderItem.setOnClickListener(v -> {
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_ORDER_DETAIL)

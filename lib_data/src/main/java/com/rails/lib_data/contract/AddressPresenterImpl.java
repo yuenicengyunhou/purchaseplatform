@@ -45,8 +45,8 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     }
 
     @Override
-    public void getAddresses(Boolean isDialog) {
-        model.queryAddressList(20, accountId, 2, 1, 10, new HttpRxObserver<ListBeen<AddressBean>>() {
+    public void getAddresses(Boolean isDialog,int page) {
+        model.queryAddressList(20, accountId, 2, page,  new HttpRxObserver<ListBeen<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -54,6 +54,10 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
             @Override
             protected void onSuccess(ListBeen<AddressBean> response) {
+                boolean lastPage = response.isLastPage();
+                if (lastPage) {
+                    ToastUtil.show(mContext,"最后一页啦");
+                }
                 ArrayList<AddressBean> list = response.getList();
                 if (list != null) {
                     baseView.getAddresses(list);

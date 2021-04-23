@@ -1,5 +1,10 @@
 package com.rails.lib_data;
 
+/**
+ * author:wangqi
+ * date:2021/4/22
+ * 子订单详情列表
+ */
 public class SubSkuDemandInfoBean {
 
 
@@ -34,30 +39,30 @@ public class SubSkuDemandInfoBean {
 
     private long id;
     private long key;
-    private int platformId;
-    private String pictureUrl;
+    private int platformId;//平台id ,
+    private String pictureUrl;//sku图片 ,
     private String shortCode;
     private int skuId;
     private String sourceSkuId;
     private int itemId;
-    private String itemName;
-    private String attributes;
-    private String sellPrice;
-    private int originalNum;
-    private int skuNums;
-    private String totalPrice;
-    private String marketPrice;
-    private String totalMarketPrice;
-    private String totalDifferPrice;
-    private String firstName;
-    private String twoName;
-    private String threeName;
-    private String brandName;
-    private String skuAnnexUrlName;
-    private String skuAnnexUrl;
-    private String subSkuDemandOrderInfo;
-    private String subSkuDemandNoList;
-    private boolean canAfs;
+    private String itemName;// sku名称 ,
+    private String attributes;//销售属性 ,
+    private String sellPrice;// sku销售价格 ,
+    private int originalNum;//初始数量 ,
+    private int skuNums;// 最终数量 ,
+    private String totalPrice;// 售价小计 ,
+    private String marketPrice;// sku市场价
+    private String totalMarketPrice;//市场价小计 ,
+    private String totalDifferPrice;// 差价 ,
+    private String firstName;//一级类目 ,
+    private String twoName;//二级类目
+    private String threeName;//三级类目 ,
+    private String brandName;//品牌名称 ,
+    private String skuAnnexUrlName;// SKU外部商城名称 ,
+    private String skuAnnexUrl;//SKU外部商城链接 ,
+    private String subSkuDemandOrderInfo;//子订单以及sku对应的需求详情
+    private String subSkuDemandNoList;//子订单以及sku对应的需求单号列表 ,
+    private boolean canAfs;//是否可以售后 ,
 
     public long getId() {
         return id;
