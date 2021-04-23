@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.order.fragment;
 
-import com.rails.lib_data.bean.OrderParentBean;
+
+import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -9,13 +10,9 @@ import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.order.OrderParentAdapter;
 import com.rails.purchaseplatform.order.databinding.FragmentOrderBinding;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -29,6 +26,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private OrderContract.OrderPresenter presenter;
 
     private static int status;
+
+    private String squence = "purchaseNo";//默认采购单编号搜索
 
     private OrderFragment(int status) {
         this.status = status;
@@ -45,7 +44,7 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
         mAdapter = new OrderParentAdapter(getActivity());
         presenter = new OrderPresenterImpl(getActivity(), this);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
-        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(),10, R.color.line_gray));
+        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.line_gray));
         binding.recycler.setAdapter(mAdapter);
         onRefresh();
     }
@@ -65,22 +64,15 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      * 刷新效果
      */
     private void onRefresh() {
-        binding.swipe.setOnRefreshListener(new OnRefreshListener() {
-
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                binding.swipe.finishRefresh();
-                page = DEF_PAGE;
-                notifyData(false, page);
-            }
+        binding.swipe.setOnRefreshListener(refreshLayout -> {
+            binding.swipe.finishRefresh();
+            page = DEF_PAGE;
+            notifyData(false, page);
         });
 
-        binding.swipe.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                page++;
-                notifyData(false, page);
-            }
+        binding.swipe.setOnLoadMoreListener(refreshLayout -> {
+            page++;
+            notifyData(false, page);
         });
         notifyData(false, page);
     }
@@ -88,17 +80,40 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
 
     /**
      * 请求推荐商品列表
-     *
-     * @param isDialog
-     * @param page
+     * <p>
+     * param isDialog
+     * param page
      */
     private void notifyData(boolean isDialog, int page) {
         int queryType = status == 0 ? 1 : 0;
-        presenter.getOrder(isDialog, page, queryType);
+        presenter.getOrder(isDialog, page, queryType,squence,"");
+    }
+
+    /**
+     * Search type, default 0.
+     * 0 - 采购单号
+     * 1 - 采购人用户名
+     * 2 - 供应商名称
+     */
+    public void notifyData(int searchType,String searchContent) {
+        squence = getQuestSquence(searchType);
+        page = DEF_PAGE;
+        int queryType = status == 0 ? 1 : 0;
+        presenter.getOrder(true, page, queryType,squence,searchContent);
+    }
+
+    private String getQuestSquence(int searchType) {
+        if (searchType == 0) {
+            return "purchaseNo";
+        } else if (searchType == 1) {
+            return "buyerName";
+        } else  {
+            return "shopName";
+        }
     }
 
     @Override
-    public void getOrder(ArrayList<OrderParentBean> orderBeans, boolean hasMore, boolean isClear) {
+    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear) {
         mAdapter.update(orderBeans, true);
     }
 }

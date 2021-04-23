@@ -4,8 +4,10 @@ package com.rails.purchaseplatform.order.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -58,12 +60,30 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
      * 2 - 供应商名称
      */
     private int mType = 0;
+    private SearchListener searchListener;
 
     @Override
     protected void initialize(Bundle bundle) {
         String[] tabs = getResources().getStringArray(R.array.order_list_tab);
         initPager(tabs);
         binding.noneScrollViewPager.setPagingEnabled(false);
+
+        //监听输入框按下搜索键
+        binding.etSearchKey.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                String content = binding.etSearchKey.getText().toString();
+                int currentItem = binding.noneScrollViewPager.getCurrentItem();
+                OrderFragment fragment = (OrderFragment) viewPageAdapter.getItem(currentItem);
+                fragment.notifyData(mType,content);
+//                    String text = binding.searchText.getText().toString().trim();
+//                    if (isEmptyText(text)) return false;
+//                    updateList(text);
+//                    putSearchKeyInSharedPreference();
+//                    startActivityWithBundle(text);
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
@@ -194,6 +214,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
             fragments.add(fragment);
         }
 
+
+
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.noneScrollViewPager.setAdapter(viewPageAdapter);
         binding.noneScrollViewPager.setOffscreenPageLimit(tabs.length);
@@ -216,12 +238,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
                 colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_blue));
                 colorTransitionPagerTitleView.setTextSize(14f);
                 colorTransitionPagerTitleView.setText(tabs[index]);
-                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        binding.noneScrollViewPager.setCurrentItem(index);
-                    }
-                });
+                colorTransitionPagerTitleView.setOnClickListener(view -> binding.noneScrollViewPager.setCurrentItem(index));
                 return colorTransitionPagerTitleView;
             }
 
@@ -236,6 +253,11 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         binding.indicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(binding.indicator, binding.noneScrollViewPager);
         binding.noneScrollViewPager.setCurrentItem(0);
+    }
+
+
+    interface SearchListener{
+        void onSearch(int searchType, String searchContent,int currentFragmentPosition);
     }
 
 

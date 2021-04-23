@@ -8,18 +8,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
-import com.rails.lib_data.bean.OrderItemBean;
-import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.lib_data.SubSkuDemandInfoBean;
 import com.rails.purchaseplatform.common.widget.RatioImage;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.order.R;
 
-public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean, OrderChildRecyclerAdapter.ItemHolder> {
+public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<SubSkuDemandInfoBean, OrderChildRecyclerAdapter.ItemHolder> {
 
-    private static final int TYPE_V = 0;
-    private static final int TYPE_H = 1;
+    private static final int TYPE_SKU_DETAIL_MODE = 0;
+    private static final int TYPE_SKU_PIC_GRID_MODE = 1;
     private int type;
 
     public OrderChildRecyclerAdapter(Context context, int type) {
@@ -37,7 +35,7 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean,
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_V)
+        if (viewType == TYPE_SKU_DETAIL_MODE)
             return new ItemHolder(layoutInflater.inflate(R.layout.item_order_child, parent, false));
         else
             return new ItemHolder(layoutInflater.inflate(R.layout.item_order_child_grid, parent, false));
@@ -45,8 +43,11 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<OrderItemBean,
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        OrderItemBean bean = mDataSource.get(position);
+        SubSkuDemandInfoBean bean = mDataSource.get(position);
         Glide.with(mContext).load(bean.getPictureUrl()).into(holder.imgProduct);
+        holder.tvTitle.setText(bean.getItemName());
+        holder.tvProperty.setText(bean.getAttributes());
+
 //        bean.getItemType()
         holder.itemView.setOnClickListener(v -> {
 //            ARouter.getInstance()

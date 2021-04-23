@@ -2,63 +2,57 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
-import com.rails.lib_data.bean.OrderParentBean;
+import com.rails.lib_data.bean.ListBeen;
+import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.OrderModel;
 import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> implements OrderContract.OrderPresenter {
 
-    private OrderModel model;
-    private long accountId;
+    private final OrderModel model;
+    private final String accountId;
 
     public OrderPresenterImpl(Activity mContext, OrderContract.OrderView orderView) {
         super(mContext, orderView);
         model = new OrderModel();
         UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
-        String id = bean.getId();
-        if (null == id) {
-            ToastUtil.show(mContext, "用户信息错误");
-            return;
-        }
-        accountId = Long.parseLong(id);
+        accountId = bean.getId();
     }
 
     @Override
-    public void getOrder(boolean isDialog, int page, int queryType) {
-        if (isDialog)
+    public void getOrder(boolean isDialog, int page, int queryType, String squence, String content) {
+        if (isDialog) {
             baseView.showResDialog(R.string.loading);
-
-//        model.getPurchasePageList(20, accountId, queryType, 2, new HttpRxObserver<ListVO<OrderInfoBean>>() {
-//            @Override
-//            protected void onError(ErrorBean e) {
-//
-//            }
-//
-//            @Override
-//            protected void onSuccess(ListVO<OrderInfoBean> response) {
-//
-//            }
-//        });
-
-        Type type = new TypeToken<ArrayList<OrderParentBean>>() {
-        }.getType();
-        ArrayList<OrderParentBean> beans = JsonUtil.parseJson(mContext, "orderList.json", type);
-
-        if (isCallBack()) {
-            baseView.dismissDialog();
-            boolean isClear = page <= 1;
-            baseView.getOrder(beans, false, isClear);
         }
+        model.getPurchasePageList(20, accountId, queryType, 2, squence, content, page, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(ListBeen<OrderInfoBean> response) {
+                boolean lastPage = response.isLastPage();
+                if (lastPage) {
+                    ToastUtil.show(mContext, "最后一页啦");
+                }
+                baseView.dismissDialog();
+                ArrayList<OrderInfoBean> list = response.getList();
+                boolean isClear = page <= 1;
+                baseView.getOrder(list, false, isClear);
+
+            }
+        });
     }
 }

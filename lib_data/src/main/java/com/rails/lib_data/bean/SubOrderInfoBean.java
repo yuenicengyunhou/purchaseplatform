@@ -6,140 +6,66 @@ import java.util.ArrayList;
 
 public class SubOrderInfoBean {
 
-
-    /**
-     * id : 624323
-     * key : 624323
-     * platformId : 20
-     * shopId :
-     * organizeId :
-     * buyerId : 1000090101
-     * orderNo : 1210421104800004
-     * parentNo : 0
-     * thirdOrderNo : 1210421104800004
-     * orderSplitType : 0
-     * orderSource : 1
-     * settleType :
-     * shopType :
-     * orderStatus : 23
-     * paymentType :
-     * commentStatus : 10
-     * paymentPrice :
-     * totalPrice :
-     * freightPrice :
-     * orderTime : 2021-04-21 10:48:46
-     * paymentTime :
-     * partDeliverTime :
-     * deliverTime :
-     * estimateDeliverTime :
-     * finishTime :
-     * cancelTime :
-     * through :
-     * delivered : 0
-     * reconciliation : 0
-     * billing :
-     * refundStatus :
-     * refundAmount :
-     * repayment :
-     * priceCheck :
-     * dealWith :
-     * snapshotUrl :
-     * processInstanceId :
-     * cancelReason :
-     * cancelType :
-     * remark :
-     * created : 2021-04-21 10:46:08
-     * modified :
-     * yn :
-     * orderStatusView : 部分发货
-     * receiverName :
-     * address :
-     * mobile :
-     * shopName :
-     * buyerName :
-     * organizeName :
-     * invoiceType :
-     * invoiceInfo :
-     * logisticsInfo :
-     * isWuliu : false
-     * deliveredTime :
-     * oneself : false
-     * accountingUnitName :
-     * applicationTime :
-     * rebutTime :
-     * subSkuDemandInfo : []
-     * cancelStatus : 0
-     * skuId :
-     * itemId :
-     * skuNum :
-     * sellPrice : 0.00
-     * marketPrice : 0.00
-     * itemName :
-     * orderLogisticsNo :
-     * delayFlag :
-     * delayReceiveTime :
-     */
-
     private long id;
     private long key;
-    private int platformId;
-    private String shopId;
-    private String organizeId;
-    private int buyerId;
-    private long orderNo;
-    private int parentNo;
-    private String thirdOrderNo;
-    private int orderSplitType;
-    private int orderSource;
-    private String settleType;
-    private String shopType;
-    private int orderStatus;
-    private String paymentType;
-    private int commentStatus;
-    private String paymentPrice;
-    private String totalPrice;
-    private String freightPrice;
-    private String orderTime;
-    private String paymentTime;
-    private String partDeliverTime;
-    private String deliverTime;
-    private String estimateDeliverTime;
-    private String finishTime;
-    private String cancelTime;
-    private String through;
-    private int delivered;
-    private int reconciliation;
-    private String billing;
-    private String refundStatus;
-    private String refundAmount;
-    private String repayment;
-    private String priceCheck;
-    private String dealWith;
-    private String snapshotUrl;
-    private String processInstanceId;
-    private String cancelReason;
-    private String cancelType;
-    private String remark;
-    private String created;
-    private String modified;
-    private String yn;
-    private String orderStatusView;
-    private String receiverName;
-    private String address;
-    private String mobile;
-    private String shopName;
-    private String buyerName;
+    private int platformId;//平台id ,
+    private String shopId;//店铺id ,
+    private String organizeId;//创建人所属组织机构id ,
+    private int buyerId;//创建人用户id ,
+    private long orderNo;//订单编号 ,
+    private int parentNo;//0:第一级主单(拆单和未拆单都为0)，(!=0):当前订单的父单号（和order_split_type 配合查询订单） ,
+    private String thirdOrderNo;//三方订单编号 ,
+    private int orderSplitType;// 0:包含子单,1:叶子单（不包含子单）（和parent_order_no配合查询订单） ,
+    private int orderSource;//订单来源：1、购物车订单 2、需求单转订单 ,
+    private String settleType;//结算类型：10暂不选择 15运营物资 20其他物资 ,
+    private String shopType;// 店铺类型 ,
+    private int orderStatus;//订单状态：10待付款 15已付款 20待发货 30待收货 40已完成 60已驳回 70已取消 ,
+    private String paymentType;// 支付类型：1：账期支付 ,
+    private int commentStatus;//订单评价状态：10待评价 20部分评价 30已评价 ,
+    private String paymentPrice;//订单实际支付金额 ,
+    private String totalPrice;// 订单商品总金额 ,
+    private String freightPrice;///订单总运费 ,
+    private String orderTime;//订单提交时间 ,
+    private String paymentTime;//订单支付时间
+    private String partDeliverTime;//订单部分发货时间 ,
+    private String deliverTime;//订单全部发货时间 ,
+    private String estimateDeliverTime;//订单预计确认收货时间,自动收货使用
+    private String finishTime;//订单完成(确认收货)时间 ,
+    private String cancelTime;//订单取消时间 ,
+    private String through;// 是否直达：0否 1是 ,
+    private int delivered;//妥投状态：0否 1是 ,
+    private int reconciliation;// 对账状态：0未对账 1已对账 ,
+    private String billing;//开票状态：0未开票(不可开票) 1未开票(可开票) 2已开票 3开票中 ,
+    private String refundStatus;// 售后状态：0无售后 1售后中 ,
+    private String refundAmount;// 退款金额 ,
+    private String repayment;// 还款状态：0未还款 1已还款 ,
+    private String priceCheck;//金额核对状态：0无 1无差异 2有差异 ,
+    private String dealWith;//差异处理状态：0无 1未处理 2已处理 ,
+    private String snapshotUrl;///订单快照(存放oss) ,
+    private String processInstanceId;//工作流的对象id ,
+    private String cancelReason;//订单取消原因 ,
+    private String cancelType;//订单取消类型(1:系统取消(供应商系统取消) 2:用户主动取消) ,
+    private String remark;//订单备注 ,
+    private String created;// 创建时间
+    private String modified;//: 更新时间 ,
+    private String yn;//是否有效1有效 0无效
+    private String orderStatusView;// 订单状态：10待付款 15已付款 20待发货 30待收货 40已完成 60已驳回 70已取消 ,
+    private String receiverName;// 收货人姓名 ,
+    private String address;// 收货人完整地址(带省市县镇) ,
+    private String mobile;//收货人电话号码 ,
+    private String shopName;//供应商 ,
+    private String buyerName;//采购人
     private String organizeName;
-    private String invoiceType;
-    private String invoiceInfo;
-    private String logisticsInfo;
-    private boolean isWuliu;
+    private String invoiceType;//发票类型 ,
+    private String invoiceInfo;//发票信息 ,
+    private String logisticsInfo;//物流信息 ,
+    private boolean isWuliu;//是否是物流平台发货的订单,默认设置不是物流平台 ,
     private String deliveredTime;
     private boolean oneself;
     private String accountingUnitName;
-    private String applicationTime;
-    private String rebutTime;
-    private int cancelStatus;
+    private String applicationTime;//申请取消订单的时间 ,
+    private String rebutTime;//驳回取消订单的时间 ,
+    private int cancelStatus;// 订单取消状态 ,
     private String skuId;
     private String itemId;
     private String skuNum;
@@ -147,9 +73,9 @@ public class SubOrderInfoBean {
     private String marketPrice;
     private String itemName;
     private String orderLogisticsNo;
-    private String delayFlag;
-    private String delayReceiveTime;
-    private ArrayList<SubSkuDemandInfoBean> subSkuDemandInfo;
+    private String delayFlag;//是否延迟收货 1：延迟 0：无延迟 ,
+    private String delayReceiveTime;//: 延迟收货 ,
+    private ArrayList<SubSkuDemandInfoBean> subSkuDemandInfo;//子订单详情列表
 
     public long getId() {
         return id;

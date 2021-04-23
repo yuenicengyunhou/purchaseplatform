@@ -13,6 +13,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.OrderBean;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.OrderParentBean;
+import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LrLableLayout;
@@ -54,12 +55,12 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 //        holder.lrCompany.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getPurchars()));
         holder.tvPrice.setText(parentBean.getTotalPrice());
 
-        long orderNo = parentBean.getOrderNo();
-//        String generateTime = parentBean.();
+        String orderNoStr = parentBean.getOrderNoStr();
+        String orderTime = parentBean.getOrderTime();
         String provider = parentBean.getShopName();
         String buyer = parentBean.getRealName();
         String delayTime = parentBean.getDelayReceiveTime() == null ? "" : parentBean.getDelayReceiveTime();
-        holder.title.setText(String.valueOf(orderNo), "generateTime", provider, buyer, delayTime);
+        holder.title.setText(orderNoStr, orderTime, provider, buyer, delayTime);
         holder.title.setOnClickListener(v -> ARouter.getInstance()
                 .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                 .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
@@ -71,17 +72,17 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 //        });
 
 
-//        ArrayList<OrderBean> orderItemBeans = (ArrayList<OrderBean>) parentBean.getSubOrderInfo();
-//        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mContext);
-//        holder.recycler.setAdapter(adapter);
-//        adapter.update(orderItemBeans, true);
+        ArrayList<SubOrderInfoBean> subOrderInfo = parentBean.getSubOrderInfo();
+        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mContext);
+        holder.recycler.setAdapter(adapter);
+        adapter.update(subOrderInfo, true);
 
-//        holder.lrCode.setOnClickListener(v -> {
-//            ARouter.getInstance()
-//                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
-//                    .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
-//                    .navigation();
-//        });
+        holder.lrCode.setOnClickListener(v -> {
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
+                    .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                    .navigation();
+        });
     }
 
 

@@ -9,13 +9,22 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+
 public class AddressModel {
+
     /**
      * 获取维护地址列表
      */
-    public void queryAddressList(long platformId, long accountId, int accountType, long pageNum, int pageSize, HttpRxObserver httpRxObserver) {
+    public void queryAddressList(long platformId, long accountId, int accountType, long pageNum, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("accountType", accountType);
+        map.put("pageNum", pageNum);
+        map.put("pageSize", PAGE_SIZE);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).getAddressList(platformId, accountId, accountType, pageNum, pageSize))
+                .create(AddressService.class).getAddressList(map))
                 .subscribe(httpRxObserver);
     }
 
