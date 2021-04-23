@@ -42,5 +42,9 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
 //            // TODO: 2021/4/2 把adapter返回的地址数据返回给activity并更新页面
 //        });
 
+        binding.ibClose.setOnClickListener(v -> {
+            dismiss();
+        });
+
     }
 }

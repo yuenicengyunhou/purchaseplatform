@@ -56,7 +56,8 @@ public interface ProductService {
     /**
      * 获取店铺推荐
      */
-    @FormUrlEncoded
-    @POST("elasticsearch-service/mall/search/queryItemListByCid")
-    Observable<HttpResult<HotSaleBean>> getHotSale(@FieldMap HashMap<String, Object> params);
+//    @FormUrlEncoded
+//    @POST("elasticsearch-service/mall/search/queryItemListByCid")
+    @GET("elasticsearch-service/mall/search/queryItemListByCid?businessType=1&cid=1000812&platformId=20&pageNum=")
+    Observable<HttpResult<HotSaleBean>> getHotSale(@QueryMap HashMap<String, Object> params);
 }

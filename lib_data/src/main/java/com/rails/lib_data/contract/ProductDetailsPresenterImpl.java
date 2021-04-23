@@ -28,6 +28,12 @@ public class ProductDetailsPresenterImpl
 
     private ProductDetailsModel mModel;
 
+    /**
+     * Constructor
+     *
+     * @param mContext
+     * @param productDetailsView
+     */
     public ProductDetailsPresenterImpl(
             Activity mContext,
             ProductDetailsContract.ProductDetailsView productDetailsView) {
@@ -35,6 +41,14 @@ public class ProductDetailsPresenterImpl
         mModel = new ProductDetailsModel();
     }
 
+    /**
+     * 获取商品详情
+     *
+     * @param platformId
+     * @param itemId
+     * @param companyId
+     * @param isDialog
+     */
     @Override
     public void getProductDetails(long platformId, long itemId, long companyId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
@@ -48,9 +62,6 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ProductDetailsBean response) {
-                Toast.makeText(mContext, "12345 - 商品详情", Toast.LENGTH_LONG).show();
-
-
                 baseView.onGetProductDetailsSuccess(response);
                 baseView.dismissDialog();
             }
@@ -58,6 +69,13 @@ public class ProductDetailsPresenterImpl
 
     }
 
+    /**
+     * 获取商品价格、评分
+     *
+     * @param platformId
+     * @param skuId
+     * @param isDialog
+     */
     @Override
     public void getProductPrice(long platformId, int skuId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
@@ -77,6 +95,15 @@ public class ProductDetailsPresenterImpl
         });
     }
 
+    /**
+     * 获取店铺推荐
+     *
+     * @param platformId
+     * @param keyword
+     * @param cid
+     * @param shopId
+     * @param isDialog
+     */
     @Override
     public void getHotSale(long platformId, String keyword, int cid, long shopId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
@@ -92,12 +119,19 @@ public class ProductDetailsPresenterImpl
             protected void onSuccess(HotSaleBean response) {
                 ArrayList<RecommendItemsBean> beans = new ArrayList<>();
                 for (ItemResult element : response.getItemList().getResultList()) {
-                    RecommendItemsBean bean = new RecommendItemsBean();
-                    ItemSku sku = element.getItem_sku().get(0);
-                    bean.setName(sku.getSkuName());
-                    bean.setImageUrl(sku.getPictureUrl());
-                    bean.setPrice(String.valueOf(sku.getSellPrice()));
-                    beans.add(bean);
+                    for (ItemSku itemSku : element.getItem_sku()) {
+                        RecommendItemsBean bean = new RecommendItemsBean();
+                        bean.setName(itemSku.getSkuName());
+                        bean.setImageUrl(itemSku.getPictureUrl());
+                        bean.setPrice(String.valueOf(itemSku.getSellPrice()));
+                        bean.setCid(itemSku.getCid());
+                        bean.setShopId(itemSku.getShopId());
+                        bean.setItemId(itemSku.getItemId());
+                        bean.setSkuId(itemSku.getSkuId());
+                        beans.add(bean);
+                        if (beans.size() == 6) break;
+                    }
+                    if (beans.size() == 6) break;
                 }
 
                 baseView.onGetHotSaleSuccess(beans);

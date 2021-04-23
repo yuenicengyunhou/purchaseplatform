@@ -15,6 +15,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
@@ -33,7 +34,8 @@ import java.util.ArrayList;
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
 @Route(path = "/market/SearchResultActivity")
-public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding> {
+public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding>
+        implements View.OnClickListener {
 
     private int mSearchType = 0;
     private String mSearchKey = "";
@@ -108,7 +110,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
-            Toast.makeText(this, "暂时没有过滤规则", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "功能未完善", Toast.LENGTH_SHORT).show();
             if (mFilterPop == null) {
                 String[] text = {"选择品牌", "价格区间", "上架时间"};
                 mFilterPop = new OrderSearchFilterPop(text);
@@ -117,20 +119,13 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             }
             mFilterPop.show(getSupportFragmentManager(), "searchFilter");
             // TODO: 2021/4/9 自定义筛选器
-        });
-        // TODO: 2021/3/25 筛选规则
-
-        // 点击搜索关键字
-        binding.tvSearchKey.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("search_key", binding.tvSearchKey.getText().toString());
-            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation(this);
+            // TODO: 2021/3/25 筛选规则
         });
 
-        // 点击关键字后面的叉叉
-        binding.ivSearchCancel.setOnClickListener(v -> {
-            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
-        });
+        binding.tvSearchKey.setOnClickListener(this); // 点击搜索关键字
+        binding.ivSearchCancel.setOnClickListener(this); // 点击关键字后面的叉叉
+        binding.clSearchBar.setOnClickListener(this); // 点击搜索背景
+        binding.tvTypeName.setOnClickListener(this); // 点击搜索类型文字
 
         // 点击综合排序
         binding.cbCommonSort.setOnClickListener(v -> {
@@ -176,5 +171,18 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbCommonSort.setSelected(booleans[0]);
         binding.cbSaleSort.setSelected(booleans[1]);
         binding.cbPriceSort.setSelected(booleans[2]);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.tv_searchKey) {
+            Bundle bundle = new Bundle();
+            bundle.putString("search_key", binding.tvSearchKey.getText().toString());
+            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation(this);
+        }
+        if (id == R.id.iv_searchCancel || id == R.id.cl_searchBar || id == R.id.tv_type_name) {
+            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
+        }
     }
 }

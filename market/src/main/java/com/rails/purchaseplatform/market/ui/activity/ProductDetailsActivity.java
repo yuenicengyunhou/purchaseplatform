@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
@@ -39,8 +41,10 @@ import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
+import com.rails.purchaseplatform.common.utils.JSBack;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
@@ -48,10 +52,6 @@ import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
 import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
-import com.rails.purchaseplatform.market.web.PackageListPage4Js;
-import com.rails.purchaseplatform.market.web.ProductInfoPage4Js;
-import com.rails.purchaseplatform.market.web.RecommendPage4Js;
-import com.rails.purchaseplatform.market.web.ServicePage4Js;
 
 import java.util.ArrayList;
 
@@ -61,7 +61,7 @@ import java.util.ArrayList;
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
         implements
-        ConstantH5.ProductDetails,
+        JSBack,
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView, AddressToolContract.AddressToolView {
 
@@ -73,10 +73,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private CartContract.CartPresenter2 mPresenter;
 
     final private String[] TAB_URLS = {
-            PRODUCT_INFO,
-            PACKAGE_LIST,
-            SERVICES,
-            RECOMMENDS
+            ConRoute.WEB_URL.PRODUCT_INFO,
+            ConRoute.WEB_URL.PACKAGE_LIST,
+            ConRoute.WEB_URL.SERVICES,
+            ConRoute.WEB_URL.RECOMMENDS,
     };
 
     private ArrayList<String> pictureUrls = new ArrayList<>();
@@ -301,24 +301,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 binding.webRecommend
         };
 
-        Object[] OBJECTS = {
-                new ProductInfoPage4Js(this),
-                new PackageListPage4Js(this),
-                new ServicePage4Js(this),
-                new RecommendPage4Js(this)
-        };
-
-        String[] FLAGS = {
-                "PRODUCT_INFO",
-                "PACKAGE_LIST",
-                "SERVICE",
-                "RECOMMEND"
-        };
-
         for (int i = 0; i < WEB_VIEWS.length; i++) {
             setWeb(WEB_VIEWS[i], i);
             WEB_VIEWS[i].loadUrl(TAB_URLS[i]);
-            WEB_VIEWS[i].addJavascriptInterface(OBJECTS[i], FLAGS[i]);
+            WEB_VIEWS[i].addJavascriptInterface(this, "app");
         }
     }
 
@@ -445,8 +431,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mPop = new PropertyPop();
         mPop.setGravity(Gravity.BOTTOM);
         mPop.setType(BasePop.MATCH_WRAP);
+        mPop.setSkuId(mSkuId);
         mPop.setAddToCartListener(skuSaleNumJson ->
-                mPresenter.addCart(20L, 30L, 40L, 50, skuSaleNumJson, true));
+                mPresenter.addCart(20L,
+                        30L, 40L, 50, // 非必要属性
+                        skuSaleNumJson, true));
+//        mPop.set
         mPop.show(getSupportFragmentManager(), "property");
     }
 
@@ -507,7 +497,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.textView.setText(bean.getItemPublishVo().getShopName());
 
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-//        mGetProductDetailsPresenter.getHotSale(mPlatformId, mKeyword, mCid, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
+        mGetProductDetailsPresenter.getHotSale(mPlatformId, "测试", 1000812, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
     }
 
     @Override
@@ -531,4 +521,24 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void getDefAddress(AddressBean bean) {
         binding.tvAddressDefault.setText(bean.getFullAddress());
     }
+
+    @JavascriptInterface
+    @Override
+    public void onBack() {
+
+    }
+
+    @JavascriptInterface
+    @Override
+    public String getToken() {
+        return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
+    }
+
+    @JavascriptInterface
+    @Override
+    public void onLogin() {
+
+    }
+
+//    public String
 }
