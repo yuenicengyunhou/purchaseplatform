@@ -51,7 +51,7 @@ public interface AddressContract {
          *
          * param isDialog 是否显示dialog
          */
-        void getAddresses(Boolean isDialog);
+        void getAddresses(Boolean isDialog,int page);
 
 
         /**

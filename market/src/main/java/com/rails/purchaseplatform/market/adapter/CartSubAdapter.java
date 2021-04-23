@@ -47,7 +47,7 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     protected void onBindItem(ItemMarketCartSubBinding binding, CartShopProductBean productBean, int position) {
         binding.setProduct(productBean);
 
-        String price = DecimalUtil.formatDouble(productBean.getMarketPrice());
+        String price = DecimalUtil.formatDouble(productBean.getSellPrice());
         binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, "", 18));
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {

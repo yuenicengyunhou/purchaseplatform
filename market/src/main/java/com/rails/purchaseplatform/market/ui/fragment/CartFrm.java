@@ -128,12 +128,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         presenter = new CartPresenterImpl(getActivity(), this);
         productPresenter = new ProductPresenterImpl(getActivity(), this);
         addressPresenter = new AddressToolPresenterImpl(getActivity(), this);
-        onRefresh();
     }
 
     @Override
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarLightMode(getActivity());
+        onRefresh();
     }
 
 

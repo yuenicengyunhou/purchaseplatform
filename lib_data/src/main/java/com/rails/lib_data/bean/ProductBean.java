@@ -1,5 +1,7 @@
 package com.rails.lib_data.bean;
 
+import android.text.TextUtils;
+
 /**
  * 商城--产品模型
  *
@@ -48,8 +50,8 @@ public class ProductBean {
     private String created;
     private String modified;
     private Integer yn;
-    private Integer skuId;
-    private Integer itemId;
+    private String skuId;
+    private String itemId;
     private Integer saleStatus;
     private Object skuName;
     private Object skuPrice;
@@ -176,21 +178,6 @@ public class ProductBean {
         this.yn = yn;
     }
 
-    public Integer getSkuId() {
-        return skuId;
-    }
-
-    public void setSkuId(Integer skuId) {
-        this.skuId = skuId;
-    }
-
-    public Integer getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
-    }
 
     public Integer getSaleStatus() {
         return saleStatus;
@@ -222,5 +209,48 @@ public class ProductBean {
 
     public void setSaleNum(Object saleNum) {
         this.saleNum = saleNum;
+    }
+
+
+    public String getSkuId() {
+        splitUrl();
+        return skuId;
+    }
+
+    public void setSkuId(String skuId) {
+        this.skuId = skuId;
+    }
+
+    public String getItemId() {
+        splitUrl();
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+
+    /**
+     * 位置
+     */
+    private void splitUrl() {
+        String linkUrl = getLinkUrl();
+        if (TextUtils.isEmpty(linkUrl)) {
+            return;
+        }
+        String[] urls = linkUrl.split("&");
+        for (int i = 0; i < urls.length; i++) {
+            String[] params = urls[i].split("=");
+            for (int j = 0; j < params.length; i++) {
+                if (j == 1) {
+                    setItemId(params[j]);
+                }
+                if (j == 3) {
+                    setSkuId(params[j]);
+                }
+            }
+
+        }
     }
 }

@@ -87,7 +87,7 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
      */
     public void modifyDef(int position) {
         for (int i = 0; i < mDataSource.size(); i++) {
-            mDataSource.get(i).setHasDefault(i == position ? 1 : 0);
+            mDataSource.get(i).setHasDefault(i == position?1:0);
         }
     }
 

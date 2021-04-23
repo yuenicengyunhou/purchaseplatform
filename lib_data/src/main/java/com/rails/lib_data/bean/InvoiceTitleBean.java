@@ -1,5 +1,8 @@
 package com.rails.lib_data.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.databinding.ObservableField;
 
 /**
@@ -8,57 +11,148 @@ import androidx.databinding.ObservableField;
  * @author： sk_comic@163.com
  * @date: 2021/4/8
  */
-public class InvoiceTitleBean {
+public class InvoiceTitleBean implements Parcelable {
 
-    private String module;
-    private String company;
-    private String invoiceCode;
-    private String address;
-    private String phone;
+
+    private String operator;
+    private String modified;
+    private String creator;
+    private String created;
+    private String id;
+    private String platformId;
+    private String accountId;
+    private String accountName;
+    private int invoiceType;
+    private String invoiceTitle;
+    private String itins;
     private String bank;
-    private String bankCode;
+    private String account;
+    private String address;
+    private String telephone;
 
     public final ObservableField<Boolean> isSel = new ObservableField<>();
 
 
-    public String getModule() {
-        return module;
+    public InvoiceTitleBean(){
+
     }
 
-    public void setModule(String module) {
-        this.module = module;
+    protected InvoiceTitleBean(Parcel in) {
+        operator = in.readString();
+        modified = in.readString();
+        creator = in.readString();
+        created = in.readString();
+        id = in.readString();
+        platformId = in.readString();
+        accountId = in.readString();
+        accountName = in.readString();
+        invoiceType = in.readInt();
+        invoiceTitle = in.readString();
+        itins = in.readString();
+        bank = in.readString();
+        account = in.readString();
+        address = in.readString();
+        telephone = in.readString();
     }
 
-    public String getCompany() {
-        return company;
+    public static final Creator<InvoiceTitleBean> CREATOR = new Creator<InvoiceTitleBean>() {
+        @Override
+        public InvoiceTitleBean createFromParcel(Parcel in) {
+            return new InvoiceTitleBean(in);
+        }
+
+        @Override
+        public InvoiceTitleBean[] newArray(int size) {
+            return new InvoiceTitleBean[size];
+        }
+    };
+
+    public String getOperator() {
+        return operator;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
-    public String getInvoiceCode() {
-        return invoiceCode;
+    public String getModified() {
+        return modified;
     }
 
-    public void setInvoiceCode(String invoiceCode) {
-        this.invoiceCode = invoiceCode;
+    public void setModified(String modified) {
+        this.modified = modified;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCreated() {
+        return created;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(String platformId) {
+        this.platformId = platformId;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public int getInvoiceType() {
+        return invoiceType;
+    }
+
+    public void setInvoiceType(int invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public String getInvoiceTitle() {
+        return invoiceTitle;
+    }
+
+    public void setInvoiceTitle(String invoiceTitle) {
+        this.invoiceTitle = invoiceTitle;
+    }
+
+    public String getItins() {
+        return itins;
+    }
+
+    public void setItins(String itins) {
+        this.itins = itins;
     }
 
     public String getBank() {
@@ -69,12 +163,51 @@ public class InvoiceTitleBean {
         this.bank = bank;
     }
 
-    public String getBankCode() {
-        return bankCode;
+    public String getAccount() {
+        return account;
     }
 
-    public void setBankCode(String bankCode) {
-        this.bankCode = bankCode;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(operator);
+        dest.writeString(modified);
+        dest.writeString(creator);
+        dest.writeString(created);
+        dest.writeString(id);
+        dest.writeString(platformId);
+        dest.writeString(accountId);
+        dest.writeString(accountName);
+        dest.writeInt(invoiceType);
+        dest.writeString(invoiceTitle);
+        dest.writeString(itins);
+        dest.writeString(bank);
+        dest.writeString(account);
+        dest.writeString(address);
+        dest.writeString(telephone);
+    }
 }

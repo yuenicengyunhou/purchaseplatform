@@ -10,24 +10,6 @@ import java.io.Serializable;
 public class AddressBean implements Serializable {
 
 
-    /**
-     * addressId : 0
-     * distributeFlag : 0
-     * email : string
-     * emergencyPerson : string
-     * emergencyPhone : string
-     * fullAddress : string
-     * hasDefault : 0
-     * invoiceAddress : 0
-     * mobile : string
-     * operateFlag : 0
-     * phone : string
-     * receiverName : string
-     * receivingAddress : 0
-     * returnAddress : 0
-     * zip : string
-     */
-
     private long addressId;
     private int distributeFlag;
     private String email;

@@ -24,11 +24,9 @@ public class OrderVerifyBean {
     private AddressBean invoiceAddress;
     private CartBean cart;
     private String time;
-    private String payType;
-    private String totalNum;
-    private String totalPay;
     private OrderBudgetBean budgetBean;
     private OrderPurchaseBean company;
+    private InvoiceTitleBean invoice;
 
     public AddressBean getInvoiceAddress() {
         return invoiceAddress;
@@ -54,29 +52,6 @@ public class OrderVerifyBean {
         this.time = time;
     }
 
-    public String getPayType() {
-        return payType;
-    }
-
-    public void setPayType(String payType) {
-        this.payType = payType;
-    }
-
-    public String getTotalNum() {
-        return totalNum;
-    }
-
-    public void setTotalNum(String totalNum) {
-        this.totalNum = totalNum;
-    }
-
-    public String getTotalPay() {
-        return totalPay;
-    }
-
-    public void setTotalPay(String totalPay) {
-        this.totalPay = totalPay;
-    }
 
     public OrderBudgetBean getBudgetBean() {
         return budgetBean;
@@ -92,5 +67,13 @@ public class OrderVerifyBean {
 
     public OrderPurchaseBean getCompany() {
         return company;
+    }
+
+    public InvoiceTitleBean getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(InvoiceTitleBean invoice) {
+        this.invoice = invoice;
     }
 }

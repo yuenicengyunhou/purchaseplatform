@@ -72,6 +72,8 @@
             android:layout_toEndOf="@+id/view_split"
             android:background="@null"
             android:ems="12"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
             android:hint="搜索单号"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12" />

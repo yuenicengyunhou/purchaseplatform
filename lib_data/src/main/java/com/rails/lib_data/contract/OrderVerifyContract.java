@@ -19,6 +19,21 @@ public interface OrderVerifyContract {
          * @param bean
          */
         void getVerifyOrder(OrderVerifyBean bean);
+
+        /**
+         * 获取token
+         *
+         * @param token
+         */
+        void getOrderToken(String token);
+
+
+        /**
+         * 提交返回结构
+         *
+         * @param msg
+         */
+        void getResult(String msg);
     }
 
 
@@ -31,6 +46,21 @@ public interface OrderVerifyContract {
          * @param addressId 收货地址Id
          */
         void getVerifyOrder(String addressId);
+
+
+        /**
+         * 获取提交采购单token
+         */
+        void getOrderToken();
+
+
+        /**
+         * 提交采购单
+         *
+         * @param token
+         * @param json
+         */
+        void commitOrder(String token, String  json);
 
     }
 }

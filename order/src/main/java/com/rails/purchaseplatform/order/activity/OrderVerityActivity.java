@@ -7,11 +7,22 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.CartBean;
+import com.rails.lib_data.bean.CartShopBean;
+import com.rails.lib_data.bean.CartShopProductBean;
+import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.contract.OrderVerifyContract;
 import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
+import com.rails.lib_data.request.OrderAddressBean;
+import com.rails.lib_data.request.OrderInvoiceBean;
+import com.rails.lib_data.request.OrderVerifyBody;
+import com.rails.lib_data.request.SkuListBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -24,7 +35,10 @@ import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
 import com.rails.purchaseplatform.order.pop.CompanyPop;
 import com.rails.purchaseplatform.order.pop.GoodsPop;
 
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,9 +55,11 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     private OrderVerifyAdapter adapter;
     private OrderVerifyContract.OrderVerifyPresenter presenter;
     private AddressBean addressBean;
+    private OrderVerifyBean verifyBean;
 
     //是否延迟收货 1：延迟收货 0：无延迟收货
     private int receiveType = 0;
+    private String orderToken = "";
 
 
     @Override
@@ -64,7 +80,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.recycler.setAdapter(adapter);
 
         presenter = new OrderVerifyPresenterImpl(this, this);
-
+        presenter.getOrderToken();
         if (addressBean != null) {
             setAddress(addressBean);
             presenter.getVerifyOrder(addressBean.getId());
@@ -88,8 +104,24 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
     @Override
     public void getVerifyOrder(OrderVerifyBean bean) {
+        if (bean == null)
+            return;
+        verifyBean = bean;
         adapter.update((ArrayList) bean.getCart().getShopList(), true);
         setOrderInfo(bean);
+    }
+
+    @Override
+    public void getOrderToken(String token) {
+        orderToken = token;
+    }
+
+    @Override
+    public void getResult(String msg) {
+        String json = "{\"type\":1,\"msg\":\"评价成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/web/purchase/detail\",\"urlright\":\"/web/evalute\"}";
+        ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
+        ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean", bean).navigation();
+        finish();
     }
 
 
@@ -129,17 +161,24 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             barBinding.tvBillPhone.setText(bean.getInvoiceAddress().getReceiverName() + "  " + bean.getInvoiceAddress().getMobile());
         }
 
+        if (bean.getInvoice() != null) {
+            barBinding.rlBill.setKey(bean.getInvoice().getInvoiceTitle());
+        }
+
 
         barBinding.rlPay.setKey("账期支付");
+
 
         if (bean.getBudgetBean() != null) {
             barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getBudgetAmount())));
             barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getUsedAmount())));
         }
 
+        if (bean.getCart() != null) {
+            barBinding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", bean.getCart().getPaymentPrice(), "", 18));
+            barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getCart().getTotalSkuNum()));
+        }
 
-        barBinding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", bean.getTotalPay(), "", 18));
-        barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getTotalNum()));
     }
 
 
@@ -177,13 +216,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             }
         });
 
-        barBinding.btnCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String json = "{\"type\":1,\"msg\":\"评价成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/web/purchase/detail\",\"urlright\":\"/web/evalute\"}";
-                ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
-                ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT).withParcelable("bean", bean).navigation();
-            }
+        barBinding.btnCommit.setOnClickListener(v -> {
+            commitOrder();
+
         });
 
         barBinding.rlGoods.setOnClickListener(v -> {
@@ -191,6 +226,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             pop.setGravity(Gravity.BOTTOM);
             pop.setType(BasePop.MATCH_WRAP);
             pop.setListener((type, time) -> {
+                receiveType = type;
                 setReceiveType(type, time);
             });
             pop.show(getSupportFragmentManager(), "goods");
@@ -213,11 +249,97 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 0) {
-            if (data == null)
-                return;
-            AddressBean bean = (AddressBean) data.getExtras().getSerializable("bean");
-            setAddress(bean);
+            if (requestCode == 0) {
+                if (data == null)
+                    return;
+                AddressBean bean = (AddressBean) data.getExtras().getSerializable("bean");
+                addressBean = bean;
+                setAddress(bean);
+            } else if (requestCode == 1) {
+                if (data == null)
+                    return;
+                InvoiceTitleBean bean = data.getExtras().getParcelable("invoiceBean");
+                verifyBean.setInvoice(bean);
+            }
+
         }
+    }
+
+
+    private void commitOrder() {
+        OrderVerifyBody body = new OrderVerifyBody();
+
+        //组织地址
+
+
+        OrderAddressBean orderAddressBean = new OrderAddressBean();
+        orderAddressBean.setReceiverName(addressBean.getReceiverName());
+        orderAddressBean.setMobile(addressBean.getMobile());
+        orderAddressBean.setProvinceCode(addressBean.getProvinceCode());
+        orderAddressBean.setCityCode(addressBean.getCityCode());
+        orderAddressBean.setCountryCode(addressBean.getCountryCode());
+        orderAddressBean.setDetailAddress(addressBean.getFullAddress());
+        orderAddressBean.setAddress(addressBean.getFullAddress());
+        body.setOrderAddress(orderAddressBean);
+
+        //组织商品内容
+        List<SkuListBean> skuListBeans = new ArrayList<>();
+        if (verifyBean != null) {
+            HashMap<String, String> remarks = new HashMap<>();
+            SkuListBean skuListBean;
+            CartBean cartBean = verifyBean.getCart();
+            body.setPlatformId(cartBean.getPlatformId());
+            body.setAccountId(cartBean.getUserId());
+            body.setOrganizeId(cartBean.getOrganizeId());
+            body.setPaymentPrice(cartBean.getPaymentPrice());
+
+            body.setThrough(1);
+            body.setSettleType(20);
+            body.setDelayFlag("0");
+
+            //结算单位ID
+            if (verifyBean.getCompany() != null)
+                body.setAccountingUnitId(verifyBean.getCompany().getId());
+
+            //支付方式
+            body.setPaymentType(1);
+            //
+            body.setAccountingType(String.valueOf(receiveType));
+
+
+            //发票
+            OrderInvoiceBean orderInvoiceBean = new OrderInvoiceBean();
+            orderInvoiceBean.setInvoiceAddress(verifyBean.getInvoice());
+            //发票内容
+            orderInvoiceBean.setContent(1);
+            //发票类型
+            orderInvoiceBean.setInvoiceType(2);
+            //发票id
+            orderInvoiceBean.setInvoiceTitleId(verifyBean.getInvoice().getId());
+            orderInvoiceBean.setInvoiceModality(2);
+            body.setOrderInvoice(orderInvoiceBean);
+
+
+            //商品  && 备注
+            for (CartShopBean shopBean : verifyBean.getCart().getShopList()) {
+                remarks.put(shopBean.getShopId(), shopBean.remark.get());
+
+                for (CartShopProductBean productBean : shopBean.getSkuList()) {
+                    skuListBean = new SkuListBean();
+                    skuListBean.setItemId(productBean.getItemId());
+                    skuListBean.setSkuNum(productBean.getSkuNum());
+                    skuListBean.setSkuId(productBean.getSkuId());
+                    skuListBean.setSellPrice(productBean.getSellPrice());
+                    skuListBean.setItemName(productBean.getItemName());
+                    skuListBeans.add(skuListBean);
+                }
+            }
+            body.setSkuList(skuListBeans);
+            body.setRemarkMap((JSONObject) JSON.toJSON(remarks));
+        }
+        Logger.d(JSONObject.toJSON(body).toString());
+
+        presenter.commitOrder(orderToken, JSONObject.toJSON(body).toString());
     }
 
 }

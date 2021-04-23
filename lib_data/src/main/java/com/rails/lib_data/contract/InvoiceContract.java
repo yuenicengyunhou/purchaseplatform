@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.InvoiceContentBean;
 import com.rails.lib_data.bean.InvoiceTitleBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -27,9 +28,9 @@ public interface InvoiceContract {
         /**
          * 发票抬头
          *
-         * @param beans
+         * @param listBeen
          */
-        void getInvoiceTitles(ArrayList<InvoiceTitleBean> beans);
+        void getInvoiceTitles(ListBeen<InvoiceTitleBean> listBeen);
 
     }
 
@@ -43,9 +44,15 @@ public interface InvoiceContract {
 
 
         /**
+         * 获取发票基本配置信息
+         */
+        void getInvoiceContents(boolean isAll);
+
+
+        /**
          * 获取发票抬头列表
          */
-        void getInvoiceTitles();
+        void getInvoiceTitles(boolean isDialog, int page);
 
 
         void onInvoice();

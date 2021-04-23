@@ -18,12 +18,17 @@ public class OrderModel {
                 .subscribe(httpRxObserver);
     }
 
-    public void getPurchasePageList(long platformId, long accountId, int queryType, int accountType,HttpRxObserver httpRxObserver) {
+    public void getPurchasePageList(long platformId, String accountId, int queryType, int accountType, String squence, String content, int page, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("accountId", accountId);
         map.put("queryType", queryType);
         map.put("accountType", accountType);
+        map.put(squence, content);
+        map.put("pageSize", 10);
+        map.put("pageNum", page);
+//        map.put("buyerName", buyerName);
+//        map.put("shopName", shopName);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class).purchasePageList(map))
                 .subscribe(httpRxObserver);

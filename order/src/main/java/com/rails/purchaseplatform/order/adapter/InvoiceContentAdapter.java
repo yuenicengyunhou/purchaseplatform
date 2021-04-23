@@ -2,11 +2,15 @@ package com.rails.purchaseplatform.order.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.CompoundButton;
 
+import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.order.R;
 import com.rails.lib_data.bean.InvoiceContentBean;
 import com.rails.purchaseplatform.order.databinding.ItemOrderInvoiceRadioBinding;
+
+import java.util.ArrayList;
 
 /**
  * 发票页面顶部内容选择adapter
@@ -15,6 +19,10 @@ import com.rails.purchaseplatform.order.databinding.ItemOrderInvoiceRadioBinding
  * @date: 2021/4/8
  */
 public class InvoiceContentAdapter extends BaseRecyclerAdapter<InvoiceContentBean, ItemOrderInvoiceRadioBinding> {
+
+
+    private InvoiceContentBean lastBean;
+
     public InvoiceContentAdapter(Context context) {
         super(context);
     }
@@ -37,7 +45,36 @@ public class InvoiceContentAdapter extends BaseRecyclerAdapter<InvoiceContentBea
         } else {
             binding.line.setVisibility(View.VISIBLE);
         }
+
+        binding.imgRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (lastBean != bean) {
+                    lastBean.isSel.set(false);
+                    bean.isSel.set(true);
+                    lastBean = bean;
+                } else {
+                    bean.isSel.set(true);
+                }
+
+            }
+        });
+
     }
 
 
+    @Override
+    public void update(ArrayList itemDatas, boolean isClear) {
+        super.update(itemDatas, isClear);
+        InvoiceContentBean bean;
+        if (isClear && !itemDatas.isEmpty()) {
+            lastBean = (InvoiceContentBean) itemDatas.get(0);
+            lastBean.isSel.set(true);
+        }
+    }
+
+
+    public InvoiceContentBean getLastBean() {
+        return lastBean;
+    }
 }

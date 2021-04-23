@@ -1,21 +1,28 @@
 package com.rails.purchaseplatform.order.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.InvoiceContentBean;
 import com.rails.lib_data.bean.InvoiceTitleBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.contract.InvoiceContract;
 import com.rails.lib_data.contract.InvoicePresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.InvoiceContentAdapter;
-import com.rails.lib_data.bean.InvoiceContentBean;
 import com.rails.purchaseplatform.order.adapter.InvoiceTitleAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderInvoiceBinding;
 
 import java.util.ArrayList;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -29,6 +36,9 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
     private InvoiceContentAdapter typeAdapter, contentAdapter;
     private InvoiceTitleAdapter titleAdapter;
     private InvoiceContract.InvoicePresenter presenter;
+    private int DEF_PAGE = 1;
+    private int page = DEF_PAGE;
+    private AddressBean addressBean;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -37,6 +47,8 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
                 .setImgLeftRes(R.drawable.svg_back_black)
                 .setShowLine(true);
 
+        barBinding.smart.setEnableLoadMore(false);
+        barBinding.smart.setEnableRefresh(false);
 
         typeAdapter = new InvoiceContentAdapter(this);
         barBinding.typeRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
@@ -53,7 +65,12 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
 
         presenter = new InvoicePresenterImpl(this, this);
         presenter.getInvoiceContents();
-        presenter.getInvoiceTitles();
+        presenter.getInvoiceContents(true);
+        presenter.getInvoiceTitles(true, page);
+
+        if (addressBean != null) {
+            setAddress(addressBean);
+        }
     }
 
     @Override
@@ -73,12 +90,78 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
 
     @Override
     public void getInvoiceContents(ArrayList<InvoiceContentBean> types, ArrayList<InvoiceContentBean> contents) {
-        typeAdapter.update(types, true);
-        contentAdapter.update(contents, true);
+        if (types != null)
+            typeAdapter.update(types, true);
+
+        if (contents != null)
+            contentAdapter.update(contents, true);
     }
 
     @Override
-    public void getInvoiceTitles(ArrayList<InvoiceTitleBean> beans) {
-        titleAdapter.update(beans, true);
+    public void getInvoiceTitles(ListBeen<InvoiceTitleBean> listBeen) {
+        titleAdapter.update(listBeen.getList(), true);
+    }
+
+
+    /**
+     * 设置收货地址
+     *
+     * @param bean
+     */
+    private void setAddress(AddressBean bean) {
+        if (bean == null) {
+            barBinding.btnAddress.setVisibility(View.VISIBLE);
+            barBinding.llAddress.setVisibility(View.INVISIBLE);
+        } else {
+            barBinding.btnAddress.setVisibility(View.GONE);
+            barBinding.llAddress.setVisibility(View.VISIBLE);
+
+            barBinding.tvArea.setText(bean.getFullAddress());
+            barBinding.tvAddress.setText(bean.getFullAddress());
+            barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getReceiverName(), bean.getPhone()));
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 0) {
+            if (data == null)
+                return;
+            AddressBean bean = (AddressBean) data.getExtras().getSerializable("bean");
+            setAddress(bean);
+        }
+    }
+
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        barBinding.llAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", "1").navigation(InvoiceActivity.this, 0);
+            }
+        });
+
+        barBinding.btnAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(InvoiceActivity.this, 0);
+            }
+        });
+
+        barBinding.btnAdd.setOnClickListener(v -> {
+            InvoiceTitleBean bean = titleAdapter.getLastBean();
+            if (bean == null) {
+                ToastUtil.showCenter(InvoiceActivity.this, "请选择发票抬头");
+                return;
+            }
+            Intent intent = new Intent();
+            intent.putExtra("invoiceBean", bean);
+            setResult(RESULT_OK, intent);
+            finish();
+        });
     }
 }

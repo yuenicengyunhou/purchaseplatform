@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.address.adapter;
 
 import android.content.Context;
-import android.view.View;
 
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.purchaseplatform.address.R;
