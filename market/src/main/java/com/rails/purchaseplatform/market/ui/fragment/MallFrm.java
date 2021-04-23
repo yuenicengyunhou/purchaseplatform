@@ -233,7 +233,14 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     @Override
     public void onPosition(ProductBean bean, int position) {
         // TODO: 2021/3/23 跳转商品详情
-        goLogin(ProductDetailsActivity.class, "", null);
+        Bundle bundle = new Bundle();
+        bundle.putLong("platformId", bean.getPlatformId());
+        bundle.putString("keyword", bean.getSkuName());
+        bundle.putInt("cid", bean.getCid());
+        bundle.putLong("shopId", bean.getShopId());
+        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
+        bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
+        goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
     }
 
 

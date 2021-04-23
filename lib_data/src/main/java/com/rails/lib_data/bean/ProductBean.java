@@ -53,9 +53,36 @@ public class ProductBean {
     private String skuId;
     private String itemId;
     private Integer saleStatus;
-    private Object skuName;
+    private String skuName;
     private Object skuPrice;
     private Object saleNum;
+    private int cid;
+    private long shopId;
+
+
+    public String getSkuName() {
+        return skuName;
+    }
+
+    public void setSkuName(String skuName) {
+        this.skuName = skuName;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(long shopId) {
+        this.shopId = shopId;
+    }
 
     public Integer getId() {
         return id;
@@ -187,14 +214,6 @@ public class ProductBean {
         this.saleStatus = saleStatus;
     }
 
-    public Object getSkuName() {
-        return skuName;
-    }
-
-    public void setSkuName(Object skuName) {
-        this.skuName = skuName;
-    }
-
     public Object getSkuPrice() {
         return skuPrice;
     }
@@ -239,18 +258,22 @@ public class ProductBean {
         if (TextUtils.isEmpty(linkUrl)) {
             return;
         }
-        String[] urls = linkUrl.split("&");
-        for (int i = 0; i < urls.length; i++) {
-            String[] params = urls[i].split("=");
-            for (int j = 0; j < params.length; i++) {
-                if (j == 1) {
-                    setItemId(params[j]);
-                }
-                if (j == 3) {
-                    setSkuId(params[j]);
-                }
-            }
-
-        }
+        String[] urls = linkUrl.split("itemId=");
+        String[] ids = urls[1].split("&skuId=");
+        setItemId(ids[0]);
+        setSkuId(ids[1]);
+//        for (int i = 0; i < urls.length; i++) {
+//            String[] params = urls[i].split("skuId=");
+//            for (int j = 0; j < params.length; i++) {
+//                if (j == 1) {
+//                    if (i == 0) {
+//                        setItemId(params[j]);
+//                    } else {
+//                        setSkuId(params[j]);
+//                    }
+//                }
+//            }
+//
+//        }
     }
 }

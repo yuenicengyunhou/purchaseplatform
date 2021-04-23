@@ -113,12 +113,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        mPlatformId = extras.getLong("platformId");
-        mItemId = extras.getLong("itemId");
-        mSkuId = extras.getInt("skuId");
-        mKeyword = extras.getString("keyword");
-        mCid = extras.getInt("cid");
-        mShopId = extras.getLong("shopId");
+        mPlatformId = extras.getLong("platformId", 20L);
+        mItemId = extras.getLong("itemId", 1001635L);
+        mSkuId = extras.getInt("skuId", 12997);
+        mKeyword = extras.getString("keyword", "ThinkCentreM720t商用电脑");
+        mCid = extras.getInt("cid", 1001047);
+        mShopId = extras.getLong("shopId", 202003030108L);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -127,8 +127,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
-        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-//        mGetProductDetailsPresenter.getHotSale(mPlatformId, mKeyword, mCid, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
 
         mAddressPresenter = new AddressToolPresenterImpl(this, this);
         mAddressPresenter.getAddress("", "1");
@@ -508,6 +506,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
 
+        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
+//        mGetProductDetailsPresenter.getHotSale(mPlatformId, mKeyword, mCid, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
     }
 
     @Override
