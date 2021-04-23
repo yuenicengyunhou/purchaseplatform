@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -121,7 +122,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
-                        .build(webBean.getUrlright())
+                        .build(webBean.getUrlleft())
                         .navigation();
             }
         });
@@ -130,9 +131,13 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         barBinding.btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String rightParams = webBean.getRightParams();
                 ARouter.getInstance()
                         .build(webBean.getUrlright())
+                        .withString("id", webBean.getRightParams())
+                        .withString("params", rightParams)
                         .navigation();
+
             }
         });
     }

@@ -77,9 +77,14 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             }
 
             @Override
-            protected void onSuccess(ArrayList<String> response) {
+            protected void onSuccess(ArrayList<String> datas) {
                 baseView.dismissDialog();
-                baseView.getResult("提交成功");
+                String orderNo = "";
+                if (!datas.isEmpty()){
+                    orderNo =datas.get(0);
+                }
+
+                baseView.getResult("提交成功",orderNo);
             }
         });
     }

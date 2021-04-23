@@ -33,8 +33,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     @Override
     public void onLogin(String phone, String paw, String code) {
 
-        phone = "15545569785";
-        phone = "17301188098";
+        phone = "17301188000";
         paw = "Pass!word@1234";
         code = "a8bn6t";
 
@@ -75,7 +74,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     public void getCode(String phone) {
 
 //        phone = "15545569785";
-        phone = "17301188098";
+        phone = "17301188000";
         if (!VerificationUtil.isMobile(phone)) {
             ToastUtil.showCenter(mContext, "手机号码格式错误");
             return;

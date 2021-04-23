@@ -33,7 +33,7 @@ public interface OrderVerifyContract {
          *
          * @param msg
          */
-        void getResult(String msg);
+        void getResult(String msg, String data);
     }
 
 
@@ -60,7 +60,7 @@ public interface OrderVerifyContract {
          * @param token
          * @param json
          */
-        void commitOrder(String token, String  json);
+        void commitOrder(String token, String json);
 
     }
 }

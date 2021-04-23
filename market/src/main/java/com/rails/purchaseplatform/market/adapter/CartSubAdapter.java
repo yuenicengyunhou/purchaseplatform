@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -46,6 +47,13 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
     @Override
     protected void onBindItem(ItemMarketCartSubBinding binding, CartShopProductBean productBean, int position) {
         binding.setProduct(productBean);
+
+        String property = productBean.getAttributesName();
+        if (TextUtils.isEmpty(property)){
+            binding.tvProperty.setVisibility(View.GONE);
+        }else{
+            binding.tvProperty.setVisibility(View.VISIBLE );
+        }
 
         String price = DecimalUtil.formatDouble(productBean.getSellPrice());
         binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, "", 18));

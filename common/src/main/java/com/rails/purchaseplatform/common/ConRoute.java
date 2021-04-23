@@ -106,7 +106,7 @@ public class ConRoute {
 
     public final static class WEB_URL {
 
-        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
+//        public final static String BASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
 
         // WangYuhang - local
 //        public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
@@ -115,7 +115,7 @@ public class ConRoute {
 //        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
 
         // SongYanxia - local
-//        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
+        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
 
         public final static String HOME = BASEURL + "home";
 

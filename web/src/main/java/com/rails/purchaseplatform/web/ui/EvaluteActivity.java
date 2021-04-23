@@ -24,7 +24,9 @@ public class EvaluteActivity extends WebActivity<BaseWebBinding> implements JSEv
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        url = ConRoute.WEB_URL.EVALUTE;
+        String params = extras.getString("params");
+        url = TextUtils.isEmpty(params) ? ConRoute.WEB_URL.EVALUTE : ConRoute.WEB_URL.EVALUTE + "?orderNo=" + params;
+        ;
     }
 
     @Override

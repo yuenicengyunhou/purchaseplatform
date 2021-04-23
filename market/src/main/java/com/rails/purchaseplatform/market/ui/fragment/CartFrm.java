@@ -286,10 +286,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         } else if (type == CartAdapter.SUB_DEL) {
             // TODO: 2021/3/28 调用删除接口
         } else if (type == CartAdapter.PROPERTY) {
-            PropertyPop pop = new PropertyPop();
-            pop.setGravity(Gravity.BOTTOM);
-            pop.setType(BasePop.MATCH_WRAP);
-            pop.show(getChildFragmentManager(), "property");
+//            PropertyPop pop = new PropertyPop();
+//            pop.setGravity(Gravity.BOTTOM);
+//            pop.setType(BasePop.MATCH_WRAP);
+//            pop.show(getChildFragmentManager(), "property");
         }
     }
 

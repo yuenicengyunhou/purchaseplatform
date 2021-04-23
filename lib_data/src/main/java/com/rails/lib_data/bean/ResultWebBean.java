@@ -3,8 +3,11 @@ package com.rails.lib_data.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 结果页面，web返回的json
+ *
  * @author： sk_comic@163.com
  * @date: 2021/4/7
  */
@@ -20,12 +23,16 @@ public class ResultWebBean implements Parcelable {
      * urlright : /rails/main
      */
 
+
     private Integer type;
     private String msg;
     private String btnleft;
     private String btnright;
     private String urlleft;
     private String urlright;
+    private String leftParams;
+    private String rightParams;
+
 
     protected ResultWebBean(Parcel in) {
         if (in.readByte() == 0) {
@@ -38,6 +45,8 @@ public class ResultWebBean implements Parcelable {
         btnright = in.readString();
         urlleft = in.readString();
         urlright = in.readString();
+        leftParams = in.readString();
+        rightParams = in.readString();
     }
 
     @Override
@@ -53,6 +62,8 @@ public class ResultWebBean implements Parcelable {
         dest.writeString(btnright);
         dest.writeString(urlleft);
         dest.writeString(urlright);
+        dest.writeString(leftParams);
+        dest.writeString(rightParams);
     }
 
     @Override
@@ -119,4 +130,21 @@ public class ResultWebBean implements Parcelable {
     public void setUrlright(String urlright) {
         this.urlright = urlright;
     }
+
+    public String getLeftParams() {
+        return leftParams;
+    }
+
+    public void setLeftParams(String leftParams) {
+        this.leftParams = leftParams;
+    }
+
+    public String getRightParams() {
+        return rightParams;
+    }
+
+    public void setRightParams(String rightParams) {
+        this.rightParams = rightParams;
+    }
+
 }
