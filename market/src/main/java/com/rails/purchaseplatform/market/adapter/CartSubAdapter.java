@@ -112,7 +112,6 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         binding.btnCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateRemove(position);
                 if (mulPositionListener != null) {
                     mulPositionListener.onPosition(productBean, position, SUB_COLLECT);
                 }
@@ -123,7 +122,6 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         binding.btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateRemove(position);
                 if (mulPositionListener != null) {
                     mulPositionListener.onPosition(productBean, position, SUB_DEL);
                 }

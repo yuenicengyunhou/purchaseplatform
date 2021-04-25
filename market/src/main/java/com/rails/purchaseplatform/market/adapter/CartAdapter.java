@@ -49,6 +49,9 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     //收藏
     public static final int SUB_COLLECT = 7;
 
+    private CartSubAdapter subAdapter;
+    private int lastPosition;
+
 
     public CartAdapter(Context context) {
         super(context);
@@ -67,7 +70,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
             @Override
             public void onPosition(CartShopProductBean bean, int len, int... params) {
-                int size =adapter.getSize();
+                int size = adapter.getSize();
                 if (params[0] == CartSubAdapter.CHECK) {
                     boolean isCheck = isAllChecked(cartShopBean);
                     cartShopBean.isSel.set(isCheck);
@@ -89,15 +92,15 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                     mulPositionListener.onPosition(bean, len, EDIT);
                 } else if (params[0] == CartSubAdapter.SUB_COLLECT) {
                     // TODO: 2021/3/22 收藏
+                    subAdapter = adapter;
                     mulPositionListener.onPosition(bean, len, SUB_COLLECT);
-                    if (size == 0){
+                    if (size == 0) {
                         updateRemove(position);
                     }
                 } else if (params[0] == CartSubAdapter.SUB_DEL) {
                     // TODO: 2021/3/22 删除
-                     if (size == 0){
-                         updateRemove(position);
-                     }
+                    subAdapter = adapter;
+                    lastPosition = position;
                     mulPositionListener.onPosition(bean, len, SUB_DEL);
                 }
 
@@ -152,6 +155,16 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             shopBean.isSel.set(isChecked);
             checkShopAll(shopBean, isChecked);
         }
+    }
+
+
+    /**
+     * 获取全部
+     *
+     * @return
+     */
+    public ArrayList<CartShopBean> getBeans() {
+        return mDataSource;
     }
 
 
@@ -229,6 +242,21 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         super.onBindView(binding);
         binding.recycler.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
+    }
+
+
+    /**
+     * 更新子dapter列表
+     *
+     * @param position
+     */
+    public void updateSubAdater(int position) {
+        if (subAdapter != null) {
+            subAdapter.updateRemove(position);
+            if (position == 0) {
+                updateRemove(lastPosition);
+            }
+        }
     }
 
 }

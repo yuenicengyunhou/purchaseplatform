@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
@@ -77,6 +78,9 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
     @JavascriptInterface
     @Override
     public void onCopy(String code) {
+        if (TextUtils.isEmpty(code))
+            return;
+        SystemUtil.copy(this, code);
         ToastUtil.show(this, code);
     }
 

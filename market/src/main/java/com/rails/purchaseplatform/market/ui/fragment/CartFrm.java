@@ -41,6 +41,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -203,8 +204,20 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getResult(int type, String msg) {
+        if (type == 0) {
+            ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).withSerializable("address", addressBean).navigation();
+        }
         ToastUtil.show(getActivity(), msg);
-        ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).withSerializable("address", addressBean).navigation();
+
+    }
+
+    @Override
+    public void getResult(int type, int position, String msg) {
+        if (type == 1 && position != -1) {
+            cartAdapter.updateSubAdater(position);
+        } else {
+            presenter.getCarts(false, addressBean.getId());
+        }
     }
 
     /**
@@ -215,7 +228,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (type == 0) {
 
         } else if (type == 1) {
-
+            setTotal();
         } else if (type == 2) {
             cartAdapter.checkAll(isSel);
             binding.imgTotal.setSelected(isSel);
@@ -245,6 +258,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             if (addressBean == null)
                 return;
             presenter.verifyCart(String.valueOf(addressBean.getId()));
+        });
+
+        binding.btnDel.setOnClickListener(v -> {
+            //全部删除
+            delAllParams(cartAdapter.getBeans());
         });
 
 
@@ -285,6 +303,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             // TODO: 2021/3/28   调用收藏接口
         } else if (type == CartAdapter.SUB_DEL) {
             // TODO: 2021/3/28 调用删除接口
+            delParams(bean, position);
         } else if (type == CartAdapter.PROPERTY) {
 //            PropertyPop pop = new PropertyPop();
 //            pop.setGravity(Gravity.BOTTOM);
@@ -303,7 +322,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         } else {
             // TODO: 2021/3/22 更改选中按钮，计算总价
-            setTotal();
+            presenter.modifyShopSel(bean.getShopId(), bean.getItemIds(), !bean.isSel.get());
         }
     }
 
@@ -395,4 +414,44 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         addressBean = bean;
         presenter.getCarts(true, String.valueOf(bean.getId()));
     }
+
+
+    /**
+     * 单个商品删除
+     *
+     * @param bean
+     */
+    private void delParams(CartShopProductBean bean, int position) {
+        if (bean == null)
+            return;
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        ArrayList<String> skuIds = new ArrayList<>();
+        skuIds.add(bean.getSkuId());
+        map.put(String.valueOf(bean.getShopId()), skuIds);
+        presenter.delProduct(map, position);
+    }
+
+
+    /**
+     * 全部删除
+     *
+     * @param shopBeans
+     */
+    private void delAllParams(ArrayList<CartShopBean> shopBeans) {
+        if (shopBeans == null)
+            return;
+        if (shopBeans.isEmpty())
+            return;
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        for (CartShopBean shopBean : shopBeans) {
+            ArrayList<String> skuIds = new ArrayList<>();
+            for (CartShopProductBean bean : shopBean.getSkuList()) {
+                skuIds.add(bean.getSkuId());
+            }
+            map.put(String.valueOf(shopBean.getShopId()), skuIds);
+        }
+        presenter.delProduct(map, -1);
+
+    }
+
 }

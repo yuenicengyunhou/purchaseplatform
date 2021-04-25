@@ -112,10 +112,10 @@ public class ConRoute {
 //        public final static String BASEURL = "http://172.28.20.109:3000/purchase-android-web/#/";
 
         //dev地址
-        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
+//        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
 
         // SongYanxia - local
-//        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
+        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
         public final static String BASEPURCHASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
 
         public final static String HOME = BASEURL + "home";
@@ -126,7 +126,7 @@ public class ConRoute {
         // 修改密码
         public final static String MODIFYPAW = BASEURL + "passwordEdit";
 
-// 我的收藏
+        // 我的收藏
         public final static String COLLECT = BASEURL + "goodsCollection";
 
         // 浏览记录

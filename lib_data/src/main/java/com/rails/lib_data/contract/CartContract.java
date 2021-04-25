@@ -6,6 +6,7 @@ import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 购物车页面相关请求 contract
@@ -34,12 +35,21 @@ public interface CartContract {
 
 
         /**
-         * 删除，收藏操作结果
+         * 提交认证
          *
          * @param type
          * @param msg
          */
         void getResult(int type, String msg);
+
+
+        /**
+         * 删除，收藏操作结果
+         * @param type
+         * @param position
+         * @param msg
+         */
+        void getResult(int type,int position,String msg);
 
 
         /**
@@ -96,16 +106,16 @@ public interface CartContract {
         /**
          * 删除商品
          *
-         * @param id
+         * @param map {"202003030109":["15963"]}
          */
-        void delProduct(String id);
+        void delProduct(HashMap<String,ArrayList<String>> map,int position);
 
         /**
          * 收藏商品
          *
          * @param id
          */
-        void collectProduct(String id);
+        void collectProduct(String id,int position);
 
 
         /**
