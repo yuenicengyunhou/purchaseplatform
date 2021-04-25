@@ -21,15 +21,15 @@ import retrofit2.HttpException;
 public class ExceptionEngine {
 
     //网络请求异常
-    public static final int HTTP_ERROR = 9999;
+    public static final String HTTP_ERROR = "9999";
     //解析(服务器)数据错误
-    public static final int DATA_ERROR = 9998;
+    public static final String DATA_ERROR = "9998";
     //网络超时
-    public static final int TIMEOUT_ERROR = 9997;
+    public static final String TIMEOUT_ERROR = "9997";
     //连接网络错误
-    public static final int CONNECT_ERROR = 9996;
+    public static final String CONNECT_ERROR = "9996";
     //未知错误
-    public static final int UN_KNOWN_ERROR = 9995;
+    public static final String UN_KNOWN_ERROR = "9995";
 
 
     public static ErrorBean handleException(Throwable e) {
@@ -39,7 +39,7 @@ public class ExceptionEngine {
             errorBean.setMsg("网络请求异常");  //均视为网络错误
         } else if (e instanceof HttpError) {    //服务器返回的错误
             HttpError httpError = (HttpError) e;
-            errorBean = new ErrorBean(httpError, Integer.parseInt(httpError.getCode()));
+            errorBean = new ErrorBean(httpError, httpError.getCode());
             errorBean.setMsg(httpError.getMsg());
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
@@ -53,7 +53,7 @@ public class ExceptionEngine {
             errorBean = new ErrorBean(e, TIMEOUT_ERROR);
             errorBean.setMsg("请求超时，请检查网络状况");
         } else {  //未知错误
-            errorBean = new ErrorBean(e, CONNECT_ERROR);
+            errorBean = new ErrorBean(e, UN_KNOWN_ERROR);
             errorBean.setMsg("发生了什么，世界大战了吗");
         }
         return errorBean;

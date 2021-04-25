@@ -20,12 +20,15 @@ import java.util.ArrayList;
 public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> implements OrderContract.OrderPresenter {
 
     private final OrderModel model;
-    private final String accountId;
+    private String accountId="";
 
     public OrderPresenterImpl(Activity mContext, OrderContract.OrderView orderView) {
         super(mContext, orderView);
         model = new OrderModel();
         UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
+        if (null == bean) {
+            return;
+        }
         accountId = bean.getId();
     }
 

@@ -21,7 +21,7 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
 
     @Override
     public void onError(ErrorBean errorBean) {
-        int errorCode = errorBean.getCode();
+        String errorCode = errorBean.getCode();
         switch (errorCode) {
             case HTTP_ERROR: {
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();

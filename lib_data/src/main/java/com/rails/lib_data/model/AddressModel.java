@@ -9,6 +9,8 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import java.util.HashMap;
 import java.util.List;
 
+import retrofit2.http.Query;
+
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 public class AddressModel {
@@ -16,7 +18,7 @@ public class AddressModel {
     /**
      * 获取维护地址列表
      */
-    public void queryAddressList(long platformId, long accountId, int accountType, long pageNum, HttpRxObserver httpRxObserver) {
+    public void queryAddressList(long platformId, String accountId, int accountType, long pageNum, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("accountId", accountId);
@@ -32,45 +34,66 @@ public class AddressModel {
     /**
      * 添加地址
      */
-    public void addAddress(long platformId, long accountId, String requestStr, HttpRxObserver httpRxObserver) {
+    public void addAddress(long platformId, String accountId, String requestStr, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("requestStr", requestStr);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).insertAddress(platformId, accountId, requestStr))
+                .create(AddressService.class).insertAddress(map))
                 .subscribe(httpRxObserver);
     }
 
     /**
      * 删除地址
      */
-    public void deleteAddress(long platformId, long accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
+    public void deleteAddress(long platformId, String accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("buyerAddressId", buyerAddressId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).deleteAddress(platformId, accountId, buyerAddressId))
+                .create(AddressService.class).deleteAddress(map))
                 .subscribe(httpRxObserver);
     }
 
     /**
      * 收货地址--重置默认地址  type=0 ：收货地址     type=1:发票地址
      */
-    public void updateDefaultReceiveAddress(long platformId, long accountId, long id, HttpRxObserver httpRxObserver) {
+    public void updateDefaultReceiveAddress(long platformId, String accountId, long id, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("id", id);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).updateDefaultAddress(platformId, accountId, id))
+                .create(AddressService.class).updateDefaultAddress(map))
                 .subscribe(httpRxObserver);
     }
 
     /**
      * 发票地址--重置默认地址
      */
-    public void updateDefaultInvoiceAddress(long platformId, long accountId, long id, HttpRxObserver httpRxObserver) {
+    public void updateDefaultInvoiceAddress(long platformId, String accountId, long id, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("id", id);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).updateDefaultInvoiceAddress(platformId, accountId, id))
+                .create(AddressService.class).updateDefaultInvoiceAddress(map))
                 .subscribe(httpRxObserver);
     }
 
     /**
      * 地址编辑
      */
-    public void editAddress(long platformId, long accountId, long addressId, String json, HttpRxObserver httpRxObserver) {
+    public void editAddress(long platformId, String accountId, long addressId, String json, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("requestStr", json);
+        map.put("buyerAddressId", addressId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).updateAddress(platformId, accountId, json, addressId))
+                .create(AddressService.class).updateAddress(map))
                 .subscribe(httpRxObserver);
     }
 

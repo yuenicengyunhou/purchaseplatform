@@ -60,4 +60,7 @@
     <string name="market_category_bold">1</string>
     <string name="market_category_normal">0</string>
 
+    <!--店铺详情-->
+    <string name="shop_mobile_is">联系电话：</string>
+
 </resources>

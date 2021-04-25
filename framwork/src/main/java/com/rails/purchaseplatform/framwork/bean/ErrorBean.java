@@ -9,25 +9,25 @@ package com.rails.purchaseplatform.framwork.bean;
 public class ErrorBean extends Exception {
 
 
-    private int code;
+    private String code;
     private int errorcode;
     private String msg;
 
-    public ErrorBean(Throwable throwable, int code) {
+    public ErrorBean(Throwable throwable, String code) {
         super(throwable);
         this.code = code;
     }
 
-    public ErrorBean(int code, String msg) {
+    public ErrorBean(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
