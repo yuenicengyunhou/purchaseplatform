@@ -487,6 +487,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
+        binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
 
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
         mGetProductDetailsPresenter.getHotSale(
