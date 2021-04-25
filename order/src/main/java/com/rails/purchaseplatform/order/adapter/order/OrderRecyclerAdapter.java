@@ -108,6 +108,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         holder.orderItem.setOnClickListener(v -> ARouter.getInstance()
                 .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                 .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
+                .withString("orderNo",String.valueOf(orderNo))
                 .navigation());
     }
 

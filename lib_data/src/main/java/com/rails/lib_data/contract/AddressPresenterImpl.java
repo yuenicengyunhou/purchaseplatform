@@ -30,18 +30,13 @@ import java.util.ArrayList;
 public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressView> implements AddressContract.AddressPresenter {
 
     private final AddressModel model;
-    private long accountId = 0;
+    private final String accountId;
 
     public AddressPresenterImpl(Activity mContext, AddressContract.AddressView addressView) {
         super(mContext, addressView);
         model = new AddressModel();
         UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
-        String id = bean.getId();
-        if (null == id) {
-            ToastUtil.show(mContext, "用户信息错误");
-            return;
-        }
-        accountId = Long.parseLong(id);
+        accountId = bean.getId();
     }
 
     @Override

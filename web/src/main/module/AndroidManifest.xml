@@ -40,7 +40,7 @@
             android:screenOrientation="portrait" />
 
 
-        <!--采购单-->
+        <!--订单详情-->
         <activity
             android:name=".ui.OrderDetailActivity"
             android:screenOrientation="portrait" />
@@ -49,6 +49,9 @@
         <activity
             android:name=".ui.EvaluteActivity"
             android:screenOrientation="portrait" />
+        <!--采购单详情-->
+        <activity android:name=".ui.PurchaseDetailActivity"
+            android:screenOrientation="portrait"/>
 
 
     </application>

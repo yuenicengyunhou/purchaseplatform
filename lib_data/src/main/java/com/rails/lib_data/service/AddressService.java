@@ -31,32 +31,32 @@ public interface AddressService {
      * 新增地址信息
      */
     @GET("user/buyer/address/insert")
-    Observable<HttpResult<Boolean>> insertAddress(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("requestStr") String addressJson);
+    Observable<HttpResult<Boolean>> insertAddress(@QueryMap HashMap<String, Object> map);
 
     /**
      * 删除地址信息
      */
     @GET("user/buyer/address/delete")
-    Observable<HttpResult<Boolean>> deleteAddress(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("buyerAddressId") long buyerAddressId);
+    Observable<HttpResult<Boolean>> deleteAddress(@QueryMap HashMap<String, Object> map);
 
     /**
      * 重置默认地址--收货地址
      */
     @GET("user/buyer/address/updateDefaultAddress")
-    Observable<HttpResult<String>> updateDefaultAddress(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("id") long id);
+    Observable<HttpResult<String>> updateDefaultAddress(@QueryMap HashMap<String, Object> map);
 
     /**
      * 重置默认地址--发票地址
      */
     @GET("user/buyer/address/updateDefaultInvoiceAddress")
-    Observable<HttpResult<String>> updateDefaultInvoiceAddress(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("id") long id);
+    Observable<HttpResult<String>> updateDefaultInvoiceAddress(@QueryMap HashMap<String, Object> map);
 
 
     /**
      * 更新地址
      */
     @GET("user/buyer/address/update")
-    Observable<HttpResult<Boolean>> updateAddress(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("requestStr") String addressJson, @Query("buyerAddressId") long buyerAddressId);
+    Observable<HttpResult<Boolean>> updateAddress(@QueryMap HashMap<String, Object> map);
 
 
     /**

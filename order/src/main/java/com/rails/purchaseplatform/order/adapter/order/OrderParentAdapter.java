@@ -48,6 +48,8 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 
         OrderInfoBean parentBean = mDataSource.get(position);
+        long orderNo = parentBean.getOrderNo();
+
         Resources res = mContext.getResources();
 //        holder.lrCode.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getCode()));
 //        holder.lrTime.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getTime()));
@@ -62,8 +64,9 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         String delayTime = parentBean.getDelayReceiveTime() == null ? "" : parentBean.getDelayReceiveTime();
         holder.title.setText(orderNoStr, orderTime, provider, buyer, delayTime);
         holder.title.setOnClickListener(v -> ARouter.getInstance()
-                .build(ConRoute.WEB.WEB_ORDER_DETAIL)
-                .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                .build(ConRoute.WEB.WEB_PURCHASE_DETAIL)
+                .withString("url", ConRoute.WEB_URL.PURCHASE_DETAIL)
+                .withString("orderNo",String.valueOf(orderNo))
                 .navigation());
 
         // 跳转到Android原生的 采购单详情页

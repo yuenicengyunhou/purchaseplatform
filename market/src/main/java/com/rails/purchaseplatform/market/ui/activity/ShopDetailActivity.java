@@ -1,47 +1,47 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.google.gson.reflect.TypeToken;
-import com.rails.lib_data.bean.SearchResultBean;
-import com.rails.lib_data.bean.ShopVO;
-import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
+import com.rails.lib_data.bean.shop.ResultListBean;
+import com.rails.lib_data.bean.shop.ShopInfoBean;
 import com.rails.lib_data.contract.ShopContract;
 import com.rails.lib_data.contract.ShopPresenterImp;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.ShopAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
 import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
 
-import java.lang.reflect.Type;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import androidx.recyclerview.widget.RecyclerView;
+
+import static com.rails.purchaseplatform.market.config.MarketConfig.SHOP_RECOMMEND_PAGE_SIZE;
 
 /**
  * 店铺详情
- *
+ * <p>
  * author： sk_comic@163.com
  * date: 2021/3/23
  */
 @Route(path = ConRoute.MARKET.SHOP_DETAILS)
 public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBinding> implements ShopContract.ShopView {
 
-//    private SearchResultRecyclerAdapter adapter;
+    //    private SearchResultRecyclerAdapter adapter;
     private ShopAdapter adapter;
     private FilterShopPop filterPop;
     private ShopPresenterImp presenter;
     private long shopInfoId;
+    private final int PAGE_DEF = 0;
+    private int mPage = PAGE_DEF;
 
 
     @Override
@@ -61,17 +61,16 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         barBinding.recRecycler.setAdapter(adapter);
+        barBinding.recRecycler.setAutoLoadMoreEnable(true);
+        barBinding.recRecycler.setLoadMoreListener(() -> {
+            mPage++;
+            Log.e("WQ", "loadmore" + mPage);
+            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE);
+        });
+        presenter = new ShopPresenterImp(this, this);
+        presenter.getShopDetails(shopInfoId);
+        presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE);
 
-
-        Type type = new TypeToken<ArrayList<SearchResultBean>>() {
-        }.getType();
-
-        ArrayList<SearchResultBean> beans = JsonUtil.parseJson(this, "searchResult.json", type);
-
-        adapter.update(beans, true);
-
-//        presenter = new ShopPresenterImp(this, this);
-//        presenter.getShopDetails(shopInfoId);
 
     }
 
@@ -110,7 +109,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
     /**
      * 设置选中的view
-     *
+     * <p>
      * param booleans
      */
     private void setSelected(Boolean... booleans) {
@@ -136,14 +135,19 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
 
     @Override
-    public void loadShopInfo(ShopVO shop) {
-        barBinding.tvName.setText(shop.getShopName());
-        barBinding.tvPhone.setText(MessageFormat.format("联系电话：{0}", shop.getMobile()));
-        barBinding.tvLevel.setText("");
+    public void loadShopInfo(ShopInfoBean shop) {
+        barBinding.setShopInfo(shop);
     }
 
     @Override
-    public void loadShopProductList(ArrayList<BaseItemAttribute> list) {
-        adapter.update(list,true);
+    public void loadShopProductList(ArrayList<ResultListBean> list) {
+        barBinding.recRecycler.setLoadingMore(false);
+        if (!list.isEmpty()) {
+            adapter.update(list, mPage == PAGE_DEF);
+        } else {
+            ToastUtil.show(this, "最后一页啦");
+        }
     }
+
+    /**/
 }
