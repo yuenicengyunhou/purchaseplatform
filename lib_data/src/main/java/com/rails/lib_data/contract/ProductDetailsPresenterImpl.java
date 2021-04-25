@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;

@@ -13,6 +13,6 @@ import retrofit2.http.QueryMap;
 public interface HotSearchService {
 
     // TODO: 2021/04/19 修改请求地址
-    @GET("/app-item-service/app/v1/mall/search/querySaleHotItem")
-    Observable<HttpResult<ArrayList<HotSearchBean>>> getHotSearch(@QueryMap HashMap<String, String> params);
+    @GET("platform/mall/hotWord/queryHotWordList")
+    Observable<HttpResult<ArrayList<HotSearchBean>>> getHotSearch(@QueryMap HashMap<String, Object> params);
 }

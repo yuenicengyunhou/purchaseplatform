@@ -72,12 +72,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private CartContract.CartPresenter2 mPresenter;
 
-    final private String[] TAB_URLS = {
-            ConRoute.WEB_URL.PRODUCT_INFO,
-            ConRoute.WEB_URL.PACKAGE_LIST,
-            ConRoute.WEB_URL.SERVICES,
-            ConRoute.WEB_URL.RECOMMENDS,
-    };
+    final private ArrayList<String> TAB_URLS = new ArrayList<>();
 
     private ArrayList<String> pictureUrls = new ArrayList<>();
     private PropertyPop mPop;
@@ -124,6 +119,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
+        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO + "?platformId=20&itemId=" + mItemId + "&areaId=-1");
+        TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST + "?platformId=20&skuId=" + mSkuId);
+        TAB_URLS.add(ConRoute.WEB_URL.SERVICES /*+ "platformId=20&skuId=" + mSkuId*/);
+        TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS /*+ "platformId=20&skuId=" + mSkuId*/);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
@@ -303,7 +302,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         for (int i = 0; i < WEB_VIEWS.length; i++) {
             setWeb(WEB_VIEWS[i], i);
-            WEB_VIEWS[i].loadUrl(TAB_URLS[i]);
+            WEB_VIEWS[i].loadUrl(TAB_URLS.get(i));
             WEB_VIEWS[i].addJavascriptInterface(this, "app");
         }
     }
@@ -541,7 +540,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     @JavascriptInterface
-    public long getItemId() {
+    public long getItemId4H5() {
         return mItemId;
+    }
+
+    @JavascriptInterface
+    public int getSkuId4H5() {
+        return mSkuId;
     }
 }

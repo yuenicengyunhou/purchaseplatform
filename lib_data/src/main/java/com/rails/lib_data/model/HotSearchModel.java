@@ -11,8 +11,9 @@ public class HotSearchModel {
 
     public void getHotSearch(HttpRxObserver httpRxObserver) {
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("platformId", "20");
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", 20L);
+        params.put("listingStatus", 1);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(HotSearchService.class)
                 .getHotSearch(params))

@@ -2,14 +2,14 @@ package com.rails.lib_data.bean;
 
 public class HotSearchBean {
 
-    private String searchItem;
+    private String name;
 
 
     public String getSearchItem() {
-        return searchItem;
+        return name;
     }
 
     public void setSearchItem(String searchItem) {
-        this.searchItem = searchItem;
+        this.name = searchItem;
     }
 }

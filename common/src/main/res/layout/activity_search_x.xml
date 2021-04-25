@@ -4,9 +4,6 @@
 
     <data>
 
-        <variable
-            name="hotSearch"
-            type="com.rails.lib_data.bean.HotSearchBean" />
     </data>
 
     <LinearLayout
