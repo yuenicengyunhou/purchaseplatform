@@ -59,17 +59,17 @@ public class ProductDetailsModel {
      * @param platformId
      * @param keyword
      * @param cid
-     * @param shopId
+     * @param pageNum
      * @param httpRxObserver
      */
-    public void getHotSale(long platformId, String keyword, int cid, long shopId, HttpRxObserver httpRxObserver) {
+    public void getHotSale(long platformId, String keyword, int cid, int pageNum, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         // TODO: 2021/4/22 传入数据
-//        params.put("platformId", platformId);
+        params.put("platformId", platformId);
 //        params.put("keyword", "11");
-//        params.put("businessType", 1);
-//        params.put("pageNum", 1);
-//        params.put("cid", 1001047); // 1001047
+        params.put("businessType", 1);
+        params.put("pageNum", pageNum);
+        params.put("cid", cid); // 1001047
 //        params.put("shopId", 202003030108L); //202003030108L
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()

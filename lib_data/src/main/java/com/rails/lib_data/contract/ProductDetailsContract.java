@@ -67,9 +67,9 @@ public interface ProductDetailsContract {
          * @param platformId
          * @param keyword
          * @param cid
-         * @param shopId
+         * @param pageNum
          * @param isDialog
          */
-        void getHotSale(long platformId, String keyword, int cid, long shopId, boolean isDialog);
+        void getHotSale(long platformId, String keyword, int cid, int pageNum, boolean isDialog);
     }
 }

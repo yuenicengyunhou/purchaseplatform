@@ -37,7 +37,6 @@ import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl2;
 import com.rails.lib_data.contract.ProductDetailsContract;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
-import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
@@ -63,7 +62,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         implements
         JSBack,
         CartContract.DetailsCartView,
-        ProductDetailsContract.ProductDetailsView, AddressToolContract.AddressToolView {
+        ProductDetailsContract.ProductDetailsView,
+        AddressToolContract.AddressToolView {
 
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
@@ -84,13 +84,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private long mShopId;
     private String mKeyword;
     private ArrayList<AddressBean> addresses;
-
-//    {
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443407217/428_428_4A986AE3579911F078F43B674B4EF611BE841294A15C2C50mp.png");
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443408887/428_428_8C0DCB8B48F9A0DDDF1C3A8BC7958FBA2AE24D308646AAA2mp.png");
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
-//    }
 
     final private ArrayList<View> VIEWS = new ArrayList<>();
 
@@ -496,7 +489,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.textView.setText(bean.getItemPublishVo().getShopName());
 
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-        mGetProductDetailsPresenter.getHotSale(mPlatformId, "测试", 1000812, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
+        mGetProductDetailsPresenter.getHotSale(
+                mPlatformId, "",
+                mCid, 1, false);
     }
 
     @Override
@@ -537,15 +532,5 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onLogin() {
 
-    }
-
-    @JavascriptInterface
-    public long getItemId4H5() {
-        return mItemId;
-    }
-
-    @JavascriptInterface
-    public int getSkuId4H5() {
-        return mSkuId;
     }
 }
