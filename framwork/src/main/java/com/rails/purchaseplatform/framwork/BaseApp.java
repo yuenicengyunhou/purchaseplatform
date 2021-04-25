@@ -88,7 +88,7 @@ public class BaseApp extends Application {
      */
     private void initFont() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("lantingzhongcuhei.ttf")
+                .setDefaultFontPath("lantinghei.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
     }
