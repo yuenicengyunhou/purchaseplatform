@@ -339,7 +339,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop();
+//            showPropertyPop();
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
@@ -540,5 +540,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     }
 
-//    public String
+    @JavascriptInterface
+    public long getItemId() {
+        return mItemId;
+    }
 }
