@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="resultByShopProduct"
-            type="com.rails.lib_data.bean.OrderItemBean" />
+            name="itemAttr"
+            type="com.rails.lib_data.bean.forAppShow.ItemAttribute" />
     </data>
 
     <LinearLayout
@@ -19,7 +19,7 @@
 
         <com.rails.purchaseplatform.common.widget.RatioImage
             android:id="@+id/ri_picture"
-            imgUrl="@{resultByShopProduct.pictureUrl}"
+            imgUrl="@{itemAttr.pictureUrl}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{resultByShopProduct.itemName}"
+            android:text="@{itemAttr.skuName}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13" />
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:text="@{resultByShopProduct.itemType}"
+            android:text="@{itemAttr.skuName}"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12" />
 
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_2"
                 android:lines="1"
-                android:text="@{resultByShopProduct.itemPrice}"
+                android:text="@{itemAttr.skuName}"
                 android:textColor="@color/font_red"
                 android:textSize="@dimen/font_size_13" />
 

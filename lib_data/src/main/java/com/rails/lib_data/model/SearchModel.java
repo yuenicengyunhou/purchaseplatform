@@ -52,12 +52,12 @@ public class SearchModel {
             boolean isBuy, int pageNum, int pageSize, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("platformId", platformId);
-        params.put("accountId", accountId);
+        params.put("platformId", 20L);
+        params.put("accountId", 1);
         params.put("keyword", keyword);
-        params.put("isBuy", isBuy);
-        params.put("pageNum", pageNum);
-        params.put("pageSize", pageSize);
+        params.put("isBuy", false);
+        params.put("pageNum", 1);
+        params.put("pageSize", 30);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(SearchService.class)

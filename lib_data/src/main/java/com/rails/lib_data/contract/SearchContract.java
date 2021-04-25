@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
+import com.rails.lib_data.bean.forAppShow.ItemAttribute;
+import com.rails.lib_data.bean.forAppShow.ShopAttribute;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public interface SearchContract {
          * @param hasMore
          * @param isClear
          */
-        void getItemListWithKeywordOnly(ArrayList<BaseItemAttribute> searchResultBeans, boolean hasMore, boolean isClear);
+        void getItemListWithKeywordOnly(ArrayList<ItemAttribute> searchResultBeans, boolean hasMore, boolean isClear);
     }
 
 
@@ -44,7 +45,7 @@ public interface SearchContract {
          * @param isClear
          */
         // TODO: 2021/04/19 修改参数
-        void getShopListWithKeywordOnly(ArrayList<Object> bean, boolean hasMore, boolean isClear);
+        void getShopListWithKeywordOnly(ArrayList<ShopAttribute> bean, boolean hasMore, boolean isClear);
     }
 
 

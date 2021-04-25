@@ -3,7 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.content.Intent;
 
-import com.rails.lib_data.bean.OrderItemBean;
+import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultByShopProductBinding;
@@ -11,10 +11,10 @@ import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 
 import java.util.ArrayList;
 
-public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<OrderItemBean, ItemSearchResultByShopProductBinding> {
+public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemAttribute, ItemSearchResultByShopProductBinding> {
 
     private Context mContext;
-    private ArrayList<OrderItemBean> mBeans;
+    private ArrayList<ItemAttribute> mBeans;
 
     public SearchResultByShopProductsAdapter(Context context) {
         super(context);
@@ -27,14 +27,14 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<Order
     }
 
     @Override
-    protected void onBindItem(ItemSearchResultByShopProductBinding binding, OrderItemBean OrderItemBean, int position) {
-        binding.setResultByShopProduct(mBeans.get(position));
+    protected void onBindItem(ItemSearchResultByShopProductBinding binding, ItemAttribute itemAttribute, int position) {
+        binding.setItemAttr(mBeans.get(position));
         binding.rcProduct.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class));
         });
     }
 
-    public void setArrayList(ArrayList<OrderItemBean> list) {
+    public void setArrayList(ArrayList<ItemAttribute> list) {
         mBeans = list;
     }
 }

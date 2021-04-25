@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.rails.lib_data.R;
-import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
+import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SkuItemBean;
@@ -41,9 +41,9 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
             @Override
             protected void onSuccess(SearchDataByItemBean response) {
-                ArrayList<BaseItemAttribute> baseItemAttributes = new ArrayList<>();
+                ArrayList<ItemAttribute> itemAttributes = new ArrayList<>();
                 for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
-                    BaseItemAttribute attribute = new BaseItemAttribute();
+                    ItemAttribute attribute = new ItemAttribute();
                     SkuItemBean sku = searchItemBean.getItem_sku().get(0);
                     attribute.setCid(sku.getCid());
                     attribute.setSkuName(sku.getSkuName());
@@ -55,7 +55,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     attribute.setSkuId(sku.getSkuId());
                     attribute.setCid(sku.getCid());
                     attribute.setShopId(sku.getShopId());
-                    baseItemAttributes.add(attribute);
+                    itemAttributes.add(attribute);
                 }
 
                 baseView.dismissDialog();
@@ -63,7 +63,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                 if (isCallBack()) {
                     baseView.dismissDialog();
                     boolean isClear = pageNum <= 1;
-                    baseView.getItemListWithKeywordOnly(baseItemAttributes, true, isClear);
+                    baseView.getItemListWithKeywordOnly(itemAttributes, true, isClear);
                 }
             }
         });

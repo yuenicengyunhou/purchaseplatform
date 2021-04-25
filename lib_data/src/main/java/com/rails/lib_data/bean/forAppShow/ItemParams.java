@@ -1,5 +1,9 @@
 package com.rails.lib_data.bean.forAppShow;
 
+
+/**
+ * 展示在商品详情页的参数弹窗
+ */
 public class ItemParams {
 
     /**
