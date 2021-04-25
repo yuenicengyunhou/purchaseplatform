@@ -25,8 +25,27 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
  * @date: 2021/3/8
  */
 public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemMarketProductRecBinding> {
+
+    private int[] res;
+    private String[] colors;
+
     public ProductRecAdapter(Context context) {
         super(context);
+        res = new int[]{
+                R.drawable.ic_market_bluethree,
+                R.drawable.ic_market_bluelightthree,
+                R.drawable.ic_market_brownthree,
+                R.drawable.ic_market_blacklightthree,
+                R.drawable.ic_market_greenthree
+        };
+
+        colors = new String[]{
+                "#5566DF",
+                "#47ACF1",
+                "#DDA15B",
+                "#4F5468",
+                "#3DC999"
+        };
     }
 
     @Override
@@ -38,11 +57,9 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
         try {
-            binding.tvTitle.setTextColor(Color.parseColor(bean.getColor()));
-            VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(mContext.getResources(), R.drawable.svg_market_threeline, null);
-            vectorDrawableCompat.setTint(Color.parseColor(bean.getColor()));
-            binding.imgLeft.setImageDrawable(vectorDrawableCompat);
-            binding.imgRight.setImageDrawable(vectorDrawableCompat);
+            binding.tvTitle.setTextColor(Color.parseColor(colors[position % 5]));
+            binding.imgLeft.setImageResource(res[position % 5]);
+            binding.imgRight.setImageResource(res[position % 5]);
         } catch (Exception e) {
 
         }

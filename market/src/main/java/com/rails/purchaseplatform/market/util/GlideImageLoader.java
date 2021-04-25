@@ -21,7 +21,7 @@ public class GlideImageLoader extends ImageLoader {
 
         if (!url.contains("https"))
             url = "https:" + url;
-        Glide.with(context).load((String) path).into(imageView);
+        Glide.with(context).load(url).into(imageView);
     }
 
 

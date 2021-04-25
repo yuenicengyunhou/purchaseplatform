@@ -32,7 +32,7 @@
 
                 <com.rails.purchaseplatform.common.widget.RatioImage
                     android:id="@+id/img_left"
-                    android:layout_width="@dimen/dp_10"
+                    android:layout_width="@dimen/dp_8"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="@dimen/dp_tiny"
@@ -40,8 +40,8 @@
                     android:layout_toLeftOf="@+id/tv_title"
                     android:scaleType="centerCrop"
                     android:src="@drawable/svg_market_threeline"
-                    app:h="2"
-                    app:w="1" />
+                    app:h="3"
+                    app:w="2" />
 
 
                 <TextView
@@ -61,7 +61,7 @@
 
                 <com.rails.purchaseplatform.common.widget.RatioImage
                     android:id="@+id/img_right"
-                    android:layout_width="@dimen/dp_10"
+                    android:layout_width="@dimen/dp_8"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="@dimen/dp_tiny"
@@ -69,8 +69,8 @@
                     android:layout_toRightOf="@+id/tv_title"
                     android:scaleType="centerCrop"
                     android:src="@drawable/svg_market_threeline"
-                    app:h="2"
-                    app:w="1" />
+                    app:h="3"
+                    app:w="2" />
 
                 <!--将来可能还需要-->
                 <!--                <LinearLayout-->
