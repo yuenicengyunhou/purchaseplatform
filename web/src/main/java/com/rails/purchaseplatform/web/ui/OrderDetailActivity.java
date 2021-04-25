@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.web.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -26,6 +27,9 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         url = ConRoute.WEB_URL.ORDER_DETAIL;
+        String orderNo = extras.getString("orderNo");
+        url = url + "?orderNo=" + orderNo ;
+        Log.e("WQ", "--url==" + url);
     }
 
     @Override

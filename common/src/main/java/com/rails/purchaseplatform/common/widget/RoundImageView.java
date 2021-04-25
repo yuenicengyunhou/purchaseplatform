@@ -386,6 +386,7 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
     protected void onDraw(Canvas canvas) {
         if (getDrawable() != null) {
             resetSize(Math.min(getWidth(), getHeight()) / 2f);
+            //java.lang.OutOfMemoryError: Failed to allocate a 835340 byte allocation with 231024 free bytes and 225KB until OOM
             Bitmap bm = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
             Canvas mCanvas = new Canvas(bm);
             super.onDraw(mCanvas);

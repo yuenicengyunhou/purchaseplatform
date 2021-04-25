@@ -46,7 +46,7 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<SubSkuDemandIn
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         SubSkuDemandInfoBean bean = mDataSource.get(position);
         String sellPrice = bean.getSellPrice();
-        Glide.with(mContext).load(bean.getPictureUrl()).into(holder.imgProduct);
+        Glide.with(mContext).load("https:"+bean.getPictureUrl()).into(holder.imgProduct);
         holder.tvTitle.setText(bean.getItemName());
         holder.tvProperty.setText(bean.getAttributes());
 

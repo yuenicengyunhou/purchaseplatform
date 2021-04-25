@@ -116,6 +116,7 @@ public class ConRoute {
 
         // SongYanxia - local
 //        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
+        public final static String BASEPURCHASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
 
         public final static String HOME = BASEURL + "home";
 
@@ -139,11 +140,11 @@ public class ConRoute {
         public final static String ORDER_DETAIL = BASEURL + "orderDetails";
 
         //采购单详情
-        public final static String PURCHASE_DETAIL = BASEURL + "purOrderDetails";
+        public final static String PURCHASE_DETAIL = BASEPURCHASEURL + "purOrderDetails";
 
 
         // 订单详情
-        public final static String ORDER_SUB_DETAIL = BASEURL + "orderDetails";
+        public final static String ORDER_SUB_DETAIL = BASEPURCHASEURL + "orderDetails";
 
         // 待审核
         public final static String APPROVAL = BASEURL + "approvalList";
@@ -163,11 +164,6 @@ public class ConRoute {
 
         // 推荐单位
         public final static String RECOMMENDS = BASEURL + "serviceOrPartner?service=0";
-
-
-//        public final static String EVALUTE = BASEURL + "evaluate";
-//        public final static String EVALUTE = BASEURL + "evaluate";
-//        public final static String EVALUTE = BASEURL + "evaluate";
 
     }
 
