@@ -236,9 +236,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         bundle.putString("keyword", bean.getSkuName());
         bundle.putInt("cid", bean.getCid());
         bundle.putLong("shopId", bean.getShopId());
-        // TODO: 2021/3/23 跳转商品详情 数据
-//        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
-//        bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
+        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
+        bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
         goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
     }
 
