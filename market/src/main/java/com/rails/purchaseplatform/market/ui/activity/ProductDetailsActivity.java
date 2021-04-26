@@ -503,6 +503,22 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 mPlatformId, "",
                 mCid, 1, false);
 
+//        binding.ratioImage // TODO 设置图片
+
+        String creditLv = bean.getItemPublishVo().getCreditLevel();
+        switch (creditLv) {
+            case "B":
+                binding.tvCredit.setText("风险较低");
+                break;
+            case "C":
+                binding.tvCredit.setText("风险较高");
+                break;
+            case "D":
+                binding.tvCredit.setText("风险极高");
+                break;
+            default:
+                break;
+        }
 
         ItemAfterSaleVo afterSale = bean.getItemPublishVo().getItemAfterSaleVo();
         if (afterSale.getRefundService() == 1) refundInfo = "特殊商品不允许退货。";
