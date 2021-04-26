@@ -54,6 +54,7 @@ public interface MarketIndexContract {
 
         /**
          * 获取首页数据
+         *
          * @param bean
          */
         void getIndexInfo(MarketIndexBean bean);
@@ -67,8 +68,9 @@ public interface MarketIndexContract {
          * 获取首页推荐产品列表
          *
          * @param isDialog 是否显示加载窗口
+         * @param isHot    是否显示热门产品
          */
-        void getRectProducts(boolean isDialog);
+        void getRectProducts(boolean isDialog, boolean isHot);
 
 
         /**
@@ -93,7 +95,6 @@ public interface MarketIndexContract {
         void getMarketIndexInfo(boolean isDialog);
 
     }
-
 
 
 }

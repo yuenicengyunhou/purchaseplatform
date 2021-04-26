@@ -1,32 +1,34 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.BannerBean;
+import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
+import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
 import com.rails.lib_data.contract.CartToolPresenterImpl;
-import com.rails.lib_data.contract.ProductContract;
-import com.rails.lib_data.contract.ProductPresenterImpl;
+import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
+import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
-import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -37,7 +39,6 @@ import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
-import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -55,7 +56,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/9
  */
 public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContract.CartView,
-        LoadMoreRecycler.LoadMoreListener, ProductContract.ProductView, AddressToolContract.AddressToolView,
+        LoadMoreRecycler.LoadMoreListener, MarketIndexContract.MarketIndexView, AddressToolContract.AddressToolView,
         MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean>, CartContract.DetailsCartView {
 
     int type = 0;//是否显示标题
@@ -69,7 +70,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     CartContract.CartPresenter presenter;
     AddressToolContract.AddressToolPresenter addressPresenter;
-    ProductContract.ProductPresenter productPresenter;
+    MarketIndexContract.MarketIndexPresenter productPresenter;
     CartContract.CartPresenter2 toolPresenter;
 
 
@@ -130,7 +131,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         presenter = new CartPresenterImpl(getActivity(), this);
         toolPresenter = new CartToolPresenterImpl(getActivity(), this);
-        productPresenter = new ProductPresenterImpl(getActivity(), this);
+        productPresenter = new MarKetIndexPresenterImpl(getActivity(), this);
         addressPresenter = new AddressToolPresenterImpl(getActivity(), this);
     }
 
@@ -174,19 +175,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        productPresenter.getHotProducts(isDialog, page);
+        productPresenter.getRectProducts(false, true);
     }
 
     @Override
     public void onLoadMore() {
         page++;
         notifyData(false, page);
-    }
-
-    @Override
-    public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
-        recAdapter.update(productBeans, isClear);
-        binding.recRecycler.notifyMoreFinish(hasMore);
     }
 
     @Override
@@ -455,7 +450,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         for (CartShopBean shopBean : shopBeans) {
             ArrayList<String> skuIds = new ArrayList<>();
             for (CartShopProductBean bean : shopBean.getSkuList()) {
-                skuIds.add(bean.getSkuId());
+                if (bean.isSel.get() && bean.canSel.get())
+                    skuIds.add(bean.getSkuId());
             }
             map.put(String.valueOf(shopBean.getShopId()), skuIds);
         }
@@ -478,7 +474,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         StringBuffer buffer = new StringBuffer();
         for (CartShopBean shopBean : shopBeans) {
             for (CartShopProductBean bean : shopBean.getSkuList()) {
-                if (!bean.isCollect.get()) {
+                if (!bean.isCollect.get() && bean.isSel.get()) {
                     skuIds.add(bean.getSkuId());
                     buffer.append(bean.getSkuId() + ",");
                 }
@@ -501,5 +497,33 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         else {
             presenter.getCarts(false, addressBean.getId());
         }
+    }
+
+    @Override
+    public void getRecProducts(ArrayList<ProductRecBean> beans) {
+        if (beans.isEmpty())
+            return;
+        recAdapter.update(beans.get(0).getFloorList(), true);
+        binding.recRecycler.notifyMoreFinish(false);
+    }
+
+    @Override
+    public void getBanners(ArrayList<BannerBean> bannerBeans) {
+
+    }
+
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans) {
+
+    }
+
+    @Override
+    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
+
+    }
+
+    @Override
+    public void getIndexInfo(MarketIndexBean bean) {
+
     }
 }

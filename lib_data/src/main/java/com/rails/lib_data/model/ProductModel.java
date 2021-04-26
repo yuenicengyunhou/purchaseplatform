@@ -32,11 +32,14 @@ public class ProductModel {
     }
 
 
+    /**
+     * 获取热销产品
+     *
+     * @param httpRxObserver
+     */
     public void getHotProducts(HttpRxObserver httpRxObserver) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("platformId", "20");
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(ProductService.class, 1).getRecProducts(params))
+                .create(ProductService.class).getHotProducts())
                 .subscribe(httpRxObserver);
     }
 
