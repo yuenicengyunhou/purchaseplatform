@@ -14,7 +14,7 @@ public class ProductPriceBean {
     private String skuName;
     private String shopName;
     private List<ItemPicture> pictureUrl;
-    private List packinglist;
+    private List<Packaging> packinglist;
     private String packageDis;
     private double score;
     private int saleNum;
@@ -88,11 +88,11 @@ public class ProductPriceBean {
         this.pictureUrl = pictureUrl;
     }
 
-    public List getPackinglist() {
+    public List<Packaging> getPackinglist() {
         return packinglist;
     }
 
-    public void setPackinglist(List packinglist) {
+    public void setPackinglist(List<Packaging> packinglist) {
         this.packinglist = packinglist;
     }
 

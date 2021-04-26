@@ -12,7 +12,7 @@ public class ItemAfterSaleVo {
     private int changeDuration;
     private int repaireDuration;
     //    private String afterSalesExplain; // TODO: 2021/04/20 类型存疑
-//    private String specialDesc;
+    private String specialDesc;
     private int specialShow;
 
 
@@ -106,14 +106,14 @@ public class ItemAfterSaleVo {
 //    public void setAfterSalesExplain(Object afterSalesExplain) {
 //        this.afterSalesExplain = afterSalesExplain;
 //    }
-//
-//    public Object getSpecialDesc() {
-//        return specialDesc;
-//    }
-//
-//    public void setSpecialDesc(Object specialDesc) {
-//        this.specialDesc = specialDesc;
-//    }
+
+    public String getSpecialDesc() {
+        return specialDesc;
+    }
+
+    public void setSpecialDesc(String specialDesc) {
+        this.specialDesc = specialDesc;
+    }
 
     public int getSpecialShow() {
         return specialShow;

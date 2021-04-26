@@ -28,9 +28,11 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportData;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
@@ -97,6 +99,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ProductDetailsBean productDetailsBean;
 
+    private String recommendOrg, bindOrgName, accountName;
+    private String refundInfo, changeInfo, repairInfo, specialInfo;
+    private String packagingList;
+
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -144,9 +150,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
-
-
-        loadWebView();
 
         int px = (int) ScreenSizeUtil.dp2px(this, 80);
         float px2 = ScreenSizeUtil.dp2px(this, 240);
@@ -296,7 +299,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         for (int i = 0; i < WEB_VIEWS.length; i++) {
             setWeb(WEB_VIEWS[i], i);
             WEB_VIEWS[i].loadUrl(TAB_URLS.get(i));
-            WEB_VIEWS[i].addJavascriptInterface(this, "app");
+            WEB_VIEWS[i].addJavascriptInterface(ProductDetailsActivity.this, "app");
         }
     }
 
@@ -493,6 +496,20 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getHotSale(
                 mPlatformId, "",
                 mCid, 1, false);
+
+
+        ItemAfterSaleVo afterSale = bean.getItemPublishVo().getItemAfterSaleVo();
+        if (afterSale.getRefundService() == 1) refundInfo = "特殊商品不允许退货。";
+        else refundInfo = "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请退货。";
+        if (afterSale.getChangeService() == 1) changeInfo = "特殊商品，一经签收不予换货。";
+        else refundInfo = "确认收货后" + afterSale.getChangeDuration() + "日内出现质量问题可申请换货。";
+        repairInfo = "确认收货后" + afterSale.getRepaireDuration() + "月内出现质量问题可审请质保。";
+        specialInfo = "特殊说明" + afterSale.getSpecialDesc();
+
+        SupplierInfoImportData suppData = bean.getItemPublishVo().getSupplierInfoImportData();
+        recommendOrg = suppData.getRecommendOrg();
+        bindOrgName = suppData.getBindOrgName();
+        accountName = suppData.getAccountName();
     }
 
     @Override
@@ -500,6 +517,29 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
         binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
         binding.fsvScore.setStar((int) bean.getScore());
+
+        if (bean.getPackinglist().size() != 0)
+            spliceList(bean.getPackinglist().get(0).getAnnexName());
+
+        loadWebView();
+    }
+
+    public void spliceList(String annexName) {
+        String result = "{\"data\":[";
+        if (annexName.contains("``")) {
+            String[] strings = annexName.split("``");
+            for (int i = 0; i < strings.length; i++) {
+                String[] key_values = strings[i].split("\\*");
+                strings[i].split("\\*");
+                if (i == strings.length - 1)
+                    result += "{\"key\":\"" + key_values[0] + "\",\"value\":\"" + key_values[1] + "\"}]}";
+                else
+                    result += "{\"key\":\"" + key_values[0] + "\",\"value\":\"" + key_values[1] + "\"},";
+            }
+        } else {
+            result += "{\"key\":\"" + annexName.split("\\*")[0] + "\",\"value\":\"" + annexName.split("\\*")[1] + "\"}]}";
+        }
+        packagingList = result;
     }
 
     @Override
@@ -534,4 +574,38 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void onLogin() {
 
     }
+
+
+    /**
+     * H5 商品信息
+     */
+    @JavascriptInterface
+    public String getProductInfo() {
+        return "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021209740.jpg";
+    }
+
+    /**
+     * H5 推荐单位
+     */
+    @JavascriptInterface
+    public String getRecommend() {
+        return "{\"recommendOrg\":\"" + recommendOrg + "\",\"bindOrgName\":\"" + bindOrgName + "\",\"accountName\":\"" + accountName + "\"}";
+    }
+
+    /**
+     * H5 售后服务
+     */
+    @JavascriptInterface
+    public String getAfterSale() {
+        return "{\"refundInfo\":\"" + refundInfo + "\",\"changeInfo\":\"" + changeInfo + "\",\"repairInfo\":\"" + repairInfo + "\",\"specialInfo\":\"" + specialInfo + "\"}";
+    }
+
+    /**
+     * H5 包装清单
+     */
+    @JavascriptInterface
+    public String getPackagingList() {
+        return packagingList;
+    }
+
 }

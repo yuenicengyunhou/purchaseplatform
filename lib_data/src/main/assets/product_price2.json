@@ -1,0 +1,115 @@
+{
+  "code": "0",
+  "msg": "查询sku区域价格成功",
+  "data": [
+    {
+      "skuId": 12539,
+      "shopId": 202003030111,
+      "shopType": 2,
+      "marketPrice": 26.00,
+      "sellPrice": 23.09,
+      "skuName": "得力7401莱茵河复印纸(A4-70g-5包)(包)",
+      "shopName": "deli",
+      "pictureUrl": [
+        {
+          "id": 120233,
+          "platformId": 20,
+          "itemId": 1001179,
+          "shopId": 202003030111,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/cc9994dab18a30ccdad8c568c09b4ab720200306115726346.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 1,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12539,
+          "annexType": 1
+        },
+        {
+          "id": 120235,
+          "platformId": 20,
+          "itemId": 1001179,
+          "shopId": 202003030111,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/b7f647170b57f0ea86ddf2ca3276d80d20200306115726361.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 2,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12539,
+          "annexType": 1
+        },
+        {
+          "id": 120237,
+          "platformId": 20,
+          "itemId": 1001179,
+          "shopId": 202003030111,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/b7f647170b57f0ea86ddf2ca3276d80d20200306115726393.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 3,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12539,
+          "annexType": 1
+        },
+        {
+          "id": 120239,
+          "platformId": 20,
+          "itemId": 1001179,
+          "shopId": 202003030111,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/b7f647170b57f0ea86ddf2ca3276d80d20200306115726408.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 4,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12539,
+          "annexType": 1
+        },
+        {
+          "id": 120241,
+          "platformId": 20,
+          "itemId": 1001179,
+          "shopId": 202003030111,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/b7f647170b57f0ea86ddf2ca3276d80d20200306115726430.jpg",
+          "altImages": "files.name`undefined",
+          "sortNumber": 5,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 12539,
+          "annexType": 1
+        }
+      ],
+      "packageDis": "315*222*240",
+      "packinglist": [
+        {
+          "id": 117129,
+          "platformId": 20,
+          "itemId": 1001179,
+          "skuId": 12539,
+          "shopId": 202003030111,
+          "annexType": 3,
+          "annexUrl": "0",
+          "annexName": "复印纸*1",
+          "altDesc": null,
+          "sortNumber": 1,
+          "created": 1583467123000,
+          "modified": 1583467123000,
+          "yn": 1,
+          "externalId": null,
+          "annexTypeList": null
+        }
+      ],
+      "score": 5.00,
+      "saleNum": 141,
+      "creditLevel": "B"
+    }
+  ]
+}
