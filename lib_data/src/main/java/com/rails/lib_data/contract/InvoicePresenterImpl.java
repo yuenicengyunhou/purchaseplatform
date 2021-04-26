@@ -29,6 +29,9 @@ public class InvoicePresenterImpl extends BasePresenter<InvoiceContract.InvoiceV
 
     private OrderVerifyModel model;
 
+    private int COMMON_INVOCE = 1;
+    private int SPECIAL_INVOCE = 2;
+
     public InvoicePresenterImpl(Activity mContext, InvoiceContract.InvoiceView invoiceView) {
         super(mContext, invoiceView);
         model = new OrderVerifyModel();
@@ -37,8 +40,8 @@ public class InvoicePresenterImpl extends BasePresenter<InvoiceContract.InvoiceV
     @Override
     public void getInvoiceContents() {
         ArrayList<InvoiceContentBean> beans = new ArrayList<>();
-        beans.add(new InvoiceContentBean("发票类型", "增值税专用发票", 0));
-        beans.add(new InvoiceContentBean("发票类型", "企业增值税普通发票", 1));
+        beans.add(new InvoiceContentBean("发票类型", "增值税专用发票", SPECIAL_INVOCE));
+        beans.add(new InvoiceContentBean("发票类型", "企业增值税普通发票", COMMON_INVOCE));
 
         if (isCallBack()) {
             baseView.getInvoiceContents(beans, null);
@@ -61,11 +64,11 @@ public class InvoicePresenterImpl extends BasePresenter<InvoiceContract.InvoiceV
 
 
     @Override
-    public void getInvoiceTitles(boolean isDialog, int page) {
+    public void getInvoiceTitles(boolean isDialog, int page, int invoiceType) {
 
         if (isDialog)
             baseView.showResDialog(R.string.loading);
-        model.getInvoiceTitle(page, 20, "2", new HttpRxObserver<ListBeen<InvoiceTitleBean>>() {
+        model.getInvoiceTitle(page, 20, String.valueOf(invoiceType), new HttpRxObserver<ListBeen<InvoiceTitleBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();

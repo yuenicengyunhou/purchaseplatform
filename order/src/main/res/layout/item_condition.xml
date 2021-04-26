@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="buyer"
+            type="com.rails.lib_data.bean.BuyerBean" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/paddingL"
+            android:paddingTop="@dimen/padding"
+            android:paddingEnd="@dimen/paddingL"
+            android:paddingBottom="@dimen/padding"
+            android:id="@+id/tv_name"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_1"
+            android:layout_marginStart="@dimen/paddingL"
+            android:layout_marginEnd="@dimen/paddingL"
+            android:background="@color/divider_gray" />
+    </LinearLayout>
+
+
+</layout>

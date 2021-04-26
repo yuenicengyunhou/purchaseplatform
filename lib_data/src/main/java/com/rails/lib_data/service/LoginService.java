@@ -41,9 +41,12 @@ public interface LoginService {
 
 
     /**
+     * 用户基本信息
+     * https://shop.rails.cn/proxy/user/buyer/app-user-service/app/v1/buyer/user/login?platformId=30&serviceTicket=77ef7f0396413a3c1a5c41401bd34ca5
+     *
      * @return
      */
-    @GET("user/buyer/user/login")
+    @GET("app-user-service/app/v1/buyer/user/login")
     Observable<HttpResult<UserInfoBean>> getUserInfo(@QueryMap HashMap<String, String> params);
 
 }

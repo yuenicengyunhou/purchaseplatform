@@ -33,4 +33,31 @@ public class OrderModel {
                 .create(OrderService.class).purchasePageList(map))
                 .subscribe(httpRxObserver);
     }
+
+    public void getBuyerNames(String like, String findType,String organizeId,HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("nameLike", like);
+        map.put("findType", findType);
+        map.put("organizeId", organizeId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class).getBuyerList(map))
+                .subscribe(httpRxObserver);
+
+    }
+
+    public void getSupplierNames(String supplierName,String accountId,String accountType,String organizeName,String organizeId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("supplierName", supplierName);
+        map.put("accountId", accountId);
+        map.put("accountType", accountType);
+        map.put("organizeName", organizeName);
+        map.put("organizeId", organizeId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class).getSupplierNames(map))
+                .subscribe(httpRxObserver);
+
+    }
+
+
+
 }

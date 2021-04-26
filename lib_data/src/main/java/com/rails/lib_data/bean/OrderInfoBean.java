@@ -7,9 +7,9 @@ public class OrderInfoBean {
     private long id;
     private long key;
     private int platformId;// 平台id ,
-    private long orderNo;// 订单编号 ,
+    private String orderNo;// 订单编号 ,
     private String orderNoStr;
-    private int parentNo;//采购单编号 ,
+    private long parentNo;//采购单编号 ,
     private String orderTime;//订单提交时间 ,
     private String deliverTime;//订单全部发货时间 ,
     private String finishTime;//订单完成(确认收货)时间 ,
@@ -73,11 +73,11 @@ public class OrderInfoBean {
         this.platformId = platformId;
     }
 
-    public long getOrderNo() {
+    public String getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(long orderNo) {
+    public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }
 
@@ -89,11 +89,11 @@ public class OrderInfoBean {
         this.orderNoStr = orderNoStr;
     }
 
-    public int getParentNo() {
+    public long getParentNo() {
         return parentNo;
     }
 
-    public void setParentNo(int parentNo) {
+    public void setParentNo(long parentNo) {
         this.parentNo = parentNo;
     }
 

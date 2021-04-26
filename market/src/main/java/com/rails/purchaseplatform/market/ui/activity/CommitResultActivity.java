@@ -1,15 +1,18 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.BannerBean;
+import com.rails.lib_data.bean.BrandBean;
+import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.MarketIndexBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.ResultWebBean;
-import com.rails.lib_data.contract.ProductContract;
-import com.rails.lib_data.contract.ProductPresenterImpl;
+import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
+import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.market.R;
@@ -31,7 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/28
  */
 @Route(path = ConRoute.MARKET.COMMIT_RESULT)
-public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBinding> implements ProductContract.ProductView {
+public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBinding> implements MarketIndexContract.MarketIndexView {
 
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
@@ -39,7 +42,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     private GridLayoutManager hotManager;
     private ResultWebBean webBean;
 
-    ProductContract.ProductPresenter productPresenter;
+    MarKetIndexPresenterImpl productPresenter;
 
 
     @Override
@@ -60,7 +63,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         barBinding.recRecycler.setAdapter(recAdapter);
 
 
-        productPresenter = new ProductPresenterImpl(this, this);
+        productPresenter = new MarKetIndexPresenterImpl(this, this);
         onRefresh();
     }
 
@@ -91,7 +94,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        productPresenter.getHotProducts(isDialog, page);
+        productPresenter.getRectProducts(false, false);
     }
 
     @Override
@@ -107,11 +110,6 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     @Override
     protected boolean isBindEventBus() {
         return false;
-    }
-
-    @Override
-    public void getHotProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
-        recAdapter.update(productBeans, true);
     }
 
 
@@ -149,5 +147,32 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         barBinding.tvMsg.setText(bean.getMsg());
         barBinding.btnLeft.setText(bean.getBtnleft());
         barBinding.btnRight.setText(bean.getBtnright());
+    }
+
+    @Override
+    public void getRecProducts(ArrayList<ProductRecBean> beans) {
+        if (beans.isEmpty())
+            return;
+        recAdapter.update(beans.get(0).getFloorList(), true);
+    }
+
+    @Override
+    public void getBanners(ArrayList<BannerBean> bannerBeans) {
+
+    }
+
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans) {
+
+    }
+
+    @Override
+    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
+
+    }
+
+    @Override
+    public void getIndexInfo(MarketIndexBean bean) {
+
     }
 }

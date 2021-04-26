@@ -37,12 +37,29 @@ import io.reactivex.subjects.Subject;
  */
 public class MarketIndexModel {
 
+
+    /**
+     * 获取楼层数据
+     *
+     * @param httpRxObserver
+     */
+    public void getRecProducts(HttpRxObserver httpRxObserver) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("platformId", "20");
+        HttpRxObservable.getObservable(RetrofitUtil
+                .getInstance()
+                .create(MarketIndexService.class)
+                .getRecProducts(params))
+                .subscribe(httpRxObserver);
+    }
+
+
     /**
      * 获取楼层列表
      *
      * @return
      */
-    public Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts() {
+    private Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts() {
         HashMap<String, String> params = new HashMap<>();
         params.put("platformId", "20");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
@@ -55,7 +72,7 @@ public class MarketIndexModel {
      *
      * @return
      */
-    public Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands() {
+    private Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands() {
         HashMap<String, String> params = new HashMap<>();
         params.put("platformId", "20");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
@@ -68,7 +85,7 @@ public class MarketIndexModel {
      *
      * @return
      */
-    public Observable<HttpResult<ArrayList<BannerBean>>> getBanners() {
+    private Observable<HttpResult<ArrayList<BannerBean>>> getBanners() {
         HashMap<String, String> bannerParams = new HashMap<>();
         bannerParams.put("platformId", "20");
         bannerParams.put("status", "1");
@@ -82,7 +99,7 @@ public class MarketIndexModel {
      *
      * @return
      */
-    public Observable<HttpResult<ArrayList<NavigationBean>>> getCategorys() {
+    private Observable<HttpResult<ArrayList<NavigationBean>>> getCategorys() {
         HashMap<String, String> bannerParams = new HashMap<>();
         bannerParams.put("platformId", "20");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()

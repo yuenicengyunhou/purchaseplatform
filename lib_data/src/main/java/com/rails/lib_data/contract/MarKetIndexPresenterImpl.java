@@ -34,22 +34,24 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
         model = new MarketIndexModel();
     }
 
-    @Deprecated
     @Override
-    public void getRectProducts(boolean isDialog) {
+    public void getRectProducts(boolean isDialog, boolean isHot) {
         if (isDialog)
             baseView.showDialog("加载中...");
+        model.getRecProducts(new HttpRxObserver<ArrayList<ProductRecBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
 
-        Type type = new TypeToken<ArrayList<ProductRecBean>>() {
-        }.getType();
-        ArrayList<ProductRecBean> beans = JsonUtil.parseJson(mContext, "mall.json", type);
-        String[] resourese = new String[]{"#5566DF", "#47ACF1", "#DDA15B", "#4F5468", "#3DC999"};
-        for (int i = 0; i < beans.size(); i++) {
-            beans.get(i).setColor(resourese[i % 5]);
-        }
-        baseView.getRecProducts(beans);
-
-
+            @Override
+            protected void onSuccess(ArrayList<ProductRecBean> beans) {
+                baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getRecProducts(beans);
+            }
+        });
     }
 
     @Deprecated

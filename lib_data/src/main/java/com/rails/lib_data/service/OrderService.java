@@ -1,5 +1,6 @@
 package com.rails.lib_data.service;
 
+import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.lib_data.bean.ListBeen;
@@ -82,4 +83,18 @@ public interface OrderService {
     @GET("settlement/mall/invoice/getInvoiceTitle")
     Observable<HttpResult<ListBeen<InvoiceTitleBean>>> getInvoiceTitle(@QueryMap HashMap<String, Object> params);
 
+
+    /**
+     * 获取采购人用户名列表
+     */
+
+    @GET("app-user-service/app/v1/buyer/user/queryPurchaserList")
+    Observable<HttpResult<ArrayList<BuyerBean>>> getBuyerList(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 获取供应商名称列表
+     */
+    @GET("app-user-service/app/v1/buyer/supplierInfoImportData/querySupplierBySupplierName")
+    Observable<HttpResult<ArrayList<BuyerBean>>> getSupplierNames(@QueryMap HashMap<String, Object> params);
 }

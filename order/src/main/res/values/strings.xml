@@ -5,6 +5,7 @@
     <!--订单核算-->
     <string name="order_verify">信息核对</string>
     <string name="order_verify_address">请添加收货地址</string>
+    <string name="order_verify_address_invoce">请添加收发票地址</string>
     <string name="order_verify_goods_type">收货方式</string>
     <string name="order_verify_company">结算单位</string>
     <string name="order_verify_bill">发票信息</string>
@@ -70,6 +71,8 @@
     <string name="toCheck">查看</string>
     <string name="orderNumIs">订单号：</string>
     <string name="orderTimeIs">生成时间：</string>
+    <string name="searchOrderNo">搜索单号</string>
+    <string name="orderNo">采购单号</string>
 
 
 </resources>

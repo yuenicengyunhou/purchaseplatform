@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.purchaseplatform.common.R;
 
 import java.util.List;
@@ -17,9 +18,9 @@ import java.util.List;
 public class OrderSearchFilterAdapter2 extends RecyclerView.Adapter {
 
     private Context mContext;
-    private List<String> mData;
+    private List<OrderStatusBean> mData;
 
-    public OrderSearchFilterAdapter2(Context context, List<String> list) {
+    public OrderSearchFilterAdapter2(Context context, List<OrderStatusBean> list) {
         mContext = context;
         mData = list;
     }
@@ -34,9 +35,9 @@ public class OrderSearchFilterAdapter2 extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         RelativeLayout relativeLayout = ((ViewHolder) holder).relativeLayout;
         TextView textView = ((ViewHolder) holder).textView;
-        textView.setText(mData.get(position));
+        textView.setText(mData.get(position).getStatus());
         relativeLayout.setOnClickListener(v -> {
-            Toast.makeText(mContext, mData.get(position), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mData.get(position).getStatusCode(), Toast.LENGTH_SHORT).show();
         });
     }
 

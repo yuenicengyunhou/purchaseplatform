@@ -53,6 +53,9 @@ public class InvoiceContentAdapter extends BaseRecyclerAdapter<InvoiceContentBea
                     lastBean.isSel.set(false);
                     bean.isSel.set(true);
                     lastBean = bean;
+                    if (positionListener != null)
+                        positionListener.onPosition(bean, position);
+
                 } else {
                     bean.isSel.set(true);
                 }

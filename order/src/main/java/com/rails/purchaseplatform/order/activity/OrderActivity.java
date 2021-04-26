@@ -1,8 +1,13 @@
 package com.rails.purchaseplatform.order.activity;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +17,24 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.rails.lib_data.bean.BuyerBean;
+import com.rails.lib_data.bean.OrderInfoBean;
+import com.rails.lib_data.contract.OrderContract;
+import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.order.R;
+import com.rails.purchaseplatform.order.adapter.ConditionAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
+import com.rails.purchaseplatform.order.databinding.PopConditionBinding;
 import com.rails.purchaseplatform.order.fragment.OrderFragment;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -44,9 +57,8 @@ import java.util.ArrayList;
  * -5- Tab切换我的采购单和全部采购单
  */
 @Route(path = ConRoute.ORDER.ORDER_MAIN)
-public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
+public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> implements OrderContract.OrderView {
 
-    private ArrayList<Fragment> fragments;
     private ViewPageAdapter viewPageAdapter;
 
     private PopupWindow mTypePopup;
@@ -59,7 +71,10 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
      * 2 - 供应商名称
      */
     private int mType = 0;
-    private SearchListener searchListener;
+    private PopupWindow listPop;
+    private OrderPresenterImpl presenter;
+    private ConditionAdapter adapter;
+    private String conditionId = "";
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -70,19 +85,50 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         //监听输入框按下搜索键
         binding.etSearchKey.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                String content = binding.etSearchKey.getText().toString();
-                int currentItem = binding.noneScrollViewPager.getCurrentItem();
-                OrderFragment fragment = (OrderFragment) viewPageAdapter.getItem(currentItem);
-                fragment.notifyData(mType,content);
-//                    String text = binding.searchText.getText().toString().trim();
-//                    if (isEmptyText(text)) return false;
-//                    updateList(text);
-//                    putSearchKeyInSharedPreference();
-//                    startActivityWithBundle(text);
+                if (null != listPop && listPop.isShowing()) {//如果当下有弹窗，dismiss掉
+                    listPop.dismiss();
+                }
+                callFragmentToSearch();
                 return true;
             }
             return false;
         });
+
+        presenter = new OrderPresenterImpl(this, this);
+
+        binding.etSearchKey.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String string = binding.etSearchKey.getText().toString();
+                showConditionListPopWindow(string);
+            }
+        });
+
+
+        //获取organizeId
+
+
+    }
+
+    /**
+     * 传递搜索条件给fragment，筛选列表
+     */
+    private void callFragmentToSearch() {
+        String content = binding.etSearchKey.getText().toString();
+        int currentItem = binding.noneScrollViewPager.getCurrentItem();
+        OrderFragment fragment = (OrderFragment) viewPageAdapter.getItem(currentItem);
+        if (mType != 0) {
+            content = conditionId;
+        }
+        fragment.notifyData(mType, content);
     }
 
     @Override
@@ -109,13 +155,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
     protected void onClick() {
         super.onClick();
         binding.ibBack.setOnClickListener(v -> finish());
-        binding.ibFilter.setOnClickListener(v -> {
-            showFilterPopup();
-        });
+        binding.ibFilter.setOnClickListener(v -> showFilterPopup());
 
-        binding.tvSelectType.setOnClickListener(v -> {
-            showTypePopup();
-        });
+        binding.tvSelectType.setOnClickListener(v ->
+                        showTypePopup()
+//                        showConditionPopWindow()
+        );
     }
 
 
@@ -124,7 +169,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
      */
     private void showFilterPopup() {
         if (mFilterPopup == null) {
-            String[] text = {"选择品牌", "价格区间", "上架时间"};
+            String[] text = {"采购单状态", "采购单金额", "下单时间"};
             mFilterPopup = new OrderSearchFilterPop(text);
             mFilterPopup.setType(BasePop.MATCH_WRAP);
             mFilterPopup.setGravity(Gravity.BOTTOM);
@@ -139,7 +184,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
     private void showTypePopup() {
         View itemView = (View) binding.tvSelectType.getParent();
 
-        View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
         int width = ScreenSizeUtil.dp2px(this, 120);
         int height = ScreenSizeUtil.dp2px(this, 120);
         mTypePopup = new PopupWindow(view, width, height, true);
@@ -150,12 +195,16 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         String showingText = binding.tvSelectType.getText().toString().trim();
 
         int colorBlue = getResources().getColor(com.rails.purchaseplatform.common.R.color.font_blue);
-        if (showingText.equals("采购单号")) {
-            orderNum.setTextColor(colorBlue);
-        } else if (showingText.equals("采购人用户名")) {
-            orderUser.setTextColor(colorBlue);
-        } else if (showingText.equals("供应商名称")) {
-            orderProvider.setTextColor(colorBlue);
+        switch (showingText) {
+            case "采购单号":
+                orderNum.setTextColor(colorBlue);
+                break;
+            case "采购人用户名":
+                orderUser.setTextColor(colorBlue);
+                break;
+            case "供应商名称":
+                orderProvider.setTextColor(colorBlue);
+                break;
         }
 
         orderNum.setOnClickListener(num -> {
@@ -191,9 +240,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         }
     }
 
-
     private boolean isShowBottom(View itemView) {
-        int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
+        Display defaultDisplay = getWindowManager().getDefaultDisplay();
+        Point point = new Point();
+        defaultDisplay.getSize(point);
+        int screenHeight = point.y;
+//        int screenHeight = defaultDisplay.getHeight();
         int[] location = new int[2];
         itemView.getLocationInWindow(location);
         int itemViewY = location[1];
@@ -206,13 +258,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
      * 初始化pageradapter
      */
     private void initPager(String... tabs) {
-        fragments = new ArrayList<>();
+        ArrayList<Fragment> fragments = new ArrayList<>();
         Fragment fragment;
         for (int i = 0; i < tabs.length; i++) {
             fragment = OrderFragment.getInstance(i);
             fragments.add(fragment);
         }
-
 
 
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -254,10 +305,83 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> {
         binding.noneScrollViewPager.setCurrentItem(0);
     }
 
+    /**
+     * 点击采购人用户名、供应商名称，弹框给用户选择搜索
+     */
+    private void showConditionListPopWindow(String condition) {
+        this.conditionId = condition;
+        if (mType == 0) {
+            return;
+        }
+        if (null != listPop && listPop.isShowing()) {
+            getConditons(condition);
+        } else {
+            if (null == listPop) {
+                PopConditionBinding listBinding = PopConditionBinding.inflate(getLayoutInflater());
+                int width = ScreenSizeUtil.dp2px(this, 250);
+                int height = ScreenSizeUtil.dp2px(this, 250);
+                listPop = new PopupWindow(listBinding.getRoot(), width, height, false);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                listBinding.recycler.setLayoutManager(layoutManager);
+                adapter = new ConditionAdapter(this);
+                listBinding.recycler.setAdapter(adapter);
+                adapter.setListener((PositionListener<BuyerBean>) (bean, position) -> {
+                    String accountName = bean.getAccountName();
+                    String supplierName = bean.getSupplierName();
+                    String name = null == supplierName ? accountName : supplierName;
+                    binding.etSearchKey.setText(name);
+                    conditionId = bean.getId();
+                    callFragmentToSearch();
+                    listPop.dismiss();
+                });
+                getConditons(condition);
+//                listPop.setFocusable(true);
+                listPop.setOutsideTouchable(true);
+                listPop.showAsDropDown(binding.etSearchKey, 150, -20);
+                listPop.setOnDismissListener(() -> {
+                    listPop = null;
+                    adapter = null;
+                });
+                return;
+            }
+            if (!listPop.isShowing()) {
+                listPop.showAsDropDown(binding.etSearchKey, 150, -20);
+            }
+        }
 
-    interface SearchListener{
-        void onSearch(int searchType, String searchContent,int currentFragmentPosition);
     }
 
+    /**
+     * 获取采购人或供应商列表
+     */
+    private void getConditons(String condition) {
+        if (mType == 1) {
+            presenter.getBuyerNameList(condition, "1");
+        } else {
+            presenter.getSupplierNameList(condition);
+        }
+    }
+
+    @Override
+    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    /**
+     * 加载采购人用户列表/供应商名称列表
+     */
+    @Override
+    public void loadConditionNameList(ArrayList<BuyerBean> list) {
+        if (null != adapter) {
+            adapter.update(list, true);
+        }
+    }
+
+//    @Override
+//    public void loadSupplierNameList(ArrayList<String> list) {
+//
+//    }
+
+    /**/
 
 }

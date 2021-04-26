@@ -1,5 +1,6 @@
 package com.rails.lib_data.service;
 
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
@@ -35,8 +36,8 @@ public interface ProductService {
     /**
      * 获取热销商品列表
      */
-    @GET("platform/platform/floor/queryFloorSettingList")
-    Observable<HttpResult<ArrayList<ProductRecBean>>> getHotProducts(@QueryMap HashMap<String, String> params);
+    @GET("app-item-service/app/v1/mall/search/querySaleHotItem")
+    Observable<HttpResult<ArrayList<ProductBean>>> getHotProducts();
 
 
     /**

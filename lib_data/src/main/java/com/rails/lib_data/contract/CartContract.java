@@ -45,11 +45,12 @@ public interface CartContract {
 
         /**
          * 删除，收藏操作结果
+         *
          * @param type
          * @param position
          * @param msg
          */
-        void getResult(int type,int position,String msg);
+        void getResult(int type, int position, String msg);
 
 
         /**
@@ -68,6 +69,15 @@ public interface CartContract {
          * 商品详情页 添加商品到购物车
          */
         void addCartSuccess(boolean isComplete);
+
+
+        /**
+         * 收藏/取消收藏
+         *
+         * @param position  列表中的位置
+         * @param isCollect
+         */
+        void onCollect(boolean isCollect, int position);
     }
 
 
@@ -108,14 +118,14 @@ public interface CartContract {
          *
          * @param map {"202003030109":["15963"]}
          */
-        void delProduct(HashMap<String,ArrayList<String>> map,int position);
+        void delProduct(HashMap<String, ArrayList<String>> map, int position);
 
         /**
          * 收藏商品
          *
          * @param id
          */
-        void collectProduct(String id,int position);
+        void collectProduct(String id, int position);
 
 
         /**
@@ -161,5 +171,15 @@ public interface CartContract {
          */
         void addCart(long platformId, long organizeId, long accountId,
                      int accountType, String skuSaleNumJson, boolean isDialog);
+
+
+        /**
+         * 加入收藏/取消收藏
+         *
+         * @param skuIds
+         * @param collectionSource
+         * @param isCollect
+         */
+        void onCollect(String skuIds, String collectionSource, boolean isCollect, int position);
     }
 }

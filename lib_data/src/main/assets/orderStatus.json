@@ -1,29 +1,38 @@
 [
   {
-    "status": "全部"
+    "status": "全部",
+    "statusCode": ""
   },
   {
-    "status": "待下单"
+    "status": "待下单",
+    "statusCode": "10"
   },
   {
-    "status": "已驳回"
+    "status": "已驳回",
+    "statusCode": "60"
   },
   {
-    "status": "待发货"
+    "status": "待发货",
+    "statusCode": "20"
   },
   {
-    "status": "已发货"
+    "status": "已发货",
+    "statusCode": "25"
   },
   {
-    "status": "待收货"
+    "status": "待收货",
+    "statusCode": "30"
   },
   {
-    "status": "已取消"
+    "status": "已取消",
+    "statusCode": "70"
   },
   {
-    "status": "已收货"
+    "status": "已收货",
+    "statusCode": "40"
   },
   {
-    "status": "采购人取消"
+    "status": "采购人取消",
+    "statusCode": "1"
   }
 ]

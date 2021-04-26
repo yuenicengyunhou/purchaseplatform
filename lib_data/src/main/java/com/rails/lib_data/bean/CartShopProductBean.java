@@ -66,7 +66,7 @@ public class CartShopProductBean {
     private String attributesName;
     private String pictureUrl;
     //商品状态 0：无效 1：有效
-    private Integer saleStatus;
+    private int saleStatus;
     //sku状态 0：停用 1：启用
     private String skuStatus;
     //计量单位
@@ -110,6 +110,7 @@ public class CartShopProductBean {
     public final ObservableField<Boolean> canAdd = new ObservableField<>();
     public final ObservableField<Boolean> canSel = new ObservableField<>();
     public final ObservableField<Boolean> isLimit = new ObservableField<>();
+    public final ObservableField<Boolean> isCollect = new ObservableField<>();
 
     public String getShopId() {
         return shopId;

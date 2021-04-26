@@ -52,6 +52,8 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
         } else {
             binding.btnBill.setVisibility(View.GONE);
         }
+
+        binding.tvDef.setVisibility(View.GONE);//不显示默认标志
     }
 
 
