@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.rails.lib_data.bean.shop.ItemListBean;
 import com.rails.lib_data.bean.shop.ResultListBean;
@@ -39,8 +38,8 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
     }
 
     @Override
-    public void getShopItemList(long platformId, long shopInfoId, int page, int pageSize) {
-        model.getShopItemList(platformId, "302102040108", page, pageSize, new HttpRxObserver<ShopRecommendBean>() {
+    public void getShopItemList(long platformId, long shopInfoId, int page, int pageSize, String orderColumn, String orderType) {
+        model.getShopItemList(platformId, 302102040108L, page, pageSize, orderColumn, orderType, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);

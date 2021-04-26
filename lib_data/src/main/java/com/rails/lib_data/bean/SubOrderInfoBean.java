@@ -13,7 +13,7 @@ public class SubOrderInfoBean {
     private String organizeId;//创建人所属组织机构id ,
     private int buyerId;//创建人用户id ,
     private long orderNo;//订单编号 ,
-    private int parentNo;//0:第一级主单(拆单和未拆单都为0)，(!=0):当前订单的父单号（和order_split_type 配合查询订单） ,
+    private String parentNo;//0:第一级主单(拆单和未拆单都为0)，(!=0):当前订单的父单号（和order_split_type 配合查询订单） ,
     private String thirdOrderNo;//三方订单编号 ,
     private int orderSplitType;// 0:包含子单,1:叶子单（不包含子单）（和parent_order_no配合查询订单） ,
     private int orderSource;//订单来源：1、购物车订单 2、需求单转订单 ,
@@ -133,11 +133,11 @@ public class SubOrderInfoBean {
         this.orderNo = orderNo;
     }
 
-    public int getParentNo() {
+    public String getParentNo() {
         return parentNo;
     }
 
-    public void setParentNo(int parentNo) {
+    public void setParentNo(String parentNo) {
         this.parentNo = parentNo;
     }
 

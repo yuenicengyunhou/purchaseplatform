@@ -40,7 +40,7 @@ public interface ShopContract {
         /**
          * 店铺推荐商品列表
          */
-        void getShopItemList(long platformId, long shopInfoId, int page, int pageSize);
+        void getShopItemList(long platformId, long shopInfoId, int page, int pageSize,String orderColumn,String orderType);
 
     }
 }

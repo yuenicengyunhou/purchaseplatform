@@ -71,6 +71,8 @@
     <string name="toCheck">查看</string>
     <string name="orderNumIs">订单号：</string>
     <string name="orderTimeIs">生成时间：</string>
+    <string name="searchOrderNo">搜索单号</string>
+    <string name="orderNo">采购单号</string>
 
 
 </resources>
