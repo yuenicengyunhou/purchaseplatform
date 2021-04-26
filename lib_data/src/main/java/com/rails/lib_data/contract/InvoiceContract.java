@@ -52,7 +52,7 @@ public interface InvoiceContract {
         /**
          * 获取发票抬头列表
          */
-        void getInvoiceTitles(boolean isDialog, int page);
+        void getInvoiceTitles(boolean isDialog, int page,int invoiceType);
 
 
         void onInvoice();

@@ -3,6 +3,8 @@ package com.rails.lib_data.bean;
 
 import java.io.Serializable;
 
+import androidx.databinding.ObservableField;
+
 /**
  * 张少婷
  * 地址管理页面对象
@@ -50,7 +52,7 @@ public class AddressBean implements Serializable {
     private String yn;
     private String icon;
 
-//    public final ObservableField<Boolean> isSel = new ObservableField<>();
+    public final ObservableField<Boolean> isSel = new ObservableField<>();
 
     public long getAddressId() {
         return addressId;

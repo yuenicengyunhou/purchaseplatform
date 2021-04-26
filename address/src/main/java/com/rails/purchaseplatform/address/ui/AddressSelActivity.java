@@ -48,7 +48,7 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        type = extras.getString("type", "0");
+        type = extras.getString("type", "1");
     }
 
     @Override
@@ -124,11 +124,9 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     protected void onClick() {
         super.onClick();
-        barBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startIntent(AddressAddActivity.class);
-            }
+
+        barBinding.btnAdd.setOnClickListener(v -> {
+            startIntent(AddressAddActivity.class);
         });
     }
 

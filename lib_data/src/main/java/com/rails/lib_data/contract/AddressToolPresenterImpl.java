@@ -29,7 +29,7 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
         super(mContext, addressToolView);
         model = new AddressModel();
         UserInfoBean userInfoBean = PrefrenceUtil.getInstance(mContext).getBean(ConShare.USERINFO, UserInfoBean.class);
-        if (userInfoBean != null){
+        if (userInfoBean != null) {
             userId = userInfoBean.getId();
             userType = userInfoBean.getAccountType();
         }
@@ -61,13 +61,14 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
 
             @Override
             protected void onSuccess(ArrayList<AddressBean> addressBeans) {
-                for (AddressBean bean : addressBeans) {
-                    if (bean.getHasDefault() == 1) {
-                        baseView.getDefAddress(bean);
-                        return;
-                    }
-                }
-                baseView.getDefAddress(addressBeans.get(0));
+//                for (AddressBean bean : addressBeans) {
+//                    if (bean.getHasDefault() == 1) {
+//                        baseView.getDefAddress(bean);
+//                        return;
+//                    }
+//                }
+                if (!addressBeans.isEmpty())
+                    baseView.getDefAddress(addressBeans.get(0));
             }
         });
     }
