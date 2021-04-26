@@ -49,7 +49,7 @@ public class CartToolPresenterImpl extends BasePresenter<CartContract.DetailsCar
      * @param isCollect        是否已经收藏
      */
     @Override
-    public void onCollect(String skuIds, String collectionSource, boolean isCollect) {
+    public void onCollect(String skuIds, String collectionSource, boolean isCollect, int position) {
         baseView.showResDialog(R.string.loading);
         mModel.onCollect(skuIds, collectionSource, isCollect, new HttpRxObserver<Boolean>() {
             @Override
@@ -62,7 +62,7 @@ public class CartToolPresenterImpl extends BasePresenter<CartContract.DetailsCar
             protected void onSuccess(Boolean response) {
                 baseView.dismissDialog();
                 if (isCallBack()) {
-                    baseView.onCollect(!isCollect);
+                    baseView.onCollect(!isCollect, position);
                 }
             }
         });

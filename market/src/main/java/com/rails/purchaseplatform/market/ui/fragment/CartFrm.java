@@ -269,6 +269,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
 
+        binding.btnCollect.setOnClickListener(v -> {
+            collectAllParams(cartAdapter.getBeans());
+        });
+
+
         binding.btnBack.setOnClickListener(v -> {
             getActivity().finish();
         });
@@ -304,7 +309,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             showEditDialog(bean);
         } else if (type == CartAdapter.SUB_COLLECT) {
             // TODO: 2021/3/28   调用收藏接口
-            toolPresenter.onCollect(bean.getSkuId(), "30", bean.isCollect.get());
+            toolPresenter.onCollect(bean.getSkuId(), "30", bean.isCollect.get(), position);
         } else if (type == CartAdapter.SUB_DEL) {
             // TODO: 2021/3/28 调用删除接口
             delParams(bean, position);
@@ -458,13 +463,43 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     }
 
+
+    /**
+     * 收藏
+     *
+     * @param shopBeans
+     */
+    private void collectAllParams(ArrayList<CartShopBean> shopBeans) {
+        if (shopBeans == null)
+            return;
+        if (shopBeans.isEmpty())
+            return;
+        ArrayList<String> skuIds = new ArrayList<>();
+        StringBuffer buffer = new StringBuffer();
+        for (CartShopBean shopBean : shopBeans) {
+            for (CartShopProductBean bean : shopBean.getSkuList()) {
+                if (!bean.isCollect.get()) {
+                    skuIds.add(bean.getSkuId());
+                    buffer.append(bean.getSkuId() + ",");
+                }
+
+            }
+        }
+        toolPresenter.onCollect(buffer.toString().substring(0, buffer.length() - 1), "30", false, -1);
+    }
+
+
     @Override
     public void addCartSuccess(boolean isComplete) {
 
     }
 
     @Override
-    public void onCollect(boolean isCollect) {
-        lastBean.isCollect.set(isCollect);
+    public void onCollect(boolean isCollect, int position) {
+        if (position != -1)
+            lastBean.isCollect.set(isCollect);
+        else {
+            presenter.getCarts(false, addressBean.getId());
+        }
     }
 }

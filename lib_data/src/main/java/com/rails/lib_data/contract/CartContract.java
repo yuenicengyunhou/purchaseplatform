@@ -74,9 +74,10 @@ public interface CartContract {
         /**
          * 收藏/取消收藏
          *
+         * @param position  列表中的位置
          * @param isCollect
          */
-        void onCollect(boolean isCollect);
+        void onCollect(boolean isCollect, int position);
     }
 
 
@@ -179,6 +180,6 @@ public interface CartContract {
          * @param collectionSource
          * @param isCollect
          */
-        void onCollect(String skuIds, String collectionSource, boolean isCollect);
+        void onCollect(String skuIds, String collectionSource, boolean isCollect, int position);
     }
 }

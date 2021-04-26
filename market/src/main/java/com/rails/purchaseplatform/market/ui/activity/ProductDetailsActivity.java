@@ -478,9 +478,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     @Override
-    public void onCollect(boolean isCollect) {
+    public void onCollect(boolean isCollect, int position) {
 
     }
+
 
     @Override
     public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
