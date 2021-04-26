@@ -10,7 +10,8 @@
         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/brv_searchResultByShopRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

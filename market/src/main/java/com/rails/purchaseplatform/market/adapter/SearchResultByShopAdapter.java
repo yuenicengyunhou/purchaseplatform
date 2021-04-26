@@ -18,12 +18,10 @@ import java.util.ArrayList;
 public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute, ItemSearchResultByShopBinding> {
 
     private Context mContext;
-    private SearchResultByShopProductsAdapter mAdapter;
 
     public SearchResultByShopAdapter(Context context) {
         super(context);
         mContext = context;
-        mAdapter = new SearchResultByShopProductsAdapter(mContext);
     }
 
     @Override
@@ -42,8 +40,10 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
         binding.llShop.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, ShopDetailActivity.class));
         });
+
+        SearchResultByShopProductsAdapter adapter = new SearchResultByShopProductsAdapter(mContext);
         binding.brvProductRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
-        binding.brvProductRecycler.setAdapter(mAdapter);
-        mAdapter.update((ArrayList<ItemAttribute>) shopAttribute.getItems(), true);
+        binding.brvProductRecycler.setAdapter(adapter);
+        adapter.update((ArrayList<ItemAttribute>) shopAttribute.getItems(), true);
     }
 }
