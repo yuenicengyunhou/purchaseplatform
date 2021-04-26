@@ -54,6 +54,11 @@ public class SearchShopPresenterImpl extends BasePresenter<SearchContract.Search
                                 ItemAttribute item = new ItemAttribute();
                                 item.setSkuName(itemBean.getSkuName());
                                 item.setSellPrice(itemBean.getSellPrice());
+                                item.setShopId(shopBean.getShopId());
+                                item.setCid(itemBean.getCid());
+                                item.setItemId(itemBean.getItemId());
+                                item.setShopName(shopBean.getShopName());
+                                item.setSkuId(itemBean.getSkuId());
                                 item.setPictureUrl(itemBean.getSkuPicture());
                                 items.add(item);
                             }

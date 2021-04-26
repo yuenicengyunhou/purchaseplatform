@@ -2,8 +2,11 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultByShopProductBinding;
@@ -26,8 +29,15 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemA
     @Override
     protected void onBindItem(ItemSearchResultByShopProductBinding binding, ItemAttribute itemAttribute, int position) {
         binding.setItemAttr(itemAttribute);
+        binding.tvPrice.setText(String.valueOf(itemAttribute.getSellPrice()));
+        binding.tvItemShop.setText(itemAttribute.getShopName());
         binding.rcProduct.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class));
+            Bundle bundle = new Bundle();
+            bundle.putLong("itemId", itemAttribute.getItemId());
+            bundle.putInt("skuId", itemAttribute.getSkuId());
+            bundle.putInt("cid", itemAttribute.getCid());
+            bundle.putLong("shopId", itemAttribute.getItemId());
+            ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
         });
     }
 }
