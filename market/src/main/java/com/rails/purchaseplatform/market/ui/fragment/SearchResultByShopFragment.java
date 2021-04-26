@@ -32,7 +32,6 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     protected void loadData() {
         Bundle bundle = this.getArguments();
         mSearchKey = bundle.getString("search_key", "");
-        mSearchKey = "惠普";
 
         mPresenter = new SearchShopPresenterImpl(this.getActivity(), this);
         mPresenter.getShopListWithKeywordOnly(20L, 1L, mSearchKey, true, 1, 30, false);

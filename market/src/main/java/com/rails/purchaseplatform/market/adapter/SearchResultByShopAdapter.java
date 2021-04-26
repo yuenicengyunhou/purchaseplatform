@@ -42,7 +42,6 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
         binding.llShop.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, ShopDetailActivity.class));
         });
-        mAdapter.setArrayList((ArrayList<ItemAttribute>) shopAttribute.getItems());
         binding.brvProductRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.brvProductRecycler.setAdapter(mAdapter);
         mAdapter.update((ArrayList<ItemAttribute>) shopAttribute.getItems(), true);

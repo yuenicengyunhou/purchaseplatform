@@ -9,12 +9,9 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultByShopProductBinding;
 import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 
-import java.util.ArrayList;
-
 public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemAttribute, ItemSearchResultByShopProductBinding> {
 
     private Context mContext;
-    private ArrayList<ItemAttribute> mBeans;
 
     public SearchResultByShopProductsAdapter(Context context) {
         super(context);
@@ -28,13 +25,9 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemA
 
     @Override
     protected void onBindItem(ItemSearchResultByShopProductBinding binding, ItemAttribute itemAttribute, int position) {
-        binding.setItemAttr(mBeans.get(position));
+        binding.setItemAttr(itemAttribute);
         binding.rcProduct.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class));
         });
-    }
-
-    public void setArrayList(ArrayList<ItemAttribute> list) {
-        mBeans = list;
     }
 }
