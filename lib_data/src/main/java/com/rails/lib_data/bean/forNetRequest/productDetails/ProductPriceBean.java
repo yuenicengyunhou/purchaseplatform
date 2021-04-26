@@ -16,7 +16,7 @@ public class ProductPriceBean {
     private List<ItemPicture> pictureUrl;
     private List packinglist;
     private String packageDis;
-    private int score;
+    private double score;
     private int saleNum;
     private String creditLevel;
 
@@ -104,11 +104,11 @@ public class ProductPriceBean {
         this.packageDis = packageDis;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

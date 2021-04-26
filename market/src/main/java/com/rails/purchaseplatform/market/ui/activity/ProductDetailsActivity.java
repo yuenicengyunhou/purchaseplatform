@@ -499,7 +499,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void onGetProductPriceSuccess(ProductPriceBean bean) {
         binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
         binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
-        binding.fsvScore.setStar(bean.getScore());
+        binding.fsvScore.setStar((int) bean.getScore());
     }
 
     @Override
