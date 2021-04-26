@@ -110,6 +110,7 @@ public class CartShopProductBean {
     public final ObservableField<Boolean> canAdd = new ObservableField<>();
     public final ObservableField<Boolean> canSel = new ObservableField<>();
     public final ObservableField<Boolean> isLimit = new ObservableField<>();
+    public final ObservableField<Boolean> isCollect = new ObservableField<>();
 
     public String getShopId() {
         return shopId;

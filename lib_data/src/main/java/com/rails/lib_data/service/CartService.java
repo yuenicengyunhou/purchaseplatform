@@ -105,4 +105,28 @@ public interface CartService {
     @POST("app-order-service/app/v1/mall/cart/changeSkuNum")
     Observable<HttpResult<Boolean>> modifyProductNum(@FieldMap HashMap<String, Object> params);
 
+
+    /**
+     * 取消收藏
+     * https://shop-dev1.rails.cn/proxy/item/mall/collection/cancelCollectionBySkuIds
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app-item-service/app/v1/mall/collection/cancelCollectionBySkuIds")
+    Observable<HttpResult<Boolean>> cancelCollect(@FieldMap HashMap<String, Object> params);
+
+
+    /**
+     * 收藏
+     * https://shop-dev1.rails.cn/proxy/item/mall/collection/saveCollectionItems
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app-item-service/app/v1/mall/collection/saveCollectionItems")
+    Observable<HttpResult<Boolean>> onCollect(@FieldMap HashMap<String, Object> params);
+
 }

@@ -1,25 +1,19 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.text.TextUtils;
 
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,15 +26,11 @@ import java.util.HashMap;
 public class CartPresenterImpl extends BasePresenter<CartContract.CartView> implements CartContract.CartPresenter {
 
     CartModel model;
-    private String userId;
-    private String organizeId;
 
 
     public CartPresenterImpl(Activity mContext, CartContract.CartView cartView) {
         super(mContext, cartView);
         model = new CartModel();
-        UserInfoBean userInfoBean = PrefrenceUtil.getInstance(mContext).getBean(ConShare.USERINFO, UserInfoBean.class);
-        userId = userInfoBean.getId();
     }
 
     @Override
@@ -59,12 +49,13 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             protected void onSuccess(CartBean cartBean) {
                 baseView.dismissDialog();
                 if (isCallBack()) {
-
+                    CartShopBean bean = new CartShopBean();
                     for (CartShopBean shopBean : cartBean.getShopList()) {
                         StringBuffer buffer = new StringBuffer();
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
                             productBean.num.set(productBean.getSkuNum());
                             productBean.isSel.set(productBean.getSelected());
+                            productBean.isCollect.set(productBean.getCollect());
 
                             buffer.append(productBean.getSkuId() + ",");
 
@@ -119,7 +110,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
         baseView.showResDialog(R.string.loading);
         long finalNum = num;
-        model.modifyProduct(bean.getShopId(), userId, bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
+        model.modifyProduct(bean.getShopId(), "", bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -143,7 +134,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         num--;
         baseView.showResDialog(R.string.loading);
         long finalNum = num;
-        model.modifyProduct(bean.getShopId(), userId, bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
+        model.modifyProduct(bean.getShopId(), "", bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -166,7 +157,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         if (bean == null)
             return;
         baseView.showResDialog(R.string.loading);
-        model.modifyProduct(bean.getShopId(), userId, bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
+        model.modifyProduct(bean.getShopId(), "", bean.getSkuId(), bean.getRecommendOrgId(), num, new HttpRxObserver<Boolean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();

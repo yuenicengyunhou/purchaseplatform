@@ -29,8 +29,11 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
         super(mContext, addressToolView);
         model = new AddressModel();
         UserInfoBean userInfoBean = PrefrenceUtil.getInstance(mContext).getBean(ConShare.USERINFO, UserInfoBean.class);
-        userId = userInfoBean.getId();
-        userType = userInfoBean.getAccountType();
+        if (userInfoBean != null){
+            userId = userInfoBean.getId();
+            userType = userInfoBean.getAccountType();
+        }
+
     }
 
     @Override

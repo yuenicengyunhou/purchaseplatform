@@ -24,6 +24,7 @@
     <string name="market_cart_hot">热销商品</string>
     <string name="market_cart_selall">全选</string>
     <string name="market_cart_collect">移入收藏</string>
+    <string name="market_cart_collect_out">移出收藏</string>
     <string name="market_cart_del">删除</string>
 
 

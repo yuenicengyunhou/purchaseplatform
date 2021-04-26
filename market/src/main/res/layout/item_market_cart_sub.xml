@@ -174,9 +174,10 @@
                 android:layout_height="match_parent"
                 android:background="@color/bg_gray_light"
                 android:gravity="center"
-                android:text="@string/market_cart_collect"
+                android:text="@{product.isCollect?@string/market_cart_collect_out:@string/market_cart_collect}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_12" />
+
 
             <TextView
                 android:id="@+id/btn_del"

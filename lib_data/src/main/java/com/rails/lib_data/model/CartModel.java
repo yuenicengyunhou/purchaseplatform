@@ -38,6 +38,7 @@ public class CartModel {
 
     /**
      * 删除购物车
+     *
      * @param map
      * @param httpRxObserver
      */
@@ -159,6 +160,7 @@ public class CartModel {
                 .subscribe(httpRxObserver);
     }
 
+
     /**
      * 校对购物车选中商品
      *
@@ -172,6 +174,30 @@ public class CartModel {
                 .create(CartService.class)
                 .verifyCart(params))
                 .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 加入收藏/取消收藏
+     *
+     * @param skuIds collectionSource"  加入收藏需要的参数,value = "收藏来源，10：列表页，20：商详页，30：购物车
+     */
+    public void onCollect(String skuIds, String collectionSource, boolean isCollect, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("skuIds", skuIds);
+        if (!isCollect) {
+            params.put("collectionSource", collectionSource);
+            HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                    .create(CartService.class)
+                    .onCollect(params))
+                    .subscribe(httpRxObserver);
+        } else {
+            HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                    .create(CartService.class)
+                    .cancelCollect(params))
+                    .subscribe(httpRxObserver);
+        }
+
     }
 
 

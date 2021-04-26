@@ -34,10 +34,9 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
-import com.rails.lib_data.contract.CartPresenterImpl2;
+import com.rails.lib_data.contract.CartToolPresenterImpl;
 import com.rails.lib_data.contract.ProductDetailsContract;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
-import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
@@ -139,7 +138,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         setTextStyleDeprecated();
 
-        mPresenter = new CartPresenterImpl2(this, this);
+        mPresenter = new CartToolPresenterImpl(this, this);
 
         // 设置banner宽高
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
@@ -483,6 +482,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void addCartSuccess(boolean isComplete) {
         mPop.dismiss();
+    }
+
+    @Override
+    public void onCollect(boolean isCollect) {
+
     }
 
     @Override

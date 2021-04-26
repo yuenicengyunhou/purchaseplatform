@@ -61,7 +61,7 @@
                 android:inputType="phone"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:text="17301188000"
+                android:text="18331099998"
                 android:textColor="@color/font_black"
                 android:textColorHint="@color/font_hint"
                 android:textSize="@dimen/font_size_15" />

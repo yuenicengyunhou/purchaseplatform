@@ -15,6 +15,7 @@ import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartPresenterImpl;
+import com.rails.lib_data.contract.CartToolPresenterImpl;
 import com.rails.lib_data.contract.ProductContract;
 import com.rails.lib_data.contract.ProductPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -55,7 +56,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContract.CartView,
         LoadMoreRecycler.LoadMoreListener, ProductContract.ProductView, AddressToolContract.AddressToolView,
-        MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean> {
+        MulPositionListener<CartShopProductBean>, PositionListener<CartShopBean>, CartContract.DetailsCartView {
 
     int type = 0;//是否显示标题
     final int DEF_PAGE = 1;
@@ -69,6 +70,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     CartContract.CartPresenter presenter;
     AddressToolContract.AddressToolPresenter addressPresenter;
     ProductContract.ProductPresenter productPresenter;
+    CartContract.CartPresenter2 toolPresenter;
 
 
     private CartShopProductBean lastBean;
@@ -127,6 +129,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
 
         presenter = new CartPresenterImpl(getActivity(), this);
+        toolPresenter = new CartToolPresenterImpl(getActivity(), this);
         productPresenter = new ProductPresenterImpl(getActivity(), this);
         addressPresenter = new AddressToolPresenterImpl(getActivity(), this);
     }
@@ -301,6 +304,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             showEditDialog(bean);
         } else if (type == CartAdapter.SUB_COLLECT) {
             // TODO: 2021/3/28   调用收藏接口
+            toolPresenter.onCollect(bean.getSkuId(), "30", bean.isCollect.get());
         } else if (type == CartAdapter.SUB_DEL) {
             // TODO: 2021/3/28 调用删除接口
             delParams(bean, position);
@@ -454,4 +458,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     }
 
+    @Override
+    public void addCartSuccess(boolean isComplete) {
+
+    }
+
+    @Override
+    public void onCollect(boolean isCollect) {
+        lastBean.isCollect.set(isCollect);
+    }
 }

@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
+import com.rails.lib_data.R;
 import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -10,11 +11,11 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 /**
  * 商品详情页 请求添加到购物车
  */
-public class CartPresenterImpl2 extends BasePresenter<CartContract.DetailsCartView> implements CartContract.CartPresenter2 {
+public class CartToolPresenterImpl extends BasePresenter<CartContract.DetailsCartView> implements CartContract.CartPresenter2 {
 
     private CartModel mModel;
 
-    public CartPresenterImpl2(Activity mContext, CartContract.DetailsCartView cartView) {
+    public CartToolPresenterImpl(Activity mContext, CartContract.DetailsCartView cartView) {
         super(mContext, cartView);
         mModel = new CartModel();
     }
@@ -39,5 +40,31 @@ public class CartPresenterImpl2 extends BasePresenter<CartContract.DetailsCartVi
                         baseView.addCartSuccess(true);
                     }
                 });
+    }
+
+
+    /**
+     * @param skuIds
+     * @param collectionSource 加入收藏参数 value = "收藏来源，10：列表页，20：商详页，30：购物车
+     * @param isCollect        是否已经收藏
+     */
+    @Override
+    public void onCollect(String skuIds, String collectionSource, boolean isCollect) {
+        baseView.showResDialog(R.string.loading);
+        mModel.onCollect(skuIds, collectionSource, isCollect, new HttpRxObserver<Boolean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Boolean response) {
+                baseView.dismissDialog();
+                if (isCallBack()) {
+                    baseView.onCollect(!isCollect);
+                }
+            }
+        });
     }
 }
