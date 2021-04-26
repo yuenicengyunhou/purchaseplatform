@@ -98,13 +98,14 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
             long addressId = bean.getAddressId();
             if (position == 0) {
                 presenter.delAddress(addressId, adapterPosition);
-            } else {
-                //设为默认
-                int receivingAddress = bean.getReceivingAddress();
-                int invoiceAddress = bean.getInvoiceAddress();
-                presenter.setDefAddress(addressId, adapterPosition, receivingAddress == 1, invoiceAddress == 1);
-
             }
+//            else {
+//                //设为默认
+//                int receivingAddress = bean.getReceivingAddress();
+//                int invoiceAddress = bean.getInvoiceAddress();
+//                presenter.setDefAddress(addressId, adapterPosition, receivingAddress == 1, invoiceAddress == 1);
+//
+//            }
         });
         barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         barBinding.recycler.setAdapter(addressAdapter);
@@ -196,7 +197,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
     @Override
     public void onPosition(AddressBean bean, int position, int... params) {
-        presenter.setDefAddress(bean.getAddressId(), position, bean.getReceivingAddress() == 1, bean.getInvoiceAddress() == 1);
+//        presenter.setDefAddress(bean.getAddressId(), position, bean.getReceivingAddress() == 1, bean.getInvoiceAddress() == 1);
     }
 
     @Override

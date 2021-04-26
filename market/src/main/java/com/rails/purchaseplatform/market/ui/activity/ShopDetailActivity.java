@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.CompoundButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,20 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private final int PAGE_DEF = 0;
     private int mPage = PAGE_DEF;
 
+    /**
+     * 排序：
+     * <p>
+     * 销量向下
+     * orderColumn=saleCount&orderType=desc
+     * 销量向上
+     * orderColumn=saleCount&orderType=asc
+     * <p>
+     * 价格向上
+     * orderColumn=sellPrice&orderType=asc
+     * 价格向下
+     * orderColumn=sellPrice&orderType=desc
+     */
+
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -64,12 +79,11 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         barBinding.recRecycler.setAutoLoadMoreEnable(true);
         barBinding.recRecycler.setLoadMoreListener(() -> {
             mPage++;
-            Log.e("WQ", "loadmore" + mPage);
-            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE);
+            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
         });
         presenter = new ShopPresenterImp(this, this);
         presenter.getShopDetails(shopInfoId);
-        presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE);
+        presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
 
 
     }
@@ -97,11 +111,28 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     @Override
     protected void onClick() {
         super.onClick();
-        barBinding.rbSale.setOnClickListener(v -> setSelected(false, true, false, false));
+        //true向上 false向下
+        barBinding.rbSale.setOnClickListener(v -> {
+                    setSelected(false, true, false, false);
+                    mPage = PAGE_DEF;
+                    String type = barBinding.rbSale.isChecked() ? "asc" : "desc";
+                    presenter.getShopItemList(20, 10L, mPage, SHOP_RECOMMEND_PAGE_SIZE, "saleCount", type);
+                }
+        );
 
-        barBinding.rbPrice.setOnCheckedChangeListener((buttonView, isChecked) -> setSelected(false, false, true, false));
+        barBinding.rbPrice.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    setSelected(false, false, true, false);
+                    mPage = PAGE_DEF;
+                    String type = barBinding.rbPrice.isChecked() ? "asc" : "desc";
+                    presenter.getShopItemList(20, 10L, mPage, SHOP_RECOMMEND_PAGE_SIZE, "sellPrice", type);
+                }
 
-        barBinding.rbAll.setOnClickListener(v -> setSelected(true, false, false, false));
+        );
+
+        barBinding.rbAll.setOnClickListener(v -> {
+            setSelected(true, false, false, false);
+            presenter.getShopItemList(20, 10L, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
+        });
 
         barBinding.rbSel.setOnClickListener(v -> showPop());
     }
@@ -124,12 +155,12 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
 
     private void showPop() {
-//        if (filterPop == null) {
-//            filterPop = new FilterShopPop();
-//            filterPop.setType(BasePop.MATCH_WRAP);
-//            filterPop.setGravity(Gravity.BOTTOM);
-//        }
-//        filterPop.show(getSupportFragmentManager(), "shop");
+        if (filterPop == null) {
+            filterPop = new FilterShopPop();
+            filterPop.setType(BasePop.MATCH_WRAP);
+            filterPop.setGravity(Gravity.BOTTOM);
+        }
+        filterPop.show(getSupportFragmentManager(), "shop");
 
     }
 
@@ -144,8 +175,6 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         barBinding.recRecycler.setLoadingMore(false);
         if (!list.isEmpty()) {
             adapter.update(list, mPage == PAGE_DEF);
-        } else {
-            ToastUtil.show(this, "最后一页啦");
         }
     }
 

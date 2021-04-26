@@ -41,18 +41,15 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
 
         ArrayList<SearchResultBean> beans = JsonUtil.parseJson(getActivity(), "searchResult.json", type);
 
-        adapter.update(beans, true);
+//        adapter.update(beans, true);
 
         onClick();
     }
 
 
     void onClick() {
-        binding.btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        binding.btnClose.setOnClickListener(v -> dismiss());
     }
+
+
 }

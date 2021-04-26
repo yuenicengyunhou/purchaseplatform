@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,16 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.bean.OrderBean;
 import com.rails.lib_data.bean.OrderInfoBean;
-import com.rails.lib_data.bean.OrderParentBean;
 import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LrLableLayout;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
-import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.widget.Title4OrderRecyclerItem;
 
@@ -48,9 +44,9 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 
         OrderInfoBean parentBean = mDataSource.get(position);
-        long orderNo = parentBean.getOrderNo();
+        String orderNo = parentBean.getOrderNo();
 
-        Resources res = mContext.getResources();
+//        Resources res = mContext.getResources();
 //        holder.lrCode.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getCode()));
 //        holder.lrTime.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getTime()));
 //        holder.lrSupplier.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getMen()));
@@ -66,7 +62,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         holder.title.setOnClickListener(v -> ARouter.getInstance()
                 .build(ConRoute.WEB.WEB_PURCHASE_DETAIL)
                 .withString("url", ConRoute.WEB_URL.PURCHASE_DETAIL)
-                .withString("orderNo",String.valueOf(orderNo))
+                .withString("orderNo",orderNo)
                 .navigation());
 
         // 跳转到Android原生的 采购单详情页
@@ -80,12 +76,10 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         holder.recycler.setAdapter(adapter);
         adapter.update(subOrderInfo, true);
 
-        holder.lrCode.setOnClickListener(v -> {
-            ARouter.getInstance()
-                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
-                    .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
-                    .navigation();
-        });
+        holder.lrCode.setOnClickListener(v -> ARouter.getInstance()
+                .build(ConRoute.WEB.WEB_ORDER_DETAIL)
+                .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                .navigation());
     }
 
 

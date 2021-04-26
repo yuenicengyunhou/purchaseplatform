@@ -1,12 +1,14 @@
 package com.rails.purchaseplatform.order.fragment;
 
 
+import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.order.OrderParentAdapter;
 import com.rails.purchaseplatform.order.databinding.FragmentOrderBinding;
@@ -67,14 +69,14 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
         binding.swipe.setOnRefreshListener(refreshLayout -> {
             binding.swipe.finishRefresh();
             page = DEF_PAGE;
-            notifyData(false, page);
+            notifyData(true, page);
         });
 
         binding.swipe.setOnLoadMoreListener(refreshLayout -> {
             page++;
             notifyData(false, page);
         });
-        notifyData(false, page);
+        notifyData(true, page);
     }
 
 
@@ -86,7 +88,7 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      */
     private void notifyData(boolean isDialog, int page) {
         int queryType = status == 0 ? 1 : 0;
-        presenter.getOrder(isDialog, page, queryType,squence,"");
+        presenter.getOrder(isDialog, page, queryType, squence, "");
     }
 
     /**
@@ -95,25 +97,34 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      * 1 - 采购人用户名
      * 2 - 供应商名称
      */
-    public void notifyData(int searchType,String searchContent) {
+    public void notifyData(int searchType, String searchContent) {
         squence = getQuestSquence(searchType);
         page = DEF_PAGE;
         int queryType = status == 0 ? 1 : 0;
-        presenter.getOrder(true, page, queryType,squence,searchContent);
+        presenter.getOrder(true, page, queryType, squence, searchContent);
     }
 
     private String getQuestSquence(int searchType) {
         if (searchType == 0) {
             return "purchaseNo";
         } else if (searchType == 1) {
-            return "buyerName";
-        } else  {
-            return "shopName";
+            return "buyerAccountId";
+        } else {
+            return "shopId";
         }
     }
 
     @Override
     public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear) {
-        mAdapter.update(orderBeans, true);
+        if (hasMore) {
+            ToastUtil.show(mActivity, "最后一页啦");
+        }
+//        binding.recycler
+        mAdapter.update(orderBeans, isClear);
+    }
+
+    @Override
+    public void loadConditionNameList(ArrayList<BuyerBean> list) {
+
     }
 }

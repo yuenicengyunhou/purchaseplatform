@@ -25,6 +25,8 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     private ArrayList<String> mData;
     private FlowLayoutManager mManager;
     private String[] mTexts;
+//    private String[] orderStatus = {"全部", "待下单", "已驳回", "待发货", "已发货", "待收货", "已取消", "已收货", "采购人取消"};
+//    private String[] orderStatus = {"全部", "待下单", "已驳回", "待发货", "已发货", "待收货", "已取消", "已收货", "采购人取消"};
 
     public OrderSearchFilterPop() {
     }
@@ -36,31 +38,32 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     @Override
     protected void initialize(Bundle bundle) {
         mData = new ArrayList<>();
-        mData.add("全部");
-        mData.add("待下单");
-        mData.add("已驳回");
-        mData.add("待发货");
-        mData.add("已发货");
-        mData.add("待收货");
-        mData.add("已取消");
-        mData.add("已收货");
-        mData.add("采购人取消");
+//        mData.add("全部");
+//        mData.add("待下单");
+//        mData.add("已驳回");
+//        mData.add("待发货");
+//        mData.add("已发货");
+//        mData.add("待收货");
+//        mData.add("已取消");
+//        mData.add("已收货");
+//        mData.add("采购人取消");
 
 //        mAdapter = new OrderSearchFilterAdapter(getActivity());
-        mAdapter2 = new OrderSearchFilterAdapter2(getActivity(), mData);
 
-        binding.recyclerStatus.setLayoutManager(new FlowLayoutManager());
-        binding.recyclerStatus.addItemDecoration(new SpaceItemDecoration(20));
-        binding.recyclerStatus.setAdapter(mAdapter2);
 
         Type type = new TypeToken<ArrayList<OrderStatusBean>>() {
         }.getType();
         ArrayList<OrderStatusBean> beans = JsonUtil.parseJson(getActivity(), "orderStatus.json", type);
+        binding.recyclerStatus.setLayoutManager(new FlowLayoutManager());
+        binding.recyclerStatus.addItemDecoration(new SpaceItemDecoration(20));
+        mAdapter2 = new OrderSearchFilterAdapter2(getActivity(), beans);
+        binding.recyclerStatus.setAdapter(mAdapter2);
 
 //        mAdapter.update(beans, true);
 
         binding.tvReset.setOnClickListener(v -> dismiss());
         binding.tvComplete.setOnClickListener(v -> dismiss());
+        binding.ivClose.setOnClickListener(v -> dismiss());
 
         setText(mTexts);
 

@@ -61,45 +61,45 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         });
     }
 
-    @Override
-    public void setDefAddress(long id, int position, boolean isReceiveDef, boolean isInvoiceDef) {
+//    @Override
+//    public void setDefAddress(long id, int position, boolean isReceiveDef, boolean isInvoiceDef) {
+//
+//        if (isReceiveDef) {
+//            setDefaultReceiveAddress(id, position);
+//        }
+//        if (isInvoiceDef) {
+//            setDefaultInvoiceAddress(id, position);
+//        }
+//    }
 
-        if (isReceiveDef) {
-            setDefaultReceiveAddress(id, position);
-        }
-        if (isInvoiceDef) {
-            setDefaultInvoiceAddress(id, position);
-        }
-    }
+//    private void setDefaultReceiveAddress(long id, int position) {
+//        model.updateDefaultReceiveAddress(20, accountId, id, new HttpRxObserver<String>() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//                baseView.onError(e);
+//            }
+//
+//            @Override
+//            protected void onSuccess(String response) {
+//                baseView.getResult(1, position, "设置默认成功");
+//            }
+//        });
+//    }
 
-    private void setDefaultReceiveAddress(long id, int position) {
-        model.updateDefaultReceiveAddress(20, accountId, id, new HttpRxObserver<String>() {
-            @Override
-            protected void onError(ErrorBean e) {
-                baseView.onError(e);
-            }
-
-            @Override
-            protected void onSuccess(String response) {
-                baseView.getResult(1, position, "设置默认成功");
-            }
-        });
-    }
-
-    private void setDefaultInvoiceAddress(long id, int position) {
-        model.updateDefaultInvoiceAddress(20, accountId, id, new HttpRxObserver<String>() {
-            @Override
-            protected void onError(ErrorBean e) {
-                baseView.onError(e);
-
-            }
-
-            @Override
-            protected void onSuccess(String response) {
-                baseView.getResult(1, position, "设置默认成功");
-            }
-        });
-    }
+//    private void setDefaultInvoiceAddress(long id, int position) {
+//        model.updateDefaultInvoiceAddress(20, accountId, id, new HttpRxObserver<String>() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//                baseView.onError(e);
+//
+//            }
+//
+//            @Override
+//            protected void onSuccess(String response) {
+//                baseView.getResult(1, position, "设置默认成功");
+//            }
+//        });
+//    }
 
     @Override
     public void delAddress(long id, int position) {

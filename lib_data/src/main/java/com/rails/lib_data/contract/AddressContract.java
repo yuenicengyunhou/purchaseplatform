@@ -59,7 +59,7 @@ public interface AddressContract {
          *
          * param id
          */
-        void setDefAddress(long id, int position,boolean isReceiveDef,boolean isInvoiceDef);
+//        void setDefAddress(long id, int position,boolean isReceiveDef,boolean isInvoiceDef);
 
 
         /**
