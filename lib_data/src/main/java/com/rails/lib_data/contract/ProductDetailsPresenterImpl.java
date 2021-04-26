@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
@@ -101,14 +100,14 @@ public class ProductDetailsPresenterImpl
      * @param platformId
      * @param keyword
      * @param cid
-     * @param shopId
+     * @param pageNum
      * @param isDialog
      */
     @Override
-    public void getHotSale(long platformId, String keyword, int cid, long shopId, boolean isDialog) {
+    public void getHotSale(long platformId, String keyword, int cid, int pageNum, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-        mModel.getHotSale(platformId, keyword, cid, shopId, new HttpRxObserver<HotSaleBean>() {
+        mModel.getHotSale(platformId, keyword, cid, pageNum, new HttpRxObserver<HotSaleBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);

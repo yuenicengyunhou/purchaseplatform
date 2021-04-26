@@ -30,10 +30,19 @@ public class ItemPublishVo {
     private SupplierInfoImportData supplierInfoImportData;
     private int orgId;
     private String creditLevel;
+    private int itemSaleCount;
 
 
     // ===========================================================================================
 
+
+    public int getItemSaleCount() {
+        return itemSaleCount;
+    }
+
+    public void setItemSaleCount(int itemSaleCount) {
+        this.itemSaleCount = itemSaleCount;
+    }
 
     public String getBrandName() {
         return BrandName;

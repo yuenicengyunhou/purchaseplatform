@@ -232,7 +232,6 @@ public class ProductBean {
 
 
     public String getSkuId() {
-        splitUrl();
         return skuId;
     }
 
@@ -259,21 +258,12 @@ public class ProductBean {
             return;
         }
         String[] urls = linkUrl.split("itemId=");
-        String[] ids = urls[1].split("&skuId=");
-        setItemId(ids[0]);
-        setSkuId(ids[1]);
-//        for (int i = 0; i < urls.length; i++) {
-//            String[] params = urls[i].split("skuId=");
-//            for (int j = 0; j < params.length; i++) {
-//                if (j == 1) {
-//                    if (i == 0) {
-//                        setItemId(params[j]);
-//                    } else {
-//                        setSkuId(params[j]);
-//                    }
-//                }
-//            }
-//
-//        }
+        if (urls[1].contains("&skuId=")) {
+            String[] ids = urls[1].split("&skuId=");
+            setItemId(ids[0]);
+            setSkuId(ids[1]);
+        } else {
+            setItemId(urls[1]);
+        }
     }
 }

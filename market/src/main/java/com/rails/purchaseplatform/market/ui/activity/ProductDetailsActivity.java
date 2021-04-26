@@ -62,7 +62,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         implements
         JSBack,
         CartContract.DetailsCartView,
-        ProductDetailsContract.ProductDetailsView, AddressToolContract.AddressToolView {
+        ProductDetailsContract.ProductDetailsView,
+        AddressToolContract.AddressToolView {
 
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
@@ -71,12 +72,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private CartContract.CartPresenter2 mPresenter;
 
-    final private String[] TAB_URLS = {
-            ConRoute.WEB_URL.PRODUCT_INFO,
-            ConRoute.WEB_URL.PACKAGE_LIST,
-            ConRoute.WEB_URL.SERVICES,
-            ConRoute.WEB_URL.RECOMMENDS,
-    };
+    final private ArrayList<String> TAB_URLS = new ArrayList<>();
 
     private ArrayList<String> pictureUrls = new ArrayList<>();
     private PropertyPop mPop;
@@ -88,13 +84,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private long mShopId;
     private String mKeyword;
     private ArrayList<AddressBean> addresses;
-
-//    {
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168023/428_428_0C84F12F106534A8612D9CB8D2A995442DCECCE7A16C45D9mp.png");
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443407217/428_428_4A986AE3579911F078F43B674B4EF611BE841294A15C2C50mp.png");
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6901443408887/428_428_8C0DCB8B48F9A0DDDF1C3A8BC7958FBA2AE24D308646AAA2mp.png");
-//        pictureUrls.add("https://res.vmallres.com/pimages//product/6972453168160/428_428_DA5136390A3402AB2CF52E6836C59D50539C519A493318C1mp.png");
-//    }
 
     final private ArrayList<View> VIEWS = new ArrayList<>();
 
@@ -123,6 +112,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
+        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO + "?platformId=20&itemId=" + mItemId + "&areaId=-1");
+        TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST + "?platformId=20&skuId=" + mSkuId);
+        TAB_URLS.add(ConRoute.WEB_URL.SERVICES /*+ "platformId=20&skuId=" + mSkuId*/);
+        TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS /*+ "platformId=20&skuId=" + mSkuId*/);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
@@ -302,7 +295,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         for (int i = 0; i < WEB_VIEWS.length; i++) {
             setWeb(WEB_VIEWS[i], i);
-            WEB_VIEWS[i].loadUrl(TAB_URLS[i]);
+            WEB_VIEWS[i].loadUrl(TAB_URLS.get(i));
             WEB_VIEWS[i].addJavascriptInterface(this, "app");
         }
     }
@@ -499,16 +492,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
+        binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
 
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-        mGetProductDetailsPresenter.getHotSale(mPlatformId, "测试", 1000812, mShopId, false); // TODO: 2021/4/22 未验证json解析的接口
+        mGetProductDetailsPresenter.getHotSale(
+                mPlatformId, "",
+                mCid, 1, false);
     }
 
     @Override
     public void onGetProductPriceSuccess(ProductPriceBean bean) {
         binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
         binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
-        binding.fsvScore.setStar(bean.getScore());
+        binding.fsvScore.setStar((int) bean.getScore());
     }
 
     @Override
@@ -542,10 +538,5 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onLogin() {
 
-    }
-
-    @JavascriptInterface
-    public long getItemId() {
-        return mItemId;
     }
 }

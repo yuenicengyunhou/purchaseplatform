@@ -4,7 +4,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
@@ -16,7 +21,6 @@ import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.lib_data.h5.ConstantH5;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -31,18 +35,12 @@ import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
-import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
-import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 商城首页
@@ -233,14 +231,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void onPosition(ProductBean bean, int position) {
-        // TODO: 2021/3/23 跳转商品详情 数据
         Bundle bundle = new Bundle();
         bundle.putLong("platformId", bean.getPlatformId());
         bundle.putString("keyword", bean.getSkuName());
         bundle.putInt("cid", bean.getCid());
         bundle.putLong("shopId", bean.getShopId());
-//        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
-//        bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
+        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
+        bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
         goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
     }
 

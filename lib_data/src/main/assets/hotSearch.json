@@ -1,53 +1,90 @@
-[
-  {
-    "searchItem": "5G手机"
-  },
-  {
-    "searchItem": "铁三角动圈耳机"
-  },
-  {
-    "searchItem": "冰箱"
-  },
-  {
-    "searchItem": "电脑"
-  },
-  {
-    "searchItem": "内存DDR4"
-  },
-  {
-    "searchItem": "海信电视"
-  },
-  {
-    "searchItem": "热水壶"
-  },
-  {
-    "searchItem": "运动鞋"
-  },
-  {
-    "searchItem": "数据线"
-  },
-  {
-    "searchItem": "联想电源适配器"
-  },
-  {
-    "searchItem": "手剥核桃"
-  },
-  {
-    "searchItem": "大列巴"
-  },
-  {
-    "searchItem": "坚果"
-  },
-  {
-    "searchItem": "纸抽"
-  },
-  {
-    "searchItem": "拖鞋"
-  },
-  {
-    "searchItem": "剃须刀"
-  },
-  {
-    "searchItem": "投影仪"
-  }
-]
+{
+  "code": "0",
+  "msg": "操作成功",
+  "data": [
+    {
+      "id": 139,
+      "key": 139,
+      "platformId": 20,
+      "name": "口罩",
+      "url": "https://shop.rails.cn/mall-view/product/search?keyword=1",
+      "listingStatus": 1,
+      "releaseTime": 1611905671000,
+      "releaseType": 1,
+      "releaseStatusView": "已发布",
+      "type": 1,
+      "target": 2,
+      "sortNum": 2,
+      "carousel": null,
+      "recommendationType": 2,
+      "recommendationTypeView": "手动推荐",
+      "created": 1611649303000,
+      "modified": 1611907058000,
+      "yn": 1,
+      "listingStatusView": "上架"
+    },
+    {
+      "id": 133,
+      "key": 133,
+      "platformId": 20,
+      "name": "笔记本",
+      "url": "//shop.rails.cn/mall-view/product/search?keyword=%E7%AC%94%E8%AE%B0%E6%9C%AC",
+      "listingStatus": 1,
+      "releaseTime": 1586784546000,
+      "releaseType": 1,
+      "releaseStatusView": "已发布",
+      "type": 1,
+      "target": 2,
+      "sortNum": 4,
+      "carousel": null,
+      "recommendationType": 2,
+      "recommendationTypeView": "手动推荐",
+      "created": 1583727962000,
+      "modified": 1611907058000,
+      "yn": 1,
+      "listingStatusView": "上架"
+    },
+    {
+      "id": 137,
+      "key": 137,
+      "platformId": 20,
+      "name": "电钻",
+      "url": "//shop.rails.cn/mall-view/product/search?keyword=%E7%94%B5%E9%92%BB",
+      "listingStatus": 1,
+      "releaseTime": 1586784525000,
+      "releaseType": 1,
+      "releaseStatusView": "已发布",
+      "type": 1,
+      "target": 2,
+      "sortNum": 5,
+      "carousel": null,
+      "recommendationType": 2,
+      "recommendationTypeView": "手动推荐",
+      "created": 1583728172000,
+      "modified": 1611907058000,
+      "yn": 1,
+      "listingStatusView": "上架"
+    },
+    {
+      "id": 135,
+      "key": 135,
+      "platformId": 20,
+      "name": "食用油",
+      "url": "//shop.rails.cn/mall-view/product/search?keyword=%E9%A3%9F%E7%94%A8%E6%B2%B9",
+      "listingStatus": 1,
+      "releaseTime": 1586784536000,
+      "releaseType": 1,
+      "releaseStatusView": "已发布",
+      "type": 1,
+      "target": 2,
+      "sortNum": 6,
+      "carousel": null,
+      "recommendationType": 2,
+      "recommendationTypeView": "手动推荐",
+      "created": 1583728008000,
+      "modified": 1611907058000,
+      "yn": 1,
+      "listingStatusView": "上架"
+    }
+  ]
+}

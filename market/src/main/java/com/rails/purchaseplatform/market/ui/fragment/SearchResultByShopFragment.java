@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rails.lib_data.bean.forAppShow.ShopAttribute;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchShopPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -31,7 +32,6 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     protected void loadData() {
         Bundle bundle = this.getArguments();
         mSearchKey = bundle.getString("search_key", "");
-        mSearchKey = "惠普";
 
         mPresenter = new SearchShopPresenterImpl(this.getActivity(), this);
         mPresenter.getShopListWithKeywordOnly(20L, 1L, mSearchKey, true, 1, 30, false);
@@ -52,7 +52,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     }
 
     @Override
-    public void getShopListWithKeywordOnly(ArrayList<Object> beans, boolean hasMore, boolean isClear) {
+    public void getShopListWithKeywordOnly(ArrayList<ShopAttribute> beans, boolean hasMore, boolean isClear) {
         mAdapter.update(beans, isClear);
     }
 }

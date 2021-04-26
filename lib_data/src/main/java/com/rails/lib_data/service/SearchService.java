@@ -1,7 +1,7 @@
 package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
-import com.rails.lib_data.bean.SearchDataByShopBean;
+import com.rails.lib_data.bean.forNetRequest.searchResult.byShop.SearchDataByShopBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.HashMap;

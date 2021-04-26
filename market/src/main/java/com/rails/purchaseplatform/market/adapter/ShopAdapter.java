@@ -2,12 +2,9 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
-import com.rails.lib_data.bean.SearchResultBean;
-import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
 import com.rails.lib_data.bean.shop.ItemSkuBean;
 import com.rails.lib_data.bean.shop.ResultListBean;
 import com.rails.purchaseplatform.common.ConRoute;

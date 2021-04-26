@@ -1,7 +1,5 @@
 package com.rails.lib_data.bean.forNetRequest.productDetails;
 
-import java.util.List;
-
 public class ItemSkuInfo {
     private int id;
     private int itemId;

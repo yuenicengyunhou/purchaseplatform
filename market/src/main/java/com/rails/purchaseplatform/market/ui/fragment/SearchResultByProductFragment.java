@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.lib_data.bean.forAppShow.BaseItemAttribute;
+import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchItemPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -52,7 +52,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void getItemListWithKeywordOnly(ArrayList<BaseItemAttribute> baseItemAttributes, boolean hasMore, boolean isClear) {
-        mAdapter.update(baseItemAttributes, isClear);
+    public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, boolean hasMore, boolean isClear) {
+        mAdapter.update(itemAttributes, isClear);
     }
 }

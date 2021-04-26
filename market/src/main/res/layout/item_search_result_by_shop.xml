@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="searchResultByShop"
-            type="com.rails.lib_data.bean.SearchResultByShopBean" />
+            name="shopAttr"
+            type="com.rails.lib_data.bean.forAppShow.ShopAttribute" />
     </data>
 
     <LinearLayout
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_60"
                 android:layout_marginTop="@dimen/dp_16"
-                android:text="@{searchResultByShop.shopName}"
+                android:text="@{shopAttr.shopName}"
                 android:textColor="#2E2E2E"
                 android:textSize="@dimen/font_size_16"
                 android:textStyle="bold" />

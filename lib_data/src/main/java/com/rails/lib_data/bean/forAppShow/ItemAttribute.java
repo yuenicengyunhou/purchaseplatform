@@ -2,10 +2,11 @@ package com.rails.lib_data.bean.forAppShow;
 
 import java.util.List;
 
+
 /**
  * 商品的基础属性
  */
-public class BaseItemAttribute {
+public class ItemAttribute {
 
     /**
      * CID

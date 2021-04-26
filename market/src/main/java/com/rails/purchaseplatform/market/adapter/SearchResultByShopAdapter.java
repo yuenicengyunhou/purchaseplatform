@@ -5,14 +5,17 @@ import android.content.Intent;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.lib_data.bean.SearchResultByShopBean;
+import com.rails.lib_data.bean.forAppShow.ItemAttribute;
+import com.rails.lib_data.bean.forAppShow.ShopAttribute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultByShopBinding;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 
-public class SearchResultByShopAdapter extends BaseRecyclerAdapter<SearchResultByShopBean, ItemSearchResultByShopBinding> {
+import java.util.ArrayList;
+
+public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute, ItemSearchResultByShopBinding> {
 
     private Context mContext;
     private SearchResultByShopProductsAdapter mAdapter;
@@ -34,14 +37,13 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<SearchResultB
     }
 
     @Override
-    protected void onBindItem(ItemSearchResultByShopBinding binding, SearchResultByShopBean searchResultByShopBean, int position) {
-        binding.setSearchResultByShop(searchResultByShopBean);
+    protected void onBindItem(ItemSearchResultByShopBinding binding, ShopAttribute shopAttribute, int position) {
+        binding.setShopAttr(shopAttribute);
         binding.llShop.setOnClickListener(v -> {
             mContext.startActivity(new Intent(mContext, ShopDetailActivity.class));
         });
-        mAdapter.setArrayList(searchResultByShopBean.getOrderItemBeans());
         binding.brvProductRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.brvProductRecycler.setAdapter(mAdapter);
-        mAdapter.update(searchResultByShopBean.getOrderItemBeans(), true);
+        mAdapter.update((ArrayList<ItemAttribute>) shopAttribute.getItems(), true);
     }
 }

@@ -23,9 +23,9 @@ import com.rails.purchaseplatform.common.adapter.FlowLayoutManager;
 import com.rails.purchaseplatform.common.adapter.HotSearchRecyclerAdapter;
 import com.rails.purchaseplatform.common.adapter.SearchHistoryFlowAdapter;
 import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 import java.util.ArrayList;
@@ -61,12 +61,12 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
 
     @Override
     protected int getColor() {
-        return 0;
+        return android.R.color.white;
     }
 
     @Override
     protected boolean isSetSystemBar() {
-        return false;
+        return true;
     }
 
     @Override
@@ -91,8 +91,11 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         binding.recyclerSearchHistory.addItemDecoration(new SpaceItemDecoration(28));
         binding.recyclerSearchHistory.setAdapter(mSearchHistoryFlowAdapter);
 
-        mHotSearchRecyclerAdapter = new HotSearchRecyclerAdapter(this);
+
         mHotSearchPresenter = new HotSearchPresenterImpl(this, this);
+        mHotSearchPresenter.getHotSearch(false, 1);
+
+        mHotSearchRecyclerAdapter = new HotSearchRecyclerAdapter(this);
         mHotSearchRecyclerAdapter.setListener(this);
         binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
