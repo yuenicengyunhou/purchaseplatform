@@ -27,6 +27,9 @@ public class CartShopBean {
      * freightPrice : 2.00
      */
 
+    private String itemIds;
+
+
     private String platformId;
     private String shopId;
     private String sellerId;
@@ -137,5 +140,14 @@ public class CartShopBean {
 
     public void setSkuList(List<CartShopProductBean> skuList) {
         this.skuList = skuList;
+    }
+
+
+    public String getItemIds() {
+        return itemIds;
+    }
+
+    public void setItemIds(String itemIds) {
+        this.itemIds = itemIds;
     }
 }

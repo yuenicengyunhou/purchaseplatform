@@ -21,6 +21,7 @@ import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 购物车架构
@@ -43,11 +44,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
     }
 
     @Override
-    public void getCarts(boolean isDialog,String addressId) {
+    public void getCarts(boolean isDialog, String addressId) {
         if (isDialog)
             baseView.showResDialog(R.string.loading);
 
-        model.getCarts(addressId,new HttpRxObserver<CartBean>() {
+        model.getCarts(addressId, new HttpRxObserver<CartBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -60,12 +61,14 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 if (isCallBack()) {
 
                     for (CartShopBean shopBean : cartBean.getShopList()) {
-                        shopBean.isSel.set(shopBean.getSelected());
+                        StringBuffer buffer = new StringBuffer();
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
                             productBean.num.set(productBean.getSkuNum());
                             productBean.isSel.set(productBean.getSelected());
 
-                            productBean.canSel.set(productBean.getSaleStatus() == 1 ? true : false);
+                            buffer.append(productBean.getSkuId() + ",");
+
+                            productBean.canSel.set(productBean.getSaleStatus() == 1);
                             productBean.canAdd.set(true);
 
                             if (productBean.num.get() <= 1) {
@@ -74,8 +77,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                                 productBean.canReduce.set(true);
 
                             productBean.isLimit.set(productBean.getLimit());
-
                         }
+                        shopBean.setItemIds(buffer.substring(0, buffer.length() - 1));
+                        shopBean.isSel.set(isAllChecked(shopBean));
                     }
 
                     baseView.getCartInfo(cartBean);
@@ -85,6 +89,27 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
         });
     }
+
+
+    /**
+     * 商店商品是否全部被选中
+     */
+    private boolean isAllChecked(CartShopBean cartShopBean) {
+        try {
+            ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
+            for (CartShopProductBean bean : beans) {
+                if (bean.isSel == null)
+                    return false;
+                if (!bean.isSel.get()) {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 
     @Override
     public void addProduct(CartShopProductBean bean, long num) {
@@ -159,12 +184,26 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
 
     @Override
-    public void delProduct(String id) {
-        baseView.getResult(0, "删除成功");
+    public void delProduct(HashMap<String, ArrayList<String>> map, int position) {
+        model.delCart(map, new HttpRxObserver<Boolean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Boolean response) {
+                baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getResult(1, position, "删除成功");
+            }
+        });
+
     }
 
     @Override
-    public void collectProduct(String id) {
+    public void collectProduct(String id, int position) {
         baseView.getResult(1, "收藏成功");
     }
 
@@ -194,12 +233,17 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
+                baseView.onError(e);
+                if (isCallBack())
+                    baseView.getSelStatus(1, isSel);
 
             }
 
             @Override
             protected void onSuccess(Object response) {
                 baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getSelStatus(1, isSel);
             }
         });
 
@@ -213,14 +257,16 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.getSelStatus(2,!isSel);
+                if (isCallBack())
+                    baseView.getSelStatus(2, !isSel);
                 baseView.onError(e);
             }
 
             @Override
             protected void onSuccess(Boolean response) {
                 baseView.dismissDialog();
-                baseView.getSelStatus(2,isSel);
+                if (isCallBack())
+                    baseView.getSelStatus(2, isSel);
             }
         });
     }
@@ -228,7 +274,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
     @Override
     public void verifyCart(String addressId) {
         baseView.showResDialog(R.string.loading);
-        model.verifyCart(addressId,new HttpRxObserver<String>() {
+        model.verifyCart(addressId, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -238,7 +284,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onSuccess(String response) {
                 baseView.dismissDialog();
-                baseView.getResult(0,"校验成功");
+                baseView.getResult(0, "校验成功");
             }
 
         });

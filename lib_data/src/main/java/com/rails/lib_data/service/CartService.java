@@ -37,8 +37,9 @@ public interface CartService {
      * @param params
      * @return
      */
+    @FormUrlEncoded
     @POST("app-order-service/app/v1/mall/cart/deleteCart")
-    Observable<HttpResult<CartBean>> delCart(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<Boolean>> delCart(@FieldMap HashMap<String, Object> params);
 
 
     /**

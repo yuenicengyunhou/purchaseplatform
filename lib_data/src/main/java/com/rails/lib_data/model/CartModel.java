@@ -1,17 +1,13 @@
 package com.rails.lib_data.model;
 
+import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.CartService;
-import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
-import io.reactivex.Observable;
-import retrofit2.http.FieldMap;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
 
 /**
  * 购物车相关接口
@@ -36,6 +32,22 @@ public class CartModel {
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(CartService.class).getCarts(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 删除购物车
+     * @param map
+     * @param httpRxObserver
+     */
+    public void delCart(HashMap<String, ArrayList<String>> map, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        String json = JSONObject.toJSON(map).toString();
+        params.put("shopSkuMapJson", json);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(CartService.class).delCart(params))
                 .subscribe(httpRxObserver);
     }
 
