@@ -1,5 +1,6 @@
 package com.rails.lib_data.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
@@ -60,4 +61,17 @@ public interface ProductService {
     @FormUrlEncoded
     @POST("app-item-service/app/v1/mall/search/queryRecommendItemListByCid")
     Observable<HttpResult<HotSaleBean>> getHotSale(@FieldMap HashMap<String, Object> params);
+
+    /**
+     * 获取收藏状态
+     */
+//    @FormUrlEncoded
+    @GET("app-item-service/app/v1/mall/collection/queryUserCollect")
+    Observable<HttpResult<JSONObject>> getUserCollect(@QueryMap HashMap<String, Object> params);
+
+    /**
+     * 获取购物车内商品数量
+     */
+    @GET("app-order-service/app/v1/mall/cart/queryCartItemNum")
+    Observable<HttpResult<String>> getCartCount(@QueryMap HashMap<String, Object> params);
 }

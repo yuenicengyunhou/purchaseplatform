@@ -32,8 +32,17 @@ public interface ProductDetailsContract {
         /**
          * 店铺推荐（热销商品）
          */
-        // TODO: 2021/4/22 参数
         void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans);
+
+        /**
+         * 获取收藏状态
+         */
+        void onGetUserCollectSuccess(boolean isCollect);
+
+        /**
+         * 获取购物车内商品数量
+         */
+        void onGetCartCountSuccess(String count);
     }
 
 
@@ -71,5 +80,23 @@ public interface ProductDetailsContract {
          * @param isDialog
          */
         void getHotSale(long platformId, String keyword, int cid, int pageNum, boolean isDialog);
+
+        /**
+         * 获取商品收藏状态
+         *
+         * @param skuId
+         * @param isDialog
+         */
+        void getUserCollect(int skuId, boolean isDialog);
+
+        /**
+         * 获取购物车内商品数量
+         *
+         * @param platformId
+         * @param organizeId
+         * @param accountId
+         * @param isDialog
+         */
+        void getCartCount(long platformId, String organizeId, String accountId, boolean isDialog);
     }
 }

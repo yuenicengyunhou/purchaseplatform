@@ -250,7 +250,7 @@ public class ProductBean {
 
 
     /**
-     * 位置
+     * 截取itemId
      */
     private void splitUrl() {
         String linkUrl = getLinkUrl();

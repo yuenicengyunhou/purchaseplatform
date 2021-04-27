@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
+import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
@@ -134,6 +135,46 @@ public class ProductDetailsPresenterImpl
                 }
 
                 baseView.onGetHotSaleSuccess(beans);
+                baseView.dismissDialog();
+            }
+        });
+    }
+
+    @Override
+    public void getUserCollect(int skuId, boolean isDialog) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+        mModel.getUserCollect(skuId, new HttpRxObserver<JSONObject>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(JSONObject response) {
+                String string = response.toString();
+                boolean isCollect = false;
+                if (string.contains(String.valueOf(skuId)) && string.contains("true"))
+                    isCollect = true;
+                baseView.onGetUserCollectSuccess(isCollect);
+                baseView.dismissDialog();
+            }
+        });
+    }
+
+    @Override
+    public void getCartCount(long platformId, String organizeId, String accountId, boolean isDialog) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+        mModel.getCartCount(platformId, organizeId, accountId, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.onGetCartCountSuccess(response);
                 baseView.dismissDialog();
             }
         });
