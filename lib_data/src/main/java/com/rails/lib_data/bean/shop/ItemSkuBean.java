@@ -53,8 +53,8 @@ public class ItemSkuBean {
         this.brandId = brandId;
     }
 
-    public double getSellPrice() {
-        return sellPrice;
+    public String getSellPrice() {
+        return String.valueOf(sellPrice);
     }
 
     public void setSellPrice(double sellPrice) {

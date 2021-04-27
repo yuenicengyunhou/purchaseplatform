@@ -11,10 +11,11 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
+import com.rails.purchaseplatform.market.databinding.ItemShopSkuBinding;
 
 import java.util.List;
 
-public class ShopAdapter extends BaseRecyclerAdapter<ResultListBean, ItemSearchResultBinding> {
+public class ShopAdapter extends BaseRecyclerAdapter<ResultListBean, ItemShopSkuBinding> {
 
     private Context mContext;
 
@@ -25,29 +26,30 @@ public class ShopAdapter extends BaseRecyclerAdapter<ResultListBean, ItemSearchR
 
     @Override
     protected int getContentID() {
-        return R.layout.item_search_result;
+        return R.layout.item_shop_sku;
     }
 
     @Override
-    protected void onBindItem(ItemSearchResultBinding binding, ResultListBean bean, int position) {
+    protected void onBindItem(ItemShopSkuBinding binding, ResultListBean bean, int position) {
+        binding.setBean(bean);
         List<ItemSkuBean> item_sku = bean.getItem_sku();
+        int skuId = 0;
         String skuName = "";
         double sellPrice = 0.0;
-        int skuId = 0;
         String url = "";
         if (!item_sku.isEmpty()) {
             ItemSkuBean skuBean = item_sku.get(0);
             skuName = skuBean.getSkuName();
-            sellPrice = skuBean.getSellPrice();
+//            sellPrice = skuBean.getSellPrice();
             skuId = skuBean.getSkuId();
             url = "https:" + skuBean.getPictureUrl();
         }
         String shopName = bean.getShopName();
-        binding.tvName.setText(skuName);
-        binding.tvShop.setText(shopName);
-        binding.tvPrice.setText(String.valueOf(sellPrice));
+//        binding.tvName.setText(skuName);
+//        binding.tvShop.setText(shopName);
+//        binding.tvPrice.setText(String.valueOf(sellPrice));
 //        Log.e("WQ", "url==" + url);
-        Glide.with(mContext).load(url).into(binding.ivIcon);
+//        Glide.with(mContext).load(url).into(binding.ivIcon);
 //        binding.tvPrice.setText(String.valueOf(baseItemAttribute.getPrice()));
         int finalSkuId = skuId;
         binding.llItems.setOnClickListener(v -> {
