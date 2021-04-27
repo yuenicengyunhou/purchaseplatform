@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
     private String mSearchKey;
+    private String mCid;
 
     private SearchResultRecyclerAdapter mAdapter;
     private SearchItemPresenterImpl mPresenter;
@@ -32,9 +34,14 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     protected void loadData() {
         Bundle bundle = this.getArguments();
         mSearchKey = bundle.getString("search_key", "");
+        mCid = bundle.getString("cid", "1000207");
 
         mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
-        mPresenter.getItemListWithKeywordOnly(true, 1, 20L, mSearchKey);
+
+        if (!TextUtils.isEmpty(mSearchKey))
+            mPresenter.getItemListWithKeywordOnly(true, 1, 20L, mSearchKey);
+        if (!TextUtils.isEmpty(mCid))
+            mPresenter.getItemListWithCid(mCid, 1, false);
 
         mAdapter = new SearchResultRecyclerAdapter(this.getContext());
         binding.brvProductSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
@@ -54,5 +61,10 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, boolean hasMore, boolean isClear) {
         mAdapter.update(itemAttributes, isClear);
+    }
+
+    @Override
+    public void getItemListWithCid(ArrayList<ItemAttribute> results, boolean hasMore, boolean isClear) {
+        mAdapter.update(results, isClear);
     }
 }

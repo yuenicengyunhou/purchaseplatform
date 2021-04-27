@@ -69,4 +69,39 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         });
     }
 
+    @Override
+    public void getItemListWithCid(String cid, int pageNum, boolean isDialog) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+        model.getItemListWithCid(cid, pageNum, new HttpRxObserver<SearchDataByItemBean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(SearchDataByItemBean response) {
+                ArrayList<ItemAttribute> itemAttributes = new ArrayList<>();
+                for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
+                    ItemAttribute attribute = new ItemAttribute();
+                    SkuItemBean sku = searchItemBean.getItem_sku().get(0);
+                    attribute.setCid(sku.getCid());
+                    attribute.setSkuName(sku.getSkuName());
+                    attribute.setPictureUrl(sku.getPictureUrl());
+                    attribute.setShopId(sku.getShopId());
+                    attribute.setShopName(searchItemBean.getShopName());
+                    attribute.setSellPrice(sku.getSellPrice());
+                    attribute.setItemId(sku.getItemId());
+                    attribute.setSkuId(sku.getSkuId());
+                    attribute.setCid(sku.getCid());
+                    attribute.setShopId(sku.getShopId());
+                    itemAttributes.add(attribute);
+                }
+
+                baseView.getItemListWithCid(itemAttributes, false, true);
+                baseView.dismissDialog();
+            }
+        });
+    }
+
 }

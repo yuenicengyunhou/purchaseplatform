@@ -21,18 +21,36 @@ public interface SearchContract {
          * @param isClear
          */
         void getItemListWithKeywordOnly(ArrayList<ItemAttribute> searchResultBeans, boolean hasMore, boolean isClear);
+
+        /**
+         * 获取商品列表成功 使用cid
+         *
+         * @param results
+         * @param hasMore
+         * @param isClear
+         */
+        void getItemListWithCid(ArrayList<ItemAttribute> results, boolean hasMore, boolean isClear);
     }
 
 
     interface SearchItemPresenter {
         /**
-         * 商品列表
+         * 商品列表 从搜索栏跳转 使用keyword
          *
          * @param isDialog
          * @param platformId
          * @param keyWord
          */
         void getItemListWithKeywordOnly(boolean isDialog, int page, long platformId, String keyWord);
+
+        /**
+         * 商品列表 从首页金刚区跳转 使用cid搜索
+         *
+         * @param cid
+         * @param pageNum
+         * @param isDialog
+         */
+        void getItemListWithCid(String cid, int pageNum, boolean isDialog);
     }
 
 

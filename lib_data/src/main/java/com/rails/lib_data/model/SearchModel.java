@@ -65,4 +65,16 @@ public class SearchModel {
                 .subscribe(httpRxObserver);
     }
 
+    public void getItemListWithCid(String cid, int pageNum, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("cid", cid);
+        params.put("pageNum", pageNum);
+        params.put("businessType", 1);
+        params.put("platformId", 20L);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(SearchService.class)
+                .getItemListWithCid(params))
+                .subscribe(httpRxObserver);
+    }
+
 }

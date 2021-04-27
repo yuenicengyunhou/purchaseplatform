@@ -31,4 +31,13 @@ public interface SearchService {
      */
     @GET("elasticsearch-service/mall/search/queryShopListByKeyword")
     Observable<HttpResult<SearchDataByShopBean>> getShopListWithKeywordOnly(@QueryMap HashMap<String, Object> params);
+
+    /**
+     * 获取店铺列表
+     *
+     * @param params
+     * @return
+     */
+    @GET("elasticsearch-service/mall/search/queryItemListByCid")
+    Observable<HttpResult<SearchDataByItemBean>> getItemListWithCid(@QueryMap HashMap<String, Object> params);
 }

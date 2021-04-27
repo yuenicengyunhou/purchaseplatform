@@ -490,9 +490,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
 //        binding.tvPriceGray.setText(bean.get);
         this.productDetailsBean = bean;
-        for (ItemPictureVo itemPictureVo : bean.getItemPictureVoList()) {
-            pictureUrls.add(itemPictureVo.getPictureUrl());
-        }
+        if (bean.getItemPictureVoList() != null && bean.getItemPictureVoList().size() != 0)
+            for (ItemPictureVo itemPictureVo : bean.getItemPictureVoList()) {
+                pictureUrls.add(itemPictureVo.getPictureUrl());
+            }
         binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
@@ -502,6 +503,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getHotSale(
                 mPlatformId, "",
                 mCid, 1, false);
+
+//        mPresenter.onCollect(mSkuId, "20", ); // TODO 添加收藏
 
 //        binding.ratioImage // TODO 设置图片
 
