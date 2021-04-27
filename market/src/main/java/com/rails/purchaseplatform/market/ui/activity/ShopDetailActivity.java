@@ -1,15 +1,11 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
-import android.widget.CompoundButton;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.shop.ResultListBean;
 import com.rails.lib_data.bean.shop.ShopInfoBean;
 import com.rails.lib_data.contract.ShopContract;
@@ -18,13 +14,10 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ShopAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
 import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
 
@@ -68,7 +61,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         shopInfoId = extras.getLong("shopInfoId");
-        shopInfoId = 202003030111L;
+//        shopInfoId = 202003030111L;
     }
 
     @Override
@@ -121,7 +114,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
                     setSelected(false, true, false, false);
                     mPage = PAGE_DEF;
                     String type = barBinding.rbSale.isChecked() ? "asc" : "desc";
-                    presenter.getShopItemList(20, 10L, mPage, SHOP_RECOMMEND_PAGE_SIZE, "saleCount", type);
+                    presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "saleCount", type);
                 }
         );
 
@@ -129,14 +122,14 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
                     setSelected(false, false, true, false);
                     mPage = PAGE_DEF;
                     String type = barBinding.rbPrice.isChecked() ? "asc" : "desc";
-                    presenter.getShopItemList(20, 10L, mPage, SHOP_RECOMMEND_PAGE_SIZE, "sellPrice", type);
+                    presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "sellPrice", type);
                 }
 
         );
 
         barBinding.rbAll.setOnClickListener(v -> {
             setSelected(true, false, false, false);
-            presenter.getShopItemList(20, 10L, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
+            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
         });
 
         barBinding.rbSel.setOnClickListener(v -> showPop());

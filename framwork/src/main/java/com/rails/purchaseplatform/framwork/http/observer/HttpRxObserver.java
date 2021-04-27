@@ -33,7 +33,12 @@ public abstract class HttpRxObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(@NonNull T t) {
-        onSuccess(t);
+        try {
+            onSuccess(t);
+        } catch (Exception e) {
+            onSuccess(null);
+        }
+
     }
 
     @Override
