@@ -22,21 +22,20 @@ public class ShopModel {
     }
 
 
-
     /**
      * 排序：
-     *
+     * <p>
      * 销量向下
      * orderColumn=saleCount&orderType=desc
      * 销量向上
      * orderColumn=saleCount&orderType=asc
-     *
+     * <p>
      * 价格向上
      * orderColumn=sellPrice&orderType=asc
      * 价格向下
      * orderColumn=sellPrice&orderType=desc
      */
-    public void getShopItemList(long platformId, long shopInfoId, int page, int pageSize,String orderColumn,String orderType, HttpRxObserver httpRxObserver) {
+    public void getShopItemList(long platformId, long shopInfoId, int page, int pageSize, String orderColumn, String orderType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", "20");
         map.put("shopId", "202003030111");

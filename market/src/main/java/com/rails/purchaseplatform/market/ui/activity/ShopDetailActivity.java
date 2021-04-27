@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.shop.ResultListBean;
 import com.rails.lib_data.bean.shop.ShopInfoBean;
 import com.rails.lib_data.contract.ShopContract;
@@ -43,6 +44,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private long shopInfoId;
     private final int PAGE_DEF = 0;
     private int mPage = PAGE_DEF;
+    private long platformId = 20L;
 
     /**
      * 排序：
@@ -63,6 +65,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         shopInfoId = extras.getLong("shopInfoId");
+        shopInfoId = 202003030111L;
     }
 
     @Override
@@ -79,11 +82,11 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         barBinding.recRecycler.setAutoLoadMoreEnable(true);
         barBinding.recRecycler.setLoadMoreListener(() -> {
             mPage++;
-            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
+            presenter.getShopItemList(platformId, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
         });
         presenter = new ShopPresenterImp(this, this);
         presenter.getShopDetails(shopInfoId);
-        presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
+        presenter.getShopItemList(platformId, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
 
 
     }
@@ -168,6 +171,8 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     @Override
     public void loadShopInfo(ShopInfoBean shop) {
         barBinding.setShopInfo(shop);
+//        String logoUrl = "https:" + shop.getLogoUrl();
+//        Glide.with(this).load(logoUrl).into(barBinding.imgShop);
     }
 
     @Override
