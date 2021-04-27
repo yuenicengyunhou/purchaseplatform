@@ -25,6 +25,8 @@ public class ItemPublishVo {
     private int publishuserId;
     private String categoryFullName;
     private List<String> specAttrNameArray;
+    private List<String> attrNameArray;
+    private List<AttrNameValueReaultVo> attrNameValueReaultVos;
     private int itemType;
     private String rejectReason;
     private SupplierInfoImportData supplierInfoImportData;
@@ -35,6 +37,22 @@ public class ItemPublishVo {
 
     // ===========================================================================================
 
+
+    public List<AttrNameValueReaultVo> getAttrNameValueReaultVos() {
+        return attrNameValueReaultVos;
+    }
+
+    public void setAttrNameValueReaultVos(List<AttrNameValueReaultVo> attrNameValueReaultVos) {
+        this.attrNameValueReaultVos = attrNameValueReaultVos;
+    }
+
+    public List<String> getAttrNameArray() {
+        return attrNameArray;
+    }
+
+    public void setAttrNameArray(List<String> attrNameArray) {
+        this.attrNameArray = attrNameArray;
+    }
 
     public int getItemSaleCount() {
         return itemSaleCount;

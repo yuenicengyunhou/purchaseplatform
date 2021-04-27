@@ -2,6 +2,8 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 
+import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.purchaseplatform.common.widget.tags.FlowTagLayout;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
  * @author： sk_comic@163.com
  * @date: 2021/4/8
  */
-public class PropertyAdapter extends BaseRecyclerAdapter<String, ItemProductPropertyBinding> {
+public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, ItemProductPropertyBinding> {
     public PropertyAdapter(Context context) {
         super(context);
     }
@@ -26,19 +28,15 @@ public class PropertyAdapter extends BaseRecyclerAdapter<String, ItemProductProp
     }
 
     @Override
-    protected void onBindItem(ItemProductPropertyBinding binding, String s, int position) {
-        binding.tvName.setText(s);
+    protected void onBindItem(ItemProductPropertyBinding binding, SpecificationPopBean specificationPopBean, int position) {
+        binding.tvName.setText(specificationPopBean.getAttrName());
         PropertySubAdapter adapter = new PropertySubAdapter(mContext);
         if (position % 2 == 0)
             binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         else
             binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
         binding.flow.setAdapter(adapter);
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("灰色");
-        tags.add("灰色");
-        tags.add("灰色");
-        tags.add("灰色");
+        ArrayList<SpecificationValue> tags = new ArrayList<>(specificationPopBean.getSpecificationValue());
         adapter.update(tags);
     }
 }

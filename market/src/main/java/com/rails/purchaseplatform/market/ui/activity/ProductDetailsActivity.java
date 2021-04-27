@@ -28,6 +28,9 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationValue;
+import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
@@ -47,6 +50,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
@@ -103,6 +107,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String refundInfo, changeInfo, repairInfo, specialInfo;
     private String packagingList;
 
+    private boolean isCollect = false;
+
+    private ArrayList<SpecificationPopBean> mSpecificationPopBean;
+
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -127,7 +135,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
 
         mAddressPresenter = new AddressToolPresenterImpl(this, this);
-        mAddressPresenter.getAddress("", "1"); // TODO 接口调试完成后打开 两行
+        mAddressPresenter.getAddress("", "1");
         mAddressPresenter.getDefAddress("", "1");
 
         VIEWS.add(binding.viewSplit1);
@@ -334,7 +342,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-//            showPropertyPop();
+            showPropertyPop();
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
@@ -350,8 +358,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            // TODO: 2021/04/18 添加到收藏
-//            ARouter.getInstance().build(ConRoute.WEB.WEB_COLLECT).navigation();
+            mPresenter.onCollect(String.valueOf(mSkuId), "20", this.isCollect, -1);
         });
 
         // 点击购物车按钮 跳转到购物车页面
@@ -423,7 +430,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 选择型号/规格弹窗
      */
     private void showPropertyPop() {
-        mPop = new PropertyPop();
+        mPop = new PropertyPop(mSpecificationPopBean);
         mPop.setGravity(Gravity.BOTTOM);
         mPop.setType(BasePop.MATCH_WRAP);
         mPop.setSkuId(mSkuId);
@@ -439,6 +446,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 弹出查看商品参数弹窗
      */
     void showParamsCheckPop() {
+        if (productDetailsBean == null) {
+            ToastUtil.showCenter(this, "产品参数未上传");
+            return;
+        }
         if (mParamsPop == null) {
             ItemParams params = new ItemParams();
             params.setBrand(productDetailsBean.getItemPublishVo().getBrandName());
@@ -482,7 +493,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onCollect(boolean isCollect, int position) {
-
+        this.isCollect = isCollect;
+//        binding.ivCollect // TODO 变更收藏状态
     }
 
 
@@ -503,8 +515,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", mCid, 1, false);
         mGetProductDetailsPresenter.getCartCount(mPlatformId, "13", "1000011315", false);
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
-
-//        mPresenter.onCollect(mSkuId, "20", ); // TODO 添加收藏
 
 //        binding.ratioImage // TODO 设置图片
 
@@ -535,6 +545,26 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         recommendOrg = suppData.getRecommendOrg();
         bindOrgName = suppData.getBindOrgName();
         accountName = suppData.getAccountName();
+
+        ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
+        for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {
+            SpecificationPopBean specificationPopBean = new SpecificationPopBean();
+            specificationPopBean.setAttrName(attrName);
+            ArrayList<SpecificationValue> specificationValues = new ArrayList<>();
+            for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {
+                SpecificationValue specificationValue = new SpecificationValue();
+                specificationPopBean.setAttrId(nameValue.getAttrId());
+                if (nameValue.getAttrName().equals(attrName)) {
+                    specificationValue.setAttrValueId(nameValue.getAttrValueId());
+                    specificationValue.setAttrValueName(nameValue.getAttrValueName());
+                    specificationValues.add(specificationValue);
+                }
+                specificationPopBean.setSpecificationValue(specificationValues);
+            }
+            specificationPopBeans.add(specificationPopBean);
+        }
+        mSpecificationPopBean = specificationPopBeans;
+
     }
 
     @Override
@@ -574,7 +604,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetUserCollectSuccess(boolean isCollect) {
-        boolean b = isCollect;
+        this.isCollect = isCollect;
 //        binding.ivCollect.set TODO 设置收藏状态
     }
 

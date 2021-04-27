@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
@@ -23,6 +24,17 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
     private PropertyAdapter adapter;
     private AddToCart mAddToCart;
     private int mSkuId;
+    private ArrayList<SpecificationPopBean> mBeans;
+
+    public PropertyPop() {
+        super();
+    }
+
+
+    public PropertyPop(ArrayList<SpecificationPopBean> beans) {
+        super();
+        mBeans = beans;
+    }
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -31,15 +43,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
 
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(adapter);
-
-        ArrayList<String> propertys = new ArrayList<>();
-        propertys.add("颜色");
-        propertys.add("尺寸");
-        propertys.add("颜色");
-        propertys.add("尺寸");
-        propertys.add("颜色");
-        propertys.add("尺寸");
-        adapter.update(propertys, true);
+        adapter.update(mBeans, true);
 
         onClick();
     }

@@ -26,7 +26,7 @@ public class ProductDetailsModel {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("platformId", platformId);
-        params.put("itemId", itemId);
+        params.put("itemId", itemId); // 使用 1014721 调试规格选择
 //        params.put("companyId", companyId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
