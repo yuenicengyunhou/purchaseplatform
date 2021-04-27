@@ -20,8 +20,8 @@
             android:id="@+id/ll_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
             android:layout_marginLeft="@dimen/common_border"
+            android:layout_marginTop="@dimen/dp_20"
             android:orientation="horizontal">
 
             <ImageView
@@ -29,12 +29,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/svg_circle_checked" />
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/svg_circle_checked"
+                android:visibility="@{address.isSel?View.VISIBLE:View.GONE}" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="@{address.receiverName}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_16" />
@@ -46,9 +49,11 @@
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/ll_name"
+            android:layout_alignTop="@+id/ll_name"
+            android:layout_alignBottom="@+id/ll_name"
             android:layout_marginLeft="@dimen/dp_30"
             android:layout_toRightOf="@+id/ll_name"
+            android:gravity="center_vertical"
             android:text="@{address.mobile}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_16" />

@@ -118,9 +118,6 @@ public class ConRoute {
 //        public final static String BASEURL = "http://172.28.22.96:3000/purchase-android-web/#/";
 
 
-//        public final static String BASEPURCHASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
-        public final static String BASEPURCHASEURL = "http://172.28.22.92:3000/purchase-android-web/#/";
-
         public final static String HOME = BASEURL + "home";
 
         // 评价
@@ -140,14 +137,14 @@ public class ConRoute {
 
 
         //订单详情
-        public final static String ORDER_DETAIL = BASEPURCHASEURL + "orderDetails";
+        public final static String ORDER_DETAIL = BASEURL + "orderDetails";
 
         //采购单详情
-        public final static String PURCHASE_DETAIL = BASEPURCHASEURL + "purOrderDetails";
+        public final static String PURCHASE_DETAIL = BASEURL + "purOrderDetails";
 
 
         // 订单详情
-        public final static String ORDER_SUB_DETAIL = BASEPURCHASEURL + "orderDetails";
+        public final static String ORDER_SUB_DETAIL = BASEURL + "orderDetails";
 
         // 待审核
         public final static String APPROVAL = BASEURL + "approvalList";

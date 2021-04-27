@@ -13,19 +13,47 @@ import java.util.List;
 public class OrderVerifyBody {
 
 
+    //平台id
     private String platformId;
+    //账户id
     private String accountId;
+    //商品列表
     private List<SkuListBean> skuList;
+    //机构id
     private String organizeId;
+    //收货地址
     private OrderAddressBean orderAddress;
+    //发票信息
     private OrderInvoiceBean orderInvoice;
+    //评论集合
     private JSONObject remarkMap;
+    /**
+     * 是否直达 0否 1是
+     */
     private Integer through;
+    /**
+     * 结算类型 10暂不选择 15运营物资 20其他物资
+     */
     private Integer settleType;
+    /**
+     * 订单支付金额（包括运费）
+     */
     private String paymentPrice;
+    /**
+     * 结算单位id
+     */
     private String accountingUnitId;
+    /**
+     * 支付方式
+     */
     private Integer paymentType;
+    /**
+     * 结算方式  0：本级结算，1：集中结算
+     */
     private String accountingType;
+    /**
+     * 是否延迟收货 1：延迟收货 0：无延迟收货
+     */
     private String delayFlag;
 
 

@@ -329,4 +329,6 @@ public class AddressBean implements Serializable {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+
 }

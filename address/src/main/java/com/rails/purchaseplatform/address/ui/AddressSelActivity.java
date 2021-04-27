@@ -2,19 +2,13 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
-import com.rails.lib_data.contract.AddressContract;
-import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.purchaseplatform.address.R;
-import com.rails.purchaseplatform.address.adapter.AddressAdapter;
 import com.rails.purchaseplatform.address.adapter.AddressSelAdapter;
-import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressSelBinding;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
@@ -22,8 +16,6 @@ import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
-import com.yanzhenjie.recyclerview.SwipeMenuBridge;
 
 import java.util.ArrayList;
 
@@ -44,11 +36,13 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     private AddressSelAdapter addressAdapter;
     private AddressToolContract.AddressToolPresenter presenter;
     private String type;
+    private AddressBean addressBean;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         type = extras.getString("type", "1");
+        addressBean = (AddressBean) extras.getSerializable("bean");
     }
 
     @Override
@@ -133,6 +127,13 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {
         addressAdapter.update(addressBeans, true);
+        if (addressBean != null) {
+            addressAdapter.setSelPosition(addressBean);
+        } else {
+            if (addressBeans.isEmpty())
+                return;
+            addressAdapter.setSelPosition(addressBeans.get(0));
+        }
     }
 
     @Override

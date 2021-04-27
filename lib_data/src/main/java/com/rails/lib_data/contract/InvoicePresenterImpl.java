@@ -52,9 +52,9 @@ public class InvoicePresenterImpl extends BasePresenter<InvoiceContract.InvoiceV
     @Override
     public void getInvoiceContents(boolean isAll) {
         ArrayList<InvoiceContentBean> contents = new ArrayList<>();
-        contents.add(new InvoiceContentBean("发票内容", "明细", 0));
+        contents.add(new InvoiceContentBean("发票内容", "明细", 1));
         if (isAll) {
-            contents.add(new InvoiceContentBean("发票内容", "大类", 1));
+            contents.add(new InvoiceContentBean("发票内容", "大类", 2));
         }
 
         if (isCallBack()) {
