@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.purchaseplatform.framwork.adapter.BaseAbsAdapter;
 import com.rails.purchaseplatform.market.R;
 
@@ -16,7 +17,7 @@ import com.rails.purchaseplatform.market.R;
  * email: wangchao@lepu.cn
  */
 
-public class PropertySubAdapter extends BaseAbsAdapter<String> {
+public class PropertySubAdapter extends BaseAbsAdapter<SpecificationValue> {
 
 
     public PropertySubAdapter(Context context) {
@@ -34,7 +35,7 @@ public class PropertySubAdapter extends BaseAbsAdapter<String> {
         } else
             holder = (ViewHolder) view.getTag();
 
-        holder.rbTag.setText(mDataSource.get(i));
+        holder.rbTag.setText(mDataSource.get(i).getAttrValueName());
         return view;
     }
 

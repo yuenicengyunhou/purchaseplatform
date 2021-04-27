@@ -28,6 +28,9 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationValue;
+import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
@@ -105,6 +108,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String packagingList;
 
     private boolean isCollect = false;
+
+    private ArrayList<SpecificationPopBean> mSpecificationPopBean;
 
 
     @Override
@@ -337,7 +342,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-//            showPropertyPop();
+            showPropertyPop();
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
@@ -353,7 +358,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            Log.d(TAG, "========================== DIAN JI SHOU CANG");
             mPresenter.onCollect(String.valueOf(mSkuId), "20", this.isCollect, -1);
         });
 
@@ -426,7 +430,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 选择型号/规格弹窗
      */
     private void showPropertyPop() {
-        mPop = new PropertyPop();
+        mPop = new PropertyPop(mSpecificationPopBean);
         mPop.setGravity(Gravity.BOTTOM);
         mPop.setType(BasePop.MATCH_WRAP);
         mPop.setSkuId(mSkuId);
@@ -541,6 +545,26 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         recommendOrg = suppData.getRecommendOrg();
         bindOrgName = suppData.getBindOrgName();
         accountName = suppData.getAccountName();
+
+        ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
+        for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {
+            SpecificationPopBean specificationPopBean = new SpecificationPopBean();
+            specificationPopBean.setAttrName(attrName);
+            ArrayList<SpecificationValue> specificationValues = new ArrayList<>();
+            for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {
+                SpecificationValue specificationValue = new SpecificationValue();
+                specificationPopBean.setAttrId(nameValue.getAttrId());
+                if (nameValue.getAttrName().equals(attrName)) {
+                    specificationValue.setAttrValueId(nameValue.getAttrValueId());
+                    specificationValue.setAttrValueName(nameValue.getAttrValueName());
+                    specificationValues.add(specificationValue);
+                }
+                specificationPopBean.setSpecificationValue(specificationValues);
+            }
+            specificationPopBeans.add(specificationPopBean);
+        }
+        mSpecificationPopBean = specificationPopBeans;
+
     }
 
     @Override
