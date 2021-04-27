@@ -75,7 +75,8 @@
         android:layout_alignBottom="@id/view_lowPrice"
         android:background="@null"
         android:gravity="center"
-        android:hint="最低金额"
+        android:hint="@string/lowPrice"
+        android:inputType="number"
         android:textColor="@color/font_gray"
         android:textSize="@dimen/font_size_13" />
 
@@ -110,7 +111,8 @@
         android:layout_alignBottom="@id/view_highPrice"
         android:background="@null"
         android:gravity="center"
-        android:hint="最高金额"
+        android:hint="@string/highPrice"
+        android:inputType="number"
         android:textColor="@color/font_gray"
         android:textSize="@dimen/font_size_13" />
 

@@ -6,6 +6,7 @@ import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.ListBeen;
+import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.OrderModel;
@@ -34,30 +35,6 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
         accountId = bean.getId();
         organizeName = bean.getDepartmentOrganizationName();
         organizationId = bean.getDepartmentOrganizationId();
-    }
-
-    @Override
-    public void getOrder(boolean isDialog, int page, int queryType, String squence, String content) {
-        if (isDialog) {
-            baseView.showResDialog(R.string.loading);
-        }
-        model.getPurchasePageList(20, accountId, queryType, 2, squence, content, page, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
-            @Override
-            protected void onError(ErrorBean e) {
-                baseView.onError(e);
-                baseView.dismissDialog();
-            }
-
-            @Override
-            protected void onSuccess(ListBeen<OrderInfoBean> response) {
-                boolean lastPage = response.isLastPage();
-                boolean firstPage = response.isFirstPage();
-                baseView.dismissDialog();
-                ArrayList<OrderInfoBean> list = response.getList();
-//                boolean isClear = page <= 1;
-                baseView.getOrder(list, lastPage, firstPage);
-            }
-        });
     }
 
     /**
@@ -93,6 +70,33 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
             @Override
             protected void onSuccess(ArrayList<BuyerBean> response) {
                 baseView.loadConditionNameList(response);
+            }
+        });
+    }
+    /**
+     * 采购单列表数据
+     */
+
+    @Override
+    public void getOrder(boolean isDialog, int page, int queryType, String squence, String content, OrderFilterBean filterBean) {
+        if (isDialog) {
+            baseView.showResDialog(R.string.loading);
+        }
+        model.getPurchasePageList(20, accountId, queryType, 2, squence, content, page,filterBean, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(ListBeen<OrderInfoBean> response) {
+                boolean lastPage = response.isLastPage();
+                boolean firstPage = response.isFirstPage();
+                baseView.dismissDialog();
+                ArrayList<OrderInfoBean> list = response.getList();
+//                boolean isClear = page <= 1;
+                baseView.getOrder(list, lastPage, firstPage);
             }
         });
     }

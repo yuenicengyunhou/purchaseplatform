@@ -152,13 +152,13 @@
                     android:button="@null"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp_20"
-                    android:background="@drawable/selector_corner_blue_white_20"
+                    android:background="@drawable/selector_add_address_check_box"
                     android:gravity="center"
                     android:paddingTop="@dimen/dp_5"
                     android:singleLine="true"
                     android:paddingBottom="@dimen/dp_5"
                     android:text="@string/address_add_recevice"
-                    android:textColor="@color/selector_white_gray_color"
+                    android:textColor="@color/selector_white_gray_address"
                     android:textSize="@dimen/font_size_13" />
 
 
@@ -167,13 +167,13 @@
                     android:id="@+id/cb_invoice"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_corner_blue_white_20"
+                    android:background="@drawable/selector_add_address_check_box"
                     android:gravity="center"
                     android:paddingTop="@dimen/dp_5"
                     android:paddingBottom="@dimen/dp_5"
                     android:singleLine="true"
                     android:text="@string/address_add_bill"
-                    android:textColor="@color/selector_white_gray_color"
+                    android:textColor="@color/selector_white_gray_address"
                     android:textSize="@dimen/font_size_13" />
 
             </LinearLayout>
