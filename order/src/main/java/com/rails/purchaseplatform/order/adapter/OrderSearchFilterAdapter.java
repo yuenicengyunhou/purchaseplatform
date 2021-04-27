@@ -28,8 +28,8 @@ public class OrderSearchFilterAdapter extends BaseRecyclerAdapter<OrderStatusBea
     @Override
     protected void onBindItem(ItemOrderStatusBinding binding, OrderStatusBean orderStatusBean, int position) {
         binding.setOrderStatus(orderStatusBean);
-        binding.rlStatus.setOnClickListener(v -> {
-            Toast.makeText(mContext, orderStatusBean.getStatus(), Toast.LENGTH_SHORT).show();
-        });
+//        binding.rlStatus.setOnClickListener(v -> {
+//            Toast.makeText(mContext, orderStatusBean.getStatus(), Toast.LENGTH_SHORT).show();
+//        });
     }
 }

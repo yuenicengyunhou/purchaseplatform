@@ -1,7 +1,6 @@
 package com.rails.lib_data.model;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.ShopService;
@@ -15,7 +14,7 @@ public class ShopModel {
     public void getShopInfo(long platformId, long shopInfoId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
-        map.put("shopInfoId", "202003030111");
+        map.put("shopInfoId", shopInfoId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(ShopService.class).getShopInfo(map))
                 .subscribe(httpRxObserver);
@@ -38,7 +37,7 @@ public class ShopModel {
     public void getShopItemList(long platformId, long shopInfoId, int page, int pageSize, String orderColumn, String orderType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", "20");
-        map.put("shopId", "202003030111");
+        map.put("shopId", shopInfoId);
         map.put("pageNum", page);
         map.put("pageSize", pageSize);
         if (!TextUtils.isEmpty(orderColumn)) {

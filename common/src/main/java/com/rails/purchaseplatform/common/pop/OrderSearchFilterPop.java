@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderStatusBean;
@@ -56,8 +57,13 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         ArrayList<OrderStatusBean> beans = JsonUtil.parseJson(getActivity(), "orderStatus.json", type);
         binding.recyclerStatus.setLayoutManager(new FlowLayoutManager());
         binding.recyclerStatus.addItemDecoration(new SpaceItemDecoration(20));
-        mAdapter2 = new OrderSearchFilterAdapter2(getActivity(), beans);
+        mAdapter2 = new OrderSearchFilterAdapter2(getActivity(),beans);
         binding.recyclerStatus.setAdapter(mAdapter2);
+//        Log.e("WQ", "size==" + beans.size());
+//        for (int i = 0; i < beans.size(); i++) {
+//            Log.e("WQ", beans.get(i).getStatus());
+//        }
+//        mAdapter2.update(beans,true);
 
 //        mAdapter.update(beans, true);
 

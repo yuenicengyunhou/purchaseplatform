@@ -1,5 +1,6 @@
 package com.rails.lib_data.bean;
 
+
 public class OrderStatusBean {
     private String status;
     private String statusCode;
