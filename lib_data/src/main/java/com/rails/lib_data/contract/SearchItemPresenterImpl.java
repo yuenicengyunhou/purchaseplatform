@@ -70,9 +70,9 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
     }
 
     @Override
-    public void getItemListWithCid(String cid, int pageNum, boolean isDialog) {
+    public void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.getItemListWithCid(cid, pageNum, new HttpRxObserver<SearchDataByItemBean>() {
+        model.getItemListWithCid(orderColumn, orderType, cid, pageNum, new HttpRxObserver<SearchDataByItemBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);

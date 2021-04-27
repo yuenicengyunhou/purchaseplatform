@@ -31,7 +31,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     private String mCid;
 
     private SearchResultRecyclerAdapter mAdapter;
-    private SearchItemPresenterImpl mPresenter;
+    private SearchContract.SearchItemPresenter mPresenter;
 
     private SearchResultActivity.OnSortClick onSortClick;
 
@@ -46,7 +46,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         if (mSearchKey != null && !TextUtils.isEmpty(mSearchKey))
             mPresenter.getItemListWithKeywordOnly(null, null, mSearchKey, 1, true);
         if (mCid != null && !TextUtils.isEmpty(mCid))
-            mPresenter.getItemListWithCid(mCid, 1, false);
+            mPresenter.getItemListWithCid(null, null, mCid, 1, false);
 
         mAdapter = new SearchResultRecyclerAdapter(this.getContext());
         binding.brvProductSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
@@ -78,6 +78,6 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         if (keyword != null)
             mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyword, 1, false);
         if (cid != null)
-            mPresenter.getItemListWithCid(cid, 1, false);
+            mPresenter.getItemListWithCid(orderColumn, orderType, cid, 1, false);
     }
 }

@@ -52,7 +52,7 @@ public interface SearchContract {
          * @param pageNum
          * @param isDialog
          */
-        void getItemListWithCid(String cid, int pageNum, boolean isDialog);
+        void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, boolean isDialog);
     }
 
 
