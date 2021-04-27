@@ -83,7 +83,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
                     try {
                         String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
                         bundle.putString("cid", cid);
-                        goLogin(SearchResultActivity.class, "", null);
+                        goLogin(SearchResultActivity.class, "", bundle);
                     } catch (Exception e) {
 
                     }
