@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.CompoundButton;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -22,6 +23,8 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ShopAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
 import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
 
@@ -79,8 +82,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         barBinding.recRecycler.setAdapter(adapter);
-        barBinding.recRecycler.setAutoLoadMoreEnable(true);
-        barBinding.recRecycler.setLoadMoreListener(() -> {
+        barBinding.swipe.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
             presenter.getShopItemList(platformId, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
         });
@@ -138,6 +140,8 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         });
 
         barBinding.rbSel.setOnClickListener(v -> showPop());
+
+        barBinding.swipe.setEnableLoadMore(true);
     }
 
 
@@ -171,13 +175,12 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     @Override
     public void loadShopInfo(ShopInfoBean shop) {
         barBinding.setShopInfo(shop);
-//        String logoUrl = "https:" + shop.getLogoUrl();
-//        Glide.with(this).load(logoUrl).into(barBinding.imgShop);
     }
 
     @Override
     public void loadShopProductList(ArrayList<ResultListBean> list) {
-        barBinding.recRecycler.setLoadingMore(false);
+//        barBinding.swipe.loadmo
+        barBinding.swipe.finishLoadMore();
         if (!list.isEmpty()) {
             adapter.update(list, mPage == PAGE_DEF);
         }
