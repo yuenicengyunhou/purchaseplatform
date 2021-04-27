@@ -18,19 +18,21 @@ public class SearchModel {
     /**
      * 请求商品列表
      *
-     * @param pageNum
-     * @param platformId
+     * @param orderColumn
+     * @param orderType
      * @param keyword
+     * @param pageNum
      * @param httpRxObserver
      */
     public void getItemListWithKeywordOnly(
-            int pageNum, long platformId,
-            String keyword, HttpRxObserver httpRxObserver) {
+            String orderColumn, String orderType, String keyword, int pageNum, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
+        params.put("platformId", 20L);
         params.put("keyword", keyword);
-        params.put("platformId", platformId);
         params.put("pageNum", pageNum);
+        if (orderColumn != null) params.put("orderColumn", orderColumn);
+        if (orderType != null) params.put("orderType", orderType);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(SearchService.class)

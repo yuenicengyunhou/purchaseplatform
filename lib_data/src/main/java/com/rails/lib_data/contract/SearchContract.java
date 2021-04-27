@@ -37,11 +37,13 @@ public interface SearchContract {
         /**
          * 商品列表 从搜索栏跳转 使用keyword
          *
+         * @param orderColumn
+         * @param orderType
+         * @param keyword
+         * @param pageNum
          * @param isDialog
-         * @param platformId
-         * @param keyWord
          */
-        void getItemListWithKeywordOnly(boolean isDialog, int page, long platformId, String keyWord);
+        void getItemListWithKeywordOnly(String orderColumn, String orderType, String keyword, int pageNum, boolean isDialog);
 
         /**
          * 商品列表 从首页金刚区跳转 使用cid搜索

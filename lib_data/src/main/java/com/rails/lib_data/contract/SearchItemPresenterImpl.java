@@ -29,9 +29,9 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
     }
 
     @Override
-    public void getItemListWithKeywordOnly(boolean isDialog, int pageNum, long platformId, String keyword) {
+    public void getItemListWithKeywordOnly(String orderColumn, String orderType, String keyword, int pageNum, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.getItemListWithKeywordOnly(pageNum, platformId, keyword, new HttpRxObserver<SearchDataByItemBean>() {
+        model.getItemListWithKeywordOnly(orderColumn, orderType, keyword, pageNum, new HttpRxObserver<SearchDataByItemBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 Log.d(TAG, " ======= " + " == Error == " + e.getMsg());

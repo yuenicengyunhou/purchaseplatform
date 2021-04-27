@@ -12,6 +12,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByProductBinding;
+import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
 
@@ -19,8 +20,10 @@ import java.util.ArrayList;
 /**
  * 搜索结果 - 按商品搜索
  */
-public class SearchResultByProductFragment extends LazyFragment<FragmentSearchResultByProductBinding> implements
-        SearchContract.SearchItemView {
+public class SearchResultByProductFragment extends LazyFragment<FragmentSearchResultByProductBinding>
+        implements
+        SearchContract.SearchItemView,
+        SearchResultActivity.OnSortClick {
 
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
@@ -29,6 +32,8 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     private SearchResultRecyclerAdapter mAdapter;
     private SearchItemPresenterImpl mPresenter;
+
+    private SearchResultActivity.OnSortClick onSortClick;
 
     @Override
     protected void loadData() {
@@ -39,7 +44,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
 
         if (mSearchKey != null && !TextUtils.isEmpty(mSearchKey))
-            mPresenter.getItemListWithKeywordOnly(true, 1, 20L, mSearchKey);
+            mPresenter.getItemListWithKeywordOnly(null, null, mSearchKey, 1, true);
         if (mCid != null && !TextUtils.isEmpty(mCid))
             mPresenter.getItemListWithCid(mCid, 1, false);
 
@@ -66,5 +71,13 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     public void getItemListWithCid(ArrayList<ItemAttribute> results, boolean hasMore, boolean isClear) {
         mAdapter.update(results, isClear);
+    }
+
+    @Override
+    public void sort(String orderColumn, String orderType, String keyword, String cid) {
+        if (keyword != null)
+            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyword, 1, false);
+        if (cid != null)
+            mPresenter.getItemListWithCid(cid, 1, false);
     }
 }

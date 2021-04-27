@@ -52,6 +52,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     private OrderSearchFilterPop mFilterPop;
 
+    SearchResultByProductFragment fragment1;
+    SearchResultByShopFragment fragment2;
+
     @Override
     protected int getColor() {
         return android.R.color.white;
@@ -72,9 +75,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putString("search_key", mSearchKey);
         fragmentBundle.putString("cid", mCid);
-        SearchResultByProductFragment fragment1 = new SearchResultByProductFragment();
+        fragment1 = new SearchResultByProductFragment();
         fragment1.setArguments(fragmentBundle);
-        SearchResultByShopFragment fragment2 = new SearchResultByShopFragment();
+        fragment2 = new SearchResultByShopFragment();
         fragment2.setArguments(fragmentBundle);
         mFragments = new ArrayList<>();
         mFragments.add(fragment1);
@@ -140,6 +143,11 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             setSelected(false, true, false);
             salesSortFlag = !salesSortFlag;
             // TODO: 2021/3/27 发送请求 - 按销量升序或降序排列
+            if (mSearchType == 0) {
+                fragment1.sort("saleCount", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
+            } else {
+//                fragment2.sort()
+            }
         });
 
         // 点击价格排序
@@ -147,6 +155,11 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             setSelected(false, false, true);
             priceSortFlag = !priceSortFlag;
             // TODO: 2021/3/27 发送请求 - 按价格升序或降序排列
+            if (mSearchType == 0) {
+                fragment1.sort("sellPrice", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
+            } else {
+//                fragment2.sort()
+            }
         });
 
     }
@@ -187,5 +200,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         if (id == R.id.iv_searchCancel || id == R.id.cl_searchBar || id == R.id.tv_type_name) {
             ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
         }
+    }
+
+
+    public interface OnSortClick {
+        void sort(String orderColumn, String orderType, String keyword, String cid);
     }
 }
