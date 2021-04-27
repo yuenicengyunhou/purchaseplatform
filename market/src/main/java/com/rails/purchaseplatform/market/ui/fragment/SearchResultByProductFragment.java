@@ -33,14 +33,14 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     protected void loadData() {
         Bundle bundle = this.getArguments();
-        mSearchKey = bundle.getString("search_key", "");
-        mCid = bundle.getString("cid", "1000207");
+        mSearchKey = bundle.getString("search_key");
+        mCid = bundle.getString("cid");
 
         mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
 
-        if (!TextUtils.isEmpty(mSearchKey))
+        if (mSearchKey != null && !TextUtils.isEmpty(mSearchKey))
             mPresenter.getItemListWithKeywordOnly(true, 1, 20L, mSearchKey);
-        if (!TextUtils.isEmpty(mCid))
+        if (mCid != null && !TextUtils.isEmpty(mCid))
             mPresenter.getItemListWithCid(mCid, 1, false);
 
         mAdapter = new SearchResultRecyclerAdapter(this.getContext());
