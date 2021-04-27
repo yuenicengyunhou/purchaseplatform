@@ -75,7 +75,24 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         categoryAdapter.setListener(new PositionListener<NavigationBean>() {
             @Override
             public void onPosition(NavigationBean bean, int position) {
-                goLogin(SearchResultActivity.class, "", null);
+                String linkUrl = bean.getLinkUrl();
+                Bundle bundle = new Bundle();
+                if (TextUtils.isEmpty(linkUrl))
+                    return;
+                if (linkUrl.contains("cid")) {
+                    try {
+                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
+                        bundle.putString("cid", cid);
+                        goLogin(SearchResultActivity.class, "", null);
+                    } catch (Exception e) {
+
+                    }
+                } else {
+                    bundle.putString("url", linkUrl);
+                    bundle.putString("title",bean.getNavigationBarName());
+                    goLogin(null, ConRoute.WEB.WEB_COMMON, bundle);
+                }
+
             }
         });
 
