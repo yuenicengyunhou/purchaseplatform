@@ -79,8 +79,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //待下单
                 ARouter.getInstance()
                         .build(ConRoute.ORDER.ORDER_MAIN)
+                        .withString("statusCode", "10")
                         .navigation();
             }
         });
@@ -88,19 +90,30 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabRecivice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //待收货 "status": "待收货", "statusCode": "30"
                 ARouter.getInstance()
                         .build(ConRoute.ORDER.ORDER_MAIN)
+                        .withString("statusCode", "30")
                         .navigation();
             }
         });
 
         binding.tabSend.setOnClickListener(v -> {
+                    //待发货 "status": "待发货", "statusCode": "20"
                     ARouter.getInstance()
                             .build(ConRoute.ORDER.ORDER_MAIN)
+                            .withString("statusCode", "20")
                             .navigation();
                 }
-
         );
+
+        binding.tabQuit.setOnClickListener(v -> {
+            //待发货 "status": "已经取消", "statusCode": "70"
+            ARouter.getInstance()
+                    .build(ConRoute.ORDER.ORDER_MAIN)
+                    .withString("statusCode", "70")
+                    .navigation();
+        });
 
         binding.tvWatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +149,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             // TODO: 2021/4/1 跳转到驳回页面
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_APPROVAL)
-                    .withInt("type",2)
+                    .withInt("type", 2)
                     .withString("url", ConRoute.WEB_URL.TURN_DOWN_LIST)
                     .navigation();
         });
@@ -145,7 +158,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             // TODO: 2021/4/1 跳转到通过页面
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_APPROVAL)
-                    .withInt("type",1)
+                    .withInt("type", 1)
                     .withString("url", ConRoute.WEB_URL.TURN_DOWN_LIST)
                     .navigation();
         });
