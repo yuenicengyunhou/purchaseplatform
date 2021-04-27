@@ -30,12 +30,12 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
-import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -258,14 +258,18 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void onPosition(ProductBean bean, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putLong("platformId", bean.getPlatformId());
-        bundle.putString("keyword", bean.getSkuName());
-        bundle.putInt("cid", bean.getCid());
-        bundle.putLong("shopId", bean.getShopId());
-        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
-        bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
-        goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
+        if (bean.getItemId() == null || bean.getSkuId() == null) {
+            ToastUtil.showCenter(this.getActivity(), "商品不存在或已下架");
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putLong("platformId", bean.getPlatformId());
+            bundle.putString("keyword", bean.getSkuName());
+            bundle.putInt("cid", bean.getCid());
+            bundle.putLong("shopId", bean.getShopId());
+            bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
+            bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
+            goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
+        }
     }
 
 

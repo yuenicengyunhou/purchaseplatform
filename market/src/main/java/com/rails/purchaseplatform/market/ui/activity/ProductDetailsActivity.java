@@ -47,6 +47,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
@@ -127,7 +128,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
 
         mAddressPresenter = new AddressToolPresenterImpl(this, this);
-        mAddressPresenter.getAddress("", "1"); // TODO 接口调试完成后打开 两行
+        mAddressPresenter.getAddress("", "1");
         mAddressPresenter.getDefAddress("", "1");
 
         VIEWS.add(binding.viewSplit1);
@@ -439,6 +440,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 弹出查看商品参数弹窗
      */
     void showParamsCheckPop() {
+        if (productDetailsBean == null) {
+            ToastUtil.showCenter(this, "产品参数未上传");
+            return;
+        }
         if (mParamsPop == null) {
             ItemParams params = new ItemParams();
             params.setBrand(productDetailsBean.getItemPublishVo().getBrandName());

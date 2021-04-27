@@ -89,7 +89,15 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ArrayList<ProductPriceBean> response) {
-                baseView.onGetProductPriceSuccess(response.get(0));
+                ProductPriceBean bean = new ProductPriceBean();
+                if (response.size() == 0) {
+                    bean.setCreditLevel("0");
+                    bean.setSellPrice(0.0D);
+                    bean.setMarketPrice(0.0D);
+                } else {
+                    bean = response.get(0);
+                }
+                baseView.onGetProductPriceSuccess(bean);
                 baseView.dismissDialog();
             }
         });
