@@ -63,5 +63,6 @@
 
     <!--店铺详情-->
     <string name="shop_mobile_is">联系电话：</string>
+    <string name="url_head">https:</string>
 
 </resources>

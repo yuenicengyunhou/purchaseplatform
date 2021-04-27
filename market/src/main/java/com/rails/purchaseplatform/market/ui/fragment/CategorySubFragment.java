@@ -43,7 +43,7 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
 
     private CategoryRootBean bean;
     private CategoryAdapter adapter;
-    Drawable blueDraw,whiteDraw;
+    Drawable blueDraw, whiteDraw;
 
 
     public static CategorySubFragment newInstance(CategoryRootBean bean) {
@@ -69,8 +69,8 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
 
     @Override
     protected void loadData() {
-        blueDraw= getResources().getDrawable(R.drawable.svg_line_blue);
-        whiteDraw =getResources().getDrawable(R.drawable.svg_line_white);
+        blueDraw = getResources().getDrawable(R.drawable.svg_line_blue);
+        whiteDraw = getResources().getDrawable(R.drawable.svg_line_white);
 
         adapter = new CategoryAdapter(getActivity());
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
@@ -104,7 +104,7 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
             lable = new TextView(getActivity());
             tab.setCustomView(lable);
             lable.setText(bean.getName());
-             lable.setGravity(Gravity.CENTER);
+            lable.setGravity(Gravity.CENTER);
             int position = tabs.indexOf(bean);
             lable.setCompoundDrawablesWithIntrinsicBounds(null, null, null, position == 0 ? blueDraw : whiteDraw);
             lable.setTextColor(getResources().getColor(position == 0 ? R.color.font_blue : R.color.font_black));
@@ -185,6 +185,8 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
 
     @Override
     public void onPosition(CategorySubBean bean, int position) {
-        startIntent(SearchResultActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("cid", bean.getFcid());
+        startIntent(SearchResultActivity.class, bundle);
     }
 }

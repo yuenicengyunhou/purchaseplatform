@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.CompoundButton;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.shop.ResultListBean;
 import com.rails.lib_data.bean.shop.ShopInfoBean;
 import com.rails.lib_data.contract.ShopContract;
@@ -21,6 +23,8 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ShopAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
 import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
 
@@ -43,6 +47,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private long shopInfoId;
     private final int PAGE_DEF = 0;
     private int mPage = PAGE_DEF;
+    private long platformId = 20L;
 
     /**
      * 排序：
@@ -63,6 +68,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         shopInfoId = extras.getLong("shopInfoId");
+        shopInfoId = 202003030111L;
     }
 
     @Override
@@ -76,14 +82,13 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         barBinding.recRecycler.setAdapter(adapter);
-        barBinding.recRecycler.setAutoLoadMoreEnable(true);
-        barBinding.recRecycler.setLoadMoreListener(() -> {
+        barBinding.swipe.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
-            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
+            presenter.getShopItemList(platformId, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
         });
         presenter = new ShopPresenterImp(this, this);
         presenter.getShopDetails(shopInfoId);
-        presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
+        presenter.getShopItemList(platformId, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
 
 
     }
@@ -135,6 +140,8 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         });
 
         barBinding.rbSel.setOnClickListener(v -> showPop());
+
+        barBinding.swipe.setEnableLoadMore(true);
     }
 
 
@@ -172,7 +179,8 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
     @Override
     public void loadShopProductList(ArrayList<ResultListBean> list) {
-        barBinding.recRecycler.setLoadingMore(false);
+//        barBinding.swipe.loadmo
+        barBinding.swipe.finishLoadMore();
         if (!list.isEmpty()) {
             adapter.update(list, mPage == PAGE_DEF);
         }

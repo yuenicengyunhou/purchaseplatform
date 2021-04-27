@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="shopInfo"
             type="com.rails.lib_data.bean.shop.ShopInfoBean" />
@@ -50,6 +51,7 @@
 
                             <com.rails.purchaseplatform.common.widget.RatioImage
                                 android:id="@+id/img_shop"
+                                imgUrl='@{@string/url_head+shopInfo.logoUrl}'
                                 android:layout_width="@dimen/dp_70"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/common_border"
@@ -61,10 +63,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@+id/img_shop"
-                                android:text="@{shopInfo.shopName}"
                                 android:layout_marginStart="@dimen/dp_10"
                                 android:layout_toStartOf="@+id/tv_level"
                                 android:layout_toEndOf="@+id/img_shop"
+                                android:text="@{shopInfo.shopName}"
                                 android:textColor="@color/font_black"
                                 android:textSize="@dimen/font_size_16" />
 
@@ -167,10 +169,10 @@
                             android:gravity="center">
 
                             <CheckBox
-                                android:checked="false"
                                 android:id="@+id/rb_sel"
                                 style="@style/market_tab"
                                 android:layout_width="wrap_content"
+                                android:checked="false"
                                 android:drawableEnd="@drawable/svg_sel_gray"
                                 android:drawablePadding="@dimen/dp_3"
                                 android:gravity="center"
@@ -184,7 +186,7 @@
 
                 </com.google.android.material.appbar.AppBarLayout>
 
-                <com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler
+                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                     android:id="@+id/recRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
