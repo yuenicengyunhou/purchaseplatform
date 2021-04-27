@@ -24,40 +24,40 @@ public class BrandBean {
      * yn : 1
      */
 
-    private Integer id;
-    private Integer key;
-    private Integer platformId;
+    private String id;
+    private String key;
+    private String platformId;
     private String pictureUrl;
     private String linkUrl;
-    private Integer redirectionStatus;
-    private Integer sortNumber;
-    private Integer operatorId;
+    private String redirectionStatus;
+    private String sortNumber;
+    private String operatorId;
     private String operatorName;
     private String created;
     private String modified;
-    private Integer yn;
+    private String yn;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getKey() {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(Integer key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
-    public Integer getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(Integer platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
@@ -77,27 +77,27 @@ public class BrandBean {
         this.linkUrl = linkUrl;
     }
 
-    public Integer getRedirectionStatus() {
+    public String getRedirectionStatus() {
         return redirectionStatus;
     }
 
-    public void setRedirectionStatus(Integer redirectionStatus) {
+    public void setRedirectionStatus(String redirectionStatus) {
         this.redirectionStatus = redirectionStatus;
     }
 
-    public Integer getSortNumber() {
+    public String getSortNumber() {
         return sortNumber;
     }
 
-    public void setSortNumber(Integer sortNumber) {
+    public void setSortNumber(String sortNumber) {
         this.sortNumber = sortNumber;
     }
 
-    public Integer getOperatorId() {
+    public String getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(String operatorId) {
         this.operatorId = operatorId;
     }
 
@@ -125,11 +125,11 @@ public class BrandBean {
         this.modified = modified;
     }
 
-    public Integer getYn() {
+    public String getYn() {
         return yn;
     }
 
-    public void setYn(Integer yn) {
+    public void setYn(String yn) {
         this.yn = yn;
     }
 }

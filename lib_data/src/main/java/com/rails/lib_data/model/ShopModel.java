@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class ShopModel {
 
-    public void getShopInfo(long platformId, long shopInfoId, HttpRxObserver httpRxObserver) {
+    public void getShopInfo(long platformId, String shopInfoId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("shopInfoId", shopInfoId);
@@ -34,7 +34,7 @@ public class ShopModel {
      * 价格向下
      * orderColumn=sellPrice&orderType=desc
      */
-    public void getShopItemList(long platformId, long shopInfoId, int page, int pageSize, String orderColumn, String orderType, HttpRxObserver httpRxObserver) {
+    public void getShopItemList(long platformId, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", "20");
         map.put("shopId", shopInfoId);

@@ -89,7 +89,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
                     }
                 } else {
                     bundle.putString("url", linkUrl);
-                    bundle.putString("title",bean.getNavigationBarName());
+                    bundle.putString("title", bean.getNavigationBarName());
                     goLogin(null, ConRoute.WEB.WEB_COMMON, bundle);
                 }
 
@@ -104,10 +104,20 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter.setListener(new PositionListener<BrandBean>() {
             @Override
             public void onPosition(BrandBean bean, int position) {
-                Integer id = bean.getId();
+
+                String linkUrl = bean.getLinkUrl();
                 Bundle bundle = new Bundle();
-                bundle.putLong("shopInfoId", id);
-                goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                if (TextUtils.isEmpty(linkUrl))
+                    return;
+                if (linkUrl.contains("shopId")) {
+                    try {
+                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
+                        bundle.putString("shopInfoId", cid);
+                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                    } catch (Exception e) {
+
+                    }
+                }
             }
         });
 

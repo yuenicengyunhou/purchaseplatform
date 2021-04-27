@@ -23,7 +23,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
     }
 
     @Override
-    public void getShopDetails(long id) {
+    public void getShopDetails(String id) {
         model.getShopInfo(20, id, new HttpRxObserver<ShopInfoBean>() {
             @Override
             protected void onError(ErrorBean e) {
@@ -38,7 +38,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
     }
 
     @Override
-    public void getShopItemList(long platformId, long shopInfoId, int page, int pageSize, String orderColumn, String orderType) {
+    public void getShopItemList(long platformId, String shopInfoId, int page, int pageSize, String orderColumn, String orderType) {
         model.getShopItemList(platformId, shopInfoId, page, pageSize, orderColumn, orderType, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {

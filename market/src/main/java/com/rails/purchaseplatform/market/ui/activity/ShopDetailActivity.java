@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +38,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private ShopAdapter adapter;
     private FilterShopPop filterPop;
     private ShopPresenterImp presenter;
-    private long shopInfoId;
+    private String shopInfoId;
     private final int PAGE_DEF = 0;
     private int mPage = PAGE_DEF;
     private long platformId = 20L;
@@ -60,7 +61,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        shopInfoId = extras.getLong("shopInfoId");
+        shopInfoId = extras.getString("shopInfoId");
 //        shopInfoId = 202003030111L;
     }
 
@@ -74,7 +75,11 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         adapter = new ShopAdapter(this);
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        barBinding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         barBinding.recRecycler.setAdapter(adapter);
+        barBinding.recRecycler.setEmptyView(barBinding.empty);
+
+
         barBinding.swipe.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
             presenter.getShopItemList(platformId, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, "", "");
@@ -174,9 +179,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     public void loadShopProductList(ArrayList<ResultListBean> list) {
 //        barBinding.swipe.loadmo
         barBinding.swipe.finishLoadMore();
-        if (!list.isEmpty()) {
-            adapter.update(list, mPage == PAGE_DEF);
-        }
+        adapter.update(list, mPage == PAGE_DEF);
     }
 
     /**/

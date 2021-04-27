@@ -14,7 +14,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg">
+        android:background="@color/white">
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/swipe"
@@ -109,6 +109,7 @@
                         android:layout_height="@dimen/dp_45"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
+                        android:background="@color/bg"
                         android:paddingBottom="@dimen/dp_3">
 
 
@@ -186,14 +187,29 @@
 
                 </com.google.android.material.appbar.AppBarLayout>
 
-                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                    android:id="@+id/recRecycler"
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8"
-                    android:overScrollMode="never"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                        android:id="@+id/recRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_marginRight="@dimen/dp_8"
+                        android:overScrollMode="never"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    <com.rails.purchaseplatform.common.widget.EmptyView
+                        android:id="@+id/empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
+
+                </FrameLayout>
 
 
             </com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout>

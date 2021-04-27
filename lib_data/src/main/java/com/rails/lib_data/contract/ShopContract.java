@@ -35,12 +35,12 @@ public interface ShopContract {
         /**
          * param 店铺信息详情
          */
-        void getShopDetails(long id);
+        void getShopDetails(String id);
 
         /**
          * 店铺推荐商品列表
          */
-        void getShopItemList(long platformId, long shopInfoId, int page, int pageSize,String orderColumn,String orderType);
+        void getShopItemList(long platformId, String shopInfoId, int page, int pageSize,String orderColumn,String orderType);
 
     }
 }
