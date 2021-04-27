@@ -105,7 +105,6 @@
                         android:layout_marginTop="@dimen/dp_6"
                         android:layout_marginEnd="@dimen/dp_16"
                         android:layout_marginBottom="@dimen/dp_12"
-                        android:text="华硕 玩家国度ROG 电竞显示器 游戏显示屏 27英寸 4K 144Hz刷新率 IPS HDR400 G-SYNC 神光同步 XG27UQ绝影"
                         android:textColor="@color/font_black"
                         android:textSize="@dimen/font_size_18"
                         android:textStyle="bold" />
@@ -175,7 +174,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:text="126"
+                            android:text="0"
                             android:textColor="#999999"
                             android:textSize="@dimen/font_size_12"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -210,7 +209,6 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/dp_40"
-                            android:text="27英寸/FHD曲面/165Hz，1件"
                             android:textColor="#454545"
                             android:textSize="@dimen/font_size_13" />
 
@@ -260,7 +258,6 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/dp_55"
-                            android:text="北京市海淀区西二旗智学苑1号楼1单元"
                             android:textColor="#454545"
                             android:textSize="@dimen/font_size_13" />
 
@@ -300,7 +297,6 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/dp_40"
-                            android:text="店铺满99.00包邮"
                             android:textColor="#454545"
                             android:textSize="@dimen/font_size_13" />
                     </RelativeLayout>
@@ -377,7 +373,6 @@
                             android:layout_marginTop="@dimen/dp_16"
                             android:ellipsize="end"
                             android:lines="1"
-                            android:text="联想官方旗舰店"
                             android:textColor="#2E2E2E"
                             android:textSize="@dimen/font_size_16"
                             android:textStyle="bold" />

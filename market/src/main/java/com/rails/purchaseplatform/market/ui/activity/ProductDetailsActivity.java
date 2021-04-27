@@ -104,6 +104,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String refundInfo, changeInfo, repairInfo, specialInfo;
     private String packagingList;
 
+    private boolean isCollect = false;
+
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -351,8 +353,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            // TODO: 2021/04/18 添加到收藏
-//            ARouter.getInstance().build(ConRoute.WEB.WEB_COLLECT).navigation();
+            Log.d(TAG, "========================== DIAN JI SHOU CANG");
+            mPresenter.onCollect(String.valueOf(mSkuId), "20", this.isCollect, -1);
         });
 
         // 点击购物车按钮 跳转到购物车页面
@@ -487,7 +489,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onCollect(boolean isCollect, int position) {
-
+        this.isCollect = isCollect;
+//        binding.ivCollect // TODO 变更收藏状态
     }
 
 
@@ -508,8 +511,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", mCid, 1, false);
         mGetProductDetailsPresenter.getCartCount(mPlatformId, "13", "1000011315", false);
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
-
-//        mPresenter.onCollect(mSkuId, "20", ); // TODO 添加收藏
 
 //        binding.ratioImage // TODO 设置图片
 
@@ -579,7 +580,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetUserCollectSuccess(boolean isCollect) {
-        boolean b = isCollect;
+        this.isCollect = isCollect;
 //        binding.ivCollect.set TODO 设置收藏状态
     }
 
