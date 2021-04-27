@@ -39,6 +39,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     private int mSearchType = 0;
     private String mSearchKey = "";
+    private String mCid = "";
 
     private ArrayList<Fragment> mFragments;
     private SearchResultViewPagerAdapter mPagerAdapter;
@@ -70,6 +71,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     protected void initialize(Bundle bundle) {
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putString("search_key", mSearchKey);
+        fragmentBundle.putString("cid", mCid);
         SearchResultByProductFragment fragment1 = new SearchResultByProductFragment();
         fragment1.setArguments(fragmentBundle);
         SearchResultByShopFragment fragment2 = new SearchResultByShopFragment();
@@ -90,7 +92,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
 
         // 判断如果取不到到传过来的搜索Key就隐藏View，否则显示搜索Key
-        if (mSearchKey.equals("") || mSearchKey == null) {
+        if (mSearchKey == null || mSearchKey.equals("")) {
             binding.clSearchKey.setVisibility(View.GONE);
         } else {
             binding.tvSearchKey.setText(mSearchKey);
@@ -158,6 +160,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         super.getExtraEvent(extras);
         mSearchType = extras.getInt("search_type");
         mSearchKey = extras.getString("search_key");
+        mCid = extras.getString("cid");
     }
 
     /**
