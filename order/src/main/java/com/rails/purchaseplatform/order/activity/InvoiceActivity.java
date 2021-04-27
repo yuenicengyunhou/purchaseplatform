@@ -46,7 +46,10 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
     private AddressBean addressBean;
     //1：普通发票   2：增值税发票
     private int invoiceType = 2;
+    //1:收货地址   2：收发票地址
     private String addressType = "2";
+    //1明细 2大类
+    private int invoiceContent = 1;
 
 
     @Override
@@ -59,10 +62,13 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         barBinding.smart.setEnableLoadMore(false);
         barBinding.smart.setEnableRefresh(false);
 
+        //发票类型
         typeAdapter = new InvoiceContentAdapter(this);
         typeAdapter.setListener(new PositionListener<InvoiceContentBean>() {
             @Override
             public void onPosition(InvoiceContentBean bean, int position) {
+                invoiceContent = 1;
+                invoiceType = bean.getType();
                 if (bean.getType() == 1)
                     presenter.getInvoiceContents(true);
                 else
@@ -73,12 +79,14 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         barBinding.typeRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         barBinding.typeRecycler.setAdapter(typeAdapter);
 
+
+        //发票内容
         contentAdapter = new InvoiceContentAdapter(this);
         barBinding.contentRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         contentAdapter.setListener(new PositionListener<InvoiceContentBean>() {
             @Override
             public void onPosition(InvoiceContentBean bean, int position) {
-
+                invoiceContent = bean.getType();
             }
         });
         barBinding.contentRecycler.setAdapter(contentAdapter);
@@ -158,8 +166,8 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         if (resultCode == RESULT_OK && requestCode == 0) {
             if (data == null)
                 return;
-            AddressBean bean = (AddressBean) data.getExtras().getSerializable("bean");
-            setAddress(bean);
+            addressBean = (AddressBean) data.getExtras().getSerializable("bean");
+            setAddress(addressBean);
         }
     }
 
@@ -170,7 +178,9 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         barBinding.llAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", addressType).navigation(InvoiceActivity.this, 0);
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", addressType)
+                        .withSerializable("bean", addressBean)
+                        .navigation(InvoiceActivity.this, 0);
             }
         });
 

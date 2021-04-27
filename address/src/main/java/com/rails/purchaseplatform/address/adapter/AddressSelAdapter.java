@@ -79,4 +79,16 @@ public class AddressSelAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddr
         }
     }
 
+
+    public void setSelPosition(AddressBean bean) {
+        for (AddressBean addressBean : mDataSource) {
+            if (bean.getId().equals(addressBean.getId())) {
+                addressBean.isSel.set(true);
+            } else {
+                addressBean.isSel.set(false);
+            }
+        }
+    }
+
+
 }

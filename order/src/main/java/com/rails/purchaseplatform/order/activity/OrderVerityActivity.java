@@ -208,7 +208,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.llAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", "1").navigation(OrderVerityActivity.this, 0);
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", "1")
+                        .withSerializable("bean",addressBean)
+                        .navigation(OrderVerityActivity.this, 0);
             }
         });
 
@@ -312,7 +314,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
             //发票
             OrderInvoiceBean orderInvoiceBean = new OrderInvoiceBean();
-            orderInvoiceBean.setInvoiceAddress(verifyBean.getInvoice());
+            orderInvoiceBean.setInvoiceAddress(verifyBean.getInvoiceAddress());
             //发票内容
             orderInvoiceBean.setContent(1);
             //发票类型
