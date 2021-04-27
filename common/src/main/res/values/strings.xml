@@ -8,4 +8,8 @@
     <string name="items_on_sale">商品</string>
     <string name="keys_searching">搜索关键字</string>
     <string name="shop">店铺</string>
+
+    <!--订单，采购单-->
+    <string name="lowPrice">最低金额</string>
+    <string name="highPrice">最高金额</string>
 </resources>

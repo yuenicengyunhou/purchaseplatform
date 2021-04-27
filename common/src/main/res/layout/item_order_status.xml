@@ -13,16 +13,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <TextView
+        <CheckBox
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_conner_blank_gray_15"
+            android:layout_height="@dimen/dp_40"
+            android:background="@drawable/selector_bg_corner_blank"
+            android:button="@null"
             android:paddingStart="@dimen/dp_16"
-            android:paddingTop="@dimen/dp_6"
             android:paddingEnd="@dimen/dp_16"
-            android:paddingBottom="@dimen/dp_6"
-            android:text="@{orderStatus.status}" />
+            android:text="@{orderStatus.status,default=哈哈哈}"
+            android:textColor="@drawable/selector_gray_white_text"
+            android:textSize="@dimen/font_size_13" />
 
     </RelativeLayout>
 </layout>

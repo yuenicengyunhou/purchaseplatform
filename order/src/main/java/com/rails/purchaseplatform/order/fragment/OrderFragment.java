@@ -8,7 +8,6 @@ import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
-import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.order.OrderParentAdapter;
 import com.rails.purchaseplatform.order.databinding.FragmentOrderBinding;
@@ -30,6 +29,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private static int status;
 
     private String squence = "purchaseNo";//默认采购单编号搜索
+    private int searchType = 0;
+    private String searchContent = "";
 
     private OrderFragment(int status) {
         this.status = status;
@@ -69,14 +70,14 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
         binding.swipe.setOnRefreshListener(refreshLayout -> {
             binding.swipe.finishRefresh();
             page = DEF_PAGE;
-            notifyData(true, page);
+            notifyData(true, page, searchType, searchContent);
         });
 
         binding.swipe.setOnLoadMoreListener(refreshLayout -> {
             page++;
-            notifyData(false, page);
+            notifyData(false, page,searchType,searchContent);
         });
-        notifyData(true, page);
+        notifyData(true, page,searchType,searchContent);
     }
 
 
@@ -86,9 +87,10 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      * param isDialog
      * param page
      */
-    private void notifyData(boolean isDialog, int page) {
+    private void notifyData(boolean isDialog, int page, int searchType, String searchContent) {
         int queryType = status == 0 ? 1 : 0;
-        presenter.getOrder(isDialog, page, queryType, squence, "");
+        squence = getQuestSquence(searchType);
+        presenter.getOrder(isDialog, page, queryType, squence, searchContent,null);
     }
 
     /**
@@ -98,10 +100,10 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      * 2 - 供应商名称
      */
     public void notifyData(int searchType, String searchContent) {
-        squence = getQuestSquence(searchType);
         page = DEF_PAGE;
-        int queryType = status == 0 ? 1 : 0;
-        presenter.getOrder(true, page, queryType, squence, searchContent);
+        this.searchType = searchType;
+        this.searchContent = searchContent;
+        notifyData(true, page, searchType, searchContent);
     }
 
     private String getQuestSquence(int searchType) {
@@ -116,11 +118,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
 
     @Override
     public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear) {
-        if (hasMore) {
-            ToastUtil.show(mActivity, "最后一页啦");
-        }
-//        binding.recycler
-        mAdapter.update(orderBeans, isClear);
+        binding.swipe.finishLoadMore();
+        mAdapter.update(orderBeans, page == DEF_PAGE);
     }
 
     @Override

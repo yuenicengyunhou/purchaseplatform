@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,13 +22,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.BuyerBean;
+import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
+import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.adapter.listener.CompleteListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
@@ -46,6 +50,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 采购单列表页面
@@ -171,6 +176,15 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         if (mFilterPopup == null) {
             String[] text = {"采购单状态", "采购单金额", "下单时间"};
             mFilterPopup = new OrderSearchFilterPop(text);
+            mFilterPopup.setCompleteListener(data -> {
+                List<OrderStatusBean> list = data.getStatusBeans();
+                for (int i = 0; i < list.size(); i++) {
+                    OrderStatusBean orderStatusBean = list.get(i);
+                    if (orderStatusBean.isChecked()) {
+                        Log.e("WQ", "or===" + orderStatusBean.getStatus());
+                    }
+                }
+            });
             mFilterPopup.setType(BasePop.MATCH_WRAP);
             mFilterPopup.setGravity(Gravity.BOTTOM);
         }
@@ -377,11 +391,5 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         }
     }
 
-//    @Override
-//    public void loadSupplierNameList(ArrayList<String> list) {
-//
-//    }
-
-    /**/
 
 }
