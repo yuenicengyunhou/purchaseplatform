@@ -120,14 +120,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     protected void initialize(Bundle bundle) {
         TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO + "?platformId=20&itemId=" + mItemId + "&areaId=-1");
         TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST + "?platformId=20&skuId=" + mSkuId);
-        TAB_URLS.add(ConRoute.WEB_URL.SERVICES /*+ "platformId=20&skuId=" + mSkuId*/);
-        TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS /*+ "platformId=20&skuId=" + mSkuId*/);
+        TAB_URLS.add(ConRoute.WEB_URL.SERVICES);
+        TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
 
         mAddressPresenter = new AddressToolPresenterImpl(this, this);
-        mAddressPresenter.getAddress("", "1");
+        mAddressPresenter.getAddress("", "1"); // TODO 接口调试完成后打开 两行
         mAddressPresenter.getDefAddress("", "1");
 
         VIEWS.add(binding.viewSplit1);
@@ -500,9 +500,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
 
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-        mGetProductDetailsPresenter.getHotSale(
-                mPlatformId, "",
-                mCid, 1, false);
+        mGetProductDetailsPresenter.getHotSale(mPlatformId, "", mCid, 1, false);
+        mGetProductDetailsPresenter.getCartCount(mPlatformId, "13", "1000011315", false);
+        mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
 
 //        mPresenter.onCollect(mSkuId, "20", ); // TODO 添加收藏
 
@@ -570,6 +570,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans) {
         recommendItemsRecyclerAdapter.update(beans, false);
+    }
+
+    @Override
+    public void onGetUserCollectSuccess(boolean isCollect) {
+        boolean b = isCollect;
+//        binding.ivCollect.set TODO 设置收藏状态
+    }
+
+    @Override
+    public void onGetCartCountSuccess(String count) {
+        binding.tvCartCount.setText(String.valueOf(count));
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 

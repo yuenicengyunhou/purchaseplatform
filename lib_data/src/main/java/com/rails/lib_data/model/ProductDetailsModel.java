@@ -77,4 +77,40 @@ public class ProductDetailsModel {
                 .getHotSale(params))
                 .subscribe(httpRxObserver);
     }
+
+    /**
+     * 获取 商品收藏状态
+     *
+     * @param skuId
+     * @param httpRxObserver
+     */
+    public void getUserCollect(int skuId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("skuIds", skuId);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .getUserCollect(params))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
+     * 获取购物车内商品数量
+     *
+     * @param platformId
+     * @param organizeId
+     * @param accountId
+     * @param httpRxObserver
+     */
+    public void getCartCount(long platformId, String organizeId, String accountId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+//        params.put("platformId", platformId);
+//        params.put("organizeId", organizeId);
+//        params.put("accountId", accountId);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .getCartCount(params))
+                .subscribe(httpRxObserver);
+    }
 }

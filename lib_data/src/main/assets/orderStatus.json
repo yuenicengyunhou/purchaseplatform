@@ -1,38 +1,47 @@
 [
   {
     "status": "全部",
-    "statusCode": ""
+    "statusCode": "",
+    "checked": true
   },
   {
     "status": "待下单",
-    "statusCode": "10"
+    "statusCode": "10",
+    "checked": false
   },
   {
     "status": "已驳回",
-    "statusCode": "60"
+    "statusCode": "60",
+    "checked": false
   },
   {
     "status": "待发货",
-    "statusCode": "20"
+    "statusCode": "20",
+    "checked": false
   },
   {
     "status": "已发货",
-    "statusCode": "25"
+    "statusCode": "25",
+    "checked": false
   },
   {
     "status": "待收货",
-    "statusCode": "30"
+    "statusCode": "30",
+    "checked": false
   },
   {
     "status": "已取消",
-    "statusCode": "70"
+    "statusCode": "70",
+    "checked": false
   },
   {
     "status": "已收货",
-    "statusCode": "40"
+    "statusCode": "40",
+    "checked": false
   },
   {
     "status": "采购人取消",
-    "statusCode": "1"
+    "statusCode": "1",
+    "checked": false
   }
 ]

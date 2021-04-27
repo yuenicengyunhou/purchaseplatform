@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.BuyerBean;
+import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -24,7 +25,7 @@ public interface OrderContract {
     }
 
     interface OrderPresenter {
-        void getOrder(boolean isDialog, int page,int queryType,String squence,String content);
+        void getOrder(boolean isDialog, int page, int queryType, String squence, String content, OrderFilterBean filterBean);
 
         /**
          * 采购人 用户名列表
