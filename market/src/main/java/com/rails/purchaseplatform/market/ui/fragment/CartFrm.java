@@ -322,6 +322,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (type == CartAdapter.SHOP) {
             //跳转商铺页面
             Bundle bundle = new Bundle();
+            bundle.putString("shopInfoId", bean.getShopId());
             startIntent(ShopDetailActivity.class, bundle);
 
         } else {
