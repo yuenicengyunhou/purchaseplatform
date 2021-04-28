@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class SearchFilterBean {
     private String filterName;
     private String filterId;
+    private boolean isMultiSelect = true; // 默认可多选 只有类目为单选
     private ArrayList<SearchFilterValue> filterValues;
 
 
@@ -25,6 +26,14 @@ public class SearchFilterBean {
 
     public void setFilterId(String filterId) {
         this.filterId = filterId;
+    }
+
+    public boolean isMultiSelect() {
+        return isMultiSelect;
+    }
+
+    public void setMultiSelect(boolean multiSelect) {
+        isMultiSelect = multiSelect;
     }
 
     public ArrayList<SearchFilterValue> getFilterValues() {

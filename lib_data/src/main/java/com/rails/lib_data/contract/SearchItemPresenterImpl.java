@@ -133,6 +133,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         if (response.getAllCids() != null && response.getAllCids().size() != 0) {
             SearchFilterBean searchFilterBean = new SearchFilterBean();
             searchFilterBean.setFilterName("类目");
+            searchFilterBean.setMultiSelect(false);
             ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
             for (CidBean cidBean : response.getAllCids()) {
                 SearchFilterValue searchFilterValue = new SearchFilterValue();
