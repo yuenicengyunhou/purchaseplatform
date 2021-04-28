@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CategoryAttr {
     private String attrName;
-    private List<CategoryAttrValues> attrValues;
+    private List<CategoryAttrValue> attrValues;
 
 
     // =========================================================================
@@ -18,11 +18,11 @@ public class CategoryAttr {
         this.attrName = attrName;
     }
 
-    public List<CategoryAttrValues> getAttrValues() {
+    public List<CategoryAttrValue> getAttrValues() {
         return attrValues;
     }
 
-    public void setAttrValues(List<CategoryAttrValues> attrValues) {
+    public void setAttrValues(List<CategoryAttrValue> attrValues) {
         this.attrValues = attrValues;
     }
 }

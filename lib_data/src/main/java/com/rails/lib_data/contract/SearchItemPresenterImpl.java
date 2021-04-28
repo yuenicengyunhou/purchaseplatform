@@ -8,7 +8,7 @@ import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.forNetRequest.searchResult.CategoryAttr;
-import com.rails.lib_data.bean.forNetRequest.searchResult.CategoryAttrValues;
+import com.rails.lib_data.bean.forNetRequest.searchResult.CategoryAttrValue;
 import com.rails.lib_data.bean.forNetRequest.searchResult.ExpandAttr;
 import com.rails.lib_data.bean.forNetRequest.searchResult.ExpandAttrValue;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
@@ -126,9 +126,9 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
                         ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
                         if (attr.getAttrValues() != null && attr.getAttrValues().size() != 0) {
-                            for (CategoryAttrValues values : attr.getAttrValues()) {
+                            for (CategoryAttrValue value : attr.getAttrValues()) {
                                 SearchFilterValue searchFilterValue = new SearchFilterValue();
-                                searchFilterValue.setValueName(values.getName());
+                                searchFilterValue.setValueName(value.getName());
                                 searchFilterValues.add(searchFilterValue);
                             }
                             searchFilterBean.setFilterValues(searchFilterValues);

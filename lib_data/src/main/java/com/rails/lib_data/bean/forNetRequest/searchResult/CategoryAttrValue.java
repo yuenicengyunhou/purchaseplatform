@@ -1,6 +1,6 @@
 package com.rails.lib_data.bean.forNetRequest.searchResult;
 
-public class CategoryAttrValues {
+public class CategoryAttrValue {
     private String name;
 
 
