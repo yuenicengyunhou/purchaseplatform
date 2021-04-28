@@ -29,9 +29,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
             MODE_4 = 4;
 
     private AddToCart mAddToCart;
-    private int mSkuId;
     private ArrayList mBeans;
-    private ArrayList<SearchFilterBean> mFilterBeans;
     private int mMode = 0;
 
     public PropertyPop() {
@@ -45,25 +43,17 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
         mMode = mode;
     }
 
-
-//    public PropertyPop(ArrayList beans, int mode) {
-//        super();
-//        mFilterBeans = beans;
-//        mMode = mode;
-//    }
-
     @Override
     protected void initialize(Bundle bundle) {
         switch (mMode) {
             case MODE_1:
+            case MODE_2:
                 PropertyAdapter adapter = new PropertyAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(adapter);
                 adapter.update((ArrayList<SpecificationPopBean>) mBeans, true);
+                // TODO: 2021/4/28 判断MODE的值展示对应的组件
                 onClick();
-                break;
-            case MODE_2:
-                // TODO: 2021/4/28 Do nothing.
                 break;
             case MODE_3:
                 SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity());
@@ -76,17 +66,9 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
         }
     }
 
-    public void setSkuId(int skuId) {
-        this.mSkuId = skuId;
-    }
-
     void onClick() {
         binding.btnClose.setOnClickListener(v -> dismiss());
-
-        final String SALE_NUM = "1"; // 固定1
-        binding.btnOk.setOnClickListener(v -> {
-            mAddToCart.addToCart();
-        });
+        binding.btnOk.setOnClickListener(v -> mAddToCart.addToCart());
     }
 
     public void setAddToCartListener(AddToCart addToCart) {

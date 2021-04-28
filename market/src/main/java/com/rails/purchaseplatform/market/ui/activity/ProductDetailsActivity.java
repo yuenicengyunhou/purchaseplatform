@@ -335,11 +335,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop(0);
+            showPropertyPop(0, 2);
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop(1);
+            showPropertyPop(1, 1);
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
@@ -427,8 +427,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 选择型号规格、加入购物车弹窗
      *
      * @param flag 0-加入购物车 1-选择型号规格
+     * @param mode 2-加入购物车 1-选择型号规格
      */
-    private void showPropertyPop(int flag) {
+    private void showPropertyPop(int flag, int mode) {
         if (mSpecificationPopBean == null || mSpecificationPopBean.size() == 0) {
             if (flag == 0) {
                 final String SALE_NUM = "1"; // 固定1
@@ -444,7 +445,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         final String SALE_NUM = "1"; // 固定1
         String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, mSkuId);
         if (mPop == null) {
-            mPop = new PropertyPop(mSpecificationPopBean, 1);
+            mPop = new PropertyPop(mSpecificationPopBean, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
