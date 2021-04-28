@@ -122,6 +122,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
             for (String brand : brands) {
                 SearchFilterValue searchFilterValue = new SearchFilterValue();
                 searchFilterValue.setValueName(brand);
+                searchFilterValue.setAttrFlag(0);
                 searchFilterValues.add(searchFilterValue);
             }
             searchFilterBean.setFilterValues(searchFilterValues);
@@ -137,6 +138,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     for (CategoryAttrValue value : attr.getAttrValues()) {
                         SearchFilterValue searchFilterValue = new SearchFilterValue();
                         searchFilterValue.setValueName(value.getName());
+                        searchFilterValue.setAttrFlag(2);
                         searchFilterValues.add(searchFilterValue);
                     }
                     searchFilterBean.setFilterValues(searchFilterValues);
@@ -154,6 +156,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     for (ExpandAttrValue value : attr.getAttrValues()) {
                         SearchFilterValue searchFilterValue = new SearchFilterValue();
                         searchFilterValue.setValueName(value.getName());
+                        searchFilterValue.setAttrFlag(3);
                         searchFilterValues.add(searchFilterValue);
                     }
                     searchFilterBean.setFilterValues(searchFilterValues);
