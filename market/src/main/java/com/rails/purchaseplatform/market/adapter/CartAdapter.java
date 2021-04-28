@@ -253,7 +253,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     public void updateSubAdater(int position) {
         if (subAdapter != null) {
             subAdapter.updateRemove(position);
-            if (position == 0) {
+            if (subAdapter.getItemCount() == 0) {
                 updateRemove(lastPosition);
             }
         }
