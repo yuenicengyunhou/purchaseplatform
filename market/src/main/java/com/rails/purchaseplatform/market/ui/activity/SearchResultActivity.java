@@ -16,11 +16,13 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByShopFragment;
+import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 
 import java.util.ArrayList;
 
@@ -117,16 +119,15 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
             ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
-            Toast.makeText(this, "功能未完善", Toast.LENGTH_SHORT).show();
-            if (mFilterPop == null) {
-                String[] text = {"选择品牌", "价格区间", "上架时间"};
-                mFilterPop = new OrderSearchFilterPop(text);
-                mFilterPop.setType(BasePop.MATCH_WRAP);
-                mFilterPop.setGravity(Gravity.BOTTOM);
+            if (filterBeans == null || filterBeans.size() == 0) {
+                ToastUtil.showCenter(this, "没有过滤条件");
+                return;
             }
-            mFilterPop.show(getSupportFragmentManager(), "searchFilter");
-            // TODO: 2021/4/9 自定义筛选器
-            // TODO: 2021/3/25 筛选规则
+            PropertyPop mPop = new PropertyPop(filterBeans, 3);
+            mPop.setGravity(Gravity.BOTTOM);
+            mPop.setType(BasePop.MATCH_WRAP);
+            mPop.show(getSupportFragmentManager(), "property");
+
         });
 
         binding.tvSearchKey.setOnClickListener(this); // 点击搜索关键字

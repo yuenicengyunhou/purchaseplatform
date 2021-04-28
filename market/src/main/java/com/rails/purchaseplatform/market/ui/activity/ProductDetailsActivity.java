@@ -434,7 +434,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             ToastUtil.showCenter(this, "商品型号未上传");
             return;
         }
-        mPop = new PropertyPop(mSpecificationPopBean);
+        mPop = new PropertyPop(mSpecificationPopBean, 1);
         mPop.setGravity(Gravity.BOTTOM);
         mPop.setType(BasePop.MATCH_WRAP);
         mPop.setSkuId(mSkuId);
