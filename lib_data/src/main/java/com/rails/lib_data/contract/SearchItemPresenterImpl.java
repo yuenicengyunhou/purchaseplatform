@@ -19,6 +19,8 @@ import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class SearchItemPresenterImpl extends BasePresenter<SearchContract.SearchItemView>
@@ -47,30 +49,10 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
             @Override
             protected void onSuccess(SearchDataByItemBean response) {
-                ArrayList<ItemAttribute> itemAttributes = new ArrayList<>();
-                for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
-                    ItemAttribute attribute = new ItemAttribute();
-                    SkuItemBean sku = searchItemBean.getItem_sku().get(0);
-                    attribute.setCid(sku.getCid());
-                    attribute.setSkuName(sku.getSkuName());
-                    attribute.setPictureUrl(sku.getPictureUrl());
-                    attribute.setShopId(sku.getShopId());
-                    attribute.setShopName(searchItemBean.getShopName());
-                    attribute.setSellPrice(sku.getSellPrice());
-                    attribute.setItemId(sku.getItemId());
-                    attribute.setSkuId(sku.getSkuId());
-                    attribute.setCid(sku.getCid());
-                    attribute.setShopId(sku.getShopId());
-                    itemAttributes.add(attribute);
-                }
-
+                ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
+                boolean isClear = pageNum <= 1;
+                baseView.getItemListWithKeywordOnly(itemAttributes, true, isClear);
                 baseView.dismissDialog();
-
-                if (isCallBack()) {
-                    baseView.dismissDialog();
-                    boolean isClear = pageNum <= 1;
-                    baseView.getItemListWithKeywordOnly(itemAttributes, true, isClear);
-                }
             }
         });
     }
@@ -87,78 +69,99 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
             @Override
             protected void onSuccess(SearchDataByItemBean response) {
-                ArrayList<ItemAttribute> itemAttributes = new ArrayList<>();
-                for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
-                    ItemAttribute attribute = new ItemAttribute();
-                    SkuItemBean sku = searchItemBean.getItem_sku().get(0);
-                    attribute.setCid(sku.getCid());
-                    attribute.setSkuName(sku.getSkuName());
-                    attribute.setPictureUrl(sku.getPictureUrl());
-                    attribute.setShopId(sku.getShopId());
-                    attribute.setShopName(searchItemBean.getShopName());
-                    attribute.setSellPrice(sku.getSellPrice());
-                    attribute.setItemId(sku.getItemId());
-                    attribute.setSkuId(sku.getSkuId());
-                    attribute.setCid(sku.getCid());
-                    attribute.setShopId(sku.getShopId());
-                    itemAttributes.add(attribute);
-                }
-
-
-                ArrayList<SearchFilterBean> searchFilterBeans = new ArrayList<>(); // 最终要传递到View层展示
-                ArrayList<String> brands = (ArrayList<String>) response.getBrands();
-                if (brands != null && brands.size() != 0) {
-                    SearchFilterBean searchFilterBean = new SearchFilterBean();
-                    searchFilterBean.setFilterName("品牌");
-                    ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
-                    for (String brand : brands) {
-                        SearchFilterValue searchFilterValue = new SearchFilterValue();
-                        searchFilterValue.setValueName(brand);
-                        searchFilterValues.add(searchFilterValue);
-                    }
-                    searchFilterBean.setFilterValues(searchFilterValues);
-                    searchFilterBeans.add(searchFilterBean);
-                }
-                if (response.getCategoryAttrs() != null && response.getCategoryAttrs().size() != 0) {
-                    for (CategoryAttr attr : response.getCategoryAttrs()) {
-                        SearchFilterBean searchFilterBean = new SearchFilterBean();
-                        searchFilterBean.setFilterName(attr.getAttrName());
-
-                        ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
-                        if (attr.getAttrValues() != null && attr.getAttrValues().size() != 0) {
-                            for (CategoryAttrValue value : attr.getAttrValues()) {
-                                SearchFilterValue searchFilterValue = new SearchFilterValue();
-                                searchFilterValue.setValueName(value.getName());
-                                searchFilterValues.add(searchFilterValue);
-                            }
-                            searchFilterBean.setFilterValues(searchFilterValues);
-                        }
-                        searchFilterBeans.add(searchFilterBean);
-                    }
-                }
-                if (response.getExpandAttrs() != null && response.getExpandAttrs().size() != 0) {
-                    for (ExpandAttr attr : response.getExpandAttrs()) {
-                        SearchFilterBean searchFilterBean = new SearchFilterBean();
-                        searchFilterBean.setFilterName(attr.getAttrName());
-
-                        ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
-                        if (attr.getAttrValues() != null && attr.getAttrValues().size() != 0) {
-                            for (ExpandAttrValue value : attr.getAttrValues()) {
-                                SearchFilterValue searchFilterValue = new SearchFilterValue();
-                                searchFilterValue.setValueName(value.getName());
-                                searchFilterValues.add(searchFilterValue);
-                            }
-                            searchFilterBean.setFilterValues(searchFilterValues);
-                        }
-                        searchFilterBeans.add(searchFilterBean);
-                    }
-                }
-
-
-                baseView.getItemListWithCid(itemAttributes, searchFilterBeans, false, true);
+                ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
+                ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
+                boolean isClear = pageNum <= 1;
+                baseView.getItemListWithCid(itemAttributes, searchFilterBeans, false, isClear);
                 baseView.dismissDialog();
             }
         });
+    }
+
+    /**
+     * 获取商品属性
+     *
+     * @param response response
+     * @return 商品集合
+     */
+    @NotNull
+    private ArrayList<ItemAttribute> getItemAttributes(SearchDataByItemBean response) {
+        ArrayList<ItemAttribute> itemAttributes = new ArrayList<>();
+        for (SearchItemBean searchItemBean : response.getItemList().getResultList()) {
+            ItemAttribute attribute = new ItemAttribute();
+            SkuItemBean sku = searchItemBean.getItem_sku().get(0);
+            attribute.setCid(sku.getCid());
+            attribute.setSkuName(sku.getSkuName());
+            attribute.setPictureUrl(sku.getPictureUrl());
+            attribute.setShopId(sku.getShopId());
+            attribute.setShopName(searchItemBean.getShopName());
+            attribute.setSellPrice(sku.getSellPrice());
+            attribute.setItemId(sku.getItemId());
+            attribute.setSkuId(sku.getSkuId());
+            attribute.setCid(sku.getCid());
+            attribute.setShopId(sku.getShopId());
+            itemAttributes.add(attribute);
+        }
+        return itemAttributes;
+    }
+
+    /**
+     * 获取筛选属性
+     *
+     * @param response response
+     * @return 筛选属性集合
+     */
+    @NotNull
+    private ArrayList<SearchFilterBean> getSearchFilterBeans(SearchDataByItemBean response) {
+        ArrayList<SearchFilterBean> searchFilterBeans = new ArrayList<>(); // 最终要传递到View层展示
+        ArrayList<String> brands = (ArrayList<String>) response.getBrands();
+        if (brands != null && brands.size() != 0) {
+            SearchFilterBean searchFilterBean = new SearchFilterBean();
+            searchFilterBean.setFilterName("品牌");
+            ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
+            for (String brand : brands) {
+                SearchFilterValue searchFilterValue = new SearchFilterValue();
+                searchFilterValue.setValueName(brand);
+                searchFilterValues.add(searchFilterValue);
+            }
+            searchFilterBean.setFilterValues(searchFilterValues);
+            searchFilterBeans.add(searchFilterBean);
+        }
+        if (response.getCategoryAttrs() != null && response.getCategoryAttrs().size() != 0) {
+            for (CategoryAttr attr : response.getCategoryAttrs()) {
+                SearchFilterBean searchFilterBean = new SearchFilterBean();
+                searchFilterBean.setFilterName(attr.getAttrName());
+
+                ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
+                if (attr.getAttrValues() != null && attr.getAttrValues().size() != 0) {
+                    for (CategoryAttrValue value : attr.getAttrValues()) {
+                        SearchFilterValue searchFilterValue = new SearchFilterValue();
+                        searchFilterValue.setValueName(value.getName());
+                        searchFilterValues.add(searchFilterValue);
+                    }
+                    searchFilterBean.setFilterValues(searchFilterValues);
+                }
+                searchFilterBeans.add(searchFilterBean);
+            }
+        }
+        if (response.getExpandAttrs() != null && response.getExpandAttrs().size() != 0) {
+            for (ExpandAttr attr : response.getExpandAttrs()) {
+                SearchFilterBean searchFilterBean = new SearchFilterBean();
+                searchFilterBean.setFilterName(attr.getAttrName());
+
+                ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
+                if (attr.getAttrValues() != null && attr.getAttrValues().size() != 0) {
+                    for (ExpandAttrValue value : attr.getAttrValues()) {
+                        SearchFilterValue searchFilterValue = new SearchFilterValue();
+                        searchFilterValue.setValueName(value.getName());
+                        searchFilterValues.add(searchFilterValue);
+                    }
+                    searchFilterBean.setFilterValues(searchFilterValues);
+                }
+                searchFilterBeans.add(searchFilterBean);
+            }
+        }
+        return searchFilterBeans;
     }
 
 }

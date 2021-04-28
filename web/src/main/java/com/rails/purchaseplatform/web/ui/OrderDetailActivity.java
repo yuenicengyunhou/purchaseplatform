@@ -88,4 +88,13 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     public void onLogin() {
 
     }
+
+    @JavascriptInterface
+    public void goProductDetails(long platformId, long itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("platformId", platformId);
+        bundle.putLong("itemId", itemId);
+        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
+    }
+
 }
