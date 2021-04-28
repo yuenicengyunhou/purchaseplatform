@@ -44,7 +44,6 @@ import com.rails.lib_data.contract.ProductDetailsContract;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.common.utils.JSBack;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -95,8 +94,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ProductDetailsParamsPop mParamsPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
-
-    private OrderSearchFilterPop mAddCartPop;
 
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
     private AddressToolContract.AddressToolPresenter mAddressPresenter;
@@ -338,11 +335,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop();
+            showPropertyPop(0);
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop();
+            showPropertyPop(1);
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
@@ -427,22 +424,33 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     /**
-     * 选择型号/规格弹窗
+     * 选择型号规格、加入购物车弹窗
+     *
+     * @param flag 0-加入购物车 1-选择型号规格
      */
-    private void showPropertyPop() {
+    private void showPropertyPop(int flag) {
         if (mSpecificationPopBean == null || mSpecificationPopBean.size() == 0) {
-            ToastUtil.showCenter(this, "商品型号未上传");
-            return;
-        }
-        mPop = new PropertyPop(mSpecificationPopBean, 1);
-        mPop.setGravity(Gravity.BOTTOM);
-        mPop.setType(BasePop.MATCH_WRAP);
-        mPop.setSkuId(mSkuId);
-        mPop.setAddToCartListener(skuSaleNumJson ->
+            if (flag == 0) {
+                final String SALE_NUM = "1"; // 固定1
+                String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, mSkuId);
                 mPresenter.addCart(20L,
                         30L, 40L, 50, // 非必要属性
-                        skuSaleNumJson, true));
-//        mPop.set
+                        skuIdSaleNumJson, true);
+            } else if (flag == 1) {
+                ToastUtil.showCenter(this, "商品型号未上传");
+            }
+            return;
+        }
+        final String SALE_NUM = "1"; // 固定1
+        String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, mSkuId);
+        if (mPop == null) {
+            mPop = new PropertyPop(mSpecificationPopBean, 1);
+            mPop.setGravity(Gravity.BOTTOM);
+            mPop.setType(BasePop.MATCH_WRAP);
+            mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
+                    30L, 40L, 50, // 非必要属性
+                    skuIdSaleNumJson, true));
+        }
         mPop.show(getSupportFragmentManager(), "property");
     }
 
@@ -492,7 +500,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void addCartSuccess(boolean isComplete) {
-        mPop.dismiss();
+        if (mPop != null) mPop.dismiss();
     }
 
     @Override
