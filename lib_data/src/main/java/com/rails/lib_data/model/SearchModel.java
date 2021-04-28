@@ -75,8 +75,20 @@ public class SearchModel {
                 .subscribe(httpRxObserver);
     }
 
+
+    /**
+     * 请求商品列表 cid
+     *
+     * @param orderColumn
+     * @param orderType
+     * @param cid
+     * @param pageNum
+     * @param httpRxObserver
+     */
     public void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
+        params.put("businessType", 1);
+//        params.put("platformId", 20L);
         params.put("cid", cid);
         params.put("pageNum", pageNum);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
