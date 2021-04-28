@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
+import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.ShopAttribute;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -29,7 +30,7 @@ public interface SearchContract {
          * @param hasMore
          * @param isClear
          */
-        void getItemListWithCid(ArrayList<ItemAttribute> results, boolean hasMore, boolean isClear);
+        void getItemListWithCid(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
     }
 
 

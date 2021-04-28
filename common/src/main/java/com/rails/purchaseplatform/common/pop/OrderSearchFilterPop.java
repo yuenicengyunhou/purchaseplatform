@@ -1,17 +1,16 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderStatusBean;
+import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.purchaseplatform.common.adapter.FlowLayoutManager;
 import com.rails.purchaseplatform.common.adapter.OrderSearchFilterAdapter2;
 import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
 import com.rails.purchaseplatform.common.databinding.PopOrderSearchFilterBinding;
 import com.rails.purchaseplatform.framwork.adapter.listener.CompleteListener;
-import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -27,6 +26,7 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 
     private String[] mTexts;
     private CompleteListener<OrderFilterBean> completeListener;
+    private ArrayList<SearchFilterBean> mFilterList;
 
     public void setCompleteListener(CompleteListener<OrderFilterBean> completeListener) {
         this.completeListener = completeListener;
@@ -40,6 +40,12 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 
     public OrderSearchFilterPop(String[] text) {
         mTexts = text;
+    }
+
+    // TODO 删除无用构造方法
+    public OrderSearchFilterPop(String[] text, ArrayList<SearchFilterBean> filterList) {
+        mTexts = text;
+        mFilterList = filterList;
     }
 
     @Override

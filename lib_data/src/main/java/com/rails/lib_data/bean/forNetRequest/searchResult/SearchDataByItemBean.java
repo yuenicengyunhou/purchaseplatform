@@ -3,20 +3,20 @@ package com.rails.lib_data.bean.forNetRequest.searchResult;
 import java.util.List;
 
 public class SearchDataByItemBean {
-    private List brands;
+    private List<String> brands;
     private List selectedCAttr;
     private List selectedEAttr;
-    private List categoryAttrs;
+    private List<CategoryAttr> categoryAttrs;
     private SearchResultListBean itemList;
     private String totalCount;
-    private List expandAttrs;
+    private List<ExpandAttr> expandAttrs;
     private List<CidBean> allCids;
 
-    public List getBrands() {
+    public List<String> getBrands() {
         return brands;
     }
 
-    public void setBrands(List brands) {
+    public void setBrands(List<String> brands) {
         this.brands = brands;
     }
 
@@ -36,11 +36,11 @@ public class SearchDataByItemBean {
         this.selectedEAttr = selectedEAttr;
     }
 
-    public List getCategoryAttrs() {
+    public List<CategoryAttr> getCategoryAttrs() {
         return categoryAttrs;
     }
 
-    public void setCategoryAttrs(List categoryAttrs) {
+    public void setCategoryAttrs(List<CategoryAttr> categoryAttrs) {
         this.categoryAttrs = categoryAttrs;
     }
 
@@ -60,11 +60,11 @@ public class SearchDataByItemBean {
         this.totalCount = totalCount;
     }
 
-    public List getExpandAttrs() {
+    public List<ExpandAttr> getExpandAttrs() {
         return expandAttrs;
     }
 
-    public void setExpandAttrs(List expandAttrs) {
+    public void setExpandAttrs(List<ExpandAttr> expandAttrs) {
         this.expandAttrs = expandAttrs;
     }
 

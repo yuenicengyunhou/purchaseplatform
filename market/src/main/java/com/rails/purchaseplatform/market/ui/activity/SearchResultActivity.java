@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
@@ -115,6 +116,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
+            ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
             Toast.makeText(this, "功能未完善", Toast.LENGTH_SHORT).show();
             if (mFilterPop == null) {
                 String[] text = {"选择品牌", "价格区间", "上架时间"};
@@ -209,6 +211,23 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
 
     public interface OnSortClick {
+
+        /**
+         * 排序
+         *
+         * @param orderColumn
+         * @param orderType
+         * @param keyword
+         * @param cid
+         */
         void sort(String orderColumn, String orderType, String keyword, String cid);
+
+        /**
+         * 筛选条件数据
+         *
+         * @return
+         */
+        ArrayList<SearchFilterBean> getFilterData();
+
     }
 }

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
+import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchItemPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -33,7 +34,8 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     private SearchResultRecyclerAdapter mAdapter;
     private SearchContract.SearchItemPresenter mPresenter;
 
-    private SearchResultActivity.OnSortClick onSortClick;
+    private ArrayList<SearchFilterBean> mSearchFilterList;
+
 
     @Override
     protected void loadData() {
@@ -69,8 +71,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void getItemListWithCid(ArrayList<ItemAttribute> results, boolean hasMore, boolean isClear) {
+    public void getItemListWithCid(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(results, isClear);
+        mSearchFilterList = filterResults;
     }
 
     @Override
@@ -79,5 +82,10 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
             mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyword, 1, false);
         if (cid != null)
             mPresenter.getItemListWithCid(orderColumn, orderType, cid, 1, false);
+    }
+
+    @Override
+    public ArrayList<SearchFilterBean> getFilterData() {
+        return mSearchFilterList;
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.ShopAttribute;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchShopPresenterImpl;
@@ -68,5 +69,10 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
                 20L, 1L, false,
                 1, 30, mSearchKey,
                 orderColumn, orderType, false);
+    }
+
+    @Override
+    public ArrayList<SearchFilterBean> getFilterData() {
+        return null;
     }
 }

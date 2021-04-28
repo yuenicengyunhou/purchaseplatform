@@ -89,7 +89,7 @@ public class SearchModel {
         HashMap<String, Object> params = new HashMap<>();
         params.put("businessType", 1);
 //        params.put("platformId", 20L);
-        params.put("cid", cid);
+        params.put("cid", cid); // TODO 使用 cid = 1000207 调试筛选条件
         params.put("pageNum", pageNum);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
         if (orderType != null) params.put("orderType", orderType);

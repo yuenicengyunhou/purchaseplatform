@@ -5,6 +5,12 @@ import android.util.Log;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
+import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
+import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
+import com.rails.lib_data.bean.forNetRequest.searchResult.CategoryAttr;
+import com.rails.lib_data.bean.forNetRequest.searchResult.CategoryAttrValues;
+import com.rails.lib_data.bean.forNetRequest.searchResult.ExpandAttr;
+import com.rails.lib_data.bean.forNetRequest.searchResult.ExpandAttrValue;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SkuItemBean;
@@ -98,7 +104,58 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     itemAttributes.add(attribute);
                 }
 
-                baseView.getItemListWithCid(itemAttributes, false, true);
+
+                ArrayList<SearchFilterBean> searchFilterBeans = new ArrayList<>(); // 最终要传递到View层展示
+                ArrayList<String> brands = (ArrayList<String>) response.getBrands();
+                if (brands != null && brands.size() != 0) {
+                    SearchFilterBean searchFilterBean = new SearchFilterBean();
+                    searchFilterBean.setFilterName("品牌");
+                    ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
+                    for (String brand : brands) {
+                        SearchFilterValue searchFilterValue = new SearchFilterValue();
+                        searchFilterValue.setValueName(brand);
+                        searchFilterValues.add(searchFilterValue);
+                    }
+                    searchFilterBean.setFilterValues(searchFilterValues);
+                    searchFilterBeans.add(searchFilterBean);
+                }
+                if (response.getCategoryAttrs() != null && response.getCategoryAttrs().size() != 0) {
+                    for (CategoryAttr attr : response.getCategoryAttrs()) {
+                        SearchFilterBean searchFilterBean = new SearchFilterBean();
+                        searchFilterBean.setFilterName(attr.getAttrName());
+
+                        ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
+                        if (attr.getAttrValues() != null && attr.getAttrValues().size() != 0) {
+                            for (CategoryAttrValues values : attr.getAttrValues()) {
+                                SearchFilterValue searchFilterValue = new SearchFilterValue();
+                                searchFilterValue.setValueName(values.getName());
+                                searchFilterValues.add(searchFilterValue);
+                            }
+                            searchFilterBean.setFilterValues(searchFilterValues);
+                        }
+                        searchFilterBeans.add(searchFilterBean);
+                    }
+                }
+                if (response.getExpandAttrs() != null && response.getExpandAttrs().size() != 0) {
+                    for (ExpandAttr attr : response.getExpandAttrs()) {
+                        SearchFilterBean searchFilterBean = new SearchFilterBean();
+                        searchFilterBean.setFilterName(attr.getAttrName());
+
+                        ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
+                        if (attr.getAttrValues() != null && attr.getAttrValues().size() != 0) {
+                            for (ExpandAttrValue value : attr.getAttrValues()) {
+                                SearchFilterValue searchFilterValue = new SearchFilterValue();
+                                searchFilterValue.setValueName(value.getName());
+                                searchFilterValues.add(searchFilterValue);
+                            }
+                            searchFilterBean.setFilterValues(searchFilterValues);
+                        }
+                        searchFilterBeans.add(searchFilterBean);
+                    }
+                }
+
+
+                baseView.getItemListWithCid(itemAttributes, searchFilterBeans, false, true);
                 baseView.dismissDialog();
             }
         });

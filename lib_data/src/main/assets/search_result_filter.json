@@ -1,0 +1,977 @@
+{
+  "code": "0",
+  "msg": "查询商品列表信息成功！",
+  "data": {
+    "cidFullName": [
+      {
+        "cid": 1000207,
+        "parentCid": 0,
+        "platformId": 20,
+        "categoryName": "电子产品",
+        "fullCategoryName": null,
+        "lev": 1,
+        "sortNumber": 4
+      }
+    ],
+    "brands": [
+      "博世(boshi)",
+      "欧丽微兰(Olivoil`a)",
+      "胡姬花(hujihua)"
+    ],
+    "selectedBrands": null,
+    "selectedCAttr": [],
+    "selectedEAttr": [],
+    "categoryAttrs": [
+      {
+        "attrId": null,
+        "attrName": "内存容量",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "8G",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          },
+          {
+            "id": null,
+            "name": "16G",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      }
+    ],
+    "itemList": {
+      "resultList": [
+        {
+          "itemId": 1001545,
+          "item_sku": [
+            {
+              "skuName": "ThinkSystem SR650",
+              "itemId": 1001545,
+              "upTime": 1583563560000,
+              "pictureUrl": "//xsky.rails.cn/mall/13be001d417180e010791436a3c5c1fc20200307144356924.jpg",
+              "brandId": null,
+              "sellPrice": 43471.0,
+              "shopId": 202003030108,
+              "skuId": 12907,
+              "contrastFlag": null,
+              "cid": 1001039
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001599,
+          "item_sku": [
+            {
+              "skuName": "ThinkCentreM828z",
+              "itemId": 1001599,
+              "upTime": 1583598202000,
+              "pictureUrl": "//xsky.rails.cn/mall/c2ee60740fc41d0e1689fbf81cc0e73520200308001947666.png",
+              "brandId": null,
+              "sellPrice": 3780.0,
+              "shopId": 202003030108,
+              "skuId": 12961,
+              "contrastFlag": null,
+              "cid": 1001051
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1014721,
+          "item_sku": [
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Intel i5 黑色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145352809.png",
+              "brandId": null,
+              "sellPrice": 5699.0,
+              "shopId": 202003030108,
+              "skuId": 1111216,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Intel i5 银色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145352809.png",
+              "brandId": null,
+              "sellPrice": 5699.0,
+              "shopId": 202003030108,
+              "skuId": 1111215,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Intel i5 黑色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401744.png",
+              "brandId": null,
+              "sellPrice": 1.111111103E7,
+              "shopId": 202003030108,
+              "skuId": 1111220,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Interl i7 黑色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401744.png",
+              "brandId": null,
+              "sellPrice": 1.111111103E7,
+              "shopId": 202003030108,
+              "skuId": 1111222,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Interl i7 银色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401744.png",
+              "brandId": null,
+              "sellPrice": 1.111111103E7,
+              "shopId": 202003030108,
+              "skuId": 1111221,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Interl i7 黑色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145352809.png",
+              "brandId": null,
+              "sellPrice": 1.111111103E7,
+              "shopId": 202003030108,
+              "skuId": 1111218,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Intel i5 银色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401744.png",
+              "brandId": null,
+              "sellPrice": 1.111111103E7,
+              "shopId": 202003030108,
+              "skuId": 1111219,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Interl i7 银色）",
+              "itemId": 1014721,
+              "upTime": 1601276084000,
+              "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145352809.png",
+              "brandId": null,
+              "sellPrice": 1.111111103E7,
+              "shopId": 202003030108,
+              "skuId": 1111217,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1014726,
+          "item_sku": [
+            {
+              "skuName": "联想笔记本02",
+              "itemId": 1014726,
+              "upTime": 1603331755000,
+              "pictureUrl": "//xsky.rails.cn/mall/b15d47e99831ee63e3f47cf3d4478e9a20201022095540417.jpg",
+              "brandId": null,
+              "sellPrice": 1.01,
+              "shopId": 202003030108,
+              "skuId": 1111338,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001697,
+          "item_sku": [
+            {
+              "skuName": "联想昭阳E53 15.6英寸笔记本电脑（8G）",
+              "itemId": 1001697,
+              "upTime": 1585106690000,
+              "pictureUrl": "//xsky.rails.cn/mall/f6842c3a24d7e9fcf63058c99f7b861d20200325112159847.jpg",
+              "brandId": null,
+              "sellPrice": 5599.0,
+              "shopId": 202003030108,
+              "skuId": 13060,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想昭阳E53 15.6英寸笔记本电脑（16G）",
+              "itemId": 1001697,
+              "upTime": 1585106690000,
+              "pictureUrl": "//xsky.rails.cn/mall/0948c090c2d909efd604506fc736797d20200325112203105.jpg",
+              "brandId": null,
+              "sellPrice": 6099.0,
+              "shopId": 202003030108,
+              "skuId": 13061,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001698,
+          "item_sku": [
+            {
+              "skuName": "（8G）",
+              "itemId": 1001698,
+              "upTime": 1585116832000,
+              "pictureUrl": "//xsky.rails.cn/mall/0948c090c2d909efd604506fc736797d20200325141106012.jpg",
+              "brandId": null,
+              "sellPrice": 5599.0,
+              "shopId": 202003030108,
+              "skuId": 13062,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "（16G）",
+              "itemId": 1001698,
+              "upTime": 1585116832000,
+              "pictureUrl": "//xsky.rails.cn/mall/0948c090c2d909efd604506fc736797d20200325141106012.jpg",
+              "brandId": null,
+              "sellPrice": 6599.0,
+              "shopId": 202003030108,
+              "skuId": 13063,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001699,
+          "item_sku": [
+            {
+              "skuName": "联想昭阳E53 15.6英寸笔记本电脑（8G）",
+              "itemId": 1001699,
+              "upTime": 1585118673000,
+              "pictureUrl": null,
+              "brandId": null,
+              "sellPrice": 5599.0,
+              "shopId": 202003030108,
+              "skuId": 13064,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "联想昭阳E53 15.6英寸笔记本电脑（16G）",
+              "itemId": 1001699,
+              "upTime": 1585118673000,
+              "pictureUrl": null,
+              "brandId": null,
+              "sellPrice": 6099.0,
+              "shopId": 202003030108,
+              "skuId": 13065,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1014727,
+          "item_sku": [
+            {
+              "skuName": "联想笔记本03",
+              "itemId": 1014727,
+              "upTime": 1603331803000,
+              "pictureUrl": "//xsky.rails.cn/mall/6fb787afde2523f334f3c550157c111720201022095631915.jpg",
+              "brandId": null,
+              "sellPrice": 1.0,
+              "shopId": 202003030108,
+              "skuId": 1111339,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001605,
+          "item_sku": [
+            {
+              "skuName": "ThinkPad L13",
+              "itemId": 1001605,
+              "upTime": 1583600206000,
+              "pictureUrl": "//xsky.rails.cn/mall/822720207b6a887a4766c948526b50d120200308005123204.png",
+              "brandId": null,
+              "sellPrice": 6980.0,
+              "shopId": 202003030108,
+              "skuId": 12967,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001627,
+          "item_sku": [
+            {
+              "skuName": "启天M520",
+              "itemId": 1001627,
+              "upTime": 1583604311000,
+              "pictureUrl": "//xsky.rails.cn/mall/11a1fdb76af0eb3d77491fa4c307e0c420200308020222498.jpg",
+              "brandId": null,
+              "sellPrice": 3397.0,
+              "shopId": 202003030108,
+              "skuId": 12989,
+              "contrastFlag": null,
+              "cid": 1001049
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001629,
+          "item_sku": [
+            {
+              "skuName": "启天M520",
+              "itemId": 1001629,
+              "upTime": 1583604472000,
+              "pictureUrl": "//xsky.rails.cn/mall/1b6065cb57476ee1bbd45c88451b308c20200308020459276.png",
+              "brandId": null,
+              "sellPrice": 4028.0,
+              "shopId": 202003030108,
+              "skuId": 12991,
+              "contrastFlag": null,
+              "cid": 1001049
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001615,
+          "item_sku": [
+            {
+              "skuName": "ThinkPadX390",
+              "itemId": 1001615,
+              "upTime": 1583602529000,
+              "pictureUrl": "//xsky.rails.cn/mall/317c6b57b0a02f2b143f3f7a7456bd1b20200308012401812.jpg",
+              "brandId": null,
+              "sellPrice": 9499.0,
+              "shopId": 202003030108,
+              "skuId": 12977,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001625,
+          "item_sku": [
+            {
+              "skuName": "启天M420",
+              "itemId": 1001625,
+              "upTime": 1583604072000,
+              "pictureUrl": "//xsky.rails.cn/mall/8ec391c71c977113c1734840e61f958920200308015751244.png",
+              "brandId": null,
+              "sellPrice": 2544.0,
+              "shopId": 202003030108,
+              "skuId": 12987,
+              "contrastFlag": null,
+              "cid": 1001049
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001555,
+          "item_sku": [
+            {
+              "skuName": "联想激光多功能一体机M7675DXF",
+              "itemId": 1001555,
+              "upTime": 1583566427000,
+              "pictureUrl": "//xsky.rails.cn/mall/56532293c6b921765946d848295453c020200307153201050.jpg",
+              "brandId": null,
+              "sellPrice": 2332.0,
+              "shopId": 202003030108,
+              "skuId": 12917,
+              "contrastFlag": null,
+              "cid": 1000927
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001639,
+          "item_sku": [
+            {
+              "skuName": "P3330图形工作站",
+              "itemId": 1001639,
+              "upTime": 1583605040000,
+              "pictureUrl": "//xsky.rails.cn/mall/bcfac18ea55c153f033a7be32bdcd6e220200308021511311.png",
+              "brandId": null,
+              "sellPrice": 8888.0,
+              "shopId": 202003030108,
+              "skuId": 13001,
+              "contrastFlag": null,
+              "cid": 1001047
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001547,
+          "item_sku": [
+            {
+              "skuName": "ThinkSystem SR860",
+              "itemId": 1001547,
+              "upTime": 1583563962000,
+              "pictureUrl": "//xsky.rails.cn/mall/41957d0bf6ed1748e2847b20bf0bc97020200307144631022.jpg",
+              "brandId": null,
+              "sellPrice": 71399.0,
+              "shopId": 202003030108,
+              "skuId": 12909,
+              "contrastFlag": null,
+              "cid": 1001039
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1014840,
+          "creditLevel": "A",
+          "item_sku": [
+            {
+              "skuName": "博世测试商品修改1（Interl i7）",
+              "itemId": 1014840,
+              "upTime": 1614153722000,
+              "pictureUrl": "//xsky.rails.cn/mall/b0fce403c178fa57404c1cc4176547a820210224150733313.png",
+              "brandId": null,
+              "sellPrice": 6.0,
+              "shopId": 202003030110,
+              "skuId": 1111548,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世测试商品修改1（Intel i5）",
+              "itemId": 1014840,
+              "upTime": 1614153722000,
+              "pictureUrl": "//xsky.rails.cn/mall/b0fce403c178fa57404c1cc4176547a820210224150729742.png",
+              "brandId": null,
+              "sellPrice": 10.0,
+              "shopId": 202003030110,
+              "skuId": 1111547,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "博世电动工具官方店铺12"
+        },
+        {
+          "itemId": 1014706,
+          "creditLevel": "A",
+          "item_sku": [
+            {
+              "skuName": "测试联想笔记本-Lxs（Intel i5 黑色）",
+              "itemId": 1014706,
+              "upTime": 1600927015000,
+              "pictureUrl": "//xsky.rails.cn/mall/0948c090c2d909efd604506fc736797d20200924135603339.jpg",
+              "brandId": null,
+              "sellPrice": 5000.0,
+              "shopId": 202003030110,
+              "skuId": 1111194,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "测试联想笔记本-Lxs（Intel i5 银色）",
+              "itemId": 1014706,
+              "upTime": 1600927015000,
+              "pictureUrl": "//xsky.rails.cn/mall/0948c090c2d909efd604506fc736797d20200924135603339.jpg",
+              "brandId": null,
+              "sellPrice": 5000.0,
+              "shopId": 202003030110,
+              "skuId": 1111193,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "测试联想笔记本-Lxs（Interl i7 银色）",
+              "itemId": 1014706,
+              "upTime": 1600927015000,
+              "pictureUrl": "//xsky.rails.cn/mall/85e97cce34fddf3386691e76623e47c920200924135609100.jpg",
+              "brandId": null,
+              "sellPrice": 5000.0,
+              "shopId": 202003030110,
+              "skuId": 1111195,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "测试联想笔记本-Lxs（Interl i7 黑色）",
+              "itemId": 1014706,
+              "upTime": 1600927015000,
+              "pictureUrl": "//xsky.rails.cn/mall/85e97cce34fddf3386691e76623e47c920200924135609100.jpg",
+              "brandId": null,
+              "sellPrice": 5000.0,
+              "shopId": 202003030110,
+              "skuId": 1111196,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "博世电动工具官方店铺12"
+        },
+        {
+          "itemId": 1014912,
+          "creditLevel": "A",
+          "item_sku": [
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Intel i5 锂电池 银色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191507971.jpg",
+              "brandId": 1001976,
+              "sellPrice": 19.99,
+              "shopId": 202003030110,
+              "skuId": 1111656,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Intel i5 锂电池 黑色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191512494.jpg",
+              "brandId": 1001976,
+              "sellPrice": 29.99,
+              "shopId": 202003030110,
+              "skuId": 1111657,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Intel i5 锂电池 黄色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191520949.jpg",
+              "brandId": 1001976,
+              "sellPrice": 39.99,
+              "shopId": 202003030110,
+              "skuId": 1111659,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Intel i5 锂电池 红色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191516953.jpg",
+              "brandId": 1001976,
+              "sellPrice": 39.99,
+              "shopId": 202003030110,
+              "skuId": 1111658,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Interl i7 锂电池 银色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191507971.jpg",
+              "brandId": 1001976,
+              "sellPrice": 49.99,
+              "shopId": 202003030110,
+              "skuId": 1111660,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Interl i7 锂电池 黑色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191512494.jpg",
+              "brandId": 1001976,
+              "sellPrice": 59.99,
+              "shopId": 202003030110,
+              "skuId": 1111661,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Interl i7 锂电池 红色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191516953.jpg",
+              "brandId": 1001976,
+              "sellPrice": 69.99,
+              "shopId": 202003030110,
+              "skuId": 1111662,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（Interl i7 锂电池 黄色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191520949.jpg",
+              "brandId": 1001976,
+              "sellPrice": 79.99,
+              "shopId": 202003030110,
+              "skuId": 1111663,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（酷睿i3 锂电池 银色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191507971.jpg",
+              "brandId": 1001976,
+              "sellPrice": 89.99,
+              "shopId": 202003030110,
+              "skuId": 1111664,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（酷睿i3 锂电池 黑色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191512494.jpg",
+              "brandId": 1001976,
+              "sellPrice": 99.99,
+              "shopId": 202003030110,
+              "skuId": 1111665,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（酷睿i3 锂电池 红色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191516953.jpg",
+              "brandId": 1001976,
+              "sellPrice": 119.99,
+              "shopId": 202003030110,
+              "skuId": 1111666,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "博世（Bosch） SST 多功能笔记本 2021版（酷睿i3 锂电池 黄色）",
+              "itemId": 1014912,
+              "upTime": 1615462345000,
+              "pictureUrl": "//xsky.rails.cn/mall/0d1b08c34858921bc7c662b228acb7ba20210311191520949.jpg",
+              "brandId": 1001976,
+              "sellPrice": 129.99,
+              "shopId": 202003030110,
+              "skuId": 1111667,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "博世电动工具官方店铺12"
+        },
+        {
+          "itemId": 1014865,
+          "creditLevel": "A",
+          "item_sku": [
+            {
+              "skuName": "惠普(HP)战66四代 锐龙版 15.6英寸轻薄笔记本电脑",
+              "itemId": 1014865,
+              "upTime": null,
+              "pictureUrl": null,
+              "brandId": 1009876,
+              "sellPrice": null,
+              "shopId": 202003030110,
+              "skuId": 1111650,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "博世电动工具官方店铺12"
+        },
+        {
+          "itemId": 1014844,
+          "creditLevel": "A",
+          "item_sku": [
+            {
+              "skuName": "添加日志测试（16G Intel i5 银色）",
+              "itemId": 1014844,
+              "upTime": 1614579780000,
+              "pictureUrl": "//xsky.rails.cn/mall/fef2bc020438156a38ba1355a6920c7d20210301142136019.png",
+              "brandId": null,
+              "sellPrice": 100.0,
+              "shopId": 202003030110,
+              "skuId": 1111556,
+              "contrastFlag": null,
+              "cid": 1001035
+            },
+            {
+              "skuName": "添加日志测试（8G Intel i5 银色）",
+              "itemId": 1014844,
+              "upTime": 1614579780000,
+              "pictureUrl": "//xsky.rails.cn/mall/fef2bc020438156a38ba1355a6920c7d20210301142136019.png",
+              "brandId": null,
+              "sellPrice": 100.0,
+              "shopId": 202003030110,
+              "skuId": 1111555,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "博世电动工具官方店铺12"
+        },
+        {
+          "itemId": 1014720,
+          "item_sku": [
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" RTX2060 3GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3688.0,
+              "shopId": 202003030108,
+              "skuId": 1111211,
+              "contrastFlag": null,
+              "cid": 1001051
+            },
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" RTX2060 12GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3788.0,
+              "shopId": 202003030108,
+              "skuId": 1111212,
+              "contrastFlag": null,
+              "cid": 1001051
+            },
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" GTX1660 3GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3888.0,
+              "shopId": 202003030108,
+              "skuId": 1111213,
+              "contrastFlag": null,
+              "cid": 1001051
+            },
+            {
+              "skuName": "联想(Lenovo)扬天M5300d 高性能四核台式机商务家用网课办公电脑整机 23英寸1（\"2TB HDD\" GTX1660 12GB）",
+              "itemId": 1014720,
+              "upTime": 1601262586000,
+              "pictureUrl": "//xsky.rails.cn/mall/2a7b207c67631dd310a5287259d91abe20200928110549657.png",
+              "brandId": null,
+              "sellPrice": 3988.0,
+              "shopId": 202003030108,
+              "skuId": 1111214,
+              "contrastFlag": null,
+              "cid": 1001051
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001361,
+          "item_sku": [
+            {
+              "skuName": "史泰博 Jamfree Classic S1728 碎纸机 347*251*500 黑色 持续工作时间60分钟",
+              "itemId": 1001361,
+              "upTime": 1583486466000,
+              "pictureUrl": "http://testvpimg.staplescn.com/cn1100708631EA_4_xnl.jpg",
+              "brandId": null,
+              "sellPrice": 538.2,
+              "shopId": 4021000101,
+              "skuId": 12721,
+              "contrastFlag": null,
+              "cid": 1000963
+            }
+          ],
+          "shopName": "史泰博"
+        },
+        {
+          "itemId": 1001331,
+          "item_sku": [
+            {
+              "skuName": "史泰博 SPL-837A 12位双电源升级版计算器  ",
+              "itemId": 1001331,
+              "upTime": 1583486450000,
+              "pictureUrl": "http://testvpimg.staplescn.com/cn1100708778EA_4_xnl.jpg",
+              "brandId": null,
+              "sellPrice": 16.1,
+              "shopId": 4021000101,
+              "skuId": 12691,
+              "contrastFlag": null,
+              "cid": 1000943
+            }
+          ],
+          "shopName": "史泰博"
+        },
+        {
+          "itemId": 1001585,
+          "item_sku": [
+            {
+              "skuName": "ThinkVision P27q-10",
+              "itemId": 1001585,
+              "upTime": 1583577549000,
+              "pictureUrl": "//xsky.rails.cn/mall/c6f4ad40ce7e93942d7e2bfefeeae56720200307183818730.jpg",
+              "brandId": null,
+              "sellPrice": 2200.0,
+              "shopId": 202003030108,
+              "skuId": 12947,
+              "contrastFlag": null,
+              "cid": 1000999
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001559,
+          "item_sku": [
+            {
+              "skuName": "联想彩色激光多功能一体机CF2090DWA",
+              "itemId": 1001559,
+              "upTime": 1583566928000,
+              "pictureUrl": "//xsky.rails.cn/mall/7f4043adbd3d67dbee18d1d75c7a5c8320200307154025722.jpg",
+              "brandId": null,
+              "sellPrice": 7872.0,
+              "shopId": 202003030108,
+              "skuId": 12921,
+              "contrastFlag": null,
+              "cid": 1000927
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001551,
+          "item_sku": [
+            {
+              "skuName": "联想激光多功能一体机M8950DNF",
+              "itemId": 1001551,
+              "upTime": 1583566114000,
+              "pictureUrl": "//xsky.rails.cn/mall/5482c34ff7c0249205a5728772a6292620200307152704511.jpg",
+              "brandId": null,
+              "sellPrice": 4416.0,
+              "shopId": 202003030108,
+              "skuId": 12913,
+              "contrastFlag": null,
+              "cid": 1000927
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001557,
+          "item_sku": [
+            {
+              "skuName": "联想激光多功能一体机M8650DN",
+              "itemId": 1001557,
+              "upTime": 1583566787000,
+              "pictureUrl": "//xsky.rails.cn/mall/9c91699e7236a478600fa77b03d83c5920200307153811778.jpg",
+              "brandId": null,
+              "sellPrice": 3924.0,
+              "shopId": 202003030108,
+              "skuId": 12919,
+              "contrastFlag": null,
+              "cid": 1000927
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001549,
+          "item_sku": [
+            {
+              "skuName": "联想彩色激光打印机CS3320DN",
+              "itemId": 1001549,
+              "upTime": 1583565638000,
+              "pictureUrl": "//xsky.rails.cn/mall/94986780f2f0eb022e46a66f39e63e7a20200307151853817.jpg",
+              "brandId": null,
+              "sellPrice": 5616.0,
+              "shopId": 202003030108,
+              "skuId": 12911,
+              "contrastFlag": null,
+              "cid": 1000927
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        },
+        {
+          "itemId": 1001617,
+          "item_sku": [
+            {
+              "skuName": "ThinkPad X1",
+              "itemId": 1001617,
+              "upTime": 1583602989000,
+              "pictureUrl": "//xsky.rails.cn/mall/20200308013943119.jpg",
+              "brandId": null,
+              "sellPrice": 11000.0,
+              "shopId": 202003030108,
+              "skuId": 12979,
+              "contrastFlag": null,
+              "cid": 1001035
+            }
+          ],
+          "shopName": "联想（北京）有限公司（修改1）"
+        }
+      ],
+      "pageSize": 30,
+      "page": 1,
+      "count": 68,
+      "customAggMap": null,
+      "aggResultMap": null
+    },
+    "expandAttrs": [
+      {
+        "attrId": null,
+        "attrName": "电池类型",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "锂电池",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      },
+      {
+        "attrId": null,
+        "attrName": "内存容量",
+        "attrValues": [
+          {
+            "id": null,
+            "name": "白色",
+            "simpleCode": null,
+            "hasLeaf": null,
+            "idStr": null
+          }
+        ]
+      }
+    ]
+  }
+}
