@@ -430,6 +430,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 选择型号/规格弹窗
      */
     private void showPropertyPop() {
+        if (mSpecificationPopBean == null || mSpecificationPopBean.size() == 0) {
+            ToastUtil.showCenter(this, "商品型号未上传");
+            return;
+        }
         mPop = new PropertyPop(mSpecificationPopBean);
         mPop.setGravity(Gravity.BOTTOM);
         mPop.setType(BasePop.MATCH_WRAP);
@@ -547,21 +551,23 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         accountName = suppData.getAccountName();
 
         ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
-        for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {
-            SpecificationPopBean specificationPopBean = new SpecificationPopBean();
-            specificationPopBean.setAttrName(attrName);
-            ArrayList<SpecificationValue> specificationValues = new ArrayList<>();
-            for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {
-                SpecificationValue specificationValue = new SpecificationValue();
-                specificationPopBean.setAttrId(nameValue.getAttrId());
-                if (nameValue.getAttrName().equals(attrName)) {
-                    specificationValue.setAttrValueId(nameValue.getAttrValueId());
-                    specificationValue.setAttrValueName(nameValue.getAttrValueName());
-                    specificationValues.add(specificationValue);
+        if (bean.getItemPublishVo().getAttrNameArray() != null && bean.getItemPublishVo().getAttrNameArray().size() != 0) {
+            for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {
+                SpecificationPopBean specificationPopBean = new SpecificationPopBean();
+                specificationPopBean.setAttrName(attrName);
+                ArrayList<SpecificationValue> specificationValues = new ArrayList<>();
+                for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {
+                    SpecificationValue specificationValue = new SpecificationValue();
+                    specificationPopBean.setAttrId(nameValue.getAttrId());
+                    if (nameValue.getAttrName().equals(attrName)) {
+                        specificationValue.setAttrValueId(nameValue.getAttrValueId());
+                        specificationValue.setAttrValueName(nameValue.getAttrValueName());
+                        specificationValues.add(specificationValue);
+                    }
+                    specificationPopBean.setSpecificationValue(specificationValues);
                 }
-                specificationPopBean.setSpecificationValue(specificationValues);
+                specificationPopBeans.add(specificationPopBean);
             }
-            specificationPopBeans.add(specificationPopBean);
         }
         mSpecificationPopBean = specificationPopBeans;
 
