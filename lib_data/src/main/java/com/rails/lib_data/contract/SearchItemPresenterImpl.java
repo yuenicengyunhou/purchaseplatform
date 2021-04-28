@@ -9,6 +9,7 @@ import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.forNetRequest.searchResult.CategoryAttr;
 import com.rails.lib_data.bean.forNetRequest.searchResult.CategoryAttrValue;
+import com.rails.lib_data.bean.forNetRequest.searchResult.CidBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.ExpandAttr;
 import com.rails.lib_data.bean.forNetRequest.searchResult.ExpandAttrValue;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
@@ -50,6 +51,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
             @Override
             protected void onSuccess(SearchDataByItemBean response) {
                 ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
+                ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
                 boolean isClear = pageNum <= 1;
                 baseView.getItemListWithKeywordOnly(itemAttributes, true, isClear);
                 baseView.dismissDialog();
@@ -123,6 +125,20 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                 SearchFilterValue searchFilterValue = new SearchFilterValue();
                 searchFilterValue.setValueName(brand);
                 searchFilterValue.setAttrFlag(0);
+                searchFilterValues.add(searchFilterValue);
+            }
+            searchFilterBean.setFilterValues(searchFilterValues);
+            searchFilterBeans.add(searchFilterBean);
+        }
+        if (response.getAllCids() != null && response.getAllCids().size() != 0) {
+            SearchFilterBean searchFilterBean = new SearchFilterBean();
+            searchFilterBean.setFilterName("类目");
+            ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
+            for (CidBean cidBean : response.getAllCids()) {
+                SearchFilterValue searchFilterValue = new SearchFilterValue();
+                searchFilterValue.setValueName(cidBean.getName());
+                searchFilterValue.setValueId(String.valueOf(cidBean.getId()));
+                searchFilterValue.setAttrFlag(1);
                 searchFilterValues.add(searchFilterValue);
             }
             searchFilterBean.setFilterValues(searchFilterValues);
