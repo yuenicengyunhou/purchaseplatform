@@ -31,10 +31,7 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
     protected void onBindItem(ItemProductPropertyBinding binding, SpecificationPopBean specificationPopBean, int position) {
         binding.tvName.setText(specificationPopBean.getAttrName());
         PropertySubAdapter adapter = new PropertySubAdapter(mContext);
-        if (position % 2 == 0)
-            binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-        else
-            binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
+        binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         binding.flow.setAdapter(adapter);
         ArrayList<SpecificationValue> tags = new ArrayList<>(specificationPopBean.getSpecificationValue());
         adapter.update(tags);
