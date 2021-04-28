@@ -74,7 +74,7 @@
                 <RelativeLayout
                     android:id="@+id/cl_searchKey"
                     android:layout_width="wrap_content"
-                    android:layout_height="26dp"
+                    android:layout_height="@dimen/dp_24"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_60"
                     android:background="@drawable/bg_corner_gray_12_8e8e8e">
@@ -146,6 +146,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawableEnd="@drawable/selector_arrow"
+                android:gravity="center"
                 android:paddingStart="@dimen/dp_16"
                 android:paddingEnd="@dimen/dp_16"
                 android:text="@string/search_result_sales"
@@ -160,6 +161,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawableEnd="@drawable/selector_arrow"
+                android:gravity="center"
                 android:paddingStart="@dimen/dp_16"
                 android:paddingEnd="@dimen/dp_16"
                 android:text="@string/search_result_price"

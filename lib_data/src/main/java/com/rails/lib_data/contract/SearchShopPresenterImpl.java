@@ -31,11 +31,11 @@ public class SearchShopPresenterImpl extends BasePresenter<SearchContract.Search
 
 
     @Override
-    public void getShopListWithKeywordOnly(long platformId, long accountId, String keyword, boolean isBuy, int pageNum, int pageSize, boolean isDialog) {
+    public void getShopListWithKeywordOnly(long platformId, long accountId, boolean isBuy, int pageNum, int pageSize, String keyword, String orderColumn, String orderType, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
         model.getShopListWithKeywordOnly(
-                platformId, accountId, keyword, isBuy, pageNum, pageSize,
+                platformId, accountId, isBuy, pageNum, pageSize, keyword, orderColumn, orderType,
                 new HttpRxObserver<SearchDataByShopBean>() {
                     @Override
                     protected void onError(ErrorBean e) {

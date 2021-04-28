@@ -136,6 +136,11 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbCommonSort.setOnClickListener(v -> {
             setSelected(true, false, false);
             // TODO: 2021/3/27 发送请求 - 综合排序
+            if (mSearchType == 0) {
+                fragment1.sort(null, null, mSearchKey, mCid);
+            } else {
+                fragment2.sort(null, null, mSearchKey, null);
+            }
         });
 
         // 点击销量排序
@@ -146,7 +151,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             if (mSearchType == 0) {
                 fragment1.sort("saleCount", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
-//                fragment2.sort()
+                fragment2.sort("shopSaleCount", salesSortFlag ? "desc" : "asc", mSearchKey, null);
             }
         });
 
@@ -156,9 +161,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             priceSortFlag = !priceSortFlag;
             // TODO: 2021/3/27 发送请求 - 按价格升序或降序排列
             if (mSearchType == 0) {
-                fragment1.sort("sellPrice", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
+                fragment1.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
-//                fragment2.sort()
+//              fragment2.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, null);
             }
         });
 

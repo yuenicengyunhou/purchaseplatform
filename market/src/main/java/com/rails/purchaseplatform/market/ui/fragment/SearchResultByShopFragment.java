@@ -11,6 +11,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.market.adapter.SearchResultByShopAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByShopBinding;
+import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,9 @@ import java.util.ArrayList;
  * 搜索结果 - 按店铺搜索
  */
 public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResultByShopBinding>
-        implements SearchContract.SearchShopView {
+        implements
+        SearchContract.SearchShopView,
+        SearchResultActivity.OnSortClick {
 
     final private String TAG = SearchResultByShopFragment.class.getSimpleName();
 
@@ -34,7 +37,10 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         mSearchKey = bundle.getString("search_key", "");
 
         mPresenter = new SearchShopPresenterImpl(this.getActivity(), this);
-        mPresenter.getShopListWithKeywordOnly(20L, 1L, mSearchKey, true, 1, 30, false);
+        mPresenter.getShopListWithKeywordOnly(
+                20L, 1L, false,
+                1, 30, mSearchKey,
+                null, null, false);
 
         mAdapter = new SearchResultByShopAdapter(this.getContext());
         binding.brvSearchResultByShopRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
@@ -54,5 +60,13 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     @Override
     public void getShopListWithKeywordOnly(ArrayList<ShopAttribute> beans, boolean hasMore, boolean isClear) {
         mAdapter.update(beans, isClear);
+    }
+
+    @Override
+    public void sort(String orderColumn, String orderType, String keyword, String cid) {
+        mPresenter.getShopListWithKeywordOnly(
+                20L, 1L, false,
+                1, 30, mSearchKey,
+                orderColumn, orderType, false);
     }
 }

@@ -80,7 +80,10 @@ public interface SearchContract {
          * @param pageNum
          * @param pageSize
          */
-        void getShopListWithKeywordOnly(long platformId, long accountId, String keyword, boolean isBuy, int pageNum, int pageSize, boolean isDialog);
+        void getShopListWithKeywordOnly(
+                long platformId, long accountId, boolean isBuy,
+                int pageNum, int pageSize, String keyword,
+                String orderColumn, String orderType, boolean isDialog);
 
     }
 }
