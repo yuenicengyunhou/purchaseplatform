@@ -1,17 +1,26 @@
 package com.rails.lib_data.request;
 
+import android.os.Parcel;
+
 import com.rails.lib_data.bean.AddressBean;
+
+import java.io.Serializable;
 
 /**
  * @author： sk_comic@163.com
  * @date: 2021/4/22
  */
-public class OrderInvoiceBean {
+public class OrderInvoiceBean implements Serializable {
     private AddressBean invoiceAddress;
     private String invoiceTitleId;
-    private Integer invoiceType;
-    private Integer content;
-    private Integer invoiceModality;
+    private int invoiceType;
+    private int content;
+    private int invoiceModality;
+
+
+    public OrderInvoiceBean() {
+    }
+
 
     public AddressBean getInvoiceAddress() {
         return invoiceAddress;
@@ -29,27 +38,35 @@ public class OrderInvoiceBean {
         this.invoiceTitleId = invoiceTitleId;
     }
 
-    public Integer getInvoiceType() {
+    public int getInvoiceType() {
         return invoiceType;
     }
 
-    public void setInvoiceType(Integer invoiceType) {
+    public void setInvoiceType(int invoiceType) {
         this.invoiceType = invoiceType;
     }
 
-    public Integer getContent() {
+    public int getContent() {
         return content;
     }
 
-    public void setContent(Integer content) {
+    public void setContent(int content) {
         this.content = content;
     }
 
-    public Integer getInvoiceModality() {
+    public int getInvoiceModality() {
         return invoiceModality;
     }
 
-    public void setInvoiceModality(Integer invoiceModality) {
+    public void setInvoiceModality(int invoiceModality) {
         this.invoiceModality = invoiceModality;
     }
+
+    protected OrderInvoiceBean(Parcel in) {
+        invoiceTitleId = in.readString();
+        invoiceType = in.readInt();
+        content = in.readInt();
+        invoiceModality = in.readInt();
+    }
+
 }

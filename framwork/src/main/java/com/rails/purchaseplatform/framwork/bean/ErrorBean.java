@@ -12,6 +12,7 @@ public class ErrorBean extends Exception {
     private String code;
     private int errorcode;
     private String msg;
+    private String data;
 
     public ErrorBean(Throwable throwable, String code) {
         super(throwable);
@@ -45,5 +46,13 @@ public class ErrorBean extends Exception {
 
     public void setErrorcode(int errorcode) {
         this.errorcode = errorcode;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

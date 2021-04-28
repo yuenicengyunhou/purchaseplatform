@@ -19,8 +19,8 @@
             <com.rails.purchaseplatform.common.widget.RatioImage
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_mine_bg"
                 android:scaleType="fitXY"
+                android:src="@drawable/ic_mine_bg"
                 app:h="242"
                 app:w="411" />
 
@@ -161,54 +161,88 @@
                     android:paddingTop="@dimen/dp_2"
                     android:paddingBottom="@dimen/dp_20">
 
-                    <com.rails.purchaseplatform.common.widget.TabRadio
-                        android:id="@+id/tab_order"
-                        style="@style/mine_order"
-                        android:drawableTop="@drawable/ic_mine_order"
-                        android:text="@string/mine_order_order"
-                        app:distance="@dimen/dp_18"
-                        app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_2"
-                        app:font_size="@dimen/font_size_10"
-                        app:is_hide="false"
-                        app:is_hide_txt="false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                    <com.rails.purchaseplatform.common.widget.TabRadio
-                        android:id="@+id/tab_send"
-                        style="@style/mine_order"
-                        android:drawableTop="@drawable/ic_mine_send"
-                        android:text="@string/mine_order_send"
-                        app:distance="@dimen/dp_18"
-                        app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_3"
-                        app:font_size="@dimen/font_size_10"
-                        app:is_hide="false"
-                        app:is_hide_txt="false" />
+                        <com.rails.purchaseplatform.common.widget.TabRadio
+                            android:id="@+id/tab_order"
+                            style="@style/mine_order"
+                            android:drawableTop="@drawable/ic_mine_order"
+                            android:text="@string/mine_order_order"
+                            app:distance="@dimen/dp_0"
+                            app:font_color="@color/bg_red"
+                            app:font_padding="@dimen/dp_2"
+                            app:font_size="@dimen/font_size_10"
+                            app:is_hide="false"
+                            app:is_hide_txt="false" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <com.rails.purchaseplatform.common.widget.TabRadio
+                            android:id="@+id/tab_send"
+                            style="@style/mine_order"
+                            android:drawableTop="@drawable/ic_mine_send"
+                            android:text="@string/mine_order_send"
+                            app:distance="@dimen/dp_0"
+                            app:font_color="@color/bg_red"
+                            app:font_padding="@dimen/dp_3"
+                            app:font_size="@dimen/font_size_10"
+                            app:is_hide="false"
+                            app:is_hide_txt="false" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <com.rails.purchaseplatform.common.widget.TabRadio
+                            android:id="@+id/tab_recivice"
+                            style="@style/mine_order"
+                            android:drawableTop="@drawable/ic_mine_receive"
+                            android:text="@string/mine_order_receive"
+                            app:distance="@dimen/dp_0"
+                            app:font_color="@color/bg_red"
+                            app:font_padding="@dimen/dp_3"
+                            app:font_size="@dimen/font_size_10"
+                            app:is_hide="false"
+                            app:is_hide_txt="false" />
+
+                    </LinearLayout>
 
 
-                    <com.rails.purchaseplatform.common.widget.TabRadio
-                        android:id="@+id/tab_recivice"
-                        style="@style/mine_order"
-                        android:drawableTop="@drawable/ic_mine_receive"
-                        android:text="@string/mine_order_receive"
-                        app:distance="@dimen/dp_18"
-                        app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_3"
-                        app:font_size="@dimen/font_size_10"
-                        app:is_hide="false"
-                        app:is_hide_txt="false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                    <com.rails.purchaseplatform.common.widget.TabRadio
-                        android:id="@+id/tab_quit"
-                        style="@style/mine_order"
-                        android:drawableTop="@drawable/ic_mine_refuse"
-                        android:text="@string/mine_order_aftersale"
-                        app:distance="@dimen/dp_25"
-                        app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_3"
-                        app:font_size="@dimen/font_size_10"
-                        app:is_hide="false"
-                        app:is_hide_txt="false" />
+                        <com.rails.purchaseplatform.common.widget.TabRadio
+                            android:id="@+id/tab_quit"
+                            style="@style/mine_order"
+                            android:drawableTop="@drawable/ic_mine_refuse"
+                            android:text="@string/mine_order_aftersale"
+                            app:distance="@dimen/dp_0"
+                            app:font_color="@color/bg_red"
+                            app:font_padding="@dimen/dp_3"
+                            app:font_size="@dimen/font_size_10"
+                            app:is_hide="false"
+                            app:is_hide_txt="false" />
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -236,48 +270,73 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/dp_16">
 
-                    <com.rails.purchaseplatform.common.widget.TabRadio
-                        android:id="@+id/ll_audit"
-                        style="@style/mine_order"
-                        android:drawableTop="@drawable/ic_mine_audit"
-                        android:text="@string/mine_approve_audit"
-                        app:distance="@dimen/dp_40"
-                        app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_3"
-                        app:font_size="@dimen/font_size_10"
-                        app:is_hide="false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <com.rails.purchaseplatform.common.widget.TabRadio
+                            android:id="@+id/ll_audit"
+                            style="@style/mine_order"
+                            android:drawableTop="@drawable/ic_mine_audit"
+                            android:text="@string/mine_approve_audit"
+                            app:distance="@dimen/dp_0"
+                            app:font_color="@color/bg_red"
+                            app:font_padding="@dimen/dp_3"
+                            app:font_size="@dimen/font_size_10"
+                            app:is_hide="false" />
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="@dimen/dp_tiny"
                         android:layout_height="@dimen/dp_40"
                         android:background="@color/line_gray" />
 
-                    <com.rails.purchaseplatform.common.widget.TabRadio
-                        android:id="@+id/ll_pass"
-                        style="@style/mine_order"
-                        android:drawableTop="@drawable/ic_mine_pass"
-                        android:text="@string/mine_approve_pass"
-                        app:distance="@dimen/dp_40"
-                        app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_3"
-                        app:font_size="@dimen/font_size_10"
-                        app:is_hide="false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <com.rails.purchaseplatform.common.widget.TabRadio
+                            android:id="@+id/ll_pass"
+                            style="@style/mine_order"
+                            android:drawableTop="@drawable/ic_mine_pass"
+                            android:text="@string/mine_approve_pass"
+                            app:distance="@dimen/dp_0"
+                            app:font_color="@color/bg_red"
+                            app:font_padding="@dimen/dp_3"
+                            app:font_size="@dimen/font_size_10"
+                            app:is_hide="false" />
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="@dimen/dp_tiny"
                         android:layout_height="@dimen/dp_40"
                         android:background="@color/line_gray" />
 
-                    <com.rails.purchaseplatform.common.widget.TabRadio
-                        android:id="@+id/ll_rejected"
-                        style="@style/mine_order"
-                        android:drawableTop="@drawable/ic_mine_refuse"
-                        android:text="@string/mine_approve_refuse"
-                        app:distance="@dimen/dp_40"
-                        app:font_color="@color/bg_red"
-                        app:font_padding="@dimen/dp_3"
-                        app:font_size="@dimen/font_size_10"
-                        app:is_hide="false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <com.rails.purchaseplatform.common.widget.TabRadio
+                            android:id="@+id/ll_rejected"
+                            style="@style/mine_order"
+                            android:drawableTop="@drawable/ic_mine_refuse"
+                            android:text="@string/mine_approve_refuse"
+                            app:distance="@dimen/dp_0"
+                            app:font_color="@color/bg_red"
+                            app:font_padding="@dimen/dp_3"
+                            app:font_size="@dimen/font_size_10"
+                            app:is_hide="false" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
             </LinearLayout>
 

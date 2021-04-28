@@ -142,6 +142,7 @@
                 android:layout_marginBottom="@dimen/dp_5"
                 app:is_hide="true"
                 app:key_color="@color/font_black"
+                app:value_right_icon="@drawable/svg_arrow_white"
                 app:key_size="@dimen/font_size_14"
                 app:value_color="@color/font_black"
                 app:value_size="@dimen/font_size_13" />
