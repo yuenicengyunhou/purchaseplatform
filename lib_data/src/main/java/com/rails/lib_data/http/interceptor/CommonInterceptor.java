@@ -4,7 +4,6 @@ package com.rails.lib_data.http.interceptor;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.BaseApp;

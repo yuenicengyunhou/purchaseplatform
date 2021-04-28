@@ -2,7 +2,9 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
+import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.model.OrderVerifyModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -10,6 +12,7 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -51,6 +54,25 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
     }
 
     @Override
+    public void getPurchases() {
+        model.getPurchaseCompanys(new HttpRxObserver<ArrayList<OrderPurchaseBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+
+            }
+
+            @Override
+            protected void onSuccess(ArrayList<OrderPurchaseBean> beans) {
+                baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getPurchases(beans);
+            }
+        });
+    }
+
+    @Override
     public void getOrderToken() {
         model.getOrderToken(new HttpRxObserver<String>() {
             @Override
@@ -80,11 +102,14 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             protected void onSuccess(ArrayList<String> datas) {
                 baseView.dismissDialog();
                 String orderNo = "";
-                if (!datas.isEmpty()){
-                    orderNo =datas.get(0);
+//                Type type = new TypeToken<ArrayList<String>>() {
+//                }.getType();
+//                ArrayList<String> datas = JsonUtil.parseJson(String.valueOf(data), type);
+                if (!datas.isEmpty()) {
+                    orderNo = datas.get(0);
                 }
 
-                baseView.getResult("提交成功",orderNo);
+                baseView.getResult("提交成功", orderNo);
             }
         });
     }

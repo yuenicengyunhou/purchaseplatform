@@ -13,6 +13,7 @@ import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.InvoiceContract;
 import com.rails.lib_data.contract.InvoicePresenterImpl;
+import com.rails.lib_data.request.OrderInvoiceBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -192,15 +193,7 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         });
 
         barBinding.btnAdd.setOnClickListener(v -> {
-            InvoiceTitleBean bean = titleAdapter.getLastBean();
-            if (bean == null) {
-                ToastUtil.showCenter(InvoiceActivity.this, "请选择发票抬头");
-                return;
-            }
-            Intent intent = new Intent();
-            intent.putExtra("invoiceBean", bean);
-            setResult(RESULT_OK, intent);
-            finish();
+            setParams();
         });
     }
 
@@ -212,5 +205,37 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
     @Override
     public void getDefAddress(AddressBean bean) {
         setAddress(bean);
+    }
+
+
+    /**
+     * 设置发票类型
+     */
+    private void setParams() {
+        OrderInvoiceBean orderInvoiceBean = new OrderInvoiceBean();
+        if (addressBean == null) {
+            ToastUtil.showCenter(InvoiceActivity.this, "请选择发票地址");
+            return;
+        }
+
+        orderInvoiceBean.setInvoiceAddress(addressBean);
+        //发票内容
+        orderInvoiceBean.setContent(invoiceContent);
+        //发票类型
+        orderInvoiceBean.setInvoiceType(invoiceType);
+        //发票id
+        InvoiceTitleBean bean = titleAdapter.getLastBean();
+        if (bean == null) {
+            ToastUtil.showCenter(InvoiceActivity.this, "请选择发票抬头");
+            return;
+        }
+        orderInvoiceBean.setInvoiceTitleId(bean.getId());
+        //未知
+        orderInvoiceBean.setInvoiceModality(2);
+
+        Intent intent = new Intent();
+        intent.putExtra("invoiceBean", orderInvoiceBean);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

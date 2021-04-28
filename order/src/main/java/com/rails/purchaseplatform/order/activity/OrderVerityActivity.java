@@ -15,6 +15,7 @@ import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.InvoiceTitleBean;
+import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.contract.OrderVerifyContract;
@@ -29,6 +30,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
@@ -54,11 +56,22 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
     private OrderVerifyAdapter adapter;
     private OrderVerifyContract.OrderVerifyPresenter presenter;
+
+    //收货地址
     private AddressBean addressBean;
+    //发票参数组合
+    private OrderInvoiceBean orderInvoiceBean;
+    //结算单位
+    private OrderPurchaseBean orderPurchaseBean;
+
+    //提交单多个接口汇总集合
     private OrderVerifyBean verifyBean;
+
 
     //是否延迟收货 1：延迟收货 0：无延迟收货
     private int receiveType = 0;
+
+    //下单前要获取的token
     private String orderToken = "";
 
 
@@ -107,13 +120,21 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         if (bean == null)
             return;
         verifyBean = bean;
+        orderPurchaseBean = bean.getCompany();
         adapter.update((ArrayList) bean.getCart().getShopList(), true);
+        setInvoiceParams(verifyBean);
+
         setOrderInfo(bean);
     }
 
     @Override
     public void getOrderToken(String token) {
         orderToken = token;
+    }
+
+    @Override
+    public void getPurchases(ArrayList<OrderPurchaseBean> purchaseBeans) {
+
     }
 
     @Override
@@ -209,7 +230,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             @Override
             public void onClick(View v) {
                 ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", "1")
-                        .withSerializable("bean",addressBean)
+                        .withSerializable("bean", addressBean)
                         .navigation(OrderVerityActivity.this, 0);
             }
         });
@@ -238,10 +259,17 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         });
 
         barBinding.rlCompay.setOnClickListener(v -> {
-//            CompanyPop pop = new CompanyPop();
-//            pop.setGravity(Gravity.BOTTOM);
-//            pop.setType(BasePop.MATCH_WRAP);
-//            pop.show(getSupportFragmentManager(), "company");
+            CompanyPop pop = new CompanyPop();
+            pop.setGravity(Gravity.BOTTOM);
+            pop.setType(BasePop.MATCH_WRAP);
+            pop.setListener(companyBean -> {
+                orderPurchaseBean = companyBean;
+                barBinding.rlCompay.setKey(companyBean.getFullName());
+            });
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("bean", orderPurchaseBean);
+            pop.setArguments(bundle);
+            pop.show(getSupportFragmentManager(), "company");
         });
 
         barBinding.rlBill.setOnClickListener(v -> {
@@ -263,8 +291,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             } else if (requestCode == 1) {
                 if (data == null)
                     return;
-                InvoiceTitleBean bean = data.getExtras().getParcelable("invoiceBean");
-                verifyBean.setInvoice(bean);
+                orderInvoiceBean = (OrderInvoiceBean) data.getExtras().getSerializable("invoiceBean");
             }
 
         }
@@ -298,30 +325,24 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             body.setOrganizeId(cartBean.getOrganizeId());
             body.setPaymentPrice(cartBean.getPaymentPrice());
 
+
             body.setThrough(1);
             body.setSettleType(20);
-            body.setDelayFlag("0");
-
-            //结算单位ID
-            if (verifyBean.getCompany() != null)
-                body.setAccountingUnitId(verifyBean.getCompany().getId());
-
             //支付方式
             body.setPaymentType(1);
             //
-            body.setAccountingType(String.valueOf(receiveType));
+            //是否延迟收货
+            body.setDelayFlag(String.valueOf(receiveType));
+
+            //结算方式
+            //结算单位ID
+            if (orderPurchaseBean != null) {
+                body.setAccountingUnitId(orderPurchaseBean.getId());
+                body.setAccountingType(String.valueOf(orderPurchaseBean.getAccountingType()));
+            }
 
 
             //发票
-            OrderInvoiceBean orderInvoiceBean = new OrderInvoiceBean();
-            orderInvoiceBean.setInvoiceAddress(verifyBean.getInvoiceAddress());
-            //发票内容
-            orderInvoiceBean.setContent(1);
-            //发票类型
-            orderInvoiceBean.setInvoiceType(2);
-            //发票id
-            orderInvoiceBean.setInvoiceTitleId(verifyBean.getInvoice().getId());
-            orderInvoiceBean.setInvoiceModality(2);
             body.setOrderInvoice(orderInvoiceBean);
 
 
@@ -345,6 +366,39 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         Logger.d(JSONObject.toJSON(body).toString());
 
         presenter.commitOrder(orderToken, JSONObject.toJSON(body).toString());
+    }
+
+
+    /**
+     * 默认发票内容
+     *
+     * @param verifyBean
+     */
+    private void setInvoiceParams(OrderVerifyBean verifyBean) {
+        if (verifyBean == null)
+            return;
+        orderInvoiceBean = new OrderInvoiceBean();
+
+        AddressBean invoiceAddress = verifyBean.getInvoiceAddress();
+        if (invoiceAddress == null) {
+            ToastUtil.showCenter(this, "请选择发票地址");
+            return;
+        }
+        orderInvoiceBean.setInvoiceAddress(invoiceAddress);
+
+        //发票内容,默认 明细
+        orderInvoiceBean.setContent(1);
+        //发票类型 ，
+        orderInvoiceBean.setInvoiceType(2);
+        //发票id
+        InvoiceTitleBean titleBean = verifyBean.getInvoice();
+        if (titleBean == null) {
+            ToastUtil.showCenter(this, "请选择发票抬头");
+            return;
+        }
+        orderInvoiceBean.setInvoiceTitleId(titleBean.getId());
+        //未知
+        orderInvoiceBean.setInvoiceModality(2);
     }
 
 }

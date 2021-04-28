@@ -1,7 +1,10 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
+
+import java.util.ArrayList;
 
 /**
  * 确认单约束类
@@ -29,6 +32,14 @@ public interface OrderVerifyContract {
 
 
         /**
+         * 获取采购商列表
+         *
+         * @param purchaseBeans
+         */
+        void getPurchases(ArrayList<OrderPurchaseBean> purchaseBeans);
+
+
+        /**
          * 提交返回结构
          *
          * @param msg
@@ -46,6 +57,12 @@ public interface OrderVerifyContract {
          * @param addressId 收货地址Id
          */
         void getVerifyOrder(String addressId);
+
+
+        /**
+         * 获取采购商列表
+         */
+        void getPurchases();
 
 
         /**

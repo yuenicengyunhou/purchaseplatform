@@ -36,80 +36,13 @@
 
     </RelativeLayout>
 
-    <TextView
+
+    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_border"
-        android:layout_marginTop="@dimen/dp_25"
-        android:layout_marginRight="@dimen/common_border"
-        android:singleLine="true"
-        android:text="集团公司集中结算"
-        android:textColor="@color/font_gray"
-        android:textSize="@dimen/font_size_13" />
-
-
-    <CheckBox
-        android:id="@+id/btn_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_border"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/common_border"
-        android:background="@drawable/bg_corner_gray_light_5"
-        android:button="@null"
-        android:checked="true"
-        android:drawableLeft="@drawable/selector_circle"
-        android:drawablePadding="@dimen/dp_10"
-
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingTop="@dimen/dp_16"
-        android:paddingBottom="@dimen/dp_16"
-        android:text="中国铁路上海局集团有限公司"
-        android:textColor="@color/selector_blue_gray_color" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_border"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/common_border"
-        android:text="集团公司集中结算是由集团公司(路局级)统一对账、申请开票并支付，一经提交，不可修改，请谨慎选择"
-        android:textColor="@color/font_red"
-        android:textSize="@dimen/font_size_13" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_border"
-        android:layout_marginTop="@dimen/dp_25"
-        android:layout_marginRight="@dimen/common_border"
-        android:singleLine="true"
-        android:text="本单位结算"
-        android:textColor="@color/font_gray"
-        android:textSize="@dimen/font_size_13" />
-
-
-    <CheckBox
-        android:id="@+id/btn_self"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_border"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/common_border"
         android:layout_marginBottom="@dimen/dp_30"
-        android:background="@drawable/bg_corner_gray_light_5"
-        android:button="@null"
-        android:checked="false"
-        android:drawableLeft="@drawable/selector_circle"
-        android:drawablePadding="@dimen/dp_10"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingTop="@dimen/dp_16"
-        android:paddingBottom="@dimen/dp_16"
-        android:text="xx车务段"
-        android:textColor="@color/selector_blue_gray_color" />
-
+        android:overScrollMode="never" />
 
 </LinearLayout>
 

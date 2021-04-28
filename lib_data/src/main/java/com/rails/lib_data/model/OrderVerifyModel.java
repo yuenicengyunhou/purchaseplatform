@@ -159,7 +159,7 @@ public class OrderVerifyModel {
 
 
     /**
-     * 获取订单确认信息商品列表
+     * 提交采购单
      */
     public void commitOrder(String obj, String busToken, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
@@ -174,7 +174,7 @@ public class OrderVerifyModel {
 
 
     /**
-     * 获取订单确认信息商品列表
+     * 获取发票抬头列表
      */
     public void getInvoiceTitle(int page, int pageSize, String invoiceType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
@@ -185,6 +185,19 @@ public class OrderVerifyModel {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class)
                 .getInvoiceTitle(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 获取结算单位
+     */
+    public void getPurchaseCompanys(HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("addressType", "20");
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class)
+                .getOrderCompanys(params))
                 .subscribe(httpRxObserver);
     }
 
