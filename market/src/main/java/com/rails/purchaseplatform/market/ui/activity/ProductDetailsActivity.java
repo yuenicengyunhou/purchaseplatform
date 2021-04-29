@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +16,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -48,6 +51,7 @@ import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
@@ -57,10 +61,6 @@ import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 商品详情页
@@ -86,6 +86,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private PropertyPop<SpecificationPopBean> mPop;
 
     private String mItemId;
+    private String mShopId;
     private String mPlatformId = "20";
     private String skuId;
     private ArrayList<AddressBean> addresses;
@@ -332,8 +333,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     protected void onClick() {
         super.onClick();
-        binding.tvShowAll.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
-        binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
+
+        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail());
+        binding.tvGoInShop.setOnClickListener(v -> productDetailGoShopDetail());
 
         binding.tvPutInCart.setOnClickListener(v -> {
             showPropertyPop(0, 2, skuId);
@@ -363,6 +365,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击购物车按钮 跳转到购物车页面
         binding.tvCartCount.setOnClickListener(v -> startIntent(CartActivity.class));
+    }
+
+    /**
+     * 商品详情跳转到店铺详情
+     */
+    private void productDetailGoShopDetail() {
+        Bundle bundle = new Bundle();
+        bundle.putString("shopInfoId", mShopId);
+        ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
     }
 
     /**
@@ -510,9 +521,23 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     @Override
-    public void onCollect(boolean isCollect, int position) {
+    public void onGetUserCollectSuccess(boolean isCollect) {
+        if (isCollect) {
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
+        } else {
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
+        }
         this.isCollect = isCollect;
-//        binding.ivCollect // TODO 变更收藏状态
+    }
+
+    @Override
+    public void onCollect(boolean isCollect, int position) {
+        if (this.isCollect) {
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
+        } else {
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
+        }
+        this.isCollect = !this.isCollect;
     }
 
 
@@ -536,6 +561,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (itemSkuInfo.isEmpty())
             return;
         skuId = itemSkuInfo.get(0).getId();
+        mShopId = String.valueOf(bean.getItemPublishVo().getShopId());
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, skuId, false);
         mGetProductDetailsPresenter.getUserCollect(skuId, false);
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
@@ -628,12 +654,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans) {
         recommendItemsRecyclerAdapter.update(beans, false);
-    }
-
-    @Override
-    public void onGetUserCollectSuccess(boolean isCollect) {
-        this.isCollect = isCollect;
-//        binding.ivCollect.set TODO 设置收藏状态
     }
 
     @Override
