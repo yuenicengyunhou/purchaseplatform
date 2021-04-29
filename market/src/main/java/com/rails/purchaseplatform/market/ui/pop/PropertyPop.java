@@ -1,11 +1,10 @@
 package com.rails.purchaseplatform.market.ui.pop;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
-import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
@@ -48,6 +47,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         switch (mMode) {
             case MODE_1:
             case MODE_2:
+                binding.llTop.setVisibility(View.INVISIBLE);
                 PropertyAdapter adapter = new PropertyAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(adapter);
@@ -56,6 +56,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 onClick();
                 break;
             case MODE_3:
+                binding.rlTitle.setVisibility(View.INVISIBLE);
                 SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(adapter1);
@@ -68,6 +69,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     void onClick() {
         binding.btnClose.setOnClickListener(v -> dismiss());
+        binding.ibClose.setOnClickListener(v -> dismiss());
         binding.btnOk.setOnClickListener(v -> mAddToCart.addToCart());
     }
 
