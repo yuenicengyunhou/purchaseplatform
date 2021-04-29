@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ExpandAttrsBean {
 
-    private Object attrId;
+    private String attrId;
     private String attrName;
     /**
      * id : null
@@ -16,11 +16,11 @@ public class ExpandAttrsBean {
 
     private List<AttrValuesBean> attrValues;
 
-    public Object getAttrId() {
+    public String getAttrId() {
         return attrId;
     }
 
-    public void setAttrId(Object attrId) {
+    public void setAttrId(String attrId) {
         this.attrId = attrId;
     }
 

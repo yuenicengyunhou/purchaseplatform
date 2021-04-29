@@ -13,16 +13,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <CheckBox
-            android:id="@+id/tv_status"
+        <TextView
+            android:id="@+id/rb_tag"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_40"
-            android:background="@drawable/selector_bg_corner_blank"
-            android:button="@null"
-            android:paddingStart="@dimen/dp_16"
-            android:paddingEnd="@dimen/dp_16"
-            android:text="@{orderStatus.status,default=哈哈哈}"
-            android:textColor="@drawable/selector_gray_white_text"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_corner_blue_white_20"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="@string/app_name"
+            android:textColor="@color/selector_white_gray_color"
             android:textSize="@dimen/font_size_13" />
 
     </RelativeLayout>

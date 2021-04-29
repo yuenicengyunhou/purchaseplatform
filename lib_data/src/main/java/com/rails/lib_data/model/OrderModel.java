@@ -3,13 +3,17 @@ package com.rails.lib_data.model;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.OrderService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +44,13 @@ public class OrderModel {
                 .create(OrderService.class).purchasePageList(map))
                 .subscribe(httpRxObserver);
     }
+
+//    public OrderFilterBean getFilterBean() {
+//        OrderFilterBean filterBean = new OrderFilterBean();
+//        Type type = new TypeToken<ArrayList<OrderStatusBean>>() {
+//        }.getType();
+//        beans = JsonUtil.parseJson( "orderStatus.json", type);
+//    }
 
     private void mergeMap(OrderFilterBean filterBean, HashMap<String, Object> map) {
         if (null==filterBean) return;

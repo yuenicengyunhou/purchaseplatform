@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.order.fragment;
 
 
 import com.rails.lib_data.bean.BuyerBean;
+import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
@@ -31,6 +32,7 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private String squence = "purchaseNo";//默认采购单编号搜索
     private int searchType = 0;
     private String searchContent = "";
+    private OrderFilterBean filterBean;
 
     private OrderFragment(int status) {
         this.status = status;
@@ -70,14 +72,14 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
         binding.swipe.setOnRefreshListener(refreshLayout -> {
             binding.swipe.finishRefresh();
             page = DEF_PAGE;
-            notifyData(true, page, searchType, searchContent);
+            notifyData(true, page, searchType, searchContent,filterBean);
         });
 
         binding.swipe.setOnLoadMoreListener(refreshLayout -> {
             page++;
-            notifyData(false, page,searchType,searchContent);
+            notifyData(false, page,searchType,searchContent,filterBean);
         });
-        notifyData(true, page,searchType,searchContent);
+        notifyData(true, page,searchType,searchContent,filterBean);
     }
 
 
@@ -87,10 +89,10 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      * param isDialog
      * param page
      */
-    private void notifyData(boolean isDialog, int page, int searchType, String searchContent) {
+    private void notifyData(boolean isDialog, int page, int searchType, String searchContent,OrderFilterBean filterBean) {
         int queryType = status == 0 ? 1 : 0;
         squence = getQuestSquence(searchType);
-        presenter.getOrder(isDialog, page, queryType, squence, searchContent,null);
+        presenter.getOrder(isDialog, page, queryType, squence, searchContent,filterBean);
     }
 
     /**
@@ -99,11 +101,12 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      * 1 - 采购人用户名
      * 2 - 供应商名称
      */
-    public void notifyData(int searchType, String searchContent) {
+    public void notifyData(int searchType, String searchContent, OrderFilterBean filterBean) {
         page = DEF_PAGE;
         this.searchType = searchType;
         this.searchContent = searchContent;
-        notifyData(true, page, searchType, searchContent);
+        this.filterBean = filterBean;
+        notifyData(true, page, searchType, searchContent,filterBean);
     }
 
     private String getQuestSquence(int searchType) {

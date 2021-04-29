@@ -53,9 +53,11 @@
                                 android:id="@+id/img_shop"
                                 imgUrl='@{@string/url_head+shopInfo.logoUrl}'
                                 android:layout_width="@dimen/dp_70"
+                                android:padding="@dimen/paddingS"
+                                android:background="@drawable/shape_bg_img_stroke"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/common_border"
-                                app:h="6"
+                                app:h="7"
                                 app:w="7" />
 
                             <TextView

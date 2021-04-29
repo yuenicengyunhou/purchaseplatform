@@ -6,6 +6,15 @@ public class SearchFilterValue {
     private boolean isSelect = false;
     private int attrFlag = -1; // 0-brand，1-cid, 2-categoryAttrValue, 3-expandAttrValue
 
+    private int parent;//1 为父级 ，0为子级
+
+    public int getParent() {
+        return parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
+    }
 
     // =============================================================================
 
