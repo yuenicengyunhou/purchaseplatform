@@ -241,6 +241,21 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
     }
 
+    @Override
+    public void getLimits(ArrayList<String> list, String msg) {
+        for (String itemId : list) {
+            for (CartShopBean bean : cartAdapter.getBeans()) {
+                for (CartShopProductBean productBean : bean.getSkuList()) {
+                    if (itemId.equals(productBean.getSkuId())) {
+                        productBean.isLimit.set(true);
+                        break;
+                    }
+                }
+            }
+        }
+        ToastUtil.showCenter(getActivity(), msg);
+    }
+
 
     @Override
     protected void onClick() {

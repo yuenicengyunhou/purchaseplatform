@@ -61,6 +61,12 @@ public interface CartContract {
         void getSelStatus(int type, Boolean isSel);
 
 
+        /**
+         * 获取库存不足列表
+         */
+        void getLimits(ArrayList<String> list, String msg);
+
+
     }
 
     interface DetailsCartView extends BaseView {
