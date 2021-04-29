@@ -123,8 +123,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
-        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO + "?platformId=20&itemId=" + mItemId + "&areaId=-1");
-        TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST + "?platformId=20&skuId=" + mSkuId);
+        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO);
+        TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST);
         TAB_URLS.add(ConRoute.WEB_URL.SERVICES);
         TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS);
 

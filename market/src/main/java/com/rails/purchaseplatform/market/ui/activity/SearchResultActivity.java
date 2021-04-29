@@ -44,16 +44,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     private String mSearchKey = "";
     private String mCid = "";
 
-    private ArrayList<Fragment> mFragments;
-    private SearchResultViewPagerAdapter mPagerAdapter;
-
-
     private boolean salesSortFlag = true; // false 降序排列
     private boolean priceSortFlag = true; // true  升序排列
-
-    private int mModuleFlag = 0;
-
-    private OrderSearchFilterPop mFilterPop;
 
     SearchResultByProductFragment fragment1;
     SearchResultByShopFragment fragment2;
@@ -82,10 +74,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         fragment1.setArguments(fragmentBundle);
         fragment2 = new SearchResultByShopFragment();
         fragment2.setArguments(fragmentBundle);
-        mFragments = new ArrayList<>();
+        ArrayList<Fragment> mFragments = new ArrayList<>();
         mFragments.add(fragment1);
         mFragments.add(fragment2);
-        mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
+        SearchResultViewPagerAdapter mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
 
 
         binding.svpSearchResultPager.setAdapter(mPagerAdapter);
