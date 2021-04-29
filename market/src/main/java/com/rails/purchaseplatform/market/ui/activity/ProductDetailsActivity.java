@@ -116,8 +116,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     protected void initialize(Bundle bundle) {
         TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO);
         TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST);
@@ -156,7 +156,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         float px2 = ScreenSizeUtil.dp2px(this, 240);
         float px3 = ScreenSizeUtil.dp2px(this, 1100);
 
-        binding.rlHeadViewWithTabLayout.setTransitionAlpha(0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            binding.rlHeadViewWithTabLayout.setTransitionAlpha(0);
+        }
         binding.ibGoTop.setVisibility(View.GONE);
 
         // 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
@@ -181,10 +183,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                updateTabTitleStateOnScroll(px, px2);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    updateTabTitleStateOnScroll(px, px2);
+                    updateBackButtonStateOnScroll(scrollY);
+                }
                 updateTabStateOnScroll(px);
                 updateGoTopButtonStateOnScroll(scrollY, px3);
-                updateBackButtonStateOnScroll(scrollY);
+
             }
         });
 
@@ -357,7 +362,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         // 点击购物车按钮 跳转到购物车页面
-        binding.llCart.setOnClickListener(v -> startIntent(CartActivity.class));
+        binding.tvCartCount.setOnClickListener(v -> startIntent(CartActivity.class));
     }
 
     /**
@@ -633,8 +638,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetCartCountSuccess(String count) {
-        binding.tvCartCount.setText(String.valueOf(count));
+        binding.tvCartCount.setText(count);
+//        try {
+//            int num;
+//            if (TextUtils.isEmpty(count))
+//                num = 0;
+//            else
+//                num = Integer.parseInt(count);
+//            binding.tvCartCount.setNumber(num);
+//        } catch (Exception e) {
+//            binding.tvCartCount.setNumber(0);
+//        }
     }
+
 
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {

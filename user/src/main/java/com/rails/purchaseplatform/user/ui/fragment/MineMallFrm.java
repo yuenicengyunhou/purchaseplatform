@@ -181,9 +181,9 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabQuit.setNumber(bean.getFailureCount());
 
 
-        binding.llAudit.setNumber(bean.getStayAuditCount());
-        binding.llPass.setNumber(bean.getPassedCount());
-        binding.llRejected.setNumber(bean.getRejectCount());
+//        binding.llAudit.setNumber(bean.getStayAuditCount());
+//        binding.llPass.setNumber(bean.getPassedCount());
+//        binding.llRejected.setNumber(bean.getRejectCount());
 
 
     }

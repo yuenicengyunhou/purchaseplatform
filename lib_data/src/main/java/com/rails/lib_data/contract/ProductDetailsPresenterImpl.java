@@ -90,7 +90,9 @@ public class ProductDetailsPresenterImpl
             @Override
             protected void onSuccess(ArrayList<ProductPriceBean> response) {
                 ProductPriceBean bean = new ProductPriceBean();
-                if (response.size() == 0) {
+                if (response == null)
+                    return;
+                if (!response.isEmpty()) {
                     bean.setCreditLevel("0");
                     bean.setSellPrice(0.0D);
                     bean.setMarketPrice(0.0D);
