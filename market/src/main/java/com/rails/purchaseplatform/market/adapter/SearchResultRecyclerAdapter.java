@@ -9,6 +9,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
+
 //BaseItemAttribute
 public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<ItemAttribute, ItemSearchResultBinding> {
 
@@ -27,19 +28,10 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<ItemAttribu
     @Override
     protected void onBindItem(ItemSearchResultBinding binding, ItemAttribute itemAttribute, int position) {
         binding.setItemAttribute(itemAttribute);
-//        binding.ivIcon.setImageURI(searchResultBean.getIconUrl());
-//        binding.tvName.setText(searchResultBean.getName());
-//        binding.tvShop.setText(searchResultBean.getShop());
-//        binding.tvPrice.setText(searchResultBean.getPrice());
         binding.tvPrice.setText(String.valueOf(itemAttribute.getSellPrice()));
         binding.llItems.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putLong("platformId", 20L);
-            bundle.putLong("itemId", itemAttribute.getItemId());
-            bundle.putInt("skuId", itemAttribute.getSkuId());
-            bundle.putInt("cid", itemAttribute.getCid());
-            bundle.putString("keyword", itemAttribute.getSkuName());
-            bundle.putLong("shopId", itemAttribute.getShopId());
+            bundle.putString("itemId", String.valueOf(itemAttribute.getItemId()));
             ARouter.getInstance()
                     .build(ConRoute.MARKET.PRODUCT_DETAIL)
                     .with(bundle).navigation();
