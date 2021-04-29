@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CategoryAttrsBean {
 
-    private Object attrId;
+    private String attrId;
     private String attrName;
     /**
      * id : null
@@ -15,4 +15,21 @@ public class CategoryAttrsBean {
      */
 
     private List<AttrValuesBean> attrValues;
+
+
+    public String getAttrName() {
+        return attrName;
+    }
+
+    public List<AttrValuesBean> getAttrValues() {
+        return attrValues;
+    }
+
+    public String getAttrId() {
+        return attrId;
+    }
+
+    public void setAttrId(String attrId) {
+        this.attrId = attrId;
+    }
 }

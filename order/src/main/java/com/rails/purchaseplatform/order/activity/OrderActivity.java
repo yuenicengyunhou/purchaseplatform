@@ -24,14 +24,12 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
-import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
-import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
+import com.rails.purchaseplatform.common.pop.OrderFilterPop;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.framwork.adapter.listener.CompleteListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
@@ -50,7 +48,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 采购单列表页面
@@ -67,7 +64,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     private ViewPageAdapter viewPageAdapter;
 
     private PopupWindow mTypePopup;
-    private OrderSearchFilterPop mFilterPopup;
 
     /**
      * Search type, default 0.
@@ -80,6 +76,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     private OrderPresenterImpl presenter;
     private ConditionAdapter adapter;
     private String conditionId = "";
+    private OrderFilterBean filterBean;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -93,7 +90,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 if (null != listPop && listPop.isShowing()) {//如果当下有弹窗，dismiss掉
                     listPop.dismiss();
                 }
-                callFragmentToSearch();
+                callFragmentToSearch(filterBean);
                 return true;
             }
             return false;
@@ -117,6 +114,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             }
         });
 
+        this.filterBean = new OrderFilterBean();
+
 
         //获取organizeId
 
@@ -126,14 +125,14 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     /**
      * 传递搜索条件给fragment，筛选列表
      */
-    private void callFragmentToSearch() {
+    private void callFragmentToSearch(OrderFilterBean filterBean) {
         String content = binding.etSearchKey.getText().toString();
         int currentItem = binding.noneScrollViewPager.getCurrentItem();
         OrderFragment fragment = (OrderFragment) viewPageAdapter.getItem(currentItem);
         if (mType != 0) {
             content = conditionId;
         }
-        fragment.notifyData(mType, content);
+        fragment.notifyData(mType, content, filterBean);
     }
 
     @Override
@@ -173,21 +172,17 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 显示筛选PopupWindow
      */
     private void showFilterPopup() {
-        if (mFilterPopup == null) {
-            String[] text = {"采购单状态", "采购单金额", "下单时间"};
-            mFilterPopup = new OrderSearchFilterPop(text);
-            mFilterPopup.setCompleteListener(data -> {
-                List<OrderStatusBean> list = data.getStatusBeans();
-                for (int i = 0; i < list.size(); i++) {
-                    OrderStatusBean orderStatusBean = list.get(i);
-                    if (orderStatusBean.isChecked()) {
-                        Log.e("WQ", "or===" + orderStatusBean.getStatus());
-                    }
-                }
-            });
-            mFilterPopup.setType(BasePop.MATCH_WRAP);
-            mFilterPopup.setGravity(Gravity.BOTTOM);
-        }
+//        if (mFilterPopup == null) {
+        String[] text = {"采购单状态", "采购单金额", "下单时间"};
+        OrderFilterPop mFilterPopup = new OrderFilterPop(text, filterBean);
+        mFilterPopup.setCompleteListener(data -> {
+            this.filterBean = data;
+//            Log.e("WQ", "start==" + data.getStartDate());
+            callFragmentToSearch(data);
+        });
+        mFilterPopup.setType(BasePop.MATCH_WRAP);
+        mFilterPopup.setGravity(Gravity.BOTTOM);
+//        }
         mFilterPopup.show(getSupportFragmentManager(), "orderStatus");
     }
 
@@ -345,7 +340,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                     String name = null == supplierName ? accountName : supplierName;
                     binding.etSearchKey.setText(name);
                     conditionId = bean.getId();
-                    callFragmentToSearch();
+                    callFragmentToSearch(filterBean);
                     listPop.dismiss();
                 });
                 getConditons(condition);
@@ -390,6 +385,5 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             adapter.update(list, true);
         }
     }
-
 
 }

@@ -53,5 +53,8 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
+    //起始日期选择器
+    implementation 'com.borax12.materialdaterangepicker:library:2.0'
+
     api project(path: ':lib_data')
 }

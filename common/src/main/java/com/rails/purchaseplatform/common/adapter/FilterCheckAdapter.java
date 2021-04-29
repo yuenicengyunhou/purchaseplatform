@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +16,7 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 
 import java.util.List;
 
-public class OrderSearchFilterAdapter2 extends RecyclerView.Adapter {
+public class FilterCheckAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<OrderStatusBean> mData;
@@ -27,9 +28,9 @@ public class OrderSearchFilterAdapter2 extends RecyclerView.Adapter {
         this.positionListener = positionListener;
     }
 
-    public OrderSearchFilterAdapter2(Context context,List<OrderStatusBean> list) {
+    public FilterCheckAdapter(Context context) {
         mContext = context;
-        mData = list;
+//        mData = list;
     }
 
     public List<OrderStatusBean> getmData() {
@@ -39,17 +40,17 @@ public class OrderSearchFilterAdapter2 extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(View.inflate(mContext, R.layout.item_order_status, null));
+        return new FilterCheckAdapter.ViewHolder(View.inflate(mContext, R.layout.item_order_status, null));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        RelativeLayout relativeLayout = ((ViewHolder) holder).relativeLayout;
-        CheckBox checkBox = ((ViewHolder) holder).textView;
+        RelativeLayout relativeLayout = ((FilterCheckAdapter.ViewHolder) holder).relativeLayout;
+        TextView checkBox = ((FilterCheckAdapter.ViewHolder) holder).textView;
         OrderStatusBean bean = mData.get(position);
         boolean checked = bean.isChecked();
         checkBox.setText(bean.getStatus());
-        checkBox.setChecked(checked);
+        checkBox.setSelected(checked);
         checkBox.setOnClickListener(v -> {
             for (int i = 0; i < mData.size(); i++) {
                 OrderStatusBean statusBean = mData.get(i);
@@ -80,12 +81,12 @@ public class OrderSearchFilterAdapter2 extends RecyclerView.Adapter {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout relativeLayout;
-        CheckBox textView;
+        TextView textView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             relativeLayout = itemView.findViewById(R.id.rl_status);
-            textView = itemView.findViewById(R.id.tv_status);
+            textView = itemView.findViewById(R.id.rb_tag);
         }
     }
 }

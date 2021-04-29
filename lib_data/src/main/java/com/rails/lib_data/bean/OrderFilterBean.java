@@ -62,4 +62,39 @@ public class OrderFilterBean {
     public void setStatusBeans(List<OrderStatusBean> statusBeans) {
         this.statusBeans = statusBeans;
     }
+
+    public void clearEndDate() {
+        this.endDate = "";
+    }
+
+    public void clearStartDate() {
+        this.startDate = "";
+    }
+
+    public void clearLowPrice() {
+        this.lowPrice = "";
+    }
+
+    public void clearHighPrice() {
+        this.highPrice = "";
+    }
+
+    public void resetStatusBeans() {
+        for (int i = 0; i < statusBeans.size(); i++) {
+            OrderStatusBean bean = statusBeans.get(i);
+            if (i == 0) {
+                bean.setChecked(true);
+            } else {
+                bean.setChecked(false);
+            }
+        }
+    }
+
+    public void resetFilter() {
+        clearEndDate();
+        clearStartDate();
+        clearHighPrice();
+        clearLowPrice();
+        resetStatusBeans();
+    }
 }

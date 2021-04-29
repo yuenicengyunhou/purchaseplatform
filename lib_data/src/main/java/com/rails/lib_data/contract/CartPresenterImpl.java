@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
+import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
@@ -12,10 +13,14 @@ import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 购物车架构
@@ -67,7 +72,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                             } else
                                 productBean.canReduce.set(true);
 
-                            productBean.isLimit.set(productBean.getLimit());
+                            productBean.isLimit.set(false);
                         }
                         shopBean.setItemIds(buffer.substring(0, buffer.length() - 1));
                         shopBean.isSel.set(isAllChecked(shopBean));
@@ -269,7 +274,21 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.onError(e);
+                //单品编码[1111204]已下架或失效,请选择其他商品！
+                String msg = e.getMsg();
+                if (msg.contains("[") && msg.contains("]")) {
+                    int start = msg.lastIndexOf("[");
+                    int end = msg.lastIndexOf("]") + 1;
+                    String array = msg.substring(start, end);
+                    Type type = new TypeToken<ArrayList<String>>() {
+                    }.getType();
+                    ArrayList<String> limits = JsonUtil.parseJson(array, type);
+                    baseView.getLimits(limits, msg);
+                } else {
+                    baseView.onError(e);
+                }
+
+
             }
 
             @Override

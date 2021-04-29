@@ -91,7 +91,7 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
     public void commitOrder(String token, String obj) {
 
         baseView.showResDialog(R.string.loading);
-        model.commitOrder(obj, token, new HttpRxObserver<ArrayList<String>>() {
+        model.commitOrder(obj, token, new HttpRxObserver<ArrayList<Long>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -99,14 +99,16 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             }
 
             @Override
-            protected void onSuccess(ArrayList<String> datas) {
+            protected void onSuccess(ArrayList<Long> datas) {
                 baseView.dismissDialog();
                 String orderNo = "";
 //                Type type = new TypeToken<ArrayList<String>>() {
 //                }.getType();
 //                ArrayList<String> datas = JsonUtil.parseJson(String.valueOf(data), type);
+                if (datas == null)
+                    return;
                 if (!datas.isEmpty()) {
-                    orderNo = datas.get(0);
+                    orderNo = String.valueOf(datas.get(0));
                 }
 
                 baseView.getResult("提交成功", orderNo);

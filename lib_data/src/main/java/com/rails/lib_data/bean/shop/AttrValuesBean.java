@@ -2,17 +2,17 @@ package com.rails.lib_data.bean.shop;
 
 public class AttrValuesBean {
 
-    private Object id;
+    private String id;
     private String name;
     private Object simpleCode;
     private Object hasLeaf;
     private Object idStr;
 
-    public Object getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Object id) {
+    public void setId(String id) {
         this.id = id;
     }
 
