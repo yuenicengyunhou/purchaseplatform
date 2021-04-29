@@ -80,7 +80,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     final private ArrayList<String> TAB_URLS = new ArrayList<>();
 
     private ArrayList<String> pictureUrls = new ArrayList<>();
-    private PropertyPop mPop;
+    private PropertyPop<SpecificationPopBean> mPop;
 
     private long mPlatformId;
     private long mItemId;
@@ -445,7 +445,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         final String SALE_NUM = "1"; // 固定1
         String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, mSkuId);
         if (mPop == null) {
-            mPop = new PropertyPop(mSpecificationPopBean, mode);
+            mPop = new PropertyPop<>(mSpecificationPopBean, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             mPop.setAddToCartListener(() -> mPresenter.addCart(20L,

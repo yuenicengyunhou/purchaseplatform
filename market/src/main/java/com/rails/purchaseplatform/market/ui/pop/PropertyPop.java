@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author： sk_comic@163.com
  * @date: 2021/3/29
  */
-public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
+public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     final private String TAG = PropertyPop.class.getSimpleName();
     final private int
             MODE_1 = 1, // 商品详情页选择规格
@@ -29,7 +29,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
             MODE_4 = 4;
 
     private AddToCart mAddToCart;
-    private ArrayList mBeans;
+    private ArrayList<T> mBeans;
     private int mMode = 0;
 
     public PropertyPop() {
@@ -37,7 +37,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
     }
 
 
-    public PropertyPop(ArrayList beans, int mode) {
+    public PropertyPop(ArrayList<T> beans, int mode) {
         super();
         mBeans = beans;
         mMode = mode;
@@ -51,7 +51,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
                 PropertyAdapter adapter = new PropertyAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(adapter);
-                adapter.update((ArrayList<SpecificationPopBean>) mBeans, true);
+                adapter.update(mBeans, true);
                 // TODO: 2021/4/28 判断MODE的值展示对应的组件
                 onClick();
                 break;
@@ -59,7 +59,7 @@ public class PropertyPop extends BasePop<PopMarketPropertyBinding> {
                 SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(adapter1);
-                adapter1.update((ArrayList<SearchFilterBean>) mBeans, true);
+                adapter1.update(mBeans, true);
                 break;
             default:
                 break;

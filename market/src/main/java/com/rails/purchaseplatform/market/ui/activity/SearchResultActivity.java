@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -14,7 +13,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.common.pop.OrderSearchFilterPop;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
@@ -115,7 +113,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 ToastUtil.showCenter(this, "没有过滤条件");
                 return;
             }
-            PropertyPop mPop = new PropertyPop(filterBeans, 3);
+            PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             mPop.show(getSupportFragmentManager(), "property");
