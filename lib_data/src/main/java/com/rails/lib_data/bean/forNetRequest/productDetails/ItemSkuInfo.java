@@ -1,7 +1,7 @@
 package com.rails.lib_data.bean.forNetRequest.productDetails;
 
 public class ItemSkuInfo {
-    private int id;
+    private String id;
     private int itemId;
     private String attributes;
     private String pictureUrl;
@@ -128,11 +128,11 @@ public class ItemSkuInfo {
         this.packageDis = packageDis;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

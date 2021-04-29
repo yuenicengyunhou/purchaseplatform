@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -16,10 +17,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -33,6 +30,7 @@ import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportData;
@@ -58,6 +56,11 @@ import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 商品详情页
@@ -82,12 +85,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private ArrayList<String> pictureUrls = new ArrayList<>();
     private PropertyPop mPop;
 
-    private long mPlatformId;
-    private long mItemId;
-    private int mSkuId;
-    private int mCid;
-    private long mShopId;
-    private String mKeyword;
+    private String mItemId;
+    private String mPlatformId = "20";
+    private String skuId;
     private ArrayList<AddressBean> addresses;
 
     final private ArrayList<View> VIEWS = new ArrayList<>();
@@ -112,24 +112,20 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        mPlatformId = extras.getLong("platformId", 20L);
-        mItemId = extras.getLong("itemId", 1001635L);
-        mSkuId = extras.getInt("skuId", 12997);
-        mKeyword = extras.getString("keyword", "ThinkCentreM720t商用电脑");
-        mCid = extras.getInt("cid", 1001047);
-        mShopId = extras.getLong("shopId", 202003030108L);
+        mItemId = extras.getString("itemId", "");
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void initialize(Bundle bundle) {
-        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO + "?platformId=20&itemId=" + mItemId + "&areaId=-1");
-        TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST + "?platformId=20&skuId=" + mSkuId);
+        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO);
+        TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST);
         TAB_URLS.add(ConRoute.WEB_URL.SERVICES);
         TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
-        mGetProductDetailsPresenter.getProductDetails(mPlatformId, mItemId, 20L, true);
+        mGetProductDetailsPresenter.getProductDetails("20", mItemId, "20", true);
 
         mAddressPresenter = new AddressToolPresenterImpl(this, this);
         mAddressPresenter.getAddress("", "1");
@@ -335,11 +331,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvGoInShop.setOnClickListener(v -> startActivity(new Intent(this, ShopDetailActivity.class)));
 
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop(0, 2);
+            showPropertyPop(0, 2, skuId);
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop(1, 1);
+            showPropertyPop(1, 1, skuId);
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
@@ -355,7 +351,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            mPresenter.onCollect(String.valueOf(mSkuId), "20", this.isCollect, -1);
+            if (TextUtils.isEmpty(skuId))
+                return;
+            mPresenter.onCollect(String.valueOf(skuId), "20", this.isCollect, -1);
         });
 
         // 点击购物车按钮 跳转到购物车页面
@@ -429,11 +427,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * @param flag 0-加入购物车 1-选择型号规格
      * @param mode 2-加入购物车 1-选择型号规格
      */
-    private void showPropertyPop(int flag, int mode) {
+    private void showPropertyPop(int flag, int mode, String skuId) {
+        if (TextUtils.isEmpty(skuId))
+            return;
         if (mSpecificationPopBean == null || mSpecificationPopBean.size() == 0) {
             if (flag == 0) {
                 final String SALE_NUM = "1"; // 固定1
-                String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, mSkuId);
+                String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, skuId);
                 mPresenter.addCart(20L,
                         30L, 40L, 50, // 非必要属性
                         skuIdSaleNumJson, true);
@@ -443,7 +443,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             return;
         }
         final String SALE_NUM = "1"; // 固定1
-        String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, mSkuId);
+        String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, skuId);
         if (mPop == null) {
             mPop = new PropertyPop(mSpecificationPopBean, mode);
             mPop.setGravity(Gravity.BOTTOM);
@@ -513,7 +513,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
-//        binding.tvPriceGray.setText(bean.get);
+        if (bean == null)
+            return;
         this.productDetailsBean = bean;
         if (bean.getItemPictureVoList() != null && bean.getItemPictureVoList().size() != 0)
             for (ItemPictureVo itemPictureVo : bean.getItemPictureVoList()) {
@@ -524,10 +525,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.textView.setText(bean.getItemPublishVo().getShopName());
         binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
 
-        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-        mGetProductDetailsPresenter.getHotSale(mPlatformId, "", mCid, 1, false);
-        mGetProductDetailsPresenter.getCartCount(mPlatformId, "13", "1000011315", false);
-        mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
+        List<ItemSkuInfo> itemSkuInfo = bean.getItemSkuInfoList();
+        if (itemSkuInfo == null)
+            return;
+        if (itemSkuInfo.isEmpty())
+            return;
+        skuId = itemSkuInfo.get(0).getId();
+        mGetProductDetailsPresenter.getProductPrice(mPlatformId, skuId, false);
+        mGetProductDetailsPresenter.getUserCollect(skuId, false);
+        mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
+        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
+
 
 //        binding.ratioImage // TODO 设置图片
 
