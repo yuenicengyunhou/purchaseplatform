@@ -24,7 +24,8 @@ import java.util.ArrayList;
 public class SearchResultByProductFragment extends LazyFragment<FragmentSearchResultByProductBinding>
         implements
         SearchContract.SearchItemView,
-        SearchResultActivity.OnSortClick {
+        SearchResultActivity.OnSortClick,
+        SearchResultActivity.OnFilterClick {
 
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
@@ -88,5 +89,11 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     public ArrayList<SearchFilterBean> getFilterData() {
         return mSearchFilterList;
+    }
+
+    @Override
+    public void sendFilterData(String[] strings) {
+        // TODO: 2021/4/29 发送数据
+//        mPresenter.getItemListWithCid();
     }
 }

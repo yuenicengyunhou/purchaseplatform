@@ -598,6 +598,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         bindOrgName = suppData.getBindOrgName();
         accountName = suppData.getAccountName();
 
+
+        getSpecificationPopBeans(bean);
+
+    }
+
+    /**
+     * 组装购物车弹窗和规格弹窗的数据
+     *
+     * @param bean
+     */
+    private void getSpecificationPopBeans(ProductDetailsBean bean) {
         ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
         if (bean.getItemPublishVo().getAttrNameArray() != null && bean.getItemPublishVo().getAttrNameArray().size() != 0) {
             for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {
@@ -618,7 +629,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             }
         }
         mSpecificationPopBean = specificationPopBeans;
-
     }
 
     @Override

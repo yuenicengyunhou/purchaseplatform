@@ -118,8 +118,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             mPop.setType(BasePop.MATCH_WRAP);
             mPop.setFilterListener(new PropertyPop.DoFilter() {
                 @Override
-                public void doFilter() {
-
+                public void doFilter(String brand, String cid, String categoryAttr, String expandAttr, String minPrice, String maxPrice) {
+                    fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice});
                 }
             });
             mPop.show(getSupportFragmentManager(), "property");
@@ -225,6 +225,18 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          * @return
          */
         ArrayList<SearchFilterBean> getFilterData();
+
+
+    }
+
+    public interface OnFilterClick {
+
+        /**
+         * 筛选条件组装发送的数据
+         *
+         * @return
+         */
+        void sendFilterData(String[] strings);
 
     }
 }

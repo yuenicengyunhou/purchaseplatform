@@ -68,9 +68,10 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 adapter1.update(mBeans, true);
                 binding.ibClose.setOnClickListener(v -> this.dismiss());
                 binding.btnReset.setOnClickListener(v -> adapter1.update(mBeans, true));
-                binding.btnOk.setOnClickListener(v -> {
-                    mDoFilter.doFilter();
-                });
+                binding.btnOk.setOnClickListener(v -> mDoFilter.doFilter(
+                        "brand", "cid",
+                        "cate", "expand",
+                        "min", "max"));
                 break;
 
             default:
@@ -107,6 +108,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 搜索结果页
      */
     public interface DoFilter {
-        void doFilter(); // TODO: 2021/4/29 参数参数参数
+        void doFilter(String brand, String cid,
+                      String categoryAttr, String expandAttr,
+                      String minPrice, String maxPrice);
     }
 }

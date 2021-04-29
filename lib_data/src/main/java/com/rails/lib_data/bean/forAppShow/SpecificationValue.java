@@ -3,6 +3,7 @@ package com.rails.lib_data.bean.forAppShow;
 public class SpecificationValue {
     private String attrValueId;
     private String attrValueName;
+    private boolean isSelect = false;
 
 
     // ==============================
@@ -22,5 +23,13 @@ public class SpecificationValue {
 
     public void setAttrValueName(String attrValueName) {
         this.attrValueName = attrValueName;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
     }
 }
