@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -112,7 +113,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         recAdapter.setListener(new PositionListener<ProductBean>() {
             @Override
             public void onPosition(ProductBean bean, int position) {
-                startIntent(ProductDetailsActivity.class);
+                if (TextUtils.isEmpty(bean.getItemId())) {
+                    ToastUtil.showCenter(getActivity(), "商品不存在或已下架");
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putString("itemId", bean.getItemId());
+                ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
             }
         });
         binding.recRecycler.setAdapter(recAdapter);

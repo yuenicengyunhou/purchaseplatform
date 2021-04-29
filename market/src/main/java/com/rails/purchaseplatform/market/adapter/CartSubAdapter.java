@@ -1,15 +1,19 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
 
@@ -49,10 +53,10 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         binding.setProduct(productBean);
 
         String property = productBean.getAttributesName();
-        if (TextUtils.isEmpty(property)){
+        if (TextUtils.isEmpty(property)) {
             binding.tvProperty.setVisibility(View.GONE);
-        }else{
-            binding.tvProperty.setVisibility(View.VISIBLE );
+        } else {
+            binding.tvProperty.setVisibility(View.VISIBLE);
         }
 
         String price = DecimalUtil.formatDouble(productBean.getSellPrice());
@@ -127,6 +131,17 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
                 }
 
             }
+        });
+
+
+        binding.getRoot().setOnClickListener(v -> {
+            if (TextUtils.isEmpty(productBean.getItemId())) {
+                ToastUtil.showCenter(mContext, "商品不存在或已下架");
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("itemId", productBean.getItemId());
+            ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
         });
 
     }
