@@ -1,20 +1,25 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.amap.api.maps.Projection;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketResultBinding;
@@ -61,6 +66,18 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         hotManager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false);
         barBinding.recRecycler.setLayoutManager(hotManager);
         barBinding.recRecycler.setAdapter(recAdapter);
+        recAdapter.setListener(new PositionListener<ProductBean>() {
+            @Override
+            public void onPosition(ProductBean bean, int position) {
+                if (TextUtils.isEmpty(bean.getItemId())) {
+                    ToastUtil.showCenter(CommitResultActivity.this, "商品不存在或已下架");
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putString("itemId", bean.getItemId());
+                ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
+            }
+        });
 
 
         productPresenter = new MarKetIndexPresenterImpl(this, this);
