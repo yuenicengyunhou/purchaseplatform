@@ -263,7 +263,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             return;
         }
         Bundle bundle = new Bundle();
-        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
+        bundle.putString("itemId", bean.getItemId());
         goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
     }
 

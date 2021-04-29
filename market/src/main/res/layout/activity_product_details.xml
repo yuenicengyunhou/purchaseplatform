@@ -611,7 +611,7 @@
                         android:layout_marginTop="@dimen/dp_8"
                         android:layout_marginEnd="@dimen/dp_8"
                         android:background="@drawable/bg_trans_red_circle"
-                        android:text="33"
+                        android:text="0"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_9" />
