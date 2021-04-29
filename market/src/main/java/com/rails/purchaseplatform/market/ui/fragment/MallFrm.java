@@ -4,10 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BannerBean;
@@ -41,6 +37,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 商城首页
@@ -258,18 +258,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void onPosition(ProductBean bean, int position) {
-        if (bean.getItemId() == null || bean.getSkuId() == null) {
+        if (TextUtils.isEmpty(bean.getItemId())) {
             ToastUtil.showCenter(this.getActivity(), "商品不存在或已下架");
-        } else {
-            Bundle bundle = new Bundle();
-            bundle.putLong("platformId", bean.getPlatformId());
-            bundle.putString("keyword", bean.getSkuName());
-            bundle.putInt("cid", bean.getCid());
-            bundle.putLong("shopId", bean.getShopId());
-            bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
-            bundle.putInt("skuId", Integer.parseInt(bean.getSkuId()));
-            goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
+            return;
         }
+        Bundle bundle = new Bundle();
+        bundle.putLong("itemId", Long.parseLong(bean.getItemId()));
+        goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
     }
 
 

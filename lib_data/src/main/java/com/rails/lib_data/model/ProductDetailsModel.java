@@ -22,7 +22,7 @@ public class ProductDetailsModel {
      * @param httpRxObserver
      */
 
-    public void getProductDetails(long platformId, long itemId, long companyId, HttpRxObserver httpRxObserver) {
+    public void getProductDetails(String platformId, String itemId, String companyId, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("platformId", platformId);
@@ -42,7 +42,7 @@ public class ProductDetailsModel {
      * @param skuId
      * @param httpRxObserver
      */
-    public void getProductPrice(long platformId, int skuId, HttpRxObserver httpRxObserver) {
+    public void getProductPrice(String platformId, String skuId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("platformId", platformId);
         params.put("skuIds", skuId);
@@ -62,7 +62,7 @@ public class ProductDetailsModel {
      * @param pageNum
      * @param httpRxObserver
      */
-    public void getHotSale(long platformId, String keyword, int cid, int pageNum, HttpRxObserver httpRxObserver) {
+    public void getHotSale(String platformId, String keyword, String cid, int pageNum, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         // TODO: 2021/4/22 传入数据
         params.put("platformId", platformId);
@@ -84,7 +84,7 @@ public class ProductDetailsModel {
      * @param skuId
      * @param httpRxObserver
      */
-    public void getUserCollect(int skuId, HttpRxObserver httpRxObserver) {
+    public void getUserCollect(String skuId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("skuIds", skuId);
 
@@ -102,7 +102,7 @@ public class ProductDetailsModel {
      * @param accountId
      * @param httpRxObserver
      */
-    public void getCartCount(long platformId, String organizeId, String accountId, HttpRxObserver httpRxObserver) {
+    public void getCartCount(String platformId, String organizeId, String accountId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
 //        params.put("platformId", platformId);
 //        params.put("organizeId", organizeId);

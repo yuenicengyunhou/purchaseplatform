@@ -59,7 +59,7 @@ public interface ProductDetailsContract {
          * @param companyId
          * @param isDialog
          */
-        void getProductDetails(long platformId, long itemId, long companyId, boolean isDialog);
+        void getProductDetails(String platformId, String itemId, String companyId, boolean isDialog);
 
         /**
          * 获取商品价格、评分
@@ -68,7 +68,7 @@ public interface ProductDetailsContract {
          * @param skuId
          * @param isDialog
          */
-        void getProductPrice(long platformId, int skuId, boolean isDialog);
+        void getProductPrice(String platformId, String skuId, boolean isDialog);
 
         /**
          * 获取店铺推荐商品（热销商品）
@@ -79,7 +79,7 @@ public interface ProductDetailsContract {
          * @param pageNum
          * @param isDialog
          */
-        void getHotSale(long platformId, String keyword, int cid, int pageNum, boolean isDialog);
+        void getHotSale(String platformId, String keyword, String cid, int pageNum, boolean isDialog);
 
         /**
          * 获取商品收藏状态
@@ -87,7 +87,7 @@ public interface ProductDetailsContract {
          * @param skuId
          * @param isDialog
          */
-        void getUserCollect(int skuId, boolean isDialog);
+        void getUserCollect(String skuId, boolean isDialog);
 
         /**
          * 获取购物车内商品数量
@@ -97,6 +97,6 @@ public interface ProductDetailsContract {
          * @param accountId
          * @param isDialog
          */
-        void getCartCount(long platformId, String organizeId, String accountId, boolean isDialog);
+        void getCartCount(String platformId, String organizeId, String accountId, boolean isDialog);
     }
 }

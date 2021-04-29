@@ -50,7 +50,7 @@ public class ProductDetailsPresenterImpl
      * @param isDialog
      */
     @Override
-    public void getProductDetails(long platformId, long itemId, long companyId, boolean isDialog) {
+    public void getProductDetails(String platformId, String itemId, String companyId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
         mModel.getProductDetails(platformId, itemId, companyId, new HttpRxObserver<ProductDetailsBean>() {
@@ -77,7 +77,7 @@ public class ProductDetailsPresenterImpl
      * @param isDialog
      */
     @Override
-    public void getProductPrice(long platformId, int skuId, boolean isDialog) {
+    public void getProductPrice(String platformId, String skuId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
         mModel.getProductPrice(platformId, skuId, new HttpRxObserver<ArrayList<ProductPriceBean>>() {
@@ -113,7 +113,7 @@ public class ProductDetailsPresenterImpl
      * @param isDialog
      */
     @Override
-    public void getHotSale(long platformId, String keyword, int cid, int pageNum, boolean isDialog) {
+    public void getHotSale(String platformId, String keyword, String cid, int pageNum, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
         mModel.getHotSale(platformId, keyword, cid, pageNum, new HttpRxObserver<HotSaleBean>() {
@@ -149,7 +149,7 @@ public class ProductDetailsPresenterImpl
     }
 
     @Override
-    public void getUserCollect(int skuId, boolean isDialog) {
+    public void getUserCollect(String skuId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
         mModel.getUserCollect(skuId, new HttpRxObserver<JSONObject>() {
             @Override
@@ -171,7 +171,7 @@ public class ProductDetailsPresenterImpl
     }
 
     @Override
-    public void getCartCount(long platformId, String organizeId, String accountId, boolean isDialog) {
+    public void getCartCount(String platformId, String organizeId, String accountId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
         mModel.getCartCount(platformId, organizeId, accountId, new HttpRxObserver<String>() {
             @Override
