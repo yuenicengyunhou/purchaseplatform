@@ -116,6 +116,12 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
+            mPop.setFilterListener(new PropertyPop.DoFilter() {
+                @Override
+                public void doFilter() {
+
+                }
+            });
             mPop.show(getSupportFragmentManager(), "property");
 
         });

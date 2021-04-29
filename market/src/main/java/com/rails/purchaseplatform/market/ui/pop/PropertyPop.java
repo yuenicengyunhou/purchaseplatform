@@ -28,6 +28,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             MODE_4 = 4;
 
     private AddToCart mAddToCart;
+    private DoFilter mDoFilter;
     private ArrayList<T> mBeans;
     private int mMode = 0;
 
@@ -47,37 +48,65 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         switch (mMode) {
             case MODE_1:
             case MODE_2:
-                binding.llTop.setVisibility(View.INVISIBLE);
+                binding.llTop.setVisibility(View.VISIBLE);
                 PropertyAdapter adapter = new PropertyAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(adapter);
                 adapter.update(mBeans, true);
-                // TODO: 2021/4/28 判断MODE的值展示对应的组件
-                onClick();
+                binding.btnClose.setOnClickListener(v -> this.dismiss());
+                if (mMode == MODE_2) {
+                    binding.btnOk.setOnClickListener(v -> mAddToCart.addToCart());
+                }
                 break;
+
             case MODE_3:
-                binding.rlTitle.setVisibility(View.INVISIBLE);
+                binding.rlTitle.setVisibility(View.VISIBLE);
+                binding.tvTitle.setText("筛选");
                 SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(adapter1);
                 adapter1.update(mBeans, true);
+                binding.ibClose.setOnClickListener(v -> this.dismiss());
+                binding.btnReset.setOnClickListener(v -> adapter1.update(mBeans, true));
+                binding.btnOk.setOnClickListener(v -> {
+                    mDoFilter.doFilter();
+                });
                 break;
+
             default:
                 break;
         }
     }
 
-    void onClick() {
-        binding.btnClose.setOnClickListener(v -> dismiss());
-        binding.ibClose.setOnClickListener(v -> dismiss());
-        binding.btnOk.setOnClickListener(v -> mAddToCart.addToCart());
-    }
-
+    /**
+     * 商品详情页 加入购物车弹窗按钮监听方法
+     *
+     * @param addToCart 接口实现
+     */
     public void setAddToCartListener(AddToCart addToCart) {
         this.mAddToCart = addToCart;
     }
 
+    /**
+     * 商品详情页 加入购物车弹窗 却定按钮监听接口
+     * 商详页 使用此接口的匿名内部类 并重写addToCart方法
+     */
     public interface AddToCart {
         void addToCart();
+    }
+
+
+    /**
+     * @param doFilter
+     */
+    public void setFilterListener(DoFilter doFilter) {
+        this.mDoFilter = doFilter;
+    }
+
+    /**
+     * 搜索结果页
+     */
+    public interface DoFilter {
+        void doFilter(); // TODO: 2021/4/29 参数参数参数
     }
 }
