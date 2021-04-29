@@ -21,7 +21,7 @@ public interface SearchContract {
          * @param hasMore
          * @param isClear
          */
-        void getItemListWithKeywordOnly(ArrayList<ItemAttribute> searchResultBeans, boolean hasMore, boolean isClear);
+        void getItemListWithKeywordOnly(ArrayList<ItemAttribute> searchResultBeans, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
 
         /**
          * 获取商品列表成功 使用cid

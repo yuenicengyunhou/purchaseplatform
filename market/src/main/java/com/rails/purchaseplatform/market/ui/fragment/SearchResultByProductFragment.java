@@ -66,8 +66,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, boolean hasMore, boolean isClear) {
+    public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(itemAttributes, isClear);
+        mSearchFilterList = filterResults;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                 ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
                 ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
                 boolean isClear = pageNum <= 1;
-                baseView.getItemListWithKeywordOnly(itemAttributes, true, isClear);
+                baseView.getItemListWithKeywordOnly(itemAttributes, searchFilterBeans, true, isClear);
                 baseView.dismissDialog();
             }
         });
