@@ -247,6 +247,7 @@ public class FlowTagLayout extends ViewGroup {
                         if (mCheckedTagArray.get(j)) {
                             mCheckedTagArray.put(j, false);
                             childView.setSelected(false);
+
                             if (mOnTagSelectListener != null) {
                                 mOnTagSelectListener.onItemSelect(FlowTagLayout.this, new ArrayList<Integer>());
                             }
@@ -259,6 +260,10 @@ public class FlowTagLayout extends ViewGroup {
                         }
                         mCheckedTagArray.put(j, true);
                         childView.setSelected(true);
+
+                        if (mOnTagClickListener != null) {
+                            mOnTagClickListener.onItemClick(FlowTagLayout.this, childView, j);
+                        }
 
                         if (mOnTagSelectListener != null) {
                             mOnTagSelectListener.onItemSelect(FlowTagLayout.this, Arrays.asList(j));
