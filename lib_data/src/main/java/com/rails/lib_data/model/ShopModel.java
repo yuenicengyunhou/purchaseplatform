@@ -3,7 +3,9 @@ package com.rails.lib_data.model;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSONArray;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.shop.AllCidsBean;
@@ -68,7 +70,8 @@ public class ShopModel {
      */
     private void analyzeFilterData(HashMap<String, Object> map, ArrayList<SearchFilterBean> filterBeans) {
         if (null != filterBeans) {
-            List<String> brands = new ArrayList<>();
+//            List<String> brands = new ArrayList<>();
+            StringBuilder brands = new StringBuilder();
             List<String> cidIdList = new ArrayList<>();
             List<String> categoryAttrValueIds = new ArrayList<>();
             List<String> expandAttrValueIds = new ArrayList<>();
@@ -82,7 +85,7 @@ public class ShopModel {
 
                         switch (attrFlag) {
                             case 0: //0-brand
-                                brands.add(valueName);
+                                brands.append(valueName).append(",");
                                 break;
                             case 1://1-cid
 //                                cidIdList.add(valueId);
@@ -102,8 +105,8 @@ public class ShopModel {
 
             }
             Gson gson = new Gson();
-            if (!brands.isEmpty()) {
-                String bransJson = gson.toJson(brands);
+            String bransJson = brands.toString();
+            if (!TextUtils.isEmpty(bransJson)) {
                 map.put("brands", bransJson);
                 map.put("brandsString", bransJson);
             }

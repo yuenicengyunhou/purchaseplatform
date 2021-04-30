@@ -1,9 +1,9 @@
 package com.rails.purchaseplatform.market.ui.pop;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
+import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
@@ -95,20 +95,19 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
 //        final String SALE_NUM = "1"; // 固定1
         binding.btnOk.setOnClickListener(v -> {
             if (null != filterCompleteListener && null != shopAdapter) {
-                if (null != filterCompleteListener) {
-                    filterCompleteListener.onComplete(shopAdapter.getDataSource());
-                }
-            } else {
-                Log.e("WQ", "咋的了");
+                filterCompleteListener.onComplete(shopAdapter.getDataSource());
             }
             dismiss();
         });
 
         binding.btnReset.setOnClickListener(v -> {
-            if (null != filterCompleteListener) {
-                filterCompleteListener.onReset();
+            for (SearchFilterBean filterBean : mBeans) {
+                ArrayList<SearchFilterValue> filterValues = filterBean.getFilterValues();
+                for (SearchFilterValue value : filterValues) {
+                    value.setSelect(false);
+                }
             }
-            dismiss();
+            shopAdapter.update(mBeans, true);
         });
     }
 
@@ -119,7 +118,7 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
     public interface FilterCompleteListener {
         void onComplete(ArrayList<SearchFilterBean> filterbeans);
 
-        void onReset();
+//        void onReset();
     }
 
 }
