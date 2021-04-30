@@ -1,5 +1,6 @@
 package com.rails.lib_data.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
-public class MarketIndexBean {
+public class MarketIndexBean implements Serializable {
 
     //推荐产品
     ArrayList<ProductRecBean> recBeans;

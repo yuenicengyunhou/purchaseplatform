@@ -13,6 +13,7 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.NetWorkUtil;
 
 import java.text.FieldPosition;
 import java.util.ArrayList;
@@ -114,6 +115,7 @@ public class MarketIndexModel {
      */
     public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
+        // TODO: 2016/9/30 读取缓存数据
         Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());
         Observable brands = getRecBrands().subscribeOn(Schedulers.io());
         Observable banners = getBanners().subscribeOn(Schedulers.io());

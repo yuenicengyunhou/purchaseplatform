@@ -2,13 +2,15 @@ package com.rails.lib_data.bean;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
+
 /**
  * 商城--产品模型
  *
  * @author： sk_comic@163.com
  * @date: 2021/3/8
  */
-public class ProductBean {
+public class ProductBean implements Serializable {
 
 
     /**

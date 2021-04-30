@@ -1,12 +1,14 @@
 package com.rails.lib_data.bean;
 
+import java.io.Serializable;
+
 /**
  * 商城首页banner对象
  *
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
-public class BannerBean {
+public class BannerBean implements Serializable {
 
 
     /**
