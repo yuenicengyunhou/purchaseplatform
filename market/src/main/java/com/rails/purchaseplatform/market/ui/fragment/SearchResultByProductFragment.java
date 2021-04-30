@@ -81,7 +81,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         binding.smart.setEnableRefresh(false);
         binding.smart.setOnLoadMoreListener(refreshLayout -> {
             page++;
-            notifyData(orderColumn, orderType, mSearchKey, mCid, page, true);
+            notifyData(orderColumn, orderType, mSearchKey, mCid, page, false);
         });
         notifyData(orderColumn, orderType, mSearchKey, mCid, page, true);
     }
@@ -98,10 +98,11 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
      * @param isDialog
      */
     void notifyData(String orderColumn, String orderType, String keyWord, String cid, int page, boolean isDialog) {
-        if (!TextUtils.isEmpty(mSearchKey))
-            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyWord, page, true);
         if (!TextUtils.isEmpty(mCid))
-            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, false);
+            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, isDialog);
+        else {
+            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyWord, page, isDialog);
+        }
     }
 
 
@@ -113,6 +114,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(itemAttributes, isClear);
+        binding.smart.finishLoadMore();
         mSearchFilterList = filterResults;
     }
 
