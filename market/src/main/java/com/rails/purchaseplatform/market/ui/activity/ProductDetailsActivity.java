@@ -108,6 +108,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private boolean isCollect = false;
 
+    private ProductDetailsBean mProductDetailsBean;
+
+    private ArrayList<SpecificationPopBean> SPECIFICATION_BEAN;
     private ArrayList<SpecificationPopBean> mSpecificationPopBean;
 
 
@@ -353,9 +356,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         // 点击店铺按钮 跳转到店铺详情页
-        binding.llShop.setOnClickListener(v -> {
-            ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).navigation();
-        });
+        binding.llShop.setOnClickListener(v -> productDetailGoShopDetail());
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
@@ -465,11 +466,113 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mPop = new PropertyPop<>(mSpecificationPopBean, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
-            mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
-                    30L, 40L, 50, // 非必要属性
-                    skuIdSaleNumJson, true));
+            mPop.setAddToCartListener(new PropertyPop.AddToCart() {
+                @Override
+                public void addToCart() {
+                    mPresenter.addCart(20L,
+                            30L, 40L, 50, // 非必要属性
+                            skuIdSaleNumJson, true);
+                }
+            });
+            mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
+                @Override
+                public void onSelectComplete(ArrayList<SpecificationPopBean> beans) {
+                    mSpecificationPopBean = beans;
+                    checkSkuId(beans);
+                }
+
+                @Override
+                public void onReset() {
+                    mSpecificationPopBean = SPECIFICATION_BEAN;
+                }
+            });
         }
         mPop.show(getSupportFragmentManager(), "property");
+    }
+
+    /**
+     * 获取SkuId
+     *
+     * @param beans
+     */
+    private void checkSkuId(ArrayList<SpecificationPopBean> beans) {
+        //选中属性map
+        HashMap<String, String> hashMapSelect = new HashMap<>();
+        for (SpecificationPopBean popBean : beans) {
+            String id = popBean.getAttrId();
+            for (SpecificationValue value : popBean.getSpecificationValue()) {
+                if (value.isSelect()) {
+                    hashMapSelect.put(popBean.getAttrId(), value.getAttrValueId());
+                }
+            }
+        }
+
+        ArrayList<HashMap<String, String>> allHash = new ArrayList<>();
+        for (ItemSkuInfo skuInfo : mProductDetailsBean.getItemSkuInfoList()) {
+            HashMap<String, String> hashMap = new HashMap<>();
+            String stringName = skuInfo.getAttributes();
+            String[] strings = stringName.split(";");
+            for (String s : strings) {
+                String[] subs = s.split(":");
+                hashMap.put(subs[0], subs[1]);
+            }
+            allHash.add(hashMap);
+        }
+
+
+        boolean isMatch = false;
+        String skuId;
+        int lastPosition = 0;
+        for (HashMap<String, String> map : allHash) { // 外
+
+
+            for (String key : hashMapSelect.keySet()) { // 内
+                String value = map.get(key);
+                if (TextUtils.isEmpty(value)) {
+                    isMatch = false;
+                    lastPosition++;
+                    break;
+                }
+
+                if (value.equals(hashMapSelect.get(key))) {
+                    isMatch = true;
+                    continue;
+                } else {
+                    isMatch = false;
+                    lastPosition++;
+                    break;
+                }
+            }
+
+            if (isMatch) {
+                //获取skuId操作
+                skuId = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getId();
+                return;
+            }
+
+        }
+
+
+//        for (String key : hashMapSelect.keySet()) {
+//            int position = 0;
+//            for (int i = 0; i < allHash.size(); i++) {
+//                HashMap<String, String> hashMap = allHash.get(i);
+//                if (hashMap.get(key).equals(hashMapSelect.get(key))) {
+////                    checked[position] = true;
+//                    continue;
+//                }
+//            }
+//            checked[position] = true;
+//            position++;
+//        }
+//
+//        if (checked[size -1])
+//
+//        if (index != -1) {
+//            String name = mProductDetailsBean.getItemSkuInfoList().get(index).getAttributesName();
+//            binding.tvSelectType.setText(name);
+//        }
+
     }
 
     /**
@@ -555,6 +658,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
         binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
+        binding.tvSelectType.setText(bean.getItemSkuInfoList().get(0).getAttributesName());
 
         List<ItemSkuInfo> itemSkuInfo = bean.getItemSkuInfoList();
         if (itemSkuInfo == null)
@@ -610,6 +714,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * @param bean
      */
     private void getSpecificationPopBeans(ProductDetailsBean bean) {
+        mProductDetailsBean = bean;
 
         HashMap<String, String> hashMap = new HashMap<>();
         if (bean.getItemSkuInfoList() != null && bean.getItemSkuInfoList().size() != 0) {
@@ -626,25 +731,31 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
         if (bean.getItemPublishVo().getAttrNameArray() != null && bean.getItemPublishVo().getAttrNameArray().size() != 0) {
-            for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {
-                SpecificationPopBean specificationPopBean = new SpecificationPopBean();
-                specificationPopBean.setAttrName(attrName);
-                ArrayList<SpecificationValue> specificationValues = new ArrayList<>();
-                for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {
-                    SpecificationValue specificationValue = new SpecificationValue();
-                    specificationPopBean.setAttrId(nameValue.getAttrId());
-                    if (nameValue.getAttrName().equals(attrName)) {
-                        specificationValue.setAttrValueId(nameValue.getAttrValueId());
+
+            for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {  // 遍历属性名称
+                SpecificationPopBean specificationPopBean = new SpecificationPopBean();  // 创建属性Bean 用于展示
+                specificationPopBean.setAttrName(attrName);  // 属性Bean设置名称
+                ArrayList<SpecificationValue> specificationValues = new ArrayList<>(); // 创建属性子集合
+
+                for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {  // 遍历 从集合对象中取 四项属性
+                    SpecificationValue specificationValue = new SpecificationValue();  // 创建子bean
+
+                    if (nameValue.getAttrName().equals(attrName)) {  // 判断 名称相同
+                        specificationPopBean.setAttrId(nameValue.getAttrId());  // 添加id
+                        specificationValue.setAttrValueId(nameValue.getAttrValueId());  // 添加属性值 属性值Id
                         specificationValue.setAttrValueName(nameValue.getAttrValueName());
+
                         if (hashMap.containsKey(nameValue.getAttrId()) && hashMap.get(nameValue.getAttrId()).equals(nameValue.getAttrValueId()))
                             specificationValue.setSelect(true);
                         specificationValues.add(specificationValue);
                     }
+
                     specificationPopBean.setSpecificationValue(specificationValues);
                 }
                 specificationPopBeans.add(specificationPopBean);
             }
         }
+        SPECIFICATION_BEAN = specificationPopBeans;
         mSpecificationPopBean = specificationPopBeans;
     }
 
