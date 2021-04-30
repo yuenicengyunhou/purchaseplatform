@@ -1,0 +1,307 @@
+{
+  "code": "0",
+  "msg": "查询成功",
+  "data": {
+    "minPriceSkuId": null,
+    "itemId": null,
+    "itemPublishVo": {
+      "id": 1014866,
+      "platformId": 20,
+      "sellerId": 1000045143,
+      "shopId": 202003030110,
+      "shopName": "博世电动工具官方店铺9",
+      "operatorId": null,
+      "itemName": "Redmi Note 9 5G 天玑800U 18W快充 4800万超清三摄",
+      "cid": 1001035,
+      "brandId": 1009876,
+      "unit": null,
+      "origin": null,
+      "ad": null,
+      "categoryAttributes": "29000:134073;28999:134066;28999:134067;",
+      "specAttributes": "29006:134078:;29000:134073:;29154:134372:;28999:134066:;28999:134067:;",
+      "saleStatus": 60,
+      "packingList": null,
+      "describeUrl": "",
+      "created": "2021-03-08 08:00:09",
+      "modified": "2021-04-23 03:02:06",
+      "listingTime": "2021-03-24 01:33:03",
+      "delistingTime": "2021-03-08 08:12:22",
+      "operator": null,
+      "addSource": null,
+      "yn": null,
+      "deliveryType": null,
+      "brandName": "博世(boshi)",
+      "brandNameCh": null,
+      "brandNameEn": null,
+      "itemSaleInfoVo": null,
+      "itemDeliveryInfoVo": null,
+      "itemAfterSaleVo": {
+        "id": null,
+        "platformId": 20,
+        "itemId": 1014866,
+        "sellerId": 1000045143,
+        "shopId": 202003030110,
+        "refundService": 2,
+        "changeService": 2,
+        "refundDuration": 7,
+        "changeDuration": 15,
+        "repaireDuration": 12,
+        "afterSalesExplain": null,
+        "specialDesc": null,
+        "specialShow": 0
+      },
+      "pictureUrl": null,
+      "altImages": null,
+      "sortNumber": null,
+      "tmplId": null,
+      "itemDeliveryInfoVoList": null,
+      "itemPictureVoList": null,
+      "itemSkuPictureVoList": null,
+      "itemPicpdfManualVoList": null,
+      "itemSkuVoList": null,
+      "perfectItemParamVo": null,
+      "publishuserId": 1000045143,
+      "attrNameValueReaultVos": [
+        {
+          "attrId": "29006",
+          "attrName": "内存容量",
+          "attrValueId": "134078",
+          "attrValueName": "8G"
+        },
+        {
+          "attrId": "29000",
+          "attrName": "机身颜色",
+          "attrValueId": "134073",
+          "attrValueName": "黑色"
+        },
+        {
+          "attrId": "29154",
+          "attrName": "电池类型",
+          "attrValueId": "134372",
+          "attrValueName": "锂电池"
+        },
+        {
+          "attrId": "28999",
+          "attrName": "CPU型号",
+          "attrValueId": "134066",
+          "attrValueName": "Intel i5"
+        },
+        {
+          "attrId": "28999",
+          "attrName": "CPU型号",
+          "attrValueId": "134067",
+          "attrValueName": "Interl i7"
+        }
+      ],
+      "attrNameArray": [
+        "机身颜色",
+        "CPU型号"
+      ],
+      "categoryFullName": "电子-产品-1>电脑-整机-2>笔/记- 本 -1",
+      "specAttrNameArray": [
+        "电池类型",
+        "内存容量"
+      ],
+      "itemType": 1,
+      "hasInventoryFlag": null,
+      "recycleStatus": null,
+      "rejectReason": "测试锁定",
+      "bizId": null,
+      "itemFareTmplInfo": null,
+      "itemSaleCount": null,
+      "frontCategoryVoList": null,
+      "supplierInfoImportData": {
+        "id": 3742,
+        "recommendOrg": "中国铁路沈阳局集团公司",
+        "bindOrgName": "锦州货运中心",
+        "accountName": "赵经理"
+      },
+      "orgId": 58957,
+      "skuSpecMap": {
+        "1111601": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Intel i5"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "黑色"
+          },
+          {
+            "attrName": "null",
+            "attrValue": null
+          },
+          {
+            "attrName": "null",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "8G"
+          },
+          {
+            "attrName": "电池类型",
+            "attrValue": "锂电池"
+          }
+        ],
+        "1111602": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Interl i7"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "黑色"
+          },
+          {
+            "attrName": "null",
+            "attrValue": null
+          },
+          {
+            "attrName": "null",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "8G"
+          },
+          {
+            "attrName": "电池类型",
+            "attrValue": "锂电池"
+          }
+        ]
+      },
+      "creditLevel": "C"
+    },
+    "itemPictureVoList": [
+      {
+        "id": 248860,
+        "platformId": 20,
+        "itemId": 1014866,
+        "skuId": null,
+        "shopId": 202003030110,
+        "sellerId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/61c4bc8eabc5f00049fc99c85c008b9d20210308160014959.jpg",
+        "altImages": "files.name`undefined",
+        "sortNumber": 1,
+        "annexType": 1
+      },
+      {
+        "id": 248861,
+        "platformId": 20,
+        "itemId": 1014866,
+        "skuId": null,
+        "shopId": 202003030110,
+        "sellerId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/ec535c33486d1d24c97f61254c25ddf820210308160017652.jpg",
+        "altImages": "files.name`undefined",
+        "sortNumber": 2,
+        "annexType": 1
+      }
+    ],
+    "itemSkuInfoList": [
+      {
+        "id": 1111601,
+        "itemId": 1014866,
+        "skuType": null,
+        "attributes": "28999:134066;29000:134073;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/1e3d3601034f157df2cebda88363438920210308160537795.jpg",
+        "modelUrl": null,
+        "altImages": "files.name`undefined",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 196,
+        "attributesName": "CPU型号:Intel i5;机身颜色:黑色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "Redmi Note 9 5G 天玑800U 18W快充 4800万超清三摄（Intel i5 黑色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "null;null;内存容量:8G;电池类型:锂电池;",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030110,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": 0.000,
+        "barCode": null,
+        "sourceSkuId": "1111601",
+        "shortCode": "1111601",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1615191037000
+      },
+      {
+        "id": 1111602,
+        "itemId": 1014866,
+        "skuType": null,
+        "attributes": "28999:134067;29000:134073;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/61c4bc8eabc5f00049fc99c85c008b9d20210308160542616.jpg",
+        "modelUrl": null,
+        "altImages": "files.name`undefined",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 200,
+        "attributesName": "CPU型号:Interl i7;机身颜色:黑色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "Redmi Note 9 5G 天玑800U 18W快充 4800万超清三摄（Interl i7 黑色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "null;null;内存容量:8G;电池类型:锂电池;",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030110,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": 0.000,
+        "barCode": null,
+        "sourceSkuId": "1111602",
+        "shortCode": "1111602",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1615191037000
+      }
+    ],
+    "priceShowType": null,
+    "scoreViewName": null
+  }
+}

@@ -60,6 +60,7 @@ import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -609,6 +610,20 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * @param bean
      */
     private void getSpecificationPopBeans(ProductDetailsBean bean) {
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        if (bean.getItemSkuInfoList() != null && bean.getItemSkuInfoList().size() != 0) {
+            ItemSkuInfo skuInfo = bean.getItemSkuInfoList().get(0);
+            if (skuInfo.getAttributes() != null && !skuInfo.getAttributes().equals("")) {
+                String stringAttr = bean.getItemSkuInfoList().get(0).getAttributes();
+                String[] strings = stringAttr.split(";");
+                for (String s : strings) {
+                    String[] subStrings = s.split(":");
+                    hashMap.put(subStrings[0], subStrings[1]);
+                }
+            }
+        }
+
         ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
         if (bean.getItemPublishVo().getAttrNameArray() != null && bean.getItemPublishVo().getAttrNameArray().size() != 0) {
             for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {
@@ -621,6 +636,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     if (nameValue.getAttrName().equals(attrName)) {
                         specificationValue.setAttrValueId(nameValue.getAttrValueId());
                         specificationValue.setAttrValueName(nameValue.getAttrValueName());
+                        if (hashMap.containsKey(nameValue.getAttrId()) && hashMap.get(nameValue.getAttrId()).equals(nameValue.getAttrValueId()))
+                            specificationValue.setSelect(true);
                         specificationValues.add(specificationValue);
                     }
                     specificationPopBean.setSpecificationValue(specificationValues);
