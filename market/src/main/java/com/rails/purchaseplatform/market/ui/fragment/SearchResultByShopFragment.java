@@ -10,6 +10,7 @@ import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchShopPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultByShopAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByShopBinding;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
@@ -45,7 +46,9 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
 
         mAdapter = new SearchResultByShopAdapter(this.getContext());
         binding.brvSearchResultByShopRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.brvSearchResultByShopRecycler.setAdapter(mAdapter);
+        binding.brvSearchResultByShopRecycler.setEmptyView(binding.empty);
     }
 
     @Override
