@@ -38,18 +38,21 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         Bundle bundle = this.getArguments();
         mSearchKey = bundle.getString("search_key", "");
 
-        mPresenter = new SearchShopPresenterImpl(this.getActivity(), this);
-        mPresenter.getShopListWithKeywordOnly(
-                20L, 1L, false,
-                1, 30, mSearchKey,
-                null, null, false);
-
         mAdapter = new SearchResultByShopAdapter(this.getContext());
         binding.brvSearchResultByShopRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.brvSearchResultByShopRecycler.setAdapter(mAdapter);
         binding.brvSearchResultByShopRecycler.setEmptyView(binding.empty);
+
+
+        mPresenter = new SearchShopPresenterImpl(this.getActivity(), this);
+        mPresenter.getShopListWithKeywordOnly(
+                20L, 1L, false,
+                1, 30, mSearchKey,
+                null, null, false);
     }
+
+
 
     @Override
     protected void loadPreVisitData() {

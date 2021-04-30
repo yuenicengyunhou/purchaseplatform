@@ -43,7 +43,6 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         model.getItemListWithKeywordOnly(orderColumn, orderType, keyword, pageNum, new HttpRxObserver<SearchDataByItemBean>() {
             @Override
             protected void onError(ErrorBean e) {
-                Log.d(TAG, " ======= " + " == Error == " + e.getMsg());
                 baseView.dismissDialog();
                 baseView.onError(e);
             }

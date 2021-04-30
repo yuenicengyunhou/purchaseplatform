@@ -63,7 +63,7 @@ public class SearchModel {
 //        params.put("platformId", 20L);
 //        params.put("accountId", 1);
 //        params.put("isBuy", false);
-        params.put("pageNum", 1);
+        params.put("pageNum", pageNum);
         params.put("pageSize", 30);
         params.put("keyword", keyword);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
@@ -88,8 +88,7 @@ public class SearchModel {
     public void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("businessType", 1);
-//        params.put("platformId", 20L);
-        params.put("cid", 1000207); // TODO 使用 cid = 1000207 调试筛选条件
+        params.put("cid", cid); // TODO 使用 cid = 1000207 调试筛选条件
         params.put("pageNum", pageNum);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
         if (orderType != null) params.put("orderType", orderType);
