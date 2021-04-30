@@ -51,7 +51,7 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
 
 
         presenter = new CategoryPresenterImpl(getActivity(), this);
-        presenter.getCategorys(false);
+        presenter.getCategorys(false, false);
     }
 
     @Override
