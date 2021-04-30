@@ -19,14 +19,18 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.H
 
 public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActivity<T> {
 
+    public static final String ERROR_UNLOAD = "0-0004";
+
     @Override
     public void onError(ErrorBean errorBean) {
         String errorCode = errorBean.getCode();
         switch (errorCode) {
-            case HTTP_ERROR: {
+            case HTTP_ERROR:
+            case ERROR_UNLOAD: {
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
             }
             break;
+
             default:
                 String msg = errorBean.getMsg();
                 ToastUtil.show(this, msg);

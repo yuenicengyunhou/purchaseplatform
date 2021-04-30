@@ -176,10 +176,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.rlRecycler.finishRefresh();
-                presenter.getMarketIndexInfo(false);
+                presenter.getMarketIndexInfo(false, false);
             }
         });
-        presenter.getMarketIndexInfo(true);
+        presenter.getMarketIndexInfo(true, true);
     }
 
     @Override

@@ -356,7 +356,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         // 点击店铺按钮 跳转到店铺详情页
-        binding.llShop.setOnClickListener(v -> productDetailGoShopDetail());
+        binding.llShop.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).navigation();
+        });
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
@@ -466,26 +468,42 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mPop = new PropertyPop<>(mSpecificationPopBean, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
-            mPop.setAddToCartListener(new PropertyPop.AddToCart() {
-                @Override
-                public void addToCart() {
-                    mPresenter.addCart(20L,
-                            30L, 40L, 50, // 非必要属性
-                            skuIdSaleNumJson, true);
-                }
-            });
+
+            mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
+                    30L, 40L, 50, // 非必要属性
+                    skuIdSaleNumJson, true));
+            //选择型号完成的监听
             mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
                 @Override
-                public void onSelectComplete(ArrayList<SpecificationPopBean> beans) {
-                    mSpecificationPopBean = beans;
-                    checkSkuId(beans);
+                public void onSelectComplete(ArrayList<SpecificationPopBean> data) {
+                    for (SpecificationPopBean parent : data) {
+                        List<SpecificationValue> values = parent.getSpecificationValue();
+                        for (SpecificationValue child : values) {
+                            if (child.isSelect()) {
+                                Log.e("WQ", "选择了===" + child.getAttrValueName());
+                            }
+                        }
+                    }
                 }
 
                 @Override
                 public void onReset() {
-                    mSpecificationPopBean = SPECIFICATION_BEAN;
+
                 }
             });
+
+//            mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
+//                @Override
+//                public void onSelectComplete(ArrayList<SpecificationPopBean> beans) {
+//                    mSpecificationPopBean = beans;
+//                    checkSkuId(beans);
+//                }
+//
+//                @Override
+//                public void onReset() {
+//                    mSpecificationPopBean = SPECIFICATION_BEAN;
+//                }
+//            });
         }
         mPop.show(getSupportFragmentManager(), "property");
     }

@@ -12,7 +12,7 @@ public class HttpFunction<T> implements Function<HttpResult<T>, T> {
 
     @Override
     public T apply(HttpResult<T> tHttpResult) throws Exception {
-        try{
+        try {
             if (tHttpResult.isSuccess() || "0".equals(tHttpResult.getCode())) {
 
                 T t = tHttpResult.getData();
@@ -21,10 +21,10 @@ public class HttpFunction<T> implements Function<HttpResult<T>, T> {
                 else
                     return t;
             } else {
-                throw new HttpError("0", tHttpResult.getMessage());
+                throw new HttpError(tHttpResult.getCode(), tHttpResult.getMessage());
             }
-        }catch (Exception e){
-            throw new HttpError("0", tHttpResult.getMessage());
+        } catch (Exception e) {
+            throw new HttpError(tHttpResult.getCode(), tHttpResult.getMessage());
         }
     }
 }

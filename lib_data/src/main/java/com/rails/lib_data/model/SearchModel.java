@@ -28,7 +28,6 @@ public class SearchModel {
             String orderColumn, String orderType, String keyword, int pageNum, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("platformId", 20L);
         params.put("keyword", keyword);
         params.put("pageNum", pageNum);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
@@ -44,9 +43,6 @@ public class SearchModel {
     /**
      * 获取店铺列表
      *
-     * @param platformId
-     * @param accountId
-     * @param isBuy
      * @param pageNum
      * @param pageSize
      * @param keyword
@@ -54,17 +50,11 @@ public class SearchModel {
      * @param orderType
      * @param httpRxObserver
      */
-    public void getShopListWithKeywordOnly(
-            long platformId, long accountId, boolean isBuy,
-            int pageNum, int pageSize, String keyword,
-            String orderColumn, String orderType, HttpRxObserver httpRxObserver) {
+    public void getShopListWithKeywordOnly(int pageNum, int pageSize, String keyword, String orderColumn, String orderType, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
-//        params.put("platformId", 20L);
-//        params.put("accountId", 1);
-//        params.put("isBuy", false);
-        params.put("pageNum", 1);
-        params.put("pageSize", 30);
+        params.put("pageNum", pageNum);
+        params.put("pageSize", pageSize);
         params.put("keyword", keyword);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
         if (orderType != null) params.put("orderType", orderType);
@@ -88,8 +78,7 @@ public class SearchModel {
     public void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("businessType", 1);
-//        params.put("platformId", 20L);
-        params.put("cid", 1000207); // TODO 使用 cid = 1000207 调试筛选条件
+        params.put("cid", cid); // TODO 使用 cid = 1000207 调试筛选条件
         params.put("pageNum", pageNum);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
         if (orderType != null) params.put("orderType", orderType);

@@ -36,6 +36,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     private ArrayList<T> mBeans;
     private int mMode = 0;
+//    private  adapter;
 
     public PropertyPop() {
         super();
@@ -53,6 +54,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         switch (mMode) {
             case MODE_1:
                 setPopEvent();
+                binding.btnOk.setOnClickListener(v -> mTypeSelect.onSelectComplete((ArrayList<SpecificationPopBean>) mBeans));
+
                 binding.btnOk.setOnClickListener(v -> {
                     mTypeSelect.onSelectComplete(mAdapter.getData());
                     dismiss();
@@ -107,6 +110,13 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);
         binding.btnClose.setOnClickListener(v -> this.dismiss());
+        binding.btnOk.setOnClickListener(v -> {
+            if (null != mTypeSelect) {
+                mTypeSelect.onSelectComplete(mAdapter.getListData());
+            }
+            dismiss();
+        });
+        binding.btnReset.setOnClickListener(v -> mAdapter.resetSelectState());
         binding.btnReset.setOnClickListener(v -> {
             mTypeSelect.onReset();
             dismiss();
@@ -122,6 +132,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     public void setAddToCartListener(AddToCart addToCart) {
         this.mAddToCart = addToCart;
     }
+
 
     /**
      * 商品详情页 加入购物车弹窗 却定按钮监听接口
@@ -164,7 +175,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 商品详情页 选规格
      */
     public interface TypeSelect {
-        void onSelectComplete(ArrayList<SpecificationPopBean> beans);
+        void onSelectComplete(ArrayList<SpecificationPopBean> data);
+//        void onSelectComplete(ArrayList<SpecificationPopBean> beans);
 
         void onReset();
     }

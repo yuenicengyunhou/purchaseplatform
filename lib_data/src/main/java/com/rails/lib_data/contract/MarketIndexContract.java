@@ -92,7 +92,7 @@ public interface MarketIndexContract {
         /**
          * 首页列表聚合
          */
-        void getMarketIndexInfo(boolean isDialog);
+        void getMarketIndexInfo(boolean isCache, boolean isDialog);
 
     }
 

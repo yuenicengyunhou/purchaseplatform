@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/smart"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/srl_product_search_result"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never">
+        android:layout_height="match_parent">
+
 
         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/brv_product_search_result"
@@ -15,6 +16,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_8"
             android:overScrollMode="never" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-</RelativeLayout>
+        <com.rails.purchaseplatform.common.widget.EmptyView
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

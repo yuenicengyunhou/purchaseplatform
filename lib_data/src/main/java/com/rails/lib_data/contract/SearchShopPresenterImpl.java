@@ -15,6 +15,9 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
 import java.util.ArrayList;
 
+/**
+ * 搜索店铺列表结果页面
+ */
 public class SearchShopPresenterImpl extends BasePresenter<SearchContract.SearchShopView>
         implements
         SearchContract.SearchShopPresenter {
@@ -31,11 +34,10 @@ public class SearchShopPresenterImpl extends BasePresenter<SearchContract.Search
 
 
     @Override
-    public void getShopListWithKeywordOnly(long platformId, long accountId, boolean isBuy, int pageNum, int pageSize, String keyword, String orderColumn, String orderType, boolean isDialog) {
+    public void getShopListWithKeywordOnly(int pageNum, int pageSize, String keyword, String orderColumn, String orderType, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-        model.getShopListWithKeywordOnly(
-                platformId, accountId, isBuy, pageNum, pageSize, keyword, orderColumn, orderType,
+        model.getShopListWithKeywordOnly(pageNum, pageSize, keyword, orderColumn, orderType,
                 new HttpRxObserver<SearchDataByShopBean>() {
                     @Override
                     protected void onError(ErrorBean e) {
@@ -45,33 +47,34 @@ public class SearchShopPresenterImpl extends BasePresenter<SearchContract.Search
 
                     @Override
                     protected void onSuccess(SearchDataByShopBean bean) {
+                        baseView.dismissDialog();
+                        if (isCallBack()) {
+                            ArrayList<ShopAttribute> shops = new ArrayList<>();
+                            for (ShopBean shopBean : bean.getShopList().getResultList()) {
 
-                        ArrayList<ShopAttribute> shops = new ArrayList<>();
-                        for (ShopBean shopBean : bean.getShopList().getResultList()) {
-
-                            ArrayList<ItemAttribute> items = new ArrayList<>();
-                            for (ShopSkuBean itemBean : shopBean.getShop_sku()) {
-                                ItemAttribute item = new ItemAttribute();
-                                item.setSkuName(itemBean.getSkuName());
-                                item.setSellPrice(itemBean.getSellPrice());
-                                item.setShopId(shopBean.getShopId());
-                                item.setCid(itemBean.getCid());
-                                item.setItemId(itemBean.getItemId());
-                                item.setShopName(shopBean.getShopName());
-                                item.setSkuId(itemBean.getSkuId());
-                                item.setPictureUrl(itemBean.getSkuPicture());
-                                items.add(item);
+                                ArrayList<ItemAttribute> items = new ArrayList<>();
+                                for (ShopSkuBean itemBean : shopBean.getShop_sku()) {
+                                    ItemAttribute item = new ItemAttribute();
+                                    item.setSkuName(itemBean.getSkuName());
+                                    item.setSellPrice(itemBean.getSellPrice());
+                                    item.setShopId(shopBean.getShopId());
+                                    item.setCid(itemBean.getCid());
+                                    item.setItemId(itemBean.getItemId());
+                                    item.setShopName(shopBean.getShopName());
+                                    item.setSkuId(itemBean.getSkuId());
+                                    item.setPictureUrl(itemBean.getSkuPicture());
+                                    items.add(item);
+                                }
+                                ShopAttribute shopAttribute = new ShopAttribute();
+                                shopAttribute.setShopName(shopBean.getShopName());
+                                shopAttribute.setShopId(shopBean.getShopId());
+                                shopAttribute.setShopPicture(shopBean.getShopPicture());
+                                shopAttribute.setItems(items);
+                                shops.add(shopAttribute);
                             }
-                            ShopAttribute shopAttribute = new ShopAttribute();
-                            shopAttribute.setShopName(shopBean.getShopName());
-                            shopAttribute.setShopId(shopBean.getShopId());
-                            shopAttribute.setShopPicture(shopBean.getShopPicture());
-                            shopAttribute.setItems(items);
-                            shops.add(shopAttribute);
+                            baseView.getShopListWithKeywordOnly(shops, true, pageNum <= 1);
                         }
 
-                        baseView.dismissDialog();
-                        baseView.getShopListWithKeywordOnly(shops, true, true);
                     }
                 });
     }

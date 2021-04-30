@@ -1,5 +1,6 @@
 package com.rails.lib_data.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @author： sk_comic@163.com
  * @date: 2021/3/8
  */
-public class ProductRecBean {
+public class ProductRecBean implements Serializable {
 
 
     /**
@@ -47,9 +48,6 @@ public class ProductRecBean {
     private ArrayList<ProductBean> floorList;
     private String color;
     private int res;
-
-
-
 
 
     public Integer getId() {

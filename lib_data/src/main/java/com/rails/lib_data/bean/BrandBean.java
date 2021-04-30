@@ -1,12 +1,14 @@
 package com.rails.lib_data.bean;
 
+import java.io.Serializable;
+
 /**
  * 品牌bean
  *
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
-public class BrandBean {
+public class BrandBean implements Serializable {
 
 
     /**

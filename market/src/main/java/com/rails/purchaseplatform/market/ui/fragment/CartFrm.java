@@ -218,6 +218,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getResult(int type, int position, String msg) {
+        ToastUtil.showCenter(getActivity(), "删除成功");
         if (type == 1 && position != -1) {
             cartAdapter.updateSubAdater(position);
         } else {
@@ -515,6 +516,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void onCollect(boolean isCollect, int position) {
+        ToastUtil.showCenter(getActivity(), "操作成功");
         if (position != -1)
             lastBean.isCollect.set(isCollect);
         else {

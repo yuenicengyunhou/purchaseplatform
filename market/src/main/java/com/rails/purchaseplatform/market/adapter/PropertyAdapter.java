@@ -8,10 +8,12 @@ import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.purchaseplatform.common.widget.tags.FlowTagLayout;
 import com.rails.purchaseplatform.common.widget.tags.OnTagClickListener;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductPropertyBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 产品规格adapter
@@ -65,6 +67,27 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
             }
         });
     }
+
+    /**
+     * 重置选择状态
+     */
+    public void resetSelectState() {
+        for (SpecificationPopBean parent : mDataSource) {
+            List<SpecificationValue> values = parent.getSpecificationValue();
+            for (SpecificationValue child : values) {
+                child.setSelect(false);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 返回列表数据
+     */
+    public ArrayList<SpecificationPopBean> getListData() {
+        return mDataSource;
+    }
+
 
     public void setData(ArrayList<SpecificationPopBean> beans) {
         mBeans = beans;

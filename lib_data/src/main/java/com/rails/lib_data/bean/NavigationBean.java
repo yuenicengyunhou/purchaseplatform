@@ -1,11 +1,14 @@
 package com.rails.lib_data.bean;
 
+import java.io.Serializable;
+
 /**
  * 首页专区
+ *
  * @author： sk_comic@163.com
  * @date: 2021/4/14
  */
-public class NavigationBean {
+public class NavigationBean implements Serializable {
 
 
     private Integer id;
