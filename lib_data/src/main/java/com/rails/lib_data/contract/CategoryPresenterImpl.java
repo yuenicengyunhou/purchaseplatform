@@ -69,6 +69,7 @@ public class CategoryPresenterImpl extends BasePresenter<CategoryContract.Catego
                 if (isCallBack()) {
                     baseView.dismissDialog();
                     baseView.getCategorys(beans);
+                    FileCacheUtil.getInstance(mContext).writeObject(beans, fileName);
                 }
             }
         });
