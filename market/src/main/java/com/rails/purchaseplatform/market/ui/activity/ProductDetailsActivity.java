@@ -465,9 +465,21 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mPop = new PropertyPop<>(mSpecificationPopBean, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
+
             mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
                     30L, 40L, 50, // 非必要属性
                     skuIdSaleNumJson, true));
+            //选择型号完成的监听
+            mPop.setTypeSelectListener(data -> {
+                for (SpecificationPopBean parent : data) {
+                    List<SpecificationValue> values = parent.getSpecificationValue();
+                    for (SpecificationValue child : values) {
+                        if (child.isSelect()) {
+                            Log.e("WQ", "选择了===" + child.getAttrValueName());
+                        }
+                    }
+                }
+            });
         }
         mPop.show(getSupportFragmentManager(), "property");
     }

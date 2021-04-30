@@ -42,7 +42,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private int mPage = PAGE_DEF;
     private final long platformId = 20L;
     private ArrayList<SearchFilterBean> filterList = null;
-    private ArrayList<SearchFilterBean> FILTER_DEF = null;
+//    private ArrayList<SearchFilterBean> FILTER_DEF = null;
     private String orderColumn = "";//默认的排序方式为空字符
     private String orderType = "";//默认的排序顺序为空字符
 
@@ -174,20 +174,10 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private void showPop() {
         if (null == filterList) return;
         FilterShopPop mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
-        mPop.setCompleteListener(new FilterShopPop.FilterCompleteListener() {
-            @Override
-            public void onComplete(ArrayList<SearchFilterBean> filterbeans) {
-                filterList = filterbeans;
-                mPage = PAGE_DEF;
-                presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
-            }
-
-            @Override
-            public void onReset() {
-                filterList = FILTER_DEF;
-                mPage = PAGE_DEF;
-                presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
-            }
+        mPop.setCompleteListener(filterbeans -> {
+            filterList = filterbeans;
+            mPage = PAGE_DEF;
+            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
         });
         mPop.setGravity(Gravity.BOTTOM);
         mPop.setType(BasePop.MATCH_WRAP);
@@ -212,8 +202,9 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     @Override
     public void loadFilter(ArrayList<SearchFilterBean> filterBeans) {
         if (null == filterList) {
-            FILTER_DEF = filterBeans;
-            filterList = FILTER_DEF;
+//            FILTER_DEF = filterBeans;
+//            filterList = FILTER_DEF;
+            filterList = filterBeans;
         }
     }
 }

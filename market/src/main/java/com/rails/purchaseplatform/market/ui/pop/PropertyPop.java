@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
@@ -33,6 +34,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     private ArrayList<T> mBeans;
     private int mMode = 0;
+//    private  adapter;
 
     public PropertyPop() {
         super();
@@ -50,7 +52,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         switch (mMode) {
             case MODE_1:
                 setPopEvent();
-                binding.btnOk.setOnClickListener(v -> mTypeSelect.onSelectComplete());
+                break;
             case MODE_2:
                 setPopEvent();
                 binding.btnOk.setOnClickListener(v -> mAddToCart.addToCart());
@@ -92,7 +94,13 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.recycler.setAdapter(adapter);
         adapter.update(mBeans, true);
         binding.btnClose.setOnClickListener(v -> this.dismiss());
-        binding.btnReset.setOnClickListener(v -> adapter.update(mBeans, true));
+        binding.btnOk.setOnClickListener(v -> {
+            if (null != mTypeSelect) {
+                mTypeSelect.onSelectComplete(adapter.getListData());
+            }
+            dismiss();
+        });
+        binding.btnReset.setOnClickListener(v -> adapter.resetSelectState());
     }
 
 
@@ -104,6 +112,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     public void setAddToCartListener(AddToCart addToCart) {
         this.mAddToCart = addToCart;
     }
+
 
     /**
      * 商品详情页 加入购物车弹窗 却定按钮监听接口
@@ -146,6 +155,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 商品详情页 选规格
      */
     public interface TypeSelect {
-        void onSelectComplete();
+        void onSelectComplete(ArrayList<SpecificationPopBean> data);
     }
+
+
 }
