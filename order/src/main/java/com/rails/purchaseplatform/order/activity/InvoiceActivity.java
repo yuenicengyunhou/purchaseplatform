@@ -151,6 +151,9 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
             barBinding.btnAddress.setVisibility(View.VISIBLE);
             barBinding.llAddress.setVisibility(View.INVISIBLE);
         } else {
+
+            addressBean = bean;
+
             barBinding.btnAddress.setVisibility(View.GONE);
             barBinding.llAddress.setVisibility(View.VISIBLE);
 

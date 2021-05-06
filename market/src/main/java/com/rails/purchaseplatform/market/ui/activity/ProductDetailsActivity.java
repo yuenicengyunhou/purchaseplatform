@@ -219,6 +219,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvPriceGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //获取购物车数量
+        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
+    }
+
     /**
      * 当页面滚动时更新返回按钮的显示状态
      *
@@ -369,7 +377,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         // 点击购物车按钮 跳转到购物车页面
-        binding.tvCartCount.setOnClickListener(v -> startIntent(CartActivity.class));
+        binding.llCart.setOnClickListener(v -> startIntent(CartActivity.class));
     }
 
     /**
@@ -388,28 +396,30 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private void setWeb(WebView view, int index) {
         WebSettings webSettings = view.getSettings();
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//设置js可以直接打开窗口，如window.open()，默认为false
-        webSettings.setJavaScriptEnabled(true);//是否允许JavaScript脚本运行，默认为false。设置true时，会提醒可能造成XSS漏洞
-        webSettings.setSupportZoom(true);//是否可以缩放，默认true
-        webSettings.setBuiltInZoomControls(true);//是否显示缩放按钮，默认false
-        webSettings.setUseWideViewPort(true);//设置此属性，可任意比例缩放。大视图模式
-        webSettings.setLoadWithOverviewMode(true);//和setUseWideViewPort(true)一起解决网页自适应问题
-        webSettings.setAppCacheEnabled(true);//是否使用缓存
-        webSettings.setDomStorageEnabled(true);//开启本地DOM存储
-        webSettings.setLoadsImagesAutomatically(true); // 加载图片
-        webSettings.setMediaPlaybackRequiresUserGesture(false);//播放音频，多媒体需要用户手动？设置为false为可自动播放
+        webSettings.setSupportZoom(false);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(false);
+        webSettings.setDefaultTextEncodingName("utf-8");
 
         // 设置WebViewClient
         view.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                Logger.d("FINISHED_URL = " + url);
             }
 
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
+                Logger.d("FAILED_URL = " + request.getUrl().toString());
+                view.reload();
                 view.setVisibility(View.GONE);
                 VIEWS.get(index).setVisibility(View.GONE);
             }
@@ -632,7 +642,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void addCartSuccess(boolean isComplete) {
+        ToastUtil.showCenter(this, "添加成功");
         if (mPop != null) mPop.dismiss();
+
+        //获取购物车数量
+        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
     }
 
     @Override
@@ -684,8 +698,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
-        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
-
 
 //        binding.ratioImage // TODO 设置图片
 
@@ -719,8 +731,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 
         Glide.with(this).load("https:" + bean.getItemPictureVoList().get(0).getPictureUrl()).into(binding.webProductInfo);
-        loadWebView();
-
         getSpecificationPopBeans(bean);
 
     }
@@ -784,6 +794,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         if (bean.getPackinglist().size() != 0)
             spliceList(bean.getPackinglist().get(0).getAnnexName());
+
+        loadWebView();
     }
 
     public void spliceList(String annexName) {
@@ -893,6 +905,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @JavascriptInterface
     public String getPackagingList() {
         return packagingList;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            binding.webPackageList.destroy();
+            binding.webRecommend.destroy();
+            binding.webService.destroy();
+        } catch (Exception e) {
+
+        }
     }
 
 }

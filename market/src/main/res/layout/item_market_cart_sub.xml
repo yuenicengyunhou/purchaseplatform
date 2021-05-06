@@ -22,7 +22,7 @@
             android:background="@color/white">
 
 
-            <FrameLayout
+            <RelativeLayout
                 android:id="@+id/ll_left"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
@@ -37,6 +37,7 @@
                     android:layout_width="@dimen/dp_35"
                     android:layout_height="@dimen/dp_35"
                     android:button="@null"
+                    android:layout_centerVertical="true"
                     android:checked="@{product.isSel}"
                     android:drawableLeft="@drawable/selector_cart_checked"
                     android:visibility="@{product.canSel?View.VISIBLE:View.GONE}" />
@@ -46,11 +47,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/dp_2"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_cart_lose"
                     android:visibility="@{product.canSel?View.GONE:View.VISIBLE}" />
 
 
-            </FrameLayout>
+            </RelativeLayout>
 
 
             <com.rails.purchaseplatform.common.widget.RatioImage
