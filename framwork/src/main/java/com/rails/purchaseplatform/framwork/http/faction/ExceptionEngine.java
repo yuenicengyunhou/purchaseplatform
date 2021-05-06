@@ -20,6 +20,9 @@ import retrofit2.HttpException;
  */
 public class ExceptionEngine {
 
+    //登录
+    public static final String ERROR_UNLOAD = "0-0004";
+
     //网络请求异常
     public static final String HTTP_ERROR = "9999";
     //解析(服务器)数据错误
@@ -54,7 +57,7 @@ public class ExceptionEngine {
             errorBean.setMsg("请求超时，请检查网络状况");
         } else {  //未知错误
             errorBean = new ErrorBean(e, UN_KNOWN_ERROR);
-            errorBean.setMsg("发生了什么，世界大战了吗");
+            errorBean.setMsg("系统异常");
         }
         return errorBean;
     }

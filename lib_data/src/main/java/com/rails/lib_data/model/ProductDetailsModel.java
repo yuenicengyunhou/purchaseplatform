@@ -113,4 +113,20 @@ public class ProductDetailsModel {
                 .getCartCount(params))
                 .subscribe(httpRxObserver);
     }
+
+
+    /**
+     * 获取店铺详情邮费
+     *https://shop.rails.cn/proxy/platform/mall/delivery/queryFreightAmountShopId?shopId=202003030108
+     * @param shopId
+     * @param httpRxObserver
+     */
+    public void getProductDelivery(String shopId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("shopId",shopId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .getProductDelivery(params))
+                .subscribe(httpRxObserver);
+    }
 }

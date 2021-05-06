@@ -49,6 +49,7 @@
     <string name="product_details_packageList">包装清单</string>
     <string name="product_details_service">售后服务</string>
     <string name="product_details_recommend">推荐单位</string>
+    <string name="product_details_delivery">店铺满%s元包邮</string>
 
 
     <!--提交结果页面-->

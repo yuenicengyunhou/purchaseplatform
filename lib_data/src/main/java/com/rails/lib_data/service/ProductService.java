@@ -1,6 +1,7 @@
 package com.rails.lib_data.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
@@ -74,4 +75,16 @@ public interface ProductService {
      */
     @GET("app-order-service/app/v1/mall/cart/queryCartItemNum")
     Observable<HttpResult<String>> getCartCount(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 获取邮费
+     *
+     * @param params https://shop.rails.cn/proxy/platform/mall/delivery/queryFreightAmountShopId?shopId=202003030108
+     * @return
+     */
+    @GET("platform/mall/delivery/queryFreightAmountShopId")
+    Observable<HttpResult<DeliveryBean>> getProductDelivery(@QueryMap HashMap<String, Object> params);
+
+
 }

@@ -23,9 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -79,8 +82,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
 
-    private CartContract.CartPresenter2 mPresenter;
-
     final private ArrayList<String> TAB_URLS = new ArrayList<>();
 
     private ArrayList<String> pictureUrls = new ArrayList<>();
@@ -97,6 +98,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private ProductDetailsParamsPop mParamsPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
 
+    private CartContract.CartPresenter2 mPresenter;
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
     private AddressToolContract.AddressToolPresenter mAddressPresenter;
 
@@ -124,7 +126,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     @RequiresApi(api = Build.VERSION_CODES.Q)
     protected void initialize(Bundle bundle) {
-        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO);
+//        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO);
         TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST);
         TAB_URLS.add(ConRoute.WEB_URL.SERVICES);
         TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS);
@@ -136,7 +138,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mAddressPresenter.getAddress("", "1");
         mAddressPresenter.getDefAddress("", "1");
 
-        VIEWS.add(binding.viewSplit1);
+//        VIEWS.add(binding.viewSplit1);
         VIEWS.add(binding.viewSplit2);
         VIEWS.add(binding.viewSplit3);
         VIEWS.add(binding.viewSplit4);
@@ -301,7 +303,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @SuppressLint("JavascriptInterface")
     private void loadWebView() {
         WebView[] WEB_VIEWS = {
-                binding.webProductInfo,
                 binding.webPackageList,
                 binding.webService,
                 binding.webRecommend
@@ -309,8 +310,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         for (int i = 0; i < WEB_VIEWS.length; i++) {
             setWeb(WEB_VIEWS[i], i);
-            WEB_VIEWS[i].loadUrl(TAB_URLS.get(i));
             WEB_VIEWS[i].addJavascriptInterface(ProductDetailsActivity.this, "app");
+            WEB_VIEWS[i].loadUrl(TAB_URLS.get(i));
         }
     }
 
@@ -403,7 +404,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                Log.d(TAG, "FINISHED_URL = " + url);
+                Logger.d("FINISHED_URL = " + url);
             }
 
             @Override
@@ -660,6 +661,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (bean == null)
             return;
         this.productDetailsBean = bean;
+        mGetProductDetailsPresenter.getProductDelivery(bean.getItemPublishVo().getShopId());
+
+
         if (bean.getItemPictureVoList() != null && bean.getItemPictureVoList().size() != 0)
             for (ItemPictureVo itemPictureVo : bean.getItemPictureVoList()) {
                 pictureUrls.add(itemPictureVo.getPictureUrl());
@@ -713,6 +717,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         bindOrgName = suppData.getBindOrgName();
         accountName = suppData.getAccountName();
 
+
+        Glide.with(this).load("https:" + bean.getItemPictureVoList().get(0).getPictureUrl()).into(binding.webProductInfo);
+        loadWebView();
 
         getSpecificationPopBeans(bean);
 
@@ -777,8 +784,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         if (bean.getPackinglist().size() != 0)
             spliceList(bean.getPackinglist().get(0).getAnnexName());
-
-        loadWebView();
     }
 
     public void spliceList(String annexName) {
@@ -819,6 +824,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //        }
     }
 
+    @Override
+    public void getDelivery(DeliveryBean deliveryBean) {
+        if (deliveryBean == null)
+            return;
+        binding.rlDelivery.setVisibility(View.VISIBLE);
+        binding.tvDelivery.setText(String.format(getResources().getString(R.string.product_details_delivery),
+                String.valueOf(deliveryBean.getFreightPrice())));
+    }
+
 
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {
@@ -854,7 +868,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     @JavascriptInterface
     public String getProductInfo() {
-        return "//xsky.rails.cn/mall/4a1e89d7991613af647b3490a9378c0820200308021209740.jpg";
+        return productDetailsBean.getItemPictureVoList().get(0).getPictureUrl();
     }
 
     /**

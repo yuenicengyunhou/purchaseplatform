@@ -6,7 +6,7 @@ public class ItemPublishVo {
     private int id;
     private int platformId;
     private int sellerId;
-    private long shopId;
+    private String shopId;
     private String shopName;
     private String itemName;
     private int cid;
@@ -230,11 +230,11 @@ public class ItemPublishVo {
         this.brandId = brandId;
     }
 
-    public long getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(long shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
