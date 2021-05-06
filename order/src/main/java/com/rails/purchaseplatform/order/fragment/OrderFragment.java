@@ -132,8 +132,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear, int totalPageCount) {
         binding.swipe.finishLoadMore();
 //        if (page < totalPageCount) {//如果页数到了最大
-        Log.e("WQ", "size===" + orderBeans.size());
             mAdapter.update(orderBeans, page == DEF_PAGE);
+        binding.swipe.setEnableLoadMore(mAdapter.getItemCount() != totalPageCount);
 //        }
     }
 
