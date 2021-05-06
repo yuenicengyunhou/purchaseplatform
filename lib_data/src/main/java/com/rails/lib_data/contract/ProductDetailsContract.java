@@ -1,5 +1,6 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
@@ -43,6 +44,13 @@ public interface ProductDetailsContract {
          * 获取购物车内商品数量
          */
         void onGetCartCountSuccess(String count);
+
+
+        /**
+         * 获取邮费
+         * @param deliveryBean
+         */
+        void getDelivery(DeliveryBean deliveryBean);
     }
 
 
@@ -98,5 +106,13 @@ public interface ProductDetailsContract {
          * @param isDialog
          */
         void getCartCount(String platformId, String organizeId, String accountId, boolean isDialog);
+
+
+        /**
+         * 获取邮费
+         *
+         * @param shopId
+         */
+        void getProductDelivery(String shopId);
     }
 }

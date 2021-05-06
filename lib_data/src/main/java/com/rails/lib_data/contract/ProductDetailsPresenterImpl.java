@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemResult;
@@ -90,9 +91,7 @@ public class ProductDetailsPresenterImpl
             @Override
             protected void onSuccess(ArrayList<ProductPriceBean> response) {
                 ProductPriceBean bean = new ProductPriceBean();
-                if (response == null)
-                    return;
-                if (!response.isEmpty()) {
+                if (response == null ||response.isEmpty()) {
                     bean.setCreditLevel("0");
                     bean.setSellPrice(0.0D);
                     bean.setMarketPrice(0.0D);
@@ -186,6 +185,31 @@ public class ProductDetailsPresenterImpl
             protected void onSuccess(String response) {
                 baseView.onGetCartCountSuccess(response);
                 baseView.dismissDialog();
+            }
+        });
+    }
+
+
+    /**
+     * 获取邮费
+     *
+     * @param shopId
+     */
+    @Override
+    public void getProductDelivery(String shopId) {
+        mModel.getProductDelivery(shopId, new HttpRxObserver<DeliveryBean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+
+            }
+
+            @Override
+            protected void onSuccess(DeliveryBean bean) {
+                baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getDelivery(bean);
             }
         });
     }

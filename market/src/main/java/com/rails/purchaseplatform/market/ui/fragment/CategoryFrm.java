@@ -11,6 +11,7 @@ import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryRootAdapter;
@@ -166,5 +167,10 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
                 ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
             }
         });
+    }
+
+
+    @Override
+    public void onError(ErrorBean errorBean) {
     }
 }
