@@ -2,7 +2,7 @@ package com.rails.purchaseplatform.market.ui.pop;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -20,7 +20,6 @@ import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * 商品/购物车规格弹窗
@@ -42,6 +41,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     private DoFilter mDoFilter;
     private TypeSelect mTypeSelect;
 
+    private String mMinPrice, mMaxPrice;
+
     private ArrayList<T> mBeans;
     private int mMode = 0;
 //    private  adapter;
@@ -50,6 +51,14 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         super();
     }
 
+
+    public PropertyPop(ArrayList<T> beans, int mode, String minPrice, String maxPrice) {
+        super();
+        mBeans = beans;
+        mMode = mode;
+        mMinPrice = minPrice;
+        mMaxPrice = maxPrice;
+    }
 
     public PropertyPop(ArrayList<T> beans, int mode) {
         super();
@@ -93,6 +102,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     private void setFilterPopEvent() {
         binding.rlTitle.setVisibility(View.VISIBLE);
         binding.tvTitle.setText("筛选");
+        if (!TextUtils.isEmpty(mMinPrice)) binding.etLowPrice.setText(mMinPrice);
+        if (!TextUtils.isEmpty(mMaxPrice)) binding.etHighPrice.setText(mMaxPrice);
         SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity());
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(adapter1);
@@ -104,6 +115,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     value.setSelect(false);
                 }
             }
+            binding.etLowPrice.setText("");
+            binding.etHighPrice.setText("");
             adapter1.update(mBeans, true);
         });
         binding.btnOk.setOnClickListener(v -> {
@@ -114,9 +127,9 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     params[3], // expandAttr
                     binding.etLowPrice.getText().toString().trim(),
                     binding.etHighPrice.getText().toString().trim());
-            Log.d(TAG, " =========== " + Arrays.toString(params));
-            Log.d(TAG, " =========== " + binding.etLowPrice.getText().toString().trim());
-            Log.d(TAG, " =========== " + binding.etHighPrice.getText().toString().trim());
+//            Log.d(TAG, " =========== " + Arrays.toString(params));
+//            Log.d(TAG, " =========== " + binding.etLowPrice.getText().toString().trim());
+//            Log.d(TAG, " =========== " + binding.etHighPrice.getText().toString().trim());
             dismiss();
         });
     }

@@ -45,6 +45,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     private boolean salesSortFlag = true; // false 降序排列
     private boolean priceSortFlag = true; // true  升序排列
 
+    private String mMinPrice = "", mMaxPrice = "";
+
     SearchResultByProductFragment fragment1;
     SearchResultByShopFragment fragment2;
 
@@ -116,13 +118,15 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 ToastUtil.showCenter(this, "没有过滤条件");
                 return;
             }
-            PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3);
+            PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3, mMinPrice, mMaxPrice);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             mPop.setFilterListener(new PropertyPop.DoFilter() {
                 @Override
                 public void doFilter(String brand, String cid, String categoryAttr, String expandAttr, String minPrice, String maxPrice) {
                     fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice});
+                    mMinPrice = minPrice;
+                    mMaxPrice = maxPrice;
                 }
             });
             mPop.show(getSupportFragmentManager(), "property");

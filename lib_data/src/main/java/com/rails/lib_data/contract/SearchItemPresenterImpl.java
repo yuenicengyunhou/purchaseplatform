@@ -37,6 +37,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         model = new SearchModel();
     }
 
+    @Deprecated
     @Override
     public void getItemListWithKeywordOnly(String orderColumn, String orderType, String keyword, int pageNum, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
@@ -58,6 +59,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         });
     }
 
+    @Deprecated
     @Override
     public void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
