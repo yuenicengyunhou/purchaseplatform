@@ -589,13 +589,13 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/ll_cart"
                     android:layout_width="@dimen/dp_48"
                     android:layout_height="@dimen/dp_55"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_toRightOf="@+id/ll_collection">
 
                     <LinearLayout
-                        android:id="@+id/ll_cart"
                         android:layout_width="@dimen/dp_48"
                         android:layout_height="@dimen/dp_55"
                         android:gravity="center"

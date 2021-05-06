@@ -30,7 +30,7 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
 
             default:
                 String msg = errorBean.getMsg();
-                ToastUtil.show(this, msg);
+                ToastUtil.showCenter(this, msg);
                 break;
         }
 

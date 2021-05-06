@@ -29,7 +29,7 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
             break;
             default:
                 String msg = errorBean.getMsg();
-                ToastUtil.show(getActivity(), msg);
+                ToastUtil.showCenter(getActivity(), msg);
                 break;
         }
 
