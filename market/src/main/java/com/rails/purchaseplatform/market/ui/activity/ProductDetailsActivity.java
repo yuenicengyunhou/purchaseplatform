@@ -89,7 +89,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mItemId;
     private String mShopId;
     private String mPlatformId = "20";
-    private String skuId;
+    private String mSkuId;
     private ArrayList<AddressBean> addresses;
 
     final private ArrayList<View> VIEWS = new ArrayList<>();
@@ -342,11 +342,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvGoInShop.setOnClickListener(v -> productDetailGoShopDetail());
 
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop(0, 2, skuId);
+            showPropertyPop(0, 2, mSkuId);
         });
 
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop(1, 1, skuId);
+            showPropertyPop(1, 1, mSkuId);
         });
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
@@ -362,9 +362,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(skuId))
+            if (TextUtils.isEmpty(mSkuId))
                 return;
-            mPresenter.onCollect(String.valueOf(skuId), "20", this.isCollect, -1);
+            mPresenter.onCollect(String.valueOf(mSkuId), "20", this.isCollect, -1);
         });
 
         // 点击购物车按钮 跳转到购物车页面
@@ -484,6 +484,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                             }
                         }
                     }
+
+                    mSpecificationPopBean = data;
+//                    Log.d(TAG, checkSkuInfo(data)[1]);
+                    if (checkSkuInfo(data)[0] == null || checkSkuInfo(data)[0] == "") {
+                        ToastUtil.showCenter(ProductDetailsActivity.this, "此型号商品库存不足，请重新选择其它型号商品。");
+                    } else {
+                        binding.tvSelectType.setText(checkSkuInfo(data)[1]);
+                        binding.tvItemName.setText(checkSkuInfo(data)[2]);
+                    }
                 }
 
                 @Override
@@ -513,7 +522,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      *
      * @param beans
      */
-    private void checkSkuId(ArrayList<SpecificationPopBean> beans) {
+    private String[] checkSkuInfo(ArrayList<SpecificationPopBean> beans) {
         //选中属性map
         HashMap<String, String> hashMapSelect = new HashMap<>();
         for (SpecificationPopBean popBean : beans) {
@@ -537,9 +546,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             allHash.add(hashMap);
         }
 
-
         boolean isMatch = false;
-        String skuId;
+        String[] skuInfo = new String[3];
         int lastPosition = 0;
         for (HashMap<String, String> map : allHash) { // 外
 
@@ -563,34 +571,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             }
 
             if (isMatch) {
-                //获取skuId操作
-                skuId = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getId();
-                return;
+                // skuId
+                skuInfo[0] = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getId();
+                mSkuId = skuInfo[0];
+                // 属性名称 【内存容量:8G;CPU型号:Interl i7;机身颜色:银色;】
+                skuInfo[1] = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getAttributesName();
+                // 商品名称 【联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Interl i7 银色）】
+                skuInfo[2] = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getSkuName();
             }
 
         }
 
-
-//        for (String key : hashMapSelect.keySet()) {
-//            int position = 0;
-//            for (int i = 0; i < allHash.size(); i++) {
-//                HashMap<String, String> hashMap = allHash.get(i);
-//                if (hashMap.get(key).equals(hashMapSelect.get(key))) {
-////                    checked[position] = true;
-//                    continue;
-//                }
-//            }
-//            checked[position] = true;
-//            position++;
-//        }
-//
-//        if (checked[size -1])
-//
-//        if (index != -1) {
-//            String name = mProductDetailsBean.getItemSkuInfoList().get(index).getAttributesName();
-//            binding.tvSelectType.setText(name);
-//        }
-
+        return skuInfo;
     }
 
     /**
@@ -683,10 +675,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             return;
         if (itemSkuInfo.isEmpty())
             return;
-        skuId = itemSkuInfo.get(0).getId();
+        mSkuId = itemSkuInfo.get(0).getId();
         mShopId = String.valueOf(bean.getItemPublishVo().getShopId());
-        mGetProductDetailsPresenter.getProductPrice(mPlatformId, skuId, false);
-        mGetProductDetailsPresenter.getUserCollect(skuId, false);
+        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
+        mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
         mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
 

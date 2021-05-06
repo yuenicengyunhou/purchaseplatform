@@ -117,10 +117,10 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             dismiss();
         });
         binding.btnReset.setOnClickListener(v -> mAdapter.resetSelectState());
-        binding.btnReset.setOnClickListener(v -> {
-            mTypeSelect.onReset();
-            dismiss();
-        });
+//        binding.btnReset.setOnClickListener(v -> {
+//            mTypeSelect.onReset();
+//            dismiss();
+//        });
     }
 
 
