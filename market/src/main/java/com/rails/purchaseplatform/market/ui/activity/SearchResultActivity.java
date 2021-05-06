@@ -75,7 +75,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         ArrayList<Fragment> mFragments = new ArrayList<>();
         mFragments.add(fragment1);
         mFragments.add(fragment2);
-        SearchResultViewPagerAdapter mPagerAdapter = new SearchResultViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragments);
+        SearchResultViewPagerAdapter mPagerAdapter = new SearchResultViewPagerAdapter(
+                getSupportFragmentManager(),
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                mFragments);
 
 
         binding.svpSearchResultPager.setAdapter(mPagerAdapter);

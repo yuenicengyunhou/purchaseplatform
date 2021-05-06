@@ -184,8 +184,7 @@
                     android:textColor="@color/font_gray"
                     android:textSize="@dimen/font_size_12" />
 
-                <ImageButton
-                    android:id="@+id/ib_filt2er"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_5"
