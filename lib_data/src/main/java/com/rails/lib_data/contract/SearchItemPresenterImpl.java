@@ -43,18 +43,19 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         model.getItemListWithKeywordOnly(orderColumn, orderType, keyword, pageNum, new HttpRxObserver<SearchDataByItemBean>() {
             @Override
             protected void onError(ErrorBean e) {
-                Log.d(TAG, " ======= " + " == Error == " + e.getMsg());
                 baseView.dismissDialog();
                 baseView.onError(e);
             }
 
             @Override
             protected void onSuccess(SearchDataByItemBean response) {
-                ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
-                ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
-                boolean isClear = pageNum <= 1;
-                baseView.getItemListWithKeywordOnly(itemAttributes, searchFilterBeans, true, isClear);
                 baseView.dismissDialog();
+                if (isCallBack()) {
+                    ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
+                    ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
+                    boolean isClear = pageNum <= 1;
+                    baseView.getItemListWithKeywordOnly(itemAttributes, searchFilterBeans, true, isClear);
+                }
             }
         });
     }
@@ -71,11 +72,14 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
             @Override
             protected void onSuccess(SearchDataByItemBean response) {
-                ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
-                ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
-                boolean isClear = pageNum <= 1;
-                baseView.getItemListWithCid(itemAttributes, searchFilterBeans, false, isClear);
                 baseView.dismissDialog();
+                if (isCallBack()) {
+                    ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
+                    ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
+                    boolean isClear = pageNum <= 1;
+                    baseView.getItemListWithCid(itemAttributes, searchFilterBeans, false, isClear);
+                }
+
             }
         });
     }

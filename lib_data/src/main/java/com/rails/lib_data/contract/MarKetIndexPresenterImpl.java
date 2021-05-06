@@ -30,7 +30,8 @@ import java.util.ArrayList;
 public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.MarketIndexView> implements MarketIndexContract.MarketIndexPresenter {
 
     private MarketIndexModel model;
-    private final String fileName = "mallInfo.json";
+    //缓存首页数据的文件
+    private final String fileName = "mallInfo";
 
     public MarKetIndexPresenterImpl(Activity mContext, MarketIndexContract.MarketIndexView marketIndexView) {
         super(mContext, marketIndexView);
@@ -90,26 +91,19 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     }
 
     @Override
-    public void getMarketIndexInfo(boolean isDialog) {
-        if (!NetWorkUtil.checkNet(mContext)) {
+    public void getMarketIndexInfo(boolean isCache, boolean isDialog) {
+        if (isCache) {
             MarketIndexBean marketIndexBean = (MarketIndexBean) FileCacheUtil.getInstance(mContext).readObject(fileName);
-            if (marketIndexBean != null)
+            if (marketIndexBean != null) {
                 baseView.getIndexInfo(marketIndexBean);
-            else {
-                getIndexInfo(isDialog);
             }
-        } else {
-            getIndexInfo(isDialog);
         }
-
-
+        getIndexInfo(isDialog);
     }
 
 
     /**
      * 网络获取首页信息
-     *
-     * @param isDialog
      */
     private void getIndexInfo(boolean isDialog) {
         if (isDialog)

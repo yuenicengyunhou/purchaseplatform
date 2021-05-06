@@ -23,6 +23,8 @@ import java.util.List;
  */
 public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, ItemProductPropertyBinding> {
 
+    private ArrayList<SpecificationPopBean> mBeans;
+
     public PropertyAdapter(Context context) {
         super(context);
     }
@@ -33,7 +35,7 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
     }
 
     @Override
-    protected void onBindItem(ItemProductPropertyBinding binding, SpecificationPopBean specificationPopBean, int position) {
+    protected void onBindItem(ItemProductPropertyBinding binding, SpecificationPopBean specificationPopBean, int p) {
         binding.tvName.setText(specificationPopBean.getAttrName());
         PropertySubAdapter adapter = new PropertySubAdapter(mContext);
         binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
@@ -41,11 +43,27 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
         ArrayList<SpecificationValue> tags = new ArrayList<>(specificationPopBean.getSpecificationValue());
         adapter.update(tags);
 
+        for (SpecificationValue valueBean : tags) {
+            if (valueBean.isSelect())
+                binding.flow.selectSingleCheck(tags.indexOf(valueBean));
+        }
+
+
         binding.flow.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onItemClick(FlowTagLayout parent, View view, int position) {
-                tags.get(position).setSelect(true);
-                ToastUtil.showCenter(mContext, tags.get(position).getAttrValueName());
+                boolean b = tags.get(position).isSelect(); // 点击位置选中状态
+                int checkedIndex = 0; // 默认选中的位置
+                for (SpecificationValue valueBean : tags) {
+                    if (valueBean.isSelect())
+                        checkedIndex = tags.indexOf(valueBean);
+                }
+                if (b) {
+                    mBeans.get(p).getSpecificationValue().get(position).setSelect(false);
+                } else {
+                    mBeans.get(p).getSpecificationValue().get(position).setSelect(true);
+                    mBeans.get(p).getSpecificationValue().get(checkedIndex).setSelect(false);
+                }
             }
         });
     }
@@ -68,5 +86,14 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
      */
     public ArrayList<SpecificationPopBean> getListData() {
         return mDataSource;
+    }
+
+
+    public void setData(ArrayList<SpecificationPopBean> beans) {
+        mBeans = beans;
+    }
+
+    public ArrayList<SpecificationPopBean> getData() {
+        return mBeans;
     }
 }

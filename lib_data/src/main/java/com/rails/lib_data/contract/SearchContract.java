@@ -74,17 +74,12 @@ public interface SearchContract {
         /**
          * 店铺列表
          *
-         * @param platformId
-         * @param accountId
          * @param keyword
-         * @param isBuy
          * @param pageNum
          * @param pageSize
          */
-        void getShopListWithKeywordOnly(
-                long platformId, long accountId, boolean isBuy,
-                int pageNum, int pageSize, String keyword,
-                String orderColumn, String orderType, boolean isDialog);
+        void getShopListWithKeywordOnly(int pageNum, int pageSize, String keyword,
+                                        String orderColumn, String orderType, boolean isDialog);
 
     }
 }

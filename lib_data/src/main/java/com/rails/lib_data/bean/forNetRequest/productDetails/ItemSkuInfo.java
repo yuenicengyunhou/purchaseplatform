@@ -18,11 +18,20 @@ public class ItemSkuInfo {
     private long upTime;
     private String barCode;
     private double weight;
+    private String attributesName;
     private ItemSkuPriceResultVo itemSkuPriceResultVo;
 
 
     // ===========================================================================================
 
+
+    public String getAttributesName() {
+        return attributesName;
+    }
+
+    public void setAttributesName(String attributesName) {
+        this.attributesName = attributesName;
+    }
 
     public double getWeight() {
         return weight;

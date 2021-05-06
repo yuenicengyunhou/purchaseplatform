@@ -16,9 +16,12 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryRootAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCategoryBinding;
 import com.rails.purchaseplatform.market.widget.CenterManger;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,7 +54,23 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
 
 
         presenter = new CategoryPresenterImpl(getActivity(), this);
-        presenter.getCategorys(false);
+        onRefresh();
+    }
+
+
+    /**
+     * 数据刷新操作
+     */
+    void onRefresh() {
+        binding.smart.setEnableLoadMore(false);
+        binding.smart.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                binding.smart.finishRefresh();
+                presenter.getCategorys(false, false);
+            }
+        });
+        presenter.getCategorys(true, false);
     }
 
     @Override

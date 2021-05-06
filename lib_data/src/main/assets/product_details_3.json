@@ -1,0 +1,531 @@
+{
+  "code": "0",
+  "msg": "查询成功",
+  "data": {
+    "minPriceSkuId": null,
+    "itemId": null,
+    "itemPublishVo": {
+      "id": 1014721,
+      "platformId": 20,
+      "sellerId": 1000088744,
+      "shopId": 202003030108,
+      "shopName": "联想",
+      "operatorId": null,
+      "itemName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5",
+      "cid": 1001035,
+      "brandId": 1001733,
+      "unit": null,
+      "origin": "111",
+      "ad": null,
+      "categoryAttributes": "29006:134078;29000:134073;29006:134079;29000:134068;28999:134066;28999:134067;",
+      "specAttributes": "29006:134078:;29000:134073:;29006:134079:;29000:134068:;28999:134066:;28999:134067:;",
+      "saleStatus": 60,
+      "packingList": null,
+      "describeUrl": "",
+      "created": "2020-09-28 06:54:48",
+      "modified": "2021-04-23 03:02:06",
+      "listingTime": "2021-03-24 01:33:03",
+      "delistingTime": "2020-09-29 11:26:07",
+      "operator": null,
+      "addSource": null,
+      "yn": null,
+      "deliveryType": null,
+      "brandName": null,
+      "brandNameCh": null,
+      "brandNameEn": null,
+      "itemSaleInfoVo": null,
+      "itemDeliveryInfoVo": null,
+      "itemAfterSaleVo": {
+        "id": null,
+        "platformId": 20,
+        "itemId": 1014721,
+        "sellerId": 1000045137,
+        "shopId": 202003030108,
+        "refundService": 2,
+        "changeService": 2,
+        "refundDuration": 7,
+        "changeDuration": 15,
+        "repaireDuration": 12,
+        "afterSalesExplain": null,
+        "specialDesc": null,
+        "specialShow": 0
+      },
+      "pictureUrl": null,
+      "altImages": null,
+      "sortNumber": null,
+      "tmplId": null,
+      "itemDeliveryInfoVoList": null,
+      "itemPictureVoList": null,
+      "itemSkuPictureVoList": null,
+      "itemPicpdfManualVoList": null,
+      "itemSkuVoList": null,
+      "perfectItemParamVo": null,
+      "publishuserId": 1000088744,
+      "attrNameValueReaultVos": [
+        {
+          "attrId": "29006",
+          "attrName": "内存容量",
+          "attrValueId": "134078",
+          "attrValueName": "8G"
+        },
+        {
+          "attrId": "29000",
+          "attrName": "机身颜色",
+          "attrValueId": "134073",
+          "attrValueName": "黑色"
+        },
+        {
+          "attrId": "29006",
+          "attrName": "内存容量",
+          "attrValueId": "134079",
+          "attrValueName": "16G"
+        },
+        {
+          "attrId": "29000",
+          "attrName": "机身颜色",
+          "attrValueId": "134068",
+          "attrValueName": "银色"
+        },
+        {
+          "attrId": "28999",
+          "attrName": "CPU型号",
+          "attrValueId": "134066",
+          "attrValueName": "Intel i5"
+        },
+        {
+          "attrId": "28999",
+          "attrName": "CPU型号",
+          "attrValueId": "134067",
+          "attrValueName": "Interl i7"
+        }
+      ],
+      "attrNameArray": [
+        "机身颜色",
+        "CPU型号",
+        "内存容量"
+      ],
+      "categoryFullName": "电子-产品-1>电脑-整机-2>笔/记- 本 -1",
+      "specAttrNameArray": [],
+      "itemType": 1,
+      "hasInventoryFlag": null,
+      "recycleStatus": null,
+      "rejectReason": "",
+      "bizId": null,
+      "itemFareTmplInfo": null,
+      "itemSaleCount": null,
+      "frontCategoryVoList": null,
+      "supplierInfoImportData": {
+        "id": 3657,
+        "recommendOrg": "中国铁路北京局集团公司",
+        "bindOrgName": "唐山货运中心",
+        "accountName": "郑经理"
+      },
+      "orgId": 58949,
+      "skuSpecMap": {
+        "1111217": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "8G"
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Interl i7"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "银色"
+          }
+        ],
+        "1111218": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "8G"
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Interl i7"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "黑色"
+          }
+        ],
+        "1111219": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "16G"
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Intel i5"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "银色"
+          }
+        ],
+        "1111220": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "16G"
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Intel i5"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "黑色"
+          }
+        ],
+        "1111221": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "16G"
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Interl i7"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "银色"
+          }
+        ],
+        "1111222": [
+          {
+            "attrName": "型号",
+            "attrValue": ""
+          },
+          {
+            "attrName": "单位",
+            "attrValue": null
+          },
+          {
+            "attrName": "内存容量",
+            "attrValue": "16G"
+          },
+          {
+            "attrName": "CPU型号",
+            "attrValue": "Interl i7"
+          },
+          {
+            "attrName": "机身颜色",
+            "attrValue": "黑色"
+          }
+        ]
+      },
+      "creditLevel": "B"
+    },
+    "itemPictureVoList": [
+      {
+        "id": 245901,
+        "platformId": 20,
+        "itemId": 1014721,
+        "skuId": null,
+        "shopId": 202003030108,
+        "sellerId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145337615.png",
+        "altImages": "files.name`-1",
+        "sortNumber": 1,
+        "annexType": 1
+      }
+    ],
+    "itemSkuInfoList": [
+      {
+        "id": 1111217,
+        "itemId": 1014721,
+        "skuType": null,
+        "attributes": "29006:134078;28999:134067;29000:134068;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145352833.png",
+        "modelUrl": null,
+        "altImages": "files.name`0",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 777772,
+        "attributesName": "内存容量:8G;CPU型号:Interl i7;机身颜色:银色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Interl i7 银色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030108,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": null,
+        "barCode": null,
+        "sourceSkuId": "1111217",
+        "shortCode": "1111217",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1601276084000
+      },
+      {
+        "id": 1111218,
+        "itemId": 1014721,
+        "skuType": null,
+        "attributes": "29006:134078;28999:134067;29000:134073;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145352833.png",
+        "modelUrl": null,
+        "altImages": "files.name`0",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 999991,
+        "attributesName": "内存容量:8G;CPU型号:Interl i7;机身颜色:黑色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Interl i7 黑色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030108,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": null,
+        "barCode": null,
+        "sourceSkuId": "1111218",
+        "shortCode": "1111218",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1601276084000
+      },
+      {
+        "id": 1111219,
+        "itemId": 1014721,
+        "skuType": null,
+        "attributes": "29006:134079;28999:134066;29000:134068;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401806.png",
+        "modelUrl": null,
+        "altImages": "files.name`0",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 999999,
+        "attributesName": "内存容量:16G;CPU型号:Intel i5;机身颜色:银色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Intel i5 银色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030108,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": null,
+        "barCode": null,
+        "sourceSkuId": "1111219",
+        "shortCode": "1111219",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1601276084000
+      },
+      {
+        "id": 1111220,
+        "itemId": 1014721,
+        "skuType": null,
+        "attributes": "29006:134079;28999:134066;29000:134073;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401806.png",
+        "modelUrl": null,
+        "altImages": "files.name`0",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 999996,
+        "attributesName": "内存容量:16G;CPU型号:Intel i5;机身颜色:黑色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Intel i5 黑色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030108,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": null,
+        "barCode": null,
+        "sourceSkuId": "1111220",
+        "shortCode": "1111220",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1601276084000
+      },
+      {
+        "id": 1111221,
+        "itemId": 1014721,
+        "skuType": null,
+        "attributes": "29006:134079;28999:134067;29000:134068;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401806.png",
+        "modelUrl": null,
+        "altImages": "files.name`0",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 999990,
+        "attributesName": "内存容量:16G;CPU型号:Interl i7;机身颜色:银色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Interl i7 银色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030108,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": null,
+        "barCode": null,
+        "sourceSkuId": "1111221",
+        "shortCode": "1111221",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1601276084000
+      },
+      {
+        "id": 1111222,
+        "itemId": 1014721,
+        "skuType": null,
+        "attributes": "29006:134079;28999:134067;29000:134073;",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/9efeaf9b5d7a5bc13784d5208472253f20200928145401806.png",
+        "modelUrl": null,
+        "altImages": "files.name`0",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 999999,
+        "attributesName": "内存容量:16G;CPU型号:Interl i7;机身颜色:黑色;",
+        "deliveryCycle": null,
+        "modelCode": "",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （16G Interl i7 黑色）",
+        "areaPriceList": null,
+        "packageDis": "**",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "",
+        "productCode": null,
+        "materialCode": "",
+        "skuUnit": null,
+        "shopId": 202003030108,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": null,
+        "barCode": null,
+        "sourceSkuId": "1111222",
+        "shortCode": "1111222",
+        "saleStatus": 1,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1601276084000
+      }
+    ],
+    "priceShowType": null,
+    "scoreViewName": null
+  }
+}

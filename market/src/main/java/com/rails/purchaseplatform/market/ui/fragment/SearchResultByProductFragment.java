@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.ui.fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
@@ -11,9 +12,13 @@ import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchItemPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByProductBinding;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
@@ -29,8 +34,16 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
+    //关键字搜索
     private String mSearchKey;
+    //分类Id搜索
     private String mCid;
+    private String orderColumn;
+    private String orderType;
+
+
+    private final int DEF_PAGE = 1;
+    private int page = DEF_PAGE;
 
     private SearchResultRecyclerAdapter mAdapter;
     private SearchContract.SearchItemPresenter mPresenter;
@@ -44,22 +57,54 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         mSearchKey = bundle.getString("search_key");
         mCid = bundle.getString("cid");
 
-        mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
-
-        if (mSearchKey != null && !TextUtils.isEmpty(mSearchKey))
-            mPresenter.getItemListWithKeywordOnly(null, null, mSearchKey, 1, true);
-        if (mCid != null && !TextUtils.isEmpty(mCid))
-            mPresenter.getItemListWithCid(null, null, mCid, 1, false);
-
         mAdapter = new SearchResultRecyclerAdapter(this.getContext());
         binding.brvProductSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.brvProductSearchResult.setAdapter(mAdapter);
+        binding.brvProductSearchResult.setEmptyView(binding.empty);
+
+        mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
+
+        onRefresh();
     }
 
     @Override
     protected void loadPreVisitData() {
 
     }
+
+
+    /**
+     * 数据刷新操作
+     */
+    private void onRefresh() {
+        binding.smart.setEnableRefresh(false);
+        binding.smart.setOnLoadMoreListener(refreshLayout -> {
+            page++;
+            notifyData(orderColumn, orderType, mSearchKey, mCid, page, false);
+        });
+        notifyData(orderColumn, orderType, mSearchKey, mCid, page, true);
+    }
+
+
+    /**
+     * 请求网络
+     *
+     * @param orderColumn
+     * @param orderType
+     * @param keyWord     关键字      （关键子搜索接口）
+     * @param cid         分类ID      （分类搜索接口）
+     * @param page
+     * @param isDialog
+     */
+    void notifyData(String orderColumn, String orderType, String keyWord, String cid, int page, boolean isDialog) {
+        if (!TextUtils.isEmpty(mCid))
+            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, isDialog);
+        else {
+            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyWord, page, isDialog);
+        }
+    }
+
 
     @Override
     protected boolean isBindEventBus() {
@@ -69,21 +114,25 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(itemAttributes, isClear);
+        binding.smart.finishLoadMore();
         mSearchFilterList = filterResults;
     }
 
     @Override
     public void getItemListWithCid(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(results, isClear);
+        binding.smart.finishLoadMore();
         mSearchFilterList = filterResults;
     }
 
     @Override
     public void sort(String orderColumn, String orderType, String keyword, String cid) {
-        if (keyword != null)
-            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyword, 1, false);
-        if (cid != null)
-            mPresenter.getItemListWithCid(orderColumn, orderType, cid, 1, false);
+        page = DEF_PAGE;
+        this.orderColumn = orderColumn;
+        this.orderType = orderType;
+        this.mSearchKey = keyword;
+        this.mCid = cid;
+        notifyData(orderColumn, orderType, mSearchKey, mCid, page, false);
     }
 
     @Override

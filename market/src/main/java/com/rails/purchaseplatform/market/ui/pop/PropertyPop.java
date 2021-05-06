@@ -28,6 +28,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             MODE_3 = 3, // 商品搜索结果页筛选
             MODE_4 = 4;
 
+    private PropertyAdapter mAdapter;
+
     private AddToCart mAddToCart;
     private DoFilter mDoFilter;
     private TypeSelect mTypeSelect;
@@ -52,10 +54,19 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         switch (mMode) {
             case MODE_1:
                 setPopEvent();
+                binding.btnOk.setOnClickListener(v -> mTypeSelect.onSelectComplete((ArrayList<SpecificationPopBean>) mBeans));
+
+                binding.btnOk.setOnClickListener(v -> {
+                    mTypeSelect.onSelectComplete(mAdapter.getData());
+                    dismiss();
+                });
                 break;
             case MODE_2:
                 setPopEvent();
-                binding.btnOk.setOnClickListener(v -> mAddToCart.addToCart());
+                binding.btnOk.setOnClickListener(v -> {
+                    mAddToCart.addToCart();
+                    dismiss();
+                });
                 break;
             case MODE_3:
                 setFilterPopEvent();
@@ -77,11 +88,15 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.recycler.setAdapter(adapter1);
         adapter1.update(mBeans, true);
         binding.ibClose.setOnClickListener(v -> this.dismiss());
-        binding.btnReset.setOnClickListener(v -> adapter1.update(mBeans, true));
-        binding.btnOk.setOnClickListener(v -> mDoFilter.doFilter(
-                "brand", "cid",
-                "cate", "expand",
-                "min", "max"));
+        binding.btnReset.setOnClickListener(v -> {
+            adapter1.update(mBeans, true);
+            dismiss();
+        });
+        binding.btnOk.setOnClickListener(v -> {
+            mDoFilter.doFilter("brand", "cid", "cate",
+                    "expand", "min", "max");
+            dismiss();
+        });
     }
 
     /**
@@ -89,18 +104,23 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      */
     private void setPopEvent() {
         binding.llTop.setVisibility(View.VISIBLE);
-        PropertyAdapter adapter = new PropertyAdapter(getActivity());
+        mAdapter = new PropertyAdapter(getActivity());
+        mAdapter.setData((ArrayList<SpecificationPopBean>) mBeans);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
-        binding.recycler.setAdapter(adapter);
-        adapter.update(mBeans, true);
+        binding.recycler.setAdapter(mAdapter);
+        mAdapter.update(mBeans, true);
         binding.btnClose.setOnClickListener(v -> this.dismiss());
         binding.btnOk.setOnClickListener(v -> {
             if (null != mTypeSelect) {
-                mTypeSelect.onSelectComplete(adapter.getListData());
+                mTypeSelect.onSelectComplete(mAdapter.getListData());
             }
             dismiss();
         });
-        binding.btnReset.setOnClickListener(v -> adapter.resetSelectState());
+        binding.btnReset.setOnClickListener(v -> mAdapter.resetSelectState());
+        binding.btnReset.setOnClickListener(v -> {
+            mTypeSelect.onReset();
+            dismiss();
+        });
     }
 
 
@@ -156,7 +176,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      */
     public interface TypeSelect {
         void onSelectComplete(ArrayList<SpecificationPopBean> data);
+//        void onSelectComplete(ArrayList<SpecificationPopBean> beans);
+
+        void onReset();
     }
-
-
 }

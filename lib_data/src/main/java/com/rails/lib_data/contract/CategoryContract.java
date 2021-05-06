@@ -30,6 +30,6 @@ public interface CategoryContract {
          * @param isReadCache 是否读取缓存
          *                    获取商城分类
          */
-        void getCategorys(boolean isReadCache);
+        void getCategorys(boolean isReadCache,boolean isDialog);
     }
 }
