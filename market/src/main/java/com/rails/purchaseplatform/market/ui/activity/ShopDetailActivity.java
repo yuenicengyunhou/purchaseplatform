@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,9 +43,10 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private int mPage = PAGE_DEF;
     private final long platformId = 20L;
     private ArrayList<SearchFilterBean> filterList = null;
-//    private ArrayList<SearchFilterBean> FILTER_DEF = null;
+    //    private ArrayList<SearchFilterBean> FILTER_DEF = null;
     private String orderColumn = "";//默认的排序方式为空字符
     private String orderType = "";//默认的排序顺序为空字符
+    private FilterShopPop mPop;
 
     /**
      * 排序：
@@ -173,13 +175,15 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
      */
     private void showPop() {
         if (null == filterList) return;
-        FilterShopPop mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
-        mPop.setCompleteListener(filterbeans -> {
-            filterList = filterbeans;
-            mPage = PAGE_DEF;
-            presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
-        });
-        mPop.setGravity(Gravity.BOTTOM);
+        if (null == mPop) {
+            mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
+            mPop.setCompleteListener(filterbeans -> {
+                filterList = filterbeans;
+                mPage = PAGE_DEF;
+                presenter.getShopItemList(20, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+            });
+            mPop.setGravity(Gravity.BOTTOM);
+        }
         mPop.setType(BasePop.MATCH_WRAP);
         mPop.show(getSupportFragmentManager(), "property");
     }

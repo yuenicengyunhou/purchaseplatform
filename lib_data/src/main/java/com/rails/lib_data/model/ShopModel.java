@@ -1,11 +1,6 @@
 package com.rails.lib_data.model;
 
 import android.text.TextUtils;
-import android.util.Log;
-
-import com.alibaba.fastjson.JSONArray;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.shop.AllCidsBean;
@@ -17,13 +12,15 @@ import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.ShopService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ShopModel {
+
+    private boolean cateFirst,expanFirst=true;
 
     public void getShopInfo(long platformId, String shopInfoId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
@@ -70,14 +67,16 @@ public class ShopModel {
      */
     private void analyzeFilterData(HashMap<String, Object> map, ArrayList<SearchFilterBean> filterBeans) {
         if (null != filterBeans) {
-//            List<String> brands = new ArrayList<>();
             StringBuilder brands = new StringBuilder();
             List<String> cidIdList = new ArrayList<>();
             List<String> categoryAttrValueIds = new ArrayList<>();
             List<String> expandAttrValueIds = new ArrayList<>();
             for (SearchFilterBean filterBean : filterBeans) {
                 ArrayList<SearchFilterValue> filterValues = filterBean.getFilterValues();
-                for (SearchFilterValue childValue : filterValues) {
+                String filterName = filterBean.getFilterName();
+                for (int i = 0; i < filterValues.size(); i++) {
+
+                    SearchFilterValue childValue = filterValues.get(i);
                     int attrFlag = childValue.getAttrFlag();
                     String valueId = childValue.getValueId();
                     String valueName = childValue.getValueName();
@@ -92,11 +91,17 @@ public class ShopModel {
                                 cidIdList.add(valueId);
                                 break;
                             case 2:// 2-category
-//                                categoryAttrValueIds.add(valueId);
+                                if (cateFirst) {
+                                    categoryAttrValueIds.add(filterName + "_");
+                                    cateFirst = false;
+                                }
                                 categoryAttrValueIds.add(valueName);
                                 break;
                             case 3:// 3-expandAttrValue
-//                                expandAttrValueIds.add(valueId);
+                                if (expanFirst) {
+                                    expandAttrValueIds.add(filterName + "_");
+                                    expanFirst = false;
+                                }
                                 expandAttrValueIds.add(valueName);
                                 break;
                         }
@@ -104,22 +109,24 @@ public class ShopModel {
                 }
 
             }
-            Gson gson = new Gson();
+            cateFirst = true;
+            expanFirst = true;
             String bransJson = brands.toString();
             if (!TextUtils.isEmpty(bransJson)) {
                 map.put("brands", bransJson);
                 map.put("brandsString", bransJson);
             }
             if (!cidIdList.isEmpty()) {
-                String cidsJson = gson.toJson(cidIdList);
+//                String cidsJson = gson.toJson(cidIdList);
+                String cidsJson = "";
                 map.put("cidList", cidsJson);
             }
             if (!categoryAttrValueIds.isEmpty()) {
-                String cateJson = gson.toJson(categoryAttrValueIds);
+                String cateJson = StringUtil.getJointString("||", categoryAttrValueIds) + "@";
                 map.put("categoryAttrValueIds", cateJson);
             }
             if (!expandAttrValueIds.isEmpty()) {
-                String expanJson = gson.toJson(expandAttrValueIds);
+                String expanJson = StringUtil.getJointString("||", expandAttrValueIds) + "@";
                 map.put("expandAttrValueIds", expanJson);
             }
 
