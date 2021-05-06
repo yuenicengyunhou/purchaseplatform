@@ -198,17 +198,35 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);
         binding.btnClose.setOnClickListener(v -> this.dismiss());
-        binding.btnOk.setOnClickListener(v -> {
+        binding.tvAdd.setOnClickListener(v -> changeNum(true));
+        binding.tvReduce.setOnClickListener(v -> changeNum(false));
+        binding.addCart.setOnClickListener(v -> {
             if (null != mTypeSelect) {
                 mTypeSelect.onSelectComplete(mAdapter.getListData());
             }
             dismiss();
         });
-        binding.btnReset.setOnClickListener(v -> mAdapter.resetSelectState());
-//        binding.btnReset.setOnClickListener(v -> {
-//            mTypeSelect.onReset();
-//            dismiss();
-//        });
+    }
+
+    /**
+     * 变更购买数量
+     *
+     * @param isAdd 是否增加数量
+     */
+    private void changeNum(boolean isAdd) {
+        int number = 0;
+        String num = binding.etNum.getText().toString().trim();
+        if (!TextUtils.isEmpty(num)) {
+            number = Integer.parseInt(num);
+        }
+        if (isAdd) {
+            binding.etNum.setText(String.valueOf(number + 1));
+        } else {
+            if (number == 0) {
+                return;
+            }
+            binding.etNum.setText(String.valueOf(number - 1));
+        }
     }
 
 

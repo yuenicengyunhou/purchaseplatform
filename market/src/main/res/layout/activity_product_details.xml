@@ -276,8 +276,7 @@
                         android:layout_height="@dimen/dp_tiny"
                         android:layout_marginStart="@dimen/dp_56"
                         android:layout_marginEnd="@dimen/dp_16"
-                        android:background="#447F7F7F"
-                        android:visibility="gone" />
+                        android:background="#447F7F7F" />
 
                     <RelativeLayout
                         android:id="@+id/rl_delivery"
@@ -493,7 +492,7 @@
                     <ImageView
                         android:id="@+id/web_productInfo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
 
 <!--                    <WebView-->
