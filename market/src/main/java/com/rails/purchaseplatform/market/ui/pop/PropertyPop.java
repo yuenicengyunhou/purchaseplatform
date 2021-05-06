@@ -101,6 +101,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setFilterPopEvent() {
         binding.rlTitle.setVisibility(View.VISIBLE);
+        binding.rlPriceRange.setVisibility(View.VISIBLE);
+        binding.llBottom.setVisibility(View.VISIBLE);
         binding.tvTitle.setText("筛选");
         if (!TextUtils.isEmpty(mMinPrice)) binding.etLowPrice.setText(mMinPrice);
         if (!TextUtils.isEmpty(mMaxPrice)) binding.etHighPrice.setText(mMaxPrice);
@@ -188,6 +190,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      */
     private void setPopEvent() {
         binding.llTop.setVisibility(View.VISIBLE);
+        binding.rlBuyCount.setVisibility(View.VISIBLE);
+        binding.addCart.setVisibility(View.VISIBLE);
         mAdapter = new PropertyAdapter(getActivity());
         mAdapter.setData((ArrayList<SpecificationPopBean>) mBeans);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);

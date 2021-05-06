@@ -112,7 +112,8 @@
             <RelativeLayout
                 android:id="@+id/rl_priceRange"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_priceRange"
@@ -197,7 +198,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_25"
-        android:layout_marginBottom="@dimen/dp_25">
+        android:layout_marginBottom="@dimen/dp_25"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/btn_reset"
@@ -227,6 +229,95 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_buy_count"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_buy_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_16"
+            android:text="购买数量"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13" />
+
+        <TextView
+            android:id="@+id/tv_count_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_toEndOf="@+id/tv_buy_count"
+            android:text="有货"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_10" />
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_25"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:background="@drawable/bg_corner_border_gray">
+
+            <TextView
+                android:id="@+id/tv_reduce"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="match_parent"
+                android:background="@color/bg_gray_light"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/selector_black_gray_color"
+                android:textSize="@dimen/font_size_18" />
+
+            <EditText
+                android:id="@+id/et_num"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ems="4"
+                android:gravity="center"
+                android:minWidth="@dimen/dp_30"
+                android:singleLine="true"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_12" />
+
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="match_parent"
+                android:background="@color/bg_gray_light"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/selector_black_gray_color"
+                android:textSize="@dimen/font_size_18" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/add_cart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:background="@drawable/bg_corner_blue_20"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_15"
+        android:visibility="gone" />
 
 </LinearLayout>
 
