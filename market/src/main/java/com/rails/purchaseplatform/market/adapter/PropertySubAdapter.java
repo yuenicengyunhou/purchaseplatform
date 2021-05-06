@@ -36,6 +36,21 @@ public class PropertySubAdapter extends BaseAbsAdapter<SpecificationValue> {
             holder = (ViewHolder) view.getTag();
 
         holder.rbTag.setText(mDataSource.get(i).getAttrValueName());
+
+        boolean select = mDataSource.get(i).isSelect();
+        holder.rbTag.setSelected(select);
+        holder.rbTag.setOnClickListener(v -> {
+            if (!select) {
+                for (int j = 0; j < mDataSource.size(); j++) {
+                    if (mDataSource.get(j).isSelect()) {
+                        mDataSource.get(j).setSelect(false);
+                    }
+                }
+            }
+            mDataSource.get(i).setSelect(!select);
+            notifyDataSetChanged();
+        });
+
         return view;
     }
 

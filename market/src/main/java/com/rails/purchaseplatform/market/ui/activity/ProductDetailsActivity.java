@@ -463,8 +463,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             return;
         if (mSpecificationPopBean == null || mSpecificationPopBean.size() == 0) {
             if (flag == 0) {
-                final String SALE_NUM = "1"; // 固定1
-                String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, skuId);
+                String saleNum = "1"; // 固定1
+                String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", saleNum, skuId);
                 mPresenter.addCart(20L,
                         30L, 40L, 50, // 非必要属性
                         skuIdSaleNumJson, true);
@@ -496,14 +496,24 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                         }
                     }
 
+                    // TODO: 2021/5/6 拿到返回的数据请求接口
+
+                    mPresenter.addCart(20L, 13L, 14L, 1, "", true);
+
                     mSpecificationPopBean = data;
+
 //                    Log.d(TAG, checkSkuInfo(data)[1]);
-                    if (checkSkuInfo(data)[0] == null || checkSkuInfo(data)[0] == "") {
-                        ToastUtil.showCenter(ProductDetailsActivity.this, "此型号商品库存不足，请重新选择其它型号商品。");
-                    } else {
-                        binding.tvSelectType.setText(checkSkuInfo(data)[1]);
-                        binding.tvItemName.setText(checkSkuInfo(data)[2]);
-                    }
+
+//                    if (checkSkuInfo(data)[0] == null || checkSkuInfo(data)[0] == "") {
+//                        ToastUtil.showCenter(ProductDetailsActivity.this, "此型号商品库存不足，请重新选择其它型号商品。");
+//                    } else {
+//                        binding.tvSelectType.setText(checkSkuInfo(data)[1]);
+//                        binding.tvItemName.setText(checkSkuInfo(data)[2]);
+//                    }
+
+                    mPresenter.addCart(20L,
+                            30L, 40L, 50, // 非必要属性
+                            skuIdSaleNumJson, true);
                 }
 
                 @Override

@@ -71,20 +71,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     protected void initialize(Bundle bundle) {
         switch (mMode) {
             case MODE_1:
-                setPopEvent();
-                binding.btnOk.setOnClickListener(v -> mTypeSelect.onSelectComplete((ArrayList<SpecificationPopBean>) mBeans));
-
-                binding.btnOk.setOnClickListener(v -> {
-                    mTypeSelect.onSelectComplete(mAdapter.getData());
-                    dismiss();
-                });
-                break;
             case MODE_2:
                 setPopEvent();
-                binding.btnOk.setOnClickListener(v -> {
-                    mAddToCart.addToCart();
-                    dismiss();
-                });
                 break;
             case MODE_3:
                 setFilterPopEvent();
@@ -193,7 +181,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.rlBuyCount.setVisibility(View.VISIBLE);
         binding.addCart.setVisibility(View.VISIBLE);
         mAdapter = new PropertyAdapter(getActivity());
-        mAdapter.setData((ArrayList<SpecificationPopBean>) mBeans);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);

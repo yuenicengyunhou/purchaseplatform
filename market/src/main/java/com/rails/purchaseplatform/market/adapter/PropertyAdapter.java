@@ -23,8 +23,6 @@ import java.util.List;
  */
 public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, ItemProductPropertyBinding> {
 
-    private ArrayList<SpecificationPopBean> mBeans;
-
     public PropertyAdapter(Context context) {
         super(context);
     }
@@ -43,42 +41,12 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
         ArrayList<SpecificationValue> tags = new ArrayList<>(specificationPopBean.getSpecificationValue());
         adapter.update(tags);
 
-        for (SpecificationValue valueBean : tags) {
-            if (valueBean.isSelect())
-                binding.flow.selectSingleCheck(tags.indexOf(valueBean));
-        }
-
-
         binding.flow.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onItemClick(FlowTagLayout parent, View view, int position) {
-                boolean b = tags.get(position).isSelect(); // 点击位置选中状态
-                int checkedIndex = 0; // 默认选中的位置
-                for (SpecificationValue valueBean : tags) {
-                    if (valueBean.isSelect())
-                        checkedIndex = tags.indexOf(valueBean);
-                }
-                if (b) {
-                    mBeans.get(p).getSpecificationValue().get(position).setSelect(false);
-                } else {
-                    mBeans.get(p).getSpecificationValue().get(position).setSelect(true);
-                    mBeans.get(p).getSpecificationValue().get(checkedIndex).setSelect(false);
-                }
+                // TODO: 2021/5/6 比对数据 返回并显示
             }
         });
-    }
-
-    /**
-     * 重置选择状态
-     */
-    public void resetSelectState() {
-        for (SpecificationPopBean parent : mDataSource) {
-            List<SpecificationValue> values = parent.getSpecificationValue();
-            for (SpecificationValue child : values) {
-                child.setSelect(false);
-            }
-        }
-        notifyDataSetChanged();
     }
 
     /**
@@ -88,12 +56,4 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
         return mDataSource;
     }
 
-
-    public void setData(ArrayList<SpecificationPopBean> beans) {
-        mBeans = beans;
-    }
-
-    public ArrayList<SpecificationPopBean> getData() {
-        return mBeans;
-    }
 }
