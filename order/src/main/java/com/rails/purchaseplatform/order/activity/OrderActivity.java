@@ -7,7 +7,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,9 +20,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
+import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -32,6 +33,7 @@ import com.rails.purchaseplatform.common.pop.OrderFilterPop;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.ConditionAdapter;
@@ -47,6 +49,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -77,18 +80,18 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     private ConditionAdapter adapter;
     private String conditionId = "";
     private OrderFilterBean filterBean;
-    private String statusCode;
+    private String statusCode = null;
+    private OrderFilterPop mFilterPopup;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         statusCode = extras.getString("statusCode");
-        Log.e("WQ", "getExtraEvent: ");
     }
 
     @Override
     protected void initialize(Bundle bundle) {
-        Log.e("WQ", "init");
+        initFilterBean();
         String[] tabs = getResources().getStringArray(R.array.order_list_tab);
         initPager(tabs);
         binding.noneScrollViewPager.setPagingEnabled(false);
@@ -123,12 +126,28 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             }
         });
 
-        this.filterBean = new OrderFilterBean();
+
+//        if (null != statusCode) {
+//            callFragmentToSearch(filterBean);
+//        }
 
 
         //获取organizeId
 
 
+    }
+
+    private void initFilterBean() {
+        this.filterBean = new OrderFilterBean();
+        Type type = new TypeToken<ArrayList<OrderStatusBean>>() {
+        }.getType();
+        ArrayList<OrderStatusBean> statusBeans = JsonUtil.parseJson(this, "orderStatus.json", type);
+        if (null != statusCode) {
+            for (OrderStatusBean status : statusBeans) {
+                status.setChecked(status.getStatusCode().equals(statusCode));
+            }
+        }
+        this.filterBean.setStatusBeans(statusBeans);
     }
 
     /**
@@ -141,7 +160,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         if (mType != 0) {
             content = conditionId;
         }
-        fragment.notifyData(mType, content, filterBean);
+        fragment.notifyFragment(mType, content, filterBean);
     }
 
     @Override
@@ -171,7 +190,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         binding.ibFilter.setOnClickListener(v -> showFilterPopup());
 
         binding.tvSelectType.setOnClickListener(v ->
-                        showTypePopup()
+                showTypePopup()
         );
     }
 
@@ -181,13 +200,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      */
     private void showFilterPopup() {
         String[] text = {"采购单状态", "采购单金额", "下单时间"};
-        OrderFilterPop mFilterPopup = new OrderFilterPop(text, filterBean);
-        mFilterPopup.setCompleteListener(data -> {
-            this.filterBean = data;
-            callFragmentToSearch(data);
-        });
-        mFilterPopup.setType(BasePop.MATCH_WRAP);
-        mFilterPopup.setGravity(Gravity.BOTTOM);
+        if (null == mFilterPopup) {
+            mFilterPopup = new OrderFilterPop(text, filterBean);
+            mFilterPopup.setCompleteListener(this::callFragmentToSearch);
+            mFilterPopup.setType(BasePop.MATCH_WRAP);
+            mFilterPopup.setGravity(Gravity.BOTTOM);
+        }
         mFilterPopup.show(getSupportFragmentManager(), "orderStatus");
     }
 
@@ -275,7 +293,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         ArrayList<Fragment> fragments = new ArrayList<>();
         Fragment fragment;
         for (int i = 0; i < tabs.length; i++) {
-            fragment = OrderFragment.getInstance(i);
+            fragment = OrderFragment.getInstance(i, statusCode, statusCode == null ? null : this.filterBean);
             fragments.add(fragment);
         }
 

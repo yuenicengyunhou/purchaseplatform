@@ -1,8 +1,6 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.google.gson.reflect.TypeToken;
@@ -16,7 +14,6 @@ import com.rails.purchaseplatform.framwork.adapter.listener.CompleteListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.TimeUtil;
-import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -115,7 +112,6 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
             Calendar now = Calendar.getInstance();
             DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd) -> {
                         endDate = formattTime(year,monthOfYear,dayOfMonth,true);
-                        Log.e("WQ", "hhhh==" + endDate);
                         startDate = formattTime(yearEnd,monthOfYearEnd,dayOfMonthEnd,true);
                         String range = formattTime(year,monthOfYear,dayOfMonth,false) + " 至 " + formattTime(yearEnd,monthOfYearEnd,dayOfMonthEnd,false);
                         binding.tvDateRange.setText(range);
