@@ -1,8 +1,9 @@
 package com.rails.lib_data.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class OrderFilterBean {
+public class OrderFilterBean implements Serializable {
 
     private String lowPrice;
 

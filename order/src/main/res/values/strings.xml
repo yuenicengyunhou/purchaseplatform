@@ -31,6 +31,7 @@
         <item>全部采购单</item>
 
     </string-array>
+    <string name="order_empty">空空如也</string>
     <!--    采购-->
     <string name="order_buy_code">采购单号：%s</string>
     <string name="order_buy_time">生成时间：%s</string>
