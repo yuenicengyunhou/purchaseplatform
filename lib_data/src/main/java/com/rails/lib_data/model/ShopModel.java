@@ -20,7 +20,8 @@ import java.util.List;
 
 public class ShopModel {
 
-    private boolean cateFirst,expanFirst=true;
+    private boolean cateFirst = true;
+    private boolean expanFirst=true;
 
     public void getShopInfo(long platformId, String shopInfoId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
@@ -122,11 +123,15 @@ public class ShopModel {
                 map.put("cidList", cidsJson);
             }
             if (!categoryAttrValueIds.isEmpty()) {
-                String cateJson = StringUtil.getJointString("||", categoryAttrValueIds) + "@";
+                String headString = categoryAttrValueIds.get(0);
+                categoryAttrValueIds.remove(0);
+                String cateJson = headString+StringUtil.getJointString("||", categoryAttrValueIds) + "@";
                 map.put("categoryAttrValueIds", cateJson);
             }
             if (!expandAttrValueIds.isEmpty()) {
-                String expanJson = StringUtil.getJointString("||", expandAttrValueIds) + "@";
+                String expanHead = expandAttrValueIds.get(0);
+                expandAttrValueIds.remove(0);
+                String expanJson = expanHead+StringUtil.getJointString("||", expandAttrValueIds) + "@";
                 map.put("expandAttrValueIds", expanJson);
             }
 

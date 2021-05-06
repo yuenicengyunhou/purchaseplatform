@@ -21,7 +21,7 @@ public interface ShopContract {
         /**
          * 加载店铺商品列表
          */
-        void loadShopProductList(ArrayList<ResultListBean> list);
+        void loadShopProductList(ArrayList<ResultListBean> list,int totalCount);
 
 
         /**
@@ -48,7 +48,7 @@ public interface ShopContract {
         /**
          * 店铺推荐商品列表
          */
-        void getShopItemList(long platformId, String shopInfoId, int page, int pageSize,String orderColumn,String orderType,ArrayList<SearchFilterBean> filterBeans);
+        void getShopItemList(String shopInfoId, int page, int pageSize,String orderColumn,String orderType,ArrayList<SearchFilterBean> filterBeans);
 
     }
 }

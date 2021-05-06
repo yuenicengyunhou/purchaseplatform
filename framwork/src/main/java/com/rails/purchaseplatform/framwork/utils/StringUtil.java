@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.framwork.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -144,7 +145,6 @@ public class StringUtil {
      * @return
      */
     public static String getJointString(String splitChar, List<String> strs) {
-
         if (strs == null || strs.size() <= 0)
             return "";
 
@@ -153,7 +153,7 @@ public class StringUtil {
             stringBuffer.append(str + splitChar);
         }
         String jointStr = stringBuffer.toString().trim();
-        return jointStr.substring(0, jointStr.length() - 1);
+        return jointStr.substring(0, jointStr.length() - splitChar.length());
     }
 
     /**

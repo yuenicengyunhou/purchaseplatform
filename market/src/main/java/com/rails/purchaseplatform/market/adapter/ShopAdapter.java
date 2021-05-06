@@ -63,4 +63,6 @@ public class ShopAdapter extends BaseRecyclerAdapter<ResultListBean, ItemShopSku
         });
 
     }
+
+
 }

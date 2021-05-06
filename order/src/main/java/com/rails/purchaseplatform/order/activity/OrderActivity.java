@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -76,9 +77,18 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     private ConditionAdapter adapter;
     private String conditionId = "";
     private OrderFilterBean filterBean;
+    private String statusCode;
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        statusCode = extras.getString("statusCode");
+        Log.e("WQ", "getExtraEvent: ");
+    }
 
     @Override
     protected void initialize(Bundle bundle) {
+        Log.e("WQ", "init");
         String[] tabs = getResources().getStringArray(R.array.order_list_tab);
         initPager(tabs);
         binding.noneScrollViewPager.setPagingEnabled(false);
@@ -162,7 +172,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
         binding.tvSelectType.setOnClickListener(v ->
                         showTypePopup()
-//                        showConditionPopWindow()
         );
     }
 
@@ -171,17 +180,14 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 显示筛选PopupWindow
      */
     private void showFilterPopup() {
-//        if (mFilterPopup == null) {
         String[] text = {"采购单状态", "采购单金额", "下单时间"};
         OrderFilterPop mFilterPopup = new OrderFilterPop(text, filterBean);
         mFilterPopup.setCompleteListener(data -> {
             this.filterBean = data;
-//            Log.e("WQ", "start==" + data.getStartDate());
             callFragmentToSearch(data);
         });
         mFilterPopup.setType(BasePop.MATCH_WRAP);
         mFilterPopup.setGravity(Gravity.BOTTOM);
-//        }
         mFilterPopup.show(getSupportFragmentManager(), "orderStatus");
     }
 
