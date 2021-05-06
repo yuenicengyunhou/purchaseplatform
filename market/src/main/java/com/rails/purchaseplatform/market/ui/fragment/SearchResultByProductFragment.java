@@ -32,6 +32,8 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
+    private boolean filtered = false;
+
     //关键字搜索
     private String mSearchKey;
     //分类Id搜索
@@ -82,13 +84,13 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         binding.smart.setEnableRefresh(false);
         binding.smart.setOnLoadMoreListener(refreshLayout -> {
             page++;
-            notifyData(orderColumn, orderType, mSearchKey, mCid,
+            notifyData(mSearchKey, mCid, orderColumn, orderType,
                     brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
-                    minPrice, maxPrice, page, false);
+                    minPrice, maxPrice, page, 30, false);
         });
-        notifyData(orderColumn, orderType, mSearchKey, mCid,
+        notifyData(mSearchKey, mCid, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
-                minPrice, maxPrice, page, true);
+                minPrice, maxPrice, page, 30, true);
     }
 
 
@@ -102,17 +104,17 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
      * @param page
      * @param isDialog
      */
-    void notifyData(String orderColumn, String orderType, String keyWord, String cid,
+    void notifyData(String keyWord, String cid, String orderColumn, String orderType,
                     String brands, String brandsString, String categoryAttrValueIds, String expandAttrValueIds,
-                    String minPrice, String maxPrice, int page, boolean isDialog) {
+                    String minPrice, String maxPrice, int page, int pageSize, boolean isDialog) {
         if (!TextUtils.isEmpty(mCid)) {
 //            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, isDialog);
             mPresenter.queryItemListByCid(keyWord, cid, orderColumn, orderType, brands, brandsString,
-                    categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, 30, isDialog);
+                    categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, pageSize, isDialog);
         } else {
 //            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyWord, page, isDialog);
             mPresenter.queryItemListByKeyword(keyWord, orderColumn, orderType, brands, brandsString,
-                    categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, 30, isDialog);
+                    categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, pageSize, isDialog);
         }
     }
 
@@ -126,14 +128,14 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(itemAttributes, isClear);
         binding.smart.finishLoadMore();
-        mSearchFilterList = filterResults;
+        if (!filtered) mSearchFilterList = filterResults;
     }
 
     @Override
     public void getItemListWithCid(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(results, isClear);
         binding.smart.finishLoadMore();
-        mSearchFilterList = filterResults;
+        if (!filtered) mSearchFilterList = filterResults;
     }
 
     @Override
@@ -143,9 +145,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         this.orderType = orderType;
         this.mSearchKey = keyword;
         this.mCid = cid;
-        notifyData(orderColumn, orderType, mSearchKey, mCid,
+        notifyData(mSearchKey, mCid, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
-                minPrice, maxPrice, page, false);
+                minPrice, maxPrice, page, 30, false);
     }
 
     @Override
@@ -155,32 +157,18 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     @Override
     public void sendFilterData(String[] strings) {
-
+        filtered = true;
         // TODO: 2021/4/29 发送数据
         Log.d(TAG, Arrays.toString(strings));
-        String cid = strings[1] != null && !strings[1].equals("") ? strings[1] : mCid;
+        mCid = strings[1] != null && !strings[1].equals("") ? strings[1] : mCid;
         brands = brandsString = strings[0];
         categoryAttrValueIds = strings[2];
         expandAttrValueIds = strings[3];
         minPrice = strings[4];
         maxPrice = strings[5];
-        if (cid != null && !cid.equals("")) {
-            mPresenter.queryItemListByCid(
-                    mSearchKey, cid,
-                    orderColumn, orderType,
-                    brands, brandsString,
-                    categoryAttrValueIds, expandAttrValueIds,
-                    minPrice, maxPrice,
-                    page, 30, false);
-        } else {
-            mPresenter.queryItemListByKeyword(
-                    mSearchKey,
-                    orderColumn, orderType,
-                    brands, brandsString,
-                    categoryAttrValueIds, expandAttrValueIds,
-                    minPrice, maxPrice,
-                    page, 30, false);
-        }
-
+        notifyData(mSearchKey, mCid, orderColumn, orderType,
+                brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
+                minPrice, maxPrice,
+                page, 30, true);
     }
 }

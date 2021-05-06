@@ -99,8 +99,12 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         adapter1.update(mBeans, true);
         binding.ibClose.setOnClickListener(v -> this.dismiss());
         binding.btnReset.setOnClickListener(v -> {
+            for (SearchFilterBean bean : (ArrayList<SearchFilterBean>) mBeans) {
+                for (SearchFilterValue value : bean.getFilterValues()) {
+                    value.setSelect(false);
+                }
+            }
             adapter1.update(mBeans, true);
-            dismiss();
         });
         binding.btnOk.setOnClickListener(v -> {
             String[] params = getParams(adapter1);
@@ -161,8 +165,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 expandAttrs.add(exAttr);
             }
         }
-        params[2] = String.join("@", categoryAttrs);
-        params[3] = String.join("@", expandAttrs);
+        params[2] = categoryAttrs.size() != 0 ? String.join("@", categoryAttrs) + "@" : "";
+        params[3] = expandAttrs.size() != 0 ? String.join("@", expandAttrs) + "@" : "";
         return params;
     }
 

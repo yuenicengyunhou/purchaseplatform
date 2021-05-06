@@ -24,6 +24,7 @@ public class SearchModel {
      * @param pageNum
      * @param httpRxObserver
      */
+    @Deprecated
     public void getItemListWithKeywordOnly(
             String orderColumn, String orderType, String keyword, int pageNum, HttpRxObserver httpRxObserver) {
 
@@ -75,6 +76,7 @@ public class SearchModel {
      * @param pageNum
      * @param httpRxObserver
      */
+    @Deprecated
     public void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("businessType", 1);
