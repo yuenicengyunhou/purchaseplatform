@@ -44,6 +44,7 @@ public interface SearchContract {
          * @param pageNum
          * @param isDialog
          */
+        @Deprecated
         void getItemListWithKeywordOnly(String orderColumn, String orderType, String keyword, int pageNum, boolean isDialog);
 
         /**
@@ -53,7 +54,22 @@ public interface SearchContract {
          * @param pageNum
          * @param isDialog
          */
+        @Deprecated
         void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, boolean isDialog);
+
+        void queryItemListByCid(String keyword, String cid,
+                                String orderColumn, String orderType,
+                                String brands, String brandsString,
+                                String categoryAttrValueIds, String expandAttrValueIds,
+                                String minPrice, String maxPrice,
+                                int pageNum, int pageSize, boolean isDialog);
+
+        void queryItemListByKeyword(String keyword,
+                                    String orderColumn, String orderType,
+                                    String brands, String brandsString,
+                                    String categoryAttrValueIds, String expandAttrValueIds,
+                                    String minPrice, String maxPrice,
+                                    int pageNum, int pageSize, boolean isDialog);
     }
 
 

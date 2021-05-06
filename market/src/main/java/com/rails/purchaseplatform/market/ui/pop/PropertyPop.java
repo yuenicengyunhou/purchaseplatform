@@ -117,11 +117,16 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         });
     }
 
+    /**
+     * 组装请求参数
+     *
+     * @param adapter1 SearchItemFilterAdapter
+     * @return 长度为4的参数的数组，依次是：品牌、cid、主属性、折叠属性
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @NotNull
     private String[] getParams(SearchItemFilterAdapter adapter1) {
         String[] params = new String[4];
-
         ArrayList<String> categoryAttrs = new ArrayList<>();
         ArrayList<String> expandAttrs = new ArrayList<>();
         for (SearchFilterBean searchFilterBean : (ArrayList<SearchFilterBean>) adapter1.getData()) {

@@ -88,4 +88,81 @@ public class SearchModel {
                 .subscribe(httpRxObserver);
     }
 
+
+    public void queryItemListByKeyword(String keyword,
+                                       String orderColumn, String orderType,
+                                       String brands, String brandsString,
+                                       String categoryAttrValueIds, String expandAttrValueIds,
+                                       String minPrice, String maxPrice,
+                                       int pageNum, int pageSize, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("businessType", 1);
+        if (keyword != null && !keyword.equals(""))
+            params.put("keyword", keyword);
+        if (brands != null && !brands.equals(""))
+            params.put("brands", brands);
+        if (brandsString != null && !brandsString.equals(""))
+            params.put("brandsString", brandsString);
+        if (orderColumn != null && !orderColumn.equals(""))
+            params.put("orderColumn", orderColumn);
+        if (orderType != null && !orderType.equals(""))
+            params.put("orderType", orderType);
+        if (categoryAttrValueIds != null && !categoryAttrValueIds.equals(""))
+            params.put("categoryAttrValueIds", categoryAttrValueIds);
+        if (expandAttrValueIds != null && !expandAttrValueIds.equals(""))
+            params.put("expandAttrValueIds", expandAttrValueIds);
+        if (minPrice != null && !minPrice.equals(""))
+            params.put("minPrice", minPrice);
+        if (maxPrice != null && !maxPrice.equals(""))
+            params.put("maxPrice", maxPrice);
+        params.put("pageNum", pageNum);
+        params.put("pageSize", pageSize);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(SearchService.class)
+                .getItemListWithKeywordOnly(params))
+                .subscribe(httpRxObserver);
+
+    }
+
+
+    public void queryItemListByCid(String keyword, String cid,
+                                   String orderColumn, String orderType,
+                                   String brands, String brandsString,
+                                   String categoryAttrValueIds, String expandAttrValueIds,
+                                   String minPrice, String maxPrice,
+                                   int pageNum, int pageSize, HttpRxObserver httpRxObserver) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("businessType", 1);
+        if (keyword != null && !keyword.equals(""))
+            params.put("keyword", keyword);
+        if (cid != null && !cid.equals(""))
+            params.put("cid", cid);
+        if (brands != null && !brands.equals(""))
+            params.put("brands", brands);
+        if (brandsString != null && !brandsString.equals(""))
+            params.put("brandsString", brandsString);
+        if (orderColumn != null && !orderColumn.equals(""))
+            params.put("orderColumn", orderColumn);
+        if (orderType != null && !orderType.equals(""))
+            params.put("orderType", orderType);
+        if (categoryAttrValueIds != null && !categoryAttrValueIds.equals(""))
+            params.put("categoryAttrValueIds", categoryAttrValueIds);
+        if (expandAttrValueIds != null && !expandAttrValueIds.equals(""))
+            params.put("expandAttrValueIds", expandAttrValueIds);
+        if (minPrice != null && !minPrice.equals(""))
+            params.put("minPrice", minPrice);
+        if (maxPrice != null && !maxPrice.equals(""))
+            params.put("maxPrice", maxPrice);
+        params.put("pageNum", pageNum);
+        params.put("pageSize", pageSize);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(SearchService.class)
+                .getItemListWithCid(params))
+                .subscribe(httpRxObserver);
+
+    }
+
 }
