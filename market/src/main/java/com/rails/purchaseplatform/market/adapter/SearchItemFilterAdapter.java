@@ -35,4 +35,8 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
         ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
         adapter.update(tags);
     }
+
+    public ArrayList getData() {
+        return mDataSource;
+    }
 }

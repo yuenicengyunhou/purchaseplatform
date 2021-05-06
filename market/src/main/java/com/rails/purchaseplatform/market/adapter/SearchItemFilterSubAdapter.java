@@ -27,6 +27,13 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
         }
         holder.rbTag.setText(mDataSource.get(position).getValueName());
 
+        boolean select = mDataSource.get(position).isSelect();
+        holder.rbTag.setSelected(select);
+        holder.rbTag.setOnClickListener(v -> {
+            mDataSource.get(position).setSelect(!select);
+            notifyDataSetChanged();
+        });
+
         return convertView;
     }
 

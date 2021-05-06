@@ -1,10 +1,15 @@
 package com.rails.purchaseplatform.market.ui.pop;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
+import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -12,7 +17,10 @@ import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchItemFilterAdapter;
 import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 商品/购物车规格弹窗
@@ -49,6 +57,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMode = mode;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void initialize(Bundle bundle) {
         switch (mMode) {
@@ -80,6 +89,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     /**
      * 搜索结果页 -> 过滤弹窗
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setFilterPopEvent() {
         binding.rlTitle.setVisibility(View.VISIBLE);
         binding.tvTitle.setText("筛选");
@@ -93,10 +103,62 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             dismiss();
         });
         binding.btnOk.setOnClickListener(v -> {
-            mDoFilter.doFilter("brand", "cid", "cate",
-                    "expand", "min", "max");
+            String[] params = getParams(adapter1);
+            mDoFilter.doFilter(params[0], // brands
+                    params[1], // cid
+                    params[2], // categoryAttr
+                    params[3], // expandAttr
+                    binding.etLowPrice.getText().toString().trim(),
+                    binding.etHighPrice.getText().toString().trim());
+            Log.d(TAG, " =========== " + Arrays.toString(params));
+            Log.d(TAG, " =========== " + binding.etLowPrice.getText().toString().trim());
+            Log.d(TAG, " =========== " + binding.etHighPrice.getText().toString().trim());
             dismiss();
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @NotNull
+    private String[] getParams(SearchItemFilterAdapter adapter1) {
+        String[] params = new String[4];
+
+        ArrayList<String> categoryAttrs = new ArrayList<>();
+        ArrayList<String> expandAttrs = new ArrayList<>();
+        for (SearchFilterBean searchFilterBean : (ArrayList<SearchFilterBean>) adapter1.getData()) {
+            String attrName = searchFilterBean.getFilterName();
+            ArrayList<String> attrs = new ArrayList<>();
+            int attrFlag = -1;
+            for (SearchFilterValue searchFilterValue : searchFilterBean.getFilterValues()) {
+                int attrFlag1 = -1;
+                if (searchFilterValue.isSelect()) { // 是选中状态
+                    if (attrFlag1 == -1) {
+                        attrFlag1 = searchFilterValue.getAttrFlag();
+                        attrFlag = attrFlag1;
+                    }
+                    if (searchFilterValue.getAttrFlag() == 0 && attrName == "品牌") // 是品牌
+                        attrs.add(searchFilterValue.getValueName());
+                    else if (searchFilterValue.getAttrFlag() == 1 && attrName == "品类") // 是品类
+                        params[1] = searchFilterValue.getValueName();
+                    else { // 是主类型或折叠类型
+                        attrs.add(searchFilterValue.getValueName());
+                    }
+                }
+            }
+            if (attrName == "品牌") {
+                params[0] = String.join(",", attrs);
+            } else if (attrName == "类目") {
+                // 不用管了
+            } else if (attrFlag == 2) {
+                String cateAttr = attrName + "_" + String.join("||", attrs);
+                categoryAttrs.add(cateAttr);
+            } else if (attrFlag == 3) {
+                String exAttr = attrName + "_" + String.join("||", attrs);
+                expandAttrs.add(exAttr);
+            }
+        }
+        params[2] = String.join("@", categoryAttrs);
+        params[3] = String.join("@", expandAttrs);
+        return params;
     }
 
     /**
