@@ -93,10 +93,11 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
             protected void onSuccess(ListBeen<OrderInfoBean> response) {
                 boolean lastPage = response.isLastPage();
                 boolean firstPage = response.isFirstPage();
+                int totalPageCount = response.getTotalPageCount();
                 baseView.dismissDialog();
                 ArrayList<OrderInfoBean> list = response.getList();
 //                boolean isClear = page <= 1;
-                baseView.getOrder(list, lastPage, firstPage);
+                baseView.getOrder(list, lastPage, firstPage,totalPageCount);
             }
         });
     }

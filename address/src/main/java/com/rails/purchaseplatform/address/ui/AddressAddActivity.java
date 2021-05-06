@@ -18,11 +18,13 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.utils.LocationUtil;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import androidx.annotation.Nullable;
 
@@ -147,9 +149,21 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String men = barBinding.etName.getContent().trim();
         String phone = barBinding.etPhone.getContent().trim();
         String area = barBinding.etArea.getContent().trim();
-        String remark = barBinding.etRemark.getText().toString().trim();
+        String remark = Objects.requireNonNull(barBinding.etRemark.getText()).toString().trim();
         int isReceivingAddress = barBinding.cbReceive.isChecked() ? 1 : 0;
         int isInvoiceAddress = barBinding.cbInvoice.isChecked() ? 1 : 0;
+        verify(men, phone, area, remark, isReceivingAddress, isInvoiceAddress);
+
+    }
+
+    /**
+     * 条件判断
+     */
+    private void verify(String men, String phone, String area, String remark, int isReceivingAddress, int isInvoiceAddress) {
+        if ((isReceivingAddress + isInvoiceAddress) < 1) {
+            ToastUtil.showCenter(this, "请选择地址类型");
+            return;
+        }
         presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId);
     }
 

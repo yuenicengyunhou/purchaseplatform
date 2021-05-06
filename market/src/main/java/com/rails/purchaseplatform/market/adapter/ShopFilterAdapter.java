@@ -39,4 +39,14 @@ public class ShopFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, Ite
     public ArrayList<SearchFilterBean> getDataSource() {
         return mDataSource;
     }
+
+    public void resetSelectState() {
+        for (SearchFilterBean filterBean : mDataSource) {
+            ArrayList<SearchFilterValue> filterValues = filterBean.getFilterValues();
+            for (SearchFilterValue value : filterValues) {
+                value.setSelect(false);
+            }
+        }
+        notifyDataSetChanged();
+    }
 }

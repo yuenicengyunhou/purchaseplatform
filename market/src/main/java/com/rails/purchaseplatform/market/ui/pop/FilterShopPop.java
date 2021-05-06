@@ -3,7 +3,6 @@ package com.rails.purchaseplatform.market.ui.pop;
 import android.os.Bundle;
 
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
-import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
@@ -34,7 +33,7 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
     private ArrayList<SearchFilterBean> mBeans;
     private int mMode = 0;
     private FilterCompleteListener filterCompleteListener;
-    private ShopFilterAdapter shopAdapter;
+//    private ShopFilterAdapter shopAdapter;
 
     public FilterShopPop() {
         super();
@@ -73,12 +72,12 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
                 adapter1.update(mBeans, true);
                 break;
             case MODE_4:
-                shopAdapter = new ShopFilterAdapter(getActivity());
+                ShopFilterAdapter shopAdapter = new ShopFilterAdapter(getActivity());
                 binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
                 binding.recycler.setAdapter(shopAdapter);
                 //(ArrayList<SearchFilterBean>)
                 shopAdapter.update(mBeans, true);
-                onClick();
+                onClick(shopAdapter);
                 break;
             default:
                 break;
@@ -89,7 +88,7 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
 //        this.mSkuId = skuId;
 //    }
 
-    void onClick() {
+    void onClick(ShopFilterAdapter shopAdapter) {
         binding.btnClose.setOnClickListener(v -> dismiss());
 
 //        final String SALE_NUM = "1"; // 固定1
@@ -100,15 +99,7 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
             dismiss();
         });
 
-        binding.btnReset.setOnClickListener(v -> {
-            for (SearchFilterBean filterBean : mBeans) {
-                ArrayList<SearchFilterValue> filterValues = filterBean.getFilterValues();
-                for (SearchFilterValue value : filterValues) {
-                    value.setSelect(false);
-                }
-            }
-            shopAdapter.update(mBeans, true);
-        });
+        binding.btnReset.setOnClickListener(v -> shopAdapter.resetSelectState());
     }
 
     //    public void setAddToCartListener(PropertyPop.AddToCart addToCart) {

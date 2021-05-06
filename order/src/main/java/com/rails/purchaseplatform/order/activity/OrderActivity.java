@@ -7,7 +7,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -286,7 +285,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {
-                return tabs == null ? 0 : tabs.length;
+                return tabs.length;
             }
 
             @Override
@@ -372,7 +371,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     }
 
     @Override
-    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear) {
+    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear, int totalPageCount) {
 
     }
 
