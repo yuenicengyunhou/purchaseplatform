@@ -11,8 +11,11 @@ import com.rails.purchaseplatform.framwork.adapter.BaseAbsAdapter;
 import com.rails.purchaseplatform.market.R;
 
 public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue> {
-    public SearchItemFilterSubAdapter(Context context) {
+    private boolean isMultiSelect;
+
+    public SearchItemFilterSubAdapter(Context context, boolean isMultiSelect) {
         super(context);
+        this.isMultiSelect = isMultiSelect;
     }
 
     @Override
@@ -30,6 +33,13 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
         boolean select = mDataSource.get(position).isSelect();
         holder.rbTag.setSelected(select);
         holder.rbTag.setOnClickListener(v -> {
+            if (!isMultiSelect) {
+                for (SearchFilterValue value : mDataSource) {
+                    if (value.isSelect()) {
+                        value.setSelect(!value.isSelect());
+                    }
+                }
+            }
             mDataSource.get(position).setSelect(!select);
             notifyDataSetChanged();
         });
