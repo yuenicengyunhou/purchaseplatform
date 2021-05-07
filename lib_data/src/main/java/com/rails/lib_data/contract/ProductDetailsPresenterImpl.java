@@ -129,22 +129,20 @@ public class ProductDetailsPresenterImpl
             @Override
             protected void onSuccess(ArrayList<ProductPriceBean> response) {
                 baseView.dismissDialog();
-                if (isCallBack()) {
-                    ProductPriceBean bean = new ProductPriceBean();
-                    ArrayList<ItemPicture> pics = new ArrayList<>();
-                    ArrayList<ProductBillBean> billBeans = new ArrayList<>();
-                    billBeans.add(new ProductBillBean("附件名称", "附件数量"));
-                    if (response == null || response.isEmpty()) {
-                        bean.setCreditLevel("0");
-                        bean.setSellPrice(0.0D);
-                        bean.setMarketPrice(0.0D);
-                    } else {
-                        bean = response.get(0);
-                        billBeans.addAll(bean.getPackinglist());
-                        pics.addAll(bean.getPictureUrl());
-                    }
-                    baseView.onGetProductPriceSuccess(bean, pics, billBeans);
+                ProductPriceBean bean = new ProductPriceBean();
+                ArrayList<ItemPicture> pics = new ArrayList<>();
+                ArrayList<ProductBillBean> billBeans = new ArrayList<>();
+                billBeans.add(new ProductBillBean("附件名称", "附件数量"));
+                if (response == null || response.isEmpty()) {
+                    bean.setCreditLevel("0");
+                    bean.setSellPrice(0.0D);
+                    bean.setMarketPrice(0.0D);
+                } else {
+                    bean = response.get(0);
+                    billBeans.addAll(bean.getPackinglist());
+                    pics.addAll(bean.getPictureUrl());
                 }
+                baseView.onGetProductPriceSuccess(bean, pics, billBeans);
             }
         });
     }

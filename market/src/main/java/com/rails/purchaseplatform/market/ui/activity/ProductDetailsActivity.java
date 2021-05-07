@@ -10,6 +10,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
@@ -57,10 +61,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.RequiresApi;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
-
 /**
  * 商品详情页
  */
@@ -101,6 +101,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ItemSkuInfo mCheckedItemSkuInfo;
     private String mDelivery;
+    private String mPrice;
 
 
     //
@@ -409,7 +410,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (TextUtils.isEmpty(skuId))
             return;
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mDelivery, mode);
+            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mPrice, mDelivery, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
@@ -422,6 +423,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                                 30L, 40L, 50, // 非必要属性
                                 String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", count, mCheckedItemSkuInfo.getId()),
                                 true);
+                        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
                         mPop.dismiss();
                     } else {
                         ToastUtil.showCenter(ProductDetailsActivity.this, "没有此型号商品或商品库存不足");
@@ -441,7 +443,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onItemClicked(ItemSkuInfo itemSkuInfo) {
         Log.d(TAG, "详情页收到监听事件");
-        mCheckedItemSkuInfo = itemSkuInfo;
+        if (itemSkuInfo != null) {
+            mCheckedItemSkuInfo = itemSkuInfo;
+        }
     }
 
     /**
@@ -464,9 +468,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             params.setWeight(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getWeight()));
             params.setWeightUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
             // TODO: 2021/4/22 包装尺寸从哪里取？
-            params.setSize(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            params.setSize("");
             // TODO: 2021/4/22 商品单位从哪里取？
-            params.setItemUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            params.setItemUnit("");
 
             mParamsPop = new ProductDetailsParamsPop(params);
             mParamsPop.setType(BasePop.MATCH_WRAP);
@@ -518,6 +522,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
 
+    /**
+     * 请求商品详情接口成功回调方法
+     *
+     * @param bean         商品详情信息
+     * @param serviceBeans 售后服务bean
+     * @param recCompanys  推荐企业列表
+     */
     @Override
     public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys) {
         if (bean == null)
@@ -557,7 +568,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
 
-//        binding.ratioImage // TODO 设置图片
+//        binding.ratioImage // TODO 设置店铺图片
 
         String creditLv = bean.getItemPublishVo().getCreditLevel();
         switch (creditLv) {
@@ -633,6 +644,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
+        mPrice = String.valueOf(bean.getSellPrice());
         binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
         binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
         binding.fsvScore.setStar((int) bean.getScore());

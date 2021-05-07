@@ -21,7 +21,7 @@
             android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/common_border"
-            android:background="@color/font_red" />
+            android:background="@drawable/ic_cart_null" />
 
         <TextView
             android:id="@+id/tv_price"

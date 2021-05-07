@@ -11,14 +11,13 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
-import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
-import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
@@ -35,7 +34,6 @@ import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -57,7 +55,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     private DoFilter mDoFilter;
     private TypeSelect mTypeSelect;
 
-    private String mMinPrice, mMaxPrice, mDelivery;
+    private String mMinPrice, mMaxPrice, mDelivery, mPrice;
 
     private ArrayList<T> mBeans;
     private ArrayList<ItemSkuInfo> mItemSkuInfos;
@@ -80,22 +78,23 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMaxPrice = maxPrice;
     }
 
-    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, String delivery, int mode) {
+    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, String price, String delivery, int mode) {
         super();
         mBeans = beans;
         mMode = mode;
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
         mItemSkuInfo = mItemSkuInfos.get(0);
         mDelivery = delivery;
+        mPrice = price;
         mProductDetailsPresenter = new ProductDetailsPresenterImpl(getActivity(), new ProductDetailsContract.ProductDetailsView() {
             @Override
             public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys) {
-                
+
             }
 
             @Override
             public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
-
+                binding.tvPrice.setText(String.valueOf(bean.getSellPrice()));
             }
 
             @Override
@@ -191,9 +190,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     params[3], // expandAttr
                     binding.etLowPrice.getText().toString().trim(),
                     binding.etHighPrice.getText().toString().trim());
-//            Log.d(TAG, " =========== " + Arrays.toString(params));
-//            Log.d(TAG, " =========== " + binding.etLowPrice.getText().toString().trim());
-//            Log.d(TAG, " =========== " + binding.etHighPrice.getText().toString().trim());
             dismiss();
         });
     }
@@ -254,19 +250,23 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.llTop.setVisibility(View.VISIBLE);
         binding.rlBuyCount.setVisibility(View.VISIBLE);
         binding.addCart.setVisibility(View.VISIBLE);
-        // TODO: 2021/5/7 设置价格 需要请求接口
-//        binding.tvPrice.setText(mItemSkuInfo.get);
+        Glide.with(getContext())
+                .load("https:" + mItemSkuInfo.getPictureUrl())
+                .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
+                .into(binding.imgProduct);
+        binding.tvPrice.setText(mPrice);
         binding.tvSend.setText(mDelivery);
         mAdapter = new PropertyAdapter(getActivity());
         mAdapter.setItemSkuInfoList(mItemSkuInfos);
         mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() {
             @Override
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
-                Log.d(TAG, "========================== HAHAHAHA");
                 mItemSkuInfo = itemSkuInfo;
-                if (mItemSkuInfo != null)
+                if (mItemSkuInfo != null) {
+                    Log.d(TAG, mItemSkuInfo.getPictureUrl());
+                    Glide.with(getContext()).load("https:" + mItemSkuInfo.getPictureUrl()).placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null).into(binding.imgProduct);
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true);
-                // TODO: 2021/5/7 更新图片、名称、运费等
+                }
             }
         });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);

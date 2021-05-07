@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -58,25 +57,20 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
         binding.flow.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onItemClick(FlowTagLayout parent, View view, int position) {
-                Log.d(TAG, "adapter中的Item点击事件");
-
                 boolean select = mDataSource.get(p).getSpecificationValue().get(position).isSelect();
                 if (!select) {
-//                    for (int j = 0; j < mDataSource.size(); j++) {
-//                        if (mDataSource.get(j).isSelect()) {
-//                            mDataSource.get(j).setSelect(false);
-//                        }
-//                    }
+                    for (int j = 0; j < mDataSource.get(p).getSpecificationValue().size(); j++) {
+                        if (mDataSource.get(p).getSpecificationValue().get(j).isSelect()) {
+                            mDataSource.get(p).getSpecificationValue().get(j).setSelect(false);
+                        }
+                    }
                 }
-//                mDataSource.get(i).setSelect(!select);
+                mDataSource.get(p).getSpecificationValue().get(position).setSelect(!select);
                 notifyDataSetChanged();
-
-
-//                ItemSkuInfo itemSkuInfo = checkSkuInfo(mDataSource, mItemSkuInfoList);
-//                if (itemSkuInfo == null)
-                ToastUtil.showCenter(mContext, "没有此型号商品或商品库存不足");
-//                onItemClicked.onItemClicked(itemSkuInfo);
-                // TODO: 2021/5/6 比对数据 返回并显示
+                ItemSkuInfo itemSkuInfo = checkSkuInfo(mDataSource, mItemSkuInfoList);
+                if (itemSkuInfo == null)
+                    ToastUtil.showCenter(mContext, "没有此型号商品或商品库存不足");
+                onItemClicked.onItemClicked(itemSkuInfo);
             }
         });
     }
