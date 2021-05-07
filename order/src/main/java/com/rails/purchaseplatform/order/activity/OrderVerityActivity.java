@@ -139,7 +139,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
     @Override
     public void getResult(String msg, String data) {
-        String json = "{\"type\":1,\"msg\":\"提交成功\",\"btnleft\":\"查看采购单\",\"btnright\":\"立即评价\",\"urlleft\":\"/order/mian\",\"urlright\":\"/web/evalute\"}";
+        String json = "{\"type\": 1,\"msg\": \"采购单提交成功\",\"btnleft\": \"查看采购单\",\"btnright\": \"返回首页\",\"urlleft\": \"/order/mian\",\"urlright\": \"/rails/main\",\"code\": 0}";
         ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
         bean.setRightParams(data);
         ARouter.getInstance().build(ConRoute.MARKET.COMMIT_RESULT)

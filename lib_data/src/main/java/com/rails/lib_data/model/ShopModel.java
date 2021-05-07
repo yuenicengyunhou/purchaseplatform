@@ -46,9 +46,10 @@ public class ShopModel {
      * 价格向下
      * orderColumn=sellPrice&orderType=desc
      */
-    public void getShopItemList(long platformId, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans, HttpRxObserver httpRxObserver) {
+    public void getShopItemList(String platformId, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans, HttpRxObserver httpRxObserver) {
+        String temp = platformId == null ? "20" : platformId;
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", "20");
+        map.put("platformId", temp);
 //        map.put("shopId", shopInfoId);
         map.put("pageNum", page);
         map.put("pageSize", pageSize);
@@ -232,108 +233,6 @@ public class ShopModel {
 
         return mList;
     }
-
-
-//    /**
-//     * 遍历shopRecommendBean，按二级菜单处理数据
-//     */
-    /*public List<SearchFilterValue> getFilterBeans2(ShopRecommendBean shopRecommendBean) {
-        List<String> brands = shopRecommendBean.getBrands();
-        List<CategoryAttrsBean> categoryAttrs = shopRecommendBean.getCategoryAttrs();
-        List<ExpandAttrsBean> expandAttrs = shopRecommendBean.getExpandAttrs();
-        List<AllCidsBean> allCids = shopRecommendBean.getAllCids();
-        List<SearchFilterValue> mList = new ArrayList<>();
-
-        if (null != brands && !brands.isEmpty()) {
-            SearchFilterValue bean = new SearchFilterValue();
-            bean.setValueName("品牌");
-            bean.setParent(1);
-            mList.add(bean);
-//            ArrayList<SearchFilterValue> values = new ArrayList<>();
-            for (String s : brands) {
-                SearchFilterValue value = new SearchFilterValue();
-                value.setValueName(s);
-                value.setAttrFlag(0);
-                mList.add(bean);
-//                values.add(value);
-            }
-//            bean.setFilterValues(values);
-            //添加品牌
-        }
-
-        if (null != categoryAttrs && !categoryAttrs.isEmpty()) {
-            for (CategoryAttrsBean bean : categoryAttrs) {
-                SearchFilterValue cateBean = new SearchFilterValue();
-                String attrName = bean.getAttrName();
-                String attrId = bean.getAttrId();
-                List<AttrValuesBean> attrValues = bean.getAttrValues();
-                cateBean.setValueName(attrName);
-                cateBean.setValueId(attrId);
-                cateBean.setParent(1);
-                mList.add(cateBean);
-//                ArrayList<SearchFilterValue> values = new ArrayList<>();
-                for (AttrValuesBean valuesBean: attrValues) {
-                    String id = valuesBean.getId();
-                    String name = valuesBean.getName();
-                    SearchFilterValue cateValue = new SearchFilterValue();
-                    cateValue.setValueId(id);
-                    cateValue.setValueName(name);
-                    cateValue.setAttrFlag(2);
-                    mList.add(cateValue);
-                }
-
-//                cateBean.setFilterValues(values);//添加catego...
-//                mList.add(cateBean);
-            }
-        }
-
-
-        if (null != expandAttrs && !expandAttrs.isEmpty()) {
-            for (ExpandAttrsBean bean : expandAttrs) {
-                SearchFilterValue expandBean = new SearchFilterValue();
-                String attrName = bean.getAttrName();
-                String attrId = bean.getAttrId();
-                List<AttrValuesBean> attrValues = bean.getAttrValues();
-                expandBean.setValueName(attrName);
-                expandBean.setValueId(attrId);
-                expandBean.setParent(1);
-//                ArrayList<SearchFilterValue> values = new ArrayList<>();
-                for (AttrValuesBean valuesBean: attrValues) {
-                    String id = valuesBean.getId();
-                    String name = valuesBean.getName();
-                    SearchFilterValue expandValue = new SearchFilterValue();
-                    expandValue.setValueId(id);
-                    expandValue.setValueName(name);
-                    expandValue.setAttrFlag(3);
-                    mList.add(expandValue);
-                }
-
-//                expandBean.setFilterValues(values);//添加expand...
-//                mList.add(expandBean);
-            }
-        }
-
-        if (null != allCids && !allCids.isEmpty()) {
-            SearchFilterValue bean = new SearchFilterValue();
-            bean.setValueName("类目");
-            bean.setParent(1);
-            mList.add(bean);
-//            ArrayList<SearchFilterValue> values = new ArrayList<>();
-            for (AllCidsBean allCidsBean : allCids) {
-                SearchFilterValue value = new SearchFilterValue();
-                String id = allCidsBean.getId();
-                String name = allCidsBean.getName();
-                value.setValueName(name);
-                value.setValueId(id);
-                value.setAttrFlag(1);
-                mList.add(value);
-            }
-//            bean.setFilterValues(values);
-//            mList.add(bean);//添加品牌
-        }
-
-        return mList;
-    }*/
 
 }
 
