@@ -1,7 +1,9 @@
 package com.rails.purchaseplatform.framwork.http.faction;
 
+
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
+import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 
 import org.json.JSONException;
@@ -37,7 +39,8 @@ public class ExceptionEngine {
 
     public static ErrorBean handleException(Throwable e) {
         ErrorBean errorBean;
-        if (e instanceof HttpException) {             //HTTP错误
+        Logger.e(e.getMessage());
+        if (e instanceof HttpException) {//HTTP错误
             errorBean = new ErrorBean(e, HTTP_ERROR);
             errorBean.setMsg("网络请求异常");  //均视为网络错误
         } else if (e instanceof HttpError) {    //服务器返回的错误
