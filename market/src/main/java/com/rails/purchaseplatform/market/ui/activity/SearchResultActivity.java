@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -113,24 +114,45 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
-            ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
-            if (filterBeans == null || filterBeans.size() == 0) {
-                ToastUtil.showCenter(this, "没有过滤条件");
-                return;
-            }
-            PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3, mMinPrice, mMaxPrice);
-            mPop.setGravity(Gravity.BOTTOM);
-            mPop.setType(BasePop.MATCH_WRAP);
-            mPop.setFilterListener(new PropertyPop.DoFilter() {
-                @Override
-                public void doFilter(String brand, String cid, String categoryAttr, String expandAttr, String minPrice, String maxPrice) {
-                    fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice});
-                    mMinPrice = minPrice;
-                    mMaxPrice = maxPrice;
+            if (mSearchType == 0) {
+                ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
+                if (filterBeans == null || filterBeans.size() == 0) {
+                    ToastUtil.showCenter(this, "没有过滤条件");
+                    return;
                 }
-            });
-            mPop.show(getSupportFragmentManager(), "property");
+                PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3, mMinPrice, mMaxPrice);
+                mPop.setGravity(Gravity.BOTTOM);
+                mPop.setType(BasePop.MATCH_WRAP);
+                mPop.setFilterListener(new PropertyPop.DoFilter() {
+                    @Override
+                    public void doFilter(String brand, String cid, String categoryAttr, String expandAttr, String minPrice, String maxPrice) {
+                        fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice});
+                        mMinPrice = minPrice;
+                        mMaxPrice = maxPrice;
+                    }
+                });
+                mPop.show(getSupportFragmentManager(), "property");
+            } else {
+                // TODO: 2021/5/7 构建固定的FilterBean
+                ArrayList<SearchFilterBean> filterBeans = fragment2.getFilterData();
+                Log.d("HELLO", "HELLO");
+                if (filterBeans == null || filterBeans.size() == 0) {
+                    ToastUtil.showCenter(this, "没有过滤条件");
+                    return;
+                }
+                PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 4);
+                mPop.setGravity(Gravity.BOTTOM);
+                mPop.setType(BasePop.MATCH_WRAP);
 
+                mPop.setShopFilterListener(new PropertyPop.DoShopFilter() {
+                    @Override
+                    public void doShopFilter(String shopType, String saleArea) {
+                        fragment2.sendShopFilterData(shopType, saleArea);
+                    }
+                });
+
+                mPop.show(getSupportFragmentManager(), "property");
+            }
         });
 
         binding.tvSearchKey.setOnClickListener(this); // 点击搜索关键字
@@ -244,6 +266,17 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          * @return
          */
         void sendFilterData(String[] strings);
+
+    }
+
+    public interface OnShopFilterClick {
+
+        /**
+         * 筛选条件
+         *
+         * @return
+         */
+        void sendShopFilterData(String shopType, String saleArea);
 
     }
 }

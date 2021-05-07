@@ -95,7 +95,8 @@ public interface SearchContract {
          * @param pageSize
          */
         void getShopListWithKeywordOnly(int pageNum, int pageSize, String keyword,
-                                        String orderColumn, String orderType, boolean isDialog);
+                                        String orderColumn, String orderType,
+                                        String shopType, String saleArea, boolean isDialog);
 
     }
 }

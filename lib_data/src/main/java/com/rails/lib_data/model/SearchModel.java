@@ -1,5 +1,7 @@
 package com.rails.lib_data.model;
 
+import android.text.TextUtils;
+
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.SearchService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
@@ -51,7 +53,7 @@ public class SearchModel {
      * @param orderType
      * @param httpRxObserver
      */
-    public void getShopListWithKeywordOnly(int pageNum, int pageSize, String keyword, String orderColumn, String orderType, HttpRxObserver httpRxObserver) {
+    public void getShopListWithKeywordOnly(int pageNum, int pageSize, String keyword, String orderColumn, String orderType, String shopType, String saleArea, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageNum", pageNum);
@@ -59,6 +61,8 @@ public class SearchModel {
         params.put("keyword", keyword);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
         if (orderType != null) params.put("orderType", orderType);
+        if (!TextUtils.isEmpty(shopType)) params.put("shopType", shopType);
+        if (!TextUtils.isEmpty(saleArea)) params.put("saleArea", saleArea);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(SearchService.class)

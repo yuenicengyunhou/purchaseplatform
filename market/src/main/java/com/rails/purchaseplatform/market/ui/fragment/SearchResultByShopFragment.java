@@ -1,40 +1,53 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.reflect.TypeToken;
+import com.rails.lib_data.bean.AreaCodeBean;
+import com.rails.lib_data.bean.AreaCodeFullBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
+import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.forAppShow.ShopAttribute;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchShopPresenterImpl;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultByShopAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByShopBinding;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
 /**
  * 搜索结果 - 按店铺搜索
  */
-public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResultByShopBinding> implements
-        SearchContract.SearchShopView, SearchResultActivity.OnSortClick {
+public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResultByShopBinding>
+        implements
+        SearchContract.SearchShopView,
+        SearchResultActivity.OnSortClick,
+        SearchResultActivity.OnShopFilterClick {
 
     final private String TAG = SearchResultByShopFragment.class.getSimpleName();
 
     private SearchResultByShopAdapter mAdapter;
     private SearchContract.SearchShopPresenter mPresenter;
 
+    private ArrayList<SearchFilterBean> mSearchFilterList;
+
     private String mSearchKey;
     private final int DEF_PAGE = 1;
     private int page = DEF_PAGE;
     private String orderColumn;
     private String orderType;
+    private String saleArea;
+    private String shopType;
 
     @Override
     protected void loadData() {
@@ -52,6 +65,46 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         onRefresh();
     }
 
+    /**
+     * 获取筛选条件
+     */
+    private ArrayList<SearchFilterBean> getFilter() {
+        mSearchFilterList = new ArrayList<>();
+        SearchFilterValue value1 = new SearchFilterValue();
+        value1.setValueId("1");
+        value1.setValueName("集货商");
+        SearchFilterValue value2 = new SearchFilterValue();
+        value2.setValueId("2");
+        value2.setValueName("供应商");
+        ArrayList<SearchFilterValue> values = new ArrayList<>();
+        values.add(value1);
+        values.add(value2);
+        SearchFilterBean bean1 = new SearchFilterBean();
+        bean1.setFilterName("店铺类型");
+        bean1.setFilterValues(values);
+        bean1.setMultiSelect(false);
+
+        Type type = new TypeToken<AreaCodeFullBean>() {
+        }.getType();
+        AreaCodeFullBean bean = JsonUtil.parseJson(getActivity(), "area_code.json", type);
+        SearchFilterBean bean2 = new SearchFilterBean();
+        bean2.setFilterName("收货区域");
+        bean2.setMultiSelect(false);
+        ArrayList<SearchFilterValue> values2 = new ArrayList<>();
+        for (AreaCodeBean codeBean : bean.getData()) {
+            SearchFilterValue value = new SearchFilterValue();
+            value.setValueId(codeBean.getCode());
+            value.setValueName(codeBean.getName());
+            values2.add(value);
+        }
+        bean2.setFilterValues(values2);
+
+        mSearchFilterList.add(bean1);
+        mSearchFilterList.add(bean2);
+
+        return mSearchFilterList;
+    }
+
 
     @Override
     protected void loadPreVisitData() {
@@ -65,9 +118,9 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         binding.smart.setEnableRefresh(false);
         binding.smart.setOnLoadMoreListener(refreshLayout -> {
             page++;
-            notifyData(page, mSearchKey, orderColumn, orderType, false);
+            notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, false);
         });
-        notifyData(page, mSearchKey, orderColumn, orderType, true);
+        notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
     }
 
 
@@ -80,8 +133,8 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
      * @param page
      * @param isDialog
      */
-    void notifyData(int page, String keyWord, String orderColumn, String orderType, boolean isDialog) {
-        mPresenter.getShopListWithKeywordOnly(page, 30, keyWord, orderColumn, orderType, isDialog);
+    void notifyData(int page, String keyWord, String orderColumn, String orderType, String shopType, String saleArea, boolean isDialog) {
+        mPresenter.getShopListWithKeywordOnly(page, 30, keyWord, orderColumn, orderType, shopType, saleArea, isDialog);
     }
 
 
@@ -102,11 +155,20 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         this.orderType = orderType;
         this.mSearchKey = keyword;
         page = DEF_PAGE;
-        notifyData(page, mSearchKey, orderColumn, orderType, true);
+        notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
     }
 
     @Override
     public ArrayList<SearchFilterBean> getFilterData() {
-        return null;
+        return getFilter();
+    }
+
+    @Override
+    public void sendShopFilterData(String shopType, String saleArea) {
+        this.shopType = shopType;
+        this.saleArea = saleArea;
+        Log.d(TAG, "在这个位置做网络请求。 shopType = " + shopType + ", saleArea = " + saleArea + ".");
+        // TODO: 2021/5/7 做网络请求
+        notifyData(page, mSearchKey, orderColumn, orderType, this.shopType, this.saleArea, true);
     }
 }

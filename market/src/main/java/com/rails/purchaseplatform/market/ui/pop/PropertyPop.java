@@ -53,6 +53,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     private PropertyAdapter mAdapter;
 
     private DoFilter mDoFilter;
+    private DoShopFilter mDoShopFilter;
     private TypeSelect mTypeSelect;
 
     private String mMinPrice, mMaxPrice, mDelivery, mPrice;
@@ -76,6 +77,12 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMode = mode;
         mMinPrice = minPrice;
         mMaxPrice = maxPrice;
+    }
+
+    public PropertyPop(ArrayList<T> beans, int mode) {
+        super();
+        mBeans = beans;
+        mMode = mode;
     }
 
     public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, String price, String delivery, int mode) {
@@ -151,13 +158,57 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 setFilterPopEvent();
                 break;
 
+            case MODE_4:
+                setShopFilterPopEvent();
+                break;
+
             default:
                 break;
         }
     }
 
+
     /**
-     * 搜索结果页 -> 过滤弹窗
+     * 店铺搜索结果 -> 过滤弹窗
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setShopFilterPopEvent() {
+        binding.rlTitle.setVisibility(View.VISIBLE);
+        binding.llBottom.setVisibility(View.VISIBLE);
+        binding.tvTitle.setText("筛选");
+        SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity());
+        binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
+        binding.recycler.setAdapter(adapter1);
+        adapter1.update(mBeans, true);
+        binding.ibClose.setOnClickListener(v -> this.dismiss());
+        binding.btnReset.setOnClickListener(v -> {
+            for (SearchFilterBean bean : (ArrayList<SearchFilterBean>) mBeans) {
+                for (SearchFilterValue value : bean.getFilterValues()) {
+                    value.setSelect(false);
+                }
+            }
+            adapter1.update(mBeans, true);
+        });
+        binding.btnOk.setOnClickListener(v -> {
+            ArrayList<SearchFilterBean> beans = (ArrayList<SearchFilterBean>) adapter1.getData();
+            String shopType = "", saleArea = "";
+            for (SearchFilterValue value : beans.get(0).getFilterValues()) {
+                if (value.isSelect()) {
+                    shopType = value.getValueId();
+                }
+            }
+            for (SearchFilterValue value : beans.get(1).getFilterValues()) {
+                if (value.isSelect()) {
+                    saleArea = value.getValueId();
+                }
+            }
+            mDoShopFilter.doShopFilter(shopType, saleArea);
+            dismiss();
+        });
+    }
+
+    /**
+     * 商品搜索结果页 -> 过滤弹窗
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setFilterPopEvent() {
@@ -337,7 +388,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
 
     /**
-     * 搜索结果页 过滤监听
+     * 商品搜索结果页 过滤监听
      *
      * @param doFilter
      */
@@ -346,12 +397,29 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     }
 
     /**
-     * 搜索结果页 过滤接口方法
+     * 商品搜索结果页 接口方法
      */
     public interface DoFilter {
         void doFilter(String brand, String cid,
                       String categoryAttr, String expandAttr,
                       String minPrice, String maxPrice);
+    }
+
+
+    /**
+     * 店铺搜索结果页 过滤监听
+     *
+     * @param doShopFilter
+     */
+    public void setShopFilterListener(DoShopFilter doShopFilter) {
+        this.mDoShopFilter = doShopFilter;
+    }
+
+    /**
+     * 店铺搜索结果页 接口方法
+     */
+    public interface DoShopFilter {
+        void doShopFilter(String shopType, String saleArea);
     }
 
 
