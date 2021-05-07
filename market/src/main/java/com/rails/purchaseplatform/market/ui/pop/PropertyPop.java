@@ -2,7 +2,9 @@ package com.rails.purchaseplatform.market.ui.pop;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -187,11 +189,34 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.btnClose.setOnClickListener(v -> this.dismiss());
         binding.tvAdd.setOnClickListener(v -> changeNum(true));
         binding.tvReduce.setOnClickListener(v -> changeNum(false));
+        binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
         binding.addCart.setOnClickListener(v -> {
             if (null != mTypeSelect) {
                 mTypeSelect.onSelectComplete(mAdapter.getListData());
             }
             dismiss();
+        });
+        binding.etNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (String.valueOf(s).length() == 0) {
+                    binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+                } else if (Integer.parseInt(String.valueOf(s)) <= 1) {
+                    binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+                } else {
+                    binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
     }
 
@@ -201,7 +226,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * @param isAdd 是否增加数量
      */
     private void changeNum(boolean isAdd) {
-        int number = 0;
+        int number = 1;
         String num = binding.etNum.getText().toString().trim();
         if (!TextUtils.isEmpty(num)) {
             number = Integer.parseInt(num);
@@ -209,7 +234,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         if (isAdd) {
             binding.etNum.setText(String.valueOf(number + 1));
         } else {
-            if (number == 0) {
+            if (number <= 1) {
                 return;
             }
             binding.etNum.setText(String.valueOf(number - 1));
