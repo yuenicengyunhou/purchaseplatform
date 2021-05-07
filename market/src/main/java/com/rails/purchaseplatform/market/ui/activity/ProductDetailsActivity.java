@@ -39,6 +39,7 @@ import com.rails.lib_data.contract.ProductDetailsContract;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -357,7 +358,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击店铺按钮 跳转到店铺详情页
         binding.llShop.setOnClickListener(v -> {
-            ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).navigation();
+            productDetailGoShopDetail();
         });
 
         // 点击收藏按钮 收藏商品
@@ -487,6 +488,22 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mChooseAddressPop = new ProductDetailsChooseAddressPop(this, addresses);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
+            mChooseAddressPop.setListener(new ProductDetailsChooseAddressPop.AddressListener() {
+                @Override
+                public void getAddrss(AddressBean bean) {
+                    binding.tvAddressDefault.setText(bean.getFullAddress());
+                }
+
+                @Override
+                public void getArea(String area) {
+                    AreaPop pop = new AreaPop();
+                    pop.setGravity(Gravity.BOTTOM);
+                    pop.setType(BasePop.MATCH_WRAP);
+                    pop.setListener(address -> binding.tvAddressDefault.setText(address));
+                    pop.show(getSupportFragmentManager(), "area");
+
+                }
+            });
         }
         mChooseAddressPop.show(getSupportFragmentManager(), "product_details_choose_address");
     }

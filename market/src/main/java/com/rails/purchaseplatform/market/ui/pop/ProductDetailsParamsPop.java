@@ -58,6 +58,9 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
         binding.ibClose.setOnClickListener(v -> {
             dismiss();
         });
+
+        binding.btnOk.setOnClickListener(v -> dismiss());
+
     }
 
     private void setTextOrGone(String value, TextView viewKey, TextView viewValue) {

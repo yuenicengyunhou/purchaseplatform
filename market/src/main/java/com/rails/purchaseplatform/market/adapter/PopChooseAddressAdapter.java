@@ -27,6 +27,8 @@ public class PopChooseAddressAdapter extends BaseRecyclerAdapter<AddressBean, It
         binding.setChooseAddress(addressBean);
         binding.llAddress.setOnClickListener(v -> {
             // TODO: 2021/4/2 选中地址，更改CheckBox状态，然后返回选中的地址信息给Pop
+            if (positionListener != null)
+                positionListener.onPosition(addressBean, position);
         });
     }
 }
