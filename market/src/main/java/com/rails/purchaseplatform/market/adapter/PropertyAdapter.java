@@ -1,10 +1,12 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationValue;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.purchaseplatform.common.widget.tags.FlowTagLayout;
 import com.rails.purchaseplatform.common.widget.tags.OnTagClickListener;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
@@ -13,6 +15,7 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductPropertyBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,6 +25,9 @@ import java.util.List;
  * @date: 2021/4/8
  */
 public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, ItemProductPropertyBinding> {
+
+    private ArrayList<ItemSkuInfo> mItemSkuInfoList;
+    private OnItemClicked onItemClicked;
 
     public PropertyAdapter(Context context) {
         super(context);
@@ -44,6 +50,7 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
         binding.flow.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onItemClick(FlowTagLayout parent, View view, int position) {
+                onItemClicked.onItemClicked(checkSkuInfo(mDataSource, mItemSkuInfoList));
                 // TODO: 2021/5/6 比对数据 返回并显示
             }
         });
@@ -54,6 +61,80 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
      */
     public ArrayList<SpecificationPopBean> getListData() {
         return mDataSource;
+    }
+
+    public void setItemSkuInfoList(ArrayList<ItemSkuInfo> itemSkuInfos) {
+        mItemSkuInfoList = itemSkuInfos;
+    }
+
+
+    /**
+     * 获取SkuId
+     *
+     * @param beans
+     */
+    private ItemSkuInfo checkSkuInfo(ArrayList<SpecificationPopBean> beans, ArrayList<ItemSkuInfo> itemSkuInfos) {
+        ItemSkuInfo itemSkuInfo = null;
+
+        //选中属性map
+        HashMap<String, String> hashMapSelect = new HashMap<>();
+        for (SpecificationPopBean popBean : beans) {
+            String id = popBean.getAttrId();
+            for (SpecificationValue value : popBean.getSpecificationValue()) {
+                if (value.isSelect()) {
+                    hashMapSelect.put(popBean.getAttrId(), value.getAttrValueId());
+                }
+            }
+        }
+
+        ArrayList<HashMap<String, String>> allHash = new ArrayList<>();
+        for (ItemSkuInfo skuInfo : itemSkuInfos) {
+            HashMap<String, String> hashMap = new HashMap<>();
+            String stringName = skuInfo.getAttributes();
+            String[] strings = stringName.split(";");
+            for (String s : strings) {
+                String[] subs = s.split(":");
+                hashMap.put(subs[0], subs[1]);
+            }
+            allHash.add(hashMap);
+        }
+
+        boolean isMatch = false;
+        String[] skuInfo = new String[3];
+        int lastPosition = 0;
+        for (HashMap<String, String> map : allHash) { // 外
+            for (String key : hashMapSelect.keySet()) { // 内
+                String value = map.get(key);
+                if (TextUtils.isEmpty(value)) {
+                    isMatch = false;
+                    lastPosition++;
+                    break;
+                }
+                if (value.equals(hashMapSelect.get(key))) {
+                    isMatch = true;
+                    continue;
+                } else {
+                    isMatch = false;
+                    lastPosition++;
+                    break;
+                }
+            }
+
+            if (isMatch) {
+                itemSkuInfo = itemSkuInfos.get(lastPosition);
+            }
+        }
+
+        return itemSkuInfo;
+    }
+
+
+    public void setOnItemClicked(OnItemClicked onItemClicked) {
+        this.onItemClicked = onItemClicked;
+    }
+
+    public interface OnItemClicked {
+        void onItemClicked(ItemSkuInfo itemSkuInfo);
     }
 
 }
