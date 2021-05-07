@@ -1,5 +1,6 @@
 package com.rails.lib_data;
 
+
 /**
  * author:wangqi
  * date:2021/4/22
@@ -60,8 +61,9 @@ public class SubSkuDemandInfoBean {
     private String brandName;//品牌名称 ,
     private String skuAnnexUrlName;// SKU外部商城名称 ,
     private String skuAnnexUrl;//SKU外部商城链接 ,
-    private String subSkuDemandOrderInfo;//子订单以及sku对应的需求详情
-    private String subSkuDemandNoList;//子订单以及sku对应的需求单号列表 ,
+//    private ArrayList<SubSkuDemandOrderInfoBean> subSkuDemandOrderInfo;//子订单以及sku对应的需求详情
+    private Object subSkuDemandOrderInfo;//子订单以及sku对应的需求详情
+    private Object subSkuDemandNoList;//子订单以及sku对应的需求单号列表 ,
     private boolean canAfs;//是否可以售后 ,
 
     public long getId() {
@@ -248,19 +250,25 @@ public class SubSkuDemandInfoBean {
         this.skuAnnexUrl = skuAnnexUrl;
     }
 
-    public String getSubSkuDemandOrderInfo() {
+    public Object getSubSkuDemandOrderInfo() {
         return subSkuDemandOrderInfo;
     }
 
-    public void setSubSkuDemandOrderInfo(String subSkuDemandOrderInfo) {
+    public void setSubSkuDemandOrderInfo(Object subSkuDemandOrderInfo) {
         this.subSkuDemandOrderInfo = subSkuDemandOrderInfo;
     }
 
-    public String getSubSkuDemandNoList() {
+    //    public ArrayList<SubSkuDemandOrderInfoBean> getSubSkuDemandOrderInfo() {
+//        return subSkuDemandOrderInfo;
+//    }
+
+
+
+    public Object getSubSkuDemandNoList() {
         return subSkuDemandNoList;
     }
 
-    public void setSubSkuDemandNoList(String subSkuDemandNoList) {
+    public void setSubSkuDemandNoList(Object subSkuDemandNoList) {
         this.subSkuDemandNoList = subSkuDemandNoList;
     }
 

@@ -52,7 +52,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 //        holder.lrSupplier.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getMen()));
 //        holder.lrCompany.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getPurchars()));
         holder.tvPrice.setText(parentBean.getTotalPrice());
-
+//        String orderStatusView = parentBean.getOrderStatusView();
         String orderNoStr = parentBean.getOrderNoStr();
         String orderTime = parentBean.getOrderTime();
         String provider = parentBean.getShopName();

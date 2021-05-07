@@ -18,27 +18,27 @@
         android:background="@color/white"
         android:padding="@dimen/dp_16">
 
-        <ImageView
-            android:id="@+id/tv_def"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/svg_circle_checked"
-            android:visibility="@{address.hasDefault==1?View.VISIBLE:View.GONE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+<!--        <ImageView-->
+<!--            android:id="@+id/tv_def"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:src="@drawable/svg_circle_checked"-->
+<!--            android:visibility="@{address.hasDefault==1?View.VISIBLE:View.GONE}"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:ignore="ContentDescription" />-->
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/paddingL"
+            android:layout_marginStart="@dimen/margin"
             android:text="@{address.receiverName}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_16"
-            app:layout_constraintStart_toEndOf="@id/tv_def"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -53,11 +53,11 @@
             android:textSize="@dimen/font_size_16" />
 
         <TextView
-            app:layout_constraintStart_toEndOf="@id/tv_def"
+            app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/tv_address"
             android:layout_width="0dp"
             app:layout_constraintHorizontal_weight="1"
-            android:layout_marginStart="@dimen/paddingL"
+            android:layout_marginStart="@dimen/margin"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tv_name"
             android:layout_marginTop="@dimen/dp_8"
@@ -84,8 +84,8 @@
         <TextView
             android:id="@+id/btn_recivice"
             app:layout_constraintTop_toBottomOf="@id/tv_address"
-            app:layout_constraintStart_toEndOf="@id/tv_def"
-            android:layout_marginStart="@dimen/paddingL"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/margin"
             android:layout_marginTop="@dimen/margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

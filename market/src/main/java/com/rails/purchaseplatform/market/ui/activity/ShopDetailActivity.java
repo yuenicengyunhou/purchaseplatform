@@ -225,11 +225,12 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     public void loadShopProductList(ArrayList<ResultListBean> list, int totalCount) {
         barBinding.swipe.finishLoadMore();
         barBinding.swipe.finishRefresh();
-        adapter.update(list, mPage == PAGE_DEF);
-        if (adapter.getItemCount() == totalCount) {//本地数据达到接口总数居，不再更新list(接口bug，接口会多传一页)
-            barBinding.swipe.setEnableLoadMore(false);
+        if (mPage == PAGE_DEF) {
+            adapter.update(list, true);
         } else {
-            barBinding.swipe.setEnableLoadMore(true);
+            if (adapter.getItemCount() < totalCount) {
+                adapter.update(list, false);
+            }
         }
     }
 

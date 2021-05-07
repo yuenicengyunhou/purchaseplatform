@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.ConShare;
@@ -93,11 +94,12 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
             protected void onSuccess(ListBeen<OrderInfoBean> response) {
                 boolean lastPage = response.isLastPage();
                 boolean firstPage = response.isFirstPage();
-                int totalPageCount = response.getTotalPageCount();
+                Log.e("WQ", "lastPage==" + lastPage+"   firstPage"+firstPage);
+//                int totalPageCount = response.getTotalPageCount();
                 baseView.dismissDialog();
                 ArrayList<OrderInfoBean> list = response.getList();
 //                boolean isClear = page <= 1;
-                baseView.getOrder(list, lastPage, firstPage,totalPageCount);
+                baseView.getOrder(list, lastPage,firstPage);
             }
         });
     }

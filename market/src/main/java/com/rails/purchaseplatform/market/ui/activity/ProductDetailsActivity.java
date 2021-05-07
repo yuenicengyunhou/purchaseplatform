@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Build;
@@ -10,36 +9,24 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
-import com.orhanobut.logger.Logger;
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.ProductBillBean;
+import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultVo;
-import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
-import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportData;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
@@ -48,15 +35,18 @@ import com.rails.lib_data.contract.ProductDetailsContract;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.common.utils.JSBack;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
+import com.rails.purchaseplatform.market.adapter.pdetail.DetailImgAdapter;
+import com.rails.purchaseplatform.market.adapter.pdetail.ProductBillAdapter;
+import com.rails.purchaseplatform.market.adapter.pdetail.ProductRecCompanyAdapter;
+import com.rails.purchaseplatform.market.adapter.pdetail.ProductServiceAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
@@ -67,23 +57,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * 商品详情页
  */
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
         implements
-        JSBack,
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
         AddressToolContract.AddressToolView, PropertyAdapter.OnItemClicked {
-
-
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
-
-    final private ArrayList<String> TAB_URLS = new ArrayList<>();
 
     private ArrayList<String> pictureUrls = new ArrayList<>();
     private PropertyPop<SpecificationPopBean> mPop;
@@ -94,8 +83,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mSkuId;
     private ArrayList<AddressBean> addresses;
 
-    final private ArrayList<View> VIEWS = new ArrayList<>();
-
     private ProductDetailsParamsPop mParamsPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
 
@@ -104,10 +91,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private AddressToolContract.AddressToolPresenter mAddressPresenter;
 
     private ProductDetailsBean productDetailsBean;
-
-    private String recommendOrg, bindOrgName, accountName;
-    private String refundInfo, changeInfo, repairInfo, specialInfo;
-    private String packagingList;
 
     private boolean isCollect = false;
 
@@ -120,6 +103,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mDelivery;
 
 
+    //
+    private DetailImgAdapter imgAdapter;
+    private ProductBillAdapter billAdapter;
+    private ProductRecCompanyAdapter companyAdapter;
+    private ProductServiceAdapter serviceAdapter;
+
+
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
@@ -130,26 +120,39 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     @RequiresApi(api = Build.VERSION_CODES.Q)
     protected void initialize(Bundle bundle) {
-//        TAB_URLS.add(ConRoute.WEB_URL.PRODUCT_INFO);
-        TAB_URLS.add(ConRoute.WEB_URL.PACKAGE_LIST);
-        TAB_URLS.add(ConRoute.WEB_URL.SERVICES);
-        TAB_URLS.add(ConRoute.WEB_URL.RECOMMENDS);
-
-        mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
-        mGetProductDetailsPresenter.getProductDetails("20", mItemId, "20", true);
-
-        mAddressPresenter = new AddressToolPresenterImpl(this, this);
-        mAddressPresenter.getAddress("", "1");
-        mAddressPresenter.getDefAddress("", "1");
-
-//        VIEWS.add(binding.viewSplit1);
-        VIEWS.add(binding.viewSplit2);
-        VIEWS.add(binding.viewSplit3);
-        VIEWS.add(binding.viewSplit4);
 
         setTextStyleDeprecated();
 
+        mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
+        mAddressPresenter = new AddressToolPresenterImpl(this, this);
         mPresenter = new CartToolPresenterImpl(this, this);
+        mGetProductDetailsPresenter.getProductDetails("20", mItemId, "20", true);
+        mAddressPresenter.getAddress("", "1");
+        mAddressPresenter.getDefAddress("", "1");
+
+
+        //图片详情列表
+        imgAdapter = new DetailImgAdapter(this);
+        binding.webProductInfo.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.webProductInfo.setAdapter(imgAdapter);
+
+        //包装清单
+        billAdapter = new ProductBillAdapter(this);
+        binding.webPackageList.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.webPackageList.addItemDecoration(new SpaceDecoration(this, 1, R.color.bg_gray));
+        binding.webPackageList.setAdapter(billAdapter);
+
+        //推荐企业
+        companyAdapter = new ProductRecCompanyAdapter(this);
+        binding.webRecommend.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.webRecommend.setAdapter(companyAdapter);
+
+
+        //售后服务
+        serviceAdapter = new ProductServiceAdapter(this);
+        binding.webService.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        binding.webService.setAdapter(serviceAdapter);
+
 
         // 设置banner宽高
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
@@ -309,23 +312,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         }
     }
 
-    /**
-     * 加载4个WebView
-     */
-    @SuppressLint("JavascriptInterface")
-    private void loadWebView() {
-        WebView[] WEB_VIEWS = {
-                binding.webPackageList,
-                binding.webService,
-                binding.webRecommend
-        };
-
-        for (int i = 0; i < WEB_VIEWS.length; i++) {
-            setWeb(WEB_VIEWS[i], i);
-            WEB_VIEWS[i].addJavascriptInterface(ProductDetailsActivity.this, "app");
-            WEB_VIEWS[i].loadUrl(TAB_URLS.get(i));
-        }
-    }
 
     @Override
     protected int getColor() {
@@ -391,49 +377,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         Bundle bundle = new Bundle();
         bundle.putString("shopInfoId", mShopId);
         ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
-    }
-
-    /**
-     * WebView属性设置
-     *
-     * @param view WebView
-     */
-    private void setWeb(WebView view, int index) {
-        WebSettings webSettings = view.getSettings();
-        webSettings.setSupportZoom(false);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setDatabaseEnabled(true);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setBuiltInZoomControls(false);
-        webSettings.setDefaultTextEncodingName("utf-8");
-
-        // 设置WebViewClient
-        view.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-            }
-
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                super.onReceivedError(view, request, error);
-                Logger.d("FAILED_URL = " + request.getUrl().toString());
-                view.reload();
-                view.setVisibility(View.GONE);
-                VIEWS.get(index).setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                super.onReceivedError(view, errorCode, description, failingUrl);
-                Log.d(TAG, "\nERROR_CODE = " + errorCode + "\nDESCRIPTION = " + description + "\nFAILING_URL = " + failingUrl);
-            }
-        });
     }
 
 
@@ -576,11 +519,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 
     @Override
-    public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
+    public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys) {
         if (bean == null)
             return;
         this.productDetailsBean = bean;
         this.mCheckedItemSkuInfo = bean.getItemSkuInfoList().get(0);
+
+        serviceAdapter.update(serviceBeans, true);
+        companyAdapter.update(recCompanys, true);
+
         mGetProductDetailsPresenter.getProductDelivery(bean.getItemPublishVo().getShopId());
 
 
@@ -627,21 +574,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 break;
         }
 
-        ItemAfterSaleVo afterSale = bean.getItemPublishVo().getItemAfterSaleVo();
-        if (afterSale.getRefundService() == 1) refundInfo = "特殊商品不允许退货。";
-        else refundInfo = "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请退货。";
-        if (afterSale.getChangeService() == 1) changeInfo = "特殊商品，一经签收不予换货。";
-        else refundInfo = "确认收货后" + afterSale.getChangeDuration() + "日内出现质量问题可申请换货。";
-        repairInfo = "确认收货后" + afterSale.getRepaireDuration() + "月内出现质量问题可审请质保。";
-        specialInfo = "特殊说明" + afterSale.getSpecialDesc();
 
-        SupplierInfoImportData suppData = bean.getItemPublishVo().getSupplierInfoImportData();
-        recommendOrg = suppData.getRecommendOrg();
-        bindOrgName = suppData.getBindOrgName();
-        accountName = suppData.getAccountName();
-
-
-        Glide.with(this).load("https:" + bean.getItemPictureVoList().get(0).getPictureUrl()).into(binding.webProductInfo);
+//        Glide.with(this).load("https:" + bean.getItemPictureVoList().get(0).getPictureUrl()).into(binding.webProductInfo);
         getSpecificationPopBeans(bean);
 
     }
@@ -698,33 +632,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     @Override
-    public void onGetProductPriceSuccess(ProductPriceBean bean) {
+    public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
         binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
         binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
         binding.fsvScore.setStar((int) bean.getScore());
 
-        if (bean.getPackinglist() != null && bean.getPackinglist().size() != 0)
-            spliceList(bean.getPackinglist().get(0).getAnnexName());
+        billAdapter.update(billBeans, true);
+        imgAdapter.update(pics, true);
 
-        loadWebView();
-    }
-
-    public void spliceList(String annexName) {
-        String result = "{\"data\":[";
-        if (annexName.contains("``")) {
-            String[] strings = annexName.split("``");
-            for (int i = 0; i < strings.length; i++) {
-                String[] key_values = strings[i].split("\\*");
-                strings[i].split("\\*");
-                if (i == strings.length - 1)
-                    result += "{\"key\":\"" + key_values[0] + "\",\"value\":\"" + key_values[1] + "\"}]}";
-                else
-                    result += "{\"key\":\"" + key_values[0] + "\",\"value\":\"" + key_values[1] + "\"},";
-            }
-        } else {
-            result += "{\"key\":\"" + annexName.split("\\*")[0] + "\",\"value\":\"" + annexName.split("\\*")[1] + "\"}]}";
-        }
-        packagingList = result;
     }
 
     @Override
@@ -768,65 +683,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvAddressDefault.setText(bean.getFullAddress());
     }
 
-    @JavascriptInterface
-    @Override
-    public void onBack() {
-
-    }
-
-    @JavascriptInterface
-    @Override
-    public String getToken() {
-        return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
-    }
-
-    @JavascriptInterface
-    @Override
-    public void onLogin() {
-
-    }
-
-
-    /**
-     * H5 商品信息
-     */
-    @JavascriptInterface
-    public String getProductInfo() {
-        return productDetailsBean.getItemPictureVoList().get(0).getPictureUrl();
-    }
-
-    /**
-     * H5 推荐单位
-     */
-    @JavascriptInterface
-    public String getRecommend() {
-        return "{\"recommendOrg\":\"" + recommendOrg + "\",\"bindOrgName\":\"" + bindOrgName + "\",\"accountName\":\"" + accountName + "\"}";
-    }
-
-    /**
-     * H5 售后服务
-     */
-    @JavascriptInterface
-    public String getAfterSale() {
-        return "{\"refundInfo\":\"" + refundInfo + "\",\"changeInfo\":\"" + changeInfo + "\",\"repairInfo\":\"" + repairInfo + "\",\"specialInfo\":\"" + specialInfo + "\"}";
-    }
-
-    /**
-     * H5 包装清单
-     */
-    @JavascriptInterface
-    public String getPackagingList() {
-        return packagingList;
-    }
-
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         try {
-            binding.webPackageList.destroy();
-            binding.webRecommend.destroy();
-            binding.webService.destroy();
         } catch (Exception e) {
 
         }

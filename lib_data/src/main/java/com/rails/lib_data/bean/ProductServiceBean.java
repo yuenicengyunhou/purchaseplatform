@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.market.adapter.pdetail;
+package com.rails.lib_data.bean;
 
 /**
  * 推荐单位/服务对象

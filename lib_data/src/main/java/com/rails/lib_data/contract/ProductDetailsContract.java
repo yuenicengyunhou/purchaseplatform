@@ -1,7 +1,10 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.ProductBillBean;
+import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
@@ -22,13 +25,20 @@ public interface ProductDetailsContract {
         /**
          * 商品详情
          */
-        void onGetProductDetailsSuccess(ProductDetailsBean bean);
+        /**
+         * 商品详情
+         *
+         * @param bean         商品详情信息
+         * @param serviceBeans 售后服务bean
+         * @param recCompanys  推荐企业列表
+         */
+        void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys);
 
         /**
          * 商品评分/价格/包装清单
          */
         // TODO: 2021/4/22 参数
-        void onGetProductPriceSuccess(ProductPriceBean bean);
+        void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans);
 
         /**
          * 店铺推荐（热销商品）
@@ -48,6 +58,7 @@ public interface ProductDetailsContract {
 
         /**
          * 获取邮费
+         *
          * @param deliveryBean
          */
         void getDelivery(DeliveryBean deliveryBean);

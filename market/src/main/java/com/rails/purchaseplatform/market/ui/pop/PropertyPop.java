@@ -12,11 +12,14 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.ProductBillBean;
+import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationValue;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
@@ -86,13 +89,13 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mDelivery = delivery;
         mProductDetailsPresenter = new ProductDetailsPresenterImpl(getActivity(), new ProductDetailsContract.ProductDetailsView() {
             @Override
-            public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
-
+            public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys) {
+                
             }
 
             @Override
-            public void onGetProductPriceSuccess(ProductPriceBean bean) {
-                binding.tvPrice.setText(String.valueOf(bean.getSellPrice()));
+            public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
+
             }
 
             @Override

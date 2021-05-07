@@ -1,16 +1,22 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.ProductBillBean;
+import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemResult;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSku;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportData;
 import com.rails.lib_data.model.ProductDetailsModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -61,9 +67,41 @@ public class ProductDetailsPresenterImpl
                 baseView.dismissDialog();
             }
 
+
             @Override
-            protected void onSuccess(ProductDetailsBean response) {
-                baseView.onGetProductDetailsSuccess(response);
+            protected void onSuccess(ProductDetailsBean detailsBean) {
+
+                ArrayList<ProductServiceBean> serviceBeans = new ArrayList<>();
+                try {
+                    ItemAfterSaleVo afterSale = detailsBean.getItemPublishVo().getItemAfterSaleVo();
+                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "售后退货说明",
+                            afterSale.getRefundService() == 1 ? "特殊商品不允许退货。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请退货。"));
+                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "售后换货说明",
+                            afterSale.getChangeService() == 1 ? "特殊商品，一经签收不予换货。。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请换货。"));
+                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "售后质保说明",
+                            "确认收货后" + afterSale.getRepaireDuration() + "月内出现质量问题可审请质保。"));
+                } catch (Exception e) {
+                }
+
+
+                ArrayList<ProductServiceBean> companyBeans = new ArrayList<>();
+                try {
+                    SupplierInfoImportData suppData = detailsBean.getItemPublishVo().getSupplierInfoImportData();
+                    String recommendOrg = TextUtils.isEmpty(suppData.getRecommendOrg()) ? "暂无数据" : suppData.getRecommendOrg();
+                    String bindOrgName = TextUtils.isEmpty(suppData.getBindOrgName()) ? "暂无数据" : suppData.getBindOrgName();
+                    String accountName = TextUtils.isEmpty(suppData.getAccountName()) ? "暂无数据" : suppData.getAccountName();
+                    companyBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "推荐单位", recommendOrg));
+                    companyBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "绑定货运单位", bindOrgName));
+                    companyBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "货运客户经理", accountName));
+                } catch (Exception e) {
+
+                }
+
+
+                if (isCallBack()) {
+                    baseView.onGetProductDetailsSuccess(detailsBean, serviceBeans, companyBeans);
+                }
+
                 baseView.dismissDialog();
             }
         });
@@ -90,16 +128,23 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ArrayList<ProductPriceBean> response) {
-                ProductPriceBean bean = new ProductPriceBean();
-                if (response == null ||response.isEmpty()) {
-                    bean.setCreditLevel("0");
-                    bean.setSellPrice(0.0D);
-                    bean.setMarketPrice(0.0D);
-                } else {
-                    bean = response.get(0);
-                }
-                baseView.onGetProductPriceSuccess(bean);
                 baseView.dismissDialog();
+                if (isCallBack()) {
+                    ProductPriceBean bean = new ProductPriceBean();
+                    ArrayList<ItemPicture> pics = new ArrayList<>();
+                    ArrayList<ProductBillBean> billBeans = new ArrayList<>();
+                    billBeans.add(new ProductBillBean("附件名称", "附件数量"));
+                    if (response == null || response.isEmpty()) {
+                        bean.setCreditLevel("0");
+                        bean.setSellPrice(0.0D);
+                        bean.setMarketPrice(0.0D);
+                    } else {
+                        bean = response.get(0);
+                        billBeans.addAll(bean.getPackinglist());
+                        pics.addAll(bean.getPictureUrl());
+                    }
+                    baseView.onGetProductPriceSuccess(bean, pics, billBeans);
+                }
             }
         });
     }

@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.adapter.pdetail;
 
 import android.content.Context;
 
+import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductDetailServiceBinding;
@@ -25,6 +26,6 @@ public class ProductRecCompanyAdapter extends BaseRecyclerAdapter<ProductService
 
     @Override
     protected void onBindItem(ItemProductDetailServiceBinding binding, ProductServiceBean productServiceBean, int position) {
-
+        binding.setService(productServiceBean);
     }
 }

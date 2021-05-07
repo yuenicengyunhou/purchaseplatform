@@ -12,7 +12,7 @@ public class SubOrderInfoBean {
     private String shopId;//店铺id ,
     private String organizeId;//创建人所属组织机构id ,
     private int buyerId;//创建人用户id ,
-    private long orderNo;//订单编号 ,
+    private String orderNo;//订单编号 ,
     private String parentNo;//0:第一级主单(拆单和未拆单都为0)，(!=0):当前订单的父单号（和order_split_type 配合查询订单） ,
     private String thirdOrderNo;//三方订单编号 ,
     private int orderSplitType;// 0:包含子单,1:叶子单（不包含子单）（和parent_order_no配合查询订单） ,
@@ -125,11 +125,11 @@ public class SubOrderInfoBean {
         this.buyerId = buyerId;
     }
 
-    public long getOrderNo() {
+    public String getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(long orderNo) {
+    public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }
 
