@@ -1,9 +1,8 @@
-package com.rails.purchaseplatform.address.adapter;
+package com.rails.purchaseplatform.common.adapter;
 
 import android.content.Context;
 import android.view.View;
 
-import com.rails.purchaseplatform.address.R;
 
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
@@ -13,6 +12,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 
 import androidx.viewpager.widget.ViewPager;
+
+import com.rails.purchaseplatform.common.R;
 
 /**
  * @author： sk_comic@163.com

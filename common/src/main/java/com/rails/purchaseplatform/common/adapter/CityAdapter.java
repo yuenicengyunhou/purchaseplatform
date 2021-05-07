@@ -1,10 +1,10 @@
-package com.rails.purchaseplatform.address.adapter;
+package com.rails.purchaseplatform.common.adapter;
 
 import android.content.Context;
 
 import com.rails.lib_data.AddressArea;
-import com.rails.purchaseplatform.address.R;
-import com.rails.purchaseplatform.address.databinding.ItemAddressCityBinding;
+import com.rails.purchaseplatform.common.R;
+import com.rails.purchaseplatform.common.databinding.ItemAddressCityBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 
 /**

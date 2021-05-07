@@ -1,13 +1,13 @@
-package com.rails.purchaseplatform.address.ui.pop;
+package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.rails.purchaseplatform.address.adapter.NavigatorAdapter;
-import com.rails.purchaseplatform.address.databinding.PopAddressAreaBinding;
-import com.rails.purchaseplatform.address.ui.AreaFragment;
+import com.rails.purchaseplatform.common.adapter.NavigatorAdapter;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
+import com.rails.purchaseplatform.common.databinding.PopAddressAreaBinding;
+import com.rails.purchaseplatform.common.fragment.AreaFragment;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
