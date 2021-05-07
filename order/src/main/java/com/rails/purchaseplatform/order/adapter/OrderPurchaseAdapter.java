@@ -58,6 +58,7 @@ public class OrderPurchaseAdapter extends BaseRecyclerAdapter<OrderPurchaseBean,
         for (OrderPurchaseBean addressBean : mDataSource) {
             if (bean.getId().equals(addressBean.getId())) {
                 addressBean.isSel.set(true);
+                break;
             } else {
                 addressBean.isSel.set(false);
             }

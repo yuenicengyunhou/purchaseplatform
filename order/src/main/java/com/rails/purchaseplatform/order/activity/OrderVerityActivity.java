@@ -281,7 +281,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 0) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == 0) {
                 if (data == null)
                     return;
@@ -292,9 +292,17 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 if (data == null)
                     return;
                 orderInvoiceBean = (OrderInvoiceBean) data.getExtras().getSerializable("invoiceBean");
+                String name = data.getExtras().getString("invoiceTitle");
+                barBinding.rlBill.setKey(name);
+                if (orderInvoiceBean.getInvoiceAddress() != null) {
+                    barBinding.tvBillAddress.setText(orderInvoiceBean.getInvoiceAddress().getFullAddress());
+                    barBinding.tvBillPhone.setText(orderInvoiceBean.getInvoiceAddress().getReceiverName() + "  " + orderInvoiceBean.getInvoiceAddress().getMobile());
+                }
+
             }
 
         }
+
     }
 
 
