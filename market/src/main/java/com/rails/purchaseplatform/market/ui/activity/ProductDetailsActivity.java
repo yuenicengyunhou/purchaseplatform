@@ -117,6 +117,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private ArrayList<SpecificationPopBean> mSpecificationPopBean;
 
     private ItemSkuInfo mCheckedItemSkuInfo;
+    private String mDelivery;
 
 
     @Override
@@ -464,27 +465,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void showPropertyPop(int flag, int mode, String skuId) {
         if (TextUtils.isEmpty(skuId))
             return;
-        if (mSpecificationPopBean == null || mSpecificationPopBean.size() == 0) {
-            if (flag == 0) {
-                String saleNum = "1"; // 固定1
-                String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", saleNum, skuId);
-                mPresenter.addCart(20L,
-                        30L, 40L, 50, // 非必要属性
-                        skuIdSaleNumJson, true);
-            } else if (flag == 1) {
-                ToastUtil.showCenter(this, "商品型号未上传");
-            }
-            return;
-        }
-
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mode);
+            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mDelivery, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
-
-//            mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
-//                    30L, 40L, 50, // 非必要属性
-//                    skuIdSaleNumJson, true));
             //选择型号完成的监听
             mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
                 @Override
@@ -495,6 +479,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                                 30L, 40L, 50, // 非必要属性
                                 String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", count, mCheckedItemSkuInfo.getId()),
                                 true);
+                        mPop.dismiss();
+                    } else {
+                        ToastUtil.showCenter(ProductDetailsActivity.this, "没有此型号商品或商品库存不足");
                     }
                 }
             });
@@ -510,6 +497,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     @Override
     public void onItemClicked(ItemSkuInfo itemSkuInfo) {
+        Log.d(TAG, "详情页收到监听事件");
         mCheckedItemSkuInfo = itemSkuInfo;
     }
 
@@ -592,6 +580,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (bean == null)
             return;
         this.productDetailsBean = bean;
+        this.mCheckedItemSkuInfo = bean.getItemSkuInfoList().get(0);
         mGetProductDetailsPresenter.getProductDelivery(bean.getItemPublishVo().getShopId());
 
 
@@ -603,7 +592,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
         binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
-        binding.tvSelectType.setText(bean.getItemSkuInfoList().get(0).getAttributesName());
+        String attrName = bean.getItemSkuInfoList().get(0).getAttributesName();
+        if (TextUtils.isEmpty(attrName)) {
+            binding.rlTypeChosen.setVisibility(View.GONE);
+        } else {
+            binding.tvSelectType.setText(bean.getItemSkuInfoList().get(0).getAttributesName());
+        }
 
         List<ItemSkuInfo> itemSkuInfo = bean.getItemSkuInfoList();
         if (itemSkuInfo == null)
@@ -758,8 +752,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (deliveryBean == null)
             return;
         binding.rlDelivery.setVisibility(View.VISIBLE);
-        binding.tvDelivery.setText(String.format(getResources().getString(R.string.product_details_delivery),
-                String.valueOf(deliveryBean.getFreightPrice())));
+        mDelivery = String.format(getResources().getString(R.string.product_details_delivery),
+                deliveryBean.getFreightPrice());
+        binding.tvDelivery.setText(mDelivery);
     }
 
 

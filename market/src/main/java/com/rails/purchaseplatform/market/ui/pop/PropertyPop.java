@@ -5,18 +5,26 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
+import com.rails.lib_data.contract.ProductDetailsContract;
+import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchItemFilterAdapter;
 import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
@@ -46,12 +54,15 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     private DoFilter mDoFilter;
     private TypeSelect mTypeSelect;
 
-    private String mMinPrice, mMaxPrice;
+    private String mMinPrice, mMaxPrice, mDelivery;
 
     private ArrayList<T> mBeans;
     private ArrayList<ItemSkuInfo> mItemSkuInfos;
+    private ItemSkuInfo mItemSkuInfo;
+
     private int mMode = 0;
-//    private  adapter;
+
+    private ProductDetailsContract.ProductDetailsPresenter mProductDetailsPresenter;
 
     public PropertyPop() {
         super();
@@ -66,11 +77,64 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMaxPrice = maxPrice;
     }
 
-    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, int mode) {
+    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, String delivery, int mode) {
         super();
         mBeans = beans;
         mMode = mode;
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
+        mItemSkuInfo = mItemSkuInfos.get(0);
+        mDelivery = delivery;
+        mProductDetailsPresenter = new ProductDetailsPresenterImpl(getActivity(), new ProductDetailsContract.ProductDetailsView() {
+            @Override
+            public void onGetProductDetailsSuccess(ProductDetailsBean bean) {
+
+            }
+
+            @Override
+            public void onGetProductPriceSuccess(ProductPriceBean bean) {
+                binding.tvPrice.setText(String.valueOf(bean.getSellPrice()));
+            }
+
+            @Override
+            public void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans) {
+
+            }
+
+            @Override
+            public void onGetUserCollectSuccess(boolean isCollect) {
+
+            }
+
+            @Override
+            public void onGetCartCountSuccess(String count) {
+
+            }
+
+            @Override
+            public void getDelivery(DeliveryBean deliveryBean) {
+
+            }
+
+            @Override
+            public void onError(ErrorBean errorBean) {
+
+            }
+
+            @Override
+            public void showDialog(String msg) {
+
+            }
+
+            @Override
+            public void showResDialog(int res) {
+
+            }
+
+            @Override
+            public void dismissDialog() {
+
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -187,11 +251,18 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.llTop.setVisibility(View.VISIBLE);
         binding.rlBuyCount.setVisibility(View.VISIBLE);
         binding.addCart.setVisibility(View.VISIBLE);
+        // TODO: 2021/5/7 设置价格 需要请求接口
+//        binding.tvPrice.setText(mItemSkuInfo.get);
+        binding.tvSend.setText(mDelivery);
         mAdapter = new PropertyAdapter(getActivity());
         mAdapter.setItemSkuInfoList(mItemSkuInfos);
         mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() {
             @Override
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
+                Log.d(TAG, "========================== HAHAHAHA");
+                mItemSkuInfo = itemSkuInfo;
+                if (mItemSkuInfo != null)
+                    mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true);
                 // TODO: 2021/5/7 更新图片、名称、运费等
             }
         });
@@ -206,7 +277,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             if (null != mTypeSelect) {
                 mTypeSelect.onSelectComplete(binding.etNum.getText().toString().trim());
             }
-            dismiss();
         });
         binding.etNum.addTextChangedListener(new TextWatcher() {
             @Override

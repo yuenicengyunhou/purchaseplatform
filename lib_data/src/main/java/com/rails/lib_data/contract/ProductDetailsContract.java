@@ -25,7 +25,7 @@ public interface ProductDetailsContract {
         void onGetProductDetailsSuccess(ProductDetailsBean bean);
 
         /**
-         * 商品评分
+         * 商品评分/价格/包装清单
          */
         // TODO: 2021/4/22 参数
         void onGetProductPriceSuccess(ProductPriceBean bean);
