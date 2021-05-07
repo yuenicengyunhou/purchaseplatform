@@ -19,8 +19,10 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
+            android:lines="1"
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
+            android:singleLine="true"
             android:text="@{bill.annexName}"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12" />
@@ -32,8 +34,10 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
+            android:lines="1"
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
+            android:singleLine="true"
             android:text="@{bill.yn}"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12" />

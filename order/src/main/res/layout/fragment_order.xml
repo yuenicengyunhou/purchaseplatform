@@ -5,16 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-        android:id="@+id/recycler"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        app:canH="false" />
-    <com.rails.purchaseplatform.common.widget.EmptyView
-        android:id="@+id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_height="match_parent">
+
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:canH="false" />
+
+        <com.rails.purchaseplatform.common.widget.EmptyView
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
+
 
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

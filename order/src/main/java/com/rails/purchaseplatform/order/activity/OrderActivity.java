@@ -395,7 +395,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     }
 
     @Override
-    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean hasMore, boolean isClear, int totalPageCount) {
+    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean lastPage, boolean firstPage) {
 
     }
 

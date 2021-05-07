@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationValue;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
@@ -22,6 +24,8 @@ import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 商品/购物车规格弹窗
@@ -39,13 +43,13 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     private PropertyAdapter mAdapter;
 
-    private AddToCart mAddToCart;
     private DoFilter mDoFilter;
     private TypeSelect mTypeSelect;
 
     private String mMinPrice, mMaxPrice;
 
     private ArrayList<T> mBeans;
+    private ArrayList<ItemSkuInfo> mItemSkuInfos;
     private int mMode = 0;
 //    private  adapter;
 
@@ -62,10 +66,11 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMaxPrice = maxPrice;
     }
 
-    public PropertyPop(ArrayList<T> beans, int mode) {
+    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, int mode) {
         super();
         mBeans = beans;
         mMode = mode;
+        mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -183,6 +188,13 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.rlBuyCount.setVisibility(View.VISIBLE);
         binding.addCart.setVisibility(View.VISIBLE);
         mAdapter = new PropertyAdapter(getActivity());
+        mAdapter.setItemSkuInfoList(mItemSkuInfos);
+        mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() {
+            @Override
+            public void onItemClicked(ItemSkuInfo itemSkuInfo) {
+                // TODO: 2021/5/7 更新图片、名称、运费等
+            }
+        });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);
@@ -192,7 +204,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
         binding.addCart.setOnClickListener(v -> {
             if (null != mTypeSelect) {
-                mTypeSelect.onSelectComplete(mAdapter.getListData());
+                mTypeSelect.onSelectComplete(binding.etNum.getText().toString().trim());
             }
             dismiss();
         });
@@ -204,13 +216,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (String.valueOf(s).length() == 0) {
-                    binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
-                } else if (Integer.parseInt(String.valueOf(s)) <= 1) {
-                    binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
-                } else {
-                    binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
-                }
+                changeReduceBtnColor(s);
             }
 
             @Override
@@ -218,6 +224,21 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
             }
         });
+    }
+
+    /**
+     * 改变减小数量按键的颜色
+     *
+     * @param s
+     */
+    private void changeReduceBtnColor(CharSequence s) {
+        if (String.valueOf(s).length() == 0) {
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+        } else if (Integer.parseInt(String.valueOf(s)) <= 1) {
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+        } else {
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
+        }
     }
 
     /**
@@ -239,25 +260,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             }
             binding.etNum.setText(String.valueOf(number - 1));
         }
-    }
-
-
-    /**
-     * 商品详情页 加入购物车弹窗按钮监听方法
-     *
-     * @param addToCart 接口实现
-     */
-    public void setAddToCartListener(AddToCart addToCart) {
-        this.mAddToCart = addToCart;
-    }
-
-
-    /**
-     * 商品详情页 加入购物车弹窗 却定按钮监听接口
-     * 商详页 使用此接口的匿名内部类 并重写addToCart方法
-     */
-    public interface AddToCart {
-        void addToCart();
     }
 
 
@@ -293,9 +295,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 商品详情页 选规格
      */
     public interface TypeSelect {
-        void onSelectComplete(ArrayList<SpecificationPopBean> data);
+        void onSelectComplete(String count);
 //        void onSelectComplete(ArrayList<SpecificationPopBean> beans);
-
-        void onReset();
     }
 }

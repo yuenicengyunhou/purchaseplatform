@@ -41,6 +41,7 @@ import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.DetailImgAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.ProductBillAdapter;
@@ -68,7 +69,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         implements
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
-        AddressToolContract.AddressToolView {
+        AddressToolContract.AddressToolView, PropertyAdapter.OnItemClicked {
 
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
@@ -97,6 +98,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ArrayList<SpecificationPopBean> SPECIFICATION_BEAN;
     private ArrayList<SpecificationPopBean> mSpecificationPopBean;
+
+    private ItemSkuInfo mCheckedItemSkuInfo;
 
 
     //
@@ -416,137 +419,41 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             }
             return;
         }
-        final String SALE_NUM = "1"; // 固定1
-        String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", SALE_NUM, skuId);
+
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBean, mode);
+            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
 
-            mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
-                    30L, 40L, 50, // 非必要属性
-                    skuIdSaleNumJson, true));
+//            mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
+//                    30L, 40L, 50, // 非必要属性
+//                    skuIdSaleNumJson, true));
             //选择型号完成的监听
             mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
                 @Override
-                public void onSelectComplete(ArrayList<SpecificationPopBean> data) {
-                    for (SpecificationPopBean parent : data) {
-                        List<SpecificationValue> values = parent.getSpecificationValue();
-                        for (SpecificationValue child : values) {
-                            if (child.isSelect()) {
-                                Log.e("WQ", "选择了===" + child.getAttrValueName());
-                            }
-                        }
+                public void onSelectComplete(String count) {
+                    // TODO: 2021/5/6 拿到返回的数据请求 所有sku相关的接口
+                    if (mCheckedItemSkuInfo != null) {
+                        mPresenter.addCart(20L,
+                                30L, 40L, 50, // 非必要属性
+                                String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", count, mCheckedItemSkuInfo.getId()),
+                                true);
                     }
-
-                    // TODO: 2021/5/6 拿到返回的数据请求接口
-
-                    mPresenter.addCart(20L, 13L, 14L, 1, "", true);
-
-                    mSpecificationPopBean = data;
-
-//                    Log.d(TAG, checkSkuInfo(data)[1]);
-
-//                    if (checkSkuInfo(data)[0] == null || checkSkuInfo(data)[0] == "") {
-//                        ToastUtil.showCenter(ProductDetailsActivity.this, "此型号商品库存不足，请重新选择其它型号商品。");
-//                    } else {
-//                        binding.tvSelectType.setText(checkSkuInfo(data)[1]);
-//                        binding.tvItemName.setText(checkSkuInfo(data)[2]);
-//                    }
-
-                    mPresenter.addCart(20L,
-                            30L, 40L, 50, // 非必要属性
-                            skuIdSaleNumJson, true);
-                }
-
-                @Override
-                public void onReset() {
-
                 }
             });
 
-//            mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
-//                @Override
-//                public void onSelectComplete(ArrayList<SpecificationPopBean> beans) {
-//                    mSpecificationPopBean = beans;
-//                    checkSkuId(beans);
-//                }
-//
-//                @Override
-//                public void onReset() {
-//                    mSpecificationPopBean = SPECIFICATION_BEAN;
-//                }
-//            });
         }
         mPop.show(getSupportFragmentManager(), "property");
     }
 
     /**
-     * 获取SkuId
+     * 点击规格、加入购物车弹窗中的item时，会切换itemSku
      *
-     * @param beans
+     * @param itemSkuInfo
      */
-    private String[] checkSkuInfo(ArrayList<SpecificationPopBean> beans) {
-        //选中属性map
-        HashMap<String, String> hashMapSelect = new HashMap<>();
-        for (SpecificationPopBean popBean : beans) {
-            String id = popBean.getAttrId();
-            for (SpecificationValue value : popBean.getSpecificationValue()) {
-                if (value.isSelect()) {
-                    hashMapSelect.put(popBean.getAttrId(), value.getAttrValueId());
-                }
-            }
-        }
-
-        ArrayList<HashMap<String, String>> allHash = new ArrayList<>();
-        for (ItemSkuInfo skuInfo : mProductDetailsBean.getItemSkuInfoList()) {
-            HashMap<String, String> hashMap = new HashMap<>();
-            String stringName = skuInfo.getAttributes();
-            String[] strings = stringName.split(";");
-            for (String s : strings) {
-                String[] subs = s.split(":");
-                hashMap.put(subs[0], subs[1]);
-            }
-            allHash.add(hashMap);
-        }
-
-        boolean isMatch = false;
-        String[] skuInfo = new String[3];
-        int lastPosition = 0;
-        for (HashMap<String, String> map : allHash) { // 外
-
-
-            for (String key : hashMapSelect.keySet()) { // 内
-                String value = map.get(key);
-                if (TextUtils.isEmpty(value)) {
-                    isMatch = false;
-                    lastPosition++;
-                    break;
-                }
-
-                if (value.equals(hashMapSelect.get(key))) {
-                    isMatch = true;
-                    continue;
-                } else {
-                    isMatch = false;
-                    lastPosition++;
-                    break;
-                }
-            }
-
-            if (isMatch) {
-                // skuId
-                skuInfo[0] = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getId();
-                mSkuId = skuInfo[0];
-                // 属性名称 【内存容量:8G;CPU型号:Interl i7;机身颜色:银色;】
-                skuInfo[1] = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getAttributesName();
-                // 商品名称 【联想(Lenovo)小新Pro13 2020性能版 英特尔酷睿i5 全面屏独显轻薄笔记本电脑(i5 （8G Interl i7 银色）】
-                skuInfo[2] = mProductDetailsBean.getItemSkuInfoList().get(lastPosition).getSkuName();
-            }
-
-        }
-
-        return skuInfo;
+    @Override
+    public void onItemClicked(ItemSkuInfo itemSkuInfo) {
+        mCheckedItemSkuInfo = itemSkuInfo;
     }
 
     /**
@@ -736,7 +643,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
         binding.fsvScore.setStar((int) bean.getScore());
 
-
         billAdapter.update(billBeans, true);
         imgAdapter.update(pics, true);
 
@@ -791,5 +697,4 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         }
     }
-
 }
