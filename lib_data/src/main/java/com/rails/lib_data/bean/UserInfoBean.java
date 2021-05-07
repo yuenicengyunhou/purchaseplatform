@@ -10,7 +10,7 @@ public class UserInfoBean {
 
 
     private String id;
-    private Object platformId;
+    private String platformId;
     private Object created;
     private Object modified;
     private Integer yn;
@@ -56,11 +56,11 @@ public class UserInfoBean {
         this.id = id;
     }
 
-    public Object getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(Object platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 

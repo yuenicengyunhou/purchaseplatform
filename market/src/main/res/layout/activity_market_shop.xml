@@ -53,10 +53,10 @@
                                 android:id="@+id/img_shop"
                                 imgUrl='@{@string/url_head+shopInfo.logoUrl}'
                                 android:layout_width="@dimen/dp_70"
-                                android:padding="@dimen/paddingS"
-                                android:background="@drawable/shape_bg_img_stroke"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/common_border"
+                                android:background="@drawable/shape_bg_img_stroke"
+                                android:padding="@dimen/paddingS"
                                 app:h="7"
                                 app:w="7" />
 
@@ -105,18 +105,18 @@
 
                     </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
+                        android:background="@color/bg"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:background="@color/bg"
                         android:paddingBottom="@dimen/dp_3">
 
 
                         <!--综合-->
                         <CheckBox
+                            android:layout_marginStart="@dimen/paddingL"
                             android:id="@+id/rb_all"
                             style="@style/market_tab"
                             android:layout_weight="1"
@@ -126,46 +126,46 @@
                             android:textColor="@color/selector_blue_gray_sel_color" />
 
                         <!--销量-->
-                        <LinearLayout
+                        <FrameLayout
                             android:id="@+id/ll_sale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center">
+                            android:layout_weight="1">
 
                             <CheckBox
                                 android:id="@+id/rb_sale"
                                 style="@style/market_tab"
+                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:drawableEnd="@drawable/selector_arrow"
                                 android:gravity="center"
                                 android:text="@string/market_shop_sale"
                                 android:textColor="@color/selector_blue_gray_sel_color" />
-                        </LinearLayout>
+                        </FrameLayout>
 
 
                         <!--价格-->
-                        <LinearLayout
+                        <FrameLayout
                             android:id="@+id/ll_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center">
+                            android:layout_weight="1">
 
                             <CheckBox
                                 android:id="@+id/rb_price"
                                 style="@style/market_tab"
+                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:drawableEnd="@drawable/selector_arrow"
                                 android:gravity="center"
                                 android:text="@string/market_shop_price"
                                 android:textColor="@color/selector_blue_gray_sel_color" />
 
-                        </LinearLayout>
+                        </FrameLayout>
 
 
                         <!--筛选-->
-                        <LinearLayout
+                        <FrameLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -173,6 +173,7 @@
 
                             <CheckBox
                                 android:id="@+id/rb_sel"
+                                android:layout_gravity="center"
                                 style="@style/market_tab"
                                 android:layout_width="wrap_content"
                                 android:checked="false"
@@ -182,7 +183,7 @@
                                 android:text="@string/market_shop_sel"
                                 android:textColor="@color/font_gray" />
 
-                        </LinearLayout>
+                        </FrameLayout>
 
 
                     </LinearLayout>
@@ -200,8 +201,9 @@
                         android:id="@+id/recRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        android:layout_marginRight="@dimen/dp_8"
+                        android:paddingStart="@dimen/dp_8"
+                        android:background="@color/bg"
+                        android:paddingEnd="@dimen/dp_8"
                         android:overScrollMode="never"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

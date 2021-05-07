@@ -1,8 +1,11 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -45,6 +48,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private String orderColumn = "";//默认的排序方式为空字符
     private String orderType = "";//默认的排序顺序为空字符
     private FilterShopPop mPop;
+    private int userScrollY;//用户滑动距离
 
     /**
      * 排序：
@@ -79,8 +83,26 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         barBinding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        barBinding.recRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                userScrollY = userScrollY + dy;
+                if (userScrollY > 1000) {
+                    barBinding.imgTop.setVisibility(View.VISIBLE);
+                } else {
+                    barBinding.imgTop.setVisibility(View.GONE);
+                }
+            }
+        });
         barBinding.recRecycler.setAdapter(adapter);
         barBinding.recRecycler.setEmptyView(barBinding.empty);
+
+        barBinding.imgTop.setOnClickListener(v -> {
+            barBinding.recRecycler.scrollToPosition(0);
+            barBinding.imgTop.setVisibility(View.GONE);
+            userScrollY = 0;
+        });
 
 
         //上拉加载
@@ -96,6 +118,8 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             queryShopProductList();
         });
 
+        clearAllConditions();
+
 
         presenter = new ShopPresenterImp(this, this);
         queryShopInfo();//获取店铺信息
@@ -108,11 +132,11 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     }
 
     private void queryShopProductList() {
-        presenter.getShopItemList( shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+        presenter.getShopItemList(shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
     }
 
     /**
-     * 清楚所有筛选条件
+     * 清除所有筛选条件
      */
     private void clearAllConditions() {
         setSelected(true, false, false, false);
@@ -173,7 +197,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             orderColumn = "";
             orderType = "";
             mPage = PAGE_DEF;
-            presenter.getShopItemList( shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+            presenter.getShopItemList(shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
         });
 
         barBinding.rbSel.setOnClickListener(v -> showPop());
@@ -207,7 +231,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             mPop.setCompleteListener(filterbeans -> {
                 filterList = filterbeans;
                 mPage = PAGE_DEF;
-                presenter.getShopItemList( shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+                presenter.getShopItemList(shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
             });
             mPop.setGravity(Gravity.BOTTOM);
         }
