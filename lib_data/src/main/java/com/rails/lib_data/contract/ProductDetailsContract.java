@@ -35,7 +35,7 @@ public interface ProductDetailsContract {
         void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys);
 
         /**
-         * 商品评分
+         * 商品评分/价格/包装清单
          */
         // TODO: 2021/4/22 参数
         void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans);

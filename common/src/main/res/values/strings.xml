@@ -12,4 +12,7 @@
     <!--订单，采购单-->
     <string name="lowPrice">最低金额</string>
     <string name="highPrice">最高金额</string>
+
+    <!-- 选择地区弹窗-->
+    <string name="address_pop_area">请选择所在地区</string>
 </resources>

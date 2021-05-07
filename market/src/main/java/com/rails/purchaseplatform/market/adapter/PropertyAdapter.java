@@ -16,7 +16,6 @@ import com.rails.purchaseplatform.market.databinding.ItemProductPropertyBinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 产品规格adapter
@@ -25,6 +24,7 @@ import java.util.List;
  * @date: 2021/4/8
  */
 public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, ItemProductPropertyBinding> {
+    private final String TAG = PropertyAdapter.class.getSimpleName();
 
     private ArrayList<ItemSkuInfo> mItemSkuInfoList;
     private OnItemClicked onItemClicked;
@@ -47,11 +47,30 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
         ArrayList<SpecificationValue> tags = new ArrayList<>(specificationPopBean.getSpecificationValue());
         adapter.update(tags);
 
+        for (SpecificationValue bean : tags) {
+            if (bean.isSelect()) {
+                binding.flow.selectSingleCheck(tags.indexOf(bean));
+                break;
+            }
+        }
+
         binding.flow.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onItemClick(FlowTagLayout parent, View view, int position) {
-                onItemClicked.onItemClicked(checkSkuInfo(mDataSource, mItemSkuInfoList));
-                // TODO: 2021/5/6 比对数据 返回并显示
+                boolean select = mDataSource.get(p).getSpecificationValue().get(position).isSelect();
+                if (!select) {
+                    for (int j = 0; j < mDataSource.get(p).getSpecificationValue().size(); j++) {
+                        if (mDataSource.get(p).getSpecificationValue().get(j).isSelect()) {
+                            mDataSource.get(p).getSpecificationValue().get(j).setSelect(false);
+                        }
+                    }
+                }
+                mDataSource.get(p).getSpecificationValue().get(position).setSelect(!select);
+                notifyDataSetChanged();
+                ItemSkuInfo itemSkuInfo = checkSkuInfo(mDataSource, mItemSkuInfoList);
+                if (itemSkuInfo == null)
+                    ToastUtil.showCenter(mContext, "没有此型号商品或商品库存不足");
+                onItemClicked.onItemClicked(itemSkuInfo);
             }
         });
     }
@@ -100,7 +119,6 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
         }
 
         boolean isMatch = false;
-        String[] skuInfo = new String[3];
         int lastPosition = 0;
         for (HashMap<String, String> map : allHash) { // 外
             for (String key : hashMapSelect.keySet()) { // 内

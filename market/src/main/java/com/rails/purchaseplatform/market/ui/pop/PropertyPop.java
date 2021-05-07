@@ -5,18 +5,28 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.ProductBillBean;
+import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
-import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
-import com.rails.lib_data.bean.forAppShow.SpecificationValue;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
+import com.rails.lib_data.contract.ProductDetailsContract;
+import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchItemFilterAdapter;
 import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
@@ -24,7 +34,6 @@ import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -46,12 +55,15 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     private DoFilter mDoFilter;
     private TypeSelect mTypeSelect;
 
-    private String mMinPrice, mMaxPrice;
+    private String mMinPrice, mMaxPrice, mDelivery, mPrice;
 
     private ArrayList<T> mBeans;
     private ArrayList<ItemSkuInfo> mItemSkuInfos;
+    private ItemSkuInfo mItemSkuInfo;
+
     private int mMode = 0;
-//    private  adapter;
+
+    private ProductDetailsContract.ProductDetailsPresenter mProductDetailsPresenter;
 
     public PropertyPop() {
         super();
@@ -66,11 +78,65 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMaxPrice = maxPrice;
     }
 
-    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, int mode) {
+    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, String price, String delivery, int mode) {
         super();
         mBeans = beans;
         mMode = mode;
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
+        mItemSkuInfo = mItemSkuInfos.get(0);
+        mDelivery = delivery;
+        mPrice = price;
+        mProductDetailsPresenter = new ProductDetailsPresenterImpl(getActivity(), new ProductDetailsContract.ProductDetailsView() {
+            @Override
+            public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys) {
+
+            }
+
+            @Override
+            public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
+                binding.tvPrice.setText(String.valueOf(bean.getSellPrice()));
+            }
+
+            @Override
+            public void onGetHotSaleSuccess(ArrayList<RecommendItemsBean> beans) {
+
+            }
+
+            @Override
+            public void onGetUserCollectSuccess(boolean isCollect) {
+
+            }
+
+            @Override
+            public void onGetCartCountSuccess(String count) {
+
+            }
+
+            @Override
+            public void getDelivery(DeliveryBean deliveryBean) {
+
+            }
+
+            @Override
+            public void onError(ErrorBean errorBean) {
+
+            }
+
+            @Override
+            public void showDialog(String msg) {
+
+            }
+
+            @Override
+            public void showResDialog(int res) {
+
+            }
+
+            @Override
+            public void dismissDialog() {
+
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -124,9 +190,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     params[3], // expandAttr
                     binding.etLowPrice.getText().toString().trim(),
                     binding.etHighPrice.getText().toString().trim());
-//            Log.d(TAG, " =========== " + Arrays.toString(params));
-//            Log.d(TAG, " =========== " + binding.etLowPrice.getText().toString().trim());
-//            Log.d(TAG, " =========== " + binding.etHighPrice.getText().toString().trim());
             dismiss();
         });
     }
@@ -187,12 +250,23 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.llTop.setVisibility(View.VISIBLE);
         binding.rlBuyCount.setVisibility(View.VISIBLE);
         binding.addCart.setVisibility(View.VISIBLE);
+        Glide.with(getContext())
+                .load("https:" + mItemSkuInfo.getPictureUrl())
+                .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
+                .into(binding.imgProduct);
+        binding.tvPrice.setText(mPrice);
+        binding.tvSend.setText(mDelivery);
         mAdapter = new PropertyAdapter(getActivity());
         mAdapter.setItemSkuInfoList(mItemSkuInfos);
         mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() {
             @Override
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
-                // TODO: 2021/5/7 更新图片、名称、运费等
+                mItemSkuInfo = itemSkuInfo;
+                if (mItemSkuInfo != null) {
+                    Log.d(TAG, mItemSkuInfo.getPictureUrl());
+                    Glide.with(getContext()).load("https:" + mItemSkuInfo.getPictureUrl()).placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null).into(binding.imgProduct);
+                    mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true);
+                }
             }
         });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
@@ -206,7 +280,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             if (null != mTypeSelect) {
                 mTypeSelect.onSelectComplete(binding.etNum.getText().toString().trim());
             }
-            dismiss();
         });
         binding.etNum.addTextChangedListener(new TextWatcher() {
             @Override

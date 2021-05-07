@@ -1,12 +1,12 @@
-package com.rails.purchaseplatform.address.ui;
+package com.rails.purchaseplatform.common.fragment;
 
 import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
-import com.rails.purchaseplatform.address.adapter.CityAdapter;
-import com.rails.purchaseplatform.address.databinding.FragmentAddressAreaBinding;
+import com.rails.purchaseplatform.common.adapter.CityAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.common.databinding.FragmentAddressAreaBinding;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 

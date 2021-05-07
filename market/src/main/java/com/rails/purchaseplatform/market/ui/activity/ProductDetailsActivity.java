@@ -10,6 +10,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
@@ -57,10 +61,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.RequiresApi;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
-
 /**
  * 商品详情页
  */
@@ -70,7 +70,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
         AddressToolContract.AddressToolView, PropertyAdapter.OnItemClicked {
-
+    final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
 
@@ -100,6 +100,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private ArrayList<SpecificationPopBean> mSpecificationPopBean;
 
     private ItemSkuInfo mCheckedItemSkuInfo;
+    private String mDelivery;
+    private String mPrice;
 
 
     //
@@ -407,27 +409,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void showPropertyPop(int flag, int mode, String skuId) {
         if (TextUtils.isEmpty(skuId))
             return;
-        if (mSpecificationPopBean == null || mSpecificationPopBean.size() == 0) {
-            if (flag == 0) {
-                String saleNum = "1"; // 固定1
-                String skuIdSaleNumJson = String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", saleNum, skuId);
-                mPresenter.addCart(20L,
-                        30L, 40L, 50, // 非必要属性
-                        skuIdSaleNumJson, true);
-            } else if (flag == 1) {
-                ToastUtil.showCenter(this, "商品型号未上传");
-            }
-            return;
-        }
-
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mode);
+            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mPrice, mDelivery, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
-
-//            mPop.setAddToCartListener(() -> mPresenter.addCart(20L,
-//                    30L, 40L, 50, // 非必要属性
-//                    skuIdSaleNumJson, true));
             //选择型号完成的监听
             mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
                 @Override
@@ -438,6 +423,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                                 30L, 40L, 50, // 非必要属性
                                 String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", count, mCheckedItemSkuInfo.getId()),
                                 true);
+                        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
+                        mPop.dismiss();
+                    } else {
+                        ToastUtil.showCenter(ProductDetailsActivity.this, "没有此型号商品或商品库存不足");
                     }
                 }
             });
@@ -453,7 +442,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     @Override
     public void onItemClicked(ItemSkuInfo itemSkuInfo) {
-        mCheckedItemSkuInfo = itemSkuInfo;
+        Log.d(TAG, "详情页收到监听事件");
+        if (itemSkuInfo != null) {
+            mCheckedItemSkuInfo = itemSkuInfo;
+        }
     }
 
     /**
@@ -476,9 +468,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             params.setWeight(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getWeight()));
             params.setWeightUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
             // TODO: 2021/4/22 包装尺寸从哪里取？
-            params.setSize(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            params.setSize("");
             // TODO: 2021/4/22 商品单位从哪里取？
-            params.setItemUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
+            params.setItemUnit("");
 
             mParamsPop = new ProductDetailsParamsPop(params);
             mParamsPop.setType(BasePop.MATCH_WRAP);
@@ -530,11 +522,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
 
+    /**
+     * 请求商品详情接口成功回调方法
+     *
+     * @param bean         商品详情信息
+     * @param serviceBeans 售后服务bean
+     * @param recCompanys  推荐企业列表
+     */
     @Override
     public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys) {
         if (bean == null)
             return;
         this.productDetailsBean = bean;
+        this.mCheckedItemSkuInfo = bean.getItemSkuInfoList().get(0);
 
         serviceAdapter.update(serviceBeans, true);
         companyAdapter.update(recCompanys, true);
@@ -550,7 +550,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         binding.textView.setText(bean.getItemPublishVo().getShopName());
         binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
-        binding.tvSelectType.setText(bean.getItemSkuInfoList().get(0).getAttributesName());
+        String attrName = bean.getItemSkuInfoList().get(0).getAttributesName();
+        if (TextUtils.isEmpty(attrName)) {
+            binding.rlTypeChosen.setVisibility(View.GONE);
+        } else {
+            binding.tvSelectType.setText(bean.getItemSkuInfoList().get(0).getAttributesName());
+        }
 
         List<ItemSkuInfo> itemSkuInfo = bean.getItemSkuInfoList();
         if (itemSkuInfo == null)
@@ -563,7 +568,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
 
-//        binding.ratioImage // TODO 设置图片
+//        binding.ratioImage // TODO 设置店铺图片
 
         String creditLv = bean.getItemPublishVo().getCreditLevel();
         switch (creditLv) {
@@ -639,6 +644,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
+        mPrice = String.valueOf(bean.getSellPrice());
         binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
         binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
         binding.fsvScore.setStar((int) bean.getScore());
@@ -673,8 +679,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (deliveryBean == null)
             return;
         binding.rlDelivery.setVisibility(View.VISIBLE);
-        binding.tvDelivery.setText(String.format(getResources().getString(R.string.product_details_delivery),
-                String.valueOf(deliveryBean.getFreightPrice())));
+        mDelivery = String.format(getResources().getString(R.string.product_details_delivery),
+                deliveryBean.getFreightPrice());
+        binding.tvDelivery.setText(mDelivery);
     }
 
 
