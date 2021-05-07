@@ -489,50 +489,60 @@
                         android:background="@color/bg_gray_light" />
 
 
-                    <ImageView
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                         android:id="@+id/web_productInfo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-
-<!--                    <WebView-->
-<!--                        android:id="@+id/web_productInfo"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content" />-->
+                        android:layout_height="wrap_content"
+                        app:canH="false"
+                        app:canV="false" />
 
 
                     <View
                         android:id="@+id/view_split2"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_12"
-                        android:background="@color/bg_gray_light" />
+                        style="@style/line_bold_gray_10" />
 
-                    <WebView
+
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                         android:id="@+id/web_packageList"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_20"
+                        android:background="@drawable/bg_corner_white_0"
+                        android:overScrollMode="never"
+                        android:padding="@dimen/dp_1"
+                        app:canH="false"
+                        app:canV="false" />
+
 
                     <View
                         android:id="@+id/view_split3"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_12"
-                        android:background="@color/bg_gray_light" />
+                        style="@style/line_bold_gray_10" />
 
-                    <WebView
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                         android:id="@+id/web_service"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:overScrollMode="never"
+                        android:paddingLeft="@dimen/common_border"
+                        android:paddingRight="@dimen/common_border"
+                        app:canH="false"
+                        app:canV="false" />
 
                     <View
                         android:id="@+id/view_split4"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_12"
-                        android:background="@color/bg_gray_light" />
+                        style="@style/line_bold_gray_10" />
 
-                    <WebView
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                         android:id="@+id/web_recommend"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:overScrollMode="never"
+                        android:paddingLeft="@dimen/common_border"
+                        android:paddingRight="@dimen/common_border"
+                        app:canH="false"
+                        app:canV="false" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
