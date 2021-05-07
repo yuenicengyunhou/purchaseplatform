@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
@@ -33,7 +34,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
 
     @Override
     protected int getColor() {
-        return android.R.color.white;
+        return R.color.bg_blue;
     }
 
     @Override
