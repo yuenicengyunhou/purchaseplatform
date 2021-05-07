@@ -32,7 +32,7 @@ public class ResultWebBean implements Parcelable {
     private String urlright;
     private String leftParams;
     private String rightParams;
-
+    private int code;
 
     protected ResultWebBean(Parcel in) {
         if (in.readByte() == 0) {
@@ -47,6 +47,7 @@ public class ResultWebBean implements Parcelable {
         urlright = in.readString();
         leftParams = in.readString();
         rightParams = in.readString();
+        code = in.readInt();
     }
 
     @Override
@@ -64,6 +65,7 @@ public class ResultWebBean implements Parcelable {
         dest.writeString(urlright);
         dest.writeString(leftParams);
         dest.writeString(rightParams);
+        dest.writeInt(code);
     }
 
     @Override
@@ -82,6 +84,7 @@ public class ResultWebBean implements Parcelable {
             return new ResultWebBean[size];
         }
     };
+
 
     public Integer getType() {
         return type;
@@ -147,4 +150,11 @@ public class ResultWebBean implements Parcelable {
         this.rightParams = rightParams;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 }

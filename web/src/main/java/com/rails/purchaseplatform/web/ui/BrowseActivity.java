@@ -62,8 +62,7 @@ public class BrowseActivity extends WebActivity<BaseWebBinding> implements JSBro
     @Override
     public void goProductDetails(long platformId, long itemId) {
         Bundle bundle = new Bundle();
-        bundle.putLong("platformId", platformId);
-        bundle.putLong("itemId", itemId);
+        bundle.putString("itemId", String.valueOf(itemId));
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 

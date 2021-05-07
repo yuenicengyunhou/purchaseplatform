@@ -8,7 +8,9 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import androidx.viewbinding.ViewBinding;
 
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
 
 
 /**
@@ -23,7 +25,9 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
     public void onError(ErrorBean errorBean) {
         String errorCode = errorBean.getCode();
         switch (errorCode) {
-            case ERROR_UNLOAD: {
+            case ERROR_UNLOAD:
+            case ERROR_UNLOAD_2:
+            case ERROR_TIMEOUT: {
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
             }
             break;

@@ -74,11 +74,11 @@ public class ProductDetailsPresenterImpl
                 ArrayList<ProductServiceBean> serviceBeans = new ArrayList<>();
                 try {
                     ItemAfterSaleVo afterSale = detailsBean.getItemPublishVo().getItemAfterSaleVo();
-                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "售后退货说明",
+                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_exits, "售后退货说明",
                             afterSale.getRefundService() == 1 ? "特殊商品不允许退货。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请退货。"));
-                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "售后换货说明",
+                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_updates, "售后换货说明",
                             afterSale.getChangeService() == 1 ? "特殊商品，一经签收不予换货。。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请换货。"));
-                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "售后质保说明",
+                    serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_saves, "售后质保说明",
                             "确认收货后" + afterSale.getRepaireDuration() + "月内出现质量问题可审请质保。"));
                 } catch (Exception e) {
                 }
@@ -90,9 +90,9 @@ public class ProductDetailsPresenterImpl
                     String recommendOrg = TextUtils.isEmpty(suppData.getRecommendOrg()) ? "暂无数据" : suppData.getRecommendOrg();
                     String bindOrgName = TextUtils.isEmpty(suppData.getBindOrgName()) ? "暂无数据" : suppData.getBindOrgName();
                     String accountName = TextUtils.isEmpty(suppData.getAccountName()) ? "暂无数据" : suppData.getAccountName();
-                    companyBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "推荐单位", recommendOrg));
-                    companyBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "绑定货运单位", bindOrgName));
-                    companyBeans.add(new ProductServiceBean(R.drawable.ic_category_all, "货运客户经理", accountName));
+                    companyBeans.add(new ProductServiceBean(R.drawable.ic_market_recc, "推荐单位", recommendOrg));
+                    companyBeans.add(new ProductServiceBean(R.drawable.ic_market_bindc, "绑定货运单位", bindOrgName));
+                    companyBeans.add(new ProductServiceBean(R.drawable.ic_market_sendc, "货运客户经理", accountName));
                 } catch (Exception e) {
 
                 }

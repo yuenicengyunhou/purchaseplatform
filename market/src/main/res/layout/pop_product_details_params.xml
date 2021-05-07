@@ -299,6 +299,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_itemUnitKey" />
 
         <TextView
+            android:id="@+id/btn_ok"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
             android:layout_marginStart="@dimen/dp_16"

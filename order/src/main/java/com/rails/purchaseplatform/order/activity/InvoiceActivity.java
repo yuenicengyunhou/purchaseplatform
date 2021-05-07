@@ -238,6 +238,7 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
 
         Intent intent = new Intent();
         intent.putExtra("invoiceBean", orderInvoiceBean);
+        intent.putExtra("invoiceTitle", bean.getInvoiceTitle());
         setResult(RESULT_OK, intent);
         finish();
     }

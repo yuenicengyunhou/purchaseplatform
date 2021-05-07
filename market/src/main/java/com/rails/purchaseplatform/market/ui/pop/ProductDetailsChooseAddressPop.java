@@ -2,11 +2,14 @@ package com.rails.purchaseplatform.market.ui.pop;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PopChooseAddressAdapter;
 import com.rails.purchaseplatform.market.databinding.PopProductDetailsChooseAddressBinding;
@@ -18,11 +21,16 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
     private Context mContext;
     private ArrayList<AddressBean> mAddresses;
     private PopChooseAddressAdapter mAdapter;
+    private AddressListener listener;
 
     public ProductDetailsChooseAddressPop(Context context, ArrayList<AddressBean> addresses) {
         super();
         mContext = context;
         mAddresses = addresses;
+    }
+
+    public void setListener(AddressListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -31,10 +39,22 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
         mAdapter = new PopChooseAddressAdapter(mContext);
         binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvAddress.setAdapter(mAdapter);
+        mAdapter.setListener(new PositionListener<AddressBean>() {
+            @Override
+            public void onPosition(AddressBean bean, int position) {
+                if (listener != null)
+                    listener.getAddrss(bean);
+                dismiss();
+            }
+
+        });
 
         mAdapter.update(mAddresses, true);
 
         binding.tvChooseAddress.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.getArea("");
+            }
             dismiss();
         });
 
@@ -43,8 +63,19 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
 //        });
 
         binding.ibClose.setOnClickListener(v -> {
+
             dismiss();
         });
 
+    }
+
+
+    public interface AddressListener {
+
+
+        void getAddrss(AddressBean bean);
+
+
+        void getArea(String area);
     }
 }
