@@ -2,20 +2,30 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
+import com.rails.lib_data.bean.forAppShow.SpecificationValue;
+import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemResult;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSku;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.SkuSpecInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportData;
 import com.rails.lib_data.model.ProductDetailsModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -23,6 +33,8 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * 商品详情 presenter实现类
@@ -71,6 +83,29 @@ public class ProductDetailsPresenterImpl
             @Override
             protected void onSuccess(ProductDetailsBean detailsBean) {
 
+                ArrayList<ProductSpecificParameter> parameters = new ArrayList<ProductSpecificParameter>();
+                try {
+
+                    // TODO: 2021/5/8 组装 商品信息和规格属性 列表
+                    // TODO: 2021/5/8 在详情页选择规格弹窗确认时 需要更新 （已经拿到sku了，使用skuId去ItemPublishVo.skuSpecMap中拿属性）
+
+                    // 一个sku对应一组规格属性 只取第1个
+                    JSONObject data = detailsBean.getItemPublishVo().getSkuSpecMap();
+                    Set<String> keys = data.keySet();
+                    ArrayList<SkuSpecInfo> infoList;
+                    Gson gson = new GsonBuilder().create();
+                    for (String key : keys) {
+                        infoList = gson.fromJson(String.valueOf(data.getJSONArray(key)), new TypeToken<ArrayList<SkuSpecInfo>>() {
+                        }.getType());
+                        for (SkuSpecInfo info : infoList) {
+                            Log.d(TAG, "HELLO = " + info.getAttrName() + info.getAttrValue());
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 ArrayList<ProductServiceBean> serviceBeans = new ArrayList<>();
                 try {
                     ItemAfterSaleVo afterSale = detailsBean.getItemPublishVo().getItemAfterSaleVo();
@@ -99,13 +134,65 @@ public class ProductDetailsPresenterImpl
 
 
                 if (isCallBack()) {
-                    baseView.onGetProductDetailsSuccess(detailsBean, serviceBeans, companyBeans);
+                    baseView.onGetProductDetailsSuccess(detailsBean, serviceBeans, companyBeans, getSpecificationPopBeans(detailsBean));
                 }
 
                 baseView.dismissDialog();
             }
         });
 
+    }
+
+
+    /**
+     * 组装购物车弹窗和规格弹窗的数据
+     *
+     * @param bean
+     */
+    private ArrayList<SpecificationPopBean> getSpecificationPopBeans(ProductDetailsBean bean) {
+
+        // 组装ItemSkuInfoList中第1个sku的规格名称ID和规格值ID  eg: HashMap{<28999,134066>,<29000,134073>}
+        HashMap<String, String> firstSkuParamsIdMap = new HashMap<>();
+        if (bean.getItemSkuInfoList() != null && bean.getItemSkuInfoList().size() != 0) {
+            ItemSkuInfo skuInfo = bean.getItemSkuInfoList().get(0);
+            if (skuInfo.getAttributes() != null && !skuInfo.getAttributes().equals("")) {
+                String stringAttr = bean.getItemSkuInfoList().get(0).getAttributes();
+                String[] strings = stringAttr.split(";");
+                for (String s : strings) {
+                    String[] subStrings = s.split(":");
+                    firstSkuParamsIdMap.put(subStrings[0], subStrings[1]);
+                    Log.d(TAG, "HELLO == " + subStrings[0] + " - " + subStrings[1]);
+                }
+            }
+        }
+
+        ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
+        if (bean.getItemPublishVo().getAttrNameArray() != null && bean.getItemPublishVo().getAttrNameArray().size() != 0) {
+            // 遍历ItemPublishVo.attrNameArray, 取得可显示的属性名称
+            for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {  // 遍历属性名称
+                SpecificationPopBean specificationPopBean = new SpecificationPopBean();  // 创建属性Bean 用于展示
+                specificationPopBean.setAttrName(attrName);  // 属性Bean设置名称
+                ArrayList<SpecificationValue> specificationValues = new ArrayList<>(); // 创建属性子集合
+                // 遍历ItemPublishVo.attrNameValueReaultVos, 取得可显示的属性值
+                for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {  // 遍历 从集合对象中取 四项属性
+                    SpecificationValue specificationValue = new SpecificationValue();  // 创建子bean
+
+                    if (nameValue.getAttrName().equals(attrName)) {  // 判断 名称相同
+                        specificationPopBean.setAttrId(nameValue.getAttrId());  // 添加id
+                        specificationValue.setAttrValueId(nameValue.getAttrValueId());  // 添加属性值 属性值Id
+                        specificationValue.setAttrValueName(nameValue.getAttrValueName());
+
+                        if (firstSkuParamsIdMap.containsKey(nameValue.getAttrId()) && firstSkuParamsIdMap.get(nameValue.getAttrId()).equals(nameValue.getAttrValueId()))
+                            specificationValue.setSelect(true);
+                        specificationValues.add(specificationValue);
+                    }
+
+                    specificationPopBean.setSpecificationValue(specificationValues);
+                }
+                specificationPopBeans.add(specificationPopBean);
+            }
+        }
+        return specificationPopBeans;
     }
 
     /**

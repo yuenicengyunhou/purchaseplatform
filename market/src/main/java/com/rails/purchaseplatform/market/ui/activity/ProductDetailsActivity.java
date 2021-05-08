@@ -23,8 +23,6 @@ import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
-import com.rails.lib_data.bean.forAppShow.SpecificationValue;
-import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
@@ -57,7 +55,6 @@ import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -95,8 +92,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ProductDetailsBean mProductDetailsBean;
 
-    private ArrayList<SpecificationPopBean> SPECIFICATION_BEAN;
-    private ArrayList<SpecificationPopBean> mSpecificationPopBean;
+    private ArrayList<SpecificationPopBean> mSpecificationPopBeanList;
 
     private ItemSkuInfo mCheckedItemSkuInfo;
     private String mDelivery;
@@ -408,7 +404,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (TextUtils.isEmpty(skuId))
             return;
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBean, mProductDetailsBean.getItemSkuInfoList(), mPrice, mDelivery, mode);
+            mPop = new PropertyPop<>(mSpecificationPopBeanList, mProductDetailsBean.getItemSkuInfoList(), mPrice, mDelivery, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
@@ -538,7 +534,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * @param recCompanys  推荐企业列表
      */
     @Override
-    public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys) {
+    public void onGetProductDetailsSuccess(ProductDetailsBean bean,
+                                           ArrayList<ProductServiceBean> serviceBeans,
+                                           ArrayList<ProductServiceBean> recCompanys,
+                                           ArrayList<SpecificationPopBean> specificationPopBeanList) {
         if (bean == null)
             return;
         this.productDetailsBean = bean;
@@ -547,17 +546,27 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         serviceAdapter.update(serviceBeans, true);
         companyAdapter.update(recCompanys, true);
 
+        // 请求接口 获取运费
         mGetProductDetailsPresenter.getProductDelivery(bean.getItemPublishVo().getShopId());
 
 
-        if (bean.getItemPictureVoList() != null && bean.getItemPictureVoList().size() != 0)
+        // 构建轮播图List
+        if (bean.getItemPictureVoList() != null && bean.getItemPictureVoList().size() != 0) {
             for (ItemPictureVo itemPictureVo : bean.getItemPictureVoList()) {
                 pictureUrls.add(itemPictureVo.getPictureUrl());
             }
-        binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
+        }
+        // 设置轮播图
+        binding.productPictureHD.setImages(pictureUrls).
+                setImageLoader(new GlideImageLoader4ProductDetails()).start();
+        // 设置商品名称
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
+        // 设置店铺名称
         binding.textView.setText(bean.getItemPublishVo().getShopName());
+        // 设置商品销量 // TODO 销量是从ItemPublishVo中取的？ 好像不是很对啊。
         binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
+
+        // 不同规格组合产生的名称
         String attrName = bean.getItemSkuInfoList().get(0).getAttributesName();
         if (TextUtils.isEmpty(attrName)) {
             binding.rlTypeChosen.setVisibility(View.GONE);
@@ -565,6 +574,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             binding.tvSelectType.setText(bean.getItemSkuInfoList().get(0).getAttributesName());
         }
 
+        // 获取skuId和shopId
         List<ItemSkuInfo> itemSkuInfo = bean.getItemSkuInfoList();
         if (itemSkuInfo == null)
             return;
@@ -573,83 +583,39 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mSkuId = itemSkuInfo.get(0).getId();
         mShopId = String.valueOf(bean.getItemPublishVo().getShopId());
 
+        // 请求接口 添加浏览记录
         mGetProductDetailsPresenter.addSkuVisitTrack(String.valueOf(bean.getItemPublishVo().getCid()), mSkuId, false);
+        // 请求接口 获取sku价格
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
+        // 请求接口 获取商品收藏状态
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
+        // 请求接口 获取店铺推荐商品
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
 
 //        binding.ratioImage // TODO 设置店铺图片
 
+        binding.tvCredit.setText(getCreditLv(bean));
+
+        mSpecificationPopBeanList = specificationPopBeanList;
+    }
+
+    private String getCreditLv(ProductDetailsBean bean) {
         String creditLv = bean.getItemPublishVo().getCreditLevel();
+        String text = "风险较低";
         switch (creditLv) {
             case "B":
-                binding.tvCredit.setText("风险较低");
+                text = "风险较低";
                 break;
             case "C":
-                binding.tvCredit.setText("风险较高");
+                text = "风险较高";
                 break;
             case "D":
-                binding.tvCredit.setText("风险极高");
+                text = "风险极高";
                 break;
             default:
                 break;
         }
-
-
-//        Glide.with(this).load("https:" + bean.getItemPictureVoList().get(0).getPictureUrl()).into(binding.webProductInfo);
-        getSpecificationPopBeans(bean);
-
-    }
-
-    /**
-     * 组装购物车弹窗和规格弹窗的数据
-     *
-     * @param bean
-     */
-    private void getSpecificationPopBeans(ProductDetailsBean bean) {
-        mProductDetailsBean = bean;
-
-        HashMap<String, String> hashMap = new HashMap<>();
-        if (bean.getItemSkuInfoList() != null && bean.getItemSkuInfoList().size() != 0) {
-            ItemSkuInfo skuInfo = bean.getItemSkuInfoList().get(0);
-            if (skuInfo.getAttributes() != null && !skuInfo.getAttributes().equals("")) {
-                String stringAttr = bean.getItemSkuInfoList().get(0).getAttributes();
-                String[] strings = stringAttr.split(";");
-                for (String s : strings) {
-                    String[] subStrings = s.split(":");
-                    hashMap.put(subStrings[0], subStrings[1]);
-                }
-            }
-        }
-
-        ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
-        if (bean.getItemPublishVo().getAttrNameArray() != null && bean.getItemPublishVo().getAttrNameArray().size() != 0) {
-
-            for (String attrName : bean.getItemPublishVo().getAttrNameArray()) {  // 遍历属性名称
-                SpecificationPopBean specificationPopBean = new SpecificationPopBean();  // 创建属性Bean 用于展示
-                specificationPopBean.setAttrName(attrName);  // 属性Bean设置名称
-                ArrayList<SpecificationValue> specificationValues = new ArrayList<>(); // 创建属性子集合
-
-                for (AttrNameValueReaultVo nameValue : bean.getItemPublishVo().getAttrNameValueReaultVos()) {  // 遍历 从集合对象中取 四项属性
-                    SpecificationValue specificationValue = new SpecificationValue();  // 创建子bean
-
-                    if (nameValue.getAttrName().equals(attrName)) {  // 判断 名称相同
-                        specificationPopBean.setAttrId(nameValue.getAttrId());  // 添加id
-                        specificationValue.setAttrValueId(nameValue.getAttrValueId());  // 添加属性值 属性值Id
-                        specificationValue.setAttrValueName(nameValue.getAttrValueName());
-
-                        if (hashMap.containsKey(nameValue.getAttrId()) && hashMap.get(nameValue.getAttrId()).equals(nameValue.getAttrValueId()))
-                            specificationValue.setSelect(true);
-                        specificationValues.add(specificationValue);
-                    }
-
-                    specificationPopBean.setSpecificationValue(specificationValues);
-                }
-                specificationPopBeans.add(specificationPopBean);
-            }
-        }
-        SPECIFICATION_BEAN = specificationPopBeans;
-        mSpecificationPopBean = specificationPopBeans;
+        return text;
     }
 
     @Override
@@ -672,16 +638,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onGetCartCountSuccess(String count) {
         binding.tvCartCount.setText(count);
-//        try {
-//            int num;
-//            if (TextUtils.isEmpty(count))
-//                num = 0;
-//            else
-//                num = Integer.parseInt(count);
-//            binding.tvCartCount.setNumber(num);
-//        } catch (Exception e) {
-//            binding.tvCartCount.setNumber(0);
-//        }
     }
 
     @Override
@@ -709,9 +665,5 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onDestroy() {
         super.onDestroy();
-        try {
-        } catch (Exception e) {
-
-        }
     }
 }

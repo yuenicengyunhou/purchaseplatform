@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -10,7 +9,6 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultByShopProductBinding;
-import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 
 public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemAttribute, ItemSearchResultByShopProductBinding> {
 
@@ -33,10 +31,10 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemA
         binding.tvItemShop.setText(itemAttribute.getShopName());
         binding.rcProduct.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putLong("itemId", itemAttribute.getItemId());
-            bundle.putInt("skuId", itemAttribute.getSkuId());
-            bundle.putInt("cid", itemAttribute.getCid());
-            bundle.putLong("shopId", itemAttribute.getItemId());
+            bundle.putString("itemId", String.valueOf(itemAttribute.getItemId()));
+//            bundle.putInt("skuId", itemAttribute.getSkuId());
+//            bundle.putInt("cid", itemAttribute.getCid());
+//            bundle.putLong("shopId", itemAttribute.getItemId());
             ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
         });
     }

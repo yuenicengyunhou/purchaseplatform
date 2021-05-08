@@ -1,5 +1,7 @@
 package com.rails.lib_data.bean.forNetRequest.productDetails;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.List;
 
 public class ItemPublishVo {
@@ -33,10 +35,19 @@ public class ItemPublishVo {
     private int orgId;
     private String creditLevel;
     private int itemSaleCount;
+    private JSONObject skuSpecMap;
 
 
     // ===========================================================================================
 
+
+    public JSONObject getSkuSpecMap() {
+        return skuSpecMap;
+    }
+
+    public void setSkuSpecMap(JSONObject skuSpecMap) {
+        this.skuSpecMap = skuSpecMap;
+    }
 
     public List<AttrNameValueReaultVo> getAttrNameValueReaultVos() {
         return attrNameValueReaultVos;

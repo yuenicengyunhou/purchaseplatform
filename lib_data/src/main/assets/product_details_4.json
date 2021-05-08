@@ -1,0 +1,283 @@
+{
+  "code": "0",
+  "msg": "查询成功",
+  "data": {
+    "minPriceSkuId": null,
+    "itemId": null,
+    "itemPublishVo": {
+      "id": 1000883,
+      "platformId": 20,
+      "sellerId": 1000045149,
+      "shopId": 202003040112,
+      "shopName": "金龙鱼铁路总公司物资采购旗舰店",
+      "operatorId": null,
+      "itemName": "胡姬花古法小榨花生油4L",
+      "cid": 1001531,
+      "brandId": 1001807,
+      "unit": null,
+      "origin": "石家庄",
+      "ad": null,
+      "categoryAttributes": "",
+      "specAttributes": "13751:37907:;13743:37871:;13745:37881:;13739:134087:;13741:37867:;13737:134088:;13749:37891:;13735:134085:;13747:134086:;",
+      "saleStatus": 50,
+      "packingList": null,
+      "describeUrl": "<p><img src=\"//xsky.rails.cn/mall/4419dc35-dd87-42a1-9a37-674d7fb936fc.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></p><p><img src=\"//xsky.rails.cn/mall/c01f4054-b9b1-4df9-9bfd-93d3bcdcfcaf.jpg\" alt=\"\" width=\"750\" height=\"1005\" /></p><p><strong><img src=\"//xsky.rails.cn/mall/81e3921b-7372-4fdf-bb77-a11a967a0c18.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/1388a0c0-a531-4c07-baec-f82016e80955.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/2094ccb9-b29b-450b-bc14-3f6772ae2e60.jpg\" alt=\"\" width=\"750\" height=\"1005\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/bc811634-0766-4e92-964a-f16a67b7dc9d.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/fdcd0ccb-1c63-466b-9566-24d289533776.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/19ab88e9-0000-4caf-9426-eabd12390031.jpg\" alt=\"\" width=\"750\" height=\"1005\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/f6c39346-9f17-4055-ba79-fcd91cf51fe7.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/e7eb0bcf-b956-4b3d-abd0-0178a7042129.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/88c72c29-3bf3-4c3e-8bbc-fbd97a41c4d2.jpg\" alt=\"\" width=\"750\" height=\"1005\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/30af5050-4c00-49b6-966a-755036e4e130.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/0522ab6a-a367-4c1c-addc-4c727b2644e5.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/645ff7f5-d784-480e-a5fb-0efb60889842.jpg\" alt=\"\" width=\"750\" height=\"1005\" /></strong></p><p><strong><img src=\"//xsky.rails.cn/mall/c9402ac0-eed0-46fe-841e-6fa0f53ba008.jpg\" alt=\"\" width=\"750\" height=\"1006\" /></strong></p>",
+      "created": "2020-03-05 01:39:59",
+      "modified": "2021-05-06 02:49:26",
+      "listingTime": "2021-03-24 01:33:03",
+      "delistingTime": "2021-05-06 02:51:51",
+      "operator": null,
+      "addSource": null,
+      "yn": null,
+      "deliveryType": null,
+      "brandName": "胡姬花(hujihua)",
+      "brandNameCh": null,
+      "brandNameEn": null,
+      "itemSaleInfoVo": null,
+      "itemDeliveryInfoVo": null,
+      "itemAfterSaleVo": {
+        "id": null,
+        "platformId": 20,
+        "itemId": 1000883,
+        "sellerId": 1000045149,
+        "shopId": 202003040112,
+        "refundService": 1,
+        "changeService": 1,
+        "refundDuration": null,
+        "changeDuration": null,
+        "repaireDuration": 12,
+        "afterSalesExplain": null,
+        "specialDesc": null,
+        "specialShow": 0
+      },
+      "pictureUrl": null,
+      "altImages": null,
+      "sortNumber": null,
+      "tmplId": null,
+      "itemDeliveryInfoVoList": null,
+      "itemPictureVoList": null,
+      "itemSkuPictureVoList": null,
+      "itemPicpdfManualVoList": null,
+      "itemSkuVoList": null,
+      "perfectItemParamVo": null,
+      "publishuserId": 1000045149,
+      "attrNameValueReaultVos": [
+        {
+          "attrId": "13751",
+          "attrName": "规格",
+          "attrValueId": "37907",
+          "attrValueName": "3.1-5L"
+        },
+        {
+          "attrId": "13743",
+          "attrName": "包装",
+          "attrValueId": "37871",
+          "attrValueName": "瓶装"
+        },
+        {
+          "attrId": "13745",
+          "attrName": "是否转基因",
+          "attrValueId": "37881",
+          "attrValueName": "非转基因"
+        },
+        {
+          "attrId": "13739",
+          "attrName": "净含量（mL）",
+          "attrValueId": "134087",
+          "attrValueName": "4000mL"
+        },
+        {
+          "attrId": "13741",
+          "attrName": "加工工艺",
+          "attrValueId": "37867",
+          "attrValueName": "压榨"
+        },
+        {
+          "attrId": "13737",
+          "attrName": "保质期",
+          "attrValueId": "134088",
+          "attrValueName": "18个月"
+        },
+        {
+          "attrId": "13749",
+          "attrName": "类别",
+          "attrValueId": "37891",
+          "attrValueName": "其它"
+        },
+        {
+          "attrId": "13735",
+          "attrName": "产品标准号",
+          "attrValueId": "134085",
+          "attrValueName": "Q/BBAH0027S"
+        },
+        {
+          "attrId": "13747",
+          "attrName": "生产许可证号",
+          "attrValueId": "134086",
+          "attrValueName": "-"
+        }
+      ],
+      "attrNameArray": null,
+      "categoryFullName": "粮油食品>粮油调味>食用油",
+      "specAttrNameArray": [
+        "净含量（mL）",
+        "加工工艺",
+        "是否转基因",
+        "生产许可证号",
+        "保质期",
+        "规格",
+        "包装",
+        "产品标准号",
+        "类别"
+      ],
+      "itemType": 1,
+      "hasInventoryFlag": null,
+      "recycleStatus": null,
+      "rejectReason": "",
+      "bizId": null,
+      "itemFareTmplInfo": null,
+      "itemSaleCount": null,
+      "frontCategoryVoList": null,
+      "supplierInfoImportData": {
+        "id": 3732,
+        "recommendOrg": "国铁物资有限公司",
+        "bindOrgName": "国铁物资有限公司",
+        "accountName": "周经理"
+      },
+      "orgId": 58961,
+      "skuSpecMap": {
+        "12243": [
+          {
+            "attrName": "型号",
+            "attrValue": "4L"
+          },
+          {
+            "attrName": "单位",
+            "attrValue": "桶"
+          },
+          {
+            "attrName": "产品标准号",
+            "attrValue": "Q/BBAH0027S"
+          },
+          {
+            "attrName": "加工工艺",
+            "attrValue": "压榨"
+          },
+          {
+            "attrName": "包装",
+            "attrValue": "瓶装"
+          },
+          {
+            "attrName": "是否转基因",
+            "attrValue": "非转基因"
+          },
+          {
+            "attrName": "类别",
+            "attrValue": "其它"
+          },
+          {
+            "attrName": "规格",
+            "attrValue": "3.1-5L"
+          },
+          {
+            "attrName": "生产许可证号",
+            "attrValue": "-"
+          },
+          {
+            "attrName": "净含量（mL）",
+            "attrValue": "4000mL"
+          },
+          {
+            "attrName": "保质期",
+            "attrValue": "18个月"
+          }
+        ]
+      },
+      "creditLevel": "C"
+    },
+    "itemPictureVoList": [
+      {
+        "id": 123555,
+        "platformId": 20,
+        "itemId": 1000883,
+        "skuId": null,
+        "shopId": 202003040112,
+        "sellerId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/20200305094425120.jpg",
+        "altImages": "files.name`undefined",
+        "sortNumber": 1,
+        "annexType": 1
+      },
+      {
+        "id": 123556,
+        "platformId": 20,
+        "itemId": 1000883,
+        "skuId": null,
+        "shopId": 202003040112,
+        "sellerId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/20200305094428157.jpg",
+        "altImages": "files.name`undefined",
+        "sortNumber": 2,
+        "annexType": 1
+      },
+      {
+        "id": 123557,
+        "platformId": 20,
+        "itemId": 1000883,
+        "skuId": null,
+        "shopId": 202003040112,
+        "sellerId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/20200305094430800.jpg",
+        "altImages": "files.name`undefined",
+        "sortNumber": 3,
+        "annexType": 1
+      }
+    ],
+    "itemSkuInfoList": [
+      {
+        "id": 12243,
+        "itemId": 1000883,
+        "skuType": null,
+        "attributes": "",
+        "skuId": null,
+        "pictureUrl": "//xsky.rails.cn/mall/20200305094430800.jpg",
+        "modelUrl": null,
+        "altImages": "files.name`undefined",
+        "marketPrice": null,
+        "sellPrice": null,
+        "inventory": 500,
+        "attributesName": null,
+        "deliveryCycle": null,
+        "modelCode": "4L",
+        "saleNum": null,
+        "skuStatus": null,
+        "brandName": null,
+        "itemName": null,
+        "skuName": "胡姬花古法小榨花生油4L",
+        "areaPriceList": null,
+        "packageDis": "316*316*347",
+        "salesVolume": null,
+        "skuIdStr": null,
+        "itemSkuPriceResultVo": null,
+        "specAttributes": "产品标准号:Q/BBAH0027S;加工工艺:压榨;包装:瓶装;是否转基因:非转基因;类别:其它;规格:3.1-5L;生产许可证号:-;净含量（mL）:4000mL;保质期:18个月;",
+        "productCode": null,
+        "materialCode": null,
+        "skuUnit": "桶",
+        "shopId": 202103180590,
+        "weightUnit": "kg",
+        "skuQrcode": null,
+        "weight": 4.000,
+        "barCode": "6948195807384",
+        "sourceSkuId": "12243",
+        "shortCode": "12243",
+        "saleStatus": 0,
+        "shopType": null,
+        "skuPicUrls": null,
+        "skuNote": null,
+        "upTime": 1583372451000
+      }
+    ],
+    "priceShowType": null,
+    "scoreViewName": null
+  }
+}
