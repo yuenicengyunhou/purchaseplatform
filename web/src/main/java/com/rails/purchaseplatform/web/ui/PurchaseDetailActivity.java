@@ -7,6 +7,7 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
@@ -27,8 +28,8 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         super.getExtraEvent(extras);
         url = ConRoute.WEB_URL.PURCHASE_DETAIL;
         String orderNo = extras.getString("orderNo");
-        url = url + "?orderNo=" + orderNo + "&handle=2";
-        Log.e("WQ", "pur==" + url);
+        url = url + "?orderNo=" + orderNo + "&handle=2&list=list";
+        Logger.d("WQ", "pur==" + url);
 
     }
 
@@ -93,8 +94,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     @JavascriptInterface
     public void goProductDetails(long platformId, long itemId) {
         Bundle bundle = new Bundle();
-        bundle.putLong("platformId", platformId);
-        bundle.putLong("itemId", itemId);
+        bundle.putString("itemId", String.valueOf(itemId));
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 }

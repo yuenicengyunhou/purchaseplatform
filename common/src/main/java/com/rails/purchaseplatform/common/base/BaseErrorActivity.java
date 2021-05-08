@@ -9,6 +9,7 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import androidx.viewbinding.ViewBinding;
 
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
@@ -25,6 +26,7 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
     public void onError(ErrorBean errorBean) {
         String errorCode = errorBean.getCode();
         switch (errorCode) {
+            case ERROR_PASTDUE:
             case ERROR_UNLOAD:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {

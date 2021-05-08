@@ -24,7 +24,7 @@ public class EvaluteActivity extends WebActivity<BaseWebBinding> implements JSEv
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        String params = extras.getString("params");
+        String params = extras.getString("id");
         url = TextUtils.isEmpty(params) ? ConRoute.WEB_URL.EVALUTE : ConRoute.WEB_URL.EVALUTE + "?orderNo=" + params;
         ;
     }
@@ -71,6 +71,13 @@ public class EvaluteActivity extends WebActivity<BaseWebBinding> implements JSEv
     @Override
     public void onCopy(String code) {
 
+    }
+
+    @Override
+    public void goProductDetails(long platformId, long itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("itemId", String.valueOf(itemId));
+        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 
 

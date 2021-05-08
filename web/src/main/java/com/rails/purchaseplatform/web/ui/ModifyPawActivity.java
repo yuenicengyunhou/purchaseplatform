@@ -62,6 +62,11 @@ public class ModifyPawActivity extends WebActivity<BaseWebBinding> implements JS
 
     }
 
+    @Override
+    public void goProductDetails(long platformId, long itemId) {
+
+    }
+
 
     @JavascriptInterface
     @Override

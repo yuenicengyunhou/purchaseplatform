@@ -138,6 +138,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
             public void onClick(View v) {
                 ARouter.getInstance()
                         .build(webBean.getUrlleft())
+                        .withParcelable("webBean", webBean)
                         .navigation();
             }
         });
@@ -147,11 +148,18 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
             @Override
             public void onClick(View v) {
                 String rightParams = webBean.getRightParams();
-                ARouter.getInstance()
-                        .build(webBean.getUrlright())
-                        .withString("id", webBean.getRightParams())
-                        .withString("params", rightParams)
-                        .navigation();
+                if (webBean.getType() == 2) {
+                    ARouter.getInstance()
+                            .build(webBean.getUrlright())
+                            .withString("id", webBean.getOrderNo())
+                            .navigation();
+                } else {
+                    ARouter.getInstance()
+                            .build(webBean.getUrlright())
+                            .withParcelable("webBean", webBean)
+                            .navigation();
+                }
+
 
             }
         });

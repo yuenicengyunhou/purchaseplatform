@@ -15,7 +15,7 @@ public class ResultWebBean implements Parcelable {
 
 
     /**
-     * type : 1
+     * type : 1: 评价为 2
      * msg : 评价成功
      * btnleft : 查看采购单
      * btnright : 返回我的
@@ -33,6 +33,8 @@ public class ResultWebBean implements Parcelable {
     private String leftParams;
     private String rightParams;
     private int code;
+    private String orderNo;
+
 
     protected ResultWebBean(Parcel in) {
         if (in.readByte() == 0) {
@@ -48,6 +50,7 @@ public class ResultWebBean implements Parcelable {
         leftParams = in.readString();
         rightParams = in.readString();
         code = in.readInt();
+        orderNo = in.readString();
     }
 
     @Override
@@ -66,6 +69,7 @@ public class ResultWebBean implements Parcelable {
         dest.writeString(leftParams);
         dest.writeString(rightParams);
         dest.writeInt(code);
+        dest.writeString(orderNo);
     }
 
     @Override
@@ -84,7 +88,6 @@ public class ResultWebBean implements Parcelable {
             return new ResultWebBean[size];
         }
     };
-
 
     public Integer getType() {
         return type;
@@ -156,5 +159,13 @@ public class ResultWebBean implements Parcelable {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 }

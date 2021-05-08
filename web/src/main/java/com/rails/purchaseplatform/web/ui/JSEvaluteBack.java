@@ -44,4 +44,13 @@ public interface JSEvaluteBack extends JSBack {
     void onCopy(String code);
 
 
+    /**
+     * 跳转商品详情页面
+     *
+     * @param platformId
+     * @param itemId
+     */
+    void goProductDetails(long platformId, long itemId);
+
+
 }
