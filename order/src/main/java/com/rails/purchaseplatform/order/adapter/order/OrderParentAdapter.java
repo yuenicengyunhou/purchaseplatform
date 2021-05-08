@@ -1,5 +1,7 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.LrLableLayout;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.widget.Title4OrderRecyclerItem;
 
@@ -27,9 +30,12 @@ import java.util.ArrayList;
 public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderParentAdapter.ItemHolder> {
 
 
+    private final ClipboardManager clipboardManager;
+
     public OrderParentAdapter(Context context) {
         super(context);
         mContext = context;
+        clipboardManager = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
 
@@ -80,6 +86,13 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
                 .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                 .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
                 .navigation());
+
+        holder.title.setOnLongClickListener(v -> {
+            ClipData clipData = ClipData.newPlainText("text", orderNoStr);
+            clipboardManager.setPrimaryClip(clipData);
+            ToastUtil.showCenter(mContext,"已复制采购单号");
+            return true;
+        });
     }
 
 

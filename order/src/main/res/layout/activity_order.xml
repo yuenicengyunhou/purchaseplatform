@@ -75,6 +75,7 @@
             android:layout_toEndOf="@+id/view_split"
             android:background="@null"
             android:ems="12"
+            android:ellipsize="end"
             android:inputType="text"
             android:singleLine="true"
             android:imeOptions="actionSearch"

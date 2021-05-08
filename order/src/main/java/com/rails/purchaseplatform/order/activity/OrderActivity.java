@@ -359,11 +359,11 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 adapter = new ConditionAdapter(this);
                 listBinding.recycler.setAdapter(adapter);
                 adapter.setListener((PositionListener<BuyerBean>) (bean, position) -> {
-                    String accountName = bean.getAccountName();
+                    String realName = bean.getRealName();
                     String supplierName = bean.getSupplierName();
-                    String name = null == supplierName ? accountName : supplierName;
+                    String name = null == supplierName ? realName : supplierName;
                     binding.etSearchKey.setText(name);
-                    conditionId = bean.getId();
+                    conditionId = null==supplierName?bean.getId():bean.getSupplierId();
                     callFragmentToSearch(filterBean);
                     listPop.dismiss();
                 });
@@ -406,7 +406,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      */
     @Override
     public void loadConditionNameList(ArrayList<BuyerBean> list) {
-        Log.e("WQ", "size===" + list.size());
         if (null != adapter) {
             adapter.update(list, true);
         }
