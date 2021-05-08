@@ -104,9 +104,7 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
             this.notifyDataSetChanged();
             return;
         }
-        if (!itemDatas.isEmpty()) {
-            this.mDataSource.addAll(itemDatas);
-        }
+        this.mDataSource.addAll(itemDatas);
         this.notifyDataSetChanged();
     }
 

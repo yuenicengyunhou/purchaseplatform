@@ -338,7 +338,18 @@ public class ShopInfoBean {
     }
 
     public String getCreditLevel() {
-        return creditLevel;
+        if (null == creditLevel) {
+            creditLevel = "";
+        }
+        switch (creditLevel) {
+            case "A":
+            case "B":
+                return "风险较低";
+            case "D":
+            case "C":
+                return "风险较高";
+        }
+        return "";
     }
 
     public void setCreditLevel(String creditLevel) {

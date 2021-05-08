@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface OrderContract {
     interface OrderView extends BaseView {
-        void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean lastPage, boolean firstPage);
+        void getOrder(ArrayList<OrderInfoBean> orderBeans,boolean firstPage,int totalCount);
 
 
         /**

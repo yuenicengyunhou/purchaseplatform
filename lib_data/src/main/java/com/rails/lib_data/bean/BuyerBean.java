@@ -1,6 +1,8 @@
 package com.rails.lib_data.bean;
 
-public class BuyerBean {
+import java.io.Serializable;
+
+public class BuyerBean implements Serializable {
 
 
     /**
@@ -66,7 +68,7 @@ public class BuyerBean {
     private int yn;
     private String code;
     private String threeCategoryName;
-    private Object bindOrgId;
+    private String bindOrgId;
     private String threeCid;
     private Object erow;
 
@@ -287,11 +289,11 @@ public class BuyerBean {
         this.threeCategoryName = threeCategoryName;
     }
 
-    public Object getBindOrgId() {
+    public String getBindOrgId() {
         return bindOrgId;
     }
 
-    public void setBindOrgId(Object bindOrgId) {
+    public void setBindOrgId(String bindOrgId) {
         this.bindOrgId = bindOrgId;
     }
 
