@@ -117,16 +117,34 @@ public class ProductDetailsModel {
 
     /**
      * 获取店铺详情邮费
-     *https://shop.rails.cn/proxy/platform/mall/delivery/queryFreightAmountShopId?shopId=202003030108
+     * https://shop.rails.cn/proxy/platform/mall/delivery/queryFreightAmountShopId?shopId=202003030108
+     *
      * @param shopId
      * @param httpRxObserver
      */
     public void getProductDelivery(String shopId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("shopId",shopId);
+        params.put("shopId", shopId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(ProductService.class)
                 .getProductDelivery(params))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
+     * 添加浏览记录
+     *
+     * @param categoryId
+     * @param skuId
+     * @param httpRxObserver
+     */
+    public void addSkuVisitTrack(String categoryId, String skuId, HttpRxObserver<Boolean> httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("categoryId", categoryId);
+        params.put("skuId", skuId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .addSkuVisitTrack(params))
                 .subscribe(httpRxObserver);
     }
 }

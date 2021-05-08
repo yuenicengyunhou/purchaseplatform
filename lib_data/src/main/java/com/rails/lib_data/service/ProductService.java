@@ -87,4 +87,13 @@ public interface ProductService {
     Observable<HttpResult<DeliveryBean>> getProductDelivery(@QueryMap HashMap<String, Object> params);
 
 
+    /**
+     * 添加浏览记录
+     * https://shop.rails.cn/proxy/item-service/mall/item/addSkuVisitTrack?skuId=16317&categoryId=1000889
+     *
+     * @param params
+     * @return
+     */
+    @GET("app-item-service/app/v1/mall/item/addSkuVisitTrack")
+    Observable<HttpResult<Boolean>> addSkuVisitTrack(@QueryMap HashMap<String, Object> params);
 }

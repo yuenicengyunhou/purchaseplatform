@@ -256,4 +256,29 @@ public class ProductDetailsPresenterImpl
             }
         });
     }
+
+
+    /**
+     * 添加浏览记录
+     *
+     * @param categoryId
+     * @param skuId
+     * @param isDialog
+     */
+    @Override
+    public void addSkuVisitTrack(String categoryId, String skuId, boolean isDialog) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+        mModel.addSkuVisitTrack(categoryId, skuId, new HttpRxObserver<Boolean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(Boolean response) {
+                baseView.dismissDialog();
+            }
+        });
+    }
 }

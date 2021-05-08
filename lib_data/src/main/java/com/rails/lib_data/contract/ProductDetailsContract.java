@@ -125,5 +125,14 @@ public interface ProductDetailsContract {
          * @param shopId
          */
         void getProductDelivery(String shopId);
+
+
+        /**
+         * 浏览记录
+         *
+         * @param categoryId
+         * @param skuId
+         */
+        void addSkuVisitTrack(String categoryId, String skuId, boolean isDialog);
     }
 }

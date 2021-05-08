@@ -581,6 +581,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             return;
         mSkuId = itemSkuInfo.get(0).getId();
         mShopId = String.valueOf(bean.getItemPublishVo().getShopId());
+
+        mGetProductDetailsPresenter.addSkuVisitTrack(String.valueOf(bean.getItemPublishVo().getCid()), mSkuId, false);
         mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
