@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +17,6 @@ import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByProdu
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -158,8 +156,6 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     public void sendFilterData(String[] strings) {
         filtered = true;
-        // TODO: 2021/4/29 发送数据
-        Log.d(TAG, Arrays.toString(strings));
         mCid = strings[1] != null && !strings[1].equals("") ? strings[1] : mCid;
         brands = brandsString = strings[0];
         categoryAttrValueIds = strings[2];

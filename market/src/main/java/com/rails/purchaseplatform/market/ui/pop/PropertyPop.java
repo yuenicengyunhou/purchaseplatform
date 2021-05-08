@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -313,10 +312,10 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
                 mItemSkuInfo = itemSkuInfo;
-                if (mItemSkuInfo != null) {
-                    Log.d(TAG, mItemSkuInfo.getPictureUrl());
+                if (mItemSkuInfo != null && mTypeSelect != null) {
                     Glide.with(getContext()).load("https:" + mItemSkuInfo.getPictureUrl()).placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null).into(binding.imgProduct);
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true);
+                    mTypeSelect.getSkuInfo(mItemSkuInfo);
                 }
             }
         });
@@ -436,7 +435,19 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 商品详情页 选规格
      */
     public interface TypeSelect {
+
+        /**
+         * 点击确定按钮 回传购买数量
+         *
+         * @param count
+         */
         void onSelectComplete(String count);
-//        void onSelectComplete(ArrayList<SpecificationPopBean> beans);
+
+        /**
+         * 点击规格型号 回传ItemSkuInfo
+         *
+         * @param info
+         */
+        void getSkuInfo(ItemSkuInfo info);
     }
 }

@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,6 @@ import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.DetailImgAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.ProductBillAdapter;
@@ -70,7 +68,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         implements
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
-        AddressToolContract.AddressToolView, PropertyAdapter.OnItemClicked {
+        AddressToolContract.AddressToolView {
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
@@ -386,7 +384,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         view.setTag(location[1]);//存储y方向的位置
-        Log.d("HELLO -> LOCATION-Y = ", "" + location[1]);
     }
 
     /**
@@ -430,23 +427,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                         ToastUtil.showCenter(ProductDetailsActivity.this, "没有此型号商品或商品库存不足");
                     }
                 }
-            });
 
+                // 点击规格、加入购物车弹窗中的item时，会切换itemSku
+                @Override
+                public void getSkuInfo(ItemSkuInfo itemSkuInfo) {
+                    if (itemSkuInfo != null) {
+                        mCheckedItemSkuInfo = itemSkuInfo;
+                    }
+                }
+            });
         }
         mPop.show(getSupportFragmentManager(), "property");
-    }
-
-    /**
-     * 点击规格、加入购物车弹窗中的item时，会切换itemSku
-     *
-     * @param itemSkuInfo
-     */
-    @Override
-    public void onItemClicked(ItemSkuInfo itemSkuInfo) {
-        Log.d(TAG, "详情页收到监听事件");
-        if (itemSkuInfo != null) {
-            mCheckedItemSkuInfo = itemSkuInfo;
-        }
     }
 
     /**

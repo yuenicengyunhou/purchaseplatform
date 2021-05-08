@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.framwork;
 
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -30,9 +29,7 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
-        Log.e(TAG, "Thread = " + t.getName() + "\nThrowable = " + e.getMessage());
         String stackTraceInfo = getStackTraceInfo(e);
-        Log.e(TAG, stackTraceInfo);
         saveThrowableMessage(stackTraceInfo);
     }
 
@@ -90,7 +87,6 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
                         outputStream.write(bytes, 0, len);
                     }
                     outputStream.flush();
-                    Log.e(TAG, "写入本地文件成功：" + file.getAbsolutePath());
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

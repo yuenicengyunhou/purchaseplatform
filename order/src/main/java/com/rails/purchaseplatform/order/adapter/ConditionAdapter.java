@@ -19,17 +19,18 @@ public class ConditionAdapter extends BaseRecyclerAdapter<BuyerBean, ItemConditi
     }
 
     @Override
-    protected void onBindItem(ItemConditionBinding binding, BuyerBean bean, int position) {
-        String accountName = bean.getAccountName();
-        String supplierName = bean.getSupplierName();
-        String name = null == supplierName ? accountName : supplierName;
+    protected void onBindItem(ItemConditionBinding binding, BuyerBean buyerBean, int position) {
+        String realName = buyerBean.getRealName();
+        String supplierName = buyerBean.getSupplierName();
+        String name = null == supplierName ? realName : supplierName;
         binding.tvName.setText(name);
 
         binding.tvName.setOnClickListener(v -> {
             if (null != positionListener) {
-                positionListener.onPosition(bean, position);
+                positionListener.onPosition(buyerBean, position);
             }
         });
-
     }
+
+
 }
