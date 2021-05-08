@@ -90,12 +90,12 @@ public interface OrderService {
      */
 
     @GET("app-user-service/app/v1/buyer/user/queryPurchaserList")
-    Observable<HttpResult<Object>> getBuyerList(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<ArrayList<BuyerBean>>> getBuyerList(@QueryMap HashMap<String, Object> params);
 
 
     /**
      * 获取供应商名称列表
      */
     @GET("app-user-service/app/v1/buyer/supplierInfoImportData/querySupplierBySupplierName")
-    Observable<HttpResult<Object>> getSupplierNames(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<ArrayList<BuyerBean>>> getSupplierNames(@QueryMap HashMap<String, Object> params);
 }

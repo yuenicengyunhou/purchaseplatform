@@ -84,6 +84,14 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
         ToastUtil.show(this, code);
     }
 
+    @JavascriptInterface
+    @Override
+    public void goProductDetails(long platformId, long itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("itemId", String.valueOf(itemId));
+        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
+    }
+
 
     @JavascriptInterface
     @Override
@@ -96,4 +104,5 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
     public void onLogin() {
 
     }
+
 }
