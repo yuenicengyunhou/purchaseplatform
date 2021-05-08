@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -167,8 +166,6 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     public void sendShopFilterData(String shopType, String saleArea) {
         this.shopType = shopType;
         this.saleArea = saleArea;
-        Log.d(TAG, "在这个位置做网络请求。 shopType = " + shopType + ", saleArea = " + saleArea + ".");
-        // TODO: 2021/5/7 做网络请求
         notifyData(page, mSearchKey, orderColumn, orderType, this.shopType, this.saleArea, true);
     }
 }

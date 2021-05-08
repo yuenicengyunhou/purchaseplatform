@@ -2,7 +2,6 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -133,9 +132,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 });
                 mPop.show(getSupportFragmentManager(), "property");
             } else {
-                // TODO: 2021/5/7 构建固定的FilterBean
                 ArrayList<SearchFilterBean> filterBeans = fragment2.getFilterData();
-                Log.d("HELLO", "HELLO");
                 if (filterBeans == null || filterBeans.size() == 0) {
                     ToastUtil.showCenter(this, "没有过滤条件");
                     return;

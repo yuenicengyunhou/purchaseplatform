@@ -20,8 +20,7 @@
             android:id="@+id/img_product"
             android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_border"
-            android:background="@drawable/ic_cart_null" />
+            android:layout_marginStart="@dimen/common_border" />
 
         <TextView
             android:id="@+id/tv_price"

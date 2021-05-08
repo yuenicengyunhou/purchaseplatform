@@ -1,8 +1,9 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
+
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.rails.purchaseplatform.common.adapter.NavigatorAdapter;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
@@ -13,11 +14,9 @@ import com.rails.purchaseplatform.framwork.base.BasePop;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-import androidx.fragment.app.FragmentPagerAdapter;
-
 /**
  * 筛选
- *
+ * <p>
  * author： sk_comic@163.com
  * date: 2021/3/29
  */
@@ -79,9 +78,8 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
         if (len > TOWN) {
             return;
         }
-        AreaFragment fragment = AreaFragment.getInstance(len,code);
+        AreaFragment fragment = AreaFragment.getInstance(len, code);
         fragment.setListener((bean, type) -> {
-            Log.e("WQ", "name==" + bean.getName());
             areas.put(type, bean.getName());
             String mCode = bean.getCode();
             StringBuilder buffer = new StringBuilder();

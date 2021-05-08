@@ -3,7 +3,6 @@ package com.rails.purchaseplatform.common.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +45,6 @@ public class LineBreakLayout extends ViewGroup {
         LEFT_RIGHT_SPACE = ta.getDimensionPixelSize(R.styleable.LineBreakLayout_leftAndRightSpace, 10);
         ROW_SPACE = ta.getDimensionPixelSize(R.styleable.LineBreakLayout_rowSpace, 10);
         ta.recycle(); //回收
-        // ROW_SPACE=20   LEFT_RIGHT_SPACE=40
-        Log.v(TAG, "ROW_SPACE=" + ROW_SPACE + "   LEFT_RIGHT_SPACE=" + LEFT_RIGHT_SPACE);
     }
 
 
@@ -139,7 +136,6 @@ public class LineBreakLayout extends ViewGroup {
                     View view = getChildAt(i);
                     //获取标签宽度
                     int childW = view.getMeasuredWidth();
-                    Log.v(TAG, "标签宽度:" + childW + " 行数：" + row + "  剩余宽度：" + widthSpace);
                     if (widthSpace >= childW) {
                         //如果剩余的宽度大于此标签的宽度，那就将此标签放到本行
                         widthSpace -= childW;
@@ -156,7 +152,6 @@ public class LineBreakLayout extends ViewGroup {
                 //最终布局的高度=标签高度*行数+行距*(行数-1)
                 height = (childH * row) + ROW_SPACE * (row - 1);
 
-                Log.v(TAG, "总高度:" + height + " 行数：" + row + "  标签高度：" + childH);
             }
         }
 
@@ -184,8 +179,6 @@ public class LineBreakLayout extends ViewGroup {
                 right = childW;
                 botom = row * (childH + ROW_SPACE) + childH;
             }
-            Log.d(TAG, "left = " + (right - childW) + " top = " + (botom - childH) +
-                    " right = " + right + " botom = " + botom);
             childView.layout(right - childW, botom - childH, right, botom);
 
             right += LEFT_RIGHT_SPACE;
