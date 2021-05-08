@@ -40,8 +40,8 @@ public class EmptyView extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        LayoutInflater inflater =LayoutInflater.from(context);
-        binding = ViewEmptyBinding.inflate(inflater,this, true);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        binding = ViewEmptyBinding.inflate(inflater, this, true);
     }
 
 
@@ -172,5 +172,14 @@ public class EmptyView extends LinearLayout {
         }
         return this;
     }
+
+    /**
+     * 设置背景颜色
+     */
+    public void setBackgroundColor(int color) {
+        binding.flEmpty.setBackgroundColor(color);
+
+    }
+
 }
 

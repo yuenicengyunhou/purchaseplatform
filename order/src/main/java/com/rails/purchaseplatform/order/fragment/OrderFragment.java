@@ -127,12 +127,12 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     }
 
     @Override
-    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean lastPage, boolean firstPage) {
+    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean firstPage,int totalCount) {
         binding.swipe.finishLoadMore();
         if (firstPage) {
             mAdapter.update(orderBeans, true);
         } else {
-            if (!lastPage) {
+            if (mAdapter.getItemCount()<totalCount) {
                 mAdapter.update(orderBeans, false);
             }
         }

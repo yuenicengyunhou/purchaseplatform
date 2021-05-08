@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -83,6 +82,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         barBinding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+         barBinding.empty.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         barBinding.recRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {

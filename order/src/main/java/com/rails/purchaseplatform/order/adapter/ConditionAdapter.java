@@ -1,8 +1,6 @@
 package com.rails.purchaseplatform.order.adapter;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
 
 import com.rails.lib_data.bean.BuyerBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;

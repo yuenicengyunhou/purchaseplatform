@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -395,15 +396,17 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     }
 
     @Override
-    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean lastPage, boolean firstPage) {
+    public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean firstPage, int totalCount) {
 
     }
+    //175.24
 
     /**
      * 加载采购人用户列表/供应商名称列表
      */
     @Override
     public void loadConditionNameList(ArrayList<BuyerBean> list) {
+        Log.e("WQ", "size===" + list.size());
         if (null != adapter) {
             adapter.update(list, true);
         }
