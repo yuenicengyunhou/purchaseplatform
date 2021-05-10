@@ -2,14 +2,14 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,6 +60,7 @@ import java.util.List;
 /**
  * 商品详情页
  */
+// TODO: 2021/5/8 顶部Tab透明度在低版本上无效
 @Route(path = ConRoute.MARKET.PRODUCT_DETAIL)
 public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDetailsBinding>
         implements
@@ -114,7 +115,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     protected void initialize(Bundle bundle) {
 
         setTextStyleDeprecated();
@@ -162,13 +162,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
 
-        int px = (int) ScreenSizeUtil.dp2px(this, 80);
-        float px2 = ScreenSizeUtil.dp2px(this, 240);
-        float px3 = ScreenSizeUtil.dp2px(this, 1100);
+        int px = (int) ScreenSizeUtil.dp2px(this, 80); // Tab底部距离屏幕顶部的高度
+        float px2 = ScreenSizeUtil.dp2px(this, 240); // 内容上移到Tab完全透明状态的高度阈值
+        float px3 = ScreenSizeUtil.dp2px(this, 1100); // 内容上移到返回顶部按钮完全透明状态的高度阈值
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            binding.rlHeadViewWithTabLayout.setTransitionAlpha(0);
-        }
+        binding.rlHeadViewWithTabLayout.setVisibility(View.INVISIBLE);
+
         binding.ibGoTop.setVisibility(View.GONE);
 
         // 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
@@ -193,10 +192,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    updateTabTitleStateOnScroll(px, px2);
-                    updateBackButtonStateOnScroll(scrollY);
-                }
+//                Log.d(TAG, String.format("\n   ScrollX = %d, \n   ScrollY = %d, \nOldScrollX = %d, \nOldScrollY = %d, ", scrollX, scrollY, oldScrollX, oldScrollY));
+//                Log.d(TAG, String.format("   ScrollY = %d, OldScrollY = %d, ", scrollY, oldScrollY));
+                updateTabTitleStateOnScroll(scrollY, oldScrollY, px2);
+                updateBackButtonStateOnScroll(scrollY);
                 updateTabStateOnScroll(px);
                 updateGoTopButtonStateOnScroll(scrollY, px3);
 
@@ -235,12 +234,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      *
      * @param scrollY
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void updateBackButtonStateOnScroll(int scrollY) {
         if (scrollY <= 200) {
-            binding.ibBack1.setTransitionAlpha(1);
+            addAnimation(binding.ibBack1, 0F, 1F).start();
         } else {
-            binding.ibBack1.setTransitionAlpha(0);
+            addAnimation(binding.ibBack1, 1F, 0F).startNow();
         }
     }
 
@@ -281,13 +279,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 当页面滚动时更新TabLayout透明度
      *
-     * @param px
      * @param px2
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void updateTabTitleStateOnScroll(float px, float px2) {
-        float llFlagPosition = getCurrentPositionY(binding.llFlag) - px;
-        binding.rlHeadViewWithTabLayout.setTransitionAlpha(1 - (llFlagPosition / px2));
+    private void updateTabTitleStateOnScroll(int scrollY, int oldScrollY, float px2) {
+        // TODO: 2021/5/10 后期优化：px2应该是轮播图的高度
+        float start = oldScrollY / px2, end = scrollY / px2;
+        addAnimation(binding.rlHeadViewWithTabLayout, start, end);
     }
 
     /**
@@ -493,6 +490,43 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             });
         }
         mChooseAddressPop.show(getSupportFragmentManager(), "product_details_choose_address");
+    }
+
+
+    /**
+     * 设置透明度渐变动画
+     *
+     * @param view  需要此动画的View
+     * @param start 起始透明度
+     * @param end   最终透明度
+     * @return 返回Animation对象直接调用start方法
+     */
+    private Animation addAnimation(View view, float start, float end) {
+        Animation animation = new AlphaAnimation(start, end);
+        animation.setFillAfter(true);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (start < end/* && end >= 1*/) {
+                    view.setVisibility(View.VISIBLE);
+                }
+                if (start > end && end <= 0) {
+                    view.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.setAnimation(animation);
+        return animation;
     }
 
 
