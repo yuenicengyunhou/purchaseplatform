@@ -2,14 +2,12 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -114,7 +112,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     protected void initialize(Bundle bundle) {
 
         setTextStyleDeprecated();
@@ -166,9 +163,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         float px2 = ScreenSizeUtil.dp2px(this, 240);
         float px3 = ScreenSizeUtil.dp2px(this, 1100);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            binding.rlHeadViewWithTabLayout.setTransitionAlpha(0);
-        }
+        binding.rlHeadViewWithTabLayout.setAlpha(0);
         binding.ibGoTop.setVisibility(View.GONE);
 
         // 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
@@ -193,10 +188,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    updateTabTitleStateOnScroll(px, px2);
-                    updateBackButtonStateOnScroll(scrollY);
-                }
+                updateTabTitleStateOnScroll(px, px2);
+                updateBackButtonStateOnScroll(scrollY);
                 updateTabStateOnScroll(px);
                 updateGoTopButtonStateOnScroll(scrollY, px3);
 
@@ -235,12 +228,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      *
      * @param scrollY
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void updateBackButtonStateOnScroll(int scrollY) {
         if (scrollY <= 200) {
-            binding.ibBack1.setTransitionAlpha(1);
+            binding.ibBack1.setAlpha(1F);
         } else {
-            binding.ibBack1.setTransitionAlpha(0);
+            binding.ibBack1.setAlpha(0F);
         }
     }
 
@@ -284,10 +276,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * @param px
      * @param px2
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void updateTabTitleStateOnScroll(float px, float px2) {
         float llFlagPosition = getCurrentPositionY(binding.llFlag) - px;
-        binding.rlHeadViewWithTabLayout.setTransitionAlpha(1 - (llFlagPosition / px2));
+        binding.rlHeadViewWithTabLayout.setAlpha(1 - (llFlagPosition / px2));
     }
 
     /**
