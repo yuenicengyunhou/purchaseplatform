@@ -90,7 +90,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mBeans = beans;
         mMode = mode;
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
-        mItemSkuInfo = mItemSkuInfos.get(0);
+        mItemSkuInfo = (skuInfos != null && skuInfos.size() != 0) ? skuInfos.get(0) : null;
         mDelivery = delivery;
         mPrice = price;
         mProductDetailsPresenter = new ProductDetailsPresenterImpl(getActivity(), new ProductDetailsContract.ProductDetailsView() {

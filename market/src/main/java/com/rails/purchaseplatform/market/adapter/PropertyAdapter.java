@@ -93,6 +93,10 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
      * @param beans
      */
     private ItemSkuInfo checkSkuInfo(ArrayList<SpecificationPopBean> beans, ArrayList<ItemSkuInfo> itemSkuInfos) {
+        if (itemSkuInfos == null || itemSkuInfos.size() == 0) {
+            return null;
+        }
+
         ItemSkuInfo itemSkuInfo = null;
 
         //选中属性map

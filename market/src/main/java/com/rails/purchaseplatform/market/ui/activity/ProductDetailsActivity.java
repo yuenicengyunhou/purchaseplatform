@@ -91,8 +91,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private boolean isCollect = false;
 
-    private ProductDetailsBean mProductDetailsBean;
-
     private ArrayList<SpecificationPopBean> mSpecificationPopBeanList;
 
     private ItemSkuInfo mCheckedItemSkuInfo;
@@ -400,8 +398,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void showPropertyPop(int flag, int mode, String skuId) {
         if (TextUtils.isEmpty(skuId))
             return;
+        ArrayList<ItemSkuInfo> itemSkuInfoList = new ArrayList<>();
+        if (productDetailsBean != null) {
+            itemSkuInfoList = (ArrayList<ItemSkuInfo>) productDetailsBean.getItemSkuInfoList();
+        }
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBeanList, mProductDetailsBean.getItemSkuInfoList(), mPrice, mDelivery, mode);
+            mPop = new PropertyPop<>(mSpecificationPopBeanList, itemSkuInfoList, mPrice, mDelivery, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
