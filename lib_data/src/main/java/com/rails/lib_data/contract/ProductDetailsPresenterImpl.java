@@ -7,6 +7,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.DeliveryBean;
@@ -20,6 +21,7 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultV
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPublishVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemResult;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSku;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
@@ -83,28 +85,10 @@ public class ProductDetailsPresenterImpl
             @Override
             protected void onSuccess(ProductDetailsBean detailsBean) {
 
-                ArrayList<ProductSpecificParameter> parameters = new ArrayList<ProductSpecificParameter>();
-                try {
-
-                    // TODO: 2021/5/8 组装 商品信息和规格属性 列表
-                    // TODO: 2021/5/8 在详情页选择规格弹窗确认时 需要更新 （已经拿到sku了，使用skuId去ItemPublishVo.skuSpecMap中拿属性）
-
-                    // 一个sku对应一组规格属性 只取第1个
-                    JSONObject data = detailsBean.getItemPublishVo().getSkuSpecMap();
-                    Set<String> keys = data.keySet();
-                    ArrayList<SkuSpecInfo> infoList;
-                    Gson gson = new GsonBuilder().create();
-                    for (String key : keys) {
-                        infoList = gson.fromJson(String.valueOf(data.getJSONArray(key)), new TypeToken<ArrayList<SkuSpecInfo>>() {
-                        }.getType());
-                        for (SkuSpecInfo info : infoList) {
-                            Log.d(TAG, "HELLO = " + info.getAttrName() + info.getAttrValue());
-                        }
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
+                ProductDetailsDataUtils utils = new ProductDetailsDataUtils();
+                utils.getCommonParams(parameters, detailsBean);
+                utils.getSpecParams(parameters, detailsBean);
 
                 ArrayList<ProductServiceBean> serviceBeans = new ArrayList<>();
                 try {

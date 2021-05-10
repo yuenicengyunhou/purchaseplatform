@@ -19,6 +19,7 @@ import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.forAppShow.ItemParams;
+import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
@@ -31,6 +32,7 @@ import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartToolPresenterImpl;
 import com.rails.lib_data.contract.ProductDetailsContract;
+import com.rails.lib_data.contract.ProductDetailsDataUtils;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
@@ -448,12 +450,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             params.setItemBarCode(productDetailsBean.getItemSkuInfoList().get(0).getBarCode());
             params.setWeight(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getWeight()));
             params.setWeightUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
-            // TODO: 2021/4/22 包装尺寸从哪里取？
-            params.setSize("");
-            // TODO: 2021/4/22 商品单位从哪里取？
-            params.setItemUnit("");
+            params.setSize(productDetailsBean.getItemSkuInfoList().get(0).getPackageDis());
+            params.setItemUnit(productDetailsBean.getItemSkuInfoList().get(0).getSkuUnit());
 
-            mParamsPop = new ProductDetailsParamsPop(params);
+            ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
+            ProductDetailsDataUtils utils = new ProductDetailsDataUtils();
+            utils.getCommonParams(parameters, productDetailsBean);
+            utils.getSpecParams(parameters, productDetailsBean);
+            mParamsPop = new ProductDetailsParamsPop(parameters, params);
             mParamsPop.setType(BasePop.MATCH_WRAP);
             mParamsPop.setGravity(Gravity.BOTTOM);
         }

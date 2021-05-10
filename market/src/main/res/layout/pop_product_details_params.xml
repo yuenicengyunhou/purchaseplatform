@@ -314,4 +314,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_itemUnitKey" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        android:id="@+id/brv_productParams"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never" />
+
 </androidx.core.widget.NestedScrollView>

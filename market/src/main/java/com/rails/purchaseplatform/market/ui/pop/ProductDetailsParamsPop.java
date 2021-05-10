@@ -5,25 +5,42 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.rails.lib_data.bean.forAppShow.ItemParams;
+import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
+import com.rails.lib_data.contract.ProductContract;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.market.adapter.ProDetailsParamsAdapter;
 import com.rails.purchaseplatform.market.databinding.PopProductDetailsParamsBinding;
+
+import java.util.ArrayList;
 
 public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBinding> {
 
     private ItemParams mParams;
+    private ProductContract.ProductPresenter mPresenter;
+    ArrayList<ProductSpecificParameter> mParameters;
 
     public ProductDetailsParamsPop() {
         super();
     }
 
-    public ProductDetailsParamsPop(ItemParams params) {
+    public ProductDetailsParamsPop(ArrayList<ProductSpecificParameter> parameters, ItemParams params) {
         super();
+        mParameters = parameters;
         mParams = params;
     }
 
     @Override
     protected void initialize(Bundle bundle) {
+//        mPresenter = new ProductDetailsPresenterImpl(getActivity(), this);
+        ProDetailsParamsAdapter adapter = new ProDetailsParamsAdapter(getActivity());
+        binding.brvProductParams.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        binding.brvProductParams.setAdapter(adapter);
+        adapter.update(mParameters, true);
+
         // 品牌
         setTextOrGone(mParams.getBrand(), binding.tvBrandKey, binding.tvBrandValue);
 

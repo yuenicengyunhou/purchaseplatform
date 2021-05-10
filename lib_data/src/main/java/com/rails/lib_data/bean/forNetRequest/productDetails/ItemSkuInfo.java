@@ -20,10 +20,19 @@ public class ItemSkuInfo {
     private double weight;
     private String attributesName;
     private ItemSkuPriceResultVo itemSkuPriceResultVo;
+    private String skuUnit;
 
 
     // ===========================================================================================
 
+
+    public String getSkuUnit() {
+        return skuUnit;
+    }
+
+    public void setSkuUnit(String skuUnit) {
+        this.skuUnit = skuUnit;
+    }
 
     public String getAttributesName() {
         return attributesName;
