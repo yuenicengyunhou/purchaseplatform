@@ -6,11 +6,16 @@ import android.os.Message;
 import android.view.KeyEvent;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.databinding.ActivityMainBinding;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
+import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -19,6 +24,7 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 @Route(path = ConRoute.RAILS.MAIN)
 public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
 
+    private ResultWebBean webBean;
     // 定义一个变量，来标识是否退出
     private boolean isExit = false;
     Handler mHandler = new Handler() {
@@ -29,9 +35,18 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
         }
     };
 
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        webBean = extras.getParcelable("webBean");
+    }
+
     @Override
     protected void initialize(Bundle bundle) {
-
+        if (webBean != null) {
+            EventBus.getDefault().post(new BusEvent<ResultWebBean>(webBean, ConRoute.EVENTCODE.MAIN_CODE));
+        }
     }
 
     @Override
@@ -46,7 +61,7 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
 
     @Override
     protected boolean isBindEventBus() {
-        return false;
+        return true;
     }
 
 

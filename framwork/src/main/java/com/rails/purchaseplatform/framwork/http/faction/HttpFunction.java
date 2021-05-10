@@ -11,20 +11,18 @@ import io.reactivex.functions.Function;
 public class HttpFunction<T> implements Function<HttpResult<T>, T> {
 
     @Override
-    public T apply(HttpResult<T> tHttpResult) throws Exception {
-        try {
-            if (tHttpResult.isSuccess() || "0".equals(tHttpResult.getCode())) {
+    public T apply(HttpResult<T> tHttpResult) {
+        if (tHttpResult.isSuccess() || "0".equals(tHttpResult.getCode())) {
 
-                T t = tHttpResult.getData();
-                if (t == null)
-                    return (T) tHttpResult.getMessage();
-                else
-                    return t;
-            } else {
-                throw new HttpError(tHttpResult.getCode(), tHttpResult.getMessage());
-            }
-        } catch (Exception e) {
-            throw new HttpError(tHttpResult.getCode(), tHttpResult.getMessage());
+            T t = tHttpResult.getData();
+            if (t == null)
+                return (T) String.valueOf(tHttpResult.getMessage());
+            else
+                return t;
+        } else {
+            throw new HttpError(tHttpResult.getCode(),
+                    String.valueOf(tHttpResult.getMsg()),
+                    String.valueOf(tHttpResult.getMessage()));
         }
     }
 }

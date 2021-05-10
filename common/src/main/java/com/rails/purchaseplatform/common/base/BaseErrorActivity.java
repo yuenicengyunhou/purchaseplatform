@@ -13,6 +13,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.UN_KNOWN_ERROR;
 
 /**
  * 错误异常统一处理
@@ -33,7 +34,10 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
             }
             break;
+            case UN_KNOWN_ERROR: {
 
+            }
+            break;
             default:
                 String msg = errorBean.getMsg();
                 ToastUtil.showCenter(this, msg);
