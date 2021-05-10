@@ -160,7 +160,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
      */
     private void verify(String men, String phone, String area, String remark, int isReceivingAddress, int isInvoiceAddress) {
         if ((isReceivingAddress + isInvoiceAddress) < 1) {
-            ToastUtil.showCenter(this, "请选择地址类型");
+            ToastUtil.showCenter(this, "至少选择一种地址类型");
             return;
         }
         presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId);
