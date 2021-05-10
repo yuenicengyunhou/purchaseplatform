@@ -76,13 +76,13 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 2 - 供应商名称
      */
     private int mType = 0;
-    private PopupWindow listPop;
+    private PopupWindow listPop;//采购人姓名和供应商检索列表
     private OrderPresenterImpl presenter;
-    private ConditionAdapter adapter;
+    private ConditionAdapter adapter;//采购人姓名和供应商检索列表的adapter
     private String conditionId = "";
     private OrderFilterBean filterBean;
     private String statusCode = null;
-    private OrderFilterPop mFilterPopup;
+    private OrderFilterPop mFilterPopup;//筛选弹窗
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -363,7 +363,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                     String supplierName = bean.getSupplierName();
                     String name = null == supplierName ? realName : supplierName;
                     binding.etSearchKey.setText(name);
-                    conditionId = null==supplierName?bean.getId():bean.getSupplierId();
+                    conditionId = null == supplierName ? bean.getId() : bean.getSupplierId();
                     callFragmentToSearch(filterBean);
                     listPop.dismiss();
                 });
