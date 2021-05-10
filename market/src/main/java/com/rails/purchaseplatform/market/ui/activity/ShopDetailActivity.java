@@ -113,12 +113,14 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
         //下拉刷新
         barBinding.swipe.setOnRefreshListener(refreshLayout -> {
-            clearAllConditions();
+//            clearAllConditions();
+            mPage = PAGE_DEF;
             queryShopInfo();
             queryShopProductList();
         });
 
-        clearAllConditions();
+//        clearAllConditions();
+        setSelected(true, false, false, false);
 
 
         presenter = new ShopPresenterImp(this, this);
@@ -139,14 +141,14 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
      * 清除所有筛选条件
      */
     private void clearAllConditions() {
-        setSelected(true, false, false, false);
+//        setSelected(true, false, false, false);
         mPage = PAGE_DEF;
-        orderType = "";
-        orderColumn = "";
-        filterList = null;
-        if (null != mPop) {
-            mPop = null;
-        }
+//        orderType = "";
+//        orderColumn = "";
+//        filterList = null;
+//        if (null != mPop) {
+//            mPop = null;
+//        }
     }
 
     @Override

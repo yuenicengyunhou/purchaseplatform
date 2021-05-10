@@ -12,9 +12,9 @@
     </data>
 
     <FrameLayout
-        android:background="@color/bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg">
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/swipe"
@@ -116,9 +116,9 @@
 
                         <!--综合-->
                         <CheckBox
-                            android:layout_marginStart="@dimen/paddingL"
                             android:id="@+id/rb_all"
                             style="@style/market_tab"
+                            android:layout_marginStart="@dimen/paddingL"
                             android:layout_weight="1"
                             android:drawablePadding="@dimen/dp_3"
                             android:gravity="center"
@@ -135,8 +135,8 @@
                             <CheckBox
                                 android:id="@+id/rb_sale"
                                 style="@style/market_tab"
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
+                                android:layout_gravity="center"
                                 android:drawableEnd="@drawable/selector_arrow"
                                 android:gravity="center"
                                 android:text="@string/market_shop_sale"
@@ -154,8 +154,8 @@
                             <CheckBox
                                 android:id="@+id/rb_price"
                                 style="@style/market_tab"
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
+                                android:layout_gravity="center"
                                 android:drawableEnd="@drawable/selector_arrow"
                                 android:gravity="center"
                                 android:text="@string/market_shop_price"
@@ -173,9 +173,9 @@
 
                             <CheckBox
                                 android:id="@+id/rb_sel"
-                                android:layout_gravity="center"
                                 style="@style/market_tab"
                                 android:layout_width="wrap_content"
+                                android:layout_gravity="center"
                                 android:checked="false"
                                 android:drawableEnd="@drawable/svg_sel_gray"
                                 android:drawablePadding="@dimen/dp_3"
@@ -201,10 +201,10 @@
                         android:id="@+id/recRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="@dimen/dp_8"
-
-                        android:paddingEnd="@dimen/dp_8"
                         android:overScrollMode="never"
+
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_8"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
                     <com.rails.purchaseplatform.common.widget.EmptyView
