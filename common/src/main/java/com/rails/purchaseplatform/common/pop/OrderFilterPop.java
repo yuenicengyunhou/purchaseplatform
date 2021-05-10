@@ -6,6 +6,7 @@ import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderStatusBean;
+import com.rails.purchaseplatform.common.R;
 import com.rails.purchaseplatform.common.adapter.FilterCheckAdapter;
 import com.rails.purchaseplatform.common.adapter.FlowLayoutManager;
 import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
@@ -19,6 +20,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 
@@ -26,11 +28,12 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     private CompleteListener<OrderFilterBean> completeListener;
     private OrderFilterBean filterBean;
     private FilterCheckAdapter mAdapter2;
-    private DatePickListener datePickListener;
+//    private DatePickListener datePickListener;
     private PopDismissListener popDismissListener;
-    private String startDate = "";
-    private String endDate = "";
-    private String dateRange = "";
+    private String startDate = "";//起始时间，formatt之后的
+    private String endDate = "";//截止时间，formatt之后的
+    private String dateRangeStr = "";//起止日期显示字段
+
 
     public void setPopDismissListener(PopDismissListener popDismissListener) {
         this.popDismissListener = popDismissListener;
@@ -40,9 +43,9 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         this.completeListener = completeListener;
     }
 
-    public void setDatePickListener(DatePickListener datePickListener) {
-        this.datePickListener = datePickListener;
-    }
+//    public void setDatePickListener(DatePickListener datePickListener) {
+//        this.datePickListener = datePickListener;
+//    }
 
     public OrderFilterPop() {
     }
@@ -111,15 +114,18 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 //            }
             Calendar now = Calendar.getInstance();
             DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd) -> {
-                        endDate = formattTime(year,monthOfYear,dayOfMonth,true);
-                        startDate = formattTime(yearEnd,monthOfYearEnd,dayOfMonthEnd,true);
-                        String range = formattTime(year,monthOfYear,dayOfMonth,false) + " 至 " + formattTime(yearEnd,monthOfYearEnd,dayOfMonthEnd,false);
-                        binding.tvDateRange.setText(range);
+                        startDate = formattTime(year, monthOfYear, dayOfMonth, true);
+                        endDate = formattTime(yearEnd, monthOfYearEnd, dayOfMonthEnd, true);
+                        dateRangeStr = formattTime(year, monthOfYear, dayOfMonth, false) + " 至 " + formattTime(yearEnd, monthOfYearEnd, dayOfMonthEnd, false);
+                        binding.tvDateRange.setText(dateRangeStr);
                     },
                     now.get(Calendar.YEAR),
                     now.get(Calendar.MONTH),
                     now.get(Calendar.DAY_OF_MONTH)
             );
+            dpd.setAccentColor(Objects.requireNonNull(getActivity()).getResources().getColor(R.color.bg_blue));
+            dpd.setStartTitle("开始日期");
+            dpd.setEndTitle("结束日期");
             dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
         });
 
@@ -162,7 +168,7 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         String highPrice = filterBean.getHighPrice();
         binding.etHighPrice.setText(highPrice);
 
-        binding.tvDateRange.setText(dateRange);
+        binding.tvDateRange.setText(dateRangeStr);
 
         mAdapter2.update(filterBean.getStatusBeans());
     }
@@ -177,10 +183,10 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         loadData();
     }
 
-    private String formattTime(int year,int month,int day,boolean formatt) {
+    private String formattTime(int year, int month, int day, boolean formatt) {
         Calendar calendar = Calendar.getInstance();
         // 设置当前日期和时间
-        calendar.set(year,month, day);
+        calendar.set(year, month, day);
         // 格式化字符串
         if (formatt) {
             return TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMDHMS);
@@ -198,9 +204,9 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 //
 //    }
 
-    public interface DatePickListener {
-        void onDatePick();
-    }
+//    public interface DatePickListener {
+//        void onDatePick();
+//    }
 
     public interface PopDismissListener {
         void dismiss(OrderFilterBean data);

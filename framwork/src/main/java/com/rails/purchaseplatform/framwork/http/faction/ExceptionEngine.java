@@ -52,7 +52,8 @@ public class ExceptionEngine {
             errorBean.setMsg(httpError.getMsg());
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
-                || e instanceof ParseException || e instanceof MalformedJsonException) {  //解析数据错误
+                || e instanceof ParseException
+                || e instanceof MalformedJsonException) {  //解析数据错误
             errorBean = new ErrorBean(e, DATA_ERROR);
             errorBean.setMsg("JSON解析异常");
         } else if (e instanceof ConnectException) {//连接网络错误

@@ -62,7 +62,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         String orderNoStr = parentBean.getOrderNoStr();
         String orderTime = parentBean.getOrderTime();
         String provider = parentBean.getShopName();
-        String buyer = parentBean.getBuyerName();
+        String buyer = parentBean.getBuyerName();//+"-"+parentBean.getRealName();
         String delayTime = parentBean.getDelayReceiveTime() == null ? "" : parentBean.getDelayReceiveTime();
         holder.title.setText(orderNoStr, orderTime, provider, buyer, delayTime);
         holder.title.setOnClickListener(v -> ARouter.getInstance()
