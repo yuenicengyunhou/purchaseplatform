@@ -20,7 +20,7 @@ public class ConditionAdapter extends BaseRecyclerAdapter<BuyerBean, ItemConditi
 
     @Override
     protected void onBindItem(ItemConditionBinding binding, BuyerBean buyerBean, int position) {
-        String realName = buyerBean.getRealName();
+        String realName = buyerBean.getAccountName();
         String supplierName = buyerBean.getSupplierName();
         String name = null == supplierName ? realName : supplierName;
         binding.tvName.setText(name);
