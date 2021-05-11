@@ -13,6 +13,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.UN_KNOWN_ERROR;
 
 /**
@@ -29,6 +30,7 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
         switch (errorCode) {
             case ERROR_PASTDUE:
             case ERROR_UNLOAD:
+            case HTTP_ERROR:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();

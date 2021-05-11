@@ -118,8 +118,10 @@ class CommonActivity extends ToolbarActivity<BaseWebBinding> implements JSBrowse
         return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
     }
 
+    @JavascriptInterface
     @Override
     public void onLogin() {
+        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
 

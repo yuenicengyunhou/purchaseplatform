@@ -102,7 +102,7 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
     @JavascriptInterface
     @Override
     public void onLogin() {
-
+        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
 }

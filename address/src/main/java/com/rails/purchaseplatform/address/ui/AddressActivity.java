@@ -14,17 +14,18 @@ import com.rails.purchaseplatform.address.adapter.AddressAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
-import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 /**
  * 地址管理列表页面
@@ -32,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 @Route(path = ConRoute.ADDRESS.ADDRESS_MAIN)
 public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> implements AddressContract.AddressView,
         PositionListener<AddressBean>, MulPositionListener<AddressBean> {
-    private final int PAGE_DEF = 0;
+    private final int PAGE_DEF = 1;
     private int mPage = PAGE_DEF;
     private AddressAdapter addressAdapter;
     private AddressContract.AddressPresenter presenter;
@@ -91,6 +92,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         addressAdapter.setListener(this);
         addressAdapter.setMulPositionListener(this);
         barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
+        barBinding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
         barBinding.recycler.setOnItemMenuClickListener((menuBridge, adapterPosition) -> {
             menuBridge.closeMenu();
             int position = menuBridge.getPosition();
@@ -130,9 +132,13 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 //        });
 
         barBinding.smart.setOnRefreshListener(refreshLayout -> {
-            barBinding.smart.finishRefresh();
             mPage = PAGE_DEF;
-            onRefresh(false);
+            onRefresh(true);
+        });
+
+        barBinding.smart.setOnLoadMoreListener(refreshLayout -> {
+            mPage++;
+            onRefresh((false));
         });
 
     }
@@ -142,7 +148,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
      * 刷新请求
      */
     private void onRefresh(boolean isDialog) {
-        presenter.getAddresses(isDialog,mPage);
+        presenter.getAddresses(isDialog, mPage);
     }
 
 
@@ -167,20 +173,25 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     }
 
     @Override
-    public void getAddresses(ArrayList<AddressBean> addressBeans) {
-        addressAdapter.update(addressBeans, mPage==PAGE_DEF);
-        int defPosition = 0;
-        boolean defExist = false;
-        for (int i = 0; i < addressBeans.size(); i++) {
-            if (addressBeans.get(i).getHasDefault()==1) {
-                defPosition = i;
-                defExist = true;
-                break;
-            }
+    public void getAddresses(ArrayList<AddressBean> addressBeans,boolean isLastPage,int totalCount) {
+        barBinding.smart.finishLoadMore();
+        barBinding.smart.finishRefresh();
+        if (isLastPage && addressAdapter.getItemCount() >= totalCount) {
+            return;
         }
-        if (defExist) {
-            getResult(1, defPosition, null);
-        }
+        addressAdapter.update(addressBeans, mPage == PAGE_DEF);
+//        int defPosition = 0;
+//        boolean defExist = false;
+//        for (int i = 0; i < addressBeans.size(); i++) {
+//            if (addressBeans.get(i).getHasDefault() == 1) {
+//                defPosition = i;
+//                defExist = true;
+//                break;
+//            }
+//        }
+//        if (defExist) {
+//            getResult(1, defPosition, null);
+//        }
     }
 
     @Override

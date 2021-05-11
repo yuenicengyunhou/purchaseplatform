@@ -76,7 +76,7 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
     }
 
     @Override
-    public void getAddresses(ArrayList<AddressBean> addressBeans) {
+    public void getAddresses(ArrayList<AddressBean> addressBeans, boolean isLastPage, int totalCount) {
 
     }
 

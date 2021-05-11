@@ -140,16 +140,16 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     /**
      * 清除所有筛选条件
      */
-    private void clearAllConditions() {
-//        setSelected(true, false, false, false);
-        mPage = PAGE_DEF;
-//        orderType = "";
-//        orderColumn = "";
-//        filterList = null;
-//        if (null != mPop) {
-//            mPop = null;
-//        }
-    }
+//    private void clearAllConditions() {
+////        setSelected(true, false, false, false);
+//        mPage = PAGE_DEF;
+////        orderType = "";
+////        orderColumn = "";
+////        filterList = null;
+////        if (null != mPop) {
+////            mPop = null;
+////        }
+//    }
 
     @Override
     protected int getColor() {

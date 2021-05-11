@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.ConShare;
+import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressDTO;
 import com.rails.lib_data.bean.ListBeen;
@@ -40,23 +41,28 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     }
 
     @Override
-    public void getAddresses(Boolean isDialog,int page) {
-        model.queryAddressList(20, accountId, 2, page,  new HttpRxObserver<ListBeen<AddressBean>>() {
+    public void getAddresses(Boolean isDialog, int page) {
+        if (isDialog) {
+            baseView.showResDialog(R.string.loading);
+        }
+        model.queryAddressList(20, accountId, 2, page, new HttpRxObserver<ListBeen<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
+                if (isDialog) {
+                    baseView.dismissDialog();
+                }
                 baseView.onError(e);
             }
 
             @Override
             protected void onSuccess(ListBeen<AddressBean> response) {
+                if (isDialog) {
+                    baseView.dismissDialog();
+                }
                 boolean lastPage = response.isLastPage();
-                if (lastPage) {
-                    ToastUtil.show(mContext,"最后一页啦");
-                }
+                int totalCount = response.getTotalCount();
                 ArrayList<AddressBean> list = response.getList();
-                if (list != null) {
-                    baseView.getAddresses(list);
-                }
+                baseView.getAddresses(list,lastPage,totalCount);
             }
         });
     }

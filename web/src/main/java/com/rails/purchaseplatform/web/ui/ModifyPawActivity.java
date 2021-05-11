@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
@@ -77,6 +78,6 @@ public class ModifyPawActivity extends WebActivity<BaseWebBinding> implements JS
     @JavascriptInterface
     @Override
     public void onLogin() {
-
+        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 }

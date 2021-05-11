@@ -83,7 +83,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
      */
     private void setDetail(AddressBean bean) {
         barBinding.etName.setContent(bean.getReceiverName());
-        barBinding.etPhone.setContent(bean.getPhone());
+        barBinding.etPhone.setContent(bean.getMobile());
         barBinding.etArea.setContent(bean.getFullAddress());
         barBinding.etRemark.setText(bean.getFullAddress());
         barBinding.cbReceive.setChecked(bean.getReceivingAddress() == 1);
@@ -162,7 +162,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
     }
 
     @Override
-    public void getAddresses(ArrayList<AddressBean> addressBeans) {
+    public void getAddresses(ArrayList<AddressBean> addressBeans, boolean isLastPage, int totalCount) {
 
     }
 

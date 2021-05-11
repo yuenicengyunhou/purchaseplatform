@@ -86,7 +86,7 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     @JavascriptInterface
     @Override
     public void onLogin() {
-
+        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
     @JavascriptInterface
