@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.CartShopBean;
+import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.model.OrderVerifyModel;
@@ -45,6 +47,13 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             protected void onSuccess(OrderVerifyBean bean) {
                 baseView.dismissDialog();
                 if (isCallBack()) {
+                    for (CartShopBean shopBean : bean.getCart().getShopList()) {
+                        int totalNum = 0;
+                        for (CartShopProductBean productBean : shopBean.getSkuList()) {
+                            totalNum += productBean.getSkuNum();
+                        }
+                        shopBean.setTotalNum(totalNum);
+                    }
                     baseView.getVerifyOrder(bean);
                 }
             }

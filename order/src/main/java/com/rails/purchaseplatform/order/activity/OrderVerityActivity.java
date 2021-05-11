@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
@@ -26,10 +27,12 @@ import com.rails.lib_data.request.OrderVerifyBody;
 import com.rails.lib_data.request.SkuListBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.pop.AlterDialog;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
@@ -74,6 +77,8 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     //下单前要获取的token
     private String orderToken = "";
 
+
+    private double itemPrice, extraPrice;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -194,11 +199,18 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
 
         if (bean.getBudgetBean() != null) {
+            extraPrice = bean.getBudgetBean().getUsedAmount();
             barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getBudgetAmount())));
             barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getUsedAmount())));
         }
 
         if (bean.getCart() != null) {
+            try {
+                itemPrice = Double.parseDouble(bean.getCart().getPaymentPrice());
+            } catch (Exception e) {
+                itemPrice = 0;
+            }
+
             barBinding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", bean.getCart().getPaymentPrice(), "", 18));
             barBinding.tvTotalNum.setText(String.format(getResources().getString(R.string.order_verify_number), bean.getCart().getTotalSkuNum()));
         }
@@ -243,7 +255,11 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         });
 
         barBinding.btnCommit.setOnClickListener(v -> {
-            commitOrder();
+            if (itemPrice > extraPrice) {
+                showDialog();
+            } else
+                commitOrder();
+
 
         });
 
@@ -407,6 +423,28 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         orderInvoiceBean.setInvoiceTitleId(titleBean.getId());
         //未知
         orderInvoiceBean.setInvoiceModality(2);
+    }
+
+
+    private void showDialog() {
+        new AlterDialog.Builder().context(this)
+                .title("提示")
+                .msg("您所在的组织预算不足，是否继续下单？")
+                .leftBtn("继续")
+                .rightBtn("取消")
+                .setDialogListener(new AlterDialog.DialogListener() {
+                    @Override
+                    public void onLeft() {
+                        commitOrder();
+                        dismissDialog();
+                    }
+
+                    @Override
+                    public void onRight() {
+                        dismissDialog();
+                    }
+                })
+                .builder().show();
     }
 
 }

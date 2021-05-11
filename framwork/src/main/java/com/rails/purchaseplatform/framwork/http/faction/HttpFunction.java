@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.framwork.http.faction;
 
 
+import android.text.TextUtils;
+
 import io.reactivex.functions.Function;
 
 /**
@@ -15,9 +17,9 @@ public class HttpFunction<T> implements Function<HttpResult<T>, T> {
         if (tHttpResult.isSuccess() || "0".equals(tHttpResult.getCode())) {
 
             T t = tHttpResult.getData();
-            if (t == null)
-                return (T) String.valueOf(tHttpResult.getMessage());
-            else
+            if (t == null) {
+                return (T) String.valueOf(TextUtils.isEmpty(tHttpResult.getMessage()) ? tHttpResult.getMsg() : tHttpResult.getMessage());
+            } else
                 return t;
         } else {
             throw new HttpError(tHttpResult.getCode(),

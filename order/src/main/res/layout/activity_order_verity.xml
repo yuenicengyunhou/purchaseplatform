@@ -25,10 +25,10 @@
                     android:id="@+id/tv_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp_20"
                     android:ellipsize="end"
                     android:lines="1"
                     android:singleLine="true"
-                    android:layout_marginRight="@dimen/dp_20"
                     android:textColor="@color/font_black_light"
                     android:textSize="@dimen/font_size_13" />
 
@@ -142,9 +142,9 @@
                 android:layout_marginBottom="@dimen/dp_5"
                 app:is_hide="true"
                 app:key_color="@color/font_black"
-                app:value_right_icon="@drawable/svg_arrow_white"
                 app:key_size="@dimen/font_size_14"
                 app:value_color="@color/font_black"
+                app:value_right_icon="@drawable/svg_arrow_white"
                 app:value_size="@dimen/font_size_13" />
 
             <View
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_border"
                 android:layout_marginTop="@dimen/common_border"
-                android:layout_marginRight="@dimen/common_border"
+                android:layout_marginRight="@dimen/dp_25"
                 android:text="@string/order_verify_bill"
                 android:textColor="@color/font_black_light"
                 android:textSize="@dimen/font_size_13" />
@@ -180,6 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_border"
+                android:layout_marginRight="@dimen/dp_25"
                 android:ellipsize="end"
                 android:lines="1"
                 android:singleLine="true"

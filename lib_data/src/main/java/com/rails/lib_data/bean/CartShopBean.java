@@ -25,6 +25,7 @@ public class CartShopBean {
      * selectedSubPrice : 0
      * selectedSkuNum : 0
      * freightPrice : 2.00
+     *
      */
 
     private String itemIds;
@@ -41,6 +42,7 @@ public class CartShopBean {
     private String selectedSubPrice;
     private String selectedSkuNum;
     private String freightPrice;
+    private int totalNum;
     private List<CartShopProductBean> skuList;
     public final ObservableField<Boolean> isSel = new ObservableField<>();
     public final ObservableField<String> remark = new ObservableField<>();
@@ -149,5 +151,13 @@ public class CartShopBean {
 
     public void setItemIds(String itemIds) {
         this.itemIds = itemIds;
+    }
+
+    public int getTotalNum() {
+        return totalNum;
+    }
+
+    public void setTotalNum(int totalNum) {
+        this.totalNum = totalNum;
     }
 }
