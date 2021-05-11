@@ -27,7 +27,7 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemA
     @Override
     protected void onBindItem(ItemSearchResultByShopProductBinding binding, ItemAttribute itemAttribute, int position) {
         binding.setItemAttr(itemAttribute);
-        binding.tvPrice.setText(String.valueOf(itemAttribute.getSellPrice()));
+        binding.tvPrice.setText(String.format("%.2f", itemAttribute.getSellPrice()));
         binding.tvItemShop.setText(itemAttribute.getShopName());
         binding.rcProduct.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

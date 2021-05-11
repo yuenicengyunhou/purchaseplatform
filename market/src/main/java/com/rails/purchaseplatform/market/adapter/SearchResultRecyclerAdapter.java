@@ -28,7 +28,7 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<ItemAttribu
     @Override
     protected void onBindItem(ItemSearchResultBinding binding, ItemAttribute itemAttribute, int position) {
         binding.setItemAttribute(itemAttribute);
-        binding.tvPrice.setText(String.valueOf(itemAttribute.getSellPrice()));
+        binding.tvPrice.setText(String.format("%.2f", itemAttribute.getSellPrice()));
         binding.llItems.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("itemId", String.valueOf(itemAttribute.getItemId()));

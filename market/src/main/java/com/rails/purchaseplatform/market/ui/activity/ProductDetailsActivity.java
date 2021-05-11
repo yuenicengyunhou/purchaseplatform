@@ -605,8 +605,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
         mPrice = String.valueOf(bean.getSellPrice());
-        binding.tvSellPrice.setText(String.valueOf(bean.getSellPrice()));
-        binding.tvPriceGray.setText(String.valueOf(bean.getMarketPrice()));
+        binding.tvSellPrice.setText(String.format("%.2f", bean.getSellPrice()));
+        binding.tvPriceGray.setText(String.format("%.2f", bean.getMarketPrice()));
         binding.fsvScore.setStar((int) bean.getScore());
 
         billAdapter.update(billBeans, true);
