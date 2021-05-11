@@ -145,7 +145,14 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         this.mCid = cid;
         notifyData(mSearchKey, mCid, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
-                minPrice, maxPrice, page, 30, false);
+                minPrice, maxPrice, page, 30, true);
+    }
+
+    @Override
+    public void search() {
+        notifyData(mSearchKey, mCid, orderColumn, orderType,
+                brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
+                minPrice, maxPrice, page, 30, true);
     }
 
     @Override

@@ -158,6 +158,11 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     }
 
     @Override
+    public void search() {
+        notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
+    }
+
+    @Override
     public ArrayList<SearchFilterBean> getFilterData() {
         return getFilter();
     }

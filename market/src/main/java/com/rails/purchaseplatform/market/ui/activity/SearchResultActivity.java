@@ -192,6 +192,18 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             }
         });
 
+        // 点击搜索按钮 刷新当前搜索结果（重新搜索）
+        binding.tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSearchType == 0) {
+                    fragment1.search();
+                } else {
+                    fragment2.search();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -244,6 +256,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          * @param cid
          */
         void sort(String orderColumn, String orderType, String keyword, String cid);
+
+        void search();
 
         /**
          * 筛选条件数据
