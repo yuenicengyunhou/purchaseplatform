@@ -77,19 +77,20 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
             new AlterDialog.Builder().context(this)
                     .title("提示")
                     .msg("确定要退出吗")
-                    .leftBtn("取消")
-                    .rightBtn("确定")
+                    .leftBtn("确定")
+                    .rightBtn("取消")
                     .setDialogListener(new AlterDialog.DialogListener() {
                         @Override
                         public void onLeft() {
+                            PrefrenceUtil.getInstance(SettingActivity.this).setString(ConShare.TOKEN, "");
+                            PrefrenceUtil.getInstance(SettingActivity.this).setBean(ConShare.USERINFO,null);
+                            ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                             dismissDialog();
+                            finish();
                         }
 
                         @Override
                         public void onRight() {
-                            PrefrenceUtil.getInstance(SettingActivity.this).setString(ConShare.TOKEN, "");
-                            PrefrenceUtil.getInstance(SettingActivity.this).setBean(ConShare.USERINFO,null);
-                            ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                             dismissDialog();
                         }
                     })

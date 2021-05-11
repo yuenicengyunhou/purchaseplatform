@@ -68,8 +68,8 @@
                 android:gravity="center"
                 android:paddingTop="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_10"
-                android:text="取消"
-                android:textColor="@color/font_gray"
+                android:text="确定"
+                android:textColor="@color/font_blue"
                 android:textSize="@dimen/font_size_14" />
 
             <View
@@ -86,8 +86,8 @@
                 android:gravity="center"
                 android:paddingTop="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_10"
-                android:text="确定"
-                android:textColor="@color/font_blue"
+                android:text="取消"
+                android:textColor="@color/font_gray"
                 android:textSize="@dimen/font_size_14" />
         </LinearLayout>
 

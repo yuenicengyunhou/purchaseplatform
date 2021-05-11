@@ -32,6 +32,9 @@ import androidx.navigation.fragment.NavHostFragment;
  * @date: 2021/3/4
  */
 public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
+
+    private int position = 0;
+
     @Override
     protected void loadData() {
 
@@ -56,7 +59,7 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         String code = event.getEventCode();
         ResultWebBean bean = (ResultWebBean) event.getBean();
         if (ConRoute.EVENTCODE.MAIN_CODE.equals(code)) {
-            binding.viewpager.setCurrentItem(bean.getCode());
+            position = bean.getCode();
         }
     }
 
@@ -116,6 +119,7 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         viewPageAdapter.update(frms, true);
         binding.viewpager.setAdapter(viewPageAdapter);
         binding.viewpager.setOffscreenPageLimit(4);
+        binding.viewpager.setCurrentItem(position);
     }
 
 
