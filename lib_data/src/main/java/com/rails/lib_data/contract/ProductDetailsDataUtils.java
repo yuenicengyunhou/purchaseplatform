@@ -46,8 +46,6 @@ public class ProductDetailsDataUtils {
     }
 
     private void addParam(ArrayList<ProductSpecificParameter> parameters, String key, String value) {
-        if (TextUtils.equals(value, "-")) // 生产许可证号为 "-" 不显示
-            return;
         if (!TextUtils.isEmpty(value)) {
             ProductSpecificParameter parameter = new ProductSpecificParameter();
             parameter.setParamKey(key);
@@ -82,6 +80,8 @@ public class ProductDetailsDataUtils {
                 }.getType());
                 if (currentItemSkuInfo != null && currentItemSkuInfo.getId().equals(key)) {
                     for (SkuSpecInfo info : infoList) {
+                        if (TextUtils.equals(info.getAttrValue(), "-")) // 生产许可证号为 "-" 不显示
+                            continue;
                         if (!TextUtils.isEmpty(info.getAttrValue())) {
                             ProductSpecificParameter parameter = new ProductSpecificParameter();
                             Log.d(TAG, "HELLO = " + info.getAttrName() + info.getAttrValue());

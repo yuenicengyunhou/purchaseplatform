@@ -20,7 +20,6 @@
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_8"
-            android:ems="8"
             android:text="@{params.paramKey}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13" />
@@ -29,6 +28,7 @@
             android:id="@+id/tv_paramsValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_2"
             android:layout_marginTop="@dimen/dp_8"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_8"
