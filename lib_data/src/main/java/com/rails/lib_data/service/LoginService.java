@@ -1,5 +1,6 @@
 package com.rails.lib_data.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
@@ -7,8 +8,6 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -48,5 +47,15 @@ public interface LoginService {
      */
     @GET("app-user-service/app/v1/buyer/user/login")
     Observable<HttpResult<UserInfoBean>> getUserInfo(@QueryMap HashMap<String, String> params);
+
+
+    /**
+     * 找回密码
+     *
+     * @param params
+     * @return
+     */
+    @POST("passwd/findpd")
+    Observable<HttpResult<JSONObject>> retrievePassword(@Body HashMap<String, Object> params);
 
 }

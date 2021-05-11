@@ -2,6 +2,8 @@ package com.rails.purchaseplatform.user.ui.activity;
 
 import android.os.Bundle;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordConfirmBinding;
 
@@ -13,6 +15,7 @@ import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordConfi
  * 用户名和邮箱验证通过
  * @since 2021.03.28
  */
+@Route(path = ConRoute.USER.RETRIEVE_PASSWORD)
 public class RetrievePasswordConfirmActivity extends BaseErrorActivity<ActivityRetrievePasswordConfirmBinding> {
 
 

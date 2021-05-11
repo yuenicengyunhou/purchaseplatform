@@ -30,6 +30,9 @@ public class ConRoute {
 
         //注册
         public final static String REGISTER = "/user/register";
+
+        // 找回密码
+        public final static String RETRIEVE_PASSWORD = "/retrieve/password";
     }
 
     // 通用COMMON

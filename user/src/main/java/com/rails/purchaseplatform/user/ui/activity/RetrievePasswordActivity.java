@@ -1,15 +1,16 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.contract.RetrievePasswordContract;
+import com.rails.lib_data.contract.RetrievePasswordPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordBinding;
-
-import java.util.regex.Pattern;
 
 /**
  * @author ZhangXiaofu
@@ -19,11 +20,13 @@ import java.util.regex.Pattern;
  * 输入用户名和邮箱进行验证
  * @since 2021.03.28
  */
-public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrievePasswordBinding> {
+public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrievePasswordBinding> implements RetrievePasswordContract.RetrievePasswordView {
+
+    private RetrievePasswordContract.RetrievePasswordPresenter mPresenter;
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        mPresenter = new RetrievePasswordPresenterImpl(this, this);
     }
 
     @Override
@@ -49,52 +52,15 @@ public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrieve
         binding.btnConfirm.setOnClickListener(v -> {
             String username = binding.etUserNameInput.getText().toString().trim(),
                     email = binding.etEmailInput.getText().toString().trim();
-
-            if (!matchUsername(username)) {
-                Toast.makeText(this, "用户名格式错误", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (!matchEmail(email)) {
-                Toast.makeText(this, "邮箱格式错误", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Bundle bundle = new Bundle();
-            Intent intent = new Intent(this, RetrievePasswordConfirmActivity.class);
-            startActivity(intent);
-            finish();
+            email = "1023725142@qq.com";
+            username = "lwq010";
+            mPresenter.retrievePassword(username, email, true);
         });
 
         binding.etEmailInput.setOnFocusChangeListener((v, hasFocus) ->
                 setInputLineBackground(hasFocus, binding.viewUserEmailInputLine));
         binding.etUserNameInput.setOnFocusChangeListener((v, hasFocus) ->
                 setInputLineBackground(hasFocus, binding.viewUserNameInputLine));
-    }
-
-    /**
-     * 验证邮箱格式
-     *
-     * @param email 邮箱
-     * @return 不为空并且匹配格式返回true，否则返回false
-     */
-    private boolean matchEmail(String email) {
-        // TODO: 2021/3/28 邮箱正则
-        Pattern pattern = Pattern.compile("^\\d{6}$");
-//        return !email.equals("") && pattern.matcher(email).matches();
-        return true;
-    }
-
-    /**
-     * 验证用户名格式
-     *
-     * @param username 用户名
-     * @return 不为空并且匹配格式返回true，否则返回false
-     */
-    private boolean matchUsername(String username) {
-        // TODO: 2021/3/28 用户名正则
-        Pattern pattern = Pattern.compile("^\\d{6}$");
-//        return !username.equals("") && pattern.matcher(username).matches();
-        return true;
     }
 
     /**
@@ -112,5 +78,21 @@ public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrieve
             view.setBackground(drawableHasFocus);
         else
             view.setBackground(drawableLoseFocus);
+    }
+
+    @Override
+    public void onRetrieveSuccess(String message) {
+        ToastUtil.showCenter(this, message);
+        Bundle bundle = new Bundle();
+        bundle.putString("email", binding.etEmailInput.getText().toString().trim());
+        ARouter.getInstance()
+                .build(ConRoute.USER.RETRIEVE_PASSWORD)
+                .with(bundle).navigation();
+        finish();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

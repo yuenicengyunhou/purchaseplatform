@@ -1,6 +1,6 @@
 package com.rails.lib_data.model;
 
-import com.orhanobut.logger.Logger;
+import com.google.gson.JsonObject;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.LoginService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
@@ -68,6 +68,25 @@ public class LoginModel {
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(LoginService.class).getUserInfo(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 找回密码
+     *
+     * @param userName
+     * @param email
+     * @param httpRxObserver
+     */
+    public void retrievePassword(String userName, String email, HttpRxObserver<JsonObject> httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("userName", userName);
+        params.put("userEmail", email);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(LoginService.class, 1)
+                .retrievePassword(params))
                 .subscribe(httpRxObserver);
     }
 }
