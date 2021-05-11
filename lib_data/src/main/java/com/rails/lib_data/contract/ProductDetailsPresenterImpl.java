@@ -9,7 +9,6 @@ import com.rails.lib_data.R;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
-import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationValue;
@@ -77,11 +76,6 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ProductDetailsBean detailsBean) {
-
-                ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
-                ProductDetailsDataUtils utils = new ProductDetailsDataUtils();
-                utils.getCommonParams(parameters, detailsBean);
-                utils.getSpecParams(parameters, detailsBean);
 
                 ArrayList<ProductServiceBean> serviceBeans = new ArrayList<>();
                 try {

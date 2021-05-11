@@ -21,22 +21,24 @@ public class ProductDetailsDataUtils {
 
     final private String TAG = ProductDetailsDataUtils.class.getSimpleName();
 
-    public ArrayList<ProductSpecificParameter> getCommonParams(ArrayList<ProductSpecificParameter> parameters, ProductDetailsBean detailsBean) {
+    public ArrayList<ProductSpecificParameter> getCommonParams(
+            ArrayList<ProductSpecificParameter> parameters,
+            ProductDetailsBean detailsBean,
+            ItemSkuInfo currentItemSkuInfo) {
+
         ItemPublishVo itemPublishVo;
-        ItemSkuInfo defaultItemSkuInfo;
         try {
             itemPublishVo = detailsBean.getItemPublishVo();
-            defaultItemSkuInfo = detailsBean.getItemSkuInfoList().get(0);
             addParam(parameters, "品牌：", itemPublishVo.getBrandName());
             addParam(parameters, "商品名称：", itemPublishVo.getItemName());
-            addParam(parameters, "规格型号：", defaultItemSkuInfo.getModelCode());
-            addParam(parameters, "商品毛重：", String.valueOf(defaultItemSkuInfo.getWeight()), defaultItemSkuInfo.getWeightUnit());
-            addParam(parameters, "包装尺寸：", defaultItemSkuInfo.getPackageDis(), "毫米");
-            addParam(parameters, "商品单位：", defaultItemSkuInfo.getSkuUnit());
+            addParam(parameters, "规格型号：", currentItemSkuInfo.getModelCode());
+            addParam(parameters, "商品毛重：", String.valueOf(currentItemSkuInfo.getWeight()), currentItemSkuInfo.getWeightUnit());
+            addParam(parameters, "包装尺寸：", currentItemSkuInfo.getPackageDis(), "毫米");
+            addParam(parameters, "商品单位：", currentItemSkuInfo.getSkuUnit());
             addParam(parameters, "商品产地：", itemPublishVo.getOrigin());
             addParam(parameters, "商品编码：", String.valueOf(itemPublishVo.getId()));
-            addParam(parameters, "单品编码：", defaultItemSkuInfo.getId());
-            addParam(parameters, "单品条码：", defaultItemSkuInfo.getBarCode());
+            addParam(parameters, "单品编码：", currentItemSkuInfo.getId());
+            addParam(parameters, "单品条码：", currentItemSkuInfo.getBarCode());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,10 +67,12 @@ public class ProductDetailsDataUtils {
         }
     }
 
-    public ArrayList<ProductSpecificParameter> getSpecParams(ArrayList<ProductSpecificParameter> parameters, ProductDetailsBean detailsBean) {
-        ItemSkuInfo defaultItemSkuInfo;
+    public ArrayList<ProductSpecificParameter> getSpecParams(
+            ArrayList<ProductSpecificParameter> parameters,
+            ProductDetailsBean detailsBean,
+            ItemSkuInfo currentItemSkuInfo) {
+
         try {
-            defaultItemSkuInfo = detailsBean.getItemSkuInfoList().get(0);
             JSONObject data = detailsBean.getItemPublishVo().getSkuSpecMap();
             Set<String> keys = data.keySet();
             ArrayList<SkuSpecInfo> infoList;
@@ -76,7 +80,7 @@ public class ProductDetailsDataUtils {
             for (String key : keys) {
                 infoList = gson.fromJson(String.valueOf(data.getJSONArray(key)), new TypeToken<ArrayList<SkuSpecInfo>>() {
                 }.getType());
-                if (defaultItemSkuInfo != null && defaultItemSkuInfo.getId().equals(key)) {
+                if (currentItemSkuInfo != null && currentItemSkuInfo.getId().equals(key)) {
                     for (SkuSpecInfo info : infoList) {
                         if (!TextUtils.isEmpty(info.getAttrValue())) {
                             ProductSpecificParameter parameter = new ProductSpecificParameter();

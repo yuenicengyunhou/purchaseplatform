@@ -441,9 +441,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (mParamsPop == null) {
             ProductDetailsDataUtils utils = new ProductDetailsDataUtils();
             ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
-            utils.getCommonParams(parameters, productDetailsBean);
+            utils.getCommonParams(parameters, productDetailsBean, mCheckedItemSkuInfo);
             ArrayList<ProductSpecificParameter> specParameters = new ArrayList<>();
-            utils.getSpecParams(specParameters, productDetailsBean);
+            utils.getSpecParams(specParameters, productDetailsBean, mCheckedItemSkuInfo);
             mParamsPop = new ProductDetailsParamsPop(parameters, specParameters);
             mParamsPop.setType(BasePop.MATCH_WRAP);
             mParamsPop.setGravity(Gravity.BOTTOM);
