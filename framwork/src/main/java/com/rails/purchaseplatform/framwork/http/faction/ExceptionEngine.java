@@ -51,7 +51,7 @@ public class ExceptionEngine {
         } else if (e instanceof HttpError) {    //服务器返回的错误
             HttpError httpError = (HttpError) e;
             errorBean = new ErrorBean(httpError, httpError.getCode());
-            errorBean.setMsg(!TextUtils.isEmpty(httpError.getMsg()) ? httpError.getMsg() : httpError.getMessage());
+            errorBean.setMsg(!TextUtils.isEmpty(httpError.getMessage()) ? httpError.getMessage() : httpError.getMsg());
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
                 || e instanceof ParseException

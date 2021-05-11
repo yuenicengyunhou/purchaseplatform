@@ -21,8 +21,8 @@ public class HttpFunction<T> implements Function<HttpResult<T>, T> {
                 return t;
         } else {
             throw new HttpError(tHttpResult.getCode(),
-                    String.valueOf(tHttpResult.getMsg()),
-                    String.valueOf(tHttpResult.getMessage()));
+                    tHttpResult.getMsg() + "",
+                    tHttpResult.getMessage() + "");
         }
     }
 }
