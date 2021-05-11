@@ -134,7 +134,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            PoiItem poiItem = data.getParcelableExtra("poi");
+            PoiItem poiItem = Objects.requireNonNull(data).getParcelableExtra("poi");
             barBinding.etRemark.setText(MessageFormat.format("{0}{1}{2}", poiItem.getCityName(), poiItem.getAdName(), poiItem.getSnippet()));
             barBinding.etArea.setContent(poiItem.getProvinceName() + " " + poiItem.getCityName() + " " + poiItem.getAdName());
         }
@@ -151,19 +151,8 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String remark = Objects.requireNonNull(barBinding.etRemark.getText()).toString().trim();
         int isReceivingAddress = barBinding.cbReceive.isChecked() ? 1 : 0;
         int isInvoiceAddress = barBinding.cbInvoice.isChecked() ? 1 : 0;
-        verify(men, phone, area, remark, isReceivingAddress, isInvoiceAddress);
-
-    }
-
-    /**
-     * 条件判断
-     */
-    private void verify(String men, String phone, String area, String remark, int isReceivingAddress, int isInvoiceAddress) {
-        if ((isReceivingAddress + isInvoiceAddress) < 1) {
-            ToastUtil.showCenter(this, "至少选择一种地址类型");
-            return;
-        }
         presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId);
+
     }
 
     @Override

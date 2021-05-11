@@ -129,7 +129,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         }
 
         if (!VerificationUtil.isMobile(phone)) {
-            ToastUtil.show(mContext, "请输入收货人手机号");
+            ToastUtil.show(mContext, "请输入正确手机号码");
             return;
         }
 
@@ -140,6 +140,10 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
         if (TextUtils.isEmpty(address)) {
             ToastUtil.show(mContext, "请输入省街道、楼牌号等");
+            return;
+        }
+        if ((isReceiAddress + isInvoiceAddress) < 1) {
+            ToastUtil.showCenter(mContext, "至少选择一种地址类型");
             return;
         }
         AddressDTO dto = new AddressDTO();
