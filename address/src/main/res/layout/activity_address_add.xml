@@ -24,6 +24,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:text="@string/address_add_men"
+                android:maxLength="30"
                 app:hint="@string/address_add_men_hint"
                 app:is_hide="true" />
 
@@ -118,6 +119,7 @@
                     android:layout_toEndOf="@+id/tv_key"
                     android:background="@null"
                     android:gravity="top"
+                    android:maxLength="30"
                     android:hint="@string/address_add_address_hint"
                     android:lines="5"
                     android:minWidth="@dimen/dp_40"

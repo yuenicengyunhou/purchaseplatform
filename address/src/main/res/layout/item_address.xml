@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="@dimen/dp_16"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
         android:paddingStart="@dimen/dp_22"
         android:paddingEnd="@dimen/dp_16">
 
@@ -47,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_45"
-            android:text="@{address.phone}"
+            android:text="@{address.mobile}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_16"
             app:layout_constraintStart_toEndOf="@id/tv_name"
@@ -99,12 +100,11 @@
             app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
         <View
+            android:id="@+id/view"
             android:layout_width="@dimen/dp_10"
             android:layout_height="1dp"
-            android:id="@+id/view"
             app:layout_constraintStart_toEndOf="@id/btn_recivice"
-            app:layout_constraintTop_toBottomOf="@id/tv_address"
-            />
+            app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
 
         <TextView
@@ -122,8 +122,17 @@
             android:text="@string/address_add_bill"
             android:textColor="@color/selector_white_gray_color"
             android:textSize="@dimen/font_size_12"
-          app:layout_constraintStart_toEndOf="@id/view"
+
+            app:layout_constraintStart_toEndOf="@id/view"
             app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_marginTop="@dimen/margin"-->
+<!--            android:background="@color/bg_gray"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/btn_recivice" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
