@@ -28,6 +28,11 @@ public class AddressModel {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).getAddressList(map))
                 .subscribe(httpRxObserver);
+
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(AddressService.class).getAddressList(map))
+                .subscribe(httpRxObserver);
     }
 
 

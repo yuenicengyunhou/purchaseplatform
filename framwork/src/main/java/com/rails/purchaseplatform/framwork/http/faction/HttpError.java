@@ -9,9 +9,15 @@ public class HttpError extends RuntimeException {
     private String code;
     private String msg;
 
-    public HttpError(String code, String msg) {
+    private String timestamp;
+    private String error;
+    private String message;
+    private String traceId;
+
+    public HttpError(String code, String msg,String message) {
         this.code = code;
         this.msg = msg;
+        this.message = message;
     }
 
     public String getCode() {
@@ -20,5 +26,38 @@ public class HttpError extends RuntimeException {
 
     public String getMsg() {
         return msg;
+    }
+
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getTraceId() {
+        return traceId;
+    }
+
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
     }
 }

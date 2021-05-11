@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.framwork.http.faction;
 
 
+import android.text.TextUtils;
+
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
 import com.orhanobut.logger.Logger;
@@ -49,7 +51,7 @@ public class ExceptionEngine {
         } else if (e instanceof HttpError) {    //服务器返回的错误
             HttpError httpError = (HttpError) e;
             errorBean = new ErrorBean(httpError, httpError.getCode());
-            errorBean.setMsg(httpError.getMsg());
+            errorBean.setMsg(!TextUtils.isEmpty(httpError.getMsg()) ? httpError.getMsg() : httpError.getMessage());
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
                 || e instanceof ParseException

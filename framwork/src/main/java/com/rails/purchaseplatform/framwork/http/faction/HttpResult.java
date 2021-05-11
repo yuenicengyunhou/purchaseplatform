@@ -10,6 +10,7 @@ public class HttpResult<T> {
     private boolean success;
     private String msg;
     private String code;
+    private String message;
 
     public T getData() {
         return data;
@@ -27,12 +28,20 @@ public class HttpResult<T> {
         this.success = success;
     }
 
-    public String getMessage() {
+    public String getMsg() {
         return msg;
     }
 
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
     public void setMessage(String message) {
-        this.msg = message;
+        this.message = message;
     }
 
     public String getCode() {

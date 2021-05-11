@@ -19,6 +19,8 @@ import java.util.List;
 
 public class OrderModel {
 
+    private int defaltPageSize = 20;
+
     public void getRecOrder(HttpRxObserver httpRxObserver) {
 
         HashMap<String, String> params = new HashMap<>();
@@ -35,7 +37,7 @@ public class OrderModel {
         map.put("queryType", queryType);
         map.put("accountType", accountType);
         map.put(squence, content);
-        map.put("pageSize", 10);
+        map.put("pageSize", defaltPageSize);
         map.put("pageNum", page);
         mergeMap(filterBean, map);
 //        map.put("buyerName", buyerName);

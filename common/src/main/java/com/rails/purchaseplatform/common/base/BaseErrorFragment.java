@@ -12,6 +12,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.UN_KNOWN_ERROR;
 
 
 /**
@@ -31,6 +32,10 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+            }
+            break;
+            case UN_KNOWN_ERROR:{
+
             }
             break;
             default:

@@ -43,7 +43,9 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
         });
         if (addressBean.getReceivingAddress() == 1) {
             binding.btnRecivice.setVisibility(View.VISIBLE);
+            binding.view.setVisibility(View.VISIBLE);
         } else {
+            binding.view.setVisibility(View.GONE);
             binding.btnRecivice.setVisibility(View.GONE);
         }
 

@@ -9,6 +9,14 @@ package com.rails.purchaseplatform.common;
 public class ConRoute {
 
 
+    public static final class EVENTCODE {
+
+        //首页切换
+        public static final String MAIN_CODE = "0x001";
+
+    }
+
+
     public static final class RAILS {
 
         public final static String MAIN = "/rails/main";
