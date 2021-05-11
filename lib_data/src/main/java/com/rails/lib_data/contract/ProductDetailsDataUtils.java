@@ -30,10 +30,10 @@ public class ProductDetailsDataUtils {
             addParam(parameters, "品牌：", itemPublishVo.getBrandName());
             addParam(parameters, "商品名称：", itemPublishVo.getItemName());
             addParam(parameters, "规格型号：", defaultItemSkuInfo.getModelCode());
-            addParam(parameters, "商品产地：", itemPublishVo.getOrigin());
-            addParam(parameters, "商品单位：", defaultItemSkuInfo.getSkuUnit());
-            addParam(parameters, "包装尺寸：", defaultItemSkuInfo.getPackageDis());
             addParam(parameters, "商品毛重：", String.valueOf(defaultItemSkuInfo.getWeight()), defaultItemSkuInfo.getWeightUnit());
+            addParam(parameters, "包装尺寸：", defaultItemSkuInfo.getPackageDis(), "毫米");
+            addParam(parameters, "商品单位：", defaultItemSkuInfo.getSkuUnit());
+            addParam(parameters, "商品产地：", itemPublishVo.getOrigin());
             addParam(parameters, "商品编码：", String.valueOf(itemPublishVo.getId()));
             addParam(parameters, "单品编码：", defaultItemSkuInfo.getId());
             addParam(parameters, "单品条码：", defaultItemSkuInfo.getBarCode());
@@ -44,6 +44,8 @@ public class ProductDetailsDataUtils {
     }
 
     private void addParam(ArrayList<ProductSpecificParameter> parameters, String key, String value) {
+        if (TextUtils.equals(value, "-")) // 生产许可证号为 "-" 不显示
+            return;
         if (!TextUtils.isEmpty(value)) {
             ProductSpecificParameter parameter = new ProductSpecificParameter();
             parameter.setParamKey(key);
@@ -53,6 +55,8 @@ public class ProductDetailsDataUtils {
     }
 
     private void addParam(ArrayList<ProductSpecificParameter> parameters, String key, String value, String value2) {
+        if (TextUtils.equals(value, "**")) // 包装尺寸为 "**" 不显示
+            return;
         if (!TextUtils.isEmpty(value) && !TextUtils.isEmpty(value2)) {
             ProductSpecificParameter parameter = new ProductSpecificParameter();
             parameter.setParamKey(key);
@@ -74,11 +78,13 @@ public class ProductDetailsDataUtils {
                 }.getType());
                 if (defaultItemSkuInfo != null && defaultItemSkuInfo.getId().equals(key)) {
                     for (SkuSpecInfo info : infoList) {
-                        ProductSpecificParameter parameter = new ProductSpecificParameter();
-                        Log.d(TAG, "HELLO = " + info.getAttrName() + info.getAttrValue());
-                        parameter.setParamKey(info.getAttrName());
-                        parameter.setParamValue(info.getAttrValue());
-                        parameters.add(parameter);
+                        if (!TextUtils.isEmpty(info.getAttrValue())) {
+                            ProductSpecificParameter parameter = new ProductSpecificParameter();
+                            Log.d(TAG, "HELLO = " + info.getAttrName() + info.getAttrValue());
+                            parameter.setParamKey(info.getAttrName() + "：");
+                            parameter.setParamValue(info.getAttrValue());
+                            parameters.add(parameter);
+                        }
                     }
                 }
             }

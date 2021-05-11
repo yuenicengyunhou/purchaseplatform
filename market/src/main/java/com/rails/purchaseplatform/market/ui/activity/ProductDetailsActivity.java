@@ -18,7 +18,6 @@ import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
-import com.rails.lib_data.bean.forAppShow.ItemParams;
 import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -440,24 +439,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             return;
         }
         if (mParamsPop == null) {
-            ItemParams params = new ItemParams();
-            params.setBrand(productDetailsBean.getItemPublishVo().getBrandName());
-            params.setName(productDetailsBean.getItemPublishVo().getItemName());
-            params.setProductNum(String.valueOf(productDetailsBean.getItemPublishVo().getId()));
-            params.setMadeIn(productDetailsBean.getItemPublishVo().getOrigin());
-            params.setItemNum(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getId()));
-            params.setType(productDetailsBean.getItemSkuInfoList().get(0).getModelCode());
-            params.setItemBarCode(productDetailsBean.getItemSkuInfoList().get(0).getBarCode());
-            params.setWeight(String.valueOf(productDetailsBean.getItemSkuInfoList().get(0).getWeight()));
-            params.setWeightUnit(productDetailsBean.getItemSkuInfoList().get(0).getWeightUnit());
-            params.setSize(productDetailsBean.getItemSkuInfoList().get(0).getPackageDis());
-            params.setItemUnit(productDetailsBean.getItemSkuInfoList().get(0).getSkuUnit());
-
-            ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
             ProductDetailsDataUtils utils = new ProductDetailsDataUtils();
+            ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
             utils.getCommonParams(parameters, productDetailsBean);
-            utils.getSpecParams(parameters, productDetailsBean);
-            mParamsPop = new ProductDetailsParamsPop(parameters, params);
+            ArrayList<ProductSpecificParameter> specParameters = new ArrayList<>();
+            utils.getSpecParams(specParameters, productDetailsBean);
+            mParamsPop = new ProductDetailsParamsPop(parameters, specParameters);
             mParamsPop.setType(BasePop.MATCH_WRAP);
             mParamsPop.setGravity(Gravity.BOTTOM);
         }

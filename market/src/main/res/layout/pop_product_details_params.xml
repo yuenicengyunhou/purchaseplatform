@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_corner_white_top_half_10"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,304 +19,65 @@
             android:text="参数"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_18"
-            android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/ib_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/dp_10"
             android:background="@null"
             android:padding="@dimen/dp_10"
-            android:src="@drawable/svg_close_gray_12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/svg_close_gray_12" />
 
-        <TextView
-            android:id="@+id/tv_brandKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="品牌："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-        <TextView
-            android:id="@+id/tv_brandValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="联想（Lenovo）"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toEndOf="@+id/tv_brandKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_brandKey" />
-
-        <RelativeLayout
-            android:id="@+id/rl_name"
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/brv_productParams"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
-            app:layout_constraintTop_toBottomOf="@+id/tv_brandKey">
-
-            <TextView
-                android:id="@+id/tv_nameKey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="@dimen/dp_16"
-                android:ems="5"
-                android:text="商品名称："
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_13" />
-
-            <TextView
-                android:id="@+id/tv_nameValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:layout_toRightOf="@+id/tv_nameKey"
-                android:text="联想27英寸 1500R曲面屏原生165HzFreeSync技术 低蓝光可壁挂 游戏电竞显示器"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_13" />
-
-        </RelativeLayout>
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:overScrollMode="never" />
 
 
         <TextView
-            android:id="@+id/tv_productNumKey"
+            android:id="@+id/tv_specTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/brv_productParams"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="商品编码："
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="详细参数"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rl_name" />
+            android:textSize="@dimen/font_size_18"
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_productNumValue"
-            android:layout_width="wrap_content"
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/brv_productSpecParams"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="1175647"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_productNumKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_productNumKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_productNumKey" />
+            android:layout_below="@+id/tv_specTitle"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:overScrollMode="never" />
 
         <TextView
-            android:id="@+id/tv_madeInKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="商品产地："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_productNumKey" />
-
-        <TextView
-            android:id="@+id/tv_madeInValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="中国"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_madeInKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_madeInKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_madeInKey" />
-
-        <TextView
-            android:id="@+id/tv_itemNumKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="单品编码："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_madeInKey"
-            tools:layout_editor_absoluteX="43dp"
-            tools:layout_editor_absoluteY="226dp" />
-
-        <TextView
-            android:id="@+id/tv_itemNumValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="265923"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_itemNumKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_itemNumKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_itemNumKey" />
-
-        <TextView
-            android:id="@+id/tv_typeKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="规格型号："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_itemNumKey"
-            tools:layout_editor_absoluteX="133dp"
-            tools:layout_editor_absoluteY="337dp" />
-
-        <TextView
-            android:id="@+id/tv_typeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="HP ProBook 430 GB"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_typeKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_typeKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_typeKey" />
-
-        <TextView
-            android:id="@+id/tv_itemBarCodeKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="单品条码："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_typeKey" />
-
-        <TextView
-            android:id="@+id/tv_itemBarCodeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="暂无"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_itemBarCodeKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_itemBarCodeKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_itemBarCodeKey" />
-
-        <TextView
-            android:id="@+id/tv_weightKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="商品毛重："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_itemBarCodeKey" />
-
-        <TextView
-            android:id="@+id/tv_weightValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="2.2kg"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_weightKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_weightKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_weightKey" />
-
-        <TextView
-            android:id="@+id/tv_sizeKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="包装尺寸："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_weightKey"
-            tools:layout_editor_absoluteX="133dp"
-            tools:layout_editor_absoluteY="264dp" />
-
-        <TextView
-            android:id="@+id/tv_sizeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="360*88*260"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_sizeKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_sizeKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_sizeKey" />
-
-        <TextView
-            android:id="@+id/tv_itemUnitKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:ems="5"
-            android:text="商品单位："
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sizeKey" />
-
-        <TextView
-            android:id="@+id/tv_itemUnitValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:text="台"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_itemUnitKey"
-            app:layout_constraintStart_toEndOf="@+id/tv_itemUnitKey"
-            app:layout_constraintTop_toTopOf="@+id/tv_itemUnitKey" />
-
-        <TextView
-            android:id="@+id/btn_ok"
+            android:id="@+id/tv_confirm"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
+            android:layout_below="@+id/brv_productSpecParams"
             android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_24"
             android:background="@drawable/bg_corner_blue_20"
             android:gravity="center"
             android:text="确定"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_15"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_itemUnitKey" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-        android:id="@+id/brv_productParams"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never" />
+            android:textSize="@dimen/font_size_15" />
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>
