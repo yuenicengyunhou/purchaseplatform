@@ -1,17 +1,15 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.util.Log;
+import android.text.TextUtils;
 
-import com.google.gson.JsonObject;
 import com.rails.lib_data.R;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
-
-import java.util.regex.Pattern;
+import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
 public class RetrievePasswordPresenterImpl extends BasePresenter<RetrievePasswordContract.RetrievePasswordView> implements RetrievePasswordContract.RetrievePasswordPresenter {
     final private String TAG = RetrievePasswordPresenterImpl.class.getSimpleName();
@@ -26,17 +24,28 @@ public class RetrievePasswordPresenterImpl extends BasePresenter<RetrievePasswor
     @Override
     public void retrievePassword(String userName, String email, boolean isDialog) {
 
-        if (!matchUsername(userName)) {
+        if (TextUtils.isEmpty(userName)) {
+            ToastUtil.showCenter(mContext, "用户名不能为空");
+            return;
+        }
+
+        if (!VerificationUtil.isUserName_login(userName)) {
             ToastUtil.showCenter(mContext, "用户名格式错误");
             return;
         }
-        if (!matchEmail(email)) {
+
+        if (TextUtils.isEmpty(email)) {
+            ToastUtil.showCenter(mContext, "邮箱不能为空");
+            return;
+        }
+
+        if (!VerificationUtil.isEmail(email)) {
             ToastUtil.showCenter(mContext, "邮箱格式错误");
             return;
         }
 
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.retrievePassword(userName, email, new HttpRxObserver<JsonObject>() {
+        model.retrievePassword(userName, email, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -44,38 +53,11 @@ public class RetrievePasswordPresenterImpl extends BasePresenter<RetrievePasswor
             }
 
             @Override
-            protected void onSuccess(JsonObject response) {
-                response.toString();
-                Log.d(TAG, response.toString());
-                baseView.onRetrieveSuccess("成功");
+            protected void onSuccess(String response) {
+                // 找回密码邮件已发送到邮箱：1023725142@qq.com，请点击邮件中的更改密码链接进行更改密码操作。链接仅当天有效，请及时登录您的邮箱查看。
+                baseView.onRetrieveSuccess(response.split("。")[0].split("，")[0].split("：")[1]);
                 baseView.dismissDialog();
             }
         });
-    }
-
-    /**
-     * 验证邮箱格式
-     *
-     * @param email 邮箱
-     * @return 不为空并且匹配格式返回true，否则返回false
-     */
-    private boolean matchEmail(String email) {
-        // TODO: 2021/3/28 邮箱正则
-        Pattern pattern = Pattern.compile("^\\d{6}$");
-//        return !email.equals("") && pattern.matcher(email).matches();
-        return true;
-    }
-
-    /**
-     * 验证用户名格式
-     *
-     * @param username 用户名
-     * @return 不为空并且匹配格式返回true，否则返回false
-     */
-    private boolean matchUsername(String username) {
-        // TODO: 2021/3/28 用户名正则
-        Pattern pattern = Pattern.compile("^\\d{6}$");
-//        return !username.equals("") && pattern.matcher(username).matches();
-        return true;
     }
 }

@@ -1,6 +1,5 @@
 package com.rails.lib_data.model;
 
-import com.google.gson.JsonObject;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.LoginService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
@@ -79,7 +78,7 @@ public class LoginModel {
      * @param email
      * @param httpRxObserver
      */
-    public void retrievePassword(String userName, String email, HttpRxObserver<JsonObject> httpRxObserver) {
+    public void retrievePassword(String userName, String email, HttpRxObserver<String> httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("userName", userName);
         params.put("userEmail", email);

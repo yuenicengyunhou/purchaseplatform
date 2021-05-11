@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
@@ -84,7 +83,6 @@ public class ProductDetailsDataUtils {
                             continue;
                         if (!TextUtils.isEmpty(info.getAttrValue())) {
                             ProductSpecificParameter parameter = new ProductSpecificParameter();
-                            Log.d(TAG, "HELLO = " + info.getAttrName() + info.getAttrValue());
                             parameter.setParamKey(info.getAttrName() + "：");
                             parameter.setParamValue(info.getAttrValue());
                             parameters.add(parameter);

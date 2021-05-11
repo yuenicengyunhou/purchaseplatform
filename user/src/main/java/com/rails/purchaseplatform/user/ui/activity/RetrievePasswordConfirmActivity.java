@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordConfi
  */
 @Route(path = ConRoute.USER.RETRIEVE_PASSWORD)
 public class RetrievePasswordConfirmActivity extends BaseErrorActivity<ActivityRetrievePasswordConfirmBinding> {
-
+    private String mEmail;
 
     @Override
     protected int getColor() {
@@ -40,8 +40,15 @@ public class RetrievePasswordConfirmActivity extends BaseErrorActivity<ActivityR
     }
 
     @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        mEmail = extras.getString("email");
+    }
+
+    @Override
     protected void onClick() {
         super.onClick();
+        binding.tvEmailForFindPassword.setText(mEmail);
         binding.ibBack.setOnClickListener(v -> finish());
         binding.btnConfirm.setOnClickListener(v -> finish());
     }

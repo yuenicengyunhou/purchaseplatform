@@ -9,7 +9,6 @@ import com.rails.lib_data.contract.RetrievePasswordContract;
 import com.rails.lib_data.contract.RetrievePasswordPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordBinding;
 
 /**
@@ -21,6 +20,7 @@ import com.rails.purchaseplatform.user.databinding.ActivityRetrievePasswordBindi
  * @since 2021.03.28
  */
 public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrievePasswordBinding> implements RetrievePasswordContract.RetrievePasswordView {
+    final private String TAG = RetrievePasswordActivity.class.getSimpleName();
 
     private RetrievePasswordContract.RetrievePasswordPresenter mPresenter;
 
@@ -82,9 +82,8 @@ public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrieve
 
     @Override
     public void onRetrieveSuccess(String message) {
-        ToastUtil.showCenter(this, message);
         Bundle bundle = new Bundle();
-        bundle.putString("email", binding.etEmailInput.getText().toString().trim());
+        bundle.putString("email", message);
         ARouter.getInstance()
                 .build(ConRoute.USER.RETRIEVE_PASSWORD)
                 .with(bundle).navigation();

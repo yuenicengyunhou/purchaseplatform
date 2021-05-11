@@ -1,6 +1,5 @@
 package com.rails.lib_data.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
@@ -56,6 +55,6 @@ public interface LoginService {
      * @return
      */
     @POST("passwd/findpd")
-    Observable<HttpResult<JSONObject>> retrievePassword(@Body HashMap<String, Object> params);
+    Observable<HttpResult<String>> retrievePassword(@Body HashMap<String, Object> params);
 
 }

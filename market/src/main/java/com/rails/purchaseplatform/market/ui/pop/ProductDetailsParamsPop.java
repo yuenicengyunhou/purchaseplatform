@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.market.ui.pop;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +26,6 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
         super();
         mParameters = parameters;
         mSpecParameters = specParameters;
-        Log.d(TAG, "===============" + parameters.size());
     }
 
     @Override

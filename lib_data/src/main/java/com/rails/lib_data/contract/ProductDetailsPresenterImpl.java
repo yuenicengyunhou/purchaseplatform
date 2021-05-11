@@ -2,7 +2,6 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.R;
@@ -132,7 +131,6 @@ public class ProductDetailsPresenterImpl
                 for (String s : strings) {
                     String[] subStrings = s.split(":");
                     firstSkuParamsIdMap.put(subStrings[0], subStrings[1]);
-                    Log.d(TAG, "HELLO == " + subStrings[0] + " - " + subStrings[1]);
                 }
             }
         }
