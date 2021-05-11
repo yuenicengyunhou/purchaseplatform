@@ -14,6 +14,7 @@ import retrofit2.http.Query;
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 public class AddressModel {
+    private int pageSize = 10;
 
     /**
      * 获取维护地址列表
@@ -24,12 +25,7 @@ public class AddressModel {
         map.put("accountId", accountId);
         map.put("accountType", accountType);
         map.put("pageNum", pageNum);
-        map.put("pageSize", PAGE_SIZE);
-        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).getAddressList(map))
-                .subscribe(httpRxObserver);
-
-
+        map.put("pageSize", pageSize);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).getAddressList(map))
                 .subscribe(httpRxObserver);
@@ -130,7 +126,7 @@ public class AddressModel {
      * @param addressType    1：收货地址   2：收发票地址
      * @param httpRxObserver
      */
-    public void getAddress(String platformId, String addressType,String userId,String userType,  HttpRxObserver httpRxObserver) {
+    public void getAddress(String platformId, String addressType, String userId, String userType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
 //        params.put("platformId", platformId);
         params.put("addressType", addressType);

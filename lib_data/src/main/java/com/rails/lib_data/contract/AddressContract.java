@@ -31,7 +31,7 @@ public interface AddressContract {
          *
          * param addressBeans
          */
-        void getAddresses(ArrayList<AddressBean> addressBeans);
+        void getAddresses(ArrayList<AddressBean> addressBeans,boolean isLastPage,int totalCount);
 
 
         /**
