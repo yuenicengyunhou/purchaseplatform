@@ -27,6 +27,7 @@ import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchItemFilterAdapter;
 import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
@@ -314,9 +315,18 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
                 mItemSkuInfo = itemSkuInfo;
                 if (mItemSkuInfo != null && mTypeSelect != null) {
-                    Glide.with(getContext()).load("https:" + mItemSkuInfo.getPictureUrl()).placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null).into(binding.imgProduct);
+                    Glide.with(getContext())
+                            .load("https:" + mItemSkuInfo.getPictureUrl())
+                            .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
+                            .into(binding.imgProduct);
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true);
                     mTypeSelect.getSkuInfo(mItemSkuInfo);
+                    binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
+                    binding.tvCountState.setText("有货");
+                } else {
+                    ToastUtil.showCenter(getActivity(), "没有此型号商品或商品库存不足");
+                    binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+                    binding.tvCountState.setText("无货");
                 }
             }
         });
@@ -328,6 +338,10 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.tvReduce.setOnClickListener(v -> changeNum(false));
         binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
         binding.addCart.setOnClickListener(v -> {
+            if (binding.tvCountState.getText().toString().equals("无货")) {
+                ToastUtil.showCenter(getActivity(), "请选择其它型号的商品");
+                return;
+            }
             if (null != mTypeSelect) {
                 mTypeSelect.onSelectComplete(binding.etNum.getText().toString().trim());
             }
@@ -371,6 +385,9 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * @param isAdd 是否增加数量
      */
     private void changeNum(boolean isAdd) {
+        if (binding.tvCountState.getText().toString().equals("无货")) {
+            return;
+        }
         int number = 1;
         String num = binding.etNum.getText().toString().trim();
         if (!TextUtils.isEmpty(num)) {

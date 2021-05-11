@@ -68,8 +68,6 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
                 mDataSource.get(p).getSpecificationValue().get(position).setSelect(!select);
                 notifyDataSetChanged();
                 ItemSkuInfo itemSkuInfo = checkSkuInfo(mDataSource, mItemSkuInfoList);
-                if (itemSkuInfo == null)
-                    ToastUtil.showCenter(mContext, "没有此型号商品或商品库存不足");
                 onItemClicked.onItemClicked(itemSkuInfo);
             }
         });

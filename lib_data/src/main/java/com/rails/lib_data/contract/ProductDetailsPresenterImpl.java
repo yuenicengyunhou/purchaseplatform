@@ -5,10 +5,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBillBean;
@@ -21,13 +17,11 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.AttrNameValueReaultV
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
-import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPublishVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemResult;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSku;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
-import com.rails.lib_data.bean.forNetRequest.productDetails.SkuSpecInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportData;
 import com.rails.lib_data.model.ProductDetailsModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -36,7 +30,6 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * 商品详情 presenter实现类
