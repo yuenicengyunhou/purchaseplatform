@@ -90,7 +90,6 @@
                 android:layout_marginTop="@dimen/dp_5"
                 android:layout_marginRight="@dimen/dp_15"
                 android:background="@color/bg_gray_light"
-                android:drawableRight="@drawable/svg_arrow_down_black"
                 android:gravity="center"
                 android:minWidth="@dimen/dp_100"
                 android:paddingLeft="@dimen/dp_5"
