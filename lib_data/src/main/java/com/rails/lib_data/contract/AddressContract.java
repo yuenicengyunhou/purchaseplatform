@@ -54,11 +54,11 @@ public interface AddressContract {
         void getAddresses(Boolean isDialog,int page);
 
 
-        /**
-         * 设置为默认地址
-         *
-         * param id
-         */
+//        /**
+//         * 设置为默认地址
+//         *
+//         * param id
+//         */
 //        void setDefAddress(long id, int position,boolean isReceiveDef,boolean isInvoiceDef);
 
 
@@ -87,6 +87,6 @@ public interface AddressContract {
          * 获取一级 parentCode: 0
          * 获取二级 使用一级code
          */
-        void getArea(long platformId, String parentCode);
+        void getArea( String parentCode);
     }
 }
