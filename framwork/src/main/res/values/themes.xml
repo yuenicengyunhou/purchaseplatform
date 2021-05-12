@@ -13,13 +13,17 @@
     </style>
 
 
-
-
     <style name="title_bar" parent="Widget.AppCompat.ActionBar">
         <item name="contentInsetEnd">0dp</item>
         <item name="contentInsetLeft">0dp</item>
         <item name="contentInsetRight">0dp</item>
         <item name="contentInsetStart">0dp</item>
+    </style>
+
+
+    <style name="SpalashTheme" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>
