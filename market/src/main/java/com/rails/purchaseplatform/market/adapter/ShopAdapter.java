@@ -52,7 +52,7 @@ public class ShopAdapter extends BaseRecyclerAdapter<ResultListBean, ItemShopSku
         binding.llItems.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putLong("platformId", 20L);
-            bundle.putLong("itemId", bean.getItemId());
+            bundle.putString("itemId", String.valueOf(bean.getItemId()));
             bundle.putInt("skuId", finalSkuId);
             ARouter.getInstance()
                     .build(ConRoute.MARKET.PRODUCT_DETAIL)
