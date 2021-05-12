@@ -25,6 +25,10 @@ public class NavigationBean implements Serializable {
     private Integer yn;
     private Integer isNew;
     private int res;
+    private String pictureUrl;
+
+
+
 
     public Integer getId() {
         return id;
@@ -136,5 +140,13 @@ public class NavigationBean implements Serializable {
 
     public void setRes(int res) {
         this.res = res;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 }

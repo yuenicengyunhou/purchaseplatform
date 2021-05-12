@@ -15,12 +15,12 @@
         android:orientation="vertical">
 
 
-        <com.rails.purchaseplatform.common.widget.RatioImage
+        <com.rails.purchaseplatform.common.widget.CircleImageView
             android:layout_width="@dimen/dp_45"
             android:layout_height="@dimen/dp_45"
             android:layout_gravity="center"
             android:overScrollMode="never"
-            app:imgRes="@{sub.res}" />
+            app:imgUrl="@{sub.pictureUrl}" />
 
 
         <TextView
@@ -33,6 +33,7 @@
             android:text="@{sub.navigationBarName}"
             android:layout_marginTop="@dimen/dp_8"
             android:singleLine="true"
+            android:maxLength="4"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_12" />
 
