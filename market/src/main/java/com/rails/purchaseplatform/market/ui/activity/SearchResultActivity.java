@@ -237,7 +237,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         if (id == R.id.tv_searchKey) {
             Bundle bundle = new Bundle();
             bundle.putString("search_key", binding.tvSearchKey.getText().toString());
-            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation(this);
+            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation();
         }
         if (id == R.id.iv_searchCancel || id == R.id.cl_searchBar || id == R.id.tv_type_name) {
             ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);

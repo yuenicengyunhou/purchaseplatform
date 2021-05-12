@@ -36,10 +36,19 @@ public class ItemPublishVo {
     private String creditLevel;
     private int itemSaleCount;
     private JSONObject skuSpecMap;
+    private String logoUrl;
 
 
     // ===========================================================================================
 
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
 
     public JSONObject getSkuSpecMap() {
         return skuSpecMap;

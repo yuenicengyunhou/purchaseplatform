@@ -40,7 +40,7 @@ import java.util.Objects;
  * 4 - PopWindow，用来更改搜索商品或者搜索店铺
  * 5 -
  */
-@Route(path = "/common/SearchActivityX")
+@Route(path = ConRoute.COMMON.SEARCH)
 public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         implements HotSearchContract.HotSearchView,
         HotSearchRecyclerAdapter.OnClickCallBack, SearchHistoryFlowAdapter.OnClickCallBack {
@@ -181,7 +181,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        if (extras != null) mSearchKey = extras.getString("search_key", "");
+        if (extras != null) mSearchKey = extras.getString("search_key");
     }
 
     @Override
