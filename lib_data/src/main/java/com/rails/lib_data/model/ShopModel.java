@@ -1,6 +1,7 @@
 package com.rails.lib_data.model;
 
 import android.text.TextUtils;
+
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.shop.AllCidsBean;
@@ -20,8 +21,12 @@ import java.util.List;
 
 public class ShopModel {
 
+    final private String
+            BRAND = "品牌",
+            CATEGORY = "类目";
+
     private boolean cateFirst = true;
-    private boolean expanFirst=true;
+    private boolean expanFirst = true;
 
     public void getShopInfo(long platformId, String shopInfoId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
@@ -126,13 +131,13 @@ public class ShopModel {
             if (!categoryAttrValueIds.isEmpty()) {
                 String headString = categoryAttrValueIds.get(0);
                 categoryAttrValueIds.remove(0);
-                String cateJson = headString+StringUtil.getJointString("||", categoryAttrValueIds) + "@";
+                String cateJson = headString + StringUtil.getJointString("||", categoryAttrValueIds) + "@";
                 map.put("categoryAttrValueIds", cateJson);
             }
             if (!expandAttrValueIds.isEmpty()) {
                 String expanHead = expandAttrValueIds.get(0);
                 expandAttrValueIds.remove(0);
-                String expanJson = expanHead+StringUtil.getJointString("||", expandAttrValueIds) + "@";
+                String expanJson = expanHead + StringUtil.getJointString("||", expandAttrValueIds) + "@";
                 map.put("expandAttrValueIds", expanJson);
             }
 
@@ -153,7 +158,7 @@ public class ShopModel {
 
         if (null != brands && !brands.isEmpty()) {
             SearchFilterBean bean = new SearchFilterBean();
-            bean.setFilterName("品牌");
+            bean.setFilterName(BRAND);
             ArrayList<SearchFilterValue> values = new ArrayList<>();
             for (String s : brands) {
                 SearchFilterValue value = new SearchFilterValue();
@@ -216,7 +221,7 @@ public class ShopModel {
 
         if (null != allCids && !allCids.isEmpty()) {
             SearchFilterBean bean = new SearchFilterBean();
-            bean.setFilterName("类目");
+            bean.setFilterName(CATEGORY);
             ArrayList<SearchFilterValue> values = new ArrayList<>();
             for (AllCidsBean allCidsBean : allCids) {
                 SearchFilterValue value = new SearchFilterValue();
@@ -228,7 +233,7 @@ public class ShopModel {
                 values.add(value);
             }
             bean.setFilterValues(values);
-            mList.add(bean);//添加品牌
+            mList.add(bean);//添加类目
         }
 
         return mList;
