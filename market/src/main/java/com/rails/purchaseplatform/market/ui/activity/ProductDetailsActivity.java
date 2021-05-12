@@ -16,8 +16,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
-import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -601,7 +601,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
     @Override
-    public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
+    public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans) {
         mPrice = String.valueOf(bean.getSellPrice());
         binding.tvSellPrice.setText(String.format("%.2f", bean.getSellPrice()));
         if (bean.getMarketPrice() == 0 || bean.getMarketPrice() == bean.getSellPrice()) {

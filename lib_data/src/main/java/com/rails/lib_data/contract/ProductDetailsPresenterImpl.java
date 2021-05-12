@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.DeliveryBean;
-import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationValue;
@@ -187,20 +187,43 @@ public class ProductDetailsPresenterImpl
                 baseView.dismissDialog();
                 ProductPriceBean bean = new ProductPriceBean();
                 ArrayList<ItemPicture> pics = new ArrayList<>();
-                ArrayList<ProductBillBean> billBeans = new ArrayList<>();
-                billBeans.add(new ProductBillBean("附件名称", "附件数量"));
+                ArrayList<ProductDetailsPackingBean> packingBeans = new ArrayList<>();
+//                billBeans.add(new ProductBillBean("附件名称", "附件数量"));
                 if (response == null || response.isEmpty()) {
                     bean.setCreditLevel("0");
                     bean.setSellPrice(0.0D);
                     bean.setMarketPrice(0.0D);
                 } else {
-                    bean = response.get(0);
-                    billBeans.addAll(bean.getPackinglist());
-                    pics.addAll(bean.getPictureUrl());
+                    ProductDetailsPackingBean bean1 = new ProductDetailsPackingBean();
+                    bean1.setAttrKey("附件名称");
+                    bean1.setAttrValue("附件数量");
+                    packingBeans.add(bean1);
+                    String annexName = response.get(0).getPackinglist().get(0).getAnnexName();
+                    spliceList(packingBeans, annexName);
                 }
-                baseView.onGetProductPriceSuccess(bean, pics, billBeans);
+                baseView.onGetProductPriceSuccess(bean, pics, packingBeans);
             }
         });
+    }
+
+
+    public void spliceList(ArrayList<ProductDetailsPackingBean> packingBeans, String annexName) {
+        if (annexName.contains("``")) {
+            String[] strings = annexName.split("``");
+            for (String keyValue : strings) {
+                buildPackingBean(packingBeans, keyValue);
+            }
+        } else {
+            buildPackingBean(packingBeans, annexName);
+        }
+    }
+
+    private void buildPackingBean(ArrayList<ProductDetailsPackingBean> packingBeans, String keyValue) {
+        ProductDetailsPackingBean packingBean = new ProductDetailsPackingBean();
+        String[] key_value = keyValue.split("\\*");
+        packingBean.setAttrKey(key_value[0]);
+        packingBean.setAttrValue(key_value[1]);
+        packingBeans.add(packingBean);
     }
 
     /**

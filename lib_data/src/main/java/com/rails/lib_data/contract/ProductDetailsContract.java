@@ -1,8 +1,8 @@
 package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.DeliveryBean;
-import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
@@ -39,7 +39,7 @@ public interface ProductDetailsContract {
          * 商品评分/价格/包装清单
          */
         // TODO: 2021/4/22 参数
-        void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans);
+        void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans);
 
         /**
          * 店铺推荐（热销商品）

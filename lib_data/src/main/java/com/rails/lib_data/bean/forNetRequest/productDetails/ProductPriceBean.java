@@ -2,7 +2,7 @@ package com.rails.lib_data.bean.forNetRequest.productDetails;
 
 import com.rails.lib_data.bean.ProductBillBean;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ public class ProductPriceBean {
     private String skuName;
     private String shopName;
     private List<ItemPicture> pictureUrl;
-    private List<ProductBillBean> packinglist;
+    private ArrayList<ProductBillBean> packinglist;
     private String packageDis;
     private double score;
     private int saleNum;
@@ -91,11 +91,11 @@ public class ProductPriceBean {
         this.pictureUrl = pictureUrl;
     }
 
-    public Collection<? extends ProductBillBean> getPackinglist() {
+    public ArrayList<ProductBillBean> getPackinglist() {
         return packinglist;
     }
 
-    public void setPackinglist(List<ProductBillBean> packinglist) {
+    public void setPackinglist(ArrayList<ProductBillBean> packinglist) {
         this.packinglist = packinglist;
     }
 
