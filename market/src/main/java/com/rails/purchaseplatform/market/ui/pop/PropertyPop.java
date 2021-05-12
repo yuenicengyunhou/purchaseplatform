@@ -51,6 +51,11 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             MODE_3 = 3, // 商品搜索结果页筛选
             MODE_4 = 4;
 
+    final private String
+            BRAND = "品牌",
+            CATEGORY = "类目";
+
+
     private PropertyAdapter mAdapter;
 
     private DoFilter mDoFilter;
@@ -269,18 +274,18 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                         attrFlag1 = searchFilterValue.getAttrFlag();
                         attrFlag = attrFlag1;
                     }
-                    if (searchFilterValue.getAttrFlag() == 0 && attrName == "品牌") // 是品牌
+                    if (searchFilterValue.getAttrFlag() == 0 && attrName == BRAND) // 是品牌
                         attrs.add(searchFilterValue.getValueName());
-                    else if (searchFilterValue.getAttrFlag() == 1 && attrName == "品类") // 是品类
-                        params[1] = searchFilterValue.getValueName();
+                    else if (searchFilterValue.getAttrFlag() == 1 && attrName == CATEGORY) // 是品类
+                        params[1] = searchFilterValue.getValueId();
                     else { // 是主类型或折叠类型
                         attrs.add(searchFilterValue.getValueName());
                     }
                 }
             }
-            if (attrName == "品牌") {
+            if (attrName == BRAND) {
                 params[0] = String.join(",", attrs);
-            } else if (attrName == "类目") {
+            } else if (attrName == CATEGORY) {
                 // 不用管了
             } else if (attrFlag == 2) {
                 String cateAttr = attrName + "_" + String.join("||", attrs);

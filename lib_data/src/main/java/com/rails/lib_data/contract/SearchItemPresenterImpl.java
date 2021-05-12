@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
@@ -29,6 +28,10 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         SearchContract.SearchItemPresenter {
 
     final private String TAG = SearchItemPresenterImpl.class.getSimpleName();
+
+    final private String
+            BRAND = "品牌",
+            CATEGORY = "类目";
 
     private SearchModel model;
 
@@ -171,7 +174,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         ArrayList<String> brands = (ArrayList<String>) response.getBrands();
         if (brands != null && brands.size() != 0) {
             SearchFilterBean searchFilterBean = new SearchFilterBean();
-            searchFilterBean.setFilterName("品牌");
+            searchFilterBean.setFilterName(BRAND);
             ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
             for (String brand : brands) {
                 SearchFilterValue searchFilterValue = new SearchFilterValue();
@@ -184,7 +187,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         }
         if (response.getAllCids() != null && response.getAllCids().size() != 0) {
             SearchFilterBean searchFilterBean = new SearchFilterBean();
-            searchFilterBean.setFilterName("类目");
+            searchFilterBean.setFilterName(CATEGORY);
             searchFilterBean.setMultiSelect(false);
             ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();
             for (CidBean cidBean : response.getAllCids()) {
