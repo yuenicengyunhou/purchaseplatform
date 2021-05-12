@@ -547,8 +547,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         // 设置店铺名称
         binding.textView.setText(bean.getItemPublishVo().getShopName());
-        // 设置商品销量 // TODO 销量是从ItemPublishVo中取的？ 好像不是很对啊。
-        binding.itemSalesCounts.setText(String.valueOf(bean.getItemPublishVo().getItemSaleCount()));
 
         // 不同规格组合产生的名称
         String attrName = bean.getItemSkuInfoList().get(0).getAttributesName();
@@ -613,6 +611,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             binding.tvPriceGray.setText(String.format("%.2f", bean.getMarketPrice()));
         }
         binding.fsvScore.setStar((int) bean.getScore());
+        // 设置商品销量
+//        binding.tvItemSaleCount.setVisibility(View.INVISIBLE);
+        binding.itemSalesCounts.setText(String.valueOf(bean.getSaleNum()));
 
         billAdapter.update(billBeans, true);
         imgAdapter.update(pics, true);
