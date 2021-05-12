@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.common.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -42,8 +44,10 @@ import java.util.Objects;
  */
 @Route(path = ConRoute.COMMON.SEARCH)
 public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
-        implements HotSearchContract.HotSearchView,
-        HotSearchRecyclerAdapter.OnClickCallBack, SearchHistoryFlowAdapter.OnClickCallBack {
+        implements
+        HotSearchContract.HotSearchView,
+        HotSearchRecyclerAdapter.OnClickCallBack,
+        SearchHistoryFlowAdapter.OnClickCallBack {
 
     private SharedPreferences mSp;
     private List<String> mHistorySearchList;
@@ -267,6 +271,18 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 2047:
+                binding.searchText.setText(mSearchKey);
+                break;
+            default:
+                break;
+        }
+    }
+
     /**
      * 设置搜索类型
      *
@@ -287,7 +303,8 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         Bundle bundle = new Bundle();
         bundle.putInt("search_type", mSearchType);
         bundle.putString("search_key", text);
-        ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation();
+        bundle.putString("mode", "form_search");
+        ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation(this, 2047);
     }
 
     private boolean isShowBottom(View itemView) {
@@ -312,8 +329,10 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     }
 
     @Override
-    public void onClickCallBack(String text) {
+    public void onClickCallBack(String text, Bundle bundle) {
         updateList(text);
         putSearchKeyInSharedPreference();
+        mSearchKey = text;
+        ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation(this, 2047);
     }
 }

@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.R;
 
 import java.util.List;
@@ -40,12 +38,11 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
         textView.setText(text);
         textView.setOnClickListener(v -> {
 
-            callBack.onClickCallBack(text);
-
             Bundle bundle = new Bundle();
             bundle.putInt("search_type", mType);
             bundle.putString("search_key", text);
-            ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation();
+            bundle.putString("mode", "form_search");
+            callBack.onClickCallBack(text, bundle);
         });
     }
 
@@ -73,6 +70,6 @@ public class SearchHistoryFlowAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     public interface OnClickCallBack {
-        void onClickCallBack(String text);
+        void onClickCallBack(String text, Bundle bundle);
     }
 }
