@@ -168,7 +168,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:is_hide="true"
-                app:key="发票嘻嘻发票嘻嘻发票嘻嘻发票嘻嘻发票嘻嘻发票嘻嘻发票嘻嘻发票嘻嘻发票嘻嘻发票嘻嘻"
                 app:key_color="@color/font_black"
                 app:key_size="@dimen/font_size_14"
                 app:value_color="@color/font_black"
