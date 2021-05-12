@@ -44,7 +44,6 @@
                 android:layout_toEndOf="@+id/ratioImage"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="@{shopAttr.shopName}"
                 android:textColor="#2E2E2E"
                 android:textSize="@dimen/font_size_16"
                 android:textStyle="bold" />

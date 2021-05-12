@@ -39,6 +39,12 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
     @Override
     protected void onBindItem(ItemSearchResultByShopBinding binding, ShopAttribute shopAttribute, int position) {
         binding.setShopAttr(shopAttribute);
+        String shopName = shopAttribute.getShopName();
+        if (shopName.contains("<em>"))
+            shopName = shopName.replace("<em>", "");
+        if (shopName.contains("</em>"))
+            shopName = shopName.replace("</em>", "");
+        binding.textView.setText(shopName);
         Glide.with(mContext).load("https:" + shopAttribute.getShopPicture()).into(binding.ratioImage);
         binding.llShop.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
