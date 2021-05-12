@@ -32,12 +32,14 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
     private final AddressModel model;
     private final String accountId;
+    private final String platformId;
 
     public AddressPresenterImpl(Activity mContext, AddressContract.AddressView addressView) {
         super(mContext, addressView);
         model = new AddressModel();
         UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
         accountId = bean.getId();
+        platformId = bean.getPlatformId();
     }
 
     @Override
@@ -45,7 +47,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
-        model.queryAddressList(20, accountId, 2, page, new HttpRxObserver<ListBeen<AddressBean>>() {
+        model.queryAddressList(platformId, accountId, 2, page, new HttpRxObserver<ListBeen<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (isDialog) {
@@ -109,7 +111,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
     @Override
     public void delAddress(long id, int position) {
-        model.deleteAddress(20, accountId, id, new HttpRxObserver<Boolean>() {
+        model.deleteAddress(platformId, accountId, id, new HttpRxObserver<Boolean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -160,7 +162,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         dto.setInvoiceAddress(isInvoiceAddress);
         String json = new Gson().toJson(dto);
         if (addressId == 0) {
-            model.addAddress(20, accountId, json, new HttpRxObserver<Boolean>() {
+            model.addAddress(platformId, accountId, json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.onError(e);
@@ -174,7 +176,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
                 }
             });
         } else {
-            model.editAddress(20, accountId, addressId, json, new HttpRxObserver<Boolean>() {
+            model.editAddress(platformId, accountId, addressId, json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.onError(e);
@@ -198,7 +200,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
      * 获取二级 使用一级code
      */
     @Override
-    public void getArea(long platformId, String parentCode) {
+    public void getArea(String parentCode) {
         model.getArea(platformId, parentCode, new HttpRxObserver<ArrayList<AddressArea>>() {
             @Override
             protected void onError(ErrorBean e) {

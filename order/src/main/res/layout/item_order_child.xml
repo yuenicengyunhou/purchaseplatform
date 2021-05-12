@@ -35,7 +35,6 @@
         android:layout_marginEnd="@dimen/dp_2"
         android:gravity="center"
         android:singleLine="true"
-        android:text="型号："
         android:textColor="@color/font_gray"
         android:textSize="@dimen/font_size_12" />
 
@@ -45,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tv_property"
         android:layout_toEndOf="@+id/tv_property"
-        android:text="100支/盒"
+        android:ellipsize="end"
+        android:lines="1"
         android:textColor="@color/font_gray"
         android:textSize="@dimen/font_size_12" />
 
@@ -57,7 +57,7 @@
         android:layout_alignStart="@+id/tv_title"
         android:layout_alignBottom="@+id/img_product"
         android:layout_marginEnd="@dimen/dp_2"
-        android:text="单品编码："
+        android:text="@string/skuNum"
         android:textColor="@color/font_gray"
         android:textSize="@dimen/font_size_12" />
 
@@ -67,7 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tv_code"
         android:layout_toEndOf="@+id/tv_code"
-        android:text="11111568"
+        android:ellipsize="end"
+        android:lines="1"
         android:textColor="@color/font_gray"
         android:textSize="@dimen/font_size_12" />
 

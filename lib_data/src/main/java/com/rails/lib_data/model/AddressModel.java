@@ -1,5 +1,7 @@
 package com.rails.lib_data.model;
 
+import android.text.TextUtils;
+
 import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.AddressService;
@@ -14,12 +16,15 @@ import retrofit2.http.Query;
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 public class AddressModel {
-    private int pageSize = 10;
+    private final int pageSize = 10;
 
     /**
      * 获取维护地址列表
      */
-    public void queryAddressList(long platformId, String accountId, int accountType, long pageNum, HttpRxObserver httpRxObserver) {
+    public void queryAddressList(String platformId, String accountId, int accountType, long pageNum, HttpRxObserver httpRxObserver) {
+        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+            platformId = "20";
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("accountId", accountId);
@@ -35,7 +40,10 @@ public class AddressModel {
     /**
      * 添加地址
      */
-    public void addAddress(long platformId, String accountId, String requestStr, HttpRxObserver httpRxObserver) {
+    public void addAddress(String platformId, String accountId, String requestStr, HttpRxObserver httpRxObserver) {
+        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+            platformId = "20";
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("accountId", accountId);
@@ -48,7 +56,10 @@ public class AddressModel {
     /**
      * 删除地址
      */
-    public void deleteAddress(long platformId, String accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
+    public void deleteAddress(String platformId, String accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
+        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+            platformId = "20";
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("accountId", accountId);
@@ -87,7 +98,10 @@ public class AddressModel {
     /**
      * 地址编辑
      */
-    public void editAddress(long platformId, String accountId, long addressId, String json, HttpRxObserver httpRxObserver) {
+    public void editAddress(String platformId, String accountId, long addressId, String json, HttpRxObserver httpRxObserver) {
+        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+            platformId = "20";
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("accountId", accountId);
@@ -102,7 +116,10 @@ public class AddressModel {
     /**
      * 获取地区
      */
-    public void getArea(long platformId, String parentCode, HttpRxObserver httpRxObserver) {
+    public void getArea(String platformId, String parentCode, HttpRxObserver httpRxObserver) {
+        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+            platformId = "20";
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("parentCode", parentCode);

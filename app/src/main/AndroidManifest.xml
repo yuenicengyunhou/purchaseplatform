@@ -6,7 +6,8 @@
     <!--允许程序打开网络套接字-->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--允许程序设置内置sd卡的写权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <!--允许程序获取网络状态-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,7 +20,7 @@
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
     <application
@@ -45,9 +46,9 @@
             android:name="com.amap.api.v2.apikey"
             android:value="3006a399561cd66b491b5fdb41dd510c"></meta-data>
 
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
 
             <intent-filter>
 
@@ -57,12 +58,19 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
-<!--                <data-->
-<!--                    android:host="oidcnativeapp"-->
-<!--                    android:scheme="shop" />-->
+                <!--                <data-->
+                <!--                    android:host="oidcnativeapp"-->
+                <!--                    android:scheme="shop" />-->
 
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

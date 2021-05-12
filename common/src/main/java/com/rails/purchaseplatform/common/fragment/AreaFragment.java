@@ -49,7 +49,7 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.recycler.setAdapter(adapter);
         AddressPresenterImpl presenter = new AddressPresenterImpl(mActivity, this);
-        presenter.getArea(20, code);
+        presenter.getArea( code);
 //        refreshArea();
     }
 
