@@ -1,17 +1,19 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.ShopAttribute;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemSearchResultByShopBinding;
-import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 
 import java.util.ArrayList;
 
@@ -37,8 +39,11 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
     @Override
     protected void onBindItem(ItemSearchResultByShopBinding binding, ShopAttribute shopAttribute, int position) {
         binding.setShopAttr(shopAttribute);
+        Glide.with(mContext).load("https:" + shopAttribute.getShopPicture()).into(binding.ratioImage);
         binding.llShop.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, ShopDetailActivity.class));
+            Bundle bundle = new Bundle();
+            bundle.putString("shopInfoId", String.valueOf(shopAttribute.getShopId()));
+            ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
         });
 
         SearchResultByShopProductsAdapter adapter = new SearchResultByShopProductsAdapter(mContext);
