@@ -84,8 +84,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         mSp = this.getSharedPreferences("SEARCH_HISTORY", Context.MODE_PRIVATE);
         mHistorySearchList = new ArrayList<>();
 
-        if (bundle != null) binding.searchText.setText(bundle.getString("search_key"));
-
         getSharedPreferenceData();
 
         mSearchHistoryFlowAdapter = new SearchHistoryFlowAdapter(this, mHistorySearchList);
@@ -104,19 +102,14 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         binding.recyclerHotSearch.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.recyclerHotSearch.setAdapter(mHotSearchRecyclerAdapter);
 
-        // TODO: 2021/04/19 presenter获取hotSearch
-        // mHotSearchPresenter.getHotSearch(false, 1);
-
         setSearchType(0);
 
-        binding.searchText.setText(mSearchKey);
+        if (mSearchKey != null) binding.searchText.setText(mSearchKey);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Bundle bundle = getIntent().getBundleExtra("search_key");
-        if (bundle != null) binding.searchText.setText(bundle.getString("search_key"));
     }
 
     /**
@@ -274,9 +267,12 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
+        switch (resultCode) {
             case 2047:
                 binding.searchText.setText(mSearchKey);
+                break;
+            case 2048:
+                binding.searchText.setText("");
                 break;
             default:
                 break;

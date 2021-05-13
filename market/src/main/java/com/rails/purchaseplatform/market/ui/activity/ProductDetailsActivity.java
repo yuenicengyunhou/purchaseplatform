@@ -435,6 +435,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 public void getSkuInfo(ItemSkuInfo itemSkuInfo) {
                     if (itemSkuInfo != null) {
                         mCheckedItemSkuInfo = itemSkuInfo;
+                        binding.tvSelectType.setText(itemSkuInfo.getAttributesName());
+                        binding.tvItemName.setText(itemSkuInfo.getSkuName());
+                        mGetProductDetailsPresenter.getProductPrice("20", itemSkuInfo.getId(), true);
                     }
                 }
             });

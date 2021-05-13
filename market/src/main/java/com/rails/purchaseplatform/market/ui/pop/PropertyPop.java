@@ -56,8 +56,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             CATEGORY = "类目";
 
 
-    private PropertyAdapter mAdapter;
-
     private DoFilter mDoFilter;
     private DoShopFilter mDoShopFilter;
     private TypeSelect mTypeSelect;
@@ -313,7 +311,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 .into(binding.imgProduct);
         binding.tvPrice.setText(mPrice);
         binding.tvSend.setText(mDelivery);
-        mAdapter = new PropertyAdapter(getActivity());
+        PropertyAdapter mAdapter = new PropertyAdapter(getActivity());
         mAdapter.setItemSkuInfoList(mItemSkuInfos);
         mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() {
             @Override
