@@ -47,6 +47,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     private String orderType;
     private String saleArea;
     private String shopType;
+    private String isBought;
 
     @Override
     protected void loadData() {
@@ -69,6 +70,21 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
      */
     private ArrayList<SearchFilterBean> getFilter() {
         mSearchFilterList = new ArrayList<>();
+
+        SearchFilterValue value01 = new SearchFilterValue();
+        value01.setValueName("  是  ");
+        value01.setValueId("true");
+        SearchFilterValue value02 = new SearchFilterValue();
+        value02.setValueName("  否  ");
+        value02.setValueId("false");
+        ArrayList<SearchFilterValue> values0 = new ArrayList<>();
+        values0.add(value01);
+        values0.add(value02);
+        SearchFilterBean bean0 = new SearchFilterBean();
+        bean0.setFilterName("是否购买过");
+        bean0.setFilterValues(values0);
+        bean0.setMultiSelect(false);
+
         SearchFilterValue value1 = new SearchFilterValue();
         value1.setValueId("1");
         value1.setValueName("集货商");
@@ -98,6 +114,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         }
         bean2.setFilterValues(values2);
 
+        mSearchFilterList.add(bean0);
         mSearchFilterList.add(bean1);
         mSearchFilterList.add(bean2);
 
@@ -117,9 +134,9 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         binding.smart.setEnableRefresh(false);
         binding.smart.setOnLoadMoreListener(refreshLayout -> {
             page++;
-            notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, false);
+            notifyData(isBought, page, mSearchKey, orderColumn, orderType, shopType, saleArea, false);
         });
-        notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
+        notifyData(isBought, page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
     }
 
 
@@ -132,8 +149,8 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
      * @param page
      * @param isDialog
      */
-    void notifyData(int page, String keyWord, String orderColumn, String orderType, String shopType, String saleArea, boolean isDialog) {
-        mPresenter.getShopListWithKeywordOnly(page, 30, keyWord, orderColumn, orderType, shopType, saleArea, isDialog);
+    void notifyData(String isBought, int page, String keyWord, String orderColumn, String orderType, String shopType, String saleArea, boolean isDialog) {
+        mPresenter.getShopListWithKeywordOnly(isBought, page, 30, keyWord, orderColumn, orderType, shopType, saleArea, isDialog);
     }
 
 
@@ -154,12 +171,12 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         this.orderType = orderType;
         this.mSearchKey = keyword;
         page = DEF_PAGE;
-        notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
+        notifyData(isBought, page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
     }
 
     @Override
     public void search() {
-        notifyData(page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
+        notifyData(isBought, page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
     }
 
     @Override
@@ -168,9 +185,10 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     }
 
     @Override
-    public void sendShopFilterData(String shopType, String saleArea) {
+    public void sendShopFilterData(String isBought, String shopType, String saleArea) {
+        this.isBought = isBought;
         this.shopType = shopType;
         this.saleArea = saleArea;
-        notifyData(page, mSearchKey, orderColumn, orderType, this.shopType, this.saleArea, true);
+        notifyData(isBought, page, mSearchKey, orderColumn, orderType, this.shopType, this.saleArea, true);
     }
 }

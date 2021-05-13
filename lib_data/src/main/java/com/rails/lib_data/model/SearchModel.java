@@ -53,12 +53,15 @@ public class SearchModel {
      * @param orderType
      * @param httpRxObserver
      */
-    public void getShopListWithKeywordOnly(int pageNum, int pageSize, String keyword, String orderColumn, String orderType, String shopType, String saleArea, HttpRxObserver httpRxObserver) {
+    public void getShopListWithKeywordOnly(String isBought, int pageNum, int pageSize, String keyword, String orderColumn, String orderType, String shopType, String saleArea, HttpRxObserver httpRxObserver) {
+        boolean isBuy = false;
+        if (isBought != null && isBought.equals("true")) isBuy = true;
 
         HashMap<String, Object> params = new HashMap<>();
+        params.put("isBuy", isBuy);
         params.put("pageNum", pageNum);
         params.put("pageSize", pageSize);
-        params.put("keyword", keyword);
+        if (!TextUtils.isEmpty(keyword)) params.put("keyword", keyword);
         if (orderColumn != null) params.put("orderColumn", orderColumn);
         if (orderType != null) params.put("orderType", orderType);
         if (!TextUtils.isEmpty(shopType)) params.put("shopType", shopType);
