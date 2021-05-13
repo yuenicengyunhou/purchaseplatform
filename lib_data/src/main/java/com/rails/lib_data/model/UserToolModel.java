@@ -54,4 +54,19 @@ public class UserToolModel {
                 .create(UserService.class).getUserInfoStatictics(params))
                 .subscribe(httpRxObserver);
     }
+
+
+    /**
+     * 检查权限
+     *
+     * @param httpRxObserver
+     */
+    public void checkPermissions(String userId,String userType,HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("accountType", userType);
+        params.put("accountId", userId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(UserService.class).checkPermissions(params))
+                .subscribe(httpRxObserver);
+    }
 }

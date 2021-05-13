@@ -23,6 +23,12 @@ public interface UserToolContract {
 
 
         void  getUserInfoStatictics(UserStatisticsBean bean);
+
+        /**
+         * 权限设置
+         * @param bean
+         */
+        void checkPermissions(UserStatisticsBean bean);
     }
 
 
@@ -44,6 +50,12 @@ public interface UserToolContract {
          * @param userType
          */
         void getUserInfoStatictics(String userId, String userType);
+
+
+        /**
+         * 检查是否有权限
+         */
+        void checkPermissions(String userId,String userType);
     }
 
 }

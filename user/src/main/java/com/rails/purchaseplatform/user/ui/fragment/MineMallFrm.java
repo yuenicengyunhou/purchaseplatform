@@ -34,13 +34,13 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
-
     }
 
     @Override
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
         if (bean != null) {
+            toolPresenter.checkPermissions(bean.getId(), bean.getAccountType());
             toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
             toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
         }
@@ -179,13 +179,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabSend.setNumber(bean.getStayDeliverCount());
         binding.tabRecivice.setNumber(bean.getStayReceiveCount());
         binding.tabQuit.setNumber(bean.getFailureCount());
-
-
-//        binding.llAudit.setNumber(bean.getStayAuditCount());
-//        binding.llPass.setNumber(bean.getPassedCount());
-//        binding.llRejected.setNumber(bean.getRejectCount());
-
-
     }
 
     @Override
@@ -196,6 +189,11 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     public void getUserInfoStatictics(UserStatisticsBean bean) {
         setUserInfo(bean);
+    }
+
+    @Override
+    public void checkPermissions(UserStatisticsBean bean) {
+
     }
 
 

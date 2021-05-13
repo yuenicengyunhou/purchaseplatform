@@ -29,4 +29,13 @@ public interface UserService {
     @GET("app-user-service/app/v1/buyer/user/personal")
     Observable<HttpResult<UserStatisticsBean>> getUserInfoStatictics(@QueryMap HashMap<String, Object> params);
 
+
+    /**
+     * 检测权限
+     *
+     * @return
+     */
+    @GET("app-user-service/app/v1/buyer/user/checkPermissions")
+    Observable<HttpResult<UserStatisticsBean>> checkPermissions(@QueryMap HashMap<String, Object> params);
+
 }
