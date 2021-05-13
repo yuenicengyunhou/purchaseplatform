@@ -57,7 +57,7 @@
                 android:layout_marginBottom="@dimen/dp_18"
                 android:layout_toEndOf="@+id/ratioImage"
                 android:background="@null"
-                android:src="@drawable/ic_security_true" />
+                android:src="@drawable/ic_security_b" />
 
             <TextView
                 android:id="@+id/tv_creditLevel"

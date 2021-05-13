@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -103,7 +102,6 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbCommonSort.setSelected(true);
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     protected void onClick() {
         super.onClick();
@@ -144,8 +142,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
                 mPop.setShopFilterListener(new PropertyPop.DoShopFilter() {
                     @Override
-                    public void doShopFilter(String shopType, String saleArea) {
-                        fragment2.sendShopFilterData(shopType, saleArea);
+                    public void doShopFilter(String isBought, String shopType, String saleArea) {
+                        fragment2.sendShopFilterData(isBought, shopType, saleArea);
                     }
                 });
 
@@ -161,7 +159,6 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 点击综合排序
         binding.cbCommonSort.setOnClickListener(v -> {
             setSelected(true, false, false);
-            // TODO: 2021/3/27 发送请求 - 综合排序
             if (mSearchType == 0) {
                 fragment1.sort(null, null, mSearchKey, mCid);
             } else {
@@ -173,7 +170,6 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbSaleSort.setOnClickListener(v -> {
             setSelected(false, true, false);
             salesSortFlag = !salesSortFlag;
-            // TODO: 2021/3/27 发送请求 - 按销量升序或降序排列
             if (mSearchType == 0) {
                 fragment1.sort("saleCount", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
@@ -185,7 +181,6 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbPriceSort.setOnClickListener(v -> {
             setSelected(false, false, true);
             priceSortFlag = !priceSortFlag;
-            // TODO: 2021/3/27 发送请求 - 按价格升序或降序排列
             if (mSearchType == 0) {
                 fragment1.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
@@ -237,16 +232,18 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_searchKey) {
-            if (mMode.equals("form_search")) {
-                setResult(2047);
-                finish();
-            } else {
-                Bundle bundle = new Bundle();
-                bundle.putString("search_key", binding.tvSearchKey.getText().toString());
-                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation();
-            }
+            goSearchActivity(2047);
         }
         if (id == R.id.iv_searchCancel || id == R.id.cl_searchBar || id == R.id.tv_type_name) {
+            goSearchActivity(2048);
+        }
+    }
+
+    private void goSearchActivity(int resultCode) {
+        if (mMode.equals("form_search")) {
+            setResult(resultCode);
+            finish();
+        } else {
             ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
         }
     }
@@ -294,7 +291,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          *
          * @return
          */
-        void sendShopFilterData(String shopType, String saleArea);
+        void sendShopFilterData(String isBought, String shopType, String saleArea);
 
     }
 }

@@ -56,8 +56,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             CATEGORY = "类目";
 
 
-    private PropertyAdapter mAdapter;
-
     private DoFilter mDoFilter;
     private DoShopFilter mDoShopFilter;
     private TypeSelect mTypeSelect;
@@ -197,18 +195,24 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         });
         binding.btnOk.setOnClickListener(v -> {
             ArrayList<SearchFilterBean> beans = (ArrayList<SearchFilterBean>) adapter1.getData();
+            String isBought = null;
             String shopType = "", saleArea = "";
             for (SearchFilterValue value : beans.get(0).getFilterValues()) {
                 if (value.isSelect()) {
-                    shopType = value.getValueId();
+                    isBought = value.getValueId();
                 }
             }
             for (SearchFilterValue value : beans.get(1).getFilterValues()) {
                 if (value.isSelect()) {
+                    shopType = value.getValueId();
+                }
+            }
+            for (SearchFilterValue value : beans.get(2).getFilterValues()) {
+                if (value.isSelect()) {
                     saleArea = value.getValueId();
                 }
             }
-            mDoShopFilter.doShopFilter(shopType, saleArea);
+            mDoShopFilter.doShopFilter(isBought, shopType, saleArea);
             dismiss();
         });
     }
@@ -313,7 +317,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 .into(binding.imgProduct);
         binding.tvPrice.setText(mPrice);
         binding.tvSend.setText(mDelivery);
-        mAdapter = new PropertyAdapter(getActivity());
+        PropertyAdapter mAdapter = new PropertyAdapter(getActivity());
         mAdapter.setItemSkuInfoList(mItemSkuInfos);
         mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() {
             @Override
@@ -441,7 +445,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 店铺搜索结果页 接口方法
      */
     public interface DoShopFilter {
-        void doShopFilter(String shopType, String saleArea);
+        void doShopFilter(String isBought, String shopType, String saleArea);
     }
 
 

@@ -16,6 +16,7 @@ import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView2;
 import com.rails.purchaseplatform.common.widget.LrLableLayout;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
@@ -116,7 +117,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        private BaseRecyclerView recycler;
+        private BaseRecyclerView2 recycler;
         private Title4OrderRecyclerItem title;
         private LrLableLayout lrCode;
         private LrLableLayout lrTime;
