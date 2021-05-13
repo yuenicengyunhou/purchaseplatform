@@ -142,8 +142,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
                 mPop.setShopFilterListener(new PropertyPop.DoShopFilter() {
                     @Override
-                    public void doShopFilter(String shopType, String saleArea) {
-                        fragment2.sendShopFilterData(shopType, saleArea);
+                    public void doShopFilter(String isBought, String shopType, String saleArea) {
+                        fragment2.sendShopFilterData(isBought, shopType, saleArea);
                     }
                 });
 
@@ -291,7 +291,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          *
          * @return
          */
-        void sendShopFilterData(String shopType, String saleArea);
+        void sendShopFilterData(String isBought, String shopType, String saleArea);
 
     }
 }
