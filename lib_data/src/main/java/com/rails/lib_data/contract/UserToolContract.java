@@ -1,7 +1,10 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.AuthorButtonBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
+
+import java.util.ArrayList;
 
 /**
  * 用户相关工具
@@ -21,14 +24,25 @@ public interface UserToolContract {
         void getUserStatictics(UserStatisticsBean bean);
 
 
-
-        void  getUserInfoStatictics(UserStatisticsBean bean);
+        void getUserInfoStatictics(UserStatisticsBean bean);
 
         /**
          * 权限设置
+         *
          * @param bean
          */
         void checkPermissions(UserStatisticsBean bean);
+
+
+        /**
+         * 权限
+         *
+         * @param isPurchase
+         * @param isApprove
+         * @param isCollect
+         * @param isTrack
+         */
+        void getAuthor(boolean isPurchase, boolean isApprove, boolean isCollect, boolean isTrack);
     }
 
 
@@ -55,7 +69,25 @@ public interface UserToolContract {
         /**
          * 检查是否有权限
          */
-        void checkPermissions(String userId,String userType);
+        void checkPermissions(String userId, String userType);
+
+
+        /**
+         * 检查个人菜单是否可用
+         *
+         * @param userId
+         * @param userType
+         */
+        void queryResource(String userId, String userType);
+
+
+        /**
+         * 检查个人中心按钮是否可用
+         *
+         * @param userId
+         * @param userType
+         */
+        void queryResourceButton(String userId, String userType);
     }
 
 }

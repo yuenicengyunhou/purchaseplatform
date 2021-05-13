@@ -1,8 +1,12 @@
 package com.rails.lib_data.service;
 
+import com.rails.lib_data.bean.AuthorButtonBean;
+import com.rails.lib_data.bean.AuthorMenuBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
@@ -37,5 +41,23 @@ public interface UserService {
      */
     @GET("app-user-service/app/v1/buyer/user/checkPermissions")
     Observable<HttpResult<UserStatisticsBean>> checkPermissions(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 个人中心，采购单/浏览记录/收藏列表时候可用
+     *
+     * @return
+     */
+    @GET("app-user-service/app/v1/buyer/roleresource/queryResourceByAccountId")
+    Observable<HttpResult<ArrayList<AuthorMenuBean>>> queryResource(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 按钮
+     *
+     * @return
+     */
+    @GET("app-user-service/app/v1/buyer/roleresource/queryButtonByAccountId")
+    Observable<HttpResult<ArrayList<AuthorButtonBean>>> queryResourceButton(@QueryMap HashMap<String, Object> params);
 
 }

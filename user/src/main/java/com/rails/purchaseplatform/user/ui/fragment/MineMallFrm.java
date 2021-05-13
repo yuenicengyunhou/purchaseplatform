@@ -14,6 +14,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
@@ -29,6 +30,11 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     private UserToolContract.UserToolPresenter toolPresenter;
     private UserInfoBean bean;
 
+    private boolean isPurchase = false;
+    private boolean isApprove = false;
+    private boolean isCollect = false;
+    private boolean isTrack = false;
+
     @Override
     protected void loadData() {
 
@@ -40,7 +46,8 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
         if (bean != null) {
-            toolPresenter.checkPermissions(bean.getId(), bean.getAccountType());
+            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
+            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
             toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
             toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
         }
@@ -72,6 +79,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.orderAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isPurchase) {
+                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    return;
+                }
                 ARouter.getInstance().build(ConRoute.ORDER.ORDER_MAIN).navigation();
             }
         });
@@ -80,6 +91,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             @Override
             public void onClick(View v) {
                 //待下单
+                if (!isPurchase) {
+                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    return;
+                }
                 ARouter.getInstance()
                         .build(ConRoute.ORDER.ORDER_MAIN)
                         .withString("statusCode", "10")
@@ -91,6 +106,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             @Override
             public void onClick(View v) {
                 //待收货 "status": "待收货", "statusCode": "30"
+                if (!isPurchase) {
+                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    return;
+                }
                 ARouter.getInstance()
                         .build(ConRoute.ORDER.ORDER_MAIN)
                         .withString("statusCode", "30")
@@ -100,6 +119,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.tabSend.setOnClickListener(v -> {
                     //待发货 "status": "待发货", "statusCode": "20"
+                    if (!isPurchase) {
+                        ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                        return;
+                    }
                     ARouter.getInstance()
                             .build(ConRoute.ORDER.ORDER_MAIN)
                             .withString("statusCode", "20")
@@ -109,6 +132,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.tabQuit.setOnClickListener(v -> {
             //待发货 "status": "已经取消", "statusCode": "70"
+            if (!isPurchase) {
+                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                return;
+            }
             ARouter.getInstance()
                     .build(ConRoute.ORDER.ORDER_MAIN)
                     .withString("statusCode", "70")
@@ -118,6 +145,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tvWatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isTrack) {
+                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    return;
+                }
                 ARouter.getInstance()
                         .build(ConRoute.WEB.WEB_BROWSE)
                         .withString("url", ConRoute.WEB_URL.BROWSE)
@@ -129,6 +160,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tvCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isCollect) {
+                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    return;
+                }
                 ARouter.getInstance()
                         .build(ConRoute.WEB.WEB_COLLECT)
                         .withString("url", ConRoute.WEB_URL.COLLECT)
@@ -139,6 +174,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.llAudit.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到审批列表页面
+            if (!isApprove) {
+                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                return;
+            }
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_APPROVAL)
                     .withString("url", ConRoute.WEB_URL.APPROVAL)
@@ -147,6 +186,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.llRejected.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到驳回页面
+            if (!isApprove) {
+                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                return;
+            }
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_APPROVAL)
                     .withInt("type", 2)
@@ -156,6 +199,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.llPass.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到通过页面
+            if (!isApprove) {
+                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                return;
+            }
             ARouter.getInstance()
                     .build(ConRoute.WEB.WEB_APPROVAL)
                     .withInt("type", 1)
@@ -194,6 +241,14 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     public void checkPermissions(UserStatisticsBean bean) {
 
+    }
+
+    @Override
+    public void getAuthor(boolean isPurchase, boolean isApprove, boolean isCollect, boolean isTrack) {
+        this.isPurchase = isPurchase;
+        this.isApprove = isApprove;
+        this.isCollect = isCollect;
+        this.isTrack = isTrack;
     }
 
 
