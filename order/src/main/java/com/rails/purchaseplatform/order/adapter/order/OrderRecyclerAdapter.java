@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -11,13 +12,16 @@ import com.rails.lib_data.SubSkuDemandInfoBean;
 import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView2;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.order.R;
 
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -77,9 +81,9 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         holder.tvOrderTime.setText(orderTime);
         holder.tvStatus.setText(orderStatusView);
         OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext, getItemViewType(position));
-        holder.recycler.setLayoutManager(BaseRecyclerView.LIST,
-                type == TYPE_SKU_DETAIL_MODE ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL, false, 1);
+        holder.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 1);
         holder.recycler.setAdapter(adapter);
+
         // TODO: 2021/4/13 count 需要设置文字 从bean中获取
         holder.count.setVisibility(type == TYPE_SKU_DETAIL_MODE ? View.VISIBLE : View.GONE);
         // TODO: 2021/4/13 singlePrice 需要设置文字 从bean中获取
@@ -98,12 +102,17 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             }
         } else {
             int temp = 0;
+            double tempPrice = 0;
             for (int i = 0; i < subSkuDemandInfo.size(); i++) {
                 int skuNums = subSkuDemandInfo.get(i).getSkuNums();
+                String totalPrice = subSkuDemandInfo.get(i).getTotalPrice();
+                float price = Float.parseFloat(totalPrice);
+                tempPrice = tempPrice + price;
                 temp = temp + skuNums;
             }
             holder.singlePrice.setText(MessageFormat.format("共{0}件", temp));
-            holder.tvPrice.setText("0");
+            String formattedPrice = new DecimalFormat("0.00").format(tempPrice);
+            holder.tvPrice.setText(formattedPrice);
         }
 //        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? subSkuDemandInfo : "共100件");
         adapter.update(subSkuDemandInfo, true);
@@ -117,7 +126,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        private BaseRecyclerView recycler;
+        private BaseRecyclerView2 recycler;
         private LinearLayout orderItem;
         private TextView singlePrice;
         private TextView count;
