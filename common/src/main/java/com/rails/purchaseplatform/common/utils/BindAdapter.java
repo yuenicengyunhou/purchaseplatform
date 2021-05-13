@@ -56,4 +56,27 @@ public class BindAdapter {
                 .into(view);
     }
 
+
+    /**
+     * 绑定地址图片
+     *
+     * @param view
+     * @param imageUrl
+     */
+    @androidx.databinding.BindingAdapter("imgUrl_r")
+    public static void bindImageUrl_r(ImageView view, String imageUrl) {
+        if (TextUtils.isEmpty(imageUrl))
+            imageUrl ="";
+
+        if (!imageUrl.contains("https"))
+            imageUrl = "https:" + imageUrl;
+
+        Glide.with(view)
+                .load(imageUrl)
+                .centerCrop()
+                .placeholder(R.drawable.ic_placeholder_rect)
+                .error(R.drawable.ic_placeholder_rect)
+                .into(view);
+    }
+
 }

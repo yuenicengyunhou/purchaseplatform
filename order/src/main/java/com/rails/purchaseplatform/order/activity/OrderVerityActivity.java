@@ -357,6 +357,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             //
             //是否延迟收货
             body.setDelayFlag(String.valueOf(receiveType));
+            body.setDelayReceiveTime(barBinding.rlGoods.getContent());
 
             //结算方式
             //结算单位ID

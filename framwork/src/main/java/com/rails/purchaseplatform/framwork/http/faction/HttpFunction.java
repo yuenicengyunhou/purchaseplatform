@@ -18,7 +18,12 @@ public class HttpFunction<T> implements Function<HttpResult<T>, T> {
 
             T t = tHttpResult.getData();
             if (t == null) {
-                return (T) String.valueOf(TextUtils.isEmpty(tHttpResult.getMessage()) ? tHttpResult.getMsg() : tHttpResult.getMessage());
+                if (TextUtils.isEmpty(tHttpResult.getMessage()) || "null".equals(tHttpResult.getMessage())) {
+                    return (T) String.valueOf(tHttpResult.getMsg());
+                } else {
+                    return (T) String.valueOf(tHttpResult.getMessage());
+                }
+
             } else
                 return t;
         } else {
