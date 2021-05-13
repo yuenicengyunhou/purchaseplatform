@@ -626,14 +626,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 view.setVisibility(View.INVISIBLE);
                 break;
             case CREDIT_NAME_2:
-                // TODO: 2021/5/12 设置图片
-//                view.setBackground(getResources().getDrawable(R.id.));
+                view.setBackground(getResources().getDrawable(R.drawable.ic_security_b));
                 break;
             case CREDIT_NAME_3:
-                view.setVisibility(View.VISIBLE);
+                view.setBackground(getResources().getDrawable(R.drawable.ic_security_c));
                 break;
             case CREDIT_NAME_4:
-                view.setVisibility(View.GONE);
+                view.setBackground(getResources().getDrawable(R.drawable.ic_security_d));
                 break;
             default:
                 break;
