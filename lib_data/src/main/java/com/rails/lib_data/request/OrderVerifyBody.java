@@ -56,6 +56,8 @@ public class OrderVerifyBody {
      */
     private String delayFlag;
 
+    private String delayReceiveTime;
+
 
     public String getPlatformId() {
         return platformId;
@@ -167,5 +169,13 @@ public class OrderVerifyBody {
 
     public void setDelayFlag(String delayFlag) {
         this.delayFlag = delayFlag;
+    }
+
+    public String getDelayReceiveTime() {
+        return delayReceiveTime;
+    }
+
+    public void setDelayReceiveTime(String delayReceiveTime) {
+        this.delayReceiveTime = delayReceiveTime;
     }
 }
