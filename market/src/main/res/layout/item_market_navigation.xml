@@ -20,20 +20,22 @@
             android:layout_height="@dimen/dp_45"
             android:layout_gravity="center"
             android:overScrollMode="never"
-            app:imgUrl="@{sub.pictureUrl}" />
+            app:border_color="@color/line_gray"
+            app:border_width="@dimen/dp_tiny"
+            app:imgUrl_r="@{sub.pictureUrl}" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_5"
-            android:text="@{sub.navigationBarName}"
             android:layout_marginTop="@dimen/dp_8"
-            android:singleLine="true"
+            android:layout_marginRight="@dimen/dp_5"
+            android:gravity="center"
             android:maxLength="4"
+            android:singleLine="true"
+            android:text="@{sub.navigationBarName}"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_12" />
 

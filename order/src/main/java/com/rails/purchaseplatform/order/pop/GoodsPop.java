@@ -3,13 +3,11 @@ package com.rails.purchaseplatform.order.pop;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.TimeUtil;
-import com.rails.purchaseplatform.order.databinding.ItemOrderRecyclerTitleBinding;
 import com.rails.purchaseplatform.order.databinding.PopVerifyGoodsBinding;
 
 import java.util.Calendar;
@@ -35,8 +33,9 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
     @Override
     protected void initialize(Bundle bundle) {
 
-        time = TimeUtil.LongtoStringFormat(System.currentTimeMillis(), TimeUtil.YMD);
+        time = TimeUtil.LongtoStringFormat(System.currentTimeMillis(), TimeUtil.YMD_);
 
+        binding.datePicker.setMinDate(System.currentTimeMillis());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
                 @Override
@@ -46,7 +45,7 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
                     calendar.set(datePicker.getYear(), datePicker.getMonth(),
                             datePicker.getDayOfMonth());
                     // 格式化字符串
-                    time = TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD);
+                    time = TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD_);
                 }
             });
         } else {
@@ -58,7 +57,7 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
                     calendar.set(binding.datePicker.getYear(), binding.datePicker.getMonth(),
                             binding.datePicker.getDayOfMonth());
                     // 格式化字符串
-                    time = TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD);
+                    time = TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD_);
                 }
             });
         }
