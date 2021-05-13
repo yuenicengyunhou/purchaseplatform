@@ -19,8 +19,12 @@ import com.rails.lib_data.bean.InvoiceTitleBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.bean.ResultWebBean;
+import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.OrderVerifyContract;
 import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.lib_data.request.OrderAddressBean;
 import com.rails.lib_data.request.OrderInvoiceBean;
 import com.rails.lib_data.request.OrderVerifyBody;
@@ -55,10 +59,12 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/27
  */
 @Route(path = ConRoute.ORDER.ORDER_VERITY)
-public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBinding> implements OrderVerifyContract.OrderVerifyView {
+public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBinding> implements
+        OrderVerifyContract.OrderVerifyView, UserToolContract.UserToolView {
 
     private OrderVerifyAdapter adapter;
     private OrderVerifyContract.OrderVerifyPresenter presenter;
+    private UserToolContract.UserToolPresenter toolPresenter;
 
     //收货地址
     private AddressBean addressBean;
@@ -96,6 +102,13 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         adapter = new OrderVerifyAdapter(this);
         barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         barBinding.recycler.setAdapter(adapter);
+
+        //获取用户是否提交采购单权限
+        toolPresenter = new UserToolPresenterImpl(this, this);
+        UserInfoBean userInfoBean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
+        if (userInfoBean != null) {
+            toolPresenter.checkPermissions(userInfoBean.getId(), userInfoBean.getAccountType());
+        }
 
         presenter = new OrderVerifyPresenterImpl(this, this);
         presenter.getOrderToken();
@@ -448,4 +461,23 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 .builder().show();
     }
 
+    @Override
+    public void getUserStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getUserInfoStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void checkPermissions(UserStatisticsBean bean) {
+        barBinding.btnCommit.setEnabled(bean.getSubmitPurchaseOrder());
+    }
+
+    @Override
+    public void getAuthor(boolean isPurchase, boolean isApprove, boolean isCollect, boolean isTrack) {
+
+    }
 }

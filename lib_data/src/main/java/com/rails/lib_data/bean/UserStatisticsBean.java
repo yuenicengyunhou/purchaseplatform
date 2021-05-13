@@ -25,6 +25,10 @@ public class UserStatisticsBean {
     private String departmentOrganizationName;
 
 
+    private Boolean submitPurchaseOrder;
+    private Boolean submitDemand;
+
+
     public int getStayPayCount() {
         return stayPayCount;
     }
@@ -111,5 +115,21 @@ public class UserStatisticsBean {
 
     public void setDepartmentOrganizationName(String departmentOrganizationName) {
         this.departmentOrganizationName = departmentOrganizationName;
+    }
+
+    public Boolean getSubmitPurchaseOrder() {
+        return submitPurchaseOrder;
+    }
+
+    public void setSubmitPurchaseOrder(Boolean submitPurchaseOrder) {
+        this.submitPurchaseOrder = submitPurchaseOrder;
+    }
+
+    public Boolean getSubmitDemand() {
+        return submitDemand;
+    }
+
+    public void setSubmitDemand(Boolean submitDemand) {
+        this.submitDemand = submitDemand;
     }
 }

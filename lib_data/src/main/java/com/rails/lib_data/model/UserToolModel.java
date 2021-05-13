@@ -54,4 +54,50 @@ public class UserToolModel {
                 .create(UserService.class).getUserInfoStatictics(params))
                 .subscribe(httpRxObserver);
     }
+
+
+    /**
+     * 检查用户下单权限（信息核对页面）
+     *
+     * @param httpRxObserver
+     */
+    public void checkPermissions(String userId, String userType, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("accountType", userType);
+        params.put("accountId", userId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(UserService.class).checkPermissions(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 检查权限
+     *
+     * @param httpRxObserver
+     */
+    public void queryResource(String userId, String userType, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("accountType", userType);
+        params.put("accountId", userId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(UserService.class).queryResource(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 检查权限
+     *
+     * @param httpRxObserver
+     */
+    public void queryResourceButton(String userId, String userType, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("accountType", userType);
+        params.put("accountId", userId);
+        params.put("owner","buyer");
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(UserService.class).queryResourceButton(params))
+                .subscribe(httpRxObserver);
+    }
 }
