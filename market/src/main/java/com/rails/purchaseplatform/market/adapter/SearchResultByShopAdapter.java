@@ -81,14 +81,13 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
                 binding.ivSecurityLevel.setVisibility(View.INVISIBLE);
                 break;
             case CREDIT_NAME_2:
-                // TODO: 2021/5/12 设置图片
-//                binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_b));
                 break;
             case CREDIT_NAME_3:
-//                binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_c));
                 break;
             case CREDIT_NAME_4:
-//                binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_d));
                 break;
             default:
                 break;
