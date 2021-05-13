@@ -2,6 +2,8 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +22,16 @@ import java.util.ArrayList;
 public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute, ItemSearchResultByShopBinding> {
 
     private Context mContext;
+
+    final private String CREDIT_LEVEL_1 = "A";
+    final private String CREDIT_LEVEL_2 = "B";
+    final private String CREDIT_LEVEL_3 = "C";
+    final private String CREDIT_LEVEL_4 = "D";
+    final private String CREDIT_NAME_1 = " ";
+    final private String CREDIT_NAME_2 = "风险较低";
+    final private String CREDIT_NAME_3 = "风险较高";
+    final private String CREDIT_NAME_4 = "风险极高";
+
 
     public SearchResultByShopAdapter(Context context) {
         super(context);
@@ -40,12 +52,52 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
     protected void onBindItem(ItemSearchResultByShopBinding binding, ShopAttribute shopAttribute, int position) {
         binding.setShopAttr(shopAttribute);
         String shopName = shopAttribute.getShopName();
-        if (shopName.contains("<em>"))
-            shopName = shopName.replace("<em>", "");
-        if (shopName.contains("</em>"))
-            shopName = shopName.replace("</em>", "");
-        binding.textView.setText(shopName);
-        Glide.with(mContext).load("https:" + shopAttribute.getShopPicture()).into(binding.ratioImage);
+        if (!TextUtils.isEmpty(shopName)) {
+            if (shopName.contains("<em>"))
+                shopName = shopName.replace("<em>", "");
+            if (shopName.contains("</em>"))
+                shopName = shopName.replace("</em>", "");
+            binding.textView.setText(shopName);
+        }
+
+        String credit = CREDIT_NAME_1;
+        if (shopAttribute.getCreditLevel() != null) {
+            switch (shopAttribute.getCreditLevel()) {
+                case CREDIT_LEVEL_2:
+                    credit = CREDIT_NAME_2;
+                    break;
+                case CREDIT_LEVEL_3:
+                    credit = CREDIT_NAME_3;
+                    break;
+                case CREDIT_LEVEL_4:
+                    credit = CREDIT_NAME_4;
+                    break;
+                default:
+                    break;
+            }
+        }
+        switch (credit) {
+            case CREDIT_NAME_1:
+                binding.ivSecurityLevel.setVisibility(View.INVISIBLE);
+                break;
+            case CREDIT_NAME_2:
+                // TODO: 2021/5/12 设置图片
+//                binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                break;
+            case CREDIT_NAME_3:
+//                binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                break;
+            case CREDIT_NAME_4:
+//                binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
+        binding.tvCreditLevel.setText(credit);
+        Glide.with(mContext)
+                .load("https:" + shopAttribute.getShopPicture())
+                .placeholder(R.drawable.ic_placeholder)
+                .into(binding.ratioImage);
         binding.llShop.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("shopInfoId", String.valueOf(shopAttribute.getShopId()));

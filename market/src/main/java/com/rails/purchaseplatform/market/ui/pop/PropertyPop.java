@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.DeliveryBean;
-import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
@@ -106,7 +106,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             }
 
             @Override
-            public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
+            public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans) {
                 binding.tvPrice.setText(String.valueOf(bean.getSellPrice()));
             }
 

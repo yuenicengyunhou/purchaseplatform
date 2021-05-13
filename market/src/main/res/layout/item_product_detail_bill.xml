@@ -5,7 +5,7 @@
 
         <variable
             name="bill"
-            type="com.rails.lib_data.bean.ProductBillBean" />
+            type="com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean" />
     </data>
 
     <LinearLayout
@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_1"
+            android:layout_marginEnd="@dimen/dp_1"
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
@@ -23,7 +23,7 @@
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
             android:singleLine="true"
-            android:text="@{bill.annexName}"
+            android:text="@{bill.attrKey}"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12" />
 
@@ -38,7 +38,7 @@
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
             android:singleLine="true"
-            android:text="@{bill.yn}"
+            android:text="@{bill.attrValue}"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12" />
 

@@ -34,13 +34,14 @@ import java.util.ArrayList;
  * 6 - 展示搜索结果时，跳转到此页面之前应该保存本地搜索记录
  * 7 - 下拉刷新搜索结果，上拉加载更多搜索结果
  */
-@Route(path = "/market/SearchResultActivity")
+@Route(path = ConRoute.MARKET.SEARCH_RESULT)
 public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding>
         implements View.OnClickListener {
 
     private int mSearchType = 0;
     private String mSearchKey = "";
     private String mCid = "";
+    private String mMode = "";
 
     private boolean salesSortFlag = true; // false 降序排列
     private boolean priceSortFlag = true; // true  升序排列
@@ -216,6 +217,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchType = extras.getInt("search_type");
         mSearchKey = extras.getString("search_key");
         mCid = extras.getString("cid");
+        mMode = extras.getString("mode");
     }
 
     /**
@@ -235,9 +237,14 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_searchKey) {
-            Bundle bundle = new Bundle();
-            bundle.putString("search_key", binding.tvSearchKey.getText().toString());
-            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation(this);
+            if (mMode.equals("form_search")) {
+                setResult(2047);
+                finish();
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putString("search_key", binding.tvSearchKey.getText().toString());
+                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation();
+            }
         }
         if (id == R.id.iv_searchCancel || id == R.id.cl_searchBar || id == R.id.tv_type_name) {
             ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);

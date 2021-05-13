@@ -13,10 +13,19 @@ public class ShopAttribute {
     private List<String> saleArea;
     private long shopSaleCount;
     private List<ItemAttribute> items;
+    private String creditLevel;
 
 
     // =========================================
 
+
+    public String getCreditLevel() {
+        return creditLevel;
+    }
+
+    public void setCreditLevel(String creditLevel) {
+        this.creditLevel = creditLevel;
+    }
 
     public List<ItemAttribute> getItems() {
         return items;

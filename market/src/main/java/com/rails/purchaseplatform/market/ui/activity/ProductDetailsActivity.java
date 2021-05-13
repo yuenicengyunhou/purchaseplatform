@@ -7,17 +7,19 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
-import com.rails.lib_data.bean.ProductBillBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -65,7 +67,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
         AddressToolContract.AddressToolView {
+
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
+
+    final private String CREDIT_LEVEL_1 = "A";
+    final private String CREDIT_LEVEL_2 = "B";
+    final private String CREDIT_LEVEL_3 = "C";
+    final private String CREDIT_LEVEL_4 = "D";
+    final private String CREDIT_NAME_1 = " ";
+    final private String CREDIT_NAME_2 = "风险较低";
+    final private String CREDIT_NAME_3 = "风险较高";
+    final private String CREDIT_NAME_4 = "风险极高";
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
 
@@ -574,25 +586,30 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 请求接口 获取店铺推荐商品
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
 
-//        binding.ratioImage // TODO 设置店铺图片
+        Glide.with(this)
+                .load("https:" + bean.getItemPublishVo().getLogoUrl())
+                .placeholder(R.drawable.ic_placeholder)
+                .into(binding.ratioImage);
 
-        binding.tvCredit.setText(getCreditLv(bean));
+        String creditText = getCreditLv(bean);
+        binding.tvCredit.setText(creditText);
+        setImageViewCreditLevel(creditText, binding.ivCreditLevel);
 
         mSpecificationPopBeanList = specificationPopBeanList;
     }
 
     private String getCreditLv(ProductDetailsBean bean) {
         String creditLv = bean.getItemPublishVo().getCreditLevel();
-        String text = "风险较低";
+        String text = CREDIT_NAME_1;
         switch (creditLv) {
-            case "B":
-                text = "风险较低";
+            case CREDIT_LEVEL_2:
+                text = CREDIT_NAME_2;
                 break;
-            case "C":
-                text = "风险较高";
+            case CREDIT_LEVEL_3:
+                text = CREDIT_NAME_3;
                 break;
-            case "D":
-                text = "风险极高";
+            case CREDIT_LEVEL_4:
+                text = CREDIT_NAME_4;
                 break;
             default:
                 break;
@@ -600,8 +617,28 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         return text;
     }
 
+    private void setImageViewCreditLevel(String level, ImageView view) {
+        switch (level) {
+            case CREDIT_NAME_1:
+                view.setVisibility(View.INVISIBLE);
+                break;
+            case CREDIT_NAME_2:
+                // TODO: 2021/5/12 设置图片
+//                view.setBackground(getResources().getDrawable(R.id.));
+                break;
+            case CREDIT_NAME_3:
+                view.setVisibility(View.VISIBLE);
+                break;
+            case CREDIT_NAME_4:
+                view.setVisibility(View.GONE);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
-    public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductBillBean> billBeans) {
+    public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans) {
         mPrice = String.valueOf(bean.getSellPrice());
         binding.tvSellPrice.setText(String.format("%.2f", bean.getSellPrice()));
         if (bean.getMarketPrice() == 0 || bean.getMarketPrice() == bean.getSellPrice()) {

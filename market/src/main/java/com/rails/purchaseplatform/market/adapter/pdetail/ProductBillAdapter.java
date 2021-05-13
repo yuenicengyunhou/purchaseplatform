@@ -2,7 +2,7 @@ package com.rails.purchaseplatform.market.adapter.pdetail;
 
 import android.content.Context;
 
-import com.rails.lib_data.bean.ProductBillBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductDetailBillBinding;
@@ -13,7 +13,7 @@ import com.rails.purchaseplatform.market.databinding.ItemProductDetailBillBindin
  * @author： sk_comic@163.com
  * @date: 2021/5/7
  */
-public class ProductBillAdapter extends BaseRecyclerAdapter<ProductBillBean, ItemProductDetailBillBinding> {
+public class ProductBillAdapter extends BaseRecyclerAdapter<ProductDetailsPackingBean, ItemProductDetailBillBinding> {
 
     public ProductBillAdapter(Context context) {
         super(context);
@@ -25,7 +25,7 @@ public class ProductBillAdapter extends BaseRecyclerAdapter<ProductBillBean, Ite
     }
 
     @Override
-    protected void onBindItem(ItemProductDetailBillBinding binding, ProductBillBean productBillBean, int position) {
+    protected void onBindItem(ItemProductDetailBillBinding binding, ProductDetailsPackingBean productBillBean, int position) {
         binding.setBill(productBillBean);
     }
 }

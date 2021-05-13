@@ -8,10 +8,16 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.CategoryBean;
 import com.rails.lib_data.bean.CategoryRootBean;
 import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
@@ -19,13 +25,8 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CategoryAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentCategorySubBinding;
-import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -187,6 +188,10 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
     public void onPosition(CategorySubBean bean, int position) {
         Bundle bundle = new Bundle();
         bundle.putString("cid", bean.getFcid());
-        startIntent(SearchResultActivity.class, bundle);
+        bundle.putString("mode", "from_category");
+        ARouter.getInstance()
+                .build(ConRoute.MARKET.SEARCH_RESULT)
+                .with(bundle)
+                .navigation();
     }
 }

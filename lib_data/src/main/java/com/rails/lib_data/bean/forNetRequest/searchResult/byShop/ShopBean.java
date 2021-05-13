@@ -12,6 +12,19 @@ public class ShopBean {
     private long shopId;
     private int shopType;
     private List<ShopSkuBean> shop_sku;
+    private String creditLevel;
+
+
+    // ===============================================================================
+
+
+    public String getCreditLevel() {
+        return creditLevel;
+    }
+
+    public void setCreditLevel(String creditLevel) {
+        this.creditLevel = creditLevel;
+    }
 
     public long getShopSaleCount() {
         return shopSaleCount;
