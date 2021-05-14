@@ -11,13 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView2;
 import com.rails.purchaseplatform.common.widget.LrLableLayout;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.widget.Title4OrderRecyclerItem;
@@ -31,11 +34,13 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 
 
     private final ClipboardManager clipboardManager;
+    private boolean isDetail = false;
 
     public OrderParentAdapter(Context context) {
         super(context);
         mContext = context;
         clipboardManager = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        isDetail = PrefrenceUtil.getInstance(context).getBoolean(ConShare.BUTTON_DETAIL, false);
     }
 
 
@@ -65,11 +70,18 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         String buyer = parentBean.getBuyerName();//+"-"+parentBean.getRealName();
         String delayTime = parentBean.getDelayReceiveTime() == null ? "" : parentBean.getDelayReceiveTime();
         holder.title.setText(orderNoStr, orderTime, provider, buyer, delayTime);
-        holder.title.setOnClickListener(v -> ARouter.getInstance()
-                .build(ConRoute.WEB.WEB_PURCHASE_DETAIL)
-                .withString("url", ConRoute.WEB_URL.PURCHASE_DETAIL)
-                .withString("orderNo",orderNo)
-                .navigation());
+        holder.title.setOnClickListener(v -> {
+            if (!isDetail) {
+                ToastUtil.showCenter(mContext, "权限不足，请联系上级管理员");
+                return;
+            }
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_PURCHASE_DETAIL)
+                    .withString("url", ConRoute.WEB_URL.PURCHASE_DETAIL)
+                    .withString("orderNo", orderNo)
+                    .navigation();
+        });
+
 
         // 跳转到Android原生的 采购单详情页
 //        holder.title.setOnClickListener(v -> {
@@ -82,15 +94,22 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         holder.recycler.setAdapter(adapter);
         adapter.update(subOrderInfo, true);
 
-        holder.lrCode.setOnClickListener(v -> ARouter.getInstance()
-                .build(ConRoute.WEB.WEB_ORDER_DETAIL)
-                .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
-                .navigation());
+        holder.lrCode.setOnClickListener(v -> {
+            if (!isDetail) {
+                ToastUtil.showCenter(mContext, "权限不足，请联系上级管理员");
+                return;
+            }
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_ORDER_DETAIL)
+                    .withString("url", ConRoute.WEB_URL.ORDER_DETAIL)
+                    .navigation();
+        });
+
 
         holder.title.setOnLongClickListener(v -> {
             ClipData clipData = ClipData.newPlainText("text", orderNoStr);
             clipboardManager.setPrimaryClip(clipData);
-            ToastUtil.showCenter(mContext,"已复制采购单号");
+            ToastUtil.showCenter(mContext, "已复制采购单号");
             return true;
         });
     }
@@ -98,7 +117,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        private BaseRecyclerView recycler;
+        private BaseRecyclerView2 recycler;
         private Title4OrderRecyclerItem title;
         private LrLableLayout lrCode;
         private LrLableLayout lrTime;
