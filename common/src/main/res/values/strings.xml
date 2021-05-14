@@ -15,4 +15,8 @@
 
     <!-- 选择地区弹窗-->
     <string name="address_pop_area">请选择所在地区</string>
+
+
+
+    <string name="common_author_null">权限不足\n 请联系上级管理员</string>
 </resources>

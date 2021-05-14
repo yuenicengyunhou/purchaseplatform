@@ -28,4 +28,6 @@ public class ConShare {
     public static final String BUTTON_EVA_COMMIT = "BUTTON_EVA_COMMIT";
     //查看评价
     public static final String BUTTON_EVA_SEEK = "BUTTON_EVA_SEEK";
+    //审核
+    public static final String BUTTON_APPROVE = "BUTTON_APPROVE";
 }

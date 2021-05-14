@@ -7,9 +7,11 @@ import android.webkit.JavascriptInterface;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.Logger;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
@@ -22,12 +24,21 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 @Route(path = ConRoute.WEB.WEB_PURCHASE_DETAIL)
 public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implements JSEvaluteBack {
 
+    private boolean isEvaseek = false;
+    private boolean isEvacommit = false;
+    private boolean isReceive = false;
+
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
+
+        isEvacommit = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_EVA_COMMIT, false);
+        isEvaseek = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_EVA_SEEK, false);
+        isReceive = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_RECEIVE, false);
+
         url = ConRoute.WEB_URL.PURCHASE_DETAIL;
         String orderNo = extras.getString("orderNo");
-        url = url + "?orderNo=" + orderNo + "&handle=2&list=list";
+        url = url + "?orderNo=" + orderNo + "&handle=2&list=list" + "&isEvacommit=" + isEvacommit + "&isEvaseek=" + isEvaseek + "&isReceive=" + isReceive;
         Logger.d("WQ", "pur==" + url);
 
     }

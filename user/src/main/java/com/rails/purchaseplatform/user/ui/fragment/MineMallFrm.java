@@ -80,7 +80,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             @Override
             public void onClick(View v) {
                 if (!isPurchase) {
-                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
                 }
                 ARouter.getInstance().build(ConRoute.ORDER.ORDER_MAIN).navigation();
@@ -92,7 +92,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             public void onClick(View v) {
                 //待下单
                 if (!isPurchase) {
-                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
                 }
                 ARouter.getInstance()
@@ -107,7 +107,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             public void onClick(View v) {
                 //待收货 "status": "待收货", "statusCode": "30"
                 if (!isPurchase) {
-                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
                 }
                 ARouter.getInstance()
@@ -120,7 +120,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabSend.setOnClickListener(v -> {
                     //待发货 "status": "待发货", "statusCode": "20"
                     if (!isPurchase) {
-                        ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                        ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                         return;
                     }
                     ARouter.getInstance()
@@ -133,7 +133,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabQuit.setOnClickListener(v -> {
             //待发货 "status": "已经取消", "statusCode": "70"
             if (!isPurchase) {
-                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()
@@ -146,7 +146,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             @Override
             public void onClick(View v) {
                 if (!isTrack) {
-                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
                 }
                 ARouter.getInstance()
@@ -161,7 +161,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             @Override
             public void onClick(View v) {
                 if (!isCollect) {
-                    ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
                 }
                 ARouter.getInstance()
@@ -175,7 +175,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.llAudit.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到审批列表页面
             if (!isApprove) {
-                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()
@@ -187,7 +187,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.llRejected.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到驳回页面
             if (!isApprove) {
-                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()
@@ -200,7 +200,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.llPass.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到通过页面
             if (!isApprove) {
-                ToastUtil.showCenter(getActivity(), "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()

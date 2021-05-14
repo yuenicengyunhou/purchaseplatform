@@ -147,6 +147,7 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
                     //查看评价：order:view-evaluation
                     //确认收货：order-detail:confirm-the-goods
                     //查看详情：order:detail
+                    //审核：refundAuditList:audit
                     for (AuthorButtonBean bean : beans) {
                         if ("order:submit-evaluation".equals(bean.getHtmlCode())) {
                             PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_EVA_COMMIT, true);
@@ -160,6 +161,11 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
 
                         if ("order-detail:confirm-the-goods".equals(bean.getHtmlCode())) {
                             PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_RECEIVE, true);
+                            continue;
+                        }
+
+                        if ("refundAuditList:audit".equals(bean.getHtmlCode())) {
+                            PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_APPROVE, true);
                             continue;
                         }
 

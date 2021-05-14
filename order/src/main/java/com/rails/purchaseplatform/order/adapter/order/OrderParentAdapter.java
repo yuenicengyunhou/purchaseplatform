@@ -72,7 +72,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         holder.title.setText(orderNoStr, orderTime, provider, buyer, delayTime);
         holder.title.setOnClickListener(v -> {
             if (!isDetail) {
-                ToastUtil.showCenter(mContext, "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()
@@ -96,7 +96,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 
         holder.lrCode.setOnClickListener(v -> {
             if (!isDetail) {
-                ToastUtil.showCenter(mContext, "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()
