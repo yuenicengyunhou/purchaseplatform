@@ -476,8 +476,4 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.btnCommit.setEnabled(bean.getSubmitPurchaseOrder());
     }
 
-    @Override
-    public void getAuthor(boolean isPurchase, boolean isApprove, boolean isCollect, boolean isTrack) {
-
-    }
 }

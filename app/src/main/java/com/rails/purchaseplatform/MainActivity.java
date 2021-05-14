@@ -7,12 +7,18 @@ import android.view.KeyEvent;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
+import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.databinding.ActivityMainBinding;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,18 +28,18 @@ import org.greenrobot.eventbus.EventBus;
  * tabs 页面
  */
 @Route(path = ConRoute.RAILS.MAIN)
-public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
+public class MainActivity extends BaseErrorActivity<ActivityMainBinding>  implements UserToolContract.UserToolView {
+
+    private UserToolContract.UserToolPresenter toolPresenter;
 
     private ResultWebBean webBean;
     // 定义一个变量，来标识是否退出
     private boolean isExit = false;
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            isExit = false;
-        }
-    };
+
+    Handler mHandler = new Handler(msg -> {
+        isExit = false;
+        return false;
+    });
 
 
     @Override
@@ -46,6 +52,13 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
     protected void initialize(Bundle bundle) {
         if (webBean != null) {
             EventBus.getDefault().post(new BusEvent<ResultWebBean>(webBean, ConRoute.EVENTCODE.MAIN_CODE));
+        }
+
+        toolPresenter = new UserToolPresenterImpl(this, this);
+        UserInfoBean bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
+        if (bean != null) {
+            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
+            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
         }
     }
 
@@ -91,8 +104,31 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
 
     @Override
     protected void onDestroy() {
-        if (mHandler != null)
-            mHandler = null;
         super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
+        }
+    }
+
+    @Override
+    public void getUserStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getUserInfoStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void checkPermissions(UserStatisticsBean bean) {
+
+    }
+
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

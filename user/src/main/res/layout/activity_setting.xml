@@ -17,8 +17,7 @@
         android:gravity="center_vertical"
         android:text="@string/user_set_address"
         android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_15"
-        app:layout_constraintTop_toBottomOf="@+id/center_cutView" />
+        android:textSize="@dimen/font_size_15"/>
 
 
     <TextView

@@ -13,8 +13,7 @@
         <com.yanzhenjie.recyclerview.SwipeRecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/dp_30" />
+            android:layout_height="match_parent" />
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
@@ -24,6 +23,7 @@
         style="@style/btn_commit.blue"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
         android:text="@string/address_main_add"
         android:textSize="@dimen/font_size_15" />
 

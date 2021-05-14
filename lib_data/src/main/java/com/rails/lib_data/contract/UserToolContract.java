@@ -32,17 +32,6 @@ public interface UserToolContract {
          * @param bean
          */
         void checkPermissions(UserStatisticsBean bean);
-
-
-        /**
-         * 权限
-         *
-         * @param isPurchase
-         * @param isApprove
-         * @param isCollect
-         * @param isTrack
-         */
-        void getAuthor(boolean isPurchase, boolean isApprove, boolean isCollect, boolean isTrack);
     }
 
 

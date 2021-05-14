@@ -38,6 +38,11 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     protected void loadData() {
 
+        this.isPurchase = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_PURCHAR, false);
+        this.isApprove = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_APPROVE, false);
+        this.isCollect = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_COLLECT, false);
+        this.isTrack = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_TRACK, false);
+
         bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
     }
@@ -46,8 +51,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
         if (bean != null) {
-            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
-            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
             toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
             toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
         }
@@ -222,7 +225,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         if (bean == null)
             return;
 
-        binding.tabOrder.setNumber(bean.getStayDeliverCount());
+        binding.tabOrder.setNumber(bean.getStayPayCount());
         binding.tabSend.setNumber(bean.getStayDeliverCount());
         binding.tabRecivice.setNumber(bean.getStayReceiveCount());
         binding.tabQuit.setNumber(bean.getFailureCount());
@@ -241,14 +244,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     public void checkPermissions(UserStatisticsBean bean) {
 
-    }
-
-    @Override
-    public void getAuthor(boolean isPurchase, boolean isApprove, boolean isCollect, boolean isTrack) {
-        this.isPurchase = isPurchase;
-        this.isApprove = isApprove;
-        this.isCollect = isCollect;
-        this.isTrack = isTrack;
     }
 
 

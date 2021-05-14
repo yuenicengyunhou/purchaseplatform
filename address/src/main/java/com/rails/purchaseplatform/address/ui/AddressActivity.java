@@ -2,10 +2,12 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
@@ -17,6 +19,7 @@ import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
@@ -37,6 +40,12 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     private int mPage = PAGE_DEF;
     private AddressAdapter addressAdapter;
     private AddressContract.AddressPresenter presenter;
+
+    //是否有删除权限
+    private boolean isDel = false;
+    // 是否有新增地址权限
+    private boolean isAdd = false;
+
 
     //测滑删除按钮
     private final SwipeMenuCreator swipeMenuCreator = (swipeLeftMenu, swipeRightMenu, position) -> {
@@ -87,11 +96,21 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
                 .setImgLeftRes(R.drawable.svg_back_black);
 
 
-//        barBinding.smart.setEnableLoadMore(false);
+        isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
+        isDel = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_DEL, false);
+
+        if (!isAdd) {
+            barBinding.btnAdd.setVisibility(View.GONE);
+        }
+
+
         addressAdapter = new AddressAdapter(this);
         addressAdapter.setListener(this);
         addressAdapter.setMulPositionListener(this);
-        barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
+
+        if (isDel)
+            barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
+
         barBinding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
         barBinding.recycler.setOnItemMenuClickListener((menuBridge, adapterPosition) -> {
             menuBridge.closeMenu();
@@ -173,7 +192,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     }
 
     @Override
-    public void getAddresses(ArrayList<AddressBean> addressBeans,boolean isLastPage,int totalCount) {
+    public void getAddresses(ArrayList<AddressBean> addressBeans, boolean isLastPage, int totalCount) {
         barBinding.smart.finishLoadMore();
         barBinding.smart.finishRefresh();
         if (isLastPage && addressAdapter.getItemCount() >= totalCount) {
