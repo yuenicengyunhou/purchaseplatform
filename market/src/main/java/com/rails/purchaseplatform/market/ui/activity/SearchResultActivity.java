@@ -124,7 +124,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 mPop.setFilterListener(new PropertyPop.DoFilter() {
                     @Override
                     public void doFilter(String brand, String cid, String categoryAttr, String expandAttr, String minPrice, String maxPrice) {
-                        fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice});
+                        fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice}, 1);
                         mMinPrice = minPrice;
                         mMaxPrice = maxPrice;
                     }
@@ -143,7 +143,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 mPop.setShopFilterListener(new PropertyPop.DoShopFilter() {
                     @Override
                     public void doShopFilter(String isBought, String shopType, String saleArea) {
-                        fragment2.sendShopFilterData(isBought, shopType, saleArea);
+                        fragment2.sendShopFilterData(1, isBought, shopType, saleArea);
                     }
                 });
 
@@ -160,9 +160,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         binding.cbCommonSort.setOnClickListener(v -> {
             setSelected(true, false, false);
             if (mSearchType == 0) {
-                fragment1.sort(null, null, mSearchKey, mCid);
+                fragment1.sort(1, null, null, mSearchKey, mCid);
             } else {
-                fragment2.sort(null, null, mSearchKey, null);
+                fragment2.sort(1, null, null, mSearchKey, null);
             }
         });
 
@@ -171,9 +171,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             setSelected(false, true, false);
             salesSortFlag = !salesSortFlag;
             if (mSearchType == 0) {
-                fragment1.sort("saleCount", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
+                fragment1.sort(1, "saleCount", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
-                fragment2.sort("shopSaleCount", salesSortFlag ? "desc" : "asc", mSearchKey, null);
+                fragment2.sort(1, "shopSaleCount", salesSortFlag ? "desc" : "asc", mSearchKey, null);
             }
         });
 
@@ -182,7 +182,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             setSelected(false, false, true);
             priceSortFlag = !priceSortFlag;
             if (mSearchType == 0) {
-                fragment1.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, mCid);
+                fragment1.sort(1, "sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
 //              fragment2.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, null);
             }
@@ -193,9 +193,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             @Override
             public void onClick(View v) {
                 if (mSearchType == 0) {
-                    fragment1.search();
+                    fragment1.search(1);
                 } else {
-                    fragment2.search();
+                    fragment2.search(1);
                 }
             }
         });
@@ -259,9 +259,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          * @param keyword
          * @param cid
          */
-        void sort(String orderColumn, String orderType, String keyword, String cid);
+        void sort(int page, String orderColumn, String orderType, String keyword, String cid);
 
-        void search();
+        void search(int page);
 
         /**
          * 筛选条件数据
@@ -280,7 +280,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          *
          * @return
          */
-        void sendFilterData(String[] strings);
+        void sendFilterData(String[] strings, int page);
 
     }
 
@@ -291,7 +291,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          *
          * @return
          */
-        void sendShopFilterData(String isBought, String shopType, String saleArea);
+        void sendShopFilterData(int page, String isBought, String shopType, String saleArea);
 
     }
 }

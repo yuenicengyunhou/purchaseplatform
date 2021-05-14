@@ -166,16 +166,17 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     }
 
     @Override
-    public void sort(String orderColumn, String orderType, String keyword, String cid) {
+    public void sort(int page, String orderColumn, String orderType, String keyword, String cid) {
         this.orderColumn = orderColumn;
         this.orderType = orderType;
         this.mSearchKey = keyword;
+        this.page = page;
         page = DEF_PAGE;
         notifyData(isBought, page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
     }
 
     @Override
-    public void search() {
+    public void search(int page) {
         notifyData(isBought, page, mSearchKey, orderColumn, orderType, shopType, saleArea, true);
     }
 
@@ -185,10 +186,11 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     }
 
     @Override
-    public void sendShopFilterData(String isBought, String shopType, String saleArea) {
+    public void sendShopFilterData(int page, String isBought, String shopType, String saleArea) {
         this.isBought = isBought;
         this.shopType = shopType;
         this.saleArea = saleArea;
+        this.page = page;
         notifyData(isBought, page, mSearchKey, orderColumn, orderType, this.shopType, this.saleArea, true);
     }
 }

@@ -137,19 +137,20 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void sort(String orderColumn, String orderType, String keyword, String cid) {
+    public void sort(int page, String orderColumn, String orderType, String keyword, String cid) {
         page = DEF_PAGE;
         this.orderColumn = orderColumn;
         this.orderType = orderType;
         this.mSearchKey = keyword;
         this.mCid = cid;
+        this.page = page;
         notifyData(mSearchKey, mCid, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
                 minPrice, maxPrice, page, 30, true);
     }
 
     @Override
-    public void search() {
+    public void search(int page) {
         notifyData(mSearchKey, mCid, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
                 minPrice, maxPrice, page, 30, true);
@@ -161,7 +162,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void sendFilterData(String[] strings) {
+    public void sendFilterData(String[] strings, int page) {
         filtered = true;
         mCid = strings[1] != null && !strings[1].equals("") ? strings[1] : mCid;
         brands = brandsString = strings[0];
@@ -169,6 +170,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         expandAttrValueIds = strings[3];
         minPrice = strings[4];
         maxPrice = strings[5];
+        this.page = page;
         notifyData(mSearchKey, mCid, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
                 minPrice, maxPrice,
