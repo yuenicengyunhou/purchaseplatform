@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,7 +11,6 @@ import com.rails.lib_data.SubSkuDemandInfoBean;
 import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.BaseRecyclerView2;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.order.R;
 
@@ -21,7 +19,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -126,7 +123,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        private BaseRecyclerView2 recycler;
+        private BaseRecyclerView recycler;
         private LinearLayout orderItem;
         private TextView singlePrice;
         private TextView count;

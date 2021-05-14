@@ -195,7 +195,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     public void getAddresses(ArrayList<AddressBean> addressBeans, boolean isLastPage, int totalCount) {
         barBinding.smart.finishLoadMore();
         barBinding.smart.finishRefresh();
-        if (isLastPage && addressAdapter.getItemCount() >= totalCount) {
+        if (mPage != PAGE_DEF && isLastPage && addressAdapter.getItemCount() >= totalCount) {
             return;
         }
         addressAdapter.update(addressBeans, mPage == PAGE_DEF);

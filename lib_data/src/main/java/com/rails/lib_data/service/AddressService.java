@@ -20,9 +20,6 @@ public interface AddressService {
     /**
      * 根据采购商查询地址列表      账号类型，1，运营方，2.采购商，3供应商   platformId都写20
      */
-    @GET("app-user-service/app/v1/buyer/address/queryAddressPageList")
-    Observable<HttpResult<ListBeen<AddressBean>>> getAddressList(@Query("platformId") long platformId, @Query("accountId") long accountId, @Query("accountType")
-            int accountType, @Query("pageNum") long pageNum, @Query("pageSize") int pageSize);
 
     @GET("app-user-service/app/v1/buyer/address/queryAddressPageList")
     Observable<HttpResult<ListBeen<AddressBean>>> getAddressList(@QueryMap HashMap<String, Object> map);

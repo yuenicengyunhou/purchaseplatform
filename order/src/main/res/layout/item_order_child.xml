@@ -21,6 +21,7 @@
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_toEndOf="@+id/img_product"
         android:lines="1"
+        android:ellipsize="end"
         android:textColor="@color/font_black"
         android:textSize="@dimen/font_size_13" />
 
@@ -51,7 +52,7 @@
 
 
     <TextView
-        android:id="@+id/tv_code"
+        android:id="@+id/tv_code_str"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tv_title"
@@ -62,11 +63,11 @@
         android:textSize="@dimen/font_size_12" />
 
     <TextView
-        android:id="@+id/tv_codeValue"
+        android:id="@+id/tv_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tv_code"
-        android:layout_toEndOf="@+id/tv_code"
+        android:layout_alignTop="@+id/tv_code_str"
+        android:layout_toEndOf="@+id/tv_code_str"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/font_gray"

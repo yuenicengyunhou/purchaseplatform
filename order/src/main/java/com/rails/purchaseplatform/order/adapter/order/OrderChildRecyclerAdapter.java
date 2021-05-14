@@ -14,6 +14,8 @@ import com.rails.purchaseplatform.common.widget.RatioImage;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
 import com.rails.purchaseplatform.order.R;
 
+import java.text.MessageFormat;
+
 public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<SubSkuDemandInfoBean, OrderChildRecyclerAdapter.ItemHolder> {
 
     private static final int TYPE_SKU_DETAIL_MODE = 0;
@@ -46,10 +48,11 @@ public class OrderChildRecyclerAdapter extends BaseRecycleAdapter<SubSkuDemandIn
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         SubSkuDemandInfoBean bean = mDataSource.get(position);
         String sellPrice = bean.getSellPrice();
-        Glide.with(mContext).load("https:"+bean.getPictureUrl()).into(holder.imgProduct);
+        Glide.with(mContext).load("https:" + bean.getPictureUrl()).into(holder.imgProduct);
         holder.tvTitle.setText(bean.getItemName());
+//        holder.tvProperty.setText(MessageFormat.format("{0}{1}{2}", bean.getFirstName(), bean.getTwoName(), bean.getThreeName()));
         holder.tvProperty.setText(bean.getAttributes());
-
+        holder.tvCode.setText(bean.getShortCode());
 //        bean.getItemType()
         holder.itemView.setOnClickListener(v -> {
 //            ARouter.getInstance()

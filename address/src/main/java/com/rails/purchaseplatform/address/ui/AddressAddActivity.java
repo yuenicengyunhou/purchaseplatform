@@ -35,6 +35,9 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
     private AddressBean bean;
     private AddressContract.AddressPresenter presenter;
     private long addressId = 0;
+    private String provinceCode = "";
+    private String cityCode = "";
+    private String countryCode = "";
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -65,6 +68,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
         if (bean != null) {
             setDetail(bean);
+            binding.titleBar.setTitle("编辑地址");
             addressId = bean.getAddressId();
         } else {
             loadData();
@@ -102,7 +106,12 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
             AreaPop pop = new AreaPop();
             pop.setGravity(Gravity.BOTTOM);
             pop.setType(BasePop.MATCH_WRAP);
-            pop.setListener(area -> barBinding.etArea.setContent(area));
+            pop.setListener((area, provinceCode, cityCode, countryCode) -> {
+                barBinding.etArea.setContent(area);
+                this.provinceCode = provinceCode;
+                this.cityCode = cityCode;
+                this.countryCode = countryCode;
+            });
             pop.show(getSupportFragmentManager(), "area");
         });
     }
@@ -151,7 +160,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String remark = Objects.requireNonNull(barBinding.etRemark.getText()).toString().trim();
         int isReceivingAddress = barBinding.cbReceive.isChecked() ? 1 : 0;
         int isInvoiceAddress = barBinding.cbInvoice.isChecked() ? 1 : 0;
-        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId);
+        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId, provinceCode,  cityCode,  countryCode);
 
     }
 

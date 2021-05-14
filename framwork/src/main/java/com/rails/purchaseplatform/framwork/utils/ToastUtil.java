@@ -18,6 +18,9 @@ import com.rails.purchaseplatform.framwork.R;
  * toast工具类
  */
 public class ToastUtil {
+
+    private static Toast toast;
+
     private ToastUtil() {
 
     }
@@ -42,7 +45,9 @@ public class ToastUtil {
         if (TextUtils.isEmpty(message)) {
             return;
         }
-        Toast toast = Toast.makeText(context, null, Toast.LENGTH_SHORT);
+        if (null == toast) {
+            toast = Toast.makeText(context, null, Toast.LENGTH_SHORT);
+        }
         toast.setText(message);
         toast.show();
     }
