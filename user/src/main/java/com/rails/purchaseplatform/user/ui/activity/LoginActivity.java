@@ -11,8 +11,11 @@ import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
@@ -29,8 +32,8 @@ import java.lang.ref.WeakReference;
  * @date: 2021/1/27
  */
 @Route(path = ConRoute.USER.LOGIN)
-public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView {
-    final private String TAG = LoginActivity.class.getSimpleName();
+public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView
+        , UserToolContract.UserToolView {
 
     private int COUNTING = 1;
     private int COUNT_NUM = 60;
@@ -38,12 +41,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     private Handler mHandler;
 
     private LoginContract.LoginPresenter presenter;
+    private UserToolContract.UserToolPresenter toolPresenter;
 
     @Override
     protected void initialize(Bundle bundle) {
         mHandler = new TimerHandler(this);
 
         presenter = new LoginPresneterImpl(this, this);
+        toolPresenter = new UserToolPresenterImpl(this, this);
     }
 
     @Override
@@ -118,14 +123,33 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         }
         if (type == 0) {
             PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN, token);
-            presenter.getUserInfo(false,token);
+            presenter.getUserInfo(false, token);
         }
     }
 
     @Override
     public void getUserInfo(UserInfoBean bean) {
         PrefrenceUtil.getInstance(this).setBean(ConShare.USERINFO, bean);
+        if (bean != null) {
+            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
+            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
+        }
         finish();
+    }
+
+    @Override
+    public void getUserStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getUserInfoStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void checkPermissions(UserStatisticsBean bean) {
+
     }
 
     private static class TimerHandler extends Handler {

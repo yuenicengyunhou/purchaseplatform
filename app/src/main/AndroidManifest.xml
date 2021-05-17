@@ -36,7 +36,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.rails"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="n">
 
 
         <!-- 高德地图定位-->
@@ -44,7 +44,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="3006a399561cd66b491b5fdb41dd510c"></meta-data>
+            android:value="3006a399561cd66b491b5fdb41dd510c"/>
 
         <activity
             android:name=".SplashActivity"
@@ -58,9 +58,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
-                <!--                <data-->
-                <!--                    android:host="oidcnativeapp"-->
-                <!--                    android:scheme="shop" />-->
+<!--                <data-->
+<!--                    android:host="oidcnativeapp"-->
+<!--                    android:scheme="shop" />-->
 
             </intent-filter>
         </activity>

@@ -18,10 +18,10 @@ public class HttpFunction<T> implements Function<HttpResult<T>, T> {
 
             T t = tHttpResult.getData();
             if (t == null) {
-                if (TextUtils.isEmpty(tHttpResult.getMessage()) || "null".equals(tHttpResult.getMessage())) {
-                    return (T) String.valueOf(tHttpResult.getMsg());
-                } else {
+                if (TextUtils.isEmpty(tHttpResult.getMsg()) || "null".equals(tHttpResult.getMsg())) {
                     return (T) String.valueOf(tHttpResult.getMessage());
+                } else {
+                    return (T) String.valueOf(tHttpResult.getMsg());
                 }
 
             } else

@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.common.base;
 
 
+import android.text.TextUtils;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.base.BaseActivity;
@@ -27,6 +29,10 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
     @Override
     public void onError(ErrorBean errorBean) {
         String errorCode = errorBean.getCode();
+        if (TextUtils.isEmpty(errorCode)) {
+            ToastUtil.showCenter(this, errorBean.getMsg());
+            return;
+        }
         switch (errorCode) {
             case ERROR_PASTDUE:
             case ERROR_UNLOAD:
