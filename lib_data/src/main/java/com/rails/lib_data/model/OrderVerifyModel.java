@@ -115,13 +115,11 @@ public class OrderVerifyModel {
 
         Observable carts = getOrderCarts(addressId);
         Observable verifys = getAddress("2");
-        Observable budget = getBudget();
         Observable companys = getPurchaseCompanys();
-        Observable invoices = getInvoiceTitle();
 
 
-        Observable.zip(carts, verifys, budget, companys, invoices, (Function5<CartBean, ArrayList<AddressBean>, OrderBudgetBean, ArrayList<OrderPurchaseBean>, ListBeen<InvoiceTitleBean>, OrderVerifyBean>)
-                (cartBean, addressBeans, budgetBean, purchaseBeans, listBeen) -> {
+        Observable.zip(carts, verifys, companys,  (Function3<CartBean, ArrayList<AddressBean>, ArrayList<OrderPurchaseBean>, OrderVerifyBean>)
+                (cartBean, addressBeans, purchaseBeans) -> {
                     OrderVerifyBean verifyBean = new OrderVerifyBean();
 
                     verifyBean.setCart(cartBean);
@@ -130,12 +128,8 @@ public class OrderVerifyModel {
                         verifyBean.setInvoiceAddress(addressBeans.get(0));
                     }
 
-                    verifyBean.setBudgetBean(budgetBean);
                     if (!purchaseBeans.isEmpty())
                         verifyBean.setCompany(purchaseBeans.get(0));
-
-                    if (listBeen != null && !listBeen.getList().isEmpty())
-                        verifyBean.setInvoice(listBeen.getList().get(0));
 
                     return verifyBean;
                 }).observeOn(AndroidSchedulers.mainThread())
@@ -198,6 +192,19 @@ public class OrderVerifyModel {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class)
                 .getOrderCompanys(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 核对订单信息---获取预算总额
+     *
+     * @return
+     */
+    public void getBudget(HttpRxObserver httpRxObserver) {
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class)
+                .getBudget())
                 .subscribe(httpRxObserver);
     }
 

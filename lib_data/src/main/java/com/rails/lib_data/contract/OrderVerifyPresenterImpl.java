@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
+import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.model.OrderVerifyModel;
@@ -16,6 +17,8 @@ import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.DATA_ERROR;
 
 /**
  * 订单确认单
@@ -111,9 +114,6 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             protected void onSuccess(ArrayList<Long> datas) {
                 baseView.dismissDialog();
                 String orderNo = "";
-//                Type type = new TypeToken<ArrayList<String>>() {
-//                }.getType();
-//                ArrayList<String> datas = JsonUtil.parseJson(String.valueOf(data), type);
                 if (datas == null)
                     return;
                 if (!datas.isEmpty()) {
@@ -121,6 +121,33 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
                 }
 
                 baseView.getResult("提交成功", orderNo);
+            }
+        });
+    }
+
+    @Override
+    public void getBudget() {
+        model.getBudget(new HttpRxObserver<OrderBudgetBean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                if (DATA_ERROR.equals(e.getCode())) {
+                    if (isCallBack()){
+                        OrderBudgetBean bean = new OrderBudgetBean();
+                        bean.setBudgetAmount(0d);
+                        bean.setUsedAmount(0d);
+                        baseView.getBudget(bean);
+                    }
+
+                } else
+                    baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(OrderBudgetBean response) {
+                baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getBudget(response);
             }
         });
     }

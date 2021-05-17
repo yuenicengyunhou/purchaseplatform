@@ -1,5 +1,6 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
@@ -45,6 +46,13 @@ public interface OrderVerifyContract {
          * @param msg
          */
         void getResult(String msg, String data);
+
+        /**
+         * 获取年度预算
+         *
+         * @param budgetBean
+         */
+        void getBudget(OrderBudgetBean budgetBean);
     }
 
 
@@ -78,6 +86,11 @@ public interface OrderVerifyContract {
          * @param json
          */
         void commitOrder(String token, String json);
+
+        /**
+         * 获取年度预算
+         */
+        void getBudget();
 
     }
 }

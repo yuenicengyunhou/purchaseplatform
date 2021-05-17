@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.order.pop;
 import android.os.Bundle;
 import android.view.View;
 
+import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.contract.OrderVerifyContract;
@@ -78,6 +79,11 @@ public class CompanyPop extends BasePop<PopVerifyCompanyBinding> implements Orde
 
     @Override
     public void getResult(String msg, String data) {
+
+    }
+
+    @Override
+    public void getBudget(OrderBudgetBean budgetBean) {
 
     }
 
