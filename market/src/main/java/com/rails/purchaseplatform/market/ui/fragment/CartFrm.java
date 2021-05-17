@@ -490,22 +490,29 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param shopBeans
      */
     private void collectAllParams(ArrayList<CartShopBean> shopBeans) {
-        if (shopBeans == null)
-            return;
-        if (shopBeans.isEmpty())
-            return;
-        ArrayList<String> skuIds = new ArrayList<>();
-        StringBuffer buffer = new StringBuffer();
-        for (CartShopBean shopBean : shopBeans) {
-            for (CartShopProductBean bean : shopBean.getSkuList()) {
-                if (!bean.isCollect.get() && bean.isSel.get()) {
-                    skuIds.add(bean.getSkuId());
-                    buffer.append(bean.getSkuId() + ",");
-                }
+        try {
+            if (shopBeans == null)
+                return;
+            if (shopBeans.isEmpty())
+                return;
+            ArrayList<String> skuIds = new ArrayList<>();
+            StringBuffer buffer = new StringBuffer();
+            for (CartShopBean shopBean : shopBeans) {
+                for (CartShopProductBean bean : shopBean.getSkuList()) {
+                    if (!bean.isCollect.get() && bean.isSel.get()) {
+                        skuIds.add(bean.getSkuId());
+                        buffer.append(bean.getSkuId() + ",");
+                    }
 
+                }
             }
+            if (TextUtils.isEmpty(buffer.toString()))
+                return;
+            toolPresenter.onCollect(buffer.toString().substring(0, buffer.length() - 1), "30", false, -1);
+        } catch (Exception e) {
+
         }
-        toolPresenter.onCollect(buffer.toString().substring(0, buffer.length() - 1), "30", false, -1);
+
     }
 
 

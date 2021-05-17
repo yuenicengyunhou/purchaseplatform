@@ -64,6 +64,7 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
      */
     void onRefresh() {
         binding.smart.setEnableLoadMore(false);
+        binding.smart.setEnableRefresh(false);
         binding.smart.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {

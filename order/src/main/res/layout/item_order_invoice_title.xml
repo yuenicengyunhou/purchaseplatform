@@ -46,7 +46,6 @@
                 android:id="@+id/img_right"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
-                android:layout_alignTop="@+id/img_product"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:button="@null"
@@ -61,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
-            android:text="@{@string/order_invoice_code(content.creator)}"
+            android:text="@{@string/order_invoice_code(content.itins)}"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_15" />
 
