@@ -64,7 +64,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
                 boolean lastPage = response.isLastPage();
                 int totalCount = response.getTotalCount();
                 ArrayList<AddressBean> list = response.getList();
-                baseView.getAddresses(list,lastPage,totalCount);
+                baseView.getAddresses(list, lastPage, totalCount);
             }
         });
     }
@@ -130,7 +130,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     }
 
     @Override
-    public void addAddress(String men, String phone, String area, String address, boolean isDef, int isReceiAddress, int isInvoiceAddress, long addressId) {
+    public void addAddress(String men, String phone, String area, String address, boolean isDef, int isReceiAddress, int isInvoiceAddress, long addressId, String provinceCode, String cityCode, String countryCode) {
         if (TextUtils.isEmpty(men)) {
             ToastUtil.show(mContext, "请输入收货人");
             return;
@@ -154,12 +154,20 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
             ToastUtil.showCenter(mContext, "至少选择一种地址类型");
             return;
         }
+        if (TextUtils.isEmpty(provinceCode)||TextUtils.isEmpty(cityCode)||TextUtils.isEmpty(countryCode)) {
+            ToastUtil.show(mContext, "获取地区码错误，请重选地址");
+            return;
+        }
         AddressDTO dto = new AddressDTO();
         dto.setReceiverName(men);
         dto.setMobile(phone);
         dto.setFullAddress(area + address);
-        dto.setReceivingAddress(isReceiAddress);
-        dto.setInvoiceAddress(isInvoiceAddress);
+        dto.setAttachAddress(address);
+        dto.setCityCode(cityCode);
+        dto.setProvinceCode(provinceCode);
+        dto.setCountryCode(countryCode);
+        dto.setReceivingAddress(String.valueOf(isReceiAddress));
+        dto.setInvoiceAddress(String.valueOf(isInvoiceAddress));
         String json = new Gson().toJson(dto);
         if (addressId == 0) {
             model.addAddress(platformId, accountId, json, new HttpRxObserver<Boolean>() {
@@ -190,8 +198,6 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
                 }
             });
         }
-
-
     }
 
     /**

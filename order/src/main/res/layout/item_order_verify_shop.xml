@@ -30,7 +30,7 @@
             android:layout_marginBottom="@dimen/dp_15"
             android:drawableLeft="@drawable/ic_order_shop"
             android:drawablePadding="@dimen/dp_5"
-            android:text="@string/order_verify_year_extra"
+            android:text="@{cart.shopName}"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_13" />
 

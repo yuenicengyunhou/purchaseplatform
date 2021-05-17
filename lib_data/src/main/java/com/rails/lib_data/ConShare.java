@@ -18,6 +18,7 @@ public class ConShare {
     public static final String MENU_TRACK = "MENU_TRACK";
     public static final String MENU_PURCHAR = "MENU_PURCHAR";
     public static final String MENU_APPROVE = "MENU_APPROVE";
+    public static final String MENU_ADDRESS = "MENU_ADDRESS";//地址管理
 
     //button存储
     //确认收货
@@ -28,4 +29,13 @@ public class ConShare {
     public static final String BUTTON_EVA_COMMIT = "BUTTON_EVA_COMMIT";
     //查看评价
     public static final String BUTTON_EVA_SEEK = "BUTTON_EVA_SEEK";
+    //审核
+    public static final String BUTTON_APPROVE = "BUTTON_APPROVE";
+
+    //创建地址
+    public static final String BUTTON_ADDRESS_ADD = "BUTTON_ADDRESS_ADD";
+    //删除地址
+    public static final String BUTTON_ADDRESS_DEL = "BUTTON_ADDRESS_DEL";
+    //编辑地址
+    public static final String BUTTON_ADDRESS_EDIT = "BUTTON_ADDRESS_EDIT";
 }

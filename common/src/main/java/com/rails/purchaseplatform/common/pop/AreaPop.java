@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -27,11 +28,13 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
     private final static int TOWN = 2;
 
     private SparseArray<String> areas;
+    private SparseArray<String> areaCodes;
 
 
     private ViewPageAdapter viewPageAdapter;
     private NavigatorAdapter navigatorAdapter;
     private PareaListener listener;
+//    private CompleteAddressListener completeAddressListener;
 
     public void setListener(PareaListener listener) {
         this.listener = listener;
@@ -41,6 +44,7 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
     protected void initialize(Bundle bundle) {
 
         areas = new SparseArray<>();
+        areaCodes = new SparseArray<>();
         initPager();
         onClick();
     }
@@ -82,13 +86,15 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
         fragment.setListener((bean, type) -> {
             areas.put(type, bean.getName());
             String mCode = bean.getCode();
+            areaCodes.put(type, mCode);
+            Log.e("WQ", "code====" + mCode + "    =" + type);
             StringBuilder buffer = new StringBuilder();
             if (type == TOWN) {
                 if (listener != null) {
                     for (int i = 0; i < areas.size(); i++) {
                         buffer.append(areas.get(i));
                     }
-                    listener.getResult(buffer.toString());
+                    listener.getResult(buffer.toString(),areaCodes.get(CITY),areaCodes.get(AREA),areaCodes.get(TOWN));
                 }
                 dismiss();
                 return;
@@ -106,6 +112,7 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
 
 
     public interface PareaListener {
-        void getResult(String area);
+        void getResult(String area,String provinceCode, String cityCode, String countryCode);
     }
+
 }

@@ -6,9 +6,11 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.web.R;
@@ -25,19 +27,24 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     int type = 0;
+    boolean isApprove = false;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
+        isApprove = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_APPROVE, false);
         type = extras.getInt("type", 0);
         if (type != 0) {
             url = url + "?kindApproval=" + type;
+        } else {
+            url = url + "?";
         }
+        url += "&isApprove=" + isApprove;
     }
 
     @Override
     protected int getColor() {
-        return R.color.bg_blue;
+        return android.R.color.white;
     }
 
     @Override

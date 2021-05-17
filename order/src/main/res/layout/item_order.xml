@@ -82,7 +82,7 @@
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginBottom="@dimen/dp_8">
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView2
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

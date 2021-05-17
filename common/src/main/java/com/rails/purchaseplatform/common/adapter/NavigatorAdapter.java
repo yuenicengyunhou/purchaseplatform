@@ -43,12 +43,7 @@ public class NavigatorAdapter extends CommonNavigatorAdapter {
         colorTransitionPagerTitleView.setSelectedColor(mContext.getResources().getColor(R.color.font_blue));
         colorTransitionPagerTitleView.setTextSize(14f);
         colorTransitionPagerTitleView.setText(tabs.get(index));
-        colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(index);
-            }
-        });
+        colorTransitionPagerTitleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
         return colorTransitionPagerTitleView;
     }
 

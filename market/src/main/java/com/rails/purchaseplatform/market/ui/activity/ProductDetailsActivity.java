@@ -485,7 +485,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     AreaPop pop = new AreaPop();
                     pop.setGravity(Gravity.BOTTOM);
                     pop.setType(BasePop.MATCH_WRAP);
-                    pop.setListener(address -> binding.tvAddressDefault.setText(address));
+                    pop.setListener((address, provinceCode, cityCode, countryCode) -> binding.tvAddressDefault.setText(address));
                     pop.show(getSupportFragmentManager(), "area");
 
                 }
@@ -695,4 +695,5 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

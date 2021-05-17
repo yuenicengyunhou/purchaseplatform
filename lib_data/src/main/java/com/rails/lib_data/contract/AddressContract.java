@@ -79,7 +79,7 @@ public interface AddressContract {
          * param address 联系地址
          * param isDef   是否是默认地址
          */
-        void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress,long addressId);
+        void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress,long addressId,String provinceCode, String cityCode, String countryCode);
 
 
         /**

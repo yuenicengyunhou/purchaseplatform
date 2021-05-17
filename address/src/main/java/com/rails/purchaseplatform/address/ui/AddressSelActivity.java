@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.AddressBean;
@@ -38,6 +39,9 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     private String type;
     private AddressBean addressBean;
 
+    // 是否有新增地址权限
+    private boolean isAdd = false;
+
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
@@ -52,6 +56,11 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
                 .setTitleBar(R.string.address_main)
                 .setShowLine(true)
                 .setImgLeftRes(R.drawable.svg_back_black);
+
+
+        if (!isAdd) {
+            barBinding.btnAdd.setVisibility(View.GONE);
+        }
 
 
         barBinding.smart.setEnableLoadMore(false);

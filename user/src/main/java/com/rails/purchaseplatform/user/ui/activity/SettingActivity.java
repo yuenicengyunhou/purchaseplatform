@@ -9,6 +9,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivitySettingBinding;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
@@ -24,6 +25,8 @@ import java.util.Set;
 public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
 
 
+    private boolean isAddressManager = false;
+
     @Override
     protected void initialize(Bundle bundle) {
 
@@ -31,6 +34,8 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
                 .setTitleBar(R.string.user_setting)
                 .setImgLeftRes(R.drawable.svg_back_black)
                 .setShowLine(true);
+
+        isAddressManager = PrefrenceUtil.getInstance(this).getBoolean(ConShare.MENU_ADDRESS, false);
 
     }
 
@@ -57,6 +62,10 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
         barBinding.btnAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isAddressManager) {
+                    ToastUtil.showCenter(SettingActivity.this, getResources().getString(R.string.common_author_null));
+                    return;
+                }
                 ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
             }
         });
@@ -82,8 +91,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
                     .setDialogListener(new AlterDialog.DialogListener() {
                         @Override
                         public void onLeft() {
-                            PrefrenceUtil.getInstance(SettingActivity.this).setString(ConShare.TOKEN, "");
-                            PrefrenceUtil.getInstance(SettingActivity.this).setBean(ConShare.USERINFO,null);
+                            PrefrenceUtil.getInstance(SettingActivity.this).clear();
                             ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                             dismissDialog();
                             finish();

@@ -16,7 +16,6 @@ import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
-import com.rails.purchaseplatform.common.widget.BaseRecyclerView2;
 import com.rails.purchaseplatform.common.widget.LrLableLayout;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
@@ -64,15 +63,20 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 //        holder.lrCompany.setKey(String.format(res.getString(R.string.order_buy_code), parentBean.getPurchars()));
         holder.tvPrice.setText(parentBean.getTotalPrice());
 //        String orderStatusView = parentBean.getOrderStatusView();
+        String organizeName = parentBean.getOrganizeName();
+        StringBuilder buyerStr = new StringBuilder();
         String orderNoStr = parentBean.getOrderNoStr();
         String orderTime = parentBean.getOrderTime();
         String provider = parentBean.getShopName();
-        String buyer = parentBean.getBuyerName();//+"-"+parentBean.getRealName();
+        String realName = parentBean.getRealName();
+        String buyerName = parentBean.getBuyerName();//+"-"+;
+        buyerStr.append(organizeName).append("-").append(buyerName).append("-").append(realName);
+        String buyer = buyerStr.toString();
         String delayTime = parentBean.getDelayReceiveTime() == null ? "" : parentBean.getDelayReceiveTime();
         holder.title.setText(orderNoStr, orderTime, provider, buyer, delayTime);
         holder.title.setOnClickListener(v -> {
             if (!isDetail) {
-                ToastUtil.showCenter(mContext, "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()
@@ -96,7 +100,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 
         holder.lrCode.setOnClickListener(v -> {
             if (!isDetail) {
-                ToastUtil.showCenter(mContext, "权限不足，请联系上级管理员");
+                ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
                 return;
             }
             ARouter.getInstance()
@@ -117,7 +121,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        private BaseRecyclerView2 recycler;
+        private BaseRecyclerView recycler;
         private Title4OrderRecyclerItem title;
         private LrLableLayout lrCode;
         private LrLableLayout lrTime;
@@ -141,3 +145,4 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         }
     }
 }
+
