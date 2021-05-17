@@ -80,6 +80,7 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
                 .build(ConRoute.MARKET.COMMIT_RESULT)
                 .withParcelable("bean", bean)
                 .navigation();
+        finish();
     }
 
     @Override

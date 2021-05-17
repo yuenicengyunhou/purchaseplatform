@@ -136,10 +136,18 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
         barBinding.btnLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance()
-                        .build(webBean.getUrlleft())
-                        .withParcelable("webBean", webBean)
-                        .navigation();
+                if (ConRoute.WEB.WEB_APPROVAL.equals(webBean.getUrlleft())) {
+                    ARouter.getInstance()
+                            .build(webBean.getUrlleft())
+                            .withString("url", ConRoute.WEB_URL.APPROVAL)
+                            .navigation();
+                } else
+                    ARouter.getInstance()
+                            .build(webBean.getUrlleft())
+                            .withParcelable("webBean", webBean)
+                            .navigation();
+
+                finish();
             }
         });
 
@@ -159,7 +167,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
                             .withParcelable("webBean", webBean)
                             .navigation();
                 }
-
+                finish();
 
             }
         });

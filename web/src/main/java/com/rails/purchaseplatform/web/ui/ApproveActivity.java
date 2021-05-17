@@ -79,6 +79,7 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
                 .build(ConRoute.MARKET.COMMIT_RESULT)
                 .withParcelable("bean", bean)
                 .navigation();
+        finish();
     }
 
 

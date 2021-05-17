@@ -81,6 +81,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
                 .build(ConRoute.MARKET.COMMIT_RESULT)
                 .withParcelable("bean", bean)
                 .navigation();
+        finish();
     }
 
     @Override
