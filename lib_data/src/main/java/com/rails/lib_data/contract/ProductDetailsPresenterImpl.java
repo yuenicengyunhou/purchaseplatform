@@ -184,24 +184,26 @@ public class ProductDetailsPresenterImpl
 
             @Override
             protected void onSuccess(ArrayList<ProductPriceBean> response) {
-                baseView.dismissDialog();
+                // 需要返回的三个参数
                 ProductPriceBean bean = new ProductPriceBean();
-                ArrayList<ItemPicture> pics = new ArrayList<>();
+                ArrayList<ItemPicture> pics = new ArrayList<>(); // 这个集合是做什么的？
                 ArrayList<ProductDetailsPackingBean> packingBeans = new ArrayList<>();
-//                billBeans.add(new ProductBillBean("附件名称", "附件数量"));
-                if (response == null || response.isEmpty()) {
-                    bean.setCreditLevel("0");
-                    bean.setSellPrice(0.0D);
-                    bean.setMarketPrice(0.0D);
-                } else {
-                    ProductDetailsPackingBean bean1 = new ProductDetailsPackingBean();
-                    bean1.setAttrKey("附件名称");
-                    bean1.setAttrValue("附件数量");
-                    packingBeans.add(bean1);
-                    String annexName = response.get(0).getPackinglist().get(0).getAnnexName();
-                    spliceList(packingBeans, annexName);
+
+                if (response.size() != 0) {
+                    bean = response.get(0);
+
+                    if (bean.getPackinglist() != null && bean.getPackinglist().size() != 0) {
+                        ProductDetailsPackingBean bean1 = new ProductDetailsPackingBean();
+                        bean1.setAttrKey("附件名称");
+                        bean1.setAttrValue("附件数量");
+                        packingBeans.add(bean1);
+                        String annexName = bean.getPackinglist().get(0).getAnnexName();
+                        spliceList(packingBeans, annexName);
+                    }
                 }
+
                 baseView.onGetProductPriceSuccess(bean, pics, packingBeans);
+                baseView.dismissDialog();
             }
         });
     }
