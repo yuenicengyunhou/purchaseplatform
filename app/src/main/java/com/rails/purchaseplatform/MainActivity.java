@@ -55,6 +55,12 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding>  implem
         }
 
         toolPresenter = new UserToolPresenterImpl(this, this);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         UserInfoBean bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
         if (bean != null) {
             toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
