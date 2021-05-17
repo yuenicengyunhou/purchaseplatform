@@ -95,6 +95,10 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
 //        }
     }
 
+    @Override
+    public void loadAddressInfo(AddressBean addressInfo) {
+
+    }
 
     public interface AreaListener {
 

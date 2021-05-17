@@ -22,7 +22,7 @@ public class AddressModel {
      * 获取维护地址列表
      */
     public void queryAddressList(String platformId, String accountId, int accountType, long pageNum, HttpRxObserver httpRxObserver) {
-        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+        if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }
         HashMap<String, Object> map = new HashMap<>();
@@ -38,10 +38,27 @@ public class AddressModel {
 
 
     /**
+     * 根据addressId获取地址详情
+     */
+    public void getAddressInfo(String platformId, String accountId,long addressId, HttpRxObserver httpRxObserver) {
+        if (null == platformId || TextUtils.isEmpty(platformId)) {
+            platformId = "20";
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("accountId", accountId);
+        map.put("buyerAddressId", addressId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(AddressService.class).getAddressInfo(map))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
      * 添加地址
      */
     public void addAddress(String platformId, String accountId, String requestStr, HttpRxObserver httpRxObserver) {
-        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+        if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }
         HashMap<String, Object> map = new HashMap<>();
@@ -57,7 +74,7 @@ public class AddressModel {
      * 删除地址
      */
     public void deleteAddress(String platformId, String accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
-        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+        if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }
         HashMap<String, Object> map = new HashMap<>();
@@ -99,7 +116,7 @@ public class AddressModel {
      * 地址编辑
      */
     public void editAddress(String platformId, String accountId, long addressId, String json, HttpRxObserver httpRxObserver) {
-        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+        if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }
         HashMap<String, Object> map = new HashMap<>();
@@ -117,7 +134,7 @@ public class AddressModel {
      * 获取地区
      */
     public void getArea(String platformId, String parentCode, HttpRxObserver httpRxObserver) {
-        if (null == platformId|| TextUtils.isEmpty(platformId)) {
+        if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }
         HashMap<String, Object> map = new HashMap<>();

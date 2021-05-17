@@ -18,9 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/paddingL"
-            android:paddingTop="@dimen/padding"
+            android:paddingTop="@dimen/paddingL"
             android:paddingEnd="@dimen/paddingL"
-            android:paddingBottom="@dimen/padding"
+            android:paddingBottom="@dimen/paddingL"
             android:id="@+id/tv_name"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_12" />

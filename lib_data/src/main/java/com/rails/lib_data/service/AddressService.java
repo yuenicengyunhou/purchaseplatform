@@ -24,6 +24,11 @@ public interface AddressService {
     @GET("app-user-service/app/v1/buyer/address/queryAddressPageList")
     Observable<HttpResult<ListBeen<AddressBean>>> getAddressList(@QueryMap HashMap<String, Object> map);
 
+
+    @POST("user/buyer/address/queryBuyerAddressById")
+    Observable<HttpResult<AddressBean>> getAddressInfo(@QueryMap HashMap<String, Object> map);
+
+
     /**
      * 新增地址信息
      */

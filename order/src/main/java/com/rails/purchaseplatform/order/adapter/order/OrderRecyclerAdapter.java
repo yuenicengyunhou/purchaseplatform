@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.order.adapter.order;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 
 import java.text.DecimalFormat;
@@ -66,6 +68,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         ArrayList<SubSkuDemandInfoBean> subSkuDemandInfo = subOrderInfoBean.getSubSkuDemandInfo();
         String orderNo = subOrderInfoBean.getOrderNo();
         String orderTime = subOrderInfoBean.getOrderTime();
+        int orderStatus = subOrderInfoBean.getOrderStatus();
         String orderStatusView = subOrderInfoBean.getOrderStatusView();
 //        String orderNumber = subOrderInfoBean.getSkuNum();
 //        String generateTime = subOrderInfoBean.getOrderTime();
@@ -112,12 +115,23 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             holder.tvPrice.setText(formattedPrice);
         }
 //        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? subSkuDemandInfo : "共100件");
+        if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
+            holder.ivNext.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivNext.setVisibility(View.INVISIBLE);
+        }
         adapter.update(subSkuDemandInfo, true);
-        holder.orderItem.setOnClickListener(v -> ARouter.getInstance()
-                .build(ConRoute.WEB.WEB_ORDER_DETAIL)
-                .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
-                .withString("orderNo",String.valueOf(orderNo))
-                .navigation());
+        holder.orderItem.setOnClickListener(v -> {
+            if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
+                ARouter.getInstance()
+                        .build(ConRoute.WEB.WEB_ORDER_DETAIL)
+                        .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
+                        .withString("orderNo", String.valueOf(orderNo))
+                        .navigation();
+            } else {
+                ToastUtil.show(mContext, "此状态订单无订单详情");
+            }
+        });
     }
 
 
@@ -130,7 +144,8 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         private TextView tvPrice;
         private final TextView tvOrderNum;
         private final TextView tvOrderTime;
-        private  TextView tvStatus;
+        private TextView tvStatus;
+        private ImageView ivNext;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -142,6 +157,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             tvOrderNum = itemView.findViewById(R.id.tv_orderNumValue);
             tvOrderTime = itemView.findViewById(R.id.tv_TimeValue);
             tvStatus = itemView.findViewById(R.id.tv_orderStatus);
+            ivNext = itemView.findViewById(R.id.iv_next);
         }
     }
 }

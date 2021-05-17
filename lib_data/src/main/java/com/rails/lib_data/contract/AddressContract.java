@@ -27,6 +27,12 @@ public interface AddressContract {
 
 
         /**
+         * 根据id 获取地址详情，显示地址详情
+         */
+        void loadAddressInfo(AddressBean addressInfo);
+
+
+        /**
          * 获取地址列表
          *
          * param addressBeans
@@ -52,6 +58,12 @@ public interface AddressContract {
          * param isDialog 是否显示dialog
          */
         void getAddresses(Boolean isDialog,int page);
+
+
+        /**
+         * 根据addressId获取地址详情
+         */
+        void getAddressInfo(long addressId);
 
 
 //        /**
@@ -88,5 +100,9 @@ public interface AddressContract {
          * 获取二级 使用一级code
          */
         void getArea( String parentCode);
+
+
+
+
     }
 }
