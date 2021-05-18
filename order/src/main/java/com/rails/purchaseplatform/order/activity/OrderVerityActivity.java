@@ -103,6 +103,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 .setImgLeftRes(R.drawable.svg_back_black)
                 .setShowLine(true);
 
+        orderInvoiceBean = new OrderInvoiceBean();
 
         adapter = new OrderVerifyAdapter(this);
         barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
@@ -148,8 +149,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         verifyBean = bean;
         orderPurchaseBean = bean.getCompany();
         adapter.update((ArrayList) bean.getCart().getShopList(), true);
-        setInvoiceParams(verifyBean);
-
+        orderInvoiceBean.setInvoiceAddress(bean.getInvoiceAddress());
         setOrderInfo(bean);
     }
 
@@ -422,30 +422,23 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     /**
      * 默认发票内容
      *
-     * @param verifyBean
+     * @param titleBean
      */
-    private void setInvoiceParams(OrderVerifyBean verifyBean) {
-        if (verifyBean == null)
-            return;
-        orderInvoiceBean = new OrderInvoiceBean();
-
-        AddressBean invoiceAddress = verifyBean.getInvoiceAddress();
-        if (invoiceAddress == null) {
-            ToastUtil.showCenter(this, "请选择发票地址");
+    private void setInvoiceParams(InvoiceTitleBean titleBean) {
+        //发票id
+        if (titleBean == null) {
+            ToastUtil.showCenter(this, "请选择发票抬头");
             return;
         }
-        orderInvoiceBean.setInvoiceAddress(invoiceAddress);
+
+        if (orderInvoiceBean == null)
+            orderInvoiceBean = new OrderInvoiceBean();
 
         //发票内容,默认 明细
         orderInvoiceBean.setContent(1);
         //发票类型 ，
         orderInvoiceBean.setInvoiceType(2);
-        //发票id
-        InvoiceTitleBean titleBean = verifyBean.getInvoice();
-        if (titleBean == null) {
-            ToastUtil.showCenter(this, "请选择发票抬头");
-            return;
-        }
+
         orderInvoiceBean.setInvoiceTitleId(titleBean.getId());
         //未知
         orderInvoiceBean.setInvoiceModality(2);
@@ -506,6 +499,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             InvoiceTitleBean bean = invoiceTitleBeans.get(0);
             if (bean != null) {
                 barBinding.rlBill.setKey(bean.getInvoiceTitle());
+                setInvoiceParams(bean);
             }
         } else {
             setInvoiceNull();
@@ -513,7 +507,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     }
 
 
-    private void setInvoiceNull(){
+    private void setInvoiceNull() {
         barBinding.rlBill.setKey("请联系管理员设置发票抬头");
         barBinding.rlBill.removeValueRightIcon();
         barBinding.rlBill.setEnabled(false);

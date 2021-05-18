@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -170,9 +172,14 @@ public class LrLableLayout extends RelativeLayout {
 
     public void setKey(String key) {
         if (!TextUtils.isEmpty(key)) {
-            binding.tvKey.setText(key);
+            binding.tvKey.setText(Html.fromHtml(key));
         }
     }
+
+
+//    public void setKey(SpannableStringBuilder builder){
+//        binding.tvKey.setText(builder);
+//    }
 
     public String getKey() {
         String key;

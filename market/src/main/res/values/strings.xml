@@ -26,6 +26,7 @@
     <string name="market_cart_collect">移入收藏</string>
     <string name="market_cart_collect_out">移出收藏</string>
     <string name="market_cart_del">删除</string>
+    <string name="market_cart_dprice">&#160;&#160;%s&#160;&#160;</string>
 
 
     <!--商店-->

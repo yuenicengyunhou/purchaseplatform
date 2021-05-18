@@ -1,6 +1,9 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.ConShare;
@@ -13,6 +16,7 @@ import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
@@ -54,7 +58,6 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             protected void onSuccess(CartBean cartBean) {
                 baseView.dismissDialog();
                 if (isCallBack()) {
-                    CartShopBean bean = new CartShopBean();
                     for (CartShopBean shopBean : cartBean.getShopList()) {
                         StringBuffer buffer = new StringBuffer();
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
@@ -76,14 +79,57 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                         }
                         shopBean.setItemIds(buffer.substring(0, buffer.length() - 1));
                         shopBean.isSel.set(isAllChecked(shopBean));
+                        double total = shopPrice(shopBean);
+                        String freightS = shopBean.getFreightPrice();
+                        double freight = 0D;
+                        try{
+                            if (TextUtils.isEmpty(freightS)){
+                                freight = 0;
+                            }else
+                                freight = Double.parseDouble(freightS);
+                        }catch (Exception e){
+
+                        }
+
+
+                        if (total >= freight) {
+                            shopBean.dprice.set(String.valueOf(0));
+                            shopBean.isshow.set(false);
+                        } else {
+                            shopBean.dprice.set(DecimalUtil.formatDouble(freight - total));
+                            shopBean.isshow.set(true);
+                        }
                     }
 
                     baseView.getCartInfo(cartBean);
                 }
-
             }
-
         });
+    }
+
+
+    /**
+     * 计算一个店的价格
+     *
+     * @return
+     */
+    private double shopPrice(CartShopBean cartShopBean) {
+        double total = 0;
+        try {
+            ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
+            for (CartShopProductBean bean : beans) {
+                if (bean.canSel.get() == null)
+                    continue;
+                if (bean.isSel.get() == null)
+                    continue;
+                if (bean.isSel.get() && bean.canSel.get()) {
+                    total += bean.num.get() * bean.getSellPrice();
+                }
+            }
+        } catch (Exception e) {
+            return total;
+        }
+        return total;
     }
 
 
@@ -218,6 +264,8 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onSuccess(Object response) {
                 baseView.dismissDialog();
+                if (isCallBack())
+                    baseView.getSelStatus(1, (Boolean) response);
             }
         });
     }

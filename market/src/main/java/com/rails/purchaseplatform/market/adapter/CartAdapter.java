@@ -1,22 +1,16 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.TextUtils;
 
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
+import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
-import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
-import com.yanzhenjie.recyclerview.SwipeMenu;
-import com.yanzhenjie.recyclerview.SwipeMenuBridge;
-import com.yanzhenjie.recyclerview.SwipeMenuCreator;
-import com.yanzhenjie.recyclerview.SwipeMenuItem;
 
 import java.util.ArrayList;
 
@@ -65,6 +59,8 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     @Override
     protected void onBindItem(ItemMarketCartBinding binding, CartShopBean cartShopBean, int position) {
         binding.setCart(cartShopBean);
+
+
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
         adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
@@ -109,21 +105,21 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
         adapter.update((ArrayList) cartShopBean.getSkuList(), true);
 
-        binding.imgLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkShopAll(cartShopBean, binding.imgLeft.isChecked());
-                if (positionListener != null)
-                    positionListener.onPosition(cartShopBean, CHECK);
-            }
+
+        binding.imgLeft.setOnClickListener(v -> {
+            checkShopAll(cartShopBean, binding.imgLeft.isChecked());
+            if (positionListener != null)
+                positionListener.onPosition(cartShopBean, CHECK);
         });
 
-        binding.shopLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (positionListener != null)
-                    positionListener.onPosition(cartShopBean, SHOP);
-            }
+        binding.shopLayout.setOnClickListener(v -> {
+            if (positionListener != null)
+                positionListener.onPosition(cartShopBean, SHOP);
+        });
+
+        binding.rlPostage.setOnClickListener(v -> {
+            if (positionListener != null)
+                positionListener.onPosition(cartShopBean, SHOP);
         });
     }
 
@@ -257,6 +253,34 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 updateRemove(lastPosition);
             }
         }
+    }
+
+
+    /**
+     * 更新邮费差额
+     */
+    public void updateShopPrice() {
+        for (CartShopBean shopBean : mDataSource) {
+            double total = shopPrice(shopBean);
+            String freightS = shopBean.getFreightPrice();
+            double freight = 0D;
+            try{
+                if (TextUtils.isEmpty(freightS)){
+                    freight = 0;
+                }else
+                    freight = Double.parseDouble(freightS);
+            }catch (Exception e){
+
+            }
+            if (total >= freight) {
+                shopBean.dprice.set(String.valueOf(0));
+                shopBean.isshow.set(false);
+            } else {
+                shopBean.dprice.set(DecimalUtil.formatDouble(freight - total));
+                shopBean.isshow.set(true);
+            }
+        }
+//        notifyDataSetChanged();
     }
 
 }

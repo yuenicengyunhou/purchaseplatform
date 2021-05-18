@@ -46,6 +46,9 @@ public class CartShopBean {
     private List<CartShopProductBean> skuList;
     public final ObservableField<Boolean> isSel = new ObservableField<>();
     public final ObservableField<String> remark = new ObservableField<>();
+    public final ObservableField<String> dprice = new ObservableField<>();
+    //是否显示邮费
+    public final ObservableField<Boolean> isshow = new ObservableField<>();
 
 
     public String getPlatformId() {

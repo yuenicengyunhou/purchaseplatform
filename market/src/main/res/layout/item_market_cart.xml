@@ -6,6 +6,8 @@
 
         <import type="android.view.View" />
 
+        <import type="android.text.Html" />
+
         <variable
             name="cart"
             type="com.rails.lib_data.bean.CartShopBean" />
@@ -57,6 +59,84 @@
         </RelativeLayout>
 
         <View style="@style/line_thin_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rl_postage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:orientation="vertical"
+            android:visibility="@{cart.isshow?View.VISIBLE:View.GONE}">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_30"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="还需"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_12" />
+
+                <TextView
+                    android:id="@+id/tv_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@{@string/market_cart_dprice(cart.dprice)}"
+                    android:textColor="@color/font_red"
+                    android:textSize="@dimen/font_size_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="元方可下单"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_12" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/et_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="去凑单"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_12" />
+
+
+                <ImageView
+                    android:id="@+id/img_right"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:src="@drawable/svg_arrow_white" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
 
         <com.rails.purchaseplatform.market.widget.SlideRecyclerView
             android:id="@+id/recycler"

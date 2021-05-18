@@ -250,7 +250,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         for (String itemId : list) {
             for (CartShopBean bean : cartAdapter.getBeans()) {
                 for (CartShopProductBean productBean : bean.getSkuList()) {
-                    if (itemId.equals(productBean.getSkuId())) {
+                    if (itemId.equals(productBean.getSkuId())&& productBean.canSel.get()) {
                         productBean.isLimit.set(true);
                         break;
                     }
@@ -362,6 +362,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 设置底部总计
      */
     private void setTotal() {
+        cartAdapter.updateShopPrice();
         binding.imgTotal.setSelected(cartAdapter.isAll());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
                 DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
