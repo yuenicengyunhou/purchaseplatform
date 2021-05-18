@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_5"
                 app:is_hide="true"
-                app:key="@string/order_verify_goods_type"
+                app:key="正常收货"
                 app:key_color="@color/font_black"
                 app:key_size="@dimen/font_size_14"
                 app:value_color="@color/font_black"
