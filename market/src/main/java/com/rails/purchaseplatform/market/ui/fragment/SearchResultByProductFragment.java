@@ -2,9 +2,7 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.contract.SearchContract;
@@ -164,7 +162,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     @Override
     public void sendFilterData(String[] strings, int page) {
         filtered = true;
-        mCid = strings[1] != null && !strings[1].equals("") ? strings[1] : mCid;
+        mCid = strings[1];
         brands = brandsString = strings[0];
         categoryAttrValueIds = strings[2];
         expandAttrValueIds = strings[3];
