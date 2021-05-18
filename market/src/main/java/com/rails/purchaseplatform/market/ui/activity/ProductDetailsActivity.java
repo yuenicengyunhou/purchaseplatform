@@ -598,6 +598,21 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.tvCredit.setText(creditText);
         setImageViewCreditLevel(creditText, binding.ivCreditLevel);
 
+        String longUrl = bean.getItemPublishVo().getDescribeUrl();
+        if (!TextUtils.isEmpty(longUrl) && longUrl.contains(".jpg")) {
+            ArrayList<ItemPicture> pics = new ArrayList<>();
+            String[] urls = longUrl.split("\\.jpg");
+            for (String string : urls) {
+                if (string.contains("//")) {
+                    String[] realUrls = string.split("//");
+                    ItemPicture picture = new ItemPicture();
+                    picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
+                    pics.add(picture);
+                }
+            }
+            imgAdapter.update(pics, true);
+        }
+
         mSpecificationPopBeanList = specificationPopBeanList;
     }
 
@@ -655,7 +670,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.itemSalesCounts.setText(String.valueOf(bean.getSaleNum()));
 
         billAdapter.update(billBeans, true);
-        imgAdapter.update(pics, true);
 
     }
 
