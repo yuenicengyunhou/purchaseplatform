@@ -231,6 +231,11 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     }
 
     @Override
+    public void loadAddressInfo(AddressBean addressInfo) {
+
+    }
+
+    @Override
     protected void onRestart() {
         super.onRestart();
         onRefresh(true);

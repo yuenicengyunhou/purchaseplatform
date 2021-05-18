@@ -6,6 +6,8 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Display;
 import android.view.Gravity;
@@ -35,6 +37,7 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.ConditionAdapter;
 import com.rails.purchaseplatform.order.databinding.ActivityOrderBinding;
@@ -96,13 +99,31 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         initPager(tabs);
         binding.noneScrollViewPager.setPagingEnabled(false);
 
+        binding.etSearchKey.setInputType(InputType.TYPE_CLASS_NUMBER);//默认是采购单号搜索，限定只能输入数字
+
         //监听输入框按下搜索键
         binding.etSearchKey.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 if (null != listPop && listPop.isShowing()) {//如果当下有弹窗，dismiss掉
                     listPop.dismiss();
                 }
-                callFragmentToSearch(filterBean);
+                if (mType == 0) {
+                    callFragmentToSearch(filterBean);
+                } else if (mType == 1) {
+                    String trim = binding.etSearchKey.getText().toString().trim();
+                    if (TextUtils.isEmpty(trim)) {
+                        callFragmentToSearch(filterBean);
+                    } else {
+                        ToastUtil.show(this, "请先检索采购人用户名");
+                    }
+                } else {
+                    String trim = binding.etSearchKey.getText().toString().trim();
+                    if (TextUtils.isEmpty(trim)) {
+                        callFragmentToSearch(filterBean);
+                    } else {
+                        ToastUtil.show(this, "请先检索供应商名称");
+                    }
+                }
                 return true;
             }
             return false;
@@ -240,6 +261,11 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         }
 
         orderNum.setOnClickListener(num -> {
+            binding.etSearchKey.setText("");
+            binding.etSearchKey.setInputType(InputType.TYPE_CLASS_NUMBER);
+            if (null != listPop && listPop.isShowing()) {
+                listPop.dismiss();
+            }
             binding.etSearchKey.setHint("搜索单号");
             binding.tvSelectType.setText("采购单号");
             mType = 0;
@@ -248,14 +274,24 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         });
 
         orderUser.setOnClickListener(user -> {
+            binding.etSearchKey.setText("");
+            binding.etSearchKey.setInputType(InputType.TYPE_CLASS_TEXT);
             binding.etSearchKey.setHint("搜索用户名");
             binding.tvSelectType.setText("采购人用户名");
             mType = 1;
+            if (null != listPop && listPop.isShowing()) {
+                listPop.dismiss();
+            }
             mTypePopup.dismiss();
             mTypePopup = null;
         });
 
         orderProvider.setOnClickListener(provider -> {
+            binding.etSearchKey.setText("");
+            binding.etSearchKey.setInputType(InputType.TYPE_CLASS_TEXT);
+            if (null != listPop && listPop.isShowing()) {
+                listPop.dismiss();
+            }
             binding.etSearchKey.setHint("搜索供应商");
             binding.tvSelectType.setText("供应商名称");
             mType = 2;
@@ -358,9 +394,9 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 adapter = new ConditionAdapter(this);
                 listBinding.recycler.setAdapter(adapter);
                 adapter.setListener((PositionListener<BuyerBean>) (bean, position) -> {
-                    String realName = bean.getRealName();
+                    String accountName = bean.getAccountName();
                     String supplierName = bean.getSupplierName();
-                    String name = null == supplierName ? realName : supplierName;
+                    String name = null == supplierName ? accountName : supplierName;
                     binding.etSearchKey.setText(name);
                     conditionId = null == supplierName ? bean.getId() : bean.getSupplierId();
                     callFragmentToSearch(filterBean);

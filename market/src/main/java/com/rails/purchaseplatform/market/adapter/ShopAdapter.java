@@ -15,11 +15,9 @@ import java.util.List;
 
 public class ShopAdapter extends BaseRecyclerAdapter<ResultListBean, ItemShopSkuBinding> {
 
-    private Context mContext;
 
     public ShopAdapter(Context context) {
         super(context);
-        mContext = context;
     }
 
     @Override
@@ -32,17 +30,17 @@ public class ShopAdapter extends BaseRecyclerAdapter<ResultListBean, ItemShopSku
         binding.setBean(bean);
         List<ItemSkuBean> item_sku = bean.getItem_sku();
         int skuId = 0;
-        String skuName = "";
-        double sellPrice = 0.0;
-        String url = "";
+//        String skuName = "";
+//        double sellPrice = 0.0;
+//        String url = "";
         if (!item_sku.isEmpty()) {
             ItemSkuBean skuBean = item_sku.get(0);
-            skuName = skuBean.getSkuName();
+//            skuName = skuBean.getSkuName();
 //            sellPrice = skuBean.getSellPrice();
             skuId = skuBean.getSkuId();
-            url = "https:" + skuBean.getPictureUrl();
+//            url = "https:" + skuBean.getPictureUrl();
         }
-        String shopName = bean.getShopName();
+//        String shopName = bean.getShopName();
 //        binding.tvName.setText(skuName);
 //        binding.tvShop.setText(shopName);
 //        binding.tvPrice.setText(String.valueOf(sellPrice));

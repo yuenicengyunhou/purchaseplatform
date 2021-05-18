@@ -191,7 +191,7 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         barBinding.btnAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).navigation(InvoiceActivity.this, 0);
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_SEL).withString("type", addressType).navigation(InvoiceActivity.this, 0);
             }
         });
 

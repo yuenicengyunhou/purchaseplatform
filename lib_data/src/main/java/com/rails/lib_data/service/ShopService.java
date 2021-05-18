@@ -17,6 +17,8 @@ public interface ShopService {
 
     @GET("elasticsearch-service/mall/search/queryShopItemListByKeyword")
     Observable<HttpResult<ShopRecommendBean>> getShopItemList(@QueryMap HashMap<String, Object> map);
+    @GET("elasticsearch-service/mall/search/queryItemListByCid")
+    Observable<HttpResult<ShopRecommendBean>> getShopItemListByCid(@QueryMap HashMap<String, Object> map);
 
     //采购单号 从
 }

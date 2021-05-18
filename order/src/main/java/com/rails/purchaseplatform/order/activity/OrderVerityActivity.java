@@ -15,12 +15,17 @@ import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
+import com.rails.lib_data.bean.InvoiceContentBean;
 import com.rails.lib_data.bean.InvoiceTitleBean;
+import com.rails.lib_data.bean.ListBeen;
+import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
+import com.rails.lib_data.contract.InvoiceContract;
+import com.rails.lib_data.contract.InvoicePresenterImpl;
 import com.rails.lib_data.contract.OrderVerifyContract;
 import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
 import com.rails.lib_data.contract.UserToolContract;
@@ -44,7 +49,6 @@ import com.rails.purchaseplatform.order.databinding.ActivityOrderVerityBinding;
 import com.rails.purchaseplatform.order.pop.CompanyPop;
 import com.rails.purchaseplatform.order.pop.GoodsPop;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,10 +64,11 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 @Route(path = ConRoute.ORDER.ORDER_VERITY)
 public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBinding> implements
-        OrderVerifyContract.OrderVerifyView, UserToolContract.UserToolView {
+        OrderVerifyContract.OrderVerifyView, UserToolContract.UserToolView, InvoiceContract.InvoiceView {
 
     private OrderVerifyAdapter adapter;
     private OrderVerifyContract.OrderVerifyPresenter presenter;
+    private InvoiceContract.InvoicePresenter invoicePresenter;
     private UserToolContract.UserToolPresenter toolPresenter;
 
     //收货地址
@@ -110,8 +115,11 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             toolPresenter.checkPermissions(userInfoBean.getId(), userInfoBean.getAccountType());
         }
 
+        invoicePresenter = new InvoicePresenterImpl(this, this);
         presenter = new OrderVerifyPresenterImpl(this, this);
         presenter.getOrderToken();
+        invoicePresenter.getInvoiceTitles(false, 1, 2);
+        presenter.getBudget();
         if (addressBean != null) {
             setAddress(addressBean);
             presenter.getVerifyOrder(addressBean.getId());
@@ -166,6 +174,15 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         finish();
     }
 
+    @Override
+    public void getBudget(OrderBudgetBean bean) {
+        if (bean != null) {
+            extraPrice = bean.getUsedAmount();
+            barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetAmount())));
+            barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getUsedAmount())));
+        }
+    }
+
 
     /**
      * 设置收货地址
@@ -197,25 +214,20 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
         if (bean.getCompany() != null)
             barBinding.rlCompay.setKey(bean.getCompany().getFullName());
+        else {
+            barBinding.rlCompay.setKey("请联系管理员设置结算单位");
+            barBinding.rlCompay.removeValueRightIcon();
+            barBinding.rlCompay.setEnabled(false);
+        }
 
         if (bean.getInvoiceAddress() != null) {
             barBinding.tvBillAddress.setText(bean.getInvoiceAddress().getFullAddress());
             barBinding.tvBillPhone.setText(bean.getInvoiceAddress().getReceiverName() + "  " + bean.getInvoiceAddress().getMobile());
         }
 
-        if (bean.getInvoice() != null) {
-            barBinding.rlBill.setKey(bean.getInvoice().getInvoiceTitle());
-        }
-
 
         barBinding.rlPay.setKey("账期支付");
 
-
-        if (bean.getBudgetBean() != null) {
-            extraPrice = bean.getBudgetBean().getUsedAmount();
-            barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getBudgetAmount())));
-            barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetBean().getUsedAmount())));
-        }
 
         if (bean.getCart() != null) {
             try {
@@ -476,4 +488,36 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         barBinding.btnCommit.setEnabled(bean.getSubmitPurchaseOrder());
     }
 
+    @Override
+    public void getInvoiceContents(ArrayList<InvoiceContentBean> types, ArrayList<InvoiceContentBean> contents) {
+
+    }
+
+    @Override
+    public void getInvoiceTitles(ListBeen<InvoiceTitleBean> listBeen) {
+        if (listBeen != null) {
+            ArrayList<InvoiceTitleBean> invoiceTitleBeans = listBeen.getList();
+            if (invoiceTitleBeans == null || invoiceTitleBeans.isEmpty()) {
+                setInvoiceNull();
+                return;
+            }
+
+
+            InvoiceTitleBean bean = invoiceTitleBeans.get(0);
+            if (bean != null) {
+                barBinding.rlBill.setKey(bean.getInvoiceTitle());
+            }
+        } else {
+            setInvoiceNull();
+        }
+    }
+
+
+    private void setInvoiceNull(){
+        barBinding.rlBill.setKey("请联系管理员设置发票抬头");
+        barBinding.rlBill.removeValueRightIcon();
+        barBinding.rlBill.setEnabled(false);
+        barBinding.tvBillAddress.setVisibility(View.GONE);
+        barBinding.tvBillPhone.setVisibility(View.GONE);
+    }
 }

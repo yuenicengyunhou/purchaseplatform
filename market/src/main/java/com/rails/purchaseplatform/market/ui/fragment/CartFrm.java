@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
@@ -24,6 +25,7 @@ import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.common.pop.AlterDialog;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
@@ -32,6 +34,7 @@ import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
@@ -437,8 +440,17 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getDefAddress(AddressBean bean) {
-        if (bean == null)
+        if (bean == null) {
+            Boolean isAddressManager = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_ADDRESS, false);
+            if (!isAddressManager) {
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                return;
+            } else {
+                showAddressDialog();
+            }
+            cartAdapter.update(new ArrayList(), true);
             return;
+        }
         addressBean = bean;
         presenter.getCarts(true, String.valueOf(bean.getId()));
     }
@@ -557,5 +569,30 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
 
+    }
+
+
+    /**
+     * 显示地址弹窗
+     */
+    private void showAddressDialog() {
+        new AlterDialog.Builder().context(getActivity())
+                .title("提示")
+                .msg("购物车需要收货地址判断商品库存\n立即去设置")
+                .leftBtn("确定")
+                .rightBtn("取消")
+                .setDialogListener(new AlterDialog.DialogListener() {
+                    @Override
+                    public void onLeft() {
+                        ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+                        dismissDialog();
+                    }
+
+                    @Override
+                    public void onRight() {
+                        dismissDialog();
+                    }
+                })
+                .builder().show();
     }
 }

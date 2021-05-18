@@ -306,6 +306,18 @@ public class StringUtil {
             return diff > 0 ? 1 : -1;
         }
     }
+
+    /**
+     * 去掉尾部字段
+     */
+    public static String delStringTail(String string,String str) {
+        if (string.contains(str)) {
+            int i = string.indexOf(str);
+            return string.substring(0, i);
+        } else {
+            return string;
+        }
+    }
 }
 
 

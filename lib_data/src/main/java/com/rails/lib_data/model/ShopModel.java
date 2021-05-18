@@ -11,6 +11,7 @@ import com.rails.lib_data.bean.shop.ExpandAttrsBean;
 import com.rails.lib_data.bean.shop.ShopRecommendBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.ShopService;
+import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.StringUtil;
@@ -18,6 +19,8 @@ import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 public class ShopModel {
 
@@ -63,16 +66,24 @@ public class ShopModel {
             map.put("orderColumn", orderColumn);//排序字段
             map.put("orderType", orderType);//排序顺序
         }
-        analyzeFilterData(map, filterBeans);
-        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(ShopService.class).getShopItemList(map))
+        boolean hasCid = analyzeFilterData(map, filterBeans);//处理筛选条件数据，并返回，有没有类目筛选条件，有则调用queryItemListByCid接口，没有则调用queryItemListByKeyword接口
+        ShopService shopService = RetrofitUtil.getInstance()
+                .create(ShopService.class);
+        Observable<HttpResult<ShopRecommendBean>> observable;
+        if (hasCid) {
+            observable = shopService.getShopItemListByCid(map);
+        } else {
+            observable = shopService.getShopItemList(map);
+        }
+        HttpRxObservable.getObservable(observable)
                 .subscribe(httpRxObserver);
     }
 
     /**
      * 提取筛选条件中选中项
      */
-    private void analyzeFilterData(HashMap<String, Object> map, ArrayList<SearchFilterBean> filterBeans) {
+    private boolean analyzeFilterData(HashMap<String, Object> map, ArrayList<SearchFilterBean> filterBeans) {
+        boolean hasCid = false;
         if (null != filterBeans) {
             StringBuilder brands = new StringBuilder();
             List<String> cidIdList = new ArrayList<>();
@@ -94,6 +105,7 @@ public class ShopModel {
                                 brands.append(valueName).append(",");
                                 break;
                             case 1://1-cid
+                                hasCid = true;
 //                                cidIdList.add(valueId);
                                 cidIdList.add(valueId);
                                 break;
@@ -143,6 +155,7 @@ public class ShopModel {
 
 
         }
+        return hasCid;
     }
 
     /**

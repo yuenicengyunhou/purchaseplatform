@@ -24,6 +24,8 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
 
     private GoodsListener listener;
     private String time = "";
+    private long maxTime = 30 * 24 * 3600 * 1000L;
+    private long minTime = 8 * 24 * 3600 * 1000L;
 
     public void setListener(GoodsListener listener) {
         this.listener = listener;
@@ -34,8 +36,8 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
     protected void initialize(Bundle bundle) {
 
         time = TimeUtil.LongtoStringFormat(System.currentTimeMillis(), TimeUtil.YMD_);
-
-        binding.datePicker.setMinDate(System.currentTimeMillis());
+        binding.datePicker.setMinDate(System.currentTimeMillis() + minTime);
+        binding.datePicker.setMaxDate(System.currentTimeMillis() + maxTime);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
                 @Override

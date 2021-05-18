@@ -43,7 +43,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
      */
     @Override
     public void getBuyerNameList(String nameLike, String findType) {
-        model.getBuyerNames(nameLike, findType, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
+        model.getBuyerNames(accountId,nameLike, findType, organizationId,"2", new HttpRxObserver<ArrayList<BuyerBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);

@@ -69,7 +69,26 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         });
     }
 
-//    @Override
+    @Override
+    public void getAddressInfo(long addressId) {
+        baseView.showResDialog(R.string.loading);
+        model.getAddressInfo(platformId, accountId, addressId, new HttpRxObserver<AddressBean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(AddressBean response) {
+                baseView.dismissDialog();
+                baseView.loadAddressInfo(response);
+            }
+        });
+    }
+
+
+    //    @Override
 //    public void setDefAddress(long id, int position, boolean isReceiveDef, boolean isInvoiceDef) {
 //
 //        if (isReceiveDef) {
@@ -154,7 +173,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
             ToastUtil.showCenter(mContext, "至少选择一种地址类型");
             return;
         }
-        if (TextUtils.isEmpty(provinceCode)||TextUtils.isEmpty(cityCode)||TextUtils.isEmpty(countryCode)) {
+        if (TextUtils.isEmpty(provinceCode) || TextUtils.isEmpty(cityCode) || TextUtils.isEmpty(countryCode)) {
             ToastUtil.show(mContext, "获取地区码错误，请重选地址");
             return;
         }

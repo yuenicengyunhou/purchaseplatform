@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.address.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -18,6 +19,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.utils.LocationUtil;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
@@ -65,33 +67,33 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
                 .setTitleBar(R.string.address_add).setShowLine(true);
 
+        presenter = new AddressPresenterImpl(this, this);
 
         if (bean != null) {
-            setDetail(bean);
             binding.titleBar.setTitle("编辑地址");
             addressId = bean.getAddressId();
+            presenter.getAddressInfo(addressId);
         } else {
             loadData();
         }
 
-        presenter = new AddressPresenterImpl(this, this);
 //        presenter.getArea(20,"0");
 
     }
 
 
-    /**
-     * 设置内容
-     * <p>
-     * bean
-     */
-    private void setDetail(AddressBean bean) {
-        barBinding.etName.setContent(bean.getReceiverName());
-        barBinding.etPhone.setContent(bean.getMobile());
-        barBinding.etArea.setContent(bean.getFullAddress());
-        barBinding.etRemark.setText(bean.getFullAddress());
-        barBinding.cbReceive.setChecked(bean.getReceivingAddress() == 1);
-        barBinding.cbInvoice.setChecked(bean.getInvoiceAddress() == 1);
+    @Override
+    public void loadAddressInfo(AddressBean addressInfo) {
+        barBinding.etName.setContent(addressInfo.getReceiverName());
+        barBinding.etPhone.setContent(addressInfo.getMobile());
+        String fullAddress = addressInfo.getFullAddress();
+        String attachAddress = addressInfo.getAttachAddress();
+        String cleanAddress = StringUtil.delStringTail(fullAddress, attachAddress);
+        Log.e("WQ", "cleanAddress=====" + cleanAddress);
+        barBinding.etArea.setContent(fullAddress);
+        barBinding.etRemark.setText(attachAddress);
+        barBinding.cbReceive.setChecked(addressInfo.getReceivingAddress() == 1);
+        barBinding.cbInvoice.setChecked(addressInfo.getInvoiceAddress() == 1);
     }
 
 

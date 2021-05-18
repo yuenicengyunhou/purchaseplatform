@@ -44,6 +44,12 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        initWeb(binding.web, this);
+    }
+
+    @Override
     protected int getColor() {
         return R.color.bg_blue;
     }
@@ -60,7 +66,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
 
     @Override
     protected void initialize(Bundle bundle) {
-        initWeb(binding.web, this);
+
     }
 
 

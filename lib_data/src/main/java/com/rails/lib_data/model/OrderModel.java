@@ -36,7 +36,9 @@ public class OrderModel {
         map.put("accountId", accountId);
         map.put("queryType", queryType);
         map.put("accountType", accountType);
-        map.put(squence, content);
+        if (!TextUtils.isEmpty(content)) {
+            map.put(squence, content);
+        }
         map.put("pageSize", defaltPageSize);
         map.put("pageNum", page);
         mergeMap(filterBean, map);
@@ -94,11 +96,13 @@ public class OrderModel {
         }
     }
 
-    public void getBuyerNames(String like, String findType, String organizeId, HttpRxObserver httpRxObserver) {
+    public void getBuyerNames(String accountId,String like, String findType, String organizeId,String accountType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("nameLike", like);
         map.put("findType", findType);
         map.put("organizeId", organizeId);
+        map.put("accountId", accountId);
+        map.put("accountType", accountType);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class).getBuyerList(map))
                 .subscribe(httpRxObserver);

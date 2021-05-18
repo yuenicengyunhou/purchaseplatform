@@ -51,7 +51,6 @@ public interface UserService {
     @GET("app-user-service/app/v1/buyer/roleresource/queryResourceByAccountId")
     Observable<HttpResult<ArrayList<AuthorMenuBean>>> queryResource(@QueryMap HashMap<String, Object> params);
 
-
     /**
      * 按钮
      *
