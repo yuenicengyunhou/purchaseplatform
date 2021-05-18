@@ -49,30 +49,30 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
     @Override
     public void test() {
-        String[] arr = new String[]{"243071", "243057"};
-        String ids = new Gson().toJson(arr);
-        Log.e("WQ", "=====" + ids);
-        messageModel.deleteMessages("20", accountId, ids, new HttpRxObserver() {
-            @Override
-            protected void onError(ErrorBean e) {
-
-            }
-
-            @Override
-            protected void onSuccess(Object response) {
-                messageModel.getMessageList("20", accountId, 1, 10, new HttpRxObserver<MessageRaw>() {
-                    @Override
-                    protected void onError(ErrorBean e) {
-
-                    }
-
-                    @Override
-                    protected void onSuccess(MessageRaw response) {
-                        Log.e("WQ", "====" + response.getAllMessage());
-                    }
-                });
-            }
-        });
+//        String[] arr = new String[]{"243071", "243057"};
+//        String ids = new Gson().toJson(arr);
+//        Log.e("WQ", "=====" + ids);
+//        messageModel.deleteMessages("20", accountId, ids, new HttpRxObserver() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object response) {
+//                messageModel.getMessageList("20", accountId, 1, 10, new HttpRxObserver<MessageRaw>() {
+//                    @Override
+//                    protected void onError(ErrorBean e) {
+//
+//                    }
+//
+//                    @Override
+//                    protected void onSuccess(MessageRaw response) {
+//                        Log.e("WQ", "====" + response.getAllMessage());
+//                    }
+//                });
+//            }
+//        });
 
 
 //        messageModel.getNotReadMessageCount("20", accountId, new HttpRxObserver() {
