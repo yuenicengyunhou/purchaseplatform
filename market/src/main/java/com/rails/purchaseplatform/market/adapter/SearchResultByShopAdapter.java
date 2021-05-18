@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
@@ -50,14 +48,16 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
 
     @Override
     protected void onBindItem(ItemSearchResultByShopBinding binding, ShopAttribute shopAttribute, int position) {
-        binding.setShopAttr(shopAttribute);
         String shopName = shopAttribute.getShopName();
         if (!TextUtils.isEmpty(shopName)) {
             if (shopName.contains("<em>"))
                 shopName = shopName.replace("<em>", "");
             if (shopName.contains("</em>"))
                 shopName = shopName.replace("</em>", "");
+            binding.textView.setVisibility(View.VISIBLE);
             binding.textView.setText(shopName);
+        } else {
+            binding.textView.setVisibility(View.INVISIBLE);
         }
 
         String credit = CREDIT_NAME_1;
