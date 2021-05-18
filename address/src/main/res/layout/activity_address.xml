@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_add"
         app:srlEnableLoadMore="true">
+        
 
         <com.yanzhenjie.recyclerview.SwipeRecyclerView
             android:id="@+id/recycler"

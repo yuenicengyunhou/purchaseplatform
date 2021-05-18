@@ -13,6 +13,7 @@ import org.json.JSONException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.text.ParseException;
+import java.util.Objects;
 
 import retrofit2.HttpException;
 
@@ -44,7 +45,7 @@ public class ExceptionEngine {
 
     public static ErrorBean handleException(Throwable e) {
         ErrorBean errorBean;
-        Logger.e(e.getMessage());
+        Logger.e(Objects.requireNonNull(e.getMessage()));
         if (e instanceof HttpException) {//HTTP错误
             errorBean = new ErrorBean(e, HTTP_ERROR);
             errorBean.setMsg("网络请求异常");  //均视为网络错误

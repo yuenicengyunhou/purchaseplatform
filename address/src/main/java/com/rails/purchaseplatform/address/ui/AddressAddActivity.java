@@ -89,8 +89,10 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String fullAddress = addressInfo.getFullAddress();
         String attachAddress = addressInfo.getAttachAddress();
         String cleanAddress = StringUtil.delStringTail(fullAddress, attachAddress);
-        Log.e("WQ", "cleanAddress=====" + cleanAddress);
-        barBinding.etArea.setContent(fullAddress);
+        provinceCode = addressInfo.getProvinceCode();
+        cityCode = addressInfo.getCityCode();
+        countryCode = addressInfo.getCountryCode();
+        barBinding.etArea.setContent(cleanAddress);
         barBinding.etRemark.setText(attachAddress);
         barBinding.cbReceive.setChecked(addressInfo.getReceivingAddress() == 1);
         barBinding.cbInvoice.setChecked(addressInfo.getInvoiceAddress() == 1);
