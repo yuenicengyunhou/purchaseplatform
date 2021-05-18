@@ -59,9 +59,15 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
 
     @Override
     protected void initialize(Bundle bundle) {
-        initWeb(binding.web, this);
+
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initWeb(binding.web, this);
+    }
 
     @JavascriptInterface
     @Override
@@ -79,7 +85,6 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
                 .build(ConRoute.MARKET.COMMIT_RESULT)
                 .withParcelable("bean", bean)
                 .navigation();
-        finish();
     }
 
 

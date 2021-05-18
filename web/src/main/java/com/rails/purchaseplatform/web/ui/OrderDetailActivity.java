@@ -60,9 +60,14 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
 
     @Override
     protected void initialize(Bundle bundle) {
-        initWeb(binding.web, this);
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initWeb(binding.web, this);
+    }
 
     @JavascriptInterface
     @Override
@@ -80,7 +85,6 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
                 .build(ConRoute.MARKET.COMMIT_RESULT)
                 .withParcelable("bean", bean)
                 .navigation();
-        finish();
     }
 
     @Override
