@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rails.purchaseplatform.msg">
 
-    <application>
-
-
-    </application>
+    <application></application>
 
 </manifest>

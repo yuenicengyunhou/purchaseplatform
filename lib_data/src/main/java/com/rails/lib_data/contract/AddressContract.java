@@ -46,6 +46,9 @@ public interface AddressContract {
         void getArea(ArrayList<AddressArea> list);
 
 
+
+
+
     }
 
 
@@ -100,6 +103,9 @@ public interface AddressContract {
          * 获取二级 使用一级code
          */
         void getArea( String parentCode);
+
+
+        void test();
 
 
 

@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.order.adapter.order;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -74,6 +75,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         String buyer = buyerStr.toString();
         String delayTime = parentBean.getDelayReceiveTime() == null ? "" : parentBean.getDelayReceiveTime();
         holder.title.setText(orderNoStr, orderTime, provider, buyer, delayTime);
+
         holder.title.setOnClickListener(v -> {
             if (!isDetail) {
                 ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));

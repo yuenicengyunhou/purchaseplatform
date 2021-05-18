@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rails.lib_data.AddressArea;
@@ -11,7 +12,9 @@ import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressDTO;
 import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.message.MessageRaw;
 import com.rails.lib_data.model.AddressModel;
+import com.rails.lib_data.model.MessageModel;
 import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -33,13 +36,56 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     private final AddressModel model;
     private final String accountId;
     private final String platformId;
+    private final MessageModel messageModel;
 
     public AddressPresenterImpl(Activity mContext, AddressContract.AddressView addressView) {
         super(mContext, addressView);
         model = new AddressModel();
+        messageModel = new MessageModel();
         UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
         accountId = bean.getId();
         platformId = bean.getPlatformId();
+    }
+
+    @Override
+    public void test() {
+//        String[] arr = new String[]{"243071", "243057"};
+//        String ids = new Gson().toJson(arr);
+//        Log.e("WQ", "=====" + ids);
+//        messageModel.deleteMessages("20", accountId, ids, new HttpRxObserver() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object response) {
+//                messageModel.getMessageList("20", accountId, 1, 10, new HttpRxObserver<MessageRaw>() {
+//                    @Override
+//                    protected void onError(ErrorBean e) {
+//
+//                    }
+//
+//                    @Override
+//                    protected void onSuccess(MessageRaw response) {
+//                        Log.e("WQ", "====" + response.getAllMessage());
+//                    }
+//                });
+//            }
+//        });
+
+
+//        messageModel.getNotReadMessageCount("20", accountId, new HttpRxObserver() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object response) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -177,6 +223,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
             ToastUtil.show(mContext, "获取地区码错误，请重选地址");
             return;
         }
+        baseView.showResDialog(R.string.saving);
         AddressDTO dto = new AddressDTO();
         dto.setReceiverName(men);
         dto.setMobile(phone);
@@ -192,11 +239,13 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
             model.addAddress(platformId, accountId, json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
+                    baseView.dismissDialog();
                     baseView.onError(e);
                 }
 
                 @Override
                 protected void onSuccess(Boolean response) {
+                    baseView.dismissDialog();
                     if (response) {
                         baseView.getResult(0, 0, "操作成功");
                     }
@@ -206,11 +255,13 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
             model.editAddress(platformId, accountId, addressId, json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
+                    baseView.dismissDialog();
                     baseView.onError(e);
                 }
 
                 @Override
                 protected void onSuccess(Boolean response) {
+                    baseView.dismissDialog();
                     if (response) {
                         baseView.getResult(0, 0, "操作成功");
                     }

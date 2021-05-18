@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -76,10 +77,17 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
 //        String buyer = subOrderInfoBean.getBuyer();
 //        String delayTime = subOrderInfoBean.getDelayTime() == null ? "" : subOrderInfoBean.getDelayTime();
 
-
-        holder.tvOrderNum.setText(orderNo);
+        if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
+            holder.tvOrderNum.setText(orderNo);
+            holder.tvStatus.setText(orderStatusView);
+            holder.ivNext.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvOrderNum.setText(orderStatusView);
+            holder.tvStatus.setText("");
+            holder.ivNext.setVisibility(View.INVISIBLE);
+        }
         holder.tvOrderTime.setText(orderTime);
-        holder.tvStatus.setText(orderStatusView);
+
         OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext, getItemViewType(position));
         holder.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 1);
         holder.recycler.setAdapter(adapter);
@@ -115,12 +123,8 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             holder.tvPrice.setText(formattedPrice);
         }
 //        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? subSkuDemandInfo : "共100件");
-        if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
-            holder.ivNext.setVisibility(View.VISIBLE);
-        } else {
-            holder.ivNext.setVisibility(View.INVISIBLE);
-        }
         adapter.update(subSkuDemandInfo, true);
+
         holder.orderItem.setOnClickListener(v -> {
             if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
                 ARouter.getInstance()
