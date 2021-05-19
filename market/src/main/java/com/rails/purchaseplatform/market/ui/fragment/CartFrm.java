@@ -250,7 +250,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         for (String itemId : list) {
             for (CartShopBean bean : cartAdapter.getBeans()) {
                 for (CartShopProductBean productBean : bean.getSkuList()) {
-                    if (itemId.equals(productBean.getSkuId())&& productBean.canSel.get()) {
+                    if (itemId.equals(productBean.getSkuId()) && productBean.canSel.get()) {
                         productBean.isLimit.set(true);
                         break;
                     }
@@ -281,7 +281,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.btnCommit.setOnClickListener(v -> {
             if (addressBean == null)
                 return;
-            presenter.verifyCart(String.valueOf(addressBean.getId()));
+            if (cartAdapter.isNext())
+                presenter.verifyCart(String.valueOf(addressBean.getId()));
+            else
+                ToastUtil.showCenter(getActivity(), "您有商品未满足下单条件请核对");
         });
 
         binding.btnDel.setOnClickListener(v -> {
