@@ -2,6 +2,8 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
@@ -28,7 +30,19 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemA
     protected void onBindItem(ItemSearchResultByShopProductBinding binding, ItemAttribute itemAttribute, int position) {
         binding.setItemAttr(itemAttribute);
         binding.tvPrice.setText(String.format("%.2f", itemAttribute.getSellPrice()));
-        binding.tvItemShop.setText(itemAttribute.getShopName());
+
+        String shopName = itemAttribute.getShopName();
+        if (!TextUtils.isEmpty(shopName)) {
+            if (shopName.contains("<em>"))
+                shopName = shopName.replace("<em>", "");
+            if (shopName.contains("</em>"))
+                shopName = shopName.replace("</em>", "");
+            binding.tvItemShop.setVisibility(View.VISIBLE);
+            binding.tvItemShop.setText(shopName);
+        } else {
+            binding.tvItemShop.setVisibility(View.INVISIBLE);
+        }
+
         binding.rcProduct.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("itemId", String.valueOf(itemAttribute.getItemId()));
