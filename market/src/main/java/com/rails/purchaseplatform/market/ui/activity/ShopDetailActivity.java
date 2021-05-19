@@ -40,7 +40,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     private ShopAdapter adapter;
     private ShopPresenterImp presenter;
     private String shopInfoId;
-    private final int PAGE_DEF = 0;
+    private final int PAGE_DEF = 1;
     private int mPage = PAGE_DEF;
     private ArrayList<SearchFilterBean> filterList = null;
     //    private ArrayList<SearchFilterBean> FILTER_DEF = null;
@@ -259,6 +259,8 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             }
         }
     }
+
+
 
     /**
      * 筛选

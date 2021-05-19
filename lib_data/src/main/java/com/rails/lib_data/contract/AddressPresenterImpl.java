@@ -33,18 +33,24 @@ import java.util.ArrayList;
  */
 public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressView> implements AddressContract.AddressPresenter {
 
-    private final AddressModel model;
-    private final String accountId;
-    private final String platformId;
-    private final MessageModel messageModel;
+    private  AddressModel model;
+    private  String accountId;
+    private  String platformId;
+//    private  MessageModel messageModel;
+    private  String accountType;
 
     public AddressPresenterImpl(Activity mContext, AddressContract.AddressView addressView) {
         super(mContext, addressView);
         model = new AddressModel();
-        messageModel = new MessageModel();
+//        messageModel = new MessageModel();
         UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
+        if (bean == null) {
+            ToastUtil.show(mContext,"用户信息为空");
+            return;
+        }
         accountId = bean.getId();
         platformId = bean.getPlatformId();
+        accountType = bean.getAccountType();
     }
 
     @Override
@@ -93,7 +99,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
-        model.queryAddressList(platformId, accountId, 2, page, new HttpRxObserver<ListBeen<AddressBean>>() {
+        model.queryAddressList(platformId, accountId, accountType, page, new HttpRxObserver<ListBeen<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (isDialog) {

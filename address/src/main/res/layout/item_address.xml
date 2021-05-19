@@ -21,16 +21,16 @@
         android:paddingStart="@dimen/dp_22"
         android:paddingEnd="@dimen/dp_16">
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/tv_def"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_gravity="center_vertical"-->
-        <!--            android:src="@drawable/svg_circle_checked"-->
-        <!--            android:visibility="@{address.hasDefault==1?View.VISIBLE:View.GONE}"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            tools:ignore="ContentDescription" />-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/tv_def"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:src="@drawable/svg_circle_checked"-->
+<!--                    android:visibility="@{address.hasDefault==1?View.VISIBLE:View.GONE}"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    tools:ignore="ContentDescription" />-->
 
         <TextView
             android:id="@+id/tv_name"
