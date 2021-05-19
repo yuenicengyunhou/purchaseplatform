@@ -1,15 +1,18 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
@@ -19,6 +22,7 @@ import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
@@ -179,4 +183,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         }
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            BaseActManager.getInstance().clear();
+            ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

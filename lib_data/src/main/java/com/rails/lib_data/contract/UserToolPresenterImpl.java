@@ -83,6 +83,11 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
 
     @Override
     public void queryResource(String userId, String userType) {
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.MENU_PURCHAR, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.MENU_APPROVE, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.MENU_COLLECT, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.MENU_TRACK, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.MENU_ADDRESS, false);
         model.queryResource(userId, userType, new HttpRxObserver<ArrayList<AuthorMenuBean>>() {
             @Override
             protected void onError(ErrorBean e) {
@@ -142,6 +147,14 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
 
     @Override
     public void queryResourceButton(String userId, String userType) {
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_EVA_COMMIT, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_EVA_SEEK, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_RECEIVE, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_APPROVE, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_DETAIL, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_ADDRESS_EDIT, false);
+        PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_ADDRESS_DEL, false);
         model.queryResourceButton(userId, userType, new HttpRxObserver<ArrayList<AuthorButtonBean>>() {
             @Override
             protected void onError(ErrorBean e) {

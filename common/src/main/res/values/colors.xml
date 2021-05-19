@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="trans">#00FFFFFF</color>
+    <color name="trans_half">#55000000</color>
 
     <color name="bg">#f5f5f5</color>
 

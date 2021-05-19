@@ -43,13 +43,13 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         this.isCollect = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_COLLECT, false);
         this.isTrack = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_TRACK, false);
 
-        bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
     }
 
     @Override
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
+        bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         if (bean != null) {
             toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
             toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());

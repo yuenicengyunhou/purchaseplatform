@@ -118,11 +118,12 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         try {
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
-                if (bean.canSel.get() == null)
-                    continue;
+//                if (bean.canSel.get() == null)
+//                    continue;
                 if (bean.isSel.get() == null)
                     continue;
-                if (bean.isSel.get() && bean.canSel.get()) {
+//                if (bean.isSel.get() && bean.canSel.get()) {
+                if (bean.isSel.get()) {
                     total += bean.num.get() * bean.getSellPrice();
                 }
             }

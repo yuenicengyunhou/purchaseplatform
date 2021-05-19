@@ -89,6 +89,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     private String orderToken = "";
 
 
+    //1：普通发票   2：增值税发票
+    private int invoiceType = 2;
+
     private double itemPrice, extraPrice;
 
     @Override
@@ -119,7 +122,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         invoicePresenter = new InvoicePresenterImpl(this, this);
         presenter = new OrderVerifyPresenterImpl(this, this);
         presenter.getOrderToken();
-        invoicePresenter.getInvoiceTitles(false, 1, 2);
+        invoicePresenter.getDefInvoiceTitle();
         presenter.getBudget();
         if (addressBean != null) {
             setAddress(addressBean);
@@ -335,6 +338,15 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 orderInvoiceBean = (OrderInvoiceBean) data.getExtras().getSerializable("invoiceBean");
                 String name = data.getExtras().getString("invoiceTitle");
                 barBinding.rlBill.setKey(name);
+
+                if (orderInvoiceBean != null){
+                    if (orderInvoiceBean.getInvoiceType() == 2) {
+                        barBinding.rlBill.setContent("专票");
+                    } else {
+                        barBinding.rlBill.setContent("普票");
+                    }
+                }
+
                 if (orderInvoiceBean.getInvoiceAddress() != null) {
                     barBinding.tvBillAddress.setText(orderInvoiceBean.getInvoiceAddress().getFullAddress());
                     barBinding.tvBillPhone.setText(orderInvoiceBean.getInvoiceAddress().getReceiverName() + "  " + orderInvoiceBean.getInvoiceAddress().getMobile());
@@ -437,7 +449,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         //发票内容,默认 明细
         orderInvoiceBean.setContent(1);
         //发票类型 ，
-        orderInvoiceBean.setInvoiceType(2);
+        orderInvoiceBean.setInvoiceType(invoiceType);
 
         orderInvoiceBean.setInvoiceTitleId(titleBean.getId());
         //未知
@@ -499,6 +511,11 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             InvoiceTitleBean bean = invoiceTitleBeans.get(0);
             if (bean != null) {
                 barBinding.rlBill.setKey(bean.getInvoiceTitle());
+                if (bean.getInvoiceType() == 2) {
+                    barBinding.rlBill.setContent("专票");
+                } else {
+                    barBinding.rlBill.setContent("普票");
+                }
                 setInvoiceParams(bean);
             }
         } else {

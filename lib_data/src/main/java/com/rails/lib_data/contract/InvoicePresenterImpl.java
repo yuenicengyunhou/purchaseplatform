@@ -84,6 +84,41 @@ public class InvoicePresenterImpl extends BasePresenter<InvoiceContract.InvoiceV
 
     }
 
+    @Override
+    public void getDefInvoiceTitle() {
+        model.getInvoiceTitle(1, 20, String.valueOf(2), new HttpRxObserver<ListBeen<InvoiceTitleBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.dismissDialog();
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(ListBeen<InvoiceTitleBean> listBeen) {
+                baseView.dismissDialog();
+                if (listBeen == null) {
+                    model.getInvoiceTitle(1, 20, String.valueOf(1), new HttpRxObserver<ListBeen<InvoiceTitleBean>>() {
+                        @Override
+                        protected void onError(ErrorBean e) {
+                            baseView.dismissDialog();
+                            baseView.onError(e);
+                        }
+
+                        @Override
+                        protected void onSuccess(ListBeen<InvoiceTitleBean> listBeen) {
+                            baseView.dismissDialog();
+                            if (isCallBack())
+                                baseView.getInvoiceTitles(listBeen);
+                        }
+                    });
+                } else {
+                    baseView.getInvoiceTitles(listBeen);
+                }
+
+            }
+        });
+    }
+
 
     @Override
     public void onInvoice() {

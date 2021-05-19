@@ -198,11 +198,12 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         try {
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
-                if (bean.canSel.get() == null)
-                    continue;
+//                if (bean.canSel.get() == null)
+//                    continue;
                 if (bean.isSel.get() == null)
                     continue;
-                if (bean.isSel.get() && bean.canSel.get()) {
+//                if (bean.isSel.get() && bean.canSel.get()) {
+                if (bean.isSel.get()) {
                     total += bean.num.get() * bean.getSellPrice();
                 }
             }
@@ -264,12 +265,12 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             double total = shopPrice(shopBean);
             String freightS = shopBean.getFreightPrice();
             double freight = 0D;
-            try{
-                if (TextUtils.isEmpty(freightS)){
+            try {
+                if (TextUtils.isEmpty(freightS)) {
                     freight = 0;
-                }else
+                } else
                     freight = Double.parseDouble(freightS);
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
             if (total >= freight) {
@@ -280,7 +281,24 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 shopBean.isshow.set(true);
             }
         }
-//        notifyDataSetChanged();
+    }
+
+
+    /**
+     * 是否可以下一步
+     *
+     * @return
+     */
+    public boolean isNext() {
+        for (CartShopBean shopBean : mDataSource) {
+            for (CartShopProductBean productBean : shopBean.getSkuList()) {
+                if (productBean.isSel.get())
+                    if (shopBean.isshow.get())
+                        return false;
+            }
+
+        }
+        return true;
     }
 
 }

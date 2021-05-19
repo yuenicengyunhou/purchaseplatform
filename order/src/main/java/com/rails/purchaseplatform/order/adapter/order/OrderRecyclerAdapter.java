@@ -22,6 +22,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -142,7 +143,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
     class ItemHolder extends RecyclerView.ViewHolder {
 
         private BaseRecyclerView recycler;
-        private LinearLayout orderItem;
+        private ConstraintLayout orderItem;
         private TextView singlePrice;
         private TextView count;
         private TextView tvPrice;

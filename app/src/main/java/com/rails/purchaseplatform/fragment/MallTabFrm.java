@@ -80,7 +80,7 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         binding.rbIndex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goLogin(1);
+                binding.viewpager.setCurrentItem(1);
             }
         });
 
@@ -144,9 +144,9 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
             ARouter.getInstance()
                     .build(ConRoute.USER.LOGIN)
                     .navigation();
-        } else {
-            binding.viewpager.setCurrentItem(page);
         }
+        binding.viewpager.setCurrentItem(page);
+
 
     }
 

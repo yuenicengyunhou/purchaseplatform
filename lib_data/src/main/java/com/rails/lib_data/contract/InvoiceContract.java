@@ -52,7 +52,13 @@ public interface InvoiceContract {
         /**
          * 获取发票抬头列表
          */
-        void getInvoiceTitles(boolean isDialog, int page,int invoiceType);
+        void getInvoiceTitles(boolean isDialog, int page, int invoiceType);
+
+
+        /**
+         * 获取默认发票数据  专用发票（2）：首先请求，如果为null，在请求普通发票（1）
+         */
+        void getDefInvoiceTitle();
 
 
         void onInvoice();
