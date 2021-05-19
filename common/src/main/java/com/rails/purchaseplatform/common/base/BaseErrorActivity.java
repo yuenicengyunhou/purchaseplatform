@@ -1,12 +1,19 @@
 package com.rails.purchaseplatform.common.base;
 
 
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
+import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.base.BaseActivity;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import androidx.viewbinding.ViewBinding;
@@ -25,6 +32,59 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.U
  */
 
 public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActivity<T> {
+
+    private UserToolContract.UserToolPresenter toolPresenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        toolPresenter = new UserToolPresenterImpl(this, new UserToolContract.UserToolView() {
+            @Override
+            public void getUserStatictics(UserStatisticsBean bean) {
+
+            }
+
+            @Override
+            public void getUserInfoStatictics(UserStatisticsBean bean) {
+
+            }
+
+            @Override
+            public void checkPermissions(UserStatisticsBean bean) {
+
+            }
+
+            @Override
+            public void onError(ErrorBean errorBean) {
+
+            }
+
+            @Override
+            public void showDialog(String msg) {
+
+            }
+
+            @Override
+            public void showResDialog(int res) {
+
+            }
+
+            @Override
+            public void dismissDialog() {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UserInfoBean bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
+        if (bean != null) {
+            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
+            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
+        }
+    }
 
     @Override
     public void onError(ErrorBean errorBean) {
