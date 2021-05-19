@@ -31,12 +31,12 @@ public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrieve
 
     @Override
     protected int getColor() {
-        return 0;
+        return android.R.color.white;
     }
 
     @Override
     protected boolean isSetSystemBar() {
-        return false;
+        return true;
     }
 
     @Override
@@ -52,8 +52,8 @@ public class RetrievePasswordActivity extends BaseErrorActivity<ActivityRetrieve
         binding.btnConfirm.setOnClickListener(v -> {
             String username = binding.etUserNameInput.getText().toString().trim(),
                     email = binding.etEmailInput.getText().toString().trim();
-            email = "1023725142@qq.com";
-            username = "lwq010";
+//            email = "1023725142@qq.com";
+//            username = "lwq010";
             mPresenter.retrievePassword(username, email, true);
         });
 

@@ -1,0 +1,476 @@
+{
+  "minPriceSkuId": null,
+  "itemId": null,
+  "itemPublishVo": {
+    "id": 1316280,
+    "platformId": 20,
+    "sellerId": 1000089280,
+    "shopId": 202102240139,
+    "shopName": "茶叶铺子",
+    "logoUrl": "//xsky.rails.cn/mall/503b7e663c121afeb8f20da68711196b20210426102040182.png",
+    "operatorId": null,
+    "itemName": "茶包袋 过滤茶渣 煮茶过滤玉米纤维泡茶袋 一次性反折茶叶袋",
+    "cid": 1001565,
+    "brandId": 1043980,
+    "unit": null,
+    "origin": null,
+    "ad": null,
+    "categoryAttributes": "29261:135097;29261:135095;29261:135096;",
+    "specAttributes": "14033:135103:;14035:135104:;14023:135100:;29261:135097:;14025:135101:;29261:135095:;14029:39611:;29261:135096:;14027:135102:;14019:135099:;14021:39569:;14031:39621:;",
+    "saleStatus": 60,
+    "packingList": null,
+    "describeUrl": "<p><img src=\"//xsky.rails.cn/mall/bf96bcbf-c459-4919-8d91-554fc4480464.jpg\" /><img src=\"//xsky.rails.cn/mall/5ec6405a-a559-463e-94f5-836a1b7fce86.jpg\" /><img src=\"//xsky.rails.cn/mall/07c1899c-7182-487d-a61d-6f5df76e6b40.jpg\" /></p>",
+    "created": "2021-05-13 03:29:07",
+    "modified": "2021-05-13 03:26:49",
+    "listingTime": "2021-05-13 03:30:20",
+    "delistingTime": null,
+    "operator": null,
+    "addSource": null,
+    "yn": null,
+    "deliveryType": null,
+    "brandName": "浔茗茶业",
+    "brandNameCh": null,
+    "brandNameEn": null,
+    "itemSaleInfoVo": null,
+    "itemDeliveryInfoVo": null,
+    "itemAfterSaleVo": {
+      "id": null,
+      "platformId": 20,
+      "itemId": 1316280,
+      "sellerId": 1000089280,
+      "shopId": 202102240139,
+      "refundService": 2,
+      "changeService": 2,
+      "refundDuration": 7,
+      "changeDuration": 15,
+      "repaireDuration": 12,
+      "afterSalesExplain": null,
+      "specialDesc": null,
+      "specialShow": 0
+    },
+    "pictureUrl": null,
+    "altImages": null,
+    "sortNumber": null,
+    "tmplId": null,
+    "itemDeliveryInfoVoList": null,
+    "itemPictureVoList": null,
+    "itemSkuPictureVoList": null,
+    "itemPicpdfManualVoList": null,
+    "itemSkuVoList": null,
+    "perfectItemParamVo": null,
+    "publishuserId": 1000089280,
+    "attrNameValueReaultVos": [
+      {
+        "attrId": "14033",
+        "attrName": "品种",
+        "attrValueId": "135103",
+        "attrValueName": "无"
+      },
+      {
+        "attrId": "14035",
+        "attrName": "生产许可证号",
+        "attrValueId": "135104",
+        "attrValueName": "GB/T 22291324"
+      },
+      {
+        "attrId": "14023",
+        "attrName": "保质期",
+        "attrValueId": "135100",
+        "attrValueName": "2020-7-21"
+      },
+      {
+        "attrId": "29261",
+        "attrName": "数量",
+        "attrValueId": "135097",
+        "attrValueName": "50"
+      },
+      {
+        "attrId": "14025",
+        "attrName": "储存方法",
+        "attrValueId": "135101",
+        "attrValueName": "盒装"
+      },
+      {
+        "attrId": "29261",
+        "attrName": "数量",
+        "attrValueId": "135095",
+        "attrValueName": "5"
+      },
+      {
+        "attrId": "14029",
+        "attrName": "分类",
+        "attrValueId": "39611",
+        "attrValueName": "袋泡茶"
+      },
+      {
+        "attrId": "29261",
+        "attrName": "数量",
+        "attrValueId": "135096",
+        "attrValueName": "20"
+      },
+      {
+        "attrId": "14027",
+        "attrName": "净含量（kg）",
+        "attrValueId": "135102",
+        "attrValueName": "50g"
+      },
+      {
+        "attrId": "14019",
+        "attrName": "产品标准号",
+        "attrValueId": "135099",
+        "attrValueName": "GB/T 22291"
+      },
+      {
+        "attrId": "14021",
+        "attrName": "产地",
+        "attrValueId": "39569",
+        "attrValueName": "北京"
+      },
+      {
+        "attrId": "14031",
+        "attrName": "包装",
+        "attrValueId": "39621",
+        "attrValueName": "袋装"
+      }
+    ],
+    "attrNameArray": [
+      "数量"
+    ],
+    "categoryFullName": "粮油食品>茗茶>其它茶",
+    "specAttrNameArray": [
+      "产地",
+      "储存方法",
+      "生产许可证号",
+      "品种",
+      "保质期",
+      "包装",
+      "产品标准号",
+      "净含量（kg）",
+      "分类"
+    ],
+    "itemType": 1,
+    "hasInventoryFlag": null,
+    "recycleStatus": null,
+    "rejectReason": "",
+    "bizId": null,
+    "itemFareTmplInfo": null,
+    "itemSaleCount": null,
+    "frontCategoryVoList": null,
+    "supplierInfoImportData": {
+      "id": 3741,
+      "recommendOrg": "中国铁路北京局集团有限公司",
+      "bindOrgName": "天津货运中心",
+      "accountName": "孔经理"
+    },
+    "orgId": 112397,
+    "skuSpecMap": {
+      "1428145": [
+        {
+          "attrName": "型号",
+          "attrValue": ""
+        },
+        {
+          "attrName": "单位",
+          "attrValue": "个"
+        },
+        {
+          "attrName": "数量",
+          "attrValue": "20"
+        },
+        {
+          "attrName": "null",
+          "attrValue": null
+        },
+        {
+          "attrName": "产品标准号",
+          "attrValue": "GB/T 22291"
+        },
+        {
+          "attrName": "产地",
+          "attrValue": "北京"
+        },
+        {
+          "attrName": "保质期",
+          "attrValue": "2020-7-21"
+        },
+        {
+          "attrName": "储存方法",
+          "attrValue": "盒装"
+        },
+        {
+          "attrName": "净含量（kg）",
+          "attrValue": "50g"
+        },
+        {
+          "attrName": "分类",
+          "attrValue": "袋泡茶"
+        },
+        {
+          "attrName": "包装",
+          "attrValue": "袋装"
+        },
+        {
+          "attrName": "品种",
+          "attrValue": "无"
+        },
+        {
+          "attrName": "生产许可证号",
+          "attrValue": "GB/T 22291324"
+        }
+      ],
+      "1428144": [
+        {
+          "attrName": "型号",
+          "attrValue": ""
+        },
+        {
+          "attrName": "单位",
+          "attrValue": "个"
+        },
+        {
+          "attrName": "数量",
+          "attrValue": "5"
+        },
+        {
+          "attrName": "null",
+          "attrValue": null
+        },
+        {
+          "attrName": "产品标准号",
+          "attrValue": "GB/T 22291"
+        },
+        {
+          "attrName": "产地",
+          "attrValue": "北京"
+        },
+        {
+          "attrName": "保质期",
+          "attrValue": "2020-7-21"
+        },
+        {
+          "attrName": "储存方法",
+          "attrValue": "盒装"
+        },
+        {
+          "attrName": "净含量（kg）",
+          "attrValue": "50g"
+        },
+        {
+          "attrName": "分类",
+          "attrValue": "袋泡茶"
+        },
+        {
+          "attrName": "包装",
+          "attrValue": "袋装"
+        },
+        {
+          "attrName": "品种",
+          "attrValue": "无"
+        },
+        {
+          "attrName": "生产许可证号",
+          "attrValue": "GB/T 22291324"
+        }
+      ],
+      "1428146": [
+        {
+          "attrName": "型号",
+          "attrValue": ""
+        },
+        {
+          "attrName": "单位",
+          "attrValue": "个"
+        },
+        {
+          "attrName": "数量",
+          "attrValue": "50"
+        },
+        {
+          "attrName": "null",
+          "attrValue": null
+        },
+        {
+          "attrName": "产品标准号",
+          "attrValue": "GB/T 22291"
+        },
+        {
+          "attrName": "产地",
+          "attrValue": "北京"
+        },
+        {
+          "attrName": "保质期",
+          "attrValue": "2020-7-21"
+        },
+        {
+          "attrName": "储存方法",
+          "attrValue": "盒装"
+        },
+        {
+          "attrName": "净含量（kg）",
+          "attrValue": "50g"
+        },
+        {
+          "attrName": "分类",
+          "attrValue": "袋泡茶"
+        },
+        {
+          "attrName": "包装",
+          "attrValue": "袋装"
+        },
+        {
+          "attrName": "品种",
+          "attrValue": "无"
+        },
+        {
+          "attrName": "生产许可证号",
+          "attrValue": "GB/T 22291324"
+        }
+      ]
+    },
+    "creditLevel": "B"
+  },
+  "itemPictureVoList": [
+    {
+      "id": 296532,
+      "platformId": 20,
+      "itemId": 1316280,
+      "skuId": null,
+      "shopId": 202102240139,
+      "sellerId": null,
+      "pictureUrl": "//xsky.rails.cn/mall/2801c902d9dd7b720712cd0f98bec18520210513112557999.jpg",
+      "altImages": "files.name`-1",
+      "sortNumber": 1,
+      "annexType": 1
+    }
+  ],
+  "itemSkuInfoList": [
+    {
+      "id": 1428144,
+      "itemId": 1316280,
+      "skuType": null,
+      "attributes": "29261:135095;",
+      "skuId": null,
+      "pictureUrl": "//xsky.rails.cn/mall/2801c902d9dd7b720712cd0f98bec18520210513112612444.jpg",
+      "modelUrl": null,
+      "altImages": "files.name`-1",
+      "marketPrice": null,
+      "sellPrice": null,
+      "inventory": 999999995,
+      "attributesName": "数量:5;",
+      "deliveryCycle": null,
+      "modelCode": "",
+      "saleNum": null,
+      "skuStatus": null,
+      "brandName": null,
+      "itemName": null,
+      "skuName": "茶包袋 过滤茶渣 煮茶过滤玉米纤维泡茶袋 一次性反折茶叶袋（5）",
+      "areaPriceList": null,
+      "packageDis": "**",
+      "salesVolume": null,
+      "skuIdStr": null,
+      "itemSkuPriceResultVo": null,
+      "specAttributes": "null;产品标准号:GB/T 22291;产地:北京;保质期:2020-7-21;储存方法:盒装;净含量（kg）:50g;分类:袋泡茶;包装:袋装;品种:无;生产许可证号:GB/T 22291324;",
+      "productCode": null,
+      "materialCode": null,
+      "skuUnit": "个",
+      "shopId": 202102240139,
+      "weightUnit": "kg",
+      "skuQrcode": null,
+      "weight": null,
+      "barCode": null,
+      "sourceSkuId": null,
+      "shortCode": "1428144",
+      "saleStatus": 1,
+      "shopType": null,
+      "skuPicUrls": null,
+      "skuNote": null,
+      "upTime": 1620876620000
+    },
+    {
+      "id": 1428145,
+      "itemId": 1316280,
+      "skuType": null,
+      "attributes": "29261:135096;",
+      "skuId": null,
+      "pictureUrl": "//xsky.rails.cn/mall/2801c902d9dd7b720712cd0f98bec18520210513112614325.jpg",
+      "modelUrl": null,
+      "altImages": "files.name`-1",
+      "marketPrice": null,
+      "sellPrice": null,
+      "inventory": 999999997,
+      "attributesName": "数量:20;",
+      "deliveryCycle": null,
+      "modelCode": "",
+      "saleNum": null,
+      "skuStatus": null,
+      "brandName": null,
+      "itemName": null,
+      "skuName": "茶包袋 过滤茶渣 煮茶过滤玉米纤维泡茶袋 一次性反折茶叶袋（20）",
+      "areaPriceList": null,
+      "packageDis": "**",
+      "salesVolume": null,
+      "skuIdStr": null,
+      "itemSkuPriceResultVo": null,
+      "specAttributes": "null;产品标准号:GB/T 22291;产地:北京;保质期:2020-7-21;储存方法:盒装;净含量（kg）:50g;分类:袋泡茶;包装:袋装;品种:无;生产许可证号:GB/T 22291324;",
+      "productCode": null,
+      "materialCode": null,
+      "skuUnit": "个",
+      "shopId": 202102240139,
+      "weightUnit": "kg",
+      "skuQrcode": null,
+      "weight": null,
+      "barCode": null,
+      "sourceSkuId": null,
+      "shortCode": "1428145",
+      "saleStatus": 1,
+      "shopType": null,
+      "skuPicUrls": null,
+      "skuNote": null,
+      "upTime": 1620876620000
+    },
+    {
+      "id": 1428146,
+      "itemId": 1316280,
+      "skuType": null,
+      "attributes": "29261:135097;",
+      "skuId": null,
+      "pictureUrl": "//xsky.rails.cn/mall/2801c902d9dd7b720712cd0f98bec18520210513112617353.jpg",
+      "modelUrl": null,
+      "altImages": "files.name`-1",
+      "marketPrice": null,
+      "sellPrice": null,
+      "inventory": 999999998,
+      "attributesName": "数量:50;",
+      "deliveryCycle": null,
+      "modelCode": "",
+      "saleNum": null,
+      "skuStatus": null,
+      "brandName": null,
+      "itemName": null,
+      "skuName": "茶包袋 过滤茶渣 煮茶过滤玉米纤维泡茶袋 一次性反折茶叶袋（50）",
+      "areaPriceList": null,
+      "packageDis": "**",
+      "salesVolume": null,
+      "skuIdStr": null,
+      "itemSkuPriceResultVo": null,
+      "specAttributes": "null;产品标准号:GB/T 22291;产地:北京;保质期:2020-7-21;储存方法:盒装;净含量（kg）:50g;分类:袋泡茶;包装:袋装;品种:无;生产许可证号:GB/T 22291324;",
+      "productCode": null,
+      "materialCode": null,
+      "skuUnit": "个",
+      "shopId": 202102240139,
+      "weightUnit": "kg",
+      "skuQrcode": null,
+      "weight": null,
+      "barCode": null,
+      "sourceSkuId": null,
+      "shortCode": "1428146",
+      "saleStatus": 1,
+      "shopType": null,
+      "skuPicUrls": null,
+      "skuNote": null,
+      "upTime": 1620876620000
+    }
+  ],
+  "priceShowType": null,
+  "scoreViewName": null
+}

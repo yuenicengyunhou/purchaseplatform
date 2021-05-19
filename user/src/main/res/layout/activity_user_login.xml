@@ -10,6 +10,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:overScrollMode="never">
 
         <RelativeLayout
@@ -43,7 +44,7 @@
                 android:layout_below="@+id/tv_title"
                 android:layout_marginStart="@dimen/dp_35"
                 android:layout_marginTop="@dimen/dp_40"
-                android:layout_marginRight="@dimen/common_border"
+                android:layout_marginEnd="@dimen/common_border"
                 android:text="手机号"
                 android:textColor="#333333"
                 android:textSize="@dimen/font_size_17" />
@@ -61,7 +62,6 @@
                 android:inputType="phone"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:text="18331099998"
                 android:textColor="@color/font_black"
                 android:textColorHint="@color/font_hint"
                 android:textSize="@dimen/font_size_15" />
@@ -101,7 +101,6 @@
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:maxLines="1"
-                android:text="Pass!word@1234"
                 android:textColor="@color/font_black"
                 android:textColorHint="@color/font_hint"
                 android:textSize="@dimen/font_size_15" />
@@ -140,7 +139,6 @@
                 android:inputType="text"
                 android:maxLength="6"
                 android:maxLines="1"
-                android:text="a8bn6t"
                 android:textColor="@color/font_black"
                 android:textColorHint="@color/font_hint"
                 android:textSize="@dimen/font_size_15" />

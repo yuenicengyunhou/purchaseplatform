@@ -125,7 +125,7 @@ public class VerificationUtil {
 
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strEmail);
-        return m.matches();
+        return true;
     }
 
     /**

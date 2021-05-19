@@ -21,12 +21,12 @@ public class RetrievePasswordConfirmActivity extends BaseErrorActivity<ActivityR
 
     @Override
     protected int getColor() {
-        return 0;
+        return android.R.color.white;
     }
 
     @Override
     protected boolean isSetSystemBar() {
-        return false;
+        return true;
     }
 
     @Override
