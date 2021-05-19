@@ -10,15 +10,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_title"
         android:layout_width="match_parent"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/dp_10">
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
         <TextView
             android:id="@+id/tv_orderNumKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:ems="5"
             android:text="采购单号："
@@ -29,37 +35,40 @@
 
         <TextView
             android:id="@+id/tv_orderNumValue"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@id/iv_order_arrow"
+            android:layout_marginEnd="@dimen/padding"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_orderNumKey"
             app:layout_constraintStart_toEndOf="@+id/tv_orderNumKey"
             app:layout_constraintTop_toTopOf="@+id/tv_orderNumKey" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_orderNumKey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_orderNumKey">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/tv_orderNumKey"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/tv_orderNumKey">-->
 
             <ImageView
+                android:id="@+id/iv_order_arrow"
                 android:layout_width="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_orderNumKey"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/dp_16"
                 android:background="@null"
                 android:src="@mipmap/ic_go_next_dark_gray" />
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
         <TextView
             android:id="@+id/tv_generateTimeKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:ems="5"
             android:text="生成时间："
@@ -85,7 +94,6 @@
             android:id="@+id/tv_providerKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:ems="5"
             android:text="供应商："
@@ -96,9 +104,12 @@
 
         <TextView
             android:id="@+id/tv_providerValue"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:lines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintBottom_toBottomOf="@+id/tv_providerKey"
@@ -111,7 +122,6 @@
             android:id="@+id/tv_buyerKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:ems="5"
             android:text="采购人："
@@ -122,13 +132,15 @@
 
         <TextView
             android:id="@+id/tv_buyerValue"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:text="textView"
+            android:maxLines="3"
+            android:lineSpacingExtra="@dimen/dp_3"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13"
-            app:layout_constraintBottom_toBottomOf="@id/tv_buyerKey"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/tv_buyerKey"
             app:layout_constraintTop_toTopOf="@+id/tv_buyerKey" />
@@ -137,14 +149,13 @@
             android:id="@+id/tv_delayTimeKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:ems="5"
             android:text="延迟收货："
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_13"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_buyerKey" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_buyerValue" />
 
         <TextView
             android:id="@+id/tv_delayTimeValue"

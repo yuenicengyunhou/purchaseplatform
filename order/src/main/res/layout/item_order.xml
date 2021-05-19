@@ -1,148 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_order"
     android:layout_width="match_parent"
+    android:paddingBottom="@dimen/paddingL"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <View
         android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_1"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/dp_12">-->
+
+    <TextView
+        android:id="@+id/tv_orderNumKey"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12">
+        android:layout_marginTop="@dimen/dp_12"
+        android:text="@string/orderNumIs"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_orderNumKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/orderNumIs"
-            android:textColor="@color/font_gray"
-            android:textSize="@dimen/font_size_12" />
-
-        <TextView
-            android:id="@+id/tv_orderNumValue"
-            android:layout_width="wrap_content"
-            android:layout_toStartOf="@id/tv_orderStatus"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:layout_marginEnd="@dimen/paddingL"
-            android:layout_toEndOf="@+id/tv_orderNumKey"
-            android:textColor="@color/font_gray"
-            android:textSize="@dimen/font_size_12" />
-
-        <TextView
-            android:id="@+id/tv_orderStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_4"
-            android:layout_toStartOf="@+id/iv_next"
-            android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_12" />
-
-        <ImageView
-            android:id="@+id/iv_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity=""
-            android:src="@mipmap/ic_go_next_dark_gray"
-            tools:ignore="ContentDescription" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_orderNumValue"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_6">
+        android:layout_marginEnd="@dimen/paddingL"
+        android:layout_toStartOf="@id/tv_orderStatus"
+        android:layout_toEndOf="@+id/tv_orderNumKey"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_12"
+        app:layout_constraintEnd_toStartOf="@id/tv_orderStatus"
+        app:layout_constraintStart_toEndOf="@id/tv_orderNumKey"
+        app:layout_constraintTop_toTopOf="@id/tv_orderNumKey" />
 
-        <TextView
-            android:id="@+id/tv_timeKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/orderTimeIs"
-            android:textColor="@color/font_gray"
-            android:textSize="@dimen/font_size_12" />
+    <TextView
+        android:id="@+id/tv_orderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:layout_toStartOf="@+id/iv_next"
+        android:textColor="@color/font_red"
+        android:textSize="@dimen/font_size_12"
+        app:layout_constraintEnd_toStartOf="@id/iv_next"
+        app:layout_constraintTop_toTopOf="@id/tv_orderNumKey" />
 
-        <TextView
-            android:id="@+id/tv_TimeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/font_gray"
-            android:textSize="@dimen/font_size_12" />
+    <ImageView
+        android:id="@+id/iv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity=""
+        android:src="@mipmap/ic_go_next_dark_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_orderStatus"
+        app:layout_constraintTop_toTopOf="@id/tv_orderStatus"
+        tools:ignore="ContentDescription" />
 
-    </LinearLayout>
+    <!--    </RelativeLayout>-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/dp_6">-->
+
+    <TextView
+        android:id="@+id/tv_timeKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="@string/orderTimeIs"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_orderNumKey" />
+
+    <TextView
+        android:id="@+id/tv_TimeValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_timeKey"
+        app:layout_constraintTop_toTopOf="@id/tv_timeKey" />
+
+    <!--    </LinearLayout>-->
+
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/dp_8"-->
+    <!--        android:layout_marginBottom="@dimen/dp_8">-->
+
+    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginBottom="@dimen/dp_8">
+        android:layout_marginEnd="2dp"
+        android:minHeight="@dimen/dp_70"
+        android:overScrollMode="never"
+        app:canH="true"
+        app:canV="false"
+        app:layout_constraintEnd_toStartOf="@id/tv_flag"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_timeKey" />
 
-        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            app:canH="true"
-            app:canV="false"
-            android:layout_toStartOf="@+id/ll_price"
-            android:minHeight="@dimen/dp_70"
-            android:overScrollMode="never" />
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/ll_price"-->
+    <!--        android:layout_width="@dimen/dp_120"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignTop="@+id/recycler"-->
+    <!--        android:layout_alignBottom="@+id/recycler"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tv_timeKey">-->
 
-        <RelativeLayout
-            android:id="@+id/ll_price"
-            android:layout_width="@dimen/dp_120"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/recycler"
-            android:layout_alignBottom="@+id/recycler"
-            android:layout_alignParentEnd="true">
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_2"
+        android:gravity="end"
+        android:text="共10件"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recycler" />
 
-            <TextView
-                android:id="@+id/tv_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/dp_2"
-                android:text="共10件"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_13" />
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_num"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:text="x10"
+        android:textSize="@dimen/font_size_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_num" />
 
-            <TextView
-                android:id="@+id/tv_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_num"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="6dp"
-                android:text="x10"
-                android:textSize="@dimen/font_size_12" />
+    <TextView
+        android:id="@+id/tv_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_price"
+        android:layout_toStartOf="@+id/tv_price"
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/dp_0"
+        android:text="小计： ¥"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_13"
+        app:layout_constraintBottom_toBottomOf="@id/tv_price"
+        app:layout_constraintEnd_toStartOf="@id/tv_price" />
 
-            <TextView
-                android:id="@+id/tv_flag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_price"
-                android:layout_toStartOf="@+id/tv_price"
-                android:text="小计： ¥"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_13" />
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_13"
+        app:layout_constraintBottom_toBottomOf="@id/recycler"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_13" />
+    <!--    </RelativeLayout>-->
 
-        </RelativeLayout>
+    <!--    </RelativeLayout>-->
 
-    </RelativeLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
