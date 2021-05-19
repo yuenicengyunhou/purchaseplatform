@@ -21,7 +21,7 @@ public class AddressModel {
     /**
      * 获取维护地址列表
      */
-    public void queryAddressList(String platformId, String accountId, int accountType, long pageNum, HttpRxObserver httpRxObserver) {
+    public void queryAddressList(String platformId, String accountId, String accountType, long pageNum, HttpRxObserver httpRxObserver) {
         if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }

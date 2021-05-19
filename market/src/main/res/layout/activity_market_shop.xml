@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="shopInfo"
             type="com.rails.lib_data.bean.shop.ShopInfoBean" />
@@ -66,11 +66,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@+id/img_shop"
                                 android:layout_marginStart="@dimen/dp_10"
-                                android:layout_toStartOf="@+id/tv_level"
+                                android:layout_marginEnd="@dimen/paddingL"
+                                android:layout_toStartOf="@+id/iv_mark"
                                 android:layout_toEndOf="@+id/img_shop"
                                 android:text="@{shopInfo.shopName}"
                                 android:textColor="@color/font_black"
                                 android:textSize="@dimen/font_size_16" />
+
+                            <ImageView
+                                android:id="@+id/iv_mark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_shop_defend"
+                                android:visibility="@{shopInfo.showMarkImg()?View.VISIBLE:View.GONE}"
+                                android:layout_toStartOf="@id/tv_level"
+                                android:layout_alignBottom="@id/tv_level"
+                                android:layout_marginEnd="@dimen/padding"
+                                tools:ignore="ContentDescription" />
 
 
                             <TextView
@@ -80,11 +92,10 @@
                                 android:layout_alignBaseline="@+id/tv_name"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="@dimen/common_border"
-                                android:drawablePadding="@dimen/dp_5"
-                                android:text="@{shopInfo.creditLevel}"
+                                android:text="@{shopInfo.creditLevel,default=哈哈哈哈}"
                                 android:textColor="@color/font_black_light"
                                 android:textSize="@dimen/font_size_12"
-                                app:drawableLeftCompat="@drawable/ic_shop_defend" />
+                                />
 
 
                             <TextView

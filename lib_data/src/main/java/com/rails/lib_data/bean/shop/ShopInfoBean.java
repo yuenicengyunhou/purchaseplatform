@@ -1,5 +1,6 @@
 package com.rails.lib_data.bean.shop;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 public class ShopInfoBean {
@@ -350,6 +351,14 @@ public class ShopInfoBean {
                 return "风险较高";
         }
         return "";
+    }
+
+    public boolean showMarkImg() {
+        if (null == creditLevel || TextUtils.isEmpty(creditLevel)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void setCreditLevel(String creditLevel) {
