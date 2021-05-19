@@ -112,6 +112,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
+            // 商品筛选弹窗
             if (mSearchType == 0) {
                 ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
                 if (filterBeans == null || filterBeans.size() == 0) {
@@ -130,7 +131,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                     }
                 });
                 mPop.show(getSupportFragmentManager(), "property");
-            } else {
+            }
+            // 店铺筛选弹窗
+            else {
                 ArrayList<SearchFilterBean> filterBeans = fragment2.getFilterData();
                 if (filterBeans == null || filterBeans.size() == 0) {
                     ToastUtil.showCenter(this, "没有过滤条件");

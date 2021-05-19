@@ -74,7 +74,14 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         super();
     }
 
-
+    /**
+     * 商品筛选弹窗
+     *
+     * @param beans
+     * @param mode
+     * @param minPrice
+     * @param maxPrice
+     */
     public PropertyPop(ArrayList<T> beans, int mode, String minPrice, String maxPrice) {
         super();
         mBeans = beans;
@@ -83,12 +90,27 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMaxPrice = maxPrice;
     }
 
+    /**
+     * 店铺筛选弹窗
+     *
+     * @param beans
+     * @param mode
+     */
     public PropertyPop(ArrayList<T> beans, int mode) {
         super();
         mBeans = beans;
         mMode = mode;
     }
 
+    /**
+     * 选择型号/加入购物车弹窗
+     *
+     * @param beans
+     * @param skuInfos
+     * @param price
+     * @param delivery
+     * @param mode
+     */
     public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, String price, String delivery, int mode) {
         super();
         mBeans = beans;
