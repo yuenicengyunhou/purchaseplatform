@@ -60,6 +60,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         binding.brvSearchResultByShopRecycler.setAdapter(mAdapter);
         binding.brvSearchResultByShopRecycler.setEmptyView(binding.empty);
 
+        mSearchFilterList = getFilter();
 
         mPresenter = new SearchShopPresenterImpl(this.getActivity(), this);
         onRefresh();
@@ -69,7 +70,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
      * 获取筛选条件
      */
     private ArrayList<SearchFilterBean> getFilter() {
-        mSearchFilterList = new ArrayList<>();
+        ArrayList<SearchFilterBean> searchFilterBeanList = new ArrayList<>();
 
         SearchFilterValue value01 = new SearchFilterValue();
         value01.setValueName("  是  ");
@@ -114,11 +115,11 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         }
         bean2.setFilterValues(values2);
 
-        mSearchFilterList.add(bean0);
-        mSearchFilterList.add(bean1);
-        mSearchFilterList.add(bean2);
+        searchFilterBeanList.add(bean0);
+        searchFilterBeanList.add(bean1);
+        searchFilterBeanList.add(bean2);
 
-        return mSearchFilterList;
+        return searchFilterBeanList;
     }
 
 
@@ -182,7 +183,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
 
     @Override
     public ArrayList<SearchFilterBean> getFilterData() {
-        return getFilter();
+        return mSearchFilterList;
     }
 
     @Override
