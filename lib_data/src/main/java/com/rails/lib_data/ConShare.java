@@ -11,6 +11,8 @@ public class ConShare {
     public static final String TOKEN = "token";
     //用户信息
     public static final String USERINFO = "user_info";
+    // 获取验证码所使用的手机号
+    public static final String CODE_PHONE = "code_phone";
 
 
     //菜单权限存储
