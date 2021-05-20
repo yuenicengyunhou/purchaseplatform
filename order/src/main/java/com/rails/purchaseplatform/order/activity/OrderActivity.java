@@ -305,7 +305,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
         subOrderNum.setOnClickListener(provider -> onConditionChoose("搜索订单号", "订单号", InputType.TYPE_CLASS_NUMBER, 3));
 
-        tvSkuNum.setOnClickListener(provider -> onConditionChoose("搜索商品编码", "商品编码", InputType.TYPE_CLASS_NUMBER, 4));
+        tvSkuNum.setOnClickListener(provider -> onConditionChoose("搜索单品编码", "单品编码", InputType.TYPE_CLASS_NUMBER, 4));
         tvSkuName.setOnClickListener(provider -> onConditionChoose("搜索商品名称", "商品名称", InputType.TYPE_CLASS_TEXT, 5));
         tvReceiverName.setOnClickListener(provider -> onConditionChoose("搜索收货人名称", "收货人名称", InputType.TYPE_CLASS_TEXT, 6));
 
