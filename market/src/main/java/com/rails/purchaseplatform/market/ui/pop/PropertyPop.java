@@ -64,6 +64,10 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     private String mMinPrice, mMaxPrice, mDelivery, mPrice;
 
+    private String mShopId, mProvinceId, mCityId, mCountryId, mAddress, mSkuNum;
+
+    private int mStockNum = 0; // 库存数量 默认0
+
     private ArrayList<T> mBeans;
     private ArrayList<ItemSkuInfo> mItemSkuInfos;
     private ItemSkuInfo mItemSkuInfo;
@@ -114,9 +118,18 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * @param delivery
      * @param mode
      */
-    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, SkuStockBean skuStockBean, String price, String delivery, int mode) {
+    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, SkuStockBean skuStockBean, String price, String delivery,
+                       String supplierId, String provinceId, String cityId, String countryId,
+                       String address, String skuNum,
+                       int mode) {
         super();
         mBeans = beans;
+        mShopId = supplierId;
+        mProvinceId = provinceId;
+        mCityId = cityId;
+        mCountryId = countryId;
+        mAddress = address;
+        mSkuNum = skuNum;
         mMode = mode;
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
         mItemSkuInfo = (skuInfos != null && skuInfos.size() != 0) ? skuInfos.get(0) : null;
@@ -157,6 +170,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void getSkuSaleStocks(SkuStockBean bean) {
                 mSkuStockBean = bean;
+                setAddCartButton();
             }
 
             @Override
@@ -362,7 +376,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                             .into(binding.imgProduct); // 切换sku时切换图片
                     mTypeSelect.getSkuInfo(mItemSkuInfo); // 把ItemSkuInfo传给activity
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true); // 请求价格接口
-//                    mProductDetailsPresenter.querySkuSaleStocks(); // todo 请求库存接口
+                    mProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceId, mCityId, mCountryId,
+                            mAddress, mSkuNum, mItemSkuInfo.getId(), false); // todo 请求库存接口
                     binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black)); // 设置步进器按钮颜色
                     binding.tvCountState.setText("有货"); // 设置有无货状态
                 } else {
@@ -408,9 +423,12 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         });
     }
 
+    /**
+     * 设置按钮颜色，pop初始化时调用，切换sku请求库存成功时调用。
+     */
     private void setAddCartButton() {
-        if (mSkuStockBean == null) {
-            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_gray_20));
+        if (mSkuStockBean == null) { // 如果库存Bean为null 视为无货
+            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_gray_20_8e8e8e));
             binding.tvCountState.setText("无货");
             binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
             binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
@@ -419,22 +437,26 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         String saleState = mSkuStockBean.getSaleState();
         String skuStock = mSkuStockBean.getSkuStock();
         String cause = mSkuStockBean.getCause();
-        if (saleState == null || mSkuStockBean.getSaleState().equals("0")) {
-            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_gray_20));
-            binding.tvCountState.setText("无货");
-            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
-            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
-            // TODO: 2021/5/20 确定按钮灰色 显示无货
-        } else if (saleState.equals("1") && skuStock != null && Integer.parseInt(skuStock) > 0) {
-            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_blue_20));
-            if (skuStock == null || Integer.parseInt(skuStock) >= 50) {
-                binding.tvCountState.setText("有货");
-            } else {
-                binding.tvCountState.setText("剩余 " + skuStock + " 件");
+        if (saleState == null || saleState.equals("0") || skuStock == null || skuStock.equals("0")) { // 如果 销售状态 或 库存数量 为null或0 表示不可销售状态
+            mStockNum = 0;
+            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_gray_20_8e8e8e)); // 确定（加入购物车）按钮灰色
+            binding.tvCountState.setText("无货"); // 显示无货
+            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray)); // 增加数量按钮灰色
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray)); // 减少数量按钮灰色
+        } else if (saleState.equals("1") && Integer.parseInt(skuStock) > 0) { // 销售状态为1 并且库存数量大于0 表示可销售状态
+            mStockNum = Integer.parseInt(skuStock);
+            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_blue_20)); // 确定（加入购物车）按钮蓝色
+            if (Integer.parseInt(skuStock) > 50) { // 如果 库存数量大于50
+                binding.tvCountState.setText("有货"); // 显示有货
+            } else { // 如果库存数量小于50
+                binding.tvCountState.setText("仅剩 " + skuStock + " 件"); // 显示具体可购买数量
+                if (binding.etNum.getText().toString().equals(skuStock)) {
+                    binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+                } else {
+                    binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black)); // 增加数量按钮黑色
+                }
             }
-            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
-            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
-            // TODO: 2021/5/20 确定按钮蓝色 显示有货
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray)); // 减少数量按钮灰色(因为默认数量为1，不能再减少了)
         }
     }
 
@@ -444,12 +466,28 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * @param s
      */
     private void changeReduceBtnColor(CharSequence s) {
-        if (String.valueOf(s).length() == 0) {
-            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
-        } else if (Integer.parseInt(String.valueOf(s)) <= 1) {
-            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+        // 设置减少数量按钮颜色
+        if (String.valueOf(s).length() == 0) { // 判断输入框内没有文字
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray)); // 减少数量按钮灰色
+        } else if (Integer.parseInt(String.valueOf(s)) <= 1) { // 如果值小于等于1
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray)); // 减少数量按钮灰色
         } else {
-            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black)); // 减少数量按钮黑色
+        }
+
+        // 设置增加数量按钮颜色
+        if (mStockNum > 50) { // 库存数量大于50 增加数量按钮一直是黑色 不做数量限制
+            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black)); // 增加数量按钮黑色
+        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) < mStockNum) { // 库存数量不多于50 && 输入数量小于库存数量
+            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black)); // 增加数量按钮黑色
+        } else { // 库存数量不多于50 输入数量大于等于库存数量
+            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray)); // 增加数量按钮灰色
+        }
+
+        // 控制输入数量
+        if (mStockNum <= 50 && String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) > mStockNum) {
+            binding.etNum.setText(String.valueOf(mStockNum));
+            ToastUtil.showCenter(getActivity(), "购买数量无法超过库存数量");
         }
     }
 

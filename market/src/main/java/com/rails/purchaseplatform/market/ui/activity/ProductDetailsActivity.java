@@ -134,8 +134,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mAddressPresenter = new AddressToolPresenterImpl(this, this);
         mPresenter = new CartToolPresenterImpl(this, this);
         mGetProductDetailsPresenter.getProductDetails("20", mItemId, "20", true);
-        mAddressPresenter.getAddress("", "1");
-        mAddressPresenter.getDefAddress("", "1");
 
 
         //图片详情列表
@@ -413,7 +411,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             itemSkuInfoList = (ArrayList<ItemSkuInfo>) productDetailsBean.getItemSkuInfoList();
         }
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBeanList, itemSkuInfoList, mSkuStockBean, mPrice, mDelivery, mode);
+            mPop = new PropertyPop<>(mSpecificationPopBeanList, itemSkuInfoList, mSkuStockBean, mPrice, mDelivery,
+                    mShopId, mProvinceCode, mCityCode, mCountryCode,
+                    addresses.get(0).getFullAddress(), "1", mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
@@ -597,6 +597,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
         // 请求接口 获取店铺推荐商品
         mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
+        // 请求接口 获取全部地址
+        mAddressPresenter.getAddress("", "1");
+        // 请求接口 获取默认地址
+        mAddressPresenter.getDefAddress("", "1");
 
         Glide.with(this)
                 .load("https:" + bean.getItemPublishVo().getLogoUrl())
@@ -706,7 +710,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {
         this.addresses = addressBeans;
-        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
     }
 
     @Override
@@ -721,13 +724,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mCityCode = bean.getCityCode();
             mCountryCode = bean.getCountryCode();
             binding.tvAddressDefault.setText(bean.getFullAddress());
+            mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
         }
-        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
     }
 
     @Override
     public void getSkuSaleStocks(SkuStockBean bean) {
         mSkuStockBean = bean;
+        if (bean == null || bean.getSaleState() == null || bean.getSaleState().equals("0") || bean.getSkuStock() == null || bean.getSkuStock().equals("0")) {
+            binding.tvPutInCart.setBackground(this.getResources().getDrawable(R.drawable.bg_corner_gray_20_8e8e8e));
+        }
     }
 
 

@@ -255,7 +255,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_6"
             android:layout_toEndOf="@+id/tv_buy_count"
-            android:text="有货"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_10" />
 
