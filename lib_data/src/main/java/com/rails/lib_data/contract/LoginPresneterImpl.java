@@ -3,14 +3,12 @@ package com.rails.lib_data.contract;
 import android.app.Activity;
 import android.text.TextUtils;
 
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
@@ -21,6 +19,7 @@ import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
  */
 public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> implements LoginContract.LoginPresenter {
 
+    private String mPhone;
 
     private LoginModel model;
 
@@ -33,17 +32,38 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     @Override
     public void onLogin(String phone, String paw, String code) {
 
-        // 183 3109 9998
-        // Pass!word@1234
-        // a8bn6t
+        phone = "18331099998";
+        paw = "Pass!word@1234";
+        code = "a8bn6t";
+
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtil.showCenter(mContext, "手机号码不能为空");
+            return;
+        }
 
         if (!VerificationUtil.isMobile(phone)) {
             ToastUtil.showCenter(mContext, "手机号码格式错误");
             return;
         }
 
+        if (!mPhone.equals(phone)) {
+            ToastUtil.showCenter(mContext, "手机号码不正确");
+            return;
+        }
+
+
+        if (TextUtils.isEmpty(paw)) {
+            ToastUtil.showCenter(mContext, "密码不能为空");
+            return;
+        }
+
         if (!VerificationUtil.isPaw(paw)) {
             ToastUtil.showCenter(mContext, "密码格式错误");
+            return;
+        }
+
+        if (TextUtils.isEmpty(code)) {
+            ToastUtil.showCenter(mContext, "验证码不能为空");
             return;
         }
 
@@ -70,6 +90,9 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
     @Override
     public void getCode(String phone) {
+        mPhone = phone;
+
+        phone = "18331099998";
 
         if (!VerificationUtil.isMobile(phone)) {
             ToastUtil.showCenter(mContext, "手机号码格式错误");
