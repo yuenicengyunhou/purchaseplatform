@@ -306,7 +306,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         subOrderNum.setOnClickListener(provider -> onConditionChoose("搜索订单号", "订单号", InputType.TYPE_CLASS_NUMBER, 3));
 
         tvSkuNum.setOnClickListener(provider -> onConditionChoose("搜索商品编码", "商品编码", InputType.TYPE_CLASS_NUMBER, 4));
-        tvSkuName.setOnClickListener(provider -> onConditionChoose("搜索商品名称", "商品名称", InputType.TYPE_CLASS_NUMBER, 5));
+        tvSkuName.setOnClickListener(provider -> onConditionChoose("搜索商品名称", "商品名称", InputType.TYPE_CLASS_TEXT, 5));
         tvReceiverName.setOnClickListener(provider -> onConditionChoose("搜索收货人名称", "收货人名称", InputType.TYPE_CLASS_TEXT, 6));
 
         tvReceiverPhone.setOnClickListener(provider -> onConditionChoose("搜索收货人联系方式", "收货人联系方式", InputType.TYPE_CLASS_NUMBER, 7));
@@ -422,12 +422,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 listBinding.recycler.setLayoutManager(layoutManager);
                 adapter = new ConditionAdapter(this);
                 listBinding.recycler.setAdapter(adapter);
-                adapter.setListener((PositionListener<BuyerBean>) (bean, position) -> {
-                    String accountName = bean.getAccountName();
-                    String supplierName = bean.getSupplierName();
-                    String name = null == supplierName ? accountName : supplierName;
+                adapter.setChooseListener((name, id) -> {
+//                        String accountName = bean.getAccountName();
+//                        String supplierName = bean.getSupplierName();
+//                        String name = null == supplierName ? accountName : supplierName;
                     binding.etSearchKey.setText(name);
-                    conditionId = null == supplierName ? bean.getId() : bean.getSupplierId();
+                    conditionId = id;
                     callFragmentToSearch(filterBean);
                     listPop.dismiss();
                 });
@@ -457,9 +457,9 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         } else if (mType == 2) {
             presenter.getSupplierNameList(condition);
         } else if (mType == 5) {
-//            presenter.getSkuNameList(condition);
+            presenter.getSkuNameList(condition);
         } else if (mType == 8) {
-//            presenter.getBrandList(condition);
+            presenter.getBrandList(condition);
         }
     }
 

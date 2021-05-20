@@ -62,6 +62,9 @@ public class ExceptionEngine {
                 || e instanceof MalformedJsonException) {  //解析数据错误
             errorBean = new ErrorBean(e, DATA_ERROR);
             errorBean.setMsg("JSON解析异常");
+            if (e.getMessage().contains("but was STRING")) {
+                errorBean.setMsg("but was STRING");
+            }
         } else if (e instanceof ConnectException) {//连接网络错误
             errorBean = new ErrorBean(e, CONNECT_ERROR);
             errorBean.setMsg("连接失败，请检查网络状况");
