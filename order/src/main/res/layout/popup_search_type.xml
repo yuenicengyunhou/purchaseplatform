@@ -1,53 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/paddingL"
     android:background="@drawable/popup_search_type"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_orderNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_22"
-        android:text="采购单号"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_12" />
-
-    <View
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_tiny"
-        android:layout_marginStart="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:background="@color/bg_gray" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_orderNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_22"
+            android:text="采购单号"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
 
-    <TextView
-        android:id="@+id/tv_orderUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:text="采购人用户名"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_12" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_tiny"
-        android:layout_marginStart="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:background="@color/bg_gray" />
+        <TextView
+            android:id="@+id/tv_orderUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="采购人用户名"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
 
-    <TextView
-        android:id="@+id/tv_orderProvider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:text="供应商名称"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_12" />
-</LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_orderProvider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="供应商名称"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_subOrderNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="订单号"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_skuNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="单品编码"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_skuName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="商品名称"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_receiverName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="收货人名称"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_recieverPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="收货人联系方式"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="品牌"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_tiny"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_needNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="需求编号"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_12" />
+    </LinearLayout>
+
+
+
+
+</ScrollView>

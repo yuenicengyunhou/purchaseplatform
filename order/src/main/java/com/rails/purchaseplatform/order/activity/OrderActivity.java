@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -52,6 +53,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -69,7 +71,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
     private ViewPageAdapter viewPageAdapter;
 
-    private PopupWindow mTypePopup;
+    private PopupWindow mTypePopup;//采购单切换检索条件的pop
 
     /**
      * Search type, default 0.
@@ -107,22 +109,16 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 if (null != listPop && listPop.isShowing()) {//如果当下有弹窗，dismiss掉
                     listPop.dismiss();
                 }
-                if (mType == 0) {
+                if (mType == 0 || mType == 3 || mType == 4 || mType == 6 || mType == 7 || mType == 9) {
                     callFragmentToSearch(filterBean);
                 } else if (mType == 1) {
-                    String trim = binding.etSearchKey.getText().toString().trim();
-                    if (TextUtils.isEmpty(trim)) {
-                        callFragmentToSearch(filterBean);
-                    } else {
-                        ToastUtil.show(this, "请先检索采购人用户名");
-                    }
-                } else {
-                    String trim = binding.etSearchKey.getText().toString().trim();
-                    if (TextUtils.isEmpty(trim)) {
-                        callFragmentToSearch(filterBean);
-                    } else {
-                        ToastUtil.show(this, "请先检索供应商名称");
-                    }
+                    searchIfPop("请先检索采购人用户名");
+                } else if (mType == 2) {
+                    searchIfPop("请先检索供应商名称");
+                } else if (mType == 5) {
+                    searchIfPop("请先检索商品名称");
+                } else if (mType == 8) {
+                    searchIfPop("请先检索品牌");
                 }
                 return true;
             }
@@ -158,6 +154,18 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
     }
 
+    /**
+     * aaaaa
+     */
+    private void searchIfPop(String toast) {
+        String trim = binding.etSearchKey.getText().toString().trim();
+        if (TextUtils.isEmpty(trim)) {
+            callFragmentToSearch(filterBean);
+        } else {
+            ToastUtil.show(this, toast);
+        }
+    }
+
     private void initFilterBean() {
         this.filterBean = new OrderFilterBean();
         Type type = new TypeToken<ArrayList<OrderStatusBean>>() {
@@ -178,9 +186,10 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         String content = binding.etSearchKey.getText().toString();
         int currentItem = binding.noneScrollViewPager.getCurrentItem();
         OrderFragment fragment = (OrderFragment) viewPageAdapter.getItem(currentItem);
-        if (mType != 0) {
+        if (mType == 1 || mType == 2 || mType == 5 || mType == 8) {
             content = conditionId;
         }
+        Log.e("WQ", "====" + mType);
         fragment.notifyFragment(mType, content, filterBean);
     }
 
@@ -238,12 +247,19 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         View itemView = (View) binding.tvSelectType.getParent();
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
-        int width = ScreenSizeUtil.dp2px(this, 120);
-        int height = ScreenSizeUtil.dp2px(this, 120);
+        int width = ScreenSizeUtil.dp2px(this, 150);
+        int height = ScreenSizeUtil.dp2px(this, 150);
         mTypePopup = new PopupWindow(view, width, height, true);
         TextView orderNum = view.findViewById(R.id.tv_orderNum),
                 orderUser = view.findViewById(R.id.tv_orderUser),
                 orderProvider = view.findViewById(R.id.tv_orderProvider);
+        TextView subOrderNum = view.findViewById(R.id.tv_subOrderNum);
+        TextView tvSkuNum = view.findViewById(R.id.tv_skuNum);
+        TextView tvSkuName = view.findViewById(R.id.tv_skuName);
+        TextView tvReceiverName = view.findViewById(R.id.tv_receiverName);
+        TextView tvReceiverPhone = view.findViewById(R.id.tv_recieverPhone);
+        TextView tvBrand = view.findViewById(R.id.tv_brand);
+        TextView tvNeedNum = view.findViewById(R.id.tv_needNum);
 
         String showingText = binding.tvSelectType.getText().toString().trim();
 
@@ -258,46 +274,45 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             case "供应商名称":
                 orderProvider.setTextColor(colorBlue);
                 break;
+            case "订单号":
+                subOrderNum.setTextColor(colorBlue);
+                break;
+            case "单品编码":
+                tvSkuNum.setTextColor(colorBlue);
+                break;
+            case "商品名称":
+                tvSkuName.setTextColor(colorBlue);
+                break;
+            case "收货人名称":
+                tvReceiverName.setTextColor(colorBlue);
+                break;
+            case "收货人联系方式":
+                tvReceiverPhone.setTextColor(colorBlue);
+                break;
+            case "品牌":
+                tvBrand.setTextColor(colorBlue);
+                break;
+            case "需求编号":
+                tvNeedNum.setTextColor(colorBlue);
+                break;
         }
 
-        orderNum.setOnClickListener(num -> {
-            binding.etSearchKey.setText("");
-            binding.etSearchKey.setInputType(InputType.TYPE_CLASS_NUMBER);
-            if (null != listPop && listPop.isShowing()) {
-                listPop.dismiss();
-            }
-            binding.etSearchKey.setHint("搜索单号");
-            binding.tvSelectType.setText("采购单号");
-            mType = 0;
-            mTypePopup.dismiss();
-            mTypePopup = null;
-        });
+        orderNum.setOnClickListener(num -> onConditionChoose("搜索单号", "采购单号", InputType.TYPE_CLASS_NUMBER, 0));
 
-        orderUser.setOnClickListener(user -> {
-            binding.etSearchKey.setText("");
-            binding.etSearchKey.setInputType(InputType.TYPE_CLASS_TEXT);
-            binding.etSearchKey.setHint("搜索用户名");
-            binding.tvSelectType.setText("采购人用户名");
-            mType = 1;
-            if (null != listPop && listPop.isShowing()) {
-                listPop.dismiss();
-            }
-            mTypePopup.dismiss();
-            mTypePopup = null;
-        });
+        orderUser.setOnClickListener(user -> onConditionChoose("搜索用户名", "采购人用户名", InputType.TYPE_CLASS_TEXT, 1));
 
-        orderProvider.setOnClickListener(provider -> {
-            binding.etSearchKey.setText("");
-            binding.etSearchKey.setInputType(InputType.TYPE_CLASS_TEXT);
-            if (null != listPop && listPop.isShowing()) {
-                listPop.dismiss();
-            }
-            binding.etSearchKey.setHint("搜索供应商");
-            binding.tvSelectType.setText("供应商名称");
-            mType = 2;
-            mTypePopup.dismiss();
-            mTypePopup = null;
-        });
+        orderProvider.setOnClickListener(provider -> onConditionChoose("搜索供应商", "供应商名称", InputType.TYPE_CLASS_TEXT, 2));
+
+        subOrderNum.setOnClickListener(provider -> onConditionChoose("搜索订单号", "订单号", InputType.TYPE_CLASS_NUMBER, 3));
+
+        tvSkuNum.setOnClickListener(provider -> onConditionChoose("搜索单品编码", "单品编码", InputType.TYPE_CLASS_NUMBER, 4));
+        tvSkuName.setOnClickListener(provider -> onConditionChoose("搜索商品名称", "商品名称", InputType.TYPE_CLASS_TEXT, 5));
+        tvReceiverName.setOnClickListener(provider -> onConditionChoose("搜索收货人名称", "收货人名称", InputType.TYPE_CLASS_TEXT, 6));
+
+        tvReceiverPhone.setOnClickListener(provider -> onConditionChoose("搜索收货人联系方式", "收货人联系方式", InputType.TYPE_CLASS_NUMBER, 7));
+        tvBrand.setOnClickListener(provider -> onConditionChoose("搜索品牌", "品牌", InputType.TYPE_CLASS_TEXT, 8));
+        tvNeedNum.setOnClickListener(provider -> onConditionChoose("搜索需求编号", "需求编号", InputType.TYPE_CLASS_NUMBER, 9));
+
 
         mTypePopup.setOutsideTouchable(true);
 
@@ -306,6 +321,20 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         } else {
             mTypePopup.showAsDropDown(itemView, 0, -2 * itemView.getHeight());
         }
+    }
+
+
+    private void onConditionChoose(String hint, String text, int inputType, int type) {
+        binding.etSearchKey.setText("");
+        binding.etSearchKey.setInputType(inputType);
+        binding.etSearchKey.setHint(hint);
+        binding.tvSelectType.setText(text);
+        mType = type;
+        if (null != listPop && listPop.isShowing()) {
+            listPop.dismiss();
+        }
+        mTypePopup.dismiss();
+        mTypePopup = null;
     }
 
     private boolean isShowBottom(View itemView) {
@@ -377,8 +406,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 点击采购人用户名、供应商名称，弹框给用户选择搜索
      */
     private void showConditionListPopWindow(String condition) {
-        this.conditionId = condition;
-        if (mType == 0) {
+//        this.conditionId = condition;
+        if (mType == 0 || mType == 3 || mType == 4 || mType == 6 || mType == 7 || mType == 9) {
             return;
         }
         if (null != listPop && listPop.isShowing()) {
@@ -393,12 +422,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 listBinding.recycler.setLayoutManager(layoutManager);
                 adapter = new ConditionAdapter(this);
                 listBinding.recycler.setAdapter(adapter);
-                adapter.setListener((PositionListener<BuyerBean>) (bean, position) -> {
-                    String accountName = bean.getAccountName();
-                    String supplierName = bean.getSupplierName();
-                    String name = null == supplierName ? accountName : supplierName;
+                adapter.setChooseListener((name, id) -> {
+//                        String accountName = bean.getAccountName();
+//                        String supplierName = bean.getSupplierName();
+//                        String name = null == supplierName ? accountName : supplierName;
                     binding.etSearchKey.setText(name);
-                    conditionId = null == supplierName ? bean.getId() : bean.getSupplierId();
+                    conditionId = id;
                     callFragmentToSearch(filterBean);
                     listPop.dismiss();
                 });
@@ -425,8 +454,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     private void getConditons(String condition) {
         if (mType == 1) {
             presenter.getBuyerNameList(condition, "1");
-        } else {
+        } else if (mType == 2) {
             presenter.getSupplierNameList(condition);
+        } else if (mType == 5) {
+            presenter.getSkuNameList(condition);
+        } else if (mType == 8) {
+            presenter.getBrandList(condition);
         }
     }
 
@@ -441,6 +474,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      */
     @Override
     public void loadConditionNameList(ArrayList<BuyerBean> list) {
+        adapter.setType(mType);
         if (null != adapter) {
             adapter.update(list, true);
         }

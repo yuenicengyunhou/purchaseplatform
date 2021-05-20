@@ -36,5 +36,16 @@ public interface OrderContract {
          * 供应商名称列表
          */
         void getSupplierNameList(String supplierName);
+
+
+        /**
+         * 获取商品名称列表
+         */
+        void getSkuNameList(String skuName);
+
+        /**
+         * 获取品牌名称
+         */
+        void getBrandList(String brand);
     }
 }

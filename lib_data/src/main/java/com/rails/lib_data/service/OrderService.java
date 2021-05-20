@@ -98,4 +98,17 @@ public interface OrderService {
      */
     @GET("app-user-service/app/v1/buyer/supplierInfoImportData/querySupplierBySupplierName")
     Observable<HttpResult<ArrayList<BuyerBean>>> getSupplierNames(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 获取商品名称列表
+     */
+    @GET("app-item-service/app/v1/buyer/item/querySkuIdListByName")
+    Observable<HttpResult<ArrayList<BuyerBean>>> querySkuIdListByName(@QueryMap HashMap<String, Object> params);
+
+    /**
+     * 获取商品名称列表
+     */
+    @GET("app-item-service/app/v1/buyer/brandController/queryBrandForPlatformId")
+    Observable<HttpResult<ArrayList<BuyerBean>>> queryBrandList(@QueryMap HashMap<String, Object> params);
 }

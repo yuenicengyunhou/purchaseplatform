@@ -32,6 +32,8 @@ public class AddressBean implements Serializable {
     private String msg;
 
 
+
+
     /**
      * 专属收货地址
      */
@@ -51,8 +53,12 @@ public class AddressBean implements Serializable {
     private String modified;
     private String yn;
     private String icon;
+    private String provinceName;
+    private String cityName;
+    private String countryName;
 
     public final ObservableField<Boolean> isSel = new ObservableField<>();
+
 
     public long getAddressId() {
         return addressId;
@@ -331,4 +337,27 @@ public class AddressBean implements Serializable {
     }
 
 
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
 }

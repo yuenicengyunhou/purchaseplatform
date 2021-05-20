@@ -144,8 +144,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_15"
                         android:layout_marginBottom="@dimen/dp_15"
+                        android:layout_marginLeft="@dimen/dp_20"
                         android:overScrollMode="never"
-                        app:canH="false"
+                        app:canH="true"
                         app:canV="false" />
 
                     <View style="@style/line_bold_gray_10" />

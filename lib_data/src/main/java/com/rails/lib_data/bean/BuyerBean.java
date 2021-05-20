@@ -73,6 +73,34 @@ public class BuyerBean implements Serializable {
     private Object erow;
 
 
+    /**
+     * 按商品名称检索，商品信息
+     */
+    private String skuId;
+    private String skuName;
+
+    /**
+     * 按品牌检索  品牌信息  id取id属性
+     */
+    private String brandNameCh;
+    private String brandNameEn;
+
+    public String getBrandNameCh() {
+        return brandNameCh;
+    }
+
+    public String getBrandNameEn() {
+        return brandNameEn;
+    }
+
+    public String getSkuId() {
+        return skuId;
+    }
+
+    public String getSkuName() {
+        return skuName;
+    }
+
     public String getId() {
         return id;
     }

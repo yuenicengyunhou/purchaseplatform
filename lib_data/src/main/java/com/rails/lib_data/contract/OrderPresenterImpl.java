@@ -25,6 +25,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
     private String accountId = "";
     private String organizeName;
     private String organizationId = "";
+    private String accountType;
 
     public OrderPresenterImpl(Activity mContext, OrderContract.OrderView orderView) {
         super(mContext, orderView);
@@ -33,6 +34,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
         if (null == bean) {
             return;
         }
+        accountType = bean.getAccountType();
         accountId = bean.getId();
         organizeName = bean.getDepartmentOrganizationName();
         organizationId = bean.getDepartmentOrganizationId();
@@ -43,10 +45,11 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
      */
     @Override
     public void getBuyerNameList(String nameLike, String findType) {
-        model.getBuyerNames(accountId,nameLike, findType, organizationId,"2", new HttpRxObserver<ArrayList<BuyerBean>>() {
+        model.getBuyerNames(accountId, nameLike, findType, organizationId, "2", new HttpRxObserver<ArrayList<BuyerBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
+
 
             }
 
@@ -74,6 +77,38 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
             }
         });
     }
+
+
+    @Override
+    public void getSkuNameList(String skuName) {
+        model.getSkuNameList(skuName, accountId, accountType, organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(ArrayList<BuyerBean> response) {
+                baseView.loadConditionNameList(response);
+            }
+        });
+    }
+
+    @Override
+    public void getBrandList(String brand) {
+        model.getBrandList(brand, accountId, accountType, organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(ArrayList<BuyerBean> response) {
+                baseView.loadConditionNameList(response);
+            }
+        });
+    }
+
     /**
      * 采购单列表数据
      */
@@ -83,10 +118,15 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
-        model.getPurchasePageList(20, accountId, queryType, 2, squence, content, page,filterBean, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
+        model.getPurchasePageList(20, accountId, queryType, 2, squence, content, page, filterBean, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
             @Override
             protected void onError(ErrorBean e) {
-                baseView.onError(e);
+                if (e.getMsg().contains("but was STRING")) {
+                    ArrayList<OrderInfoBean> list = new ArrayList<>();
+                    baseView.getOrder(list, true, 0);
+                } else {
+                    baseView.onError(e);
+                }
                 baseView.dismissDialog();
             }
 
@@ -98,7 +138,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
                 baseView.dismissDialog();
                 ArrayList<OrderInfoBean> list = response.getList();
 //                boolean isClear = page <= 1;
-                baseView.getOrder(list, firstPage,totalCount);
+                baseView.getOrder(list, firstPage, totalCount);
             }
         });
     }

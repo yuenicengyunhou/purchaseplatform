@@ -33,11 +33,11 @@ import java.util.ArrayList;
  */
 public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressView> implements AddressContract.AddressPresenter {
 
-    private  AddressModel model;
-    private  String accountId;
-    private  String platformId;
-//    private  MessageModel messageModel;
-    private  String accountType;
+    private AddressModel model;
+    private String accountId;
+    private String platformId;
+    //    private  MessageModel messageModel;
+    private String accountType;
 
     public AddressPresenterImpl(Activity mContext, AddressContract.AddressView addressView) {
         super(mContext, addressView);
@@ -45,7 +45,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 //        messageModel = new MessageModel();
         UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
         if (bean == null) {
-            ToastUtil.show(mContext,"用户信息为空");
+            ToastUtil.show(mContext, "用户信息为空");
             return;
         }
         accountId = bean.getId();
@@ -222,7 +222,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
             return;
         }
         if ((isReceiAddress + isInvoiceAddress) < 1) {
-            ToastUtil.showCenter(mContext, "至少选择一种地址类型");
+            ToastUtil.show(mContext, "至少选择一种地址类型");
             return;
         }
         if (TextUtils.isEmpty(provinceCode) || TextUtils.isEmpty(cityCode) || TextUtils.isEmpty(countryCode)) {
