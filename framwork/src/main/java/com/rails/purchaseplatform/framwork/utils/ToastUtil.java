@@ -92,17 +92,21 @@ public class ToastUtil {
      * @param message
      */
     public static void showCenter(Context context, String message) {
-        if (TextUtils.isEmpty(message))
+        if (TextUtils.isEmpty(message)) {
             return;
+        }
         View view = LayoutInflater.from(context).inflate(R.layout.toast_center, null);
-        LinearLayout layout = view.findViewById(R.id.ll_toast_center);
         TextView tv_toast = view.findViewById(R.id.tv_toast);
+        if (null == toast) {
+            LinearLayout layout = view.findViewById(R.id.ll_toast_center);
+            toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(view);
+        }
         tv_toast.setText(message);
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(view);
         toast.show();
+
     }
 
 
@@ -116,14 +120,16 @@ public class ToastUtil {
      */
     public static void showCenter(Context context, String str, int duration) {
         View view = LayoutInflater.from(context).inflate(R.layout.toast_center, null);
-        LinearLayout layout = view.findViewById(R.id.ll_toast_center);
-        layout.setAlpha(0.8f);
         TextView tv_toast = view.findViewById(R.id.tv_toast);
+        if (null == toast) {
+            LinearLayout layout = view.findViewById(R.id.ll_toast_center);
+            layout.setAlpha(0.8f);
+            toast = Toast.makeText(context, str, duration);
+            toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
+            toast.setDuration(duration);
+            toast.setView(view);
+        }
         tv_toast.setText(str);
-        Toast toast = Toast.makeText(context, str, duration);
-        toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
-        toast.setDuration(duration);
-        toast.setView(view);
         toast.show();
     }
 
