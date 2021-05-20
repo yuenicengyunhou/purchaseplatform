@@ -157,7 +157,7 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
             barBinding.btnAddress.setVisibility(View.GONE);
             barBinding.llAddress.setVisibility(View.VISIBLE);
 
-            barBinding.tvArea.setText(bean.getFullAddress());
+            barBinding.tvArea.setText(String.format(getResources().getString(R.string.order_verify_pct), bean.getProvinceName(), bean.getCityName(), bean.getCountryName()));
             barBinding.tvAddress.setText(bean.getFullAddress());
             barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getReceiverName(), bean.getMobile()));
         }

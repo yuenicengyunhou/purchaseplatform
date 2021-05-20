@@ -200,7 +200,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             barBinding.btnAddress.setVisibility(View.GONE);
             barBinding.llAddress.setVisibility(View.VISIBLE);
 
-            barBinding.tvArea.setText(bean.getFullAddress());
+            barBinding.tvArea.setText(String.format(getResources().getString(R.string.order_verify_pct), bean.getProvinceName(), bean.getCityName(), bean.getCountryName()));
             barBinding.tvAddress.setText(bean.getFullAddress());
             barBinding.tvPhone.setText(String.format(getResources().getString(R.string.order_verify_np), bean.getReceiverName(), bean.getMobile()));
         }
@@ -339,7 +339,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
                 String name = data.getExtras().getString("invoiceTitle");
                 barBinding.rlBill.setKey(name);
 
-                if (orderInvoiceBean != null){
+                if (orderInvoiceBean != null) {
                     if (orderInvoiceBean.getInvoiceType() == 2) {
                         barBinding.rlBill.setContent("专票");
                     } else {

@@ -69,7 +69,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
         //推荐分类列表
         categoryAdapter = new NavigationAdapter(getActivity());
-        binding.categoryRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 5);
+        binding.categoryRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 0);
         binding.categoryRecycler.setAdapter(categoryAdapter);
         categoryAdapter.setListener(new PositionListener<NavigationBean>() {
             @Override

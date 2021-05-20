@@ -50,6 +50,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
 
+
             }
 
             @Override
@@ -120,7 +121,12 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
         model.getPurchasePageList(20, accountId, queryType, 2, squence, content, page, filterBean, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
             @Override
             protected void onError(ErrorBean e) {
-                baseView.onError(e);
+                if (e.getMsg().contains("but was STRING")) {
+                    ArrayList<OrderInfoBean> list = new ArrayList<>();
+                    baseView.getOrder(list, true, 0);
+                } else {
+                    baseView.onError(e);
+                }
                 baseView.dismissDialog();
             }
 

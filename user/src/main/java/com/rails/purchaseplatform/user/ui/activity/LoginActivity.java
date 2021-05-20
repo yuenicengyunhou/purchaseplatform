@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,10 +8,9 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
@@ -20,7 +18,6 @@ import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
@@ -28,6 +25,8 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.NonNull;
 
 /**
  * 登录页面
@@ -50,6 +49,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     protected void initialize(Bundle bundle) {
         mHandler = new TimerHandler(this);
+
+        PrefrenceUtil.getInstance(this).clear();
 
         presenter = new LoginPresneterImpl(this, this);
         toolPresenter = new UserToolPresenterImpl(this, this);
