@@ -33,12 +33,18 @@ public class RetrofitUtil extends BaseRetrofit {
 
     @Override
     public String getBaseUrl() {
-        return HttpConstants.SHOP_URL;
+        if (!isDebug)
+            return HttpConstants.SHOP_URL;
+        else
+            return HttpConstants.DEBUG_SHOP_URL;
     }
 
     @Override
     public String getBaseUrl(int type) {
+        if (!isDebug)
             return HttpConstants.PLATFORM_URL;
+        else
+            return HttpConstants.DEBUG_PLATFORM_URL;
     }
 
     @Override

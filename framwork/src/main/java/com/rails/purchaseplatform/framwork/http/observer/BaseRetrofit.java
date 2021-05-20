@@ -35,6 +35,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseRetrofit {
 
+    public static boolean isDebug = true;
+
     public static final int CONNECT_TIME_OUT = 30;//连接超时时长x秒
     public static final int READ_TIME_OUT = 30;//读数据超时时长x秒
     public static final int WRITE_TIME_OUT = 30;//写数据接超时时长x秒
@@ -144,9 +146,10 @@ public abstract class BaseRetrofit {
     private InputStream trustedCertificatesInputStream() {
         InputStream inputStream = null;
         try {
-//            inputStream = BaseApp.getContext().getAssets().open("crmall.crt");
-            inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
-//            inputStream = BaseApp.getContext().getAssets().open("shop.cer");
+            if (!isDebug)
+                inputStream = BaseApp.getContext().getAssets().open("shop.cer");
+            else
+                inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
         } catch (IOException e) {
             e.printStackTrace();
         }

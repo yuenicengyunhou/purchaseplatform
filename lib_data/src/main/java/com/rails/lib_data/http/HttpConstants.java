@@ -5,19 +5,18 @@ package com.rails.lib_data.http;
  */
 public class HttpConstants {
 
-
     /**
      * Dev
      */
-    public final static String SHOP_URL = "https://shop.rails.cn/proxy/";
-    public final static String PLATFORM_URL = "https://crmall.rails.cn/proxy/passport/";
+    public final static String DEBUG_SHOP_URL = "https://shop.rails.cn/proxy/";
+    public final static String DEBUG_PLATFORM_URL = "https://crmall.rails.cn/proxy/passport/";
 
 
     /**
      * 生产环境
      */
-//    public final static String SHOP_URL = "https://mall.95306.cn/proxy/";
-//    public final static String PLATFORM_URL = "https://cg.95306.cn/proxy/portal/";
+    public final static String SHOP_URL = "https://mall.95306.cn/proxy/";
+    public final static String PLATFORM_URL = "https://cg.95306.cn/proxy/portal/";
 
 
 }
