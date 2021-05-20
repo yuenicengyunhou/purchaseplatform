@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
@@ -28,6 +29,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchItemFilterAdapter;
 import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
@@ -65,6 +67,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     private ArrayList<T> mBeans;
     private ArrayList<ItemSkuInfo> mItemSkuInfos;
     private ItemSkuInfo mItemSkuInfo;
+    private SkuStockBean mSkuStockBean;
 
     private int mMode = 0;
 
@@ -111,7 +114,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * @param delivery
      * @param mode
      */
-    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, String price, String delivery, int mode) {
+    public PropertyPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, SkuStockBean skuStockBean, String price, String delivery, int mode) {
         super();
         mBeans = beans;
         mMode = mode;
@@ -119,6 +122,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mItemSkuInfo = (skuInfos != null && skuInfos.size() != 0) ? skuInfos.get(0) : null;
         mDelivery = delivery;
         mPrice = price;
+        mSkuStockBean = skuStockBean;
         mProductDetailsPresenter = new ProductDetailsPresenterImpl(getActivity(), new ProductDetailsContract.ProductDetailsView() {
             @Override
             public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys, ArrayList<SpecificationPopBean> specificationPopBeanList) {
@@ -148,6 +152,11 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void getDelivery(DeliveryBean deliveryBean) {
 
+            }
+
+            @Override
+            public void getSkuSaleStocks(SkuStockBean bean) {
+                mSkuStockBean = bean;
             }
 
             @Override
@@ -330,18 +339,19 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 详情页 -> 加入购物车弹窗 || 选择规格弹窗
      */
     private void setPopEvent() {
-        binding.llTop.setVisibility(View.VISIBLE);
-        binding.rlBuyCount.setVisibility(View.VISIBLE);
-        binding.addCart.setVisibility(View.VISIBLE);
+        binding.llTop.setVisibility(View.VISIBLE); // 隐藏文字头
+        binding.rlBuyCount.setVisibility(View.VISIBLE); // 显示数量步进器
+        binding.addCart.setVisibility(View.VISIBLE); // 显示加入购物车按钮（长按钮 确定）
         Glide.with(getContext())
                 .load("https:" + mItemSkuInfo.getPictureUrl())
                 .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
-                .into(binding.imgProduct);
-        binding.tvPrice.setText(mPrice);
-        binding.tvSend.setText(mDelivery);
-        PropertyAdapter mAdapter = new PropertyAdapter(getActivity());
+                .into(binding.imgProduct); // 显示sku图片
+        binding.tvPrice.setText(mPrice); // 显示价格
+        binding.tvSend.setText(mDelivery); // 显示运费
+
+        PropertyAdapter mAdapter = new PropertyAdapter(getActivity()); // 型号列表Adapter
         mAdapter.setItemSkuInfoList(mItemSkuInfos);
-        mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() {
+        mAdapter.setOnItemClicked(new PropertyAdapter.OnItemClicked() { // 点击按钮时请求价格和库存
             @Override
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
                 mItemSkuInfo = itemSkuInfo;
@@ -349,11 +359,12 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     Glide.with(getContext())
                             .load("https:" + mItemSkuInfo.getPictureUrl())
                             .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
-                            .into(binding.imgProduct);
-                    mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true);
-                    mTypeSelect.getSkuInfo(mItemSkuInfo);
-                    binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
-                    binding.tvCountState.setText("有货");
+                            .into(binding.imgProduct); // 切换sku时切换图片
+                    mTypeSelect.getSkuInfo(mItemSkuInfo); // 把ItemSkuInfo传给activity
+                    mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true); // 请求价格接口
+//                    mProductDetailsPresenter.querySkuSaleStocks(); // todo 请求库存接口
+                    binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black)); // 设置步进器按钮颜色
+                    binding.tvCountState.setText("有货"); // 设置有无货状态
                 } else {
                     ToastUtil.showCenter(getActivity(), "没有此型号商品或商品库存不足");
                     binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
@@ -364,10 +375,12 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);
+
         binding.btnClose.setOnClickListener(v -> this.dismiss());
         binding.tvAdd.setOnClickListener(v -> changeNum(true));
         binding.tvReduce.setOnClickListener(v -> changeNum(false));
         binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+        setAddCartButton();
         binding.addCart.setOnClickListener(v -> {
             if (binding.tvCountState.getText().toString().equals("无货")) {
                 ToastUtil.showCenter(getActivity(), "请选择其它型号的商品");
@@ -393,6 +406,36 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
             }
         });
+    }
+
+    private void setAddCartButton() {
+        if (mSkuStockBean == null) {
+            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_gray_20));
+            binding.tvCountState.setText("无货");
+            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+            return;
+        }
+        String saleState = mSkuStockBean.getSaleState();
+        String skuStock = mSkuStockBean.getSkuStock();
+        String cause = mSkuStockBean.getCause();
+        if (saleState == null || mSkuStockBean.getSaleState().equals("0")) {
+            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_gray_20));
+            binding.tvCountState.setText("无货");
+            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+            // TODO: 2021/5/20 确定按钮灰色 显示无货
+        } else if (saleState.equals("1") && skuStock != null && Integer.parseInt(skuStock) > 0) {
+            binding.addCart.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_corner_blue_20));
+            if (skuStock == null || Integer.parseInt(skuStock) >= 50) {
+                binding.tvCountState.setText("有货");
+            } else {
+                binding.tvCountState.setText("剩余 " + skuStock + " 件");
+            }
+            binding.tvAdd.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_gray));
+            binding.tvReduce.setTextColor(getActivity().getResources().getColor(com.rails.purchaseplatform.common.R.color.font_black));
+            // TODO: 2021/5/20 确定按钮蓝色 显示有货
+        }
     }
 
     /**

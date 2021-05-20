@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
@@ -96,4 +97,15 @@ public interface ProductService {
      */
     @GET("app-item-service/app/v1/mall/item/addSkuVisitTrack")
     Observable<HttpResult<Boolean>> addSkuVisitTrack(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 获取库存
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app-item-service/app/v1/mall/search/querySkuSaleStocks")
+    Observable<HttpResult<ArrayList<SkuStockBean>>> querySkuSaleStocks(@FieldMap HashMap<String, Object> params);
 }

@@ -1,0 +1,12 @@
+{
+  "code": "0",
+  "msg": "查询可售和库存信息成功",
+  "data": [
+    {
+      "skuId": 1111602,
+      "skuStock": null,
+      "saleState": 0,
+      "cause": null
+    }
+  ]
+}

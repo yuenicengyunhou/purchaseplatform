@@ -1,0 +1,64 @@
+{
+  "code": "0",
+  "msg": "查询商品列表信息成功！",
+  "data": {
+    "brands": [],
+    "selectedCAttr": [],
+    "selectedEAttr": [],
+    "categoryAttrs": [],
+    "itemList": {
+      "resultList": [
+        {
+          "itemId": 1001333,
+          "item_sku": [
+            {
+              "skuName": "史泰博 PBN530 胶装笔记本 148*210mm A5 深海蓝色 ",
+              "itemId": 1001333,
+              "upTime": 1583486451000,
+              "pictureUrl": "http://testvpimg.staplescn.com/cn1100708787EA_4_xnl.jpg",
+              "brandId": null,
+              "sellPrice": 1.4,
+              "shopId": 4021000101,
+              "skuId": 12693,
+              "contrastFlag": null,
+              "cid": 1000889
+            }
+          ],
+          "shopName": "史泰博"
+        },
+        {
+          "itemId": 1001335,
+          "item_sku": [
+            {
+              "skuName": "史泰博 PBN540 40页胶装笔记本 148*210mm A5 阳光橙色 ",
+              "itemId": 1001335,
+              "upTime": 1583486452000,
+              "pictureUrl": "http://testvpimg.staplescn.com/cn1100708788EA_4_xnl.jpg",
+              "brandId": null,
+              "sellPrice": 1.6,
+              "shopId": 4021000101,
+              "skuId": 12695,
+              "contrastFlag": null,
+              "cid": 1000889
+            }
+          ],
+          "shopName": "史泰博"
+        }
+      ],
+      "pageSize": 30,
+      "page": 1,
+      "count": 2,
+      "customAggMap": null,
+      "aggResultMap": null
+    },
+    "totalCount": "2",
+    "expandAttrs": [],
+    "allCids": [
+      {
+        "id": 1000889,
+        "name": "本册/便签",
+        "flag": 2
+      }
+    ]
+  }
+}

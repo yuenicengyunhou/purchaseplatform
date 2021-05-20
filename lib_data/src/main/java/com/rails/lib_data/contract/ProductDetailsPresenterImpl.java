@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -361,5 +362,25 @@ public class ProductDetailsPresenterImpl
                 baseView.dismissDialog();
             }
         });
+    }
+
+
+    public void querySkuSaleStocks(String supplierId, String provinceId, String cityId, String countryId,
+                                   String address, String skuNum, String skuId, boolean isDialog) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+        mModel.querySkuSaleStocks(supplierId, provinceId, cityId, countryId, address, skuNum, skuId,
+                new HttpRxObserver<ArrayList<SkuStockBean>>() {
+                    @Override
+                    protected void onError(ErrorBean e) {
+                        baseView.onError(e);
+                        baseView.dismissDialog();
+                    }
+
+                    @Override
+                    protected void onSuccess(ArrayList<SkuStockBean> response) {
+                        baseView.getSkuSaleStocks(response.get(0));
+                        baseView.dismissDialog();
+                    }
+                });
     }
 }

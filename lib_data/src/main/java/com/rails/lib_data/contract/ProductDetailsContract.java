@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -63,6 +64,14 @@ public interface ProductDetailsContract {
          * @param deliveryBean
          */
         void getDelivery(DeliveryBean deliveryBean);
+
+
+        /**
+         * 获取库存
+         *
+         * @param bean
+         */
+        void getSkuSaleStocks(SkuStockBean bean);
     }
 
 
@@ -135,5 +144,9 @@ public interface ProductDetailsContract {
          * @param skuId
          */
         void addSkuVisitTrack(String categoryId, String skuId, boolean isDialog);
+
+
+        void querySkuSaleStocks(String supplierId, String provinceId, String cityId, String countryId,
+                                String address, String skuNum, String skuId, boolean isDialog);
     }
 }

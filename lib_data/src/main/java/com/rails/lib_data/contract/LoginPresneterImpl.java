@@ -44,7 +44,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
         String code_phone = PrefrenceUtil.getInstance(mContext).getString(ConShare.CODE_PHONE, "");
         if (!code_phone.equals(phone)) {
-            ToastUtil.showCenter(mContext, "手机号码不正确");
+            ToastUtil.showCenter(mContext, "与申请验证码的手机号码不一致");
             return;
         }
 

@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
@@ -88,7 +89,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mShopId;
     private String mPlatformId = "20";
     private String mSkuId;
+    private SkuStockBean mSkuStockBean;
     private ArrayList<AddressBean> addresses;
+    private String mProvinceCode, mCityCode, mCountryCode;
 
     private ProductDetailsParamsPop mParamsPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
@@ -410,14 +413,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             itemSkuInfoList = (ArrayList<ItemSkuInfo>) productDetailsBean.getItemSkuInfoList();
         }
         if (mPop == null) {
-            mPop = new PropertyPop<>(mSpecificationPopBeanList, itemSkuInfoList, mPrice, mDelivery, mode);
+            mPop = new PropertyPop<>(mSpecificationPopBeanList, itemSkuInfoList, mSkuStockBean, mPrice, mDelivery, mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
             mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
                 @Override
                 public void onSelectComplete(String count) {
-                    // TODO: 2021/5/6 拿到返回的数据请求 所有sku相关的接口
                     if (mCheckedItemSkuInfo != null) {
                         mPresenter.addCart(20L,
                                 30L, 40L, 50, // 非必要属性
@@ -435,9 +437,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 public void getSkuInfo(ItemSkuInfo itemSkuInfo) {
                     if (itemSkuInfo != null) {
                         mCheckedItemSkuInfo = itemSkuInfo;
+                        mSkuId = itemSkuInfo.getId();
                         binding.tvSelectType.setText(itemSkuInfo.getAttributesName());
                         binding.tvItemName.setText(itemSkuInfo.getSkuName());
-                        mGetProductDetailsPresenter.getProductPrice("20", itemSkuInfo.getId(), true);
+                        mGetProductDetailsPresenter.getProductPrice("20", mSkuId, true);
+                        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
                     }
                 }
             });
@@ -485,7 +489,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     AreaPop pop = new AreaPop();
                     pop.setGravity(Gravity.BOTTOM);
                     pop.setType(BasePop.MATCH_WRAP);
-                    pop.setListener((address, provinceCode, cityCode, countryCode) -> binding.tvAddressDefault.setText(address));
+                    pop.setListener((address, provinceCode, cityCode, countryCode) -> {
+                        mProvinceCode = provinceCode;
+                        mCityCode = cityCode;
+                        mCountryCode = countryCode;
+                        binding.tvAddressDefault.setText(address);
+                    });
                     pop.show(getSupportFragmentManager(), "area");
 
                 }
@@ -697,11 +706,28 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {
         this.addresses = addressBeans;
+        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
     }
 
     @Override
     public void getDefAddress(AddressBean bean) {
-        binding.tvAddressDefault.setText(bean.getFullAddress());
+        if (bean == null) {
+            mProvinceCode = "11";
+            mCityCode = "1101";
+            mCountryCode = "110101";
+            binding.tvAddressDefault.setText("北京市市辖区东城区");
+        } else {
+            mProvinceCode = bean.getProvinceCode();
+            mCityCode = bean.getCityCode();
+            mCountryCode = bean.getCountryCode();
+            binding.tvAddressDefault.setText(bean.getFullAddress());
+        }
+        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
+    }
+
+    @Override
+    public void getSkuSaleStocks(SkuStockBean bean) {
+        mSkuStockBean = bean;
     }
 
 

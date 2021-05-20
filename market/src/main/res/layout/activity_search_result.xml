@@ -82,9 +82,12 @@
                     <TextView
                         android:id="@id/tv_searchKey"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/dp_4"
+                        android:paddingEnd="@dimen/dp_4"
                         android:text="电脑"
                         android:textColor="#FFFFFF"
                         android:textSize="@dimen/font_size_12" />

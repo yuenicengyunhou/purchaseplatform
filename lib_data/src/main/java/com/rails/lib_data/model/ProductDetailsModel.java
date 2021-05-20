@@ -1,11 +1,13 @@
 package com.rails.lib_data.model;
 
 
+import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.ProductService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -147,5 +149,27 @@ public class ProductDetailsModel {
                 .create(ProductService.class)
                 .addSkuVisitTrack(params))
                 .subscribe(httpRxObserver);
+    }
+
+
+    public void querySkuSaleStocks(String supplierId, String provinceId, String cityId, String countryId,
+                                   String address, String skuNum, String skuId, HttpRxObserver<ArrayList<SkuStockBean>> httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("supplierId", supplierId);
+        params.put("provinceId", provinceId);
+        params.put("cityId", cityId);
+        params.put("countyId", countryId);
+        params.put("address", address);
+        params.put("skuNum", skuNum);
+//        params.put("skuNumList", );
+//        params.put("shopId", );
+        params.put("skuId", skuId);
+//        params.put("skuIdList", );
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ProductService.class)
+                .querySkuSaleStocks(params))
+                .subscribe(httpRxObserver);
+
     }
 }
