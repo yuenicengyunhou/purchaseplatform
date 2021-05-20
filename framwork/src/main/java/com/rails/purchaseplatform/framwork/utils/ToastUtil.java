@@ -102,8 +102,8 @@ public class ToastUtil {
             toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
             toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(view);
         }
+        toast.setView(view);
         tv_toast.setText(message);
         toast.show();
 
@@ -127,8 +127,8 @@ public class ToastUtil {
             toast = Toast.makeText(context, str, duration);
             toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
             toast.setDuration(duration);
-            toast.setView(view);
         }
+        toast.setView(view);
         tv_toast.setText(str);
         toast.show();
     }
