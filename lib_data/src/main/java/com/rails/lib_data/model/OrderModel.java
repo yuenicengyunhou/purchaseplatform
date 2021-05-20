@@ -57,7 +57,7 @@ public class OrderModel {
 //    }
 
     private void mergeMap(OrderFilterBean filterBean, HashMap<String, Object> map) {
-        if (null==filterBean) return;
+        if (null == filterBean) return;
         String lowPrice = filterBean.getLowPrice();
         String highPrice = filterBean.getHighPrice();
         String startDate = filterBean.getStartDate();
@@ -96,7 +96,7 @@ public class OrderModel {
         }
     }
 
-    public void getBuyerNames(String accountId,String like, String findType, String organizeId,String accountType, HttpRxObserver httpRxObserver) {
+    public void getBuyerNames(String accountId, String like, String findType, String organizeId, String accountType, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("nameLike", like);
         map.put("findType", findType);
@@ -118,6 +118,32 @@ public class OrderModel {
         map.put("organizeId", organizeId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class).getSupplierNames(map))
+                .subscribe(httpRxObserver);
+
+    }
+
+    public void getSkuNameList(String skuName, String accountId, String accountType, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("skuName", skuName);
+        map.put("accountId", accountId);
+        map.put("accountType", accountType);
+        map.put("organizeName", organizeName);
+        map.put("organizeId", organizeId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class).querySkuIdListByName(map))
+                .subscribe(httpRxObserver);
+
+    }
+
+    public void getBrandList(String keyWord, String accountId, String accountType, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("keyWord", keyWord);
+        map.put("accountId", accountId);
+        map.put("accountType", accountType);
+        map.put("organizeName", organizeName);
+        map.put("organizeId", organizeId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class).queryBrandList(map))
                 .subscribe(httpRxObserver);
 
     }

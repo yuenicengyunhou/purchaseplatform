@@ -68,7 +68,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
                 ArrayList<ResultListBean> resultList = itemList.getResultList();
                 int count = itemList.getCount();
                 baseView.loadShopProductList(resultList, count);
-                if (page < 1) {
+                if (page < 2) {
                     ArrayList<SearchFilterBean> filterBeans = model.getFilterBeans(response);
                     baseView.loadFilter(filterBeans);
                 }

@@ -97,12 +97,12 @@ public class ToastUtil {
         }
         View view = LayoutInflater.from(context).inflate(R.layout.toast_center, null);
         TextView tv_toast = view.findViewById(R.id.tv_toast);
-        if (null == toast) {
-            LinearLayout layout = view.findViewById(R.id.ll_toast_center);
-            toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
-            toast.setDuration(Toast.LENGTH_SHORT);
-        }
+//        if (null == toast) {
+        LinearLayout layout = view.findViewById(R.id.ll_toast_center);
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
+        toast.setDuration(Toast.LENGTH_SHORT);
+//        }
         toast.setView(view);
         tv_toast.setText(message);
         toast.show();
@@ -121,17 +121,16 @@ public class ToastUtil {
     public static void showCenter(Context context, String str, int duration) {
         View view = LayoutInflater.from(context).inflate(R.layout.toast_center, null);
         TextView tv_toast = view.findViewById(R.id.tv_toast);
-        if (null == toast) {
-            LinearLayout layout = view.findViewById(R.id.ll_toast_center);
-            layout.setAlpha(0.8f);
-            toast = Toast.makeText(context, str, duration);
-            toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
-            toast.setDuration(duration);
-        }
+//        if (null == toast) {
+        LinearLayout layout = view.findViewById(R.id.ll_toast_center);
+        layout.setAlpha(0.8f);
+        Toast toast = Toast.makeText(context, str, duration);
+        toast.setGravity(Gravity.CENTER, 0, 0);// 显示的位置
+        toast.setDuration(duration);
+//        }
         toast.setView(view);
         tv_toast.setText(str);
         toast.show();
     }
-
 
 }

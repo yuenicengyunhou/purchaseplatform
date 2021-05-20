@@ -9,11 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.SubSkuDemandInfoBean;
 import com.rails.lib_data.bean.SubOrderInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecycleAdapter;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 
@@ -32,11 +34,12 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
 
     private static final int TYPE_SKU_DETAIL_MODE = 0;//商品为一件时，显示条目详情模式
     private static final int TYPE_SKU_PIC_GRID_MODE = 1;//商品一件以上时，显示grid视图模式
-
+    private final boolean isDetail;
 
     public OrderRecyclerAdapter(Context context) {
         super(context);
         mContext = context;
+        isDetail = PrefrenceUtil.getInstance(context).getBoolean(ConShare.BUTTON_DETAIL, false);
     }
 
 
@@ -127,6 +130,10 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         adapter.update(subSkuDemandInfo, true);
 
         holder.orderItem.setOnClickListener(v -> {
+            if (!isDetail) {
+                ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
+                return;
+            }
             if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
                 ARouter.getInstance()
                         .build(ConRoute.WEB.WEB_ORDER_DETAIL)

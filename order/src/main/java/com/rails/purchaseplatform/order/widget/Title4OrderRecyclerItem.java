@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.order.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.rails.purchaseplatform.order.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Title4OrderRecyclerItem extends ConstraintLayout {
     private Context mContext;
@@ -58,8 +62,12 @@ public class Title4OrderRecyclerItem extends ConstraintLayout {
             if (texts[4].equals("")) {
                 mTitle.findViewById(R.id.tv_delayTimeKey).setVisibility(View.GONE);
                 mTitle.findViewById(R.id.tv_delayTimeValue).setVisibility(View.GONE);
+            } else {
+                long l = Long.parseLong(texts[4]);
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+                String time = sf.format(new Date(l));
+                ((TextView) mTitle.findViewById(R.id.tv_delayTimeValue)).setText(time);
             }
-            ((TextView) mTitle.findViewById(R.id.tv_delayTimeValue)).setText(texts[4]);
         } else {
             mTitle.findViewById(R.id.tv_delayTimeKey).setVisibility(View.GONE);
             mTitle.findViewById(R.id.tv_delayTimeValue).setVisibility(View.GONE);
