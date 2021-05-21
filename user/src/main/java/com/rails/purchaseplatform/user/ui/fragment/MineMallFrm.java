@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
+import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
@@ -243,6 +244,11 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
     @Override
     public void checkPermissions(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getAuthor(AuthorBean authorBean) {
 
     }
 

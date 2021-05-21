@@ -28,9 +28,7 @@ import org.greenrobot.eventbus.EventBus;
  * tabs 页面
  */
 @Route(path = ConRoute.RAILS.MAIN)
-public class MainActivity extends BaseErrorActivity<ActivityMainBinding>  implements UserToolContract.UserToolView {
-
-    private UserToolContract.UserToolPresenter toolPresenter;
+public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
 
     private ResultWebBean webBean;
     // 定义一个变量，来标识是否退出
@@ -52,19 +50,6 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding>  implem
     protected void initialize(Bundle bundle) {
         if (webBean != null) {
             EventBus.getDefault().post(new BusEvent<ResultWebBean>(webBean, ConRoute.EVENTCODE.MAIN_CODE));
-        }
-
-        toolPresenter = new UserToolPresenterImpl(this, this);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        UserInfoBean bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
-        if (bean != null) {
-            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
-            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
         }
     }
 
@@ -116,22 +101,6 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding>  implem
             mHandler = null;
         }
     }
-
-    @Override
-    public void getUserStatictics(UserStatisticsBean bean) {
-
-    }
-
-    @Override
-    public void getUserInfoStatictics(UserStatisticsBean bean) {
-
-    }
-
-    @Override
-    public void checkPermissions(UserStatisticsBean bean) {
-
-    }
-
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
