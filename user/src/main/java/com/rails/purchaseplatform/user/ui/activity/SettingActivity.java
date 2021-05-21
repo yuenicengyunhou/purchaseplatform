@@ -5,6 +5,11 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
+import com.rails.lib_data.bean.AuthorBean;
+import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
@@ -22,10 +27,12 @@ import java.util.Set;
  * @author： sk_comic@163.com
  * @date: 2021/4/9
  */
-public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
+public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> implements UserToolContract.UserToolView {
 
 
     private boolean isAddressManager = false;
+    private UserToolContract.UserToolPresenter presenter;
+    private UserInfoBean bean;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -35,8 +42,10 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
                 .setImgLeftRes(R.drawable.svg_back_black)
                 .setShowLine(true);
 
-        isAddressManager = PrefrenceUtil.getInstance(this).getBoolean(ConShare.MENU_ADDRESS, false);
-
+        bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
+        presenter = new UserToolPresenterImpl(this, this);
+        if (bean != null)
+            presenter.queryAuthor(bean.getId(), bean.getAccountType());
     }
 
     @Override
@@ -105,5 +114,32 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> {
                     .builder().show();
         });
 
+    }
+
+
+    @Override
+    protected void reNetLoad() {
+        super.reNetLoad();
+        presenter.queryAuthor(bean.getId(), bean.getAccountType());
+    }
+
+    @Override
+    public void getUserStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getUserInfoStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void checkPermissions(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getAuthor(AuthorBean authorBean) {
+        isAddressManager = PrefrenceUtil.getInstance(this).getBoolean(ConShare.MENU_ADDRESS, false);
     }
 }

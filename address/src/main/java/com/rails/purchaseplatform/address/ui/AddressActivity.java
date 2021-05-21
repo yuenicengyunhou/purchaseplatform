@@ -9,8 +9,13 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.AuthorBean;
+import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
@@ -35,16 +40,19 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 @Route(path = ConRoute.ADDRESS.ADDRESS_MAIN)
 public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> implements AddressContract.AddressView,
-        PositionListener<AddressBean>, MulPositionListener<AddressBean> {
+        PositionListener<AddressBean>, MulPositionListener<AddressBean>, UserToolContract.UserToolView {
     private final int PAGE_DEF = 1;
     private int mPage = PAGE_DEF;
     private AddressAdapter addressAdapter;
     private AddressContract.AddressPresenter presenter;
+    private UserToolContract.UserToolPresenter toolPresenter;
 
     //是否有删除权限
     private boolean isDel = false;
     // 是否有新增地址权限
     private boolean isAdd = false;
+
+    private UserInfoBean userInfoBean;
 
 
     //测滑删除按钮
@@ -95,21 +103,17 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
                 .setShowLine(true)
                 .setImgLeftRes(R.drawable.svg_back_black);
 
-
-        isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
-        isDel = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_DEL, false);
-
         if (!isAdd) {
             barBinding.btnAdd.setVisibility(View.GONE);
         }
+        if (isDel)
+            barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
 
 
         addressAdapter = new AddressAdapter(this);
         addressAdapter.setListener(this);
         addressAdapter.setMulPositionListener(this);
 
-        if (isDel)
-            barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
 
         barBinding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
         barBinding.recycler.setOnItemMenuClickListener((menuBridge, adapterPosition) -> {
@@ -130,6 +134,11 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         });
         barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         barBinding.recycler.setAdapter(addressAdapter);
+
+        userInfoBean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
+        toolPresenter = new UserToolPresenterImpl(this, this);
+        if (userInfoBean != null)
+            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
 
 
         presenter = new AddressPresenterImpl(this, this);
@@ -241,5 +250,38 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     protected void onRestart() {
         super.onRestart();
         onRefresh(true);
+    }
+
+    @Override
+    public void getUserStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getUserInfoStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void checkPermissions(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getAuthor(AuthorBean authorBean) {
+        isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
+        isDel = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_DEL, false);
+        if (!isAdd) {
+            barBinding.btnAdd.setVisibility(View.GONE);
+        }
+        if (isDel)
+            barBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
+    }
+
+    @Override
+    protected void reNetLoad() {
+        super.reNetLoad();
+        if (userInfoBean != null)
+            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
     }
 }

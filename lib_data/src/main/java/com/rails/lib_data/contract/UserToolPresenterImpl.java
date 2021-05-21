@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AuthorBean;
@@ -12,6 +13,8 @@ import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.CONNECT_ERROR;
 
 /**
  * 用户相关工具
@@ -84,7 +87,8 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
         model.getQueryResource(userId, userType, new HttpRxObserver<AuthorBean>() {
             @Override
             protected void onError(ErrorBean e) {
-
+                e.setCode(CONNECT_ERROR);
+                baseView.onError(e);
             }
 
             @Override
@@ -199,6 +203,8 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
                                 PrefrenceUtil.getInstance(mContext).setBoolean(ConShare.BUTTON_ADDRESS_DEL, true);
                             }
                         }
+
+                        baseView.getAuthor(authorBean);
                     }
 
                 }

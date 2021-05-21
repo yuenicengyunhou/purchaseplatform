@@ -15,6 +15,8 @@ import java.lang.reflect.Type;
 
 import androidx.viewbinding.ViewBinding;
 
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.CONNECT_ERROR;
+
 
 /**
  * toolbar activity
@@ -48,7 +50,9 @@ public abstract class ToolbarActivity<T extends ViewBinding> extends BaseErrorAc
             }
         });
 
-        binding.netEmpty.setImgEmpty(R.drawable.ic_launcher_background).setContentEmpty(R.string.app_name).setMarginTop(100).setListener(new View.OnClickListener() {
+
+        binding.netEmpty.setImgEmpty(R.drawable.ic_net_error).setContentEmpty("无法连接到网络").setMarginTop(100)
+                .setBtnEmpty("刷新重试").setListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (NetWorkUtil.isWifiEnabled(ToolbarActivity.this)) {
@@ -65,8 +69,8 @@ public abstract class ToolbarActivity<T extends ViewBinding> extends BaseErrorAc
     @Override
     public void onError(ErrorBean errorBean) {
         super.onError(errorBean);
-        switch (errorBean.getCode()) {
-
+        if (errorBean.getCode() == CONNECT_ERROR) {
+            binding.netEmpty.setVisibility(View.VISIBLE);
         }
     }
 
