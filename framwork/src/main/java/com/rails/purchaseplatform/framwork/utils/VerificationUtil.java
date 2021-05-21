@@ -18,7 +18,8 @@ public class VerificationUtil {
      * @return
      */
     public static boolean isUserName_login(String strUserName) {
-        String strPattern = "^(?!_)(?!.*?_$)([a-zA-Z0-9_]|[\u4E00-\u9FA5\uf900-\ufa2d])+$";
+//        String strPattern = "^(?!_)(?!.*?_$)([a-zA-Z0-9_]|[\u4E00-\u9FA5\uf900-\ufa2d])+$";
+        String strPattern = "^[a-zA-Z][a-zA-Z0-9_]{5,17}$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strUserName);
         return m.matches();
@@ -58,7 +59,7 @@ public class VerificationUtil {
      * @return
      */
     public static boolean isIdentify(String identify) {
-        String strPattern = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6}$";
+        String strPattern = "^[0-9A-Za-z]{6}$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(identify);
         return m.matches();
