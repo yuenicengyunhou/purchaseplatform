@@ -11,6 +11,7 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
+import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
@@ -35,8 +36,7 @@ import androidx.annotation.NonNull;
  * @date: 2021/1/27
  */
 @Route(path = ConRoute.USER.LOGIN)
-public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView
-        , UserToolContract.UserToolView {
+public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView{
 
     private int COUNTING = 1;
     private int COUNT_NUM = 60;
@@ -53,7 +53,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         PrefrenceUtil.getInstance(this).clear();
 
         presenter = new LoginPresneterImpl(this, this);
-        toolPresenter = new UserToolPresenterImpl(this, this);
     }
 
     @Override
@@ -135,27 +134,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public void getUserInfo(UserInfoBean bean) {
         PrefrenceUtil.getInstance(this).setBean(ConShare.USERINFO, bean);
-        if (bean != null) {
-            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
-            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
-        }
         finish();
     }
 
-    @Override
-    public void getUserStatictics(UserStatisticsBean bean) {
-
-    }
-
-    @Override
-    public void getUserInfoStatictics(UserStatisticsBean bean) {
-
-    }
-
-    @Override
-    public void checkPermissions(UserStatisticsBean bean) {
-
-    }
 
     private static class TimerHandler extends Handler {
         private final WeakReference<LoginActivity> mWeakReference;

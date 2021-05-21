@@ -33,58 +33,11 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.U
 
 public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActivity<T> {
 
-    private UserToolContract.UserToolPresenter toolPresenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toolPresenter = new UserToolPresenterImpl(this, new UserToolContract.UserToolView() {
-            @Override
-            public void getUserStatictics(UserStatisticsBean bean) {
-
-            }
-
-            @Override
-            public void getUserInfoStatictics(UserStatisticsBean bean) {
-
-            }
-
-            @Override
-            public void checkPermissions(UserStatisticsBean bean) {
-
-            }
-
-            @Override
-            public void onError(ErrorBean errorBean) {
-
-            }
-
-            @Override
-            public void showDialog(String msg) {
-
-            }
-
-            @Override
-            public void showResDialog(int res) {
-
-            }
-
-            @Override
-            public void dismissDialog() {
-
-            }
-        });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        UserInfoBean bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
-        if (bean != null) {
-            toolPresenter.queryResourceButton(bean.getId(), bean.getAccountType());
-            toolPresenter.queryResource(bean.getId(), bean.getAccountType());
-        }
-    }
 
     @Override
     public void onError(ErrorBean errorBean) {

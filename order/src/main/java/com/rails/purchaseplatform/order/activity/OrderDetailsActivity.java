@@ -27,6 +27,7 @@ import com.rails.purchaseplatform.order.databinding.ActivityOrderDetailsBinding;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
+@Deprecated
 @Route(path = ConRoute.ORDER.ORDER_DETAILS)
 public class OrderDetailsActivity extends ToolbarActivity<ActivityOrderDetailsBinding> implements OrderDetailsContract.DetailView {
 

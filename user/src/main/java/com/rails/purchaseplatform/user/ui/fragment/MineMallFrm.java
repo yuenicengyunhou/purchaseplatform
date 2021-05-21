@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
+import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
@@ -12,12 +13,18 @@ import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.common.widget.EmptyView;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
+import com.rails.purchaseplatform.framwork.utils.NetWorkUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
+
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.CONNECT_ERROR;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
 
 /**
  * 购物车--个人中心
@@ -38,11 +45,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     protected void loadData() {
 
-        this.isPurchase = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_PURCHAR, false);
-        this.isApprove = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_APPROVE, false);
-        this.isCollect = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_COLLECT, false);
-        this.isTrack = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_TRACK, false);
-
+        setNetView(binding.netError);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
     }
 
@@ -53,6 +56,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         if (bean != null) {
             toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
             toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
+            toolPresenter.queryAuthor(bean.getId(), bean.getAccountType());
         }
     }
 
@@ -246,6 +250,14 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
     }
 
+    @Override
+    public void getAuthor(AuthorBean authorBean) {
+        this.isPurchase = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_PURCHAR, false);
+        this.isApprove = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_APPROVE, false);
+        this.isCollect = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_COLLECT, false);
+        this.isTrack = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_TRACK, false);
+    }
+
 
     /**
      * 设置用户信息
@@ -262,4 +274,43 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tvWatch.setKey(String.format(getResources().getString(R.string.mine_seek), bean.getVisitTrackCount()));
         binding.tvCollect.setKey(String.format(getResources().getString(R.string.mine_collect), bean.getCollectCount()));
     }
+
+
+    @Override
+    public void onError(ErrorBean errorBean) {
+        super.onError(errorBean);
+        if (errorBean.getCode() == CONNECT_ERROR) {
+            binding.netError.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    /**
+     * 设置重试
+     *
+     * @param netView
+     */
+    private void setNetView(EmptyView netView) {
+        if (netView != null) {
+            netView.setImgEmpty(R.drawable.ic_net_error).setContentEmpty("无法连接到网络").setMarginTop(100)
+                    .setBtnEmpty("刷新重试")
+                    .setListener(v -> {
+                        if (NetWorkUtil.isWifiEnabled(getActivity())) {
+                            binding.netError.setVisibility(View.GONE);
+                            reNetLoad();
+                        } else {
+                            binding.netError.setVisibility(View.VISIBLE);
+                        }
+                    });
+        }
+    }
+
+    private void reNetLoad() {
+        if (bean != null) {
+            toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
+            toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
+            toolPresenter.queryAuthor(bean.getId(), bean.getAccountType());
+        }
+    }
+
 }

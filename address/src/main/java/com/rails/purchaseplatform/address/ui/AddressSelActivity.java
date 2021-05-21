@@ -7,8 +7,13 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.AuthorBean;
+import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
+import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressSelAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressSelBinding;
@@ -33,13 +38,16 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/3/28
  */
 @Route(path = ConRoute.ADDRESS.ADDRESS_SEL)
-public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBinding> implements
+public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBinding> implements UserToolContract.UserToolView,
         AddressToolContract.AddressToolView, MulPositionListener<AddressBean>, PositionListener<AddressBean> {
 
     private AddressSelAdapter addressAdapter;
     private AddressToolContract.AddressToolPresenter presenter;
     private String type;
     private AddressBean addressBean;
+
+    private UserInfoBean userInfoBean;
+    private UserToolContract.UserToolPresenter toolPresenter;
 
     // 是否有新增地址权限
     private boolean isAdd = false;
@@ -59,7 +67,6 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
                 .setShowLine(true)
                 .setImgLeftRes(R.drawable.svg_back_black);
 
-        isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
         if (!isAdd) {
             barBinding.btnAdd.setVisibility(View.GONE);
         }
@@ -72,6 +79,10 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
         barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         barBinding.recycler.setAdapter(addressAdapter);
 
+        userInfoBean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
+        toolPresenter = new UserToolPresenterImpl(this, this);
+        if (userInfoBean != null)
+            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
 
         presenter = new AddressToolPresenterImpl(this, this);
         onRefresh();
@@ -150,5 +161,36 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     public void getDefAddress(AddressBean bean) {
 
+    }
+
+    @Override
+    public void getUserStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getUserInfoStatictics(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void checkPermissions(UserStatisticsBean bean) {
+
+    }
+
+    @Override
+    public void getAuthor(AuthorBean authorBean) {
+        isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
+        if (!isAdd) {
+            barBinding.btnAdd.setVisibility(View.GONE);
+        }
+    }
+
+
+    @Override
+    protected void reNetLoad() {
+        super.reNetLoad();
+        if (userInfoBean != null)
+            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
     }
 }

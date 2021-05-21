@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
@@ -491,6 +492,11 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     @Override
     public void checkPermissions(UserStatisticsBean bean) {
         barBinding.btnCommit.setEnabled(bean.getSubmitPurchaseOrder());
+    }
+
+    @Override
+    public void getAuthor(AuthorBean authorBean) {
+
     }
 
     @Override
