@@ -449,25 +449,33 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         String skuStock = mSkuStockBean.getSkuStock();
         String cause = mSkuStockBean.getCause();
         if (saleState == null || saleState.equals("0") || skuStock == null || skuStock.equals("0")) { // 如果 销售状态 或 库存数量 为null或0 表示不可销售状态
-            mStockNum = 0;
+//            mStockNum = 0;
             binding.addCart.setBackground(backgroundGray); // 确定（加入购物车）按钮灰色
             binding.tvCountState.setText("无货"); // 显示无货
             binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
             binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色
-        } else if (saleState.equals("1") && Integer.parseInt(skuStock) > 0) { // 销售状态为1 并且库存数量大于0 表示可销售状态
-            mStockNum = Integer.parseInt(skuStock);
-            binding.addCart.setBackground(backgroundBlue); // 确定（加入购物车）按钮蓝色
-            if (Integer.parseInt(skuStock) > 50) { // 如果 库存数量大于50
-                binding.tvCountState.setText("有货"); // 显示有货
-            } else { // 如果库存数量小于50
-                binding.tvCountState.setText("仅剩 " + skuStock + " 件"); // 显示具体可购买数量
-                if (binding.etNum.getText().toString().equals(skuStock)) {
-                    binding.tvAdd.setTextColor(fontGray);
-                } else {
-                    binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
-                }
-            }
-            binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色(因为默认数量为1，不能再减少了)
+        } else /*if (saleState.equals("1") && Integer.parseInt(skuStock) > 0)*/ { // 销售状态为1 并且库存数量大于0 表示可销售状态
+//            mStockNum = Integer.parseInt(skuStock);
+//            binding.addCart.setBackground(backgroundBlue); // 确定（加入购物车）按钮蓝色
+//            if (Integer.parseInt(skuStock) > 50) { // 如果 库存数量大于50
+//                binding.tvCountState.setText("有货"); // 显示有货
+//            } else { // 如果库存数量小于50
+//                binding.tvCountState.setText("仅剩 " + skuStock + " 件"); // 显示具体可购买数量
+//                if (binding.etNum.getText().toString().equals(skuStock)) {
+//                    binding.tvAdd.setTextColor(fontGray);
+//                } else {
+//                    binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
+//                }
+//            }
+//            binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色(因为默认数量为1，不能再减少了)
+
+            binding.addCart.setBackground(backgroundBlue);
+            binding.tvCountState.setText("有货");
+            binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮灰色
+            if (Integer.parseInt(binding.etNum.getText().toString()) <= 1)
+                binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色
+            else
+                binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
     }
 
@@ -486,20 +494,20 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
 
-        // 设置增加数量按钮颜色
-        if (mStockNum > 50) { // 库存数量大于50 增加数量按钮一直是黑色 不做数量限制
-            binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
-        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) < mStockNum) { // 库存数量不多于50 && 输入数量小于库存数量
-            binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
-        } else { // 库存数量不多于50 输入数量大于等于库存数量
-            binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
-        }
-
-        // 控制输入数量
-        if (mStockNum <= 50 && String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) > mStockNum) {
-            binding.etNum.setText(String.valueOf(mStockNum));
-            ToastUtil.showCenter(getActivity(), "购买数量无法超过库存数量");
-        }
+//        // 设置增加数量按钮颜色
+//        if (mStockNum > 50) { // 库存数量大于50 增加数量按钮一直是黑色 不做数量限制
+//            binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
+//        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) < mStockNum) { // 库存数量不多于50 && 输入数量小于库存数量
+//            binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
+//        } else { // 库存数量不多于50 输入数量大于等于库存数量
+//            binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
+//        }
+//
+//        // 控制输入数量
+//        if (mStockNum <= 50 && String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) > mStockNum) {
+//            binding.etNum.setText(String.valueOf(mStockNum));
+//            ToastUtil.showCenter(getActivity(), "购买数量无法超过库存数量");
+//        }
     }
 
     /**
