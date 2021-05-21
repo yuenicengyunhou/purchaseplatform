@@ -65,6 +65,12 @@ public class ExceptionEngine {
             if (e.getMessage().contains("but was STRING")) {
                 errorBean.setMsg("but was STRING");
             }
+            // 搜索skuId，如果是一个不存在的skuId,会报Json解析异常。
+            // 设置ErrorBean.msg，在请求失败的回调方法中依据msg内容进行处理。
+            // Expected a com.google.gson.JsonObject but was com.google.gson.JsonNull
+            else if (e.getMessage().contains("but was com.google.gson.JsonNull")) {
+                errorBean.setMsg("but was com.google.gson.JsonNull");
+            }
         } else if (e instanceof ConnectException) {//连接网络错误
             errorBean = new ErrorBean(e, CONNECT_ERROR);
             errorBean.setMsg("连接失败，请检查网络状况");
