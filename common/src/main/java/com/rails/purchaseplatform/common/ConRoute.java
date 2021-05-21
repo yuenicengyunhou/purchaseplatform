@@ -126,7 +126,7 @@ public class ConRoute {
 //        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
 
         // 生产环境
-        public final static String BASEURL = "https://cg.95306.cn/purchase-android-web/#/";
+        public final static String BASEURL = "https://mall.95306.cn/purchase-android-web/#/";
 
 
         public final static String HOME = BASEURL + "home";
