@@ -76,8 +76,9 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         value01.setValueName("  是  ");
         value01.setValueId("true");
         SearchFilterValue value02 = new SearchFilterValue();
-        value02.setValueName("  否  ");
+        value02.setValueName("  全部  ");
         value02.setValueId("false");
+        value02.setSelect(true);
         ArrayList<SearchFilterValue> values0 = new ArrayList<>();
         values0.add(value01);
         values0.add(value02);

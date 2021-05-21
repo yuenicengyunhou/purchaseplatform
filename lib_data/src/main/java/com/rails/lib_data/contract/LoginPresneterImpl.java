@@ -31,9 +31,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
     @Override
     public void onLogin(String phone, String paw, String code) {
-        phone = "18331099998";
-        paw = "Pass!word@1234";
-        code = "a8bn6t";
 
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.showCenter(mContext, "手机号码不能为空");
@@ -90,7 +87,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
     @Override
     public void getCode(String phone) {
-        phone = "18331099998";
 
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.showCenter(mContext, "手机号码不能为空");
