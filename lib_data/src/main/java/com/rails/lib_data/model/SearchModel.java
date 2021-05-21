@@ -2,6 +2,7 @@ package com.rails.lib_data.model;
 
 import android.text.TextUtils;
 
+import com.google.gson.JsonObject;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.SearchService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
@@ -103,7 +104,7 @@ public class SearchModel {
                                        String brands, String brandsString,
                                        String categoryAttrValueIds, String expandAttrValueIds,
                                        String minPrice, String maxPrice,
-                                       int pageNum, int pageSize, HttpRxObserver httpRxObserver) {
+                                       int pageNum, int pageSize, HttpRxObserver<JsonObject> httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("businessType", 1);
         if (keyword != null && !keyword.equals(""))

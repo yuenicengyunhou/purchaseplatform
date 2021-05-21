@@ -143,6 +143,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
      */
     private void updateList(String text) {
         if (!text.equals("")) {
+            mSearchKey = text;
             mHistorySearchList.remove(text);
             mHistorySearchList.add(0, text);
             if (mHistorySearchList.size() > 10) mHistorySearchList.remove(10);
