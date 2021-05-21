@@ -31,6 +31,12 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
     @Override
     public void onLogin(String phone, String paw, String code) {
+        String code_phone = PrefrenceUtil.getInstance(mContext).getString(ConShare.CODE_PHONE, "");
+
+        if (TextUtils.isEmpty(code_phone)) {
+            ToastUtil.showCenter(mContext, "请先获取验证码");
+            return;
+        }
 
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.showCenter(mContext, "手机号码不能为空");
@@ -42,7 +48,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        String code_phone = PrefrenceUtil.getInstance(mContext).getString(ConShare.CODE_PHONE, "");
         if (!code_phone.equals(phone)) {
             ToastUtil.showCenter(mContext, "与申请验证码的手机号码不一致");
             return;
@@ -98,8 +103,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        PrefrenceUtil.getInstance(mContext).setString(ConShare.CODE_PHONE, phone);
-
         baseView.showResDialog(R.string.loading);
         model.getCode(phone, new HttpRxObserver<String>() {
             @Override
@@ -110,6 +113,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
             @Override
             protected void onSuccess(String response) {
+                PrefrenceUtil.getInstance(mContext).setString(ConShare.CODE_PHONE, phone);
                 baseView.dismissDialog();
                 baseView.onResult(1, "获取成功", response);
             }
