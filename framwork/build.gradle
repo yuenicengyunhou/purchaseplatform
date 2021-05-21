@@ -125,6 +125,9 @@ dependencies {
     //字体库
     api 'uk.co.chrisjenx:calligraphy:2.3.0'
 
+    //版本更新
+    api 'com.teprinciple:updateapputils:2.3.0'
+
 
     //高德地图
 //    api 'com.amap.api:3dmap:latest.integration'

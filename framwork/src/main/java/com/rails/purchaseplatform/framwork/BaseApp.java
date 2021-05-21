@@ -38,8 +38,8 @@ public class BaseApp extends Application {
         initFont();
         MultiDex.install(this);
         context = getApplicationContext();
-        AppCrashHandler handler = new AppCrashHandler();
-        Thread.setDefaultUncaughtExceptionHandler(handler);
+//        AppCrashHandler handler = new AppCrashHandler();
+//        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
 
