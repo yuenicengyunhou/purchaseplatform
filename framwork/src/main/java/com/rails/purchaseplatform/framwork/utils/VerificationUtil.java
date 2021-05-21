@@ -38,37 +38,6 @@ public class VerificationUtil {
     }
 
 
-
-    /**
-     * 验证验证码
-     *
-     * @param verifyCode 验证码
-     * @return 验证码不为空并且匹配格式返回true，否则返回false
-     */
-    private boolean matchVerifyCode(String verifyCode) {
-        Pattern pattern = Pattern.compile("^\\d{6}$");
-        return !verifyCode.equals("") && pattern.matcher(verifyCode).matches();
-    }
-
-    /**
-     * 验证密码
-     *
-     * @param password 密码
-     * @return 密码不为空并且匹配格式返回true，否则返回false
-     */
-    private boolean matchPassword(String password) {
-        // TODO: 2021/3/28 密码格式验证 - 正则
-        Pattern pattern = Pattern.compile("^[1]\\d{10}$");
-//        return !password.equals("") && pattern.matcher(password).matches();
-        return true;
-    }
-
-
-//    public static String getHideMobile(String mobile) {
-//        String strPattern = "(\\d{3})\\d*(\\d{4})$";
-//    }
-
-
     /**
      * 判断是否是隐藏文件
      *
@@ -121,11 +90,10 @@ public class VerificationUtil {
      */
 
     public static boolean isEmail(String strEmail) {
-        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
-
+        String strPattern = "^[\\w.]+[@][a-zA-Z0-9.]+$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strEmail);
-        return true;
+        return m.matches();
     }
 
     /**
