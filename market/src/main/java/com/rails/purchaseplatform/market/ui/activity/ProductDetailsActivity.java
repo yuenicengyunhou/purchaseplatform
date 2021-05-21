@@ -632,6 +632,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String getCreditLv(ProductDetailsBean bean) {
         String creditLv = bean.getItemPublishVo().getCreditLevel();
         String text = CREDIT_NAME_1;
+        if (creditLv == null) {
+            return text;
+        }
         switch (creditLv) {
             case CREDIT_LEVEL_2:
                 text = CREDIT_NAME_2;
