@@ -110,6 +110,7 @@ public class VerificationUtil {
             if (password.length() < 8) {
                 return false;
             } else {
+//                "[^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\d!@#$%^&*,.]+$)[a-zA-Z\d!@#$%^&*,.]+$]"
                 Pattern p = Pattern.compile("[a-zA-Z0-9\\$@#!,-_\\.\\?]+");
                 Matcher m = p.matcher(password);
                 return m.matches();

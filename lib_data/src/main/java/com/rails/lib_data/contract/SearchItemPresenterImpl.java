@@ -1,7 +1,11 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
@@ -57,7 +61,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                 ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
                 ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
                 boolean isClear = pageNum <= 1;
-                baseView.getItemListWithKeywordOnly(itemAttributes, searchFilterBeans, true, isClear);
+                baseView.onQueryItemListByKeywordSuccess(itemAttributes, searchFilterBeans, true, isClear);
             }
         });
     }
@@ -79,7 +83,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                 ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
                 ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
                 boolean isClear = pageNum <= 1;
-                baseView.getItemListWithCid(itemAttributes, searchFilterBeans, false, isClear);
+                baseView.onQueryItemListByCidSuccess(itemAttributes, searchFilterBeans, false, isClear);
             }
         });
     }
@@ -103,7 +107,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                         ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
                         ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
                         boolean isClear = pageNum <= 1;
-                        baseView.getItemListWithCid(itemAttributes, searchFilterBeans, false, isClear);
+                        baseView.onQueryItemListByCidSuccess(itemAttributes, searchFilterBeans, false, isClear);
                         baseView.dismissDialog();
                     }
                 });
@@ -117,7 +121,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         model.queryItemListByKeyword(keyword, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
                 minPrice, maxPrice, pageNum, pageSize,
-                new HttpRxObserver<SearchDataByItemBean>() {
+                new HttpRxObserver<JsonObject>() {
                     @Override
                     protected void onError(ErrorBean e) {
                         baseView.onError(e);
@@ -125,11 +129,27 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     }
 
                     @Override
-                    protected void onSuccess(SearchDataByItemBean response) {
-                        ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
-                        ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
-                        boolean isClear = pageNum <= 1;
-                        baseView.getItemListWithKeywordOnly(itemAttributes, searchFilterBeans, false, isClear);
+                    protected void onSuccess(JsonObject response) {
+
+                        if (response == null) {
+                            // TODO: 2021/5/21 可能是null？
+                            baseView.onQueryItemListByKeywordSuccess(new ArrayList<ItemAttribute>(), new ArrayList<SearchFilterBean>(), false, true);
+                        } else if (response.has("itemList") && response.has("selectedCAttr") && response.has("selectedEAttr")) {
+                            // TODO: 2021/5/21 显示列表
+                            Gson gson = new Gson();
+                            SearchDataByItemBean bean = gson.fromJson(response.toString(), SearchDataByItemBean.class);
+                            ArrayList<ItemAttribute> itemAttributes = getItemAttributes(bean);
+                            ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(bean);
+                            boolean isClear = pageNum <= 1;
+                            baseView.onQueryItemListByKeywordSuccess(itemAttributes, searchFilterBeans, false, isClear);
+                        } else if (response.has("itemId")) {
+                            // TODO: 2021/5/21 跳转到详情页
+                            JsonElement element = response.get("itemId");
+                            String itemId = TextUtils.isEmpty(element.toString())
+                                    ? ""
+                                    : element.toString();
+                            baseView.onQueryItemListByKeywordSuccess2(itemId);
+                        }
                         baseView.dismissDialog();
                     }
                 });

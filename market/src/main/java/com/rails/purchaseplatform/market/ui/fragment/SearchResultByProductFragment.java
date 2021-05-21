@@ -2,11 +2,15 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchItemPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.market.R;
@@ -15,6 +19,7 @@ import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByProdu
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -121,14 +126,22 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void getItemListWithKeywordOnly(ArrayList<ItemAttribute> itemAttributes, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
+    public void onQueryItemListByKeywordSuccess(ArrayList<ItemAttribute> itemAttributes, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(itemAttributes, isClear);
         binding.smart.finishLoadMore();
         if (!filtered) mSearchFilterList = filterResults;
     }
 
     @Override
-    public void getItemListWithCid(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
+    public void onQueryItemListByKeywordSuccess2(String itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("itemId", itemId);
+        ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
+        Objects.requireNonNull(getActivity()).finish();
+    }
+
+    @Override
+    public void onQueryItemListByCidSuccess(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear) {
         mAdapter.update(results, isClear);
         binding.smart.finishLoadMore();
         if (!filtered) mSearchFilterList = filterResults;

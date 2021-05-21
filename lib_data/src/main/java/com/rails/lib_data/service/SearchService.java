@@ -1,6 +1,7 @@
 package com.rails.lib_data.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.byShop.SearchDataByShopBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
@@ -24,7 +25,7 @@ public interface SearchService {
      * @return
      */
     @GET("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<SearchDataByItemBean>> getItemListWithKeywordOnly(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<JsonObject>> getItemListWithKeywordOnly(@QueryMap HashMap<String, Object> params);
 
 
     /**

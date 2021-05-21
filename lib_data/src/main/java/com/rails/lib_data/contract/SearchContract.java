@@ -21,7 +21,15 @@ public interface SearchContract {
          * @param hasMore
          * @param isClear
          */
-        void getItemListWithKeywordOnly(ArrayList<ItemAttribute> searchResultBeans, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
+        void onQueryItemListByKeywordSuccess(ArrayList<ItemAttribute> searchResultBeans, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
+
+        /**
+         * 获取商品列表成功 回调
+         * 搜索skuId
+         *
+         * @param itemId
+         */
+        void onQueryItemListByKeywordSuccess2(String itemId);
 
         /**
          * 获取商品列表成功 使用cid
@@ -30,7 +38,7 @@ public interface SearchContract {
          * @param hasMore
          * @param isClear
          */
-        void getItemListWithCid(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
+        void onQueryItemListByCidSuccess(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
     }
 
 
