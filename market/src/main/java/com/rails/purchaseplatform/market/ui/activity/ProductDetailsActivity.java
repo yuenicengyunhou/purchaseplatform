@@ -413,7 +413,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (mPop == null) {
             mPop = new PropertyPop<>(mSpecificationPopBeanList, itemSkuInfoList, mSkuStockBean, mPrice, mDelivery,
                     mShopId, mProvinceCode, mCityCode, mCountryCode,
-                    addresses.get(0).getFullAddress(), "1", mode);
+                    "", "1", mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
