@@ -175,4 +175,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler = null;
+    }
 }

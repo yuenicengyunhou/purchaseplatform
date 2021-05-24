@@ -251,6 +251,9 @@ public class FlowTagLayout extends ViewGroup {
                             if (mOnTagSelectListener != null) {
                                 mOnTagSelectListener.onItemSelect(FlowTagLayout.this, new ArrayList<Integer>());
                             }
+                            if (mOnTagClickListener != null) {
+                                mOnTagClickListener.onItemClick(FlowTagLayout.this, childView, j);
+                            }
                             return;
                         }
 

@@ -727,8 +727,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mCityCode = bean.getCityCode();
             mCountryCode = bean.getCountryCode();
             binding.tvAddressDefault.setText(bean.getFullAddress());
-            mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
         }
+        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
     }
 
     @Override

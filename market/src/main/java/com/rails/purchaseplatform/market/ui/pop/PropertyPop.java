@@ -392,13 +392,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     mTypeSelect.getSkuInfo(mItemSkuInfo); // 把ItemSkuInfo传给activity
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true); // 请求价格接口
                     mProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceId, mCityId, mCountryId,
-                            mAddress, mSkuNum, mItemSkuInfo.getId(), false); // todo 请求库存接口
-                    binding.tvAdd.setTextColor(fontBlack); // 设置步进器按钮颜色
-                    binding.tvCountState.setText("有货"); // 设置有无货状态
-                } else {
-                    ToastUtil.showCenter(getActivity(), "没有此型号商品或商品库存不足");
-                    binding.tvAdd.setTextColor(fontGray);
-                    binding.tvCountState.setText("无货");
+                            mAddress, mSkuNum, mItemSkuInfo.getId(), false);
                 }
             }
         });
