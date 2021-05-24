@@ -20,10 +20,12 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
 
     private int selPosition = 0;
     private boolean isEdit = false;
+    private boolean isDel = false;
 
     public AddressAdapter(Context context) {
         super(context);
         isEdit = PrefrenceUtil.getInstance(context).getBoolean(ConShare.BUTTON_ADDRESS_EDIT, false);
+        isDel = PrefrenceUtil.getInstance(context).getBoolean(ConShare.BUTTON_ADDRESS_DEL, false);
     }
 
     @Override
@@ -34,22 +36,34 @@ public class AddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddress
     @Override
     protected void onBindItem(ItemAddressBinding binding, AddressBean addressBean, int position) {
         binding.setAddress(addressBean);
-        if (!isEdit) {
-            binding.imgEdit.setVisibility(View.GONE);
-        } else {
+        if (addressBean.getOperateFlag() == 1 && isEdit) {
             binding.imgEdit.setVisibility(View.VISIBLE);
+        } else {
+            binding.imgEdit.setVisibility(View.GONE);
         }
+        if (addressBean.getOperateFlag() == 1 && isDel) {
+            binding.btnDel.setVisibility(View.VISIBLE);
+        } else {
+            binding.btnDel.setVisibility(View.GONE);
+        }
+
+
         binding.imgEdit.setOnClickListener(v -> {
             if (positionListener != null)
                 positionListener.onPosition(addressBean, position);
         });
 
-        binding.getRoot().setOnClickListener(v -> {
+        binding.btnDel.setOnClickListener(v -> {
             if (mulPositionListener != null) {
                 mulPositionListener.onPosition(addressBean, position);
             }
-
         });
+
+//        binding.getRoot().setOnClickListener(v -> {
+//            if (mulPositionListener != null) {
+//                mulPositionListener.onPosition(addressBean, position);
+//            }
+//        });
         if (addressBean.getReceivingAddress() == 1) {
             binding.btnRecivice.setVisibility(View.VISIBLE);
             binding.view.setVisibility(View.VISIBLE);

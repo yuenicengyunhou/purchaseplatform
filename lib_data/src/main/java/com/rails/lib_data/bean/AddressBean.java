@@ -21,6 +21,7 @@ public class AddressBean implements Serializable {
     private int hasDefault;
     private int invoiceAddress;
     private String mobile;
+    //0：没有权限 1：有权限
     private int operateFlag;
     private String phone;
     private String receiverName;
@@ -30,8 +31,7 @@ public class AddressBean implements Serializable {
     private Boolean isdefault;
     private String code;
     private String msg;
-
-
+    private String address;
 
 
     /**
@@ -359,5 +359,13 @@ public class AddressBean implements Serializable {
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

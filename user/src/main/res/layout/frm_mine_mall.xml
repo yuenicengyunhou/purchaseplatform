@@ -85,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name"
                     android:layout_alignLeft="@+id/tv_name"
+                    android:layout_marginRight="@dimen/common_border"
                     android:layout_marginTop="@dimen/dp_8"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_13" />

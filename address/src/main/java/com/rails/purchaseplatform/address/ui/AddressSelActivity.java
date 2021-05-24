@@ -183,6 +183,8 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
         isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
         if (!isAdd) {
             barBinding.btnAdd.setVisibility(View.GONE);
+        }else{
+            barBinding.btnAdd.setVisibility(View.VISIBLE);
         }
     }
 

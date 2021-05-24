@@ -1,4 +1,4 @@
-package com.rails.purchaseplatform.market.widget;
+package com.rails.purchaseplatform.common.widget.recycler;
 
 import android.content.Context;
 import android.util.AttributeSet;
