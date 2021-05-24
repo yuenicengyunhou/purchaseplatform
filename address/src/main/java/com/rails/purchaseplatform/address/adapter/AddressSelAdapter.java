@@ -19,11 +19,9 @@ import java.util.Collections;
 public class AddressSelAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddressSelBinding> {
 
     private int selPosition = 0;
-    private boolean isEdit = false;
 
     public AddressSelAdapter(Context context) {
         super(context);
-        isEdit = PrefrenceUtil.getInstance(context).getBoolean(ConShare.BUTTON_ADDRESS_EDIT, false);
     }
 
     @Override
@@ -34,11 +32,6 @@ public class AddressSelAdapter extends BaseRecyclerAdapter<AddressBean, ItemAddr
     @Override
     protected void onBindItem(ItemAddressSelBinding binding, AddressBean addressBean, int position) {
         binding.setAddress(addressBean);
-        if (!isEdit) {
-            binding.imgEdit.setVisibility(View.GONE);
-        } else {
-            binding.imgEdit.setVisibility(View.VISIBLE);
-        }
         binding.imgEdit.setOnClickListener(v -> {
             if (positionListener != null)
                 positionListener.onPosition(addressBean, position);

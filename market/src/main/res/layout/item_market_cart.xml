@@ -138,7 +138,7 @@
         </RelativeLayout>
 
 
-        <com.rails.purchaseplatform.market.widget.SlideRecyclerView
+        <com.rails.purchaseplatform.common.widget.recycler.SlideRecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

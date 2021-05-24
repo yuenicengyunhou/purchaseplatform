@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:visibility="gone"
             android:padding="@dimen/common_border"
             android:src="@drawable/ic_address_edit" />
 
