@@ -367,8 +367,12 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.llTop.setVisibility(View.VISIBLE); // 隐藏文字头
         binding.rlBuyCount.setVisibility(View.VISIBLE); // 显示数量步进器
         binding.addCart.setVisibility(View.VISIBLE); // 显示加入购物车按钮（长按钮 确定）
+        String pic = "";
+        if (mItemSkuInfo != null && mItemSkuInfo.getPictureUrl() != null) {
+            pic = "https:" + mItemSkuInfo.getPictureUrl();
+        }
         Glide.with(getContext())
-                .load("https:" + mItemSkuInfo.getPictureUrl())
+                .load(pic)
                 .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
                 .into(binding.imgProduct); // 显示sku图片
         binding.tvPrice.setText(mPrice); // 显示价格
