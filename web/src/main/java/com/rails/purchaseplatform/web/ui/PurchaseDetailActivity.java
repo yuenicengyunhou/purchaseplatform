@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
+import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
@@ -27,6 +28,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     private boolean isEvaseek = false;
     private boolean isEvacommit = false;
     private boolean isReceive = false;
+    private UserInfoBean userInfoBean;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -35,10 +37,14 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         isEvacommit = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_EVA_COMMIT, false);
         isEvaseek = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_EVA_SEEK, false);
         isReceive = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_RECEIVE, false);
+        userInfoBean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
 
         url = ConRoute.WEB_URL.PURCHASE_DETAIL;
         String orderNo = extras.getString("orderNo");
         url = url + "?orderNo=" + orderNo + "&handle=2&list=list" + "&isEvacommit=" + isEvacommit + "&isEvaseek=" + isEvaseek + "&isReceive=" + isReceive;
+        if (userInfoBean != null) {
+            url = url + "&userId=" + userInfoBean.getId();
+        }
         Logger.d("WQ", "pur==" + url);
 
     }
