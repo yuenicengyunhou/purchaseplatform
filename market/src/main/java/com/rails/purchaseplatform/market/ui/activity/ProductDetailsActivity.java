@@ -680,7 +680,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         } else {
             binding.tvPriceGray.setText(String.format("%.2f", bean.getMarketPrice()));
         }
-        binding.fsvScore.setStar((int) bean.getScore());
+        binding.fsvScore.setStar(bean.getScore());
         // 设置商品销量
 //        binding.tvItemSaleCount.setVisibility(View.INVISIBLE);
         binding.itemSalesCounts.setText(String.valueOf(bean.getSaleNum()));

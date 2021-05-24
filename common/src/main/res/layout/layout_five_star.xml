@@ -11,33 +11,33 @@
         android:layout_height="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_4"
         android:layout_marginEnd="@dimen/dp_4"
-        android:src="@mipmap/ic_empty_star" />
+        android:src="@mipmap/ic_empty_star_blue" />
 
     <ImageView
         android:layout_width="@dimen/dp_16"
         android:layout_height="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_4"
         android:layout_marginEnd="@dimen/dp_4"
-        android:src="@mipmap/ic_empty_star" />
+        android:src="@mipmap/ic_empty_star_blue" />
 
     <ImageView
         android:layout_width="@dimen/dp_16"
         android:layout_height="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_4"
         android:layout_marginEnd="@dimen/dp_4"
-        android:src="@mipmap/ic_empty_star" />
+        android:src="@mipmap/ic_empty_star_blue" />
 
     <ImageView
         android:layout_width="@dimen/dp_16"
         android:layout_height="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_4"
         android:layout_marginEnd="@dimen/dp_4"
-        android:src="@mipmap/ic_empty_star" />
+        android:src="@mipmap/ic_empty_star_blue" />
 
     <ImageView
         android:layout_width="@dimen/dp_16"
         android:layout_height="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_4"
         android:layout_marginEnd="@dimen/dp_4"
-        android:src="@mipmap/ic_empty_star" />
+        android:src="@mipmap/ic_empty_star_blue" />
 </LinearLayout>

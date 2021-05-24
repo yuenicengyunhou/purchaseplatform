@@ -48,10 +48,14 @@ public class FiveStarView extends LinearLayout {
         this.addView(view);
     }
 
-    public void setStar(int number) {
+    public void setStar(double number) {
         if (number <= 0) return;
         for (int i = 0; i < number && i < 5; i++) {
-            ((ImageView) mFiveStar.getChildAt(i)).setImageResource(R.mipmap.ic_star);
+            if (number - i < 1 && number - i != 0) {
+                ((ImageView) mFiveStar.getChildAt(i)).setImageResource(R.mipmap.ic_half_star);
+            } else {
+                ((ImageView) mFiveStar.getChildAt(i)).setImageResource(R.mipmap.ic_star);
+            }
         }
     }
 }
