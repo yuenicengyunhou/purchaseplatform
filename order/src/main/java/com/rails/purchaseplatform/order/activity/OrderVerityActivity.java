@@ -406,6 +406,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
 
             //发票
+            orderInvoiceBean.getInvoiceAddress().setAddress(orderInvoiceBean.getInvoiceAddress().getFullAddress());
             body.setOrderInvoice(orderInvoiceBean);
 
 
@@ -426,9 +427,10 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             body.setSkuList(skuListBeans);
             body.setRemarkMap((JSONObject) JSON.toJSON(remarks));
         }
-        Logger.d(JSONObject.toJSON(body).toString());
+        String params = JSONObject.toJSON(body).toString();
+        Logger.d(params);
 
-        presenter.commitOrder(orderToken, JSONObject.toJSON(body).toString());
+        presenter.commitOrder(orderToken, params);
     }
 
 

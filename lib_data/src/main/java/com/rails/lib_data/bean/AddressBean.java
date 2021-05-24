@@ -31,6 +31,7 @@ public class AddressBean implements Serializable {
     private Boolean isdefault;
     private String code;
     private String msg;
+    private String address;
 
 
     /**
@@ -358,5 +359,13 @@ public class AddressBean implements Serializable {
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
