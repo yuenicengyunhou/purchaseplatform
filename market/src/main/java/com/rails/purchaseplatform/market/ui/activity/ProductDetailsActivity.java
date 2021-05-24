@@ -442,6 +442,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                         binding.tvItemName.setText(itemSkuInfo.getSkuName());
                         mGetProductDetailsPresenter.getProductPrice("20", mSkuId, true);
                         mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
+                    } else {
+
                     }
                 }
             });
@@ -735,7 +737,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void getSkuSaleStocks(SkuStockBean bean) {
         mSkuStockBean = bean;
         if (bean == null || bean.getSaleState() == null || bean.getSaleState().equals("0") || bean.getSkuStock() == null || bean.getSkuStock().equals("0")) {
-            binding.tvPutInCart.setBackground(this.getResources().getDrawable(R.drawable.bg_corner_gray_20_8e8e8e));
+//            binding.tvPutInCart.setBackground(this.getResources().getDrawable(R.drawable.bg_corner_gray_20_8e8e8e));
         }
     }
 

@@ -71,11 +71,12 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     private String mShopId, mProvinceId, mCityId, mCountryId, mAddress, mSkuNum;
 
+    private String mStockStateStr = "有货";
     private int mStockNum = 0; // 库存数量 默认0
 
     private ArrayList<T> mBeans;
     private ArrayList<ItemSkuInfo> mItemSkuInfos;
-    private ItemSkuInfo mItemSkuInfo;
+    private ItemSkuInfo mItemSkuInfo, mPreviousItemSkuInfo;
     private SkuStockBean mSkuStockBean;
 
     private int mMode = 0;
@@ -138,6 +139,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         mMode = mode;
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
         mItemSkuInfo = (skuInfos != null && skuInfos.size() != 0) ? skuInfos.get(0) : null;
+        mPreviousItemSkuInfo = mItemSkuInfo;
         mDelivery = delivery;
         mPrice = price;
         mSkuStockBean = skuStockBean;
@@ -384,7 +386,8 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
                 mItemSkuInfo = itemSkuInfo;
-                if (mItemSkuInfo != null && mTypeSelect != null) {
+                if (mItemSkuInfo != null) mPreviousItemSkuInfo = mItemSkuInfo;
+                if (itemSkuInfo != null && mTypeSelect != null) {
                     Glide.with(getContext())
                             .load("https:" + mItemSkuInfo.getPictureUrl())
                             .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
@@ -392,7 +395,13 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     mTypeSelect.getSkuInfo(mItemSkuInfo); // 把ItemSkuInfo传给activity
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true); // 请求价格接口
                     mProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceId, mCityId, mCountryId,
-                            mAddress, mSkuNum, mItemSkuInfo.getId(), false);
+                            mAddress, mSkuNum, mItemSkuInfo.getId(), false); // 请求库存接口
+                } else {
+                    mStockStateStr = "无货";
+                    binding.tvCountState.setText(mStockStateStr); // 显示无货
+                    binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
+                    binding.addCart.setBackground(backgroundGray); // 确定（加入购物车）按钮灰色
+                    mTypeSelect.getSkuInfo(mPreviousItemSkuInfo); // 把ItemSkuInfo传给activity
                 }
             }
         });
@@ -437,38 +446,26 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      */
     private void setAddCartButton() {
         if (mSkuStockBean == null) { // 如果库存Bean为null 视为无货
+            mStockStateStr = "无货";
             binding.addCart.setBackground(backgroundGray);
-            binding.tvCountState.setText("无货");
+            binding.tvCountState.setText(mStockStateStr);
             binding.tvAdd.setTextColor(fontGray);
             binding.tvReduce.setTextColor(fontGray);
             return;
         }
         String saleState = mSkuStockBean.getSaleState();
         String skuStock = mSkuStockBean.getSkuStock();
-        String cause = mSkuStockBean.getCause();
-        if (saleState == null || saleState.equals("0") || skuStock == null || skuStock.equals("0")) { // 如果 销售状态 或 库存数量 为null或0 表示不可销售状态
-//            mStockNum = 0;
+        // 如果 销售状态 或 库存数量 为null或0 表示不可销售状态
+        if (saleState == null || saleState.equals("0") || skuStock == null || skuStock.equals("0")) {
+            mStockStateStr = "无货";
             binding.addCart.setBackground(backgroundGray); // 确定（加入购物车）按钮灰色
-            binding.tvCountState.setText("无货"); // 显示无货
+            binding.tvCountState.setText(mStockStateStr); // 显示无货
             binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
             binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色
-        } else /*if (saleState.equals("1") && Integer.parseInt(skuStock) > 0)*/ { // 销售状态为1 并且库存数量大于0 表示可销售状态
-//            mStockNum = Integer.parseInt(skuStock);
-//            binding.addCart.setBackground(backgroundBlue); // 确定（加入购物车）按钮蓝色
-//            if (Integer.parseInt(skuStock) > 50) { // 如果 库存数量大于50
-//                binding.tvCountState.setText("有货"); // 显示有货
-//            } else { // 如果库存数量小于50
-//                binding.tvCountState.setText("仅剩 " + skuStock + " 件"); // 显示具体可购买数量
-//                if (binding.etNum.getText().toString().equals(skuStock)) {
-//                    binding.tvAdd.setTextColor(fontGray);
-//                } else {
-//                    binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
-//                }
-//            }
-//            binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色(因为默认数量为1，不能再减少了)
-
+        } else {
+            mStockStateStr = "有货";
             binding.addCart.setBackground(backgroundBlue);
-            binding.tvCountState.setText("有货");
+            binding.tvCountState.setText(mStockStateStr);
             binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮灰色
             if (Integer.parseInt(binding.etNum.getText().toString()) <= 1)
                 binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色
@@ -491,21 +488,6 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         } else {
             binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
-
-//        // 设置增加数量按钮颜色
-//        if (mStockNum > 50) { // 库存数量大于50 增加数量按钮一直是黑色 不做数量限制
-//            binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
-//        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) < mStockNum) { // 库存数量不多于50 && 输入数量小于库存数量
-//            binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮黑色
-//        } else { // 库存数量不多于50 输入数量大于等于库存数量
-//            binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
-//        }
-//
-//        // 控制输入数量
-//        if (mStockNum <= 50 && String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) > mStockNum) {
-//            binding.etNum.setText(String.valueOf(mStockNum));
-//            ToastUtil.showCenter(getActivity(), "购买数量无法超过库存数量");
-//        }
     }
 
     /**
