@@ -128,10 +128,18 @@ dependencies {
     //版本更新
     api 'com.teprinciple:updateapputils:2.3.0'
 
+    //加载长图
+//    api 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+
 
     //高德地图
 //    api 'com.amap.api:3dmap:latest.integration'
     api 'com.amap.api:navi-3dmap:7.8.0_3dmap7.8.0'
     api 'com.amap.api:search:7.7.0'
     api 'com.amap.api:location:5.2.0'
+
+    //友盟统计v9.3.8
+    api "com.umeng.umsdk:common:9.3.8"
+    api "com.umeng.umsdk:asms:1.2.2"
+    api 'com.umeng.umsdk:apm:1.2.0'
 }
