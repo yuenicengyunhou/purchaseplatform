@@ -59,7 +59,7 @@ public class AreaFragment
 //        refreshArea();
         DistributionAreaContract.DistributionAreaPresenter presenter1
                 = new DistributionAreaImpl(mActivity, this);
-        presenter1.getDistributionArea(code);
+        presenter1.getDistributionArea(code, false);
     }
 
     @Override

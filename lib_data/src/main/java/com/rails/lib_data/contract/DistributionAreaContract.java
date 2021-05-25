@@ -40,7 +40,7 @@ public interface DistributionAreaContract {
          *
          * @param parentCode
          */
-        void getDistributionArea(String parentCode);
+        void getDistributionArea(String parentCode, boolean isDialog);
     }
 
 
