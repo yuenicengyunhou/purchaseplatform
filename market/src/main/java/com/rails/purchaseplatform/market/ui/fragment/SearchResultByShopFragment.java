@@ -105,7 +105,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
         }.getType();
         AreaCodeFullBean bean = JsonUtil.parseJson(getActivity(), "area_code.json", type);
         SearchFilterBean bean2 = new SearchFilterBean();
-        bean2.setFilterName("收货区域");
+        bean2.setFilterName("配送区域");
         bean2.setMultiSelect(false);
         ArrayList<SearchFilterValue> values2 = new ArrayList<>();
         for (AreaCodeBean codeBean : bean.getData()) {
