@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.R;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -129,7 +130,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     protected void onResume() {
         super.onResume();
-
+        MobclickAgent.onResume(this); // 不能遗漏
     }
 
     @Override
@@ -150,6 +151,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
 
 
     public void onPause() {
+        MobclickAgent.onPause(this); // 不能遗漏
         super.onPause();
     }
 
