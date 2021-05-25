@@ -75,7 +75,7 @@
             android:layout_marginBottom="@dimen/dp_24"
             android:background="@drawable/bg_corner_blue_20"
             android:gravity="center"
-            android:text="确定"
+            android:text="关闭"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_15" />
     </RelativeLayout>

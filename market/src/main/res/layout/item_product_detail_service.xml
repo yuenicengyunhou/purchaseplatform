@@ -41,7 +41,7 @@
             android:layout_alignLeft="@+id/tv_title"
             android:layout_marginTop="@dimen/dp_5"
             android:text="@{service.name}"
-            android:textColor="@color/font_gray"
+            android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_11" />
 
     </RelativeLayout>
