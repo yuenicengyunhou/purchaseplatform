@@ -71,7 +71,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     private String mShopId, mProvinceId, mCityId, mCountryId, mAddress, mSkuNum;
 
-    private String mStockStateStr = "有货";
+    private String mStockStateStr = "";
     private int mStockNum = 0; // 库存数量 默认0
 
     private ArrayList<T> mBeans;
@@ -177,6 +177,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void getSkuSaleStocks(SkuStockBean bean) {
                 mSkuStockBean = bean;
+//                Log.d(TAG, "谁动了我的接口？？？？？？？");
                 setAddCartButton();
             }
 
@@ -205,6 +206,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void initialize(Bundle bundle) {
+//        Log.d(TAG, "初始化方法是在哪里调用的呢？");
         Resources res = getActivity().getResources();
         fontGray = res.getColor(com.rails.purchaseplatform.common.R.color.font_gray);
         fontBlack = res.getColor(com.rails.purchaseplatform.common.R.color.font_black);
@@ -395,6 +397,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     mProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceId, mCityId, mCountryId,
                             mAddress, mSkuNum, mItemSkuInfo.getId(), false); // 请求库存接口
                 } else {
+                    mSkuStockBean = null;
                     mStockStateStr = "无货";
                     binding.tvCountState.setText(mStockStateStr); // 显示无货
                     binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
@@ -411,6 +414,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.tvAdd.setOnClickListener(v -> changeNum(true));
         binding.tvReduce.setOnClickListener(v -> changeNum(false));
         binding.tvReduce.setTextColor(fontGray);
+//        Log.d(TAG, "为啥又走了初始化？？？？？");
         setAddCartButton();
         binding.addCart.setOnClickListener(v -> {
             if (binding.tvCountState.getText().toString().equals("无货")) {
@@ -443,6 +447,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 设置按钮颜色，pop初始化时调用，切换sku请求库存成功时调用。
      */
     private void setAddCartButton() {
+//        Log.d(TAG, "设置按钮颜色：pop初始化时调用，切换sku请求库存成功时调用");
         if (mSkuStockBean == null) { // 如果库存Bean为null 视为无货
             mStockStateStr = "无货";
             binding.addCart.setBackground(backgroundGray);
@@ -471,6 +476,11 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
     }
+
+//    private boolean isCheckedOneSku(ArrayList<SpecificationPopBean> beans) {
+//        boolean ji
+//        return false;
+//    }
 
     /**
      * 改变减小数量按键的颜色

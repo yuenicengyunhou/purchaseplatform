@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import androidx.viewbinding.ViewBinding;
  */
 
 public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
+    final private String TAG = BasePop.class.getSimpleName();
 
     private static final float DEFAULT_ALPHA = 0.35f;
 
@@ -93,6 +95,7 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        Log.d(TAG, "onViewCreated");
         view.setClickable(true);
         if (gravity == Gravity.BOTTOM)
             AnimationUtil.slideToUp(view);
