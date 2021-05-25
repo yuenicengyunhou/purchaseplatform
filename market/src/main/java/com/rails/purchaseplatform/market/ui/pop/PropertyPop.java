@@ -214,16 +214,14 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         switch (mMode) {
             case MODE_1:
             case MODE_2:
-                setPopEvent();
+                setPopEvent(); // 规格、加入购物车弹窗
                 break;
             case MODE_3:
-                setFilterPopEvent();
+                setFilterPopEvent(); // 商品筛选弹窗
                 break;
-
             case MODE_4:
-                setShopFilterPopEvent();
+                setShopFilterPopEvent(); // 店铺筛选弹窗
                 break;
-
             default:
                 break;
         }
