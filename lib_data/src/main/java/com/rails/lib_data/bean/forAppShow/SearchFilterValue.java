@@ -4,9 +4,18 @@ public class SearchFilterValue {
     private String valueName;
     private String valueId;
     private boolean isSelect = false;
+    private boolean isSingle;
     private int attrFlag = -1; // 0-brand，1-cid, 2-categoryAttrValue, 3-expandAttrValue
 
     private int parent;//1 为父级 ，0为子级
+
+    public boolean isSingle() {
+        return isSingle;
+    }
+
+    public void setSingle(boolean single) {
+        isSingle = single;
+    }
 
     public int getParent() {
         return parent;

@@ -474,8 +474,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      */
     @Override
     public void loadConditionNameList(ArrayList<BuyerBean> list) {
-        adapter.setType(mType);
         if (null != adapter) {
+            adapter.setType(mType);
             adapter.update(list, true);
         }
     }

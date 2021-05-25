@@ -48,7 +48,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -88,6 +88,9 @@ dependencies {
     //阿里路由
     implementation 'com.alibaba:arouter-api:1.4.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     implementation project(path: ':common')
     implementation project(path: ':user')

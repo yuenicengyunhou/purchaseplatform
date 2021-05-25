@@ -55,7 +55,7 @@
             android:layout_marginBottom="@dimen/dp_40"
             android:ellipsize="end"
             android:lines="1"
-            android:text="Copyright © 2008-2021 中国铁道科学研究院集团有限公司"
+            android:text="Copyright © 2019-2021 中国铁道科学研究院集团有限公司"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_10" />
 

@@ -1,6 +1,8 @@
 package com.rails.lib_data.bean;
 
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 import androidx.databinding.ObservableField;
@@ -12,7 +14,7 @@ import androidx.databinding.ObservableField;
 public class AddressBean implements Serializable {
 
 
-    private long addressId;
+    private String addressId;
     private int distributeFlag;
     private String email;
     private String emergencyPerson;
@@ -60,11 +62,14 @@ public class AddressBean implements Serializable {
     public final ObservableField<Boolean> isSel = new ObservableField<>();
 
 
-    public long getAddressId() {
+    public String getAddressId() {
+        if (null == addressId || TextUtils.isEmpty(addressId)) {
+            return id;
+        }
         return addressId;
     }
 
-    public void setAddressId(long addressId) {
+    public void setAddressId(String addressId) {
         this.addressId = addressId;
     }
 

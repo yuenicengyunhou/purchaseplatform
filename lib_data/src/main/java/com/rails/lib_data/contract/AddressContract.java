@@ -66,7 +66,7 @@ public interface AddressContract {
         /**
          * 根据addressId获取地址详情
          */
-        void getAddressInfo(long addressId);
+        void getAddressInfo(String addressId);
 
 
 //        /**
@@ -82,7 +82,7 @@ public interface AddressContract {
          *
          * param id
          */
-        void delAddress(long buyerAddressId, int position);
+        void delAddress(String buyerAddressId, int position);
 
 
         /**
@@ -94,7 +94,7 @@ public interface AddressContract {
          * param address 联系地址
          * param isDef   是否是默认地址
          */
-        void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress,long addressId,String provinceCode, String cityCode, String countryCode);
+        void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress,String addressId,String provinceCode, String cityCode, String countryCode);
 
 
         /**

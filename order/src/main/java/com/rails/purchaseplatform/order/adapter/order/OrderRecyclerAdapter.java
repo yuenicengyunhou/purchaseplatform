@@ -1,11 +1,9 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -85,12 +83,20 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             holder.tvOrderNum.setText(orderNo);
             holder.tvStatus.setText(orderStatusView);
             holder.ivNext.setVisibility(View.VISIBLE);
+            holder.tvOrderTime.setText(orderTime);
+            holder.tvOrderTime.setVisibility(View.VISIBLE);
+            holder.tvNumKey.setText("订单号：");
+            holder.tvTimeKey.setVisibility(View.VISIBLE);
+
         } else {
-            holder.tvOrderNum.setText(orderStatusView);
-            holder.tvStatus.setText("");
+            holder.tvOrderNum.setText(orderTime);
+            holder.tvStatus.setText(orderStatusView);
             holder.ivNext.setVisibility(View.INVISIBLE);
+            holder.tvNumKey.setText("生成时间：");
+            holder.tvTimeKey.setVisibility(View.GONE);
+            holder.tvOrderTime.setVisibility(View.GONE);
         }
-        holder.tvOrderTime.setText(orderTime);
+
 
         OrderChildRecyclerAdapter adapter = new OrderChildRecyclerAdapter(mContext, getItemViewType(position));
         holder.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 1);
@@ -149,15 +155,17 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        private BaseRecyclerView recycler;
-        private ConstraintLayout orderItem;
-        private TextView singlePrice;
-        private TextView count;
-        private TextView tvPrice;
+        private final BaseRecyclerView recycler;
+        private final ConstraintLayout orderItem;
+        private final TextView singlePrice;
+        private final TextView count;
+        private final TextView tvPrice;
         private final TextView tvOrderNum;
         private final TextView tvOrderTime;
-        private TextView tvStatus;
-        private ImageView ivNext;
+        private final TextView tvStatus;
+        private final ImageView ivNext;
+        private final TextView tvTimeKey;
+        private final TextView tvNumKey;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -166,8 +174,10 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             count = itemView.findViewById(R.id.tv_count);
             singlePrice = itemView.findViewById(R.id.tv_num);
             tvPrice = itemView.findViewById(R.id.tv_price);
+            tvNumKey = itemView.findViewById(R.id.tv_orderNumKey);
             tvOrderNum = itemView.findViewById(R.id.tv_orderNumValue);
             tvOrderTime = itemView.findViewById(R.id.tv_TimeValue);
+            tvTimeKey = itemView.findViewById(R.id.tv_timeKey);
             tvStatus = itemView.findViewById(R.id.tv_orderStatus);
             ivNext = itemView.findViewById(R.id.iv_next);
         }

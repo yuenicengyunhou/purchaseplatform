@@ -16,6 +16,8 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 import androidx.annotation.Nullable;
 import androidx.multidex.MultiDex;
@@ -38,8 +40,6 @@ public class BaseApp extends Application {
         initFont();
         MultiDex.install(this);
         context = getApplicationContext();
-//        AppCrashHandler handler = new AppCrashHandler();
-//        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
 
@@ -49,10 +49,10 @@ public class BaseApp extends Application {
 
 
     private void initUM() {
-//                // 初始化SDK
-//                UMConfigure.init(this, "5ebef9a80cafb20b7a000593", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
-//                // 选用AUTO页面采集模式
-//                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+                // 初始化SDK
+                UMConfigure.init(this, "60ac50a9c9aacd3bd4e5616c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
+                // 选用AUTO页面采集模式
+                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
     }
 
 

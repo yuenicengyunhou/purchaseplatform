@@ -2,7 +2,6 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rails.lib_data.AddressArea;
@@ -12,9 +11,7 @@ import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressDTO;
 import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.UserInfoBean;
-import com.rails.lib_data.bean.message.MessageRaw;
 import com.rails.lib_data.model.AddressModel;
-import com.rails.lib_data.model.MessageModel;
 import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -55,43 +52,6 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
     @Override
     public void test() {
-//        String[] arr = new String[]{"243071", "243057"};
-//        String ids = new Gson().toJson(arr);
-//        Log.e("WQ", "=====" + ids);
-//        messageModel.deleteMessages("20", accountId, ids, new HttpRxObserver() {
-//            @Override
-//            protected void onError(ErrorBean e) {
-//
-//            }
-//
-//            @Override
-//            protected void onSuccess(Object response) {
-//                messageModel.getMessageList("20", accountId, 1, 10, new HttpRxObserver<MessageRaw>() {
-//                    @Override
-//                    protected void onError(ErrorBean e) {
-//
-//                    }
-//
-//                    @Override
-//                    protected void onSuccess(MessageRaw response) {
-//                        Log.e("WQ", "====" + response.getAllMessage());
-//                    }
-//                });
-//            }
-//        });
-
-
-//        messageModel.getNotReadMessageCount("20", accountId, new HttpRxObserver() {
-//            @Override
-//            protected void onError(ErrorBean e) {
-//
-//            }
-//
-//            @Override
-//            protected void onSuccess(Object response) {
-//
-//            }
-//        });
     }
 
     @Override
@@ -122,7 +82,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     }
 
     @Override
-    public void getAddressInfo(long addressId) {
+    public void getAddressInfo(String addressId) {
         baseView.showResDialog(R.string.loading);
         model.getAddressInfo(platformId, accountId, addressId, new HttpRxObserver<AddressBean>() {
             @Override
@@ -181,7 +141,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 //    }
 
     @Override
-    public void delAddress(long id, int position) {
+    public void delAddress(String id, int position) {
         model.deleteAddress(platformId, accountId, id, new HttpRxObserver<Boolean>() {
             @Override
             protected void onError(ErrorBean e) {
@@ -201,7 +161,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     }
 
     @Override
-    public void addAddress(String men, String phone, String area, String address, boolean isDef, int isReceiAddress, int isInvoiceAddress, long addressId, String provinceCode, String cityCode, String countryCode) {
+    public void addAddress(String men, String phone, String area, String address, boolean isDef, int isReceiAddress, int isInvoiceAddress, String addressId, String provinceCode, String cityCode, String countryCode) {
         if (TextUtils.isEmpty(men)) {
             ToastUtil.show(mContext, "请输入收货人");
             return;
@@ -225,8 +185,17 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
             ToastUtil.show(mContext, "至少选择一种地址类型");
             return;
         }
-        if (TextUtils.isEmpty(provinceCode) || TextUtils.isEmpty(cityCode) || TextUtils.isEmpty(countryCode)) {
-            ToastUtil.show(mContext, "获取地区码错误，请重选地址");
+
+//        if (TextUtils.isEmpty(provinceCode)) {
+//            ToastUtil.show(mContext, "省级地区码未获取，请尝试重选地址");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(cityCode)) {
+//            ToastUtil.show(mContext, "市级地区码未获取，请尝试重选地址");
+//            return;
+//        }
+        if (TextUtils.isEmpty(countryCode)||TextUtils.isEmpty(cityCode)) {
+            ToastUtil.show(mContext, "地区码未获取，请尝试重选地址");
             return;
         }
         baseView.showResDialog(R.string.saving);
@@ -241,7 +210,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         dto.setReceivingAddress(String.valueOf(isReceiAddress));
         dto.setInvoiceAddress(String.valueOf(isInvoiceAddress));
         String json = new Gson().toJson(dto);
-        if (addressId == 0) {
+        if (null == addressId || TextUtils.isEmpty(addressId)) {
             model.addAddress(platformId, accountId, json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
