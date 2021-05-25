@@ -29,7 +29,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        overridePendingTransition(R.anim.right_in, R.anim.left_out);
+//        overridePendingTransition(R.anim.slide_in_activity, R.anim.close_out_activity);
         BaseActManager.getInstance().addActivity(this);
         setLayout();
         setStatusBar();
@@ -140,7 +140,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     public void finish() {
         super.finish();
-//        overridePendingTransition(R.anim.left_in, R.anim.right_out);
+//        overridePendingTransition(R.anim.close_in_activity, R.anim.slide_out_activity);
     }
 
 

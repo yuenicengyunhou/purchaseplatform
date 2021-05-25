@@ -1,7 +1,9 @@
 package com.rails.lib_data.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.shop.AllCidsBean;
@@ -31,7 +33,7 @@ public class ShopModel {
     private boolean cateFirst = true;
     private boolean expanFirst = true;
 
-    public void getShopInfo(long platformId, String shopInfoId, HttpRxObserver httpRxObserver) {
+    public void getShopInfo(String platformId, String shopInfoId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("shopInfoId", shopInfoId);
@@ -62,6 +64,7 @@ public class ShopModel {
         map.put("pageNum", page);
         map.put("pageSize", pageSize);
         map.put("shopInfoId", shopInfoId);
+        map.put("businessType", "1");
         if (!TextUtils.isEmpty(orderColumn)) {
             map.put("orderColumn", orderColumn);//排序字段
             map.put("orderType", orderType);//排序顺序
@@ -102,18 +105,22 @@ public class ShopModel {
 
                         switch (attrFlag) {
                             case 0: //0-brand
+                                Log.e("WQ", "有brands===" + valueName);
                                 brands.append(valueName).append(",");
                                 break;
                             case 1://1-cid
                                 hasCid = true;
 //                                cidIdList.add(valueId);
+                                Log.e("WQ", "有cid===" + valueName);
                                 cidIdList.add(valueId);
+//                                cidIdList.add("1000682");
                                 break;
                             case 2:// 2-category
                                 if (cateFirst) {
                                     categoryAttrValueIds.add(filterName + "_");
                                     cateFirst = false;
                                 }
+                                Log.e("WQ", "有cate===" + valueName);
                                 categoryAttrValueIds.add(valueName);
                                 break;
                             case 3:// 3-expandAttrValue
@@ -121,6 +128,7 @@ public class ShopModel {
                                     expandAttrValueIds.add(filterName + "_");
                                     expanFirst = false;
                                 }
+                                Log.e("WQ", "有expand===" + valueName);
                                 expandAttrValueIds.add(valueName);
                                 break;
                         }
@@ -136,9 +144,16 @@ public class ShopModel {
                 map.put("brandsString", bransJson);
             }
             if (!cidIdList.isEmpty()) {
+//                String cidString = cidIdList.get(0);
+//                cidIdList.remove(0);
+//               String cidJson= cidString + StringUtil.getJointString("||", cidIdList)+"@";
+//                Gson gson = new Gson();
 //                String cidsJson = gson.toJson(cidIdList);
-                String cidsJson = "";
-                map.put("cidList", cidsJson);
+                Log.e("WQ", "cidSize===" + cidIdList.size());
+                String s = cidIdList.get(0);
+//                String cidsJson = "";
+//                map.put("cidList", cidJson);
+                map.put("cid", s);
             }
             if (!categoryAttrValueIds.isEmpty()) {
                 String headString = categoryAttrValueIds.get(0);
@@ -234,6 +249,7 @@ public class ShopModel {
 
         if (null != allCids && !allCids.isEmpty()) {
             SearchFilterBean bean = new SearchFilterBean();
+            bean.setMultiSelect(false);
             bean.setFilterName(CATEGORY);
             ArrayList<SearchFilterValue> values = new ArrayList<>();
             for (AllCidsBean allCidsBean : allCids) {
@@ -241,6 +257,7 @@ public class ShopModel {
                 String id = allCidsBean.getId();
                 String name = allCidsBean.getName();
                 value.setValueName(name);
+                value.setSingle(true);
                 value.setValueId(id);
                 value.setAttrFlag(1);
                 values.add(value);

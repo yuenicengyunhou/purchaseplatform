@@ -135,6 +135,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
         model.getUserInfo(token, new HttpRxObserver<UserInfoBean>() {
             @Override
             protected void onError(ErrorBean e) {
+//                PrefrenceUtil.getInstance(mContext).setString(ConShare.CODE_PHONE, phone);
                 baseView.dismissDialog();
                 baseView.onError(e);
             }

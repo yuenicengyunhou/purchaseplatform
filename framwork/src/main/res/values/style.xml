@@ -24,5 +24,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="activityAnim">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_activity</item>
+        <item name="android:activityOpenExitAnimation">@anim/close_out_activity</item>
+        <item name="android:activityCloseEnterAnimation">@anim/close_in_activity</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_activity</item>
+    </style>
+
 
 </resources>

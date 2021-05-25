@@ -30,7 +30,7 @@ public class OrderModel {
                 .subscribe(httpRxObserver);
     }
 
-    public void getPurchasePageList(long platformId, String accountId, int queryType, int accountType, String squence, String content, int page, OrderFilterBean filterBean, HttpRxObserver httpRxObserver) {
+    public void getPurchasePageList(String platformId, String accountId, int queryType, String accountType, String squence, String content, int page, OrderFilterBean filterBean, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("platformId", platformId);
         map.put("accountId", accountId);

@@ -195,4 +195,10 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
         if (userInfoBean != null)
             toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onRefresh();
+    }
 }

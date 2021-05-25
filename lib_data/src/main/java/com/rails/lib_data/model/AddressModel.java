@@ -40,7 +40,7 @@ public class AddressModel {
     /**
      * 根据addressId获取地址详情
      */
-    public void getAddressInfo(String platformId, String accountId,long addressId, HttpRxObserver httpRxObserver) {
+    public void getAddressInfo(String platformId, String accountId,String addressId, HttpRxObserver httpRxObserver) {
         if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }
@@ -73,7 +73,7 @@ public class AddressModel {
     /**
      * 删除地址
      */
-    public void deleteAddress(String platformId, String accountId, long buyerAddressId, HttpRxObserver httpRxObserver) {
+    public void deleteAddress(String platformId, String accountId, String buyerAddressId, HttpRxObserver httpRxObserver) {
         if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }
@@ -115,7 +115,7 @@ public class AddressModel {
     /**
      * 地址编辑
      */
-    public void editAddress(String platformId, String accountId, long addressId, String json, HttpRxObserver httpRxObserver) {
+    public void editAddress(String platformId, String accountId, String addressId, String json, HttpRxObserver httpRxObserver) {
         if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";
         }

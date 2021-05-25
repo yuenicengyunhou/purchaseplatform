@@ -32,7 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * retrofitUtils工具类
  */
-
 public abstract class BaseRetrofit {
 
     public static boolean isDebug = true;

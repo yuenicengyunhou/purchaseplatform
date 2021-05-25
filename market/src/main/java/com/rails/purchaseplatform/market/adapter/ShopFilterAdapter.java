@@ -1,15 +1,20 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.common.widget.tags.FlowTagLayout;
+import com.rails.purchaseplatform.common.widget.tags.OnTagClickListener;
+import com.rails.purchaseplatform.common.widget.tags.OnTagSelectListener;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductPropertyBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, ItemProductPropertyBinding> {
 
@@ -26,7 +31,8 @@ public class ShopFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, Ite
     protected void onBindItem(ItemProductPropertyBinding binding, SearchFilterBean searchFilterBean, int position) {
         binding.tvName.setText(searchFilterBean.getFilterName());
         ShopFilterChildAdapter adapter = new ShopFilterChildAdapter(mContext);
-        if (searchFilterBean.isMultiSelect()) {
+        boolean multiSelect = searchFilterBean.isMultiSelect();
+        if (multiSelect) {
             binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
         } else {
             binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
@@ -34,6 +40,36 @@ public class ShopFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, Ite
         binding.flow.setAdapter(adapter);
         ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
         adapter.update(tags);
+        binding.flow.setOnTagClickListener((parent, view, position1) -> {
+            SearchFilterValue value = tags.get(position1);
+            Log.e("WQ", "====value" + value.getValueName());
+            Log.e("WQ", "position---" + position1+"   check=="+view.isSelected());
+            if (multiSelect) {
+                value.setSelect(view.isSelected());
+            } else {
+                for (int i = 0; i < tags.size(); i++) {
+                    if (i == position1) {
+                        tags.get(i).setSelect(view.isSelected());
+                    } else {
+                        tags.get(i).setSelect(false);
+                    }
+                }
+//                for (int i = 0; i < tags.size(); i++) {
+//                    if (i == position1) {
+//                        value.setSelect(view.isSelected());
+//                    } else {
+//                        value.setSelect(false);
+//                    }
+//                }
+
+            }
+        });
+//        binding.flow.setOnTagSelectListener((parent, selectedList) -> {
+//            for (int i = 0; i < selectedList.size(); i++) {
+//                Integer integer = selectedList.get(i);
+//
+//            }
+//        });
     }
 
     public ArrayList<SearchFilterBean> getDataSource() {

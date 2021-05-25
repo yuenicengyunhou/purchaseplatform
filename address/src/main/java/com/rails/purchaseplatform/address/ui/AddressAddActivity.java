@@ -3,10 +3,12 @@ package com.rails.purchaseplatform.address.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.amap.api.location.AMapLocation;
 import com.amap.api.services.core.PoiItem;
 import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
@@ -36,7 +38,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
     private AddressBean bean;
     private AddressContract.AddressPresenter presenter;
-    private long addressId = 0;
+    private String addressId = "";
     private String provinceCode = "";
     private String cityCode = "";
     private String countryCode = "";
@@ -69,10 +71,20 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
         presenter = new AddressPresenterImpl(this, this);
 
+//        if (null==bean){
+//            Intent intent = getIntent();
+//            Bundle extras = intent.getExtras();
+//            this.bean = (AddressBean) extras.getSerializable("bean");
+//        }
         if (bean != null) {
             binding.titleBar.setTitle("编辑地址");
             addressId = bean.getAddressId();
-            presenter.getAddressInfo(addressId);
+            if (null != bean.getId() && !TextUtils.isEmpty(bean.getId())) {
+//                addressId = bean.getId();
+                loadAddressInfo(bean);
+            } else {
+                presenter.getAddressInfo(addressId);
+            }
         } else {
             loadData();
         }
@@ -134,11 +146,23 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
      */
     private void initLocation() {
         LocationUtil.getLocation(this, mapLocation -> {
-            if (null != mapLocation) {
+            if (null != mapLocation) {//adCode相当于接口的coutryCode，这个是一致的
                 barBinding.etRemark.setText(mapLocation.getAddress());
-                barBinding.etArea.setContent(mapLocation.getProvince() + " " + mapLocation.getCity() + " " + mapLocation.getDistrict());
+                String s = mapLocation.getProvince() + " " + mapLocation.getCity() + " " + mapLocation.getDistrict();
+                String adCode = mapLocation.getAdCode();
+                String cityCode = mapLocation.getCityCode();
+                this.provinceCode = "";
+                this.cityCode = cityCode;
+                this.countryCode = adCode;
+                barBinding.etArea.setContent(s);
             } else
                 ToastUtil.show(AddressAddActivity.this, "定位失败");
+        });
+        LocationUtil.getLocation(this, new LocationUtil.CallBack() {
+            @Override
+            public void getMapLocation(AMapLocation mapLocation) {
+
+            }
         });
     }
 
@@ -164,7 +188,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
         String remark = Objects.requireNonNull(barBinding.etRemark.getText()).toString().trim();
         int isReceivingAddress = barBinding.cbReceive.isChecked() ? 1 : 0;
         int isInvoiceAddress = barBinding.cbInvoice.isChecked() ? 1 : 0;
-        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId, provinceCode,  cityCode,  countryCode);
+        presenter.addAddress(men, phone, area, remark, false, isReceivingAddress, isInvoiceAddress, addressId, provinceCode, cityCode, countryCode);
 
     }
 

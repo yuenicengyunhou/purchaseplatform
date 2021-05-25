@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> implements ShopContract.ShopPresenter {
 
     private final ShopModel model;
-    private String platformId=null;
+    private String platformId = null;
 
     public ShopPresenterImp(Activity mContext, ShopContract.ShopView shopView) {
         super(mContext, shopView);
@@ -38,7 +38,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
     @Override
     public void getShopDetails(String id) {
         baseView.showResDialog(R.string.loading);
-        model.getShopInfo(20, id, new HttpRxObserver<ShopInfoBean>() {
+        model.getShopInfo(platformId, id, new HttpRxObserver<ShopInfoBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -75,7 +75,6 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             }
         });
     }
-
 
 
 }

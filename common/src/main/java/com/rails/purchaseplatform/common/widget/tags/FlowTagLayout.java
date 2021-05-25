@@ -254,6 +254,12 @@ public class FlowTagLayout extends ViewGroup {
                             if (mOnTagClickListener != null) {
                                 mOnTagClickListener.onItemClick(FlowTagLayout.this, childView, j);
                             }
+                            if (mOnTagClickListener != null) {//单选模式下，控件选中状态下反选也通知更新
+                                mOnTagClickListener.onItemClick(FlowTagLayout.this, childView, j);
+                            }
+//                            if (mAdapter instanceof OnTagNotifyListener) {
+//                                ((OnTagNotifyListener) mAdapter).notify(j,false);
+//                            }
                             return;
                         }
 
@@ -267,6 +273,9 @@ public class FlowTagLayout extends ViewGroup {
                         if (mOnTagClickListener != null) {
                             mOnTagClickListener.onItemClick(FlowTagLayout.this, childView, j);
                         }
+//                        if (mAdapter instanceof OnTagNotifyListener) {
+//                            ((OnTagNotifyListener) mAdapter).notify(j,false);
+//                        }
 
                         if (mOnTagSelectListener != null) {
                             mOnTagSelectListener.onItemSelect(FlowTagLayout.this, Arrays.asList(j));
