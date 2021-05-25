@@ -250,6 +250,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
      * 获取一级 parentCode: 0
      * 获取二级 使用一级code
      */
+    @Deprecated
     @Override
     public void getArea(String parentCode) {
         model.getArea(platformId, parentCode, new HttpRxObserver<ArrayList<AddressArea>>() {

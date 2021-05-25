@@ -133,6 +133,7 @@ public class AddressModel {
     /**
      * 获取地区
      */
+    @Deprecated
     public void getArea(String platformId, String parentCode, HttpRxObserver httpRxObserver) {
         if (null == platformId || TextUtils.isEmpty(platformId)) {
             platformId = "20";

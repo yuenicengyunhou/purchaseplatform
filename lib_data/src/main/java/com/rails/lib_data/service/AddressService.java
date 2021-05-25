@@ -63,6 +63,7 @@ public interface AddressService {
     /**
      * 获取省市区
      */
+    @Deprecated
     @GET("app-user-service/app/v1/mall/base/address/queryEnableAddsByParentCode")
     Observable<HttpResult<ArrayList<AddressArea>>> getAddressCode(@QueryMap HashMap<String, Object> map);
 
