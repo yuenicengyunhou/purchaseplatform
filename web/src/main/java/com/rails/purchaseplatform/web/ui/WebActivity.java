@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -76,9 +80,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
      */
     @SuppressLint("JavascriptInterface")
     protected void initWeb(WebView webView, JSBack jsBack) {
-
-        addHeader(webView, url);
-        Logger.d(url);
+        synCookies(url);
         WebSettings webSettings = webView.getSettings();
         webSettings.setSupportZoom(false);
         webSettings.setLoadWithOverviewMode(true);
@@ -155,6 +157,39 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
             }
 
         });
+        Logger.d(url);
+        addHeader(webView, url);
+    }
+
+
+    /**
+     * 将cookie同步到WebView
+     *
+     * @param url    WebView要加载的url
+     * @return true 同步cookie成功，false同步cookie失败
+     * @Author JPH
+     */
+    public void synCookies(String url) {
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        cookieManager.acceptCookie();
+        /**
+         * cookies是在HttpClient中获得的cookie
+         */
+        String token = PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN,"");
+        if (TextUtils.isEmpty(token)) {
+            return;
+        }
+        cookieManager.removeAllCookies(null);
+        cookieManager.setCookie(url, "token" + "=" + token);
+        /**
+         *  判断系统当前版本，同步方式不一样
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.flush();
+        } else {
+            CookieSyncManager.createInstance(getApplicationContext()).sync();
+        }
     }
 
 
