@@ -4,6 +4,8 @@ import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
+import com.rails.lib_data.contract.DistributionAreaContract;
+import com.rails.lib_data.contract.DistributionAreaImpl;
 import com.rails.purchaseplatform.common.adapter.CityAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.databinding.FragmentAddressAreaBinding;
@@ -19,7 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * author： sk_comic@163.com
  * date: 2021/4/6
  */
-public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> implements PositionListener<AddressArea>, AddressContract.AddressView {
+public class AreaFragment
+        extends LazyFragment<FragmentAddressAreaBinding>
+        implements PositionListener<AddressArea>,
+        AddressContract.AddressView,
+        DistributionAreaContract.DistributionAreaView {
 
     private CityAdapter adapter;
     private AreaListener listener;
@@ -49,8 +55,11 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.recycler.setAdapter(adapter);
         AddressPresenterImpl presenter = new AddressPresenterImpl(mActivity, this);
-        presenter.getArea( code);
+//        presenter.getArea( code);
 //        refreshArea();
+        DistributionAreaContract.DistributionAreaPresenter presenter1
+                = new DistributionAreaImpl(mActivity, this);
+        presenter1.getDistributionArea(code);
     }
 
     @Override
@@ -98,6 +107,20 @@ public class AreaFragment extends LazyFragment<FragmentAddressAreaBinding> imple
     @Override
     public void loadAddressInfo(AddressBean addressInfo) {
 
+    }
+
+
+
+    @Override
+    public void onGetDistributionAreaSuccess(ArrayList<AddressArea> list) {
+        adapter.update(list, true);
+//        if (type == 0) {
+//            adapter.update(list,true);
+//        } else if (type == 1) {
+//            updateArea();
+//        } else {
+//            updateTown();
+//        }
     }
 
     public interface AreaListener {
