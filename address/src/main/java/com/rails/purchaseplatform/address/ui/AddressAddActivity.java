@@ -61,7 +61,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
 
     @Override
     protected boolean isBindEventBus() {
-        return false;
+        return true;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.rails.lib_data.bean;
 
+import android.text.TextUtils;
+
 /**
  * 用户信息
  *
@@ -57,6 +59,8 @@ public class UserInfoBean {
     }
 
     public String getPlatformId() {
+        if (TextUtils.isEmpty(platformId))
+            return "20";
         return platformId;
     }
 

@@ -14,6 +14,9 @@ public class ConRoute {
         //首页切换
         public static final String MAIN_CODE = "0x001";
 
+        //新建地址，地区切换
+        public static final String AREA_CODE = "0x002";
+
     }
 
 

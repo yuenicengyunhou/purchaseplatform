@@ -4,16 +4,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.orhanobut.logger.Logger;
+import com.rails.lib_data.bean.KeyVelueBean;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.NavigatorAdapter;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.databinding.PopAddressAreaBinding;
 import com.rails.purchaseplatform.common.fragment.AreaFragment;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.bean.BusEvent;
 
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 
 /**
  * 筛选
@@ -29,6 +38,7 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
 
     private SparseArray<String> areas;
     private SparseArray<String> areaCodes;
+    private HashMap<Integer, AreaFragment> maps;
 
 
     private ViewPageAdapter viewPageAdapter;
@@ -42,7 +52,7 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        maps = new HashMap<>();
         areas = new SparseArray<>();
         areaCodes = new SparseArray<>();
         initPager();
@@ -82,19 +92,26 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
         if (len > TOWN) {
             return;
         }
-        AreaFragment fragment = AreaFragment.getInstance(len, code);
+        AreaFragment fragment = maps.get(len);
+        if (fragment == null) {
+            fragment = AreaFragment.getInstance(len, code);
+            maps.put(len, fragment);
+        } else {
+
+            EventBus.getDefault().post(new BusEvent<KeyVelueBean>(new KeyVelueBean(len,code), ConRoute.EVENTCODE.AREA_CODE));
+        }
         fragment.setListener((bean, type) -> {
             areas.put(type, bean.getName());
             String mCode = bean.getCode();
             areaCodes.put(type, mCode);
-            Log.e("WQ", "code====" + mCode + "    =" + type);
+            Logger.e("WQ", "code====" + mCode + "    =" + type);
             StringBuilder buffer = new StringBuilder();
             if (type == TOWN) {
                 if (listener != null) {
                     for (int i = 0; i < areas.size(); i++) {
                         buffer.append(areas.get(i));
                     }
-                    listener.getResult(buffer.toString(),areaCodes.get(CITY),areaCodes.get(AREA),areaCodes.get(TOWN));
+                    listener.getResult(buffer.toString(), areaCodes.get(CITY), areaCodes.get(AREA), areaCodes.get(TOWN));
                 }
                 dismiss();
                 return;
@@ -112,7 +129,7 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
 
 
     public interface PareaListener {
-        void getResult(String area,String provinceCode, String cityCode, String countryCode);
+        void getResult(String area, String provinceCode, String cityCode, String countryCode);
     }
 
 }

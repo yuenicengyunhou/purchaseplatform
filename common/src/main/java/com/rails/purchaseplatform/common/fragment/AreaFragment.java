@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.common.fragment;
 
 import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.KeyVelueBean;
 import com.rails.lib_data.contract.DistributionAreaContract;
 import com.rails.lib_data.contract.DistributionAreaImpl;
 import com.rails.purchaseplatform.common.adapter.CityAdapter;
@@ -8,6 +9,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.databinding.FragmentAddressAreaBinding;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.bean.BusEvent;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class AreaFragment
         implements PositionListener<AddressArea>,
         DistributionAreaContract.DistributionAreaView {
 
+    DistributionAreaContract.DistributionAreaPresenter presenter;
     private CityAdapter adapter;
     private AreaListener listener;
     private final int type;
@@ -50,12 +53,9 @@ public class AreaFragment
 
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.recycler.setAdapter(adapter);
-//        AddressPresenterImpl presenter = new AddressPresenterImpl(mActivity, this);
-//        presenter.getArea( code);
-//        refreshArea();
-        DistributionAreaContract.DistributionAreaPresenter presenter1
-                = new DistributionAreaImpl(mActivity, this);
-        presenter1.getDistributionArea(code, false);
+
+        presenter = new DistributionAreaImpl(mActivity, this);
+        presenter.getDistributionArea(code, false);
     }
 
     @Override
@@ -65,7 +65,19 @@ public class AreaFragment
 
     @Override
     protected boolean isBindEventBus() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public void onMessageEvent(BusEvent event) {
+        super.onMessageEvent(event);
+        KeyVelueBean bean = (KeyVelueBean) event.getBean();
+
+        if (type == bean.getKey()) {
+            code = bean.getCode();
+            presenter.getDistributionArea(bean.getCode(), false);
+        }
+
     }
 
     @Override
