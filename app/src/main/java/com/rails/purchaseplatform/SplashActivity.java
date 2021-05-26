@@ -2,9 +2,7 @@ package com.rails.purchaseplatform;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.text.Html;
-import android.text.TextUtils;
 
 import com.rails.lib_data.bean.VersionBean;
 import com.rails.lib_data.contract.VersionContract;
@@ -15,7 +13,6 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 
-import androidx.annotation.NonNull;
 import constant.UiType;
 import listener.OnBtnClickListener;
 import model.UiConfig;
