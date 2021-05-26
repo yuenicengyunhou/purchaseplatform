@@ -133,4 +133,12 @@ public class ToastUtil {
         toast.show();
     }
 
+
+    public static void clearToast() {
+        if (null != toast) {
+            toast.cancel();
+            toast = null;
+        }
+    }
+
 }

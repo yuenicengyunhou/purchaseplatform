@@ -66,11 +66,11 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         });
         binding.tvComplete.setOnClickListener(v -> {
             List<OrderStatusBean> orderStatusBeans = mAdapter2.getmData();
-            String low = binding.etLowPrice.getText().toString().trim();
-            String high = binding.etHighPrice.getText().toString().trim();
+//            String low = binding.etLowPrice.getText().toString().trim();
+//            String high = binding.etHighPrice.getText().toString().trim();
             OrderFilterBean filterBean = new OrderFilterBean();
-            filterBean.setLowPrice(low);
-            filterBean.setHighPrice(high);
+//            filterBean.setLowPrice(low);
+//            filterBean.setHighPrice(high);
             filterBean.setStartDate("");
             filterBean.setEndDate("");
             filterBean.setStatusBeans(orderStatusBeans);
@@ -88,7 +88,7 @@ public class OrderSearchFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     public void setText(String[] texts) {
         if (texts.length > 0) {
             binding.tvStatus.setText(texts[0]);
-            binding.tvPrice.setText(texts[1]);
+//            binding.tvPrice.setText(texts[1]);
             binding.tvTime.setText(texts[2]);
         }
     }

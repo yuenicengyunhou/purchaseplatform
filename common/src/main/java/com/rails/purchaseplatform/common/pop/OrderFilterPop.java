@@ -139,10 +139,10 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
      */
     private void saveFilterBean() {
         List<OrderStatusBean> orderStatusBeans = mAdapter2.getmData();
-        String low = binding.etLowPrice.getText().toString().trim();
-        String high = binding.etHighPrice.getText().toString().trim();
-        filterBean.setLowPrice(low);
-        filterBean.setHighPrice(high);
+//        String low = binding.etLowPrice.getText().toString().trim();
+//        String high = binding.etHighPrice.getText().toString().trim();
+//        filterBean.setLowPrice(low);
+//        filterBean.setHighPrice(high);
         filterBean.setStartDate(startDate);
         filterBean.setEndDate(endDate);
         filterBean.setStatusBeans(orderStatusBeans);
@@ -152,7 +152,7 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     public void setText(String[] texts) {
         if (texts.length > 0) {
             binding.tvStatus.setText(texts[0]);
-            binding.tvPrice.setText(texts[1]);
+//            binding.tvPrice.setText(texts[1]);
             binding.tvTime.setText(texts[2]);
         }
     }
@@ -162,11 +162,11 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
      */
     private void loadData() {
 
-        String lowPrice = filterBean.getLowPrice();
-        binding.etLowPrice.setText(lowPrice);
-
-        String highPrice = filterBean.getHighPrice();
-        binding.etHighPrice.setText(highPrice);
+//        String lowPrice = filterBean.getLowPrice();
+//        binding.etLowPrice.setText(lowPrice);
+//
+//        String highPrice = filterBean.getHighPrice();
+//        binding.etHighPrice.setText(highPrice);
 
         binding.tvDateRange.setText(dateRangeStr);
 

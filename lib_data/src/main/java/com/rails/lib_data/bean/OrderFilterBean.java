@@ -5,9 +5,9 @@ import java.util.List;
 
 public class OrderFilterBean implements Serializable {
 
-    private String lowPrice;
+//    private String lowPrice;
 
-    private String highPrice;
+//    private String highPrice;
     private String startDate;
 
     private String endDate;
@@ -24,21 +24,21 @@ public class OrderFilterBean implements Serializable {
 //        this.checkedCode = checkedCode;
 //    }
 
-    public String getLowPrice() {
-        return lowPrice;
-    }
+//    public String getLowPrice() {
+//        return lowPrice;
+//    }
 
-    public void setLowPrice(String lowPrice) {
-        this.lowPrice = lowPrice;
-    }
-
-    public String getHighPrice() {
-        return highPrice;
-    }
-
-    public void setHighPrice(String highPrice) {
-        this.highPrice = highPrice;
-    }
+//    public void setLowPrice(String lowPrice) {
+//        this.lowPrice = lowPrice;
+//    }
+//
+//    public String getHighPrice() {
+//        return highPrice;
+//    }
+//
+//    public void setHighPrice(String highPrice) {
+//        this.highPrice = highPrice;
+//    }
 
     public String getStartDate() {
         return startDate;
@@ -72,13 +72,13 @@ public class OrderFilterBean implements Serializable {
         this.startDate = "";
     }
 
-    public void clearLowPrice() {
-        this.lowPrice = "";
-    }
-
-    public void clearHighPrice() {
-        this.highPrice = "";
-    }
+//    public void clearLowPrice() {
+//        this.lowPrice = "";
+//    }
+//
+//    public void clearHighPrice() {
+//        this.highPrice = "";
+//    }
 
     public void resetStatusBeans() {
         for (int i = 0; i < statusBeans.size(); i++) {
@@ -94,8 +94,8 @@ public class OrderFilterBean implements Serializable {
     public void resetFilter() {
         clearEndDate();
         clearStartDate();
-        clearHighPrice();
-        clearLowPrice();
+//        clearHighPrice();
+//        clearLowPrice();
         resetStatusBeans();
     }
 }

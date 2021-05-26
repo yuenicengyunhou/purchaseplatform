@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.R;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
-import com.umeng.analytics.MobclickAgent;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -31,7 +31,6 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        overridePendingTransition(R.anim.slide_in_activity, R.anim.close_out_activity);
-        BaseActManager.getInstance().addActivity(this);
         setLayout();
         setStatusBar();
         initialize(savedInstanceState);
@@ -130,7 +129,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this); // 不能遗漏
+
     }
 
     @Override
@@ -141,6 +140,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     public void finish() {
         super.finish();
+        ToastUtil.clearToast();
 //        overridePendingTransition(R.anim.close_in_activity, R.anim.slide_out_activity);
     }
 
@@ -151,7 +151,6 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
 
 
     public void onPause() {
-        MobclickAgent.onPause(this); // 不能遗漏
         super.onPause();
     }
 

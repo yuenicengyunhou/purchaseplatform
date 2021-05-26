@@ -34,7 +34,6 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.pop.OrderFilterPop;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
@@ -160,6 +159,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     private void searchIfPop(String toast) {
         String trim = binding.etSearchKey.getText().toString().trim();
         if (TextUtils.isEmpty(trim)) {
+            conditionId = "";//重置搜索条件
             callFragmentToSearch(filterBean);
         } else {
             ToastUtil.show(this, toast);
@@ -254,10 +254,10 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 orderUser = view.findViewById(R.id.tv_orderUser),
                 orderProvider = view.findViewById(R.id.tv_orderProvider);
         TextView subOrderNum = view.findViewById(R.id.tv_subOrderNum);
-        TextView tvSkuNum = view.findViewById(R.id.tv_skuNum);
-        TextView tvSkuName = view.findViewById(R.id.tv_skuName);
-        TextView tvReceiverName = view.findViewById(R.id.tv_receiverName);
-        TextView tvReceiverPhone = view.findViewById(R.id.tv_recieverPhone);
+//        TextView tvSkuNum = view.findViewById(R.id.tv_skuNum);
+//        TextView tvSkuName = view.findViewById(R.id.tv_skuName);
+//        TextView tvReceiverName = view.findViewById(R.id.tv_receiverName);
+//        TextView tvReceiverPhone = view.findViewById(R.id.tv_recieverPhone);
         TextView tvBrand = view.findViewById(R.id.tv_brand);
         TextView tvNeedNum = view.findViewById(R.id.tv_needNum);
 
@@ -277,18 +277,18 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             case "订单号":
                 subOrderNum.setTextColor(colorBlue);
                 break;
-            case "单品编码":
-                tvSkuNum.setTextColor(colorBlue);
-                break;
-            case "商品名称":
-                tvSkuName.setTextColor(colorBlue);
-                break;
-            case "收货人名称":
-                tvReceiverName.setTextColor(colorBlue);
-                break;
-            case "收货人联系方式":
-                tvReceiverPhone.setTextColor(colorBlue);
-                break;
+//            case "单品编码":
+//                tvSkuNum.setTextColor(colorBlue);
+//                break;
+//            case "商品名称":
+//                tvSkuName.setTextColor(colorBlue);
+//                break;
+//            case "收货人名称":
+//                tvReceiverName.setTextColor(colorBlue);
+//                break;
+//            case "收货人联系方式":
+//                tvReceiverPhone.setTextColor(colorBlue);
+//                break;
             case "品牌":
                 tvBrand.setTextColor(colorBlue);
                 break;
@@ -305,11 +305,11 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
         subOrderNum.setOnClickListener(provider -> onConditionChoose("搜索订单号", "订单号", InputType.TYPE_CLASS_NUMBER, 3));
 
-        tvSkuNum.setOnClickListener(provider -> onConditionChoose("搜索单品编码", "单品编码", InputType.TYPE_CLASS_NUMBER, 4));
-        tvSkuName.setOnClickListener(provider -> onConditionChoose("搜索商品名称", "商品名称", InputType.TYPE_CLASS_TEXT, 5));
-        tvReceiverName.setOnClickListener(provider -> onConditionChoose("搜索收货人名称", "收货人名称", InputType.TYPE_CLASS_TEXT, 6));
+//        tvSkuNum.setOnClickListener(provider -> onConditionChoose("搜索单品编码", "单品编码", InputType.TYPE_CLASS_NUMBER, 4));
+//        tvSkuName.setOnClickListener(provider -> onConditionChoose("搜索商品名称", "商品名称", InputType.TYPE_CLASS_TEXT, 5));
+//        tvReceiverName.setOnClickListener(provider -> onConditionChoose("搜索收货人名称", "收货人名称", InputType.TYPE_CLASS_TEXT, 6));
 
-        tvReceiverPhone.setOnClickListener(provider -> onConditionChoose("搜索收货人联系方式", "收货人联系方式", InputType.TYPE_CLASS_NUMBER, 7));
+//        tvReceiverPhone.setOnClickListener(provider -> onConditionChoose("搜索收货人联系方式", "收货人联系方式", InputType.TYPE_CLASS_NUMBER, 7));
         tvBrand.setOnClickListener(provider -> onConditionChoose("搜索品牌", "品牌", InputType.TYPE_CLASS_TEXT, 8));
         tvNeedNum.setOnClickListener(provider -> onConditionChoose("搜索需求编号", "需求编号", InputType.TYPE_CLASS_NUMBER, 9));
 
@@ -480,4 +480,11 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         }
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        if (null != mFilterPopup) {
+            mFilterPopup = null;
+        }
+    }
 }

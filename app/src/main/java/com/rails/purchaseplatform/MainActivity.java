@@ -2,23 +2,14 @@ package com.rails.purchaseplatform;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.KeyEvent;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
-import com.rails.lib_data.bean.UserInfoBean;
-import com.rails.lib_data.bean.UserStatisticsBean;
-import com.rails.lib_data.contract.UserToolContract;
-import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.databinding.ActivityMainBinding;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -86,7 +77,7 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
             // 利用handler延迟发送更改状态信息
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
-            BaseActManager.getInstance().clear();
+//            BaseActManager.getInstance().clear();
             finish();
             System.exit(0);
         }

@@ -1,19 +1,14 @@
 package com.rails.lib_data.model;
 
 import android.text.TextUtils;
-import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.OrderService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,8 +53,8 @@ public class OrderModel {
 
     private void mergeMap(OrderFilterBean filterBean, HashMap<String, Object> map) {
         if (null == filterBean) return;
-        String lowPrice = filterBean.getLowPrice();
-        String highPrice = filterBean.getHighPrice();
+//        String lowPrice = filterBean.getLowPrice();
+//        String highPrice = filterBean.getHighPrice();
         String startDate = filterBean.getStartDate();
         String endDate = filterBean.getEndDate();
         List<OrderStatusBean> statusBeans = filterBean.getStatusBeans();
@@ -77,12 +72,12 @@ public class OrderModel {
         if (null != endDate && !TextUtils.isEmpty(endDate)) {
             map.put("orderTimeEnd", endDate);
         }
-        if (null != lowPrice && !TextUtils.isEmpty(lowPrice)) {
-            map.put("paymentPriceBegin", lowPrice);
-        }
-        if (null != highPrice && !TextUtils.isEmpty(highPrice)) {
-            map.put("paymentPriceEnd", highPrice);
-        }
+//        if (null != lowPrice && !TextUtils.isEmpty(lowPrice)) {
+//            map.put("paymentPriceBegin", lowPrice);
+//        }
+//        if (null != highPrice && !TextUtils.isEmpty(highPrice)) {
+//            map.put("paymentPriceEnd", highPrice);
+//        }
         if (null != statusBeans) {
             String code = "";
             for (int i = 0; i < statusBeans.size(); i++) {

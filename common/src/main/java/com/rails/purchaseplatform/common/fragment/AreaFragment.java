@@ -1,9 +1,6 @@
 package com.rails.purchaseplatform.common.fragment;
 
 import com.rails.lib_data.AddressArea;
-import com.rails.lib_data.bean.AddressBean;
-import com.rails.lib_data.contract.AddressContract;
-import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.lib_data.contract.DistributionAreaContract;
 import com.rails.lib_data.contract.DistributionAreaImpl;
 import com.rails.purchaseplatform.common.adapter.CityAdapter;
@@ -24,22 +21,21 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AreaFragment
         extends LazyFragment<FragmentAddressAreaBinding>
         implements PositionListener<AddressArea>,
-        AddressContract.AddressView,
         DistributionAreaContract.DistributionAreaView {
 
     private CityAdapter adapter;
     private AreaListener listener;
     private final int type;
-    private String code="";
+    private String code;
 
-    private AreaFragment(int type,String code) {
+    private AreaFragment(int type, String code) {
         this.type = type;
         this.code = code;
     }
 
 
-    public static AreaFragment getInstance(int type,String code) {
-        return new AreaFragment(type,code);
+    public static AreaFragment getInstance(int type, String code) {
+        return new AreaFragment(type, code);
     }
 
 
@@ -54,7 +50,7 @@ public class AreaFragment
 
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.recycler.setAdapter(adapter);
-        AddressPresenterImpl presenter = new AddressPresenterImpl(mActivity, this);
+//        AddressPresenterImpl presenter = new AddressPresenterImpl(mActivity, this);
 //        presenter.getArea( code);
 //        refreshArea();
         DistributionAreaContract.DistributionAreaPresenter presenter1
@@ -79,38 +75,9 @@ public class AreaFragment
         }
     }
 
-    @Override
-    public void getResult(int type, int position, String msg) {
-
-    }
-
-    @Override
-    public void getAddresses(ArrayList<AddressBean> addressBeans, boolean isLastPage, int totalCount) {
-
-    }
-
     /**
      * 获取地区
      */
-    @Override
-    public void getArea(ArrayList<AddressArea> list) {
-        adapter.update(list,true);
-//        if (type == 0) {
-//            adapter.update(list,true);
-//        } else if (type == 1) {
-//            updateArea();
-//        } else {
-//            updateTown();
-//        }
-    }
-
-    @Override
-    public void loadAddressInfo(AddressBean addressInfo) {
-
-    }
-
-
-
     @Override
     public void onGetDistributionAreaSuccess(ArrayList<AddressArea> list) {
         adapter.update(list, true);

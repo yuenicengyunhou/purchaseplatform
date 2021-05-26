@@ -11,16 +11,12 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
-import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.UserInfoBean;
-import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.lib_data.contract.UserToolContract;
-import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
@@ -169,7 +165,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            BaseActManager.getInstance().clear();
+//            BaseActManager.getInstance().clear();
             ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
             return false;
         }
