@@ -39,6 +39,7 @@ public interface DistributionAreaContract {
          * 获取countryCode    (parentCode = cityCode)
          *
          * @param parentCode
+         * @param isDialog
          */
         void getDistributionArea(String parentCode, boolean isDialog);
     }
