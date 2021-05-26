@@ -676,6 +676,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans) {
+        Log.d(TAG, "===================" + bean.getScore());
         mPrice = String.valueOf(bean.getSellPrice());
         binding.tvSellPrice.setText(String.format("%.2f", bean.getSellPrice()));
         if (bean.getMarketPrice() == 0 || bean.getMarketPrice() == bean.getSellPrice()) {

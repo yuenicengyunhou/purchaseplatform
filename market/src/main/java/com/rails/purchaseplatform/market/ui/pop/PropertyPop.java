@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.pop;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
@@ -27,6 +29,7 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.contract.ProductDetailsContract;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -366,7 +369,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 详情页 -> 加入购物车弹窗 || 选择规格弹窗
      */
     private void setPopEvent() {
-        binding.llTop.setVisibility(View.VISIBLE); // 隐藏文字头
+        binding.llTop.setVisibility(View.VISIBLE); // 显示图片头
         binding.rlBuyCount.setVisibility(View.VISIBLE); // 显示数量步进器
         binding.addCart.setVisibility(View.VISIBLE); // 显示加入购物车按钮（长按钮 确定）
         String pic = "";
@@ -375,7 +378,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         }
         Glide.with(getContext())
                 .load(pic)
-                .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
+                .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_placeholder_rect)
                 .into(binding.imgProduct); // 显示sku图片
         binding.tvPrice.setText(mPrice); // 显示价格
         binding.tvSend.setText(mDelivery); // 显示运费
@@ -390,8 +393,9 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                 if (itemSkuInfo != null && mTypeSelect != null) {
                     Glide.with(getContext())
                             .load("https:" + mItemSkuInfo.getPictureUrl())
-                            .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_cart_null)
+                            .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_placeholder_rect)
                             .into(binding.imgProduct); // 切换sku时切换图片
+//                    Bitmap bitmap =
                     mTypeSelect.getSkuInfo(mItemSkuInfo); // 把ItemSkuInfo传给activity
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true); // 请求价格接口
                     mProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceId, mCityId, mCountryId,
@@ -410,6 +414,15 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);
 
+//        binding.imgProduct.setOnClickListener(v -> {
+//            String imageUrl = "";
+//            if (mItemSkuInfo != null && mItemSkuInfo.getPictureUrl() != null) {
+//                imageUrl = "https:" + mItemSkuInfo.getPictureUrl();
+//            }
+//            Bundle bundle = new Bundle();
+//            bundle.putString("imageUrl", imageUrl);
+//            ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+//        });
         binding.btnClose.setOnClickListener(v -> this.dismiss());
         binding.tvAdd.setOnClickListener(v -> changeNum(true));
         binding.tvReduce.setOnClickListener(v -> changeNum(false));

@@ -54,6 +54,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
                     binding.tvCountDown.setVisibility(View.GONE);
                     binding.tvGetVerifyNum.setVisibility(View.VISIBLE);
                 }
+                return true;
             }
             return false;
         }
