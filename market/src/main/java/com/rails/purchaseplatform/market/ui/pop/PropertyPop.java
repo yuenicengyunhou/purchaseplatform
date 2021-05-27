@@ -414,15 +414,15 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);
 
-//        binding.imgProduct.setOnClickListener(v -> {
-//            String imageUrl = "";
-//            if (mItemSkuInfo != null && mItemSkuInfo.getPictureUrl() != null) {
-//                imageUrl = "https:" + mItemSkuInfo.getPictureUrl();
-//            }
-//            Bundle bundle = new Bundle();
-//            bundle.putString("imageUrl", imageUrl);
-//            ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
-//        });
+        binding.imgProduct.setOnClickListener(v -> {
+            String imageUrl = "";
+            if (mItemSkuInfo != null && mItemSkuInfo.getPictureUrl() != null) {
+                imageUrl = "https:" + mItemSkuInfo.getPictureUrl();
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("imageUrl", imageUrl);
+            ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+        });
         binding.btnClose.setOnClickListener(v -> this.dismiss());
         binding.tvAdd.setOnClickListener(v -> changeNum(true));
         binding.tvReduce.setOnClickListener(v -> changeNum(false));
