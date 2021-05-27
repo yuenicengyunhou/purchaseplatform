@@ -79,5 +79,6 @@ public class ModifyPawActivity extends WebActivity<BaseWebBinding> implements JS
     @Override
     public void onLogin() {
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+        finish();
     }
 }

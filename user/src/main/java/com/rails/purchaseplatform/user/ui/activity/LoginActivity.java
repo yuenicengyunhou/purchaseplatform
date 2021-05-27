@@ -34,9 +34,9 @@ import androidx.annotation.NonNull;
 @Route(path = ConRoute.USER.LOGIN)
 public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView {
 
-    private static final int COUNTING = 1;
+    private final int COUNTING = 1;
     private int COUNT_NUM = 60;
-    private static final long DURATION = 10000;
+    private final long DURATION = 1000;
 
 
     private Handler mHandler2 = new Handler(new Handler.Callback() {
