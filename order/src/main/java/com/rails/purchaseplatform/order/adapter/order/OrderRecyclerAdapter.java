@@ -136,11 +136,11 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         adapter.update(subSkuDemandInfo, true);
 
         holder.orderItem.setOnClickListener(v -> {
-            if (!isDetail) {
-                ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
-                return;
-            }
             if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
+                if (!isDetail) {
+                    ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
+                    return;
+                }
                 ARouter.getInstance()
                         .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                         .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)

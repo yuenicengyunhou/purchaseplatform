@@ -7,10 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import com.orhanobut.logger.Logger;
-import com.rails.purchaseplatform.framwork.R;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
-import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -140,7 +137,6 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     public void finish() {
         super.finish();
-//        overridePendingTransition(R.anim.close_in_activity, R.anim.slide_out_activity);
     }
 
 

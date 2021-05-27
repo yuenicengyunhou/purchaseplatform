@@ -143,21 +143,19 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_33"
                 android:layout_marginLeft="@dimen/common_border"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginRight="@dimen/common_border">
 
                 <CheckBox
                     android:id="@+id/cb_receive"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_95"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_20"
                     android:background="@drawable/selector_add_address_check_box"
                     android:button="@null"
                     android:gravity="center"
-                    android:paddingTop="@dimen/dp_5"
-                    android:paddingBottom="@dimen/dp_5"
                     android:singleLine="true"
                     android:text="@string/address_add_recevice"
                     android:textColor="@color/selector_white_gray_address"
@@ -166,13 +164,11 @@
 
                 <CheckBox
                     android:id="@+id/cb_invoice"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_95"
+                    android:layout_height="match_parent"
                     android:background="@drawable/selector_add_address_check_box"
                     android:button="@null"
                     android:gravity="center"
-                    android:paddingTop="@dimen/dp_5"
-                    android:paddingBottom="@dimen/dp_5"
                     android:singleLine="true"
                     android:text="@string/address_add_bill"
                     android:textColor="@color/selector_white_gray_address"

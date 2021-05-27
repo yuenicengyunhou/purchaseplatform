@@ -105,6 +105,9 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private void onRefresh() {
         binding.swipe.setOnRefreshListener(refreshLayout -> {
             binding.swipe.finishRefresh();
+            if (null != toolPresenter&&null!=userInfoBean) {
+                toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
+            }
             page = DEF_PAGE;
             notifyData(true, page, searchType, searchContent, filterBean);
         });
@@ -234,7 +237,10 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
 
     @Override
     public void getAuthor(AuthorBean authorBean) {
-        PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.BUTTON_DETAIL, false);
+        boolean detail = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.BUTTON_DETAIL, false);
+        if (null != mAdapter) {
+            mAdapter.setDetail(detail);
+        }
     }
 
 

@@ -34,7 +34,7 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
 
 
     private final ClipboardManager clipboardManager;
-    private boolean isDetail = false;
+    private boolean isDetail ;
 
     public OrderParentAdapter(Context context) {
         super(context);
@@ -43,6 +43,9 @@ public class OrderParentAdapter extends BaseRecycleAdapter<OrderInfoBean, OrderP
         isDetail = PrefrenceUtil.getInstance(context).getBoolean(ConShare.BUTTON_DETAIL, false);
     }
 
+    public void setDetail(boolean detail) {
+        isDetail = detail;
+    }
 
     @NonNull
     @Override
