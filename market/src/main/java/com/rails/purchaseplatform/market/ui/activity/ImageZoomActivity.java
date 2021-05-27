@@ -30,12 +30,6 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
     private Handler mImageLoadHandler;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        super.setTheme(android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-    }
-
-    @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         mImageUrl = extras.getString("imageUrl");
@@ -43,24 +37,28 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void initialize(Bundle bundle) {
-//        String url = "https://xsky.rails.cn/mall/01a395a6f409a18d75821974a1afefbc20210512105329612.jpg";
         mImageLoadHandler = new ImageLoadHandler(this);
         getBitmapFromUrl(mImageUrl);
     }
 
     @Override
     protected int getColor() {
-        return 0;
+        return android.R.color.white;
     }
 
     @Override
     protected boolean isSetSystemBar() {
-        return false;
+        return true;
     }
 
     @Override
     protected boolean isBindEventBus() {
         return false;
+    }
+
+    @Override
+    protected void onClick() {
+        binding.ivClose.setOnClickListener(v -> finish());
     }
 
     @Override
