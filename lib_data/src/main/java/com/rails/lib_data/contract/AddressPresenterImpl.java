@@ -4,19 +4,14 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.rails.lib_data.AddressArea;
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AddressDTO;
 import com.rails.lib_data.bean.ListBeen;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.AddressModel;
-import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
@@ -30,36 +25,33 @@ import java.util.ArrayList;
  */
 public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressView> implements AddressContract.AddressPresenter {
 
-    private AddressModel model;
-    private String accountId;
-    private String platformId;
+    private final AddressModel model;
+//    private String accountId;
+//    private String platformId;
     //    private  MessageModel messageModel;
-    private String accountType;
+//    private String accountType;
 
     public AddressPresenterImpl(Activity mContext, AddressContract.AddressView addressView) {
         super(mContext, addressView);
         model = new AddressModel();
 //        messageModel = new MessageModel();
-        UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
-        if (bean == null) {
-            ToastUtil.show(mContext, "用户信息为空");
-            return;
-        }
-        accountId = bean.getId();
-        platformId = bean.getPlatformId();
-        accountType = bean.getAccountType();
+//        UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
+//        if (bean == null) {
+//            ToastUtil.showCenter(mContext, "用户信息为空");
+//            return;
+//        }
+//        accountId = bean.getId();
+//        platformId = bean.getPlatformId();
+//        accountType = bean.getAccountType();
     }
 
-    @Override
-    public void test() {
-    }
 
     @Override
     public void getAddresses(Boolean isDialog, int page) {
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
-        model.queryAddressList(platformId, accountId, accountType, page, new HttpRxObserver<ListBeen<AddressBean>>() {
+        model.queryAddressList( page, new HttpRxObserver<ListBeen<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (isDialog) {
@@ -84,7 +76,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     @Override
     public void getAddressInfo(String addressId) {
         baseView.showResDialog(R.string.loading);
-        model.getAddressInfo(platformId, accountId, addressId, new HttpRxObserver<AddressBean>() {
+        model.getAddressInfo(addressId, new HttpRxObserver<AddressBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -142,7 +134,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 
     @Override
     public void delAddress(String id, int position) {
-        model.deleteAddress(platformId, accountId, id, new HttpRxObserver<Boolean>() {
+        model.deleteAddress(id, new HttpRxObserver<Boolean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -163,26 +155,26 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
     @Override
     public void addAddress(String men, String phone, String area, String address, boolean isDef, int isReceiAddress, int isInvoiceAddress, String addressId, String provinceCode, String cityCode, String countryCode) {
         if (TextUtils.isEmpty(men)) {
-            ToastUtil.show(mContext, "请输入收货人");
+            ToastUtil.showCenter(mContext, "请输入收货人");
             return;
         }
 
         if (!VerificationUtil.isMobile(phone)) {
-            ToastUtil.show(mContext, "请输入正确手机号码");
+            ToastUtil.showCenter(mContext, "请输入正确手机号码");
             return;
         }
 
         if (TextUtils.isEmpty(area)) {
-            ToastUtil.show(mContext, "请输入省市区县、乡镇等");
+            ToastUtil.showCenter(mContext, "请输入省市区县、乡镇等");
             return;
         }
 
         if (TextUtils.isEmpty(address)) {
-            ToastUtil.show(mContext, "请输入省街道、楼牌号等");
+            ToastUtil.showCenter(mContext, "请输入省街道、楼牌号等");
             return;
         }
         if ((isReceiAddress + isInvoiceAddress) < 1) {
-            ToastUtil.show(mContext, "至少选择一种地址类型");
+            ToastUtil.showCenter(mContext, "至少选择一种地址类型");
             return;
         }
 
@@ -195,7 +187,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 //            return;
 //        }
         if (TextUtils.isEmpty(countryCode)||TextUtils.isEmpty(cityCode)) {
-            ToastUtil.show(mContext, "地区码未获取，请尝试重选地址");
+            ToastUtil.showCenter(mContext, "地区码未获取，请尝试重选地址");
             return;
         }
         baseView.showResDialog(R.string.saving);
@@ -211,7 +203,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         dto.setInvoiceAddress(String.valueOf(isInvoiceAddress));
         String json = new Gson().toJson(dto);
         if (null == addressId || TextUtils.isEmpty(addressId)) {
-            model.addAddress(platformId, accountId, json, new HttpRxObserver<Boolean>() {
+            model.addAddress( json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
@@ -227,7 +219,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
                 }
             });
         } else {
-            model.editAddress(platformId, accountId, addressId, json, new HttpRxObserver<Boolean>() {
+            model.editAddress( addressId, json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
@@ -245,25 +237,4 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         }
     }
 
-    /**
-     * 获取省市区
-     * 获取一级 parentCode: 0
-     * 获取二级 使用一级code
-     */
-    @Deprecated
-    @Override
-    public void getArea(String parentCode) {
-        model.getArea(platformId, parentCode, new HttpRxObserver<ArrayList<AddressArea>>() {
-            @Override
-            protected void onError(ErrorBean e) {
-                baseView.onError(e);
-            }
-
-            @Override
-            protected void onSuccess(ArrayList<AddressArea> response) {
-                model.saveAreaInfo(response);//缓存
-                baseView.getArea(response);
-            }
-        });
-    }
 }

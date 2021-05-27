@@ -21,11 +21,10 @@ import java.util.ArrayList;
 public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> implements OrderContract.OrderPresenter {
 
     private final OrderModel model;
-    private String accountId = "";
+//    private String accountId = "";
     private String organizeName;
     private String organizationId = "";
-    private String accountType;
-    private  String platformId;
+//    private String accountType;
 
     public OrderPresenterImpl(Activity mContext, OrderContract.OrderView orderView) {
         super(mContext, orderView);
@@ -34,9 +33,8 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
         if (null == bean) {
             return;
         }
-        accountType = bean.getAccountType();
-        accountId = bean.getId();
-        platformId = bean.getPlatformId();
+//        accountType = bean.getAccountType();
+//        accountId = bean.getId();
         organizeName = bean.getDepartmentOrganizationName();
         organizationId = bean.getDepartmentOrganizationId();
     }
@@ -46,7 +44,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
      */
     @Override
     public void getBuyerNameList(String nameLike, String findType) {
-        model.getBuyerNames(accountId, nameLike, findType, organizationId, accountType, new HttpRxObserver<ArrayList<BuyerBean>>() {
+        model.getBuyerNames( nameLike, findType, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -66,7 +64,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
      */
     @Override
     public void getSupplierNameList(String supplierName) {
-        model.getSupplierNames(supplierName, accountId, accountType, organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
+        model.getSupplierNames(supplierName, organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -82,7 +80,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
 
     @Override
     public void getSkuNameList(String skuName) {
-        model.getSkuNameList(skuName, accountId, accountType, organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
+        model.getSkuNameList(skuName,  organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -97,7 +95,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
 
     @Override
     public void getBrandList(String brand) {
-        model.getBrandList(brand, accountId, accountType, organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
+        model.getBrandList(brand, organizeName, organizationId, new HttpRxObserver<ArrayList<BuyerBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -119,7 +117,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
-        model.getPurchasePageList(platformId, accountId, queryType, accountType, squence, content, page, filterBean, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
+        model.getPurchasePageList( queryType, squence, content, page, filterBean, new HttpRxObserver<ListBeen<OrderInfoBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (e.getMsg().contains("but was STRING")) {

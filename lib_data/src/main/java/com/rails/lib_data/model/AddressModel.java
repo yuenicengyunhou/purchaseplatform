@@ -1,6 +1,5 @@
 package com.rails.lib_data.model;
 
-import android.text.TextUtils;
 
 import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.http.RetrofitUtil;
@@ -11,24 +10,20 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import java.util.HashMap;
 import java.util.List;
 
-import retrofit2.http.Query;
-
-import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
-
 public class AddressModel {
     private final int pageSize = 10;
 
     /**
      * 获取维护地址列表
      */
-    public void queryAddressList(String platformId, String accountId, String accountType, long pageNum, HttpRxObserver httpRxObserver) {
-        if (null == platformId || TextUtils.isEmpty(platformId)) {
-            platformId = "20";
-        }
+    public void queryAddressList( long pageNum, HttpRxObserver httpRxObserver) {
+//        if (null == platformId || TextUtils.isEmpty(platformId)) {
+//            platformId = "20";
+//        }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
-        map.put("accountId", accountId);
-        map.put("accountType", accountType);
+//        map.put("platformId", platformId);
+//        map.put("accountId", accountId);
+//        map.put("accountType", accountType);
         map.put("pageNum", pageNum);
         map.put("pageSize", pageSize);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
@@ -40,13 +35,13 @@ public class AddressModel {
     /**
      * 根据addressId获取地址详情
      */
-    public void getAddressInfo(String platformId, String accountId,String addressId, HttpRxObserver httpRxObserver) {
-        if (null == platformId || TextUtils.isEmpty(platformId)) {
-            platformId = "20";
-        }
+    public void getAddressInfo(String addressId, HttpRxObserver httpRxObserver) {
+//        if (null == platformId || TextUtils.isEmpty(platformId)) {
+//            platformId = "20";
+//        }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
-        map.put("accountId", accountId);
+//        map.put("platformId", platformId);
+//        map.put("accountId", accountId);
         map.put("buyerAddressId", addressId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).getAddressInfo(map))
@@ -57,13 +52,13 @@ public class AddressModel {
     /**
      * 添加地址
      */
-    public void addAddress(String platformId, String accountId, String requestStr, HttpRxObserver httpRxObserver) {
-        if (null == platformId || TextUtils.isEmpty(platformId)) {
-            platformId = "20";
-        }
+    public void addAddress( String requestStr, HttpRxObserver httpRxObserver) {
+//        if (null == platformId || TextUtils.isEmpty(platformId)) {
+//            platformId = "20";
+//        }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
-        map.put("accountId", accountId);
+//        map.put("platformId", platformId);
+//        map.put("accountId", accountId);
         map.put("requestStr", requestStr);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).insertAddress(map))
@@ -73,13 +68,13 @@ public class AddressModel {
     /**
      * 删除地址
      */
-    public void deleteAddress(String platformId, String accountId, String buyerAddressId, HttpRxObserver httpRxObserver) {
-        if (null == platformId || TextUtils.isEmpty(platformId)) {
-            platformId = "20";
-        }
+    public void deleteAddress(String buyerAddressId, HttpRxObserver httpRxObserver) {
+//        if (null == platformId || TextUtils.isEmpty(platformId)) {
+//            platformId = "20";
+//        }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
-        map.put("accountId", accountId);
+//        map.put("platformId", platformId);
+//        map.put("accountId", accountId);
         map.put("buyerAddressId", buyerAddressId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).deleteAddress(map))
@@ -115,13 +110,13 @@ public class AddressModel {
     /**
      * 地址编辑
      */
-    public void editAddress(String platformId, String accountId, String addressId, String json, HttpRxObserver httpRxObserver) {
-        if (null == platformId || TextUtils.isEmpty(platformId)) {
-            platformId = "20";
-        }
+    public void editAddress( String addressId, String json, HttpRxObserver httpRxObserver) {
+//        if (null == platformId || TextUtils.isEmpty(platformId)) {
+//            platformId = "20";
+//        }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
-        map.put("accountId", accountId);
+//        map.put("platformId", platformId);
+//        map.put("accountId", accountId);
         map.put("requestStr", json);
         map.put("buyerAddressId", addressId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
@@ -134,12 +129,12 @@ public class AddressModel {
      * 获取地区
      */
     @Deprecated
-    public void getArea(String platformId, String parentCode, HttpRxObserver httpRxObserver) {
-        if (null == platformId || TextUtils.isEmpty(platformId)) {
-            platformId = "20";
-        }
+    public void getArea( String parentCode, HttpRxObserver httpRxObserver) {
+//        if (null == platformId || TextUtils.isEmpty(platformId)) {
+//            platformId = "20";
+//        }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
+//        map.put("platformId", platformId);
         map.put("parentCode", parentCode);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).getAddressCode(map))

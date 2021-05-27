@@ -112,8 +112,6 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
             onRefresh((false));
         });
 
-        presenter.test();
-
     }
 
 

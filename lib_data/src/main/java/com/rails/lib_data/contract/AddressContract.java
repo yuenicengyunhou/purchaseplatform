@@ -96,16 +96,15 @@ public interface AddressContract {
          */
         void addAddress(String men, String phone, String area, String address, boolean isDef,int isReceiAddress,int isInvoiceAddress,String addressId,String provinceCode, String cityCode, String countryCode);
 
+//
+//        /**
+//         * 获取省市区
+//         * 获取一级 parentCode: 0
+//         * 获取二级 使用一级code
+//         */
+//        void getArea( String parentCode);
 
-        /**
-         * 获取省市区
-         * 获取一级 parentCode: 0
-         * 获取二级 使用一级code
-         */
-        void getArea( String parentCode);
 
-
-        void test();
 
 
 

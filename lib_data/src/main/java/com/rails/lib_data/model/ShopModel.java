@@ -3,7 +3,6 @@ package com.rails.lib_data.model;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.lib_data.bean.shop.AllCidsBean;
@@ -33,9 +32,9 @@ public class ShopModel {
     private boolean cateFirst = true;
     private boolean expanFirst = true;
 
-    public void getShopInfo(String platformId, String shopInfoId, HttpRxObserver httpRxObserver) {
+    public void getShopInfo(String shopInfoId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
+//        map.put("platformId", platformId);
         map.put("shopInfoId", shopInfoId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(ShopService.class).getShopInfo(map))
@@ -56,10 +55,10 @@ public class ShopModel {
      * 价格向下
      * orderColumn=sellPrice&orderType=desc
      */
-    public void getShopItemList(String platformId, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans, HttpRxObserver httpRxObserver) {
-        String temp = platformId == null ? "20" : platformId;
+    public void getShopItemList( String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans, HttpRxObserver httpRxObserver) {
+//        String temp = platformId == null ? "20" : platformId;
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", temp);
+//        map.put("platformId", temp);
 //        map.put("shopId", shopInfoId);
         map.put("pageNum", page);
         map.put("pageSize", pageSize);

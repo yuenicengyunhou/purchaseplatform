@@ -22,23 +22,23 @@ import java.util.ArrayList;
 public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> implements ShopContract.ShopPresenter {
 
     private final ShopModel model;
-    private String platformId = null;
+//    private String platformId = null;
 
     public ShopPresenterImp(Activity mContext, ShopContract.ShopView shopView) {
         super(mContext, shopView);
         model = new ShopModel();
-        UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
-        if (null == bean) {
-            return;
-        }
-        platformId = bean.getPlatformId();
+//        UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
+//        if (null == bean) {
+//            return;
+//        }
+//        platformId = bean.getPlatformId();
 
     }
 
     @Override
     public void getShopDetails(String id) {
         baseView.showResDialog(R.string.loading);
-        model.getShopInfo(platformId, id, new HttpRxObserver<ShopInfoBean>() {
+        model.getShopInfo(id, new HttpRxObserver<ShopInfoBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -56,7 +56,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
     @Override
     public void getShopItemList(String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list) {
 
-        model.getShopItemList(platformId, shopInfoId, page, pageSize, orderColumn, orderType, list, new HttpRxObserver<ShopRecommendBean>() {
+        model.getShopItemList( shopInfoId, page, pageSize, orderColumn, orderType, list, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);

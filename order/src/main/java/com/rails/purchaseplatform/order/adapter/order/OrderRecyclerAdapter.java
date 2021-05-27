@@ -132,7 +132,6 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             String formattedPrice = new DecimalFormat("0.00").format(tempPrice);
             holder.tvPrice.setText(formattedPrice);
         }
-//        holder.singlePrice.setText(type == TYPE_SKU_DETAIL_MODE ? subSkuDemandInfo : "共100件");
         adapter.update(subSkuDemandInfo, true);
 
         holder.orderItem.setOnClickListener(v -> {
@@ -147,7 +146,7 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
                         .withString("orderNo", String.valueOf(orderNo))
                         .navigation();
             } else {
-                ToastUtil.show(mContext, "此状态订单无订单详情");
+                ToastUtil.showCenter(mContext, "此状态订单无订单详情");
             }
         });
     }

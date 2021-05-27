@@ -25,12 +25,15 @@ public class OrderModel {
                 .subscribe(httpRxObserver);
     }
 
-    public void getPurchasePageList(String platformId, String accountId, int queryType, String accountType, String squence, String content, int page, OrderFilterBean filterBean, HttpRxObserver httpRxObserver) {
+    public void getPurchasePageList( int queryType, String squence, String content, int page, OrderFilterBean filterBean, HttpRxObserver httpRxObserver) {
+//        if (null == platformId) {
+//            platformId = "20";
+//        }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("platformId", platformId);
-        map.put("accountId", accountId);
+//        map.put("platformId", platformId);
+//        map.put("accountId", accountId);
         map.put("queryType", queryType);
-        map.put("accountType", accountType);
+//        map.put("accountType", accountType);
         if (!TextUtils.isEmpty(content)) {
             map.put(squence, content);
         }
@@ -91,24 +94,24 @@ public class OrderModel {
         }
     }
 
-    public void getBuyerNames(String accountId, String like, String findType, String organizeId, String accountType, HttpRxObserver httpRxObserver) {
+    public void getBuyerNames( String like, String findType, String organizeId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("nameLike", like);
         map.put("findType", findType);
         map.put("organizeId", organizeId);
-        map.put("accountId", accountId);
-        map.put("accountType", accountType);
+//        map.put("accountId", accountId);
+//        map.put("accountType", accountType);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(OrderService.class).getBuyerList(map))
                 .subscribe(httpRxObserver);
 
     }
 
-    public void getSupplierNames(String supplierName, String accountId, String accountType, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
+    public void getSupplierNames(String supplierName, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("supplierName", supplierName);
-        map.put("accountId", accountId);
-        map.put("accountType", accountType);
+//        map.put("accountId", accountId);
+//        map.put("accountType", accountType);
         map.put("organizeName", organizeName);
         map.put("organizeId", organizeId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
@@ -117,11 +120,11 @@ public class OrderModel {
 
     }
 
-    public void getSkuNameList(String skuName, String accountId, String accountType, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
+    public void getSkuNameList(String skuName, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("skuName", skuName);
-        map.put("accountId", accountId);
-        map.put("accountType", accountType);
+//        map.put("accountId", accountId);
+//        map.put("accountType", accountType);
         map.put("organizeName", organizeName);
         map.put("organizeId", organizeId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
@@ -130,11 +133,11 @@ public class OrderModel {
 
     }
 
-    public void getBrandList(String keyWord, String accountId, String accountType, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
+    public void getBrandList(String keyWord,  String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("keyWord", keyWord);
-        map.put("accountId", accountId);
-        map.put("accountType", accountType);
+//        map.put("accountId", accountId);
+//        map.put("accountType", accountType);
         map.put("organizeName", organizeName);
         map.put("organizeId", organizeId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
