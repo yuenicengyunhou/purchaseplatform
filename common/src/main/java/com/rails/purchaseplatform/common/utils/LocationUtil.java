@@ -25,7 +25,7 @@ public class LocationUtil {
     public static void getLocation(final Context context, final CallBack callBack) {
         if (context == null)
             return;
-        final AMapLocationClient mapLocationClient = new AMapLocationClient(context);
+        final AMapLocationClient mapLocationClient = new AMapLocationClient(context.getApplicationContext());
         AMapLocationClientOption mapLocationClientOption = new AMapLocationClientOption();
         mapLocationClientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         mapLocationClientOption.setInterval(2000);

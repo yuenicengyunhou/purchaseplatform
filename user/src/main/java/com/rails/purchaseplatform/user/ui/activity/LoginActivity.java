@@ -14,14 +14,11 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
-import com.rails.lib_data.contract.UserToolContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
-
-import java.lang.ref.WeakReference;
 
 import androidx.annotation.NonNull;
 
@@ -61,7 +58,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     });
 
     private LoginContract.LoginPresenter presenter;
-    private UserToolContract.UserToolPresenter toolPresenter;
 
     @Override
     protected void initialize(Bundle bundle) {
