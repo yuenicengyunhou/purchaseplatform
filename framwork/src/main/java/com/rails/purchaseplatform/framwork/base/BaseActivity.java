@@ -139,8 +139,8 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
 
     @Override
     public void finish() {
-        super.finish();
         ToastUtil.clearToast();
+        super.finish();
 //        overridePendingTransition(R.anim.close_in_activity, R.anim.slide_out_activity);
     }
 

@@ -74,11 +74,12 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             mHandler = null;
         }
+        super.onDestroy();
+
     }
 
     @Override

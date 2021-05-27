@@ -19,12 +19,6 @@ import com.rails.purchaseplatform.framwork.R;
  */
 public class ToastUtil {
 
-    private static Toast toast;
-
-    private ToastUtil() {
-
-    }
-
     /**
      * 弹出一个toast
      *
@@ -45,11 +39,8 @@ public class ToastUtil {
         if (TextUtils.isEmpty(message)) {
             return;
         }
-        if (null == toast) {
-            toast = Toast.makeText(context, null, Toast.LENGTH_SHORT);
-        }
-        toast.setText(message);
-        toast.show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+
     }
 
 
@@ -131,14 +122,6 @@ public class ToastUtil {
         toast.setView(view);
         tv_toast.setText(str);
         toast.show();
-    }
-
-
-    public static void clearToast() {
-        if (null != toast) {
-            toast.cancel();
-            toast = null;
-        }
     }
 
 }

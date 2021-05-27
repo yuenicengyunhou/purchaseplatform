@@ -3,6 +3,8 @@
     package="com.rails.purchaseplatform.market">
 
     <application>
+        <activity android:name=".ui.activity.ImageZoomActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CartActivity"
             android:screenOrientation="portrait" />
@@ -15,13 +17,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ProductDetailsActivity"
-            android:screenOrientation="portrait" />
-        <!-- 商铺详情 -->
+            android:screenOrientation="portrait" /> <!-- 商铺详情 -->
         <activity
             android:name=".ui.activity.ShopDetailActivity"
-            android:screenOrientation="portrait" />
-
-        <!--结果页面-->
+            android:screenOrientation="portrait" /> <!-- 结果页面 -->
         <activity
             android:name=".ui.activity.CommitResultActivity"
             android:screenOrientation="portrait" />

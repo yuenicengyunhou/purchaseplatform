@@ -1,0 +1,119 @@
+package com.rails.purchaseplatform.market.ui.activity;
+
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+
+import androidx.annotation.NonNull;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
+import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
+
+import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutionException;
+
+
+@Route(path = ConRoute.MARKET.IMAGE_ZOOM)
+public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBinding> {
+    final private int FINISH_LOADING = 63;
+
+    private PhotoViewAttacher mAttach;
+    private Bitmap mBitmap;
+    private Thread mThread;
+    private Handler mHandler;
+    private String mImageUrl = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        super.setTheme(android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+    }
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        mImageUrl = extras.getString("imageUrl");
+    }
+
+    @Override
+    protected void initialize(Bundle bundle) {
+        String url = "https://xsky.rails.cn/mall/01a395a6f409a18d75821974a1afefbc20210512105329612.jpg";
+        getBitmapFromUrl(mImageUrl);
+    }
+
+    @Override
+    protected int getColor() {
+        return 0;
+    }
+
+    @Override
+    protected boolean isSetSystemBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean isBindEventBus() {
+        return false;
+    }
+
+
+    public void getBitmapFromUrl(String imgUrl) {
+        mAttach = new PhotoViewAttacher(binding.pvZoomImage);
+        mHandler = new ImageLoadHandler(this);
+        mThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mBitmap = Glide.with(ImageZoomActivity.this)
+                            .asBitmap()
+                            .load(imgUrl)
+                            .submit(960, 960)
+                            .get();
+                    Message message = new Message();
+                    message.what = FINISH_LOADING;
+                    mHandler.handleMessage(message);
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        mThread.start();
+    }
+
+    static class ImageLoadHandler extends Handler {
+        private final WeakReference<ImageZoomActivity> mWeakReference;
+
+        public ImageLoadHandler(ImageZoomActivity activity) {
+            mWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            ImageZoomActivity activity = mWeakReference.get();
+            super.handleMessage(msg);
+            if (msg.what == activity.FINISH_LOADING) {
+                if (activity.mBitmap != null)
+                    activity.binding.pvZoomImage.setImageBitmap(activity.mBitmap);
+                else
+                    activity.binding.pvZoomImage.setImageResource(R.drawable.ic_placeholder_rect);
+                activity.mAttach.update();
+            }
+            activity.mThread.interrupt();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mThread = null;
+        mHandler = null;
+        mAttach = null;
+        mBitmap = null;
+    }
+}

@@ -35,7 +35,7 @@ public class GoodsPop extends BasePop<PopVerifyGoodsBinding> {
     @Override
     protected void initialize(Bundle bundle) {
 
-        time = TimeUtil.LongtoStringFormat(System.currentTimeMillis(), TimeUtil.YMD_);
+        time = TimeUtil.LongtoStringFormat(System.currentTimeMillis()+minTime, TimeUtil.YMD_);
         binding.datePicker.setMinDate(System.currentTimeMillis() + minTime);
         binding.datePicker.setMaxDate(System.currentTimeMillis() + maxTime);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

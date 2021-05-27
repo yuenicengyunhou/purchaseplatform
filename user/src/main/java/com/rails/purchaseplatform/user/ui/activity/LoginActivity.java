@@ -32,19 +32,39 @@ import androidx.annotation.NonNull;
  * @date: 2021/1/27
  */
 @Route(path = ConRoute.USER.LOGIN)
-public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView{
+public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView {
 
-    private int COUNTING = 1;
+    private static final int COUNTING = 1;
     private int COUNT_NUM = 60;
+    private static final long DURATION = 10000;
 
-    private Handler mHandler;
+
+    private Handler mHandler2 = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == COUNTING) {
+                int count = (int) msg.obj;
+                binding.tvCountDown.setText(count + "s");
+                if (count > 0) {
+                    Message msg1 = mHandler2.obtainMessage();
+                    msg1.what = COUNTING;
+                    msg1.obj = count - 1;
+                    mHandler2.sendMessageDelayed(msg1, DURATION);
+                } else {
+                    binding.tvCountDown.setVisibility(View.GONE);
+                    binding.tvGetVerifyNum.setVisibility(View.VISIBLE);
+                }
+                return true;
+            }
+            return false;
+        }
+    });
 
     private LoginContract.LoginPresenter presenter;
     private UserToolContract.UserToolPresenter toolPresenter;
 
     @Override
     protected void initialize(Bundle bundle) {
-        mHandler = new TimerHandler(this);
 
         PrefrenceUtil.getInstance(this).clear();
 
@@ -119,7 +139,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             Message message = new Message();
             message.what = COUNTING;
             message.obj = COUNT_NUM;
-            mHandler.sendMessageDelayed(message, 300);
+            mHandler2.sendMessageDelayed(message, 300);
         }
         if (type == 0) {
             PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN, token);
@@ -131,34 +151,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     public void getUserInfo(UserInfoBean bean) {
         PrefrenceUtil.getInstance(this).setBean(ConShare.USERINFO, bean);
         finish();
-    }
-
-
-    private static class TimerHandler extends Handler {
-        private final WeakReference<LoginActivity> mWeakReference;
-
-        public TimerHandler(LoginActivity activity) {
-            mWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            LoginActivity activity = mWeakReference.get();
-            super.handleMessage(msg);
-            if (msg.what == activity.COUNTING) {
-                int count = (int) msg.obj;
-                activity.binding.tvCountDown.setText(count + "s");
-                if (count > 0) {
-                    Message msg1 = obtainMessage();
-                    msg1.what = activity.COUNTING;
-                    msg1.obj = count - 1;
-                    sendMessageDelayed(msg1, 1000);
-                } else {
-                    activity.binding.tvCountDown.setVisibility(View.GONE);
-                    activity.binding.tvGetVerifyNum.setVisibility(View.VISIBLE);
-                }
-            }
-        }
     }
 
 
@@ -174,7 +166,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
 
     @Override
     protected void onDestroy() {
+        if (mHandler2 != null) {
+            mHandler2.removeCallbacksAndMessages(null);
+            mHandler2 = null;
+        }
         super.onDestroy();
-        mHandler = null;
+
     }
 }

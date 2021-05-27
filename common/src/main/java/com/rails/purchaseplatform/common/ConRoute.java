@@ -57,6 +57,9 @@ public class ConRoute {
 
         // 店铺详情页
         public final static String SHOP_DETAILS = "/market/shopDetails";
+
+        // 商品图片放大
+        public final static String IMAGE_ZOOM = "/market/image_zoom";
     }
 
     //采购单
