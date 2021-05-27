@@ -35,7 +35,6 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.H
 public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements UserToolContract.UserToolView {
 
     private UserToolContract.UserToolPresenter toolPresenter;
-    private UserInfoBean bean;
 
     private boolean isPurchase = false;
     private boolean isApprove = false;
@@ -52,12 +51,9 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
-        bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
-        if (bean != null) {
-            toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
-            toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
-            toolPresenter.queryAuthor(bean.getId(), bean.getAccountType());
-        }
+        toolPresenter.getUserStatictics();
+        toolPresenter.getUserInfoStatictics();
+        toolPresenter.queryAuthor();
     }
 
     @Override
@@ -306,11 +302,9 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     }
 
     private void reNetLoad() {
-        if (bean != null) {
-            toolPresenter.getUserStatictics(bean.getId(), bean.getAccountType());
-            toolPresenter.getUserInfoStatictics(bean.getId(), bean.getAccountType());
-            toolPresenter.queryAuthor(bean.getId(), bean.getAccountType());
-        }
+            toolPresenter.getUserStatictics();
+            toolPresenter.getUserInfoStatictics();
+            toolPresenter.queryAuthor();
     }
 
 }

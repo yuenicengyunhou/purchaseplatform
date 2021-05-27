@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.text.TextUtils;
 
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AuthorBean;
@@ -32,8 +31,8 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
     }
 
     @Override
-    public void getUserStatictics(String userId, String userType) {
-        model.getUserStatictics(userId, userType, new HttpRxObserver<UserStatisticsBean>() {
+    public void getUserStatictics() {
+        model.getUserStatictics(new HttpRxObserver<UserStatisticsBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -49,8 +48,8 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
     }
 
     @Override
-    public void getUserInfoStatictics(String userId, String userType) {
-        model.getUserInfoStatictics(userId, userType, new HttpRxObserver<UserStatisticsBean>() {
+    public void getUserInfoStatictics() {
+        model.getUserInfoStatictics(new HttpRxObserver<UserStatisticsBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -66,8 +65,8 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
     }
 
     @Override
-    public void checkPermissions(String userId, String userType) {
-        model.checkPermissions(userId, userType, new HttpRxObserver<UserStatisticsBean>() {
+    public void checkPermissions() {
+        model.checkPermissions( new HttpRxObserver<UserStatisticsBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -83,8 +82,8 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
     }
 
     @Override
-    public void queryAuthor(String userId, String userType) {
-        model.getQueryResource(userId, userType, new HttpRxObserver<AuthorBean>() {
+    public void queryAuthor() {
+        model.getQueryResource( new HttpRxObserver<AuthorBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 e.setCode(CONNECT_ERROR);

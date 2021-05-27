@@ -48,34 +48,28 @@ public interface UserToolContract {
         /**
          * 获取我的页面统计的数据（下半部分）
          *
-         * @param userId
-         * @param userType
          */
-        void getUserStatictics(String userId, String userType);
+        void getUserStatictics();
 
 
         /**
          * 获取用户我的页面上半部分数据
          *
-         * @param userId
-         * @param userType
          */
-        void getUserInfoStatictics(String userId, String userType);
+        void getUserInfoStatictics();
 
 
         /**
          * 检查是否有权限
          */
-        void checkPermissions(String userId, String userType);
+        void checkPermissions();
 
 
         /**
          * 检查个人菜单是否可用
          * 检查个人中心按钮是否可用
-         * @param userId
-         * @param userType
          */
-        void queryAuthor(String userId,String userType);
+        void queryAuthor();
 
     }
 

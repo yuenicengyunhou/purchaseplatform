@@ -32,7 +32,6 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
 
     private boolean isAddressManager = false;
     private UserToolContract.UserToolPresenter presenter;
-    private UserInfoBean bean;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -42,10 +41,8 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
                 .setImgLeftRes(R.drawable.svg_back_black)
                 .setShowLine(true);
 
-        bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
         presenter = new UserToolPresenterImpl(this, this);
-        if (bean != null)
-            presenter.queryAuthor(bean.getId(), bean.getAccountType());
+            presenter.queryAuthor();
     }
 
     @Override
@@ -120,7 +117,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
     @Override
     protected void reNetLoad() {
         super.reNetLoad();
-        presenter.queryAuthor(bean.getId(), bean.getAccountType());
+        presenter.queryAuthor();
     }
 
     @Override

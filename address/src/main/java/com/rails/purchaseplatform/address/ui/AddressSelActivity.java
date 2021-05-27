@@ -8,7 +8,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AuthorBean;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
@@ -46,7 +45,6 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     private String type;
     private AddressBean addressBean;
 
-    private UserInfoBean userInfoBean;
     private UserToolContract.UserToolPresenter toolPresenter;
 
     // 是否有新增地址权限
@@ -79,10 +77,8 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
         barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         barBinding.recycler.setAdapter(addressAdapter);
 
-        userInfoBean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
         toolPresenter = new UserToolPresenterImpl(this, this);
-        if (userInfoBean != null)
-            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
+        toolPresenter.queryAuthor();
 
         presenter = new AddressToolPresenterImpl(this, this);
         onRefresh();
@@ -183,7 +179,7 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
         isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
         if (!isAdd) {
             barBinding.btnAdd.setVisibility(View.GONE);
-        }else{
+        } else {
             barBinding.btnAdd.setVisibility(View.VISIBLE);
         }
     }
@@ -192,8 +188,7 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     protected void reNetLoad() {
         super.reNetLoad();
-        if (userInfoBean != null)
-            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
+        toolPresenter.queryAuthor();
     }
 
     @Override

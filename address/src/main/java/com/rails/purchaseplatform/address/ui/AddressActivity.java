@@ -46,8 +46,6 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     // 是否有新增地址权限
     private boolean isAdd = false;
 
-    private UserInfoBean userInfoBean;
-
     @Override
     protected int getColor() {
         return android.R.color.white;
@@ -82,10 +80,8 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
         barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         barBinding.recycler.setAdapter(addressAdapter);
 
-        userInfoBean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
         toolPresenter = new UserToolPresenterImpl(this, this);
-        if (userInfoBean != null)
-            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
+            toolPresenter.queryAuthor();
 
 
         presenter = new AddressPresenterImpl(this, this);
@@ -228,7 +224,6 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     @Override
     protected void reNetLoad() {
         super.reNetLoad();
-        if (userInfoBean != null)
-            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
+            toolPresenter.queryAuthor();
     }
 }

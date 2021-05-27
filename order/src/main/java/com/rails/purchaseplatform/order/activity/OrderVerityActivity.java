@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.CartBean;
@@ -23,7 +22,6 @@ import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
 import com.rails.lib_data.bean.OrderVerifyBean;
 import com.rails.lib_data.bean.ResultWebBean;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.InvoiceContract;
 import com.rails.lib_data.contract.InvoicePresenterImpl;
@@ -42,7 +40,6 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
@@ -115,10 +112,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
         //获取用户是否提交采购单权限
         toolPresenter = new UserToolPresenterImpl(this, this);
-        UserInfoBean userInfoBean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
-        if (userInfoBean != null) {
-            toolPresenter.checkPermissions(userInfoBean.getId(), userInfoBean.getAccountType());
-        }
+        toolPresenter.checkPermissions();
 
         invoicePresenter = new InvoicePresenterImpl(this, this);
         presenter = new OrderVerifyPresenterImpl(this, this);

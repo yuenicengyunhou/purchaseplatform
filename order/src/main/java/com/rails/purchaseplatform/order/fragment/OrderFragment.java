@@ -50,8 +50,6 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private String searchContent = "";
     private OrderFilterBean filterBean;
 
-    private UserInfoBean userInfoBean;
-
     private OrderFragment(int status, String statusCode, OrderFilterBean bean) {
         this.status = status;
         if (null != statusCode) {
@@ -71,10 +69,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
         setNetView(binding.netError);
 
         //权限请求
-        userInfoBean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
-        if (userInfoBean != null)
-            toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
+            toolPresenter.queryAuthor();
 
 
         presenter = new OrderPresenterImpl(getActivity(), this);
@@ -105,8 +101,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private void onRefresh() {
         binding.swipe.setOnRefreshListener(refreshLayout -> {
             binding.swipe.finishRefresh();
-            if (null != toolPresenter&&null!=userInfoBean) {
-                toolPresenter.queryAuthor(userInfoBean.getId(), userInfoBean.getAccountType());
+            if (null != toolPresenter) {
+                toolPresenter.queryAuthor();
             }
             page = DEF_PAGE;
             notifyData(true, page, searchType, searchContent, filterBean);
@@ -212,9 +208,7 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     }
 
     private void reNetLoad() {
-        if (userInfoBean != null) {
-            toolPresenter.getUserStatictics(userInfoBean.getId(), userInfoBean.getAccountType());
-        }
+            toolPresenter.getUserStatictics();
 
         page = DEF_PAGE;
         onRefresh();
