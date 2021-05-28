@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
@@ -49,10 +50,10 @@ public class BaseApp extends Application {
 
 
     private void initUM() {
-                // 初始化SDK
-                UMConfigure.init(this, "60ac50a9c9aacd3bd4e5616c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
-                // 选用AUTO页面采集模式
-                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        // 初始化SDK
+        UMConfigure.init(this, "60ac50a9c9aacd3bd4e5616c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
+        // 选用AUTO页面采集模式
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
     }
 
 
@@ -70,8 +71,8 @@ public class BaseApp extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
-//                return BuildConfig.DEBUG;
-                return true;
+                return BuildConfig.DEBUG;
+//                return true;
             }
         });
     }
