@@ -146,6 +146,18 @@ public interface ProductDetailsContract {
         void addSkuVisitTrack(String categoryId, String skuId, boolean isDialog);
 
 
+        /**
+         * 请求sku库存
+         *
+         * @param supplierId
+         * @param provinceId
+         * @param cityId
+         * @param countryId
+         * @param address
+         * @param skuNum
+         * @param skuId
+         * @param isDialog
+         */
         void querySkuSaleStocks(String supplierId, String provinceId, String cityId, String countryId,
                                 String address, String skuNum, String skuId, boolean isDialog);
     }
