@@ -3,8 +3,10 @@
     package="com.rails.purchaseplatform.market">
 
     <application>
-        <activity android:name=".ui.activity.ImageZoomActivity"
-            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ImageZoomActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageZoomTranslucentTheme" />
         <activity
             android:name=".ui.activity.CartActivity"
             android:screenOrientation="portrait" />

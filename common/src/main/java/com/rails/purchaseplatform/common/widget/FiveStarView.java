@@ -49,13 +49,24 @@ public class FiveStarView extends LinearLayout {
     }
 
     public void setStar(double number) {
-        if (number <= 0) return;
+        if (number < 0) return;
+        if (number == 0) {
+            setEmpty();
+            return;
+        }
+        setEmpty();
         for (int i = 0; i < number && i < 5; i++) {
             if (number - i < 1 && number - i != 0) {
                 ((ImageView) mFiveStar.getChildAt(i)).setImageResource(R.mipmap.ic_half_star);
             } else {
                 ((ImageView) mFiveStar.getChildAt(i)).setImageResource(R.mipmap.ic_star);
             }
+        }
+    }
+
+    private void setEmpty() {
+        for (int i = 0; i < 5; i++) {
+            ((ImageView) mFiveStar.getChildAt(i)).setImageResource(R.mipmap.ic_empty_star_blue);
         }
     }
 }

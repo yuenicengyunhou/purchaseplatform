@@ -1,8 +1,11 @@
 package com.rails.purchaseplatform.market.adapter.pdetail;
 
 import android.content.Context;
+import android.os.Bundle;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductDetailImgBinding;
@@ -27,6 +30,11 @@ public class DetailImgAdapter extends BaseRecyclerAdapter<ItemPicture, ItemProdu
     @Override
     protected void onBindItem(ItemProductDetailImgBinding binding, ItemPicture s, int position) {
         binding.setItem(s);
+        binding.webProductInfo.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("imageUrl", s.getPictureUrl());
+            ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+        });
     }
 
 }

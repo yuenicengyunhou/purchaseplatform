@@ -60,5 +60,5 @@
     <color name="text_blue">#387CFC</color>
     <color name="text_gray">#444444</color>
 
-
+    <color name="transparent">#AF000000</color>
 </resources>

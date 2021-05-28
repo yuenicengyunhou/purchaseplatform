@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +55,7 @@ import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
 import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -568,9 +568,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 pictureUrls.add(itemPictureVo.getPictureUrl());
             }
         }
+        // 设置轮播点击事件
+        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("imageUrl", "https:" + pictureUrls.get(position));
+                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+            }
+        });
         // 设置轮播图
         binding.productPictureHD.setImages(pictureUrls).
                 setImageLoader(new GlideImageLoader4ProductDetails()).start();
+
         // 设置商品名称
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         // 设置店铺名称
@@ -676,7 +686,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans) {
-        Log.d(TAG, "===================" + bean.getScore());
         mPrice = String.valueOf(bean.getSellPrice());
         binding.tvSellPrice.setText(String.format("%.2f", bean.getSellPrice()));
         if (bean.getMarketPrice() == 0 || bean.getMarketPrice() == bean.getSellPrice()) {
