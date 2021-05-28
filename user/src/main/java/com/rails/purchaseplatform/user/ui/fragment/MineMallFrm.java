@@ -24,7 +24,12 @@ import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
 
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.CONNECT_ERROR;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.UN_KNOWN_ERROR;
 
 /**
  * 购物车--个人中心
@@ -274,9 +279,20 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
     @Override
     public void onError(ErrorBean errorBean) {
-        super.onError(errorBean);
-        if (errorBean.getCode() == CONNECT_ERROR) {
-            binding.netError.setVisibility(View.VISIBLE);
+        String errorCode = errorBean.getCode();
+        switch (errorCode) {
+            case ERROR_PASTDUE:
+            case ERROR_UNLOAD:
+            case HTTP_ERROR:
+            case ERROR_UNLOAD_2:
+            case ERROR_TIMEOUT: {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+            }
+            break;
+            case CONNECT_ERROR: {
+                binding.netError.setVisibility(View.VISIBLE);
+            }
+            break;
         }
     }
 
