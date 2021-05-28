@@ -568,9 +568,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 pictureUrls.add(itemPictureVo.getPictureUrl());
             }
         }
-        // 设置轮播图
-        binding.productPictureHD.setImages(pictureUrls).
-                setImageLoader(new GlideImageLoader4ProductDetails()).start();
+        // 设置轮播点击事件
         binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
@@ -579,6 +577,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
             }
         });
+        // 设置轮播图
+        binding.productPictureHD.setImages(pictureUrls).
+                setImageLoader(new GlideImageLoader4ProductDetails()).start();
+
         // 设置商品名称
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         // 设置店铺名称
