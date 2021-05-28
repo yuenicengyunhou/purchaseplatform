@@ -48,7 +48,7 @@ public interface ShopContract {
         /**
          * 店铺推荐商品列表
          */
-        void getShopItemList(String shopInfoId, int page, int pageSize,String orderColumn,String orderType,ArrayList<SearchFilterBean> filterBeans);
+        void getShopItemList(boolean showLoading,String shopInfoId, int page, int pageSize,String orderColumn,String orderType,ArrayList<SearchFilterBean> filterBeans);
 
     }
 }

@@ -54,16 +54,24 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
     }
 
     @Override
-    public void getShopItemList(String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list) {
-
-        model.getShopItemList( shopInfoId, page, pageSize, orderColumn, orderType, list, new HttpRxObserver<ShopRecommendBean>() {
+    public void getShopItemList(boolean showLoading, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list) {
+        if (showLoading) {
+            baseView.showResDialog(R.string.loading);
+        }
+        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
+                if (showLoading) {
+                    baseView.dismissDialog();
+                }
                 baseView.onError(e);
             }
 
             @Override
             protected void onSuccess(ShopRecommendBean response) {
+                if (showLoading) {
+                    baseView.dismissDialog();
+                }
                 ItemListBean itemList = response.getItemList();
                 ArrayList<ResultListBean> resultList = itemList.getResultList();
                 int count = itemList.getCount();
