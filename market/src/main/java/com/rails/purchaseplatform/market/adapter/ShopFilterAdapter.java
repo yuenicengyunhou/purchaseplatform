@@ -42,8 +42,6 @@ public class ShopFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, Ite
         adapter.update(tags);
         binding.flow.setOnTagClickListener((parent, view, position1) -> {
             SearchFilterValue value = tags.get(position1);
-            Log.e("WQ", "====value" + value.getValueName());
-            Log.e("WQ", "position---" + position1+"   check=="+view.isSelected());
             if (multiSelect) {
                 value.setSelect(view.isSelected());
             } else {

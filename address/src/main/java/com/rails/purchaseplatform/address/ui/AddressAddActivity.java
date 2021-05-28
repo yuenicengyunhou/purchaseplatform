@@ -86,7 +86,7 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
                 presenter.getAddressInfo(addressId);
             }
         } else {
-            loadData();
+//            loadData();
         }
 
 //        presenter.getArea(20,"0");
@@ -133,12 +133,12 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
     }
 
 
-    protected void loadData() {
-        RxPermissions.getInstance(this).request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(aBoolean -> {
-            if (aBoolean)
-                initLocation();
-        });
-    }
+//    protected void loadData() {
+//        RxPermissions.getInstance(this).request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(aBoolean -> {
+//            if (aBoolean)
+//                initLocation();
+//        });
+//    }
 
 
     /**
