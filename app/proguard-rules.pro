@@ -48,8 +48,10 @@
 -keepclassmembers class * {
     @androidx.annotation.Keep *;
 }
--keep class androidx.databinding.** { *; }
--keep class androidx.viewbinding.** {*;}
+
+
+-keep class **.*Binding {*;}
+-keep class **.*BindingImpl {*;}
 
 
 # 保留所有的本地 native 方法不被混淆
@@ -85,6 +87,12 @@
 
     #网络请求相关
 }
+
+#不混淆所有接口
+-keep interface *{
+         <methods>;
+          <fields>;
+     }
 
 -keep public class android.net.http.SslError
 
