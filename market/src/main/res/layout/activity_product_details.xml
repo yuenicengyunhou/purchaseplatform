@@ -27,15 +27,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.rails.purchaseplatform.common.widget.RatioImage
-                        android:id="@+id/ri_item_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/image_asus_lcd"
-                        android:visibility="gone"
-                        app:h="720"
-                        app:w="750" />
-
                     <com.rails.purchaseplatform.common.widget.RatioCard
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -21,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 
 @Route(path = ConRoute.MARKET.IMAGE_ZOOM)
 public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBinding> {
+    final private String TAG = ImageZoomActivity.class.getSimpleName();
+
     final private int START_LOADING = 31;
     final private int FINISH_LOADING = 63;
 
@@ -33,6 +36,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         mImageUrl = extras.getString("imageUrl");
+//        Log.d(TAG, mImageUrl);
     }
 
     @Override

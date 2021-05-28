@@ -56,6 +56,7 @@ import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
 import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -571,6 +572,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置轮播图
         binding.productPictureHD.setImages(pictureUrls).
                 setImageLoader(new GlideImageLoader4ProductDetails()).start();
+        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("imageUrl", "https:" + pictureUrls.get(position));
+                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+            }
+        });
         // 设置商品名称
         binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
         // 设置店铺名称
