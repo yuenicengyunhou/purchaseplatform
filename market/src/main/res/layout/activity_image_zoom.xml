@@ -7,13 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.ImageZoomActivity">
 
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/pv_zoom_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
         android:id="@+id/ssiv_zoom_image"
         android:layout_width="match_parent"

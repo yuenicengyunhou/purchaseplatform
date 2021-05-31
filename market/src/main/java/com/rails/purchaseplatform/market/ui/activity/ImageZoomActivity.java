@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
@@ -27,7 +26,6 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
     final private int START_LOADING = 31;
     final private int FINISH_LOADING = 63;
 
-    private PhotoViewAttacher mAttach;
     private Bitmap mBitmap;
     private String mImageUrl = "";
     private Handler mImageLoadHandler;
@@ -77,7 +75,6 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
      * @param imgUrl
      */
     public void getBitmapFromUrl(String imgUrl) {
-        mAttach = new PhotoViewAttacher(binding.pvZoomImage);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -110,13 +107,10 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
             ImageZoomActivity activity = mWeakReference.get();
             if (msg.what == activity.FINISH_LOADING) {
                 if (activity.mBitmap != null) {
-//                    activity.binding.pvZoomImage.setImageBitmap(activity.mBitmap);
                     activity.binding.ssivZoomImage.setImage(ImageSource.bitmap(activity.mBitmap));
                 } else {
-//                    activity.binding.pvZoomImage.setImageResource(R.drawable.ic_placeholder_rect);
                     activity.binding.ssivZoomImage.setImage(ImageSource.resource(R.drawable.ic_placeholder_rect));
                 }
-                activity.mAttach.update();
             }
         }
     }
