@@ -246,13 +246,13 @@
                     android:id="@+id/btn_commit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_corner_blue_20"
+                    android:background="@drawable/enable_corner_blue_gray_20"
                     android:paddingLeft="@dimen/dp_20"
                     android:paddingTop="@dimen/dp_5"
                     android:paddingRight="@dimen/dp_20"
                     android:paddingBottom="@dimen/dp_5"
                     android:text="@string/market_cart_order"
-                    android:textColor="@color/white"
+                    android:textColor="@color/enable_white_black_color"
                     android:textSize="@dimen/font_size_16" />
 
             </LinearLayout>

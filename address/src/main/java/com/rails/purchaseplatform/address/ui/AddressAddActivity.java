@@ -1,31 +1,24 @@
 package com.rails.purchaseplatform.address.ui;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.amap.api.location.AMapLocation;
-import com.amap.api.services.core.PoiItem;
 import com.rails.lib_data.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressAddBinding;
-import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
-import com.rails.purchaseplatform.common.utils.LocationUtil;
+import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
-import com.tbruyelle.rxpermissions.RxPermissions;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -145,36 +138,36 @@ public class AddressAddActivity extends ToolbarActivity<ActivityAddressAddBindin
      * 定位当前的位置
      */
     private void initLocation() {
-        LocationUtil.getLocation(this, mapLocation -> {
-            if (null != mapLocation) {//adCode相当于接口的coutryCode，这个是一致的
-                barBinding.etRemark.setText(mapLocation.getAddress());
-                String s = mapLocation.getProvince() + " " + mapLocation.getCity() + " " + mapLocation.getDistrict();
-                String adCode = mapLocation.getAdCode();
-                String cityCode = mapLocation.getCityCode();
-                this.provinceCode = "";
-                this.cityCode = cityCode;
-                this.countryCode = adCode;
-                barBinding.etArea.setContent(s);
-            } else
-                ToastUtil.show(AddressAddActivity.this, "定位失败");
-        });
-        LocationUtil.getLocation(this, new LocationUtil.CallBack() {
-            @Override
-            public void getMapLocation(AMapLocation mapLocation) {
-
-            }
-        });
+//        LocationUtil.getLocation(this, mapLocation -> {
+//            if (null != mapLocation) {//adCode相当于接口的coutryCode，这个是一致的
+//                barBinding.etRemark.setText(mapLocation.getAddress());
+//                String s = mapLocation.getProvince() + " " + mapLocation.getCity() + " " + mapLocation.getDistrict();
+//                String adCode = mapLocation.getAdCode();
+//                String cityCode = mapLocation.getCityCode();
+//                this.provinceCode = "";
+//                this.cityCode = cityCode;
+//                this.countryCode = adCode;
+//                barBinding.etArea.setContent(s);
+//            } else
+//                ToastUtil.show(AddressAddActivity.this, "定位失败");
+//        });
+//        LocationUtil.getLocation(this, new LocationUtil.CallBack() {
+//            @Override
+//            public void getMapLocation(AMapLocation mapLocation) {
+//
+//            }
+//        });
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            PoiItem poiItem = Objects.requireNonNull(data).getParcelableExtra("poi");
-            barBinding.etRemark.setText(MessageFormat.format("{0}{1}{2}", poiItem.getCityName(), poiItem.getAdName(), poiItem.getSnippet()));
-            barBinding.etArea.setContent(poiItem.getProvinceName() + " " + poiItem.getCityName() + " " + poiItem.getAdName());
-        }
+//        if (resultCode == RESULT_OK) {
+//            PoiItem poiItem = Objects.requireNonNull(data).getParcelableExtra("poi");
+//            barBinding.etRemark.setText(MessageFormat.format("{0}{1}{2}", poiItem.getCityName(), poiItem.getAdName(), poiItem.getSnippet()));
+//            barBinding.etArea.setContent(poiItem.getProvinceName() + " " + poiItem.getCityName() + " " + poiItem.getAdName());
+//        }
     }
 
 
