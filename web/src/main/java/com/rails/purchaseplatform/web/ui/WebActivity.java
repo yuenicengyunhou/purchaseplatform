@@ -130,6 +130,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
             @Override
             public void onPageFinished(WebView view, String url) {
                 // TODO Auto-generated method stub
+                synCookies(url);
                 dismissDialog();
             }
 

@@ -14,6 +14,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivitySettingBinding;
@@ -43,6 +44,9 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
 
         presenter = new UserToolPresenterImpl(this, this);
             presenter.queryAuthor();
+
+            String version = SystemUtil.getVersionName(this);
+            barBinding.btnVersion.setContent("V"+version);
     }
 
     @Override
