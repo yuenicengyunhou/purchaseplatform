@@ -3,11 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+
+    <script>
+
+        function showAlter(){
+                var str = document.cookie;
+             document.getElementById("demo").innerHTML = str+"--------";
+
+        }
+
+    </script>
+
+
 </head>
 <body>
-<button onclick="app.postMessage('hello china!')">H5调用安卓方法</button>
-
-
+<p id="demo">一个段落</p>
+<button type="button" onclick="showAlter()">试一试</button>
 
 </body>
 </html>

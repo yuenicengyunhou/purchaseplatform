@@ -169,19 +169,6 @@ public class ConRoute {
         // 已驳回   // 已通过
         public final static String TURN_DOWN_LIST = BASEURL + "kindsApproval";
 
-
-        // 商品信息
-        public final static String PRODUCT_INFO = BASEURL + "productInfo";
-
-        // 包装列表
-        public final static String PACKAGE_LIST = BASEURL + "packingList";
-
-        // 售后服务
-        public final static String SERVICES = BASEURL + "serviceOrPartner?service=1";
-
-        // 推荐单位
-        public final static String RECOMMENDS = BASEURL + "serviceOrPartner?service=0";
-
     }
 
 
