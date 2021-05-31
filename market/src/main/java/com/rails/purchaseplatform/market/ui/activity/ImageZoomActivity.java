@@ -15,7 +15,6 @@ import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutionException;
 
 
@@ -28,7 +27,22 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     private Bitmap mBitmap;
     private String mImageUrl = "";
-    private Handler mImageLoadHandler;
+    private Thread mConvertToBitmap;
+    private final Handler mImageLoadHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == FINISH_LOADING) {
+                if (mBitmap != null) {
+                    binding.ssivZoomImage.setImage(ImageSource.bitmap(mBitmap));
+                } else {
+                    binding.ssivZoomImage.setImage(ImageSource.resource(R.drawable.ic_placeholder_rect));
+                }
+                mConvertToBitmap.interrupt();
+                return true;
+            }
+            return false;
+        }
+    });
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -39,7 +53,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void initialize(Bundle bundle) {
-        mImageLoadHandler = new ImageLoadHandler(this);
+//        mImageLoadHandler = new ImageLoadHandler(this);
         getBitmapFromUrl(mImageUrl);
     }
 
@@ -75,7 +89,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
      * @param imgUrl
      */
     public void getBitmapFromUrl(String imgUrl) {
-        new Thread(new Runnable() {
+        mConvertToBitmap = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -91,28 +105,8 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                     e.printStackTrace();
                 }
             }
-        }).start();
-    }
-
-
-    static class ImageLoadHandler extends Handler {
-        private final WeakReference<ImageZoomActivity> mWeakReference;
-
-        public ImageLoadHandler(ImageZoomActivity activity) {
-            mWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            ImageZoomActivity activity = mWeakReference.get();
-            if (msg.what == activity.FINISH_LOADING) {
-                if (activity.mBitmap != null) {
-                    activity.binding.ssivZoomImage.setImage(ImageSource.bitmap(activity.mBitmap));
-                } else {
-                    activity.binding.ssivZoomImage.setImage(ImageSource.resource(R.drawable.ic_placeholder_rect));
-                }
-            }
-        }
+        });
+        mConvertToBitmap.start();
     }
 
 }
