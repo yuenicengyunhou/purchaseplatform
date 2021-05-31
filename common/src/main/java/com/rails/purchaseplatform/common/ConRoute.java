@@ -172,4 +172,10 @@ public class ConRoute {
     }
 
 
+    public final static class CODE{
+        //登录编号
+        public final static  int LOGIN_CODE = 0x99;
+    }
+
+
 }

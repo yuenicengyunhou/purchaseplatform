@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.common.base;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -16,6 +17,7 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
+import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
@@ -52,7 +54,7 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
             case HTTP_ERROR:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(this, ConRoute.CODE.LOGIN_CODE);
             }
             break;
             case UN_KNOWN_ERROR: {
@@ -64,6 +66,21 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
                 ToastUtil.showCenter(this, msg);
                 break;
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == ConRoute.CODE.LOGIN_CODE) {
+            reLoadData();
+        }
+    }
+
+    /**
+     * 重新加载数据
+     */
+    public void reLoadData() {
 
     }
 }
