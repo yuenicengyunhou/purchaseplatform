@@ -49,16 +49,20 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     protected void loadData() {
 
-        setNetView(binding.netError);
+//        setNetView(binding.netError);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
     }
 
     @Override
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
-        toolPresenter.getUserStatictics();
-        toolPresenter.getUserInfoStatictics();
-        toolPresenter.queryAuthor();
+
+        UserInfoBean bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO,UserInfoBean.class);
+        if (bean != null){
+            toolPresenter.getUserStatictics();
+            toolPresenter.getUserInfoStatictics();
+            toolPresenter.queryAuthor();
+        }
     }
 
     @Override
@@ -293,6 +297,9 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
                 binding.netError.setVisibility(View.VISIBLE);
             }
             break;
+            case "500":{
+                ToastUtil.showCenter(getActivity(), errorBean.getMsg());
+            }
         }
     }
 
@@ -304,7 +311,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
      */
     private void setNetView(EmptyView netView) {
         if (netView != null) {
-            netView.setImgEmpty(R.drawable.ic_net_error).setContentEmpty("无法连接到网络").setMarginTop(100)
+            netView.setImgEmpty(R.drawable.ic_net_error).setContentEmpty("没有获取权限信息").setMarginTop(100)
                     .setBtnEmpty("刷新重试")
                     .setListener(v -> {
                         if (NetWorkUtil.isWifiEnabled(getActivity())) {

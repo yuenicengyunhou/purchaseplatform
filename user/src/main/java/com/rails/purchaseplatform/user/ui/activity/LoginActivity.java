@@ -2,14 +2,19 @@ package com.rails.purchaseplatform.user.ui.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.contract.LoginContract;
@@ -108,6 +113,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
 
         binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) ->
                 setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine));
+
+
     }
 
     /**
@@ -141,6 +148,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             PrefrenceUtil.getInstance(this).setString(ConShare.TOKEN, token);
             presenter.getUserInfo(false, token);
         }
+
+        synCookies(ConRoute.WEB_URL.MSG);
     }
 
     @Override
@@ -155,6 +164,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         if (keyCode == KeyEvent.KEYCODE_BACK) {
 //            BaseActManager.getInstance().clear();
             ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
+            finish();
             return false;
         }
         return super.onKeyDown(keyCode, event);
@@ -169,4 +179,39 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         super.onDestroy();
 
     }
+
+
+    /**
+     * 将cookie同步到WebView
+     *
+     * @param url WebView要加载的url
+     * @return true 同步cookie成功，false同步cookie失败
+     * @Author JPH
+     */
+    public void synCookies(String url) {
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        cookieManager.acceptCookie();
+        /**
+         * cookies是在HttpClient中获得的cookie
+         */
+        String token = PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
+        if (TextUtils.isEmpty(token)) {
+            return;
+        }
+        cookieManager.removeAllCookies(null);
+        cookieManager.setCookie(url, "token" + "=" + token);
+        /**
+         *  判断系统当前版本，同步方式不一样
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.flush();
+        } else {
+            CookieSyncManager.createInstance(getApplicationContext()).sync();
+        }
+        String cookie = cookieManager.getCookie("cookie");
+        Logger.d(cookie);
+
+    }
+
 }

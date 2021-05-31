@@ -1,15 +1,23 @@
 package com.rails.purchaseplatform;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.orhanobut.logger.Logger;
+import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.databinding.ActivityMainBinding;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,6 +50,8 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
         if (webBean != null) {
             EventBus.getDefault().post(new BusEvent<ResultWebBean>(webBean, ConRoute.EVENTCODE.MAIN_CODE));
         }
+
+        synCookies("cookie");
     }
 
     @Override
@@ -77,7 +87,7 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
             // 利用handler延迟发送更改状态信息
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
-//            BaseActManager.getInstance().clear();
+            BaseActManager.getInstance().clear();
             finish();
             System.exit(0);
         }
@@ -95,6 +105,33 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+
+    /**
+     * 将cookie同步到WebView
+     *
+     * @param url WebView要加载的url
+     * @return true 同步cookie成功，false同步cookie失败
+     * @Author JPH
+     */
+    public void synCookies(String url) {
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        cookieManager.acceptCookie();
+        cookieManager.removeAllCookies(null);
+        cookieManager.setCookie(url, "token" + "=" + "1234556666");
+        /**
+         *  判断系统当前版本，同步方式不一样
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.flush();
+        } else {
+            CookieSyncManager.createInstance(getApplicationContext()).sync();
+        }
+        String cookie = cookieManager.getCookie("cookie");
+        Logger.d(cookie);
 
     }
 }

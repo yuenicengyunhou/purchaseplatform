@@ -66,7 +66,7 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
 
     @Override
     public void checkPermissions() {
-        model.checkPermissions( new HttpRxObserver<UserStatisticsBean>() {
+        model.checkPermissions(new HttpRxObserver<UserStatisticsBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -83,11 +83,17 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
 
     @Override
     public void queryAuthor() {
-        model.getQueryResource( new HttpRxObserver<AuthorBean>() {
+        model.getQueryResource(new HttpRxObserver<AuthorBean>() {
             @Override
             protected void onError(ErrorBean e) {
-                e.setCode(CONNECT_ERROR);
+//                String code = e.getCode();
+//                if ("500".equals(code))
                 baseView.onError(e);
+//                else {
+                    e.setCode(CONNECT_ERROR);
+//                    baseView.onError(e);
+//                }
+
             }
 
             @Override
