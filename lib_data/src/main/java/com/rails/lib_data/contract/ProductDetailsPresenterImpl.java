@@ -85,7 +85,7 @@ public class ProductDetailsPresenterImpl
                     serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_updates, "售后换货说明",
                             afterSale.getChangeService() == 1 ? "特殊商品，一经签收不予换货。。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请换货。"));
                     serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_saves, "售后质保说明",
-                            "确认收货后" + afterSale.getRepaireDuration() + "月内出现质量问题可审请质保。"));
+                            "确认收货后" + afterSale.getRepaireDuration() + "个月内出现质量问题可申请质保。"));
                 } catch (Exception e) {
                 }
 

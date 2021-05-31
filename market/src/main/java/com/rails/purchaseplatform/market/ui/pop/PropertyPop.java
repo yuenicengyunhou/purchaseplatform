@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.market.ui.pop;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -509,6 +508,14 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         } else {
             binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
+        if (String.valueOf(s).length() >= 7) {
+            binding.etNum.setText("999999");
+            binding.tvAdd.setTextColor(fontGray);
+        } else if (Integer.parseInt(String.valueOf(s)) == 999999) {
+            binding.tvAdd.setTextColor(fontGray);
+        } else {
+            binding.tvAdd.setTextColor(fontBlack);
+        }
     }
 
     /**
@@ -526,6 +533,9 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
             number = Integer.parseInt(num);
         }
         if (isAdd) {
+            if (number >= 999999) {
+                return;
+            }
             binding.etNum.setText(String.valueOf(number + 1));
         } else {
             if (number <= 1) {
