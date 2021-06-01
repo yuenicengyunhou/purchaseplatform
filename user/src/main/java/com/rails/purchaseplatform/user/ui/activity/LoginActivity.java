@@ -12,6 +12,8 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
+import androidx.annotation.NonNull;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.Logger;
@@ -21,11 +23,10 @@ import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
-
-import androidx.annotation.NonNull;
 
 /**
  * 登录页面
@@ -35,6 +36,7 @@ import androidx.annotation.NonNull;
  */
 @Route(path = ConRoute.USER.LOGIN)
 public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView {
+    final private String TAG = LoginActivity.class.getSimpleName();
 
     private final int COUNTING = 1;
     private int COUNT_NUM = 60;
@@ -155,6 +157,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public void getUserInfo(UserInfoBean bean) {
         PrefrenceUtil.getInstance(this).setBean(ConShare.USERINFO, bean);
+        ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
+        BaseActManager.getInstance().clear();
         finish();
     }
 
