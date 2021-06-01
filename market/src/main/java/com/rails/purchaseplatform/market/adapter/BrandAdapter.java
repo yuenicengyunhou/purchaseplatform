@@ -40,14 +40,9 @@ public class BrandAdapter extends BaseRecyclerAdapter<BrandBean, ItemMarketBrand
     }
 
     @Override
-    public int getItemCount() {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
     protected void onBindView(ItemMarketBrandBinding binding) {
         super.onBindView(binding);
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) binding.imgBrand.getLayoutParams();
-        params.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 60)) >> 2;
+        params.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 80)) >> 2;
     }
 }

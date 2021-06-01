@@ -57,7 +57,7 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
     @Override
     public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
         E binding = (E) holder.getBinding();
-        final T t = mDataSource.get(position % mDataSource.size());
+        final T t = mDataSource.get(position);
         onBindItem(binding, t, position);
     }
 

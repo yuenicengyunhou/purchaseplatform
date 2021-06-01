@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,9 +14,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
-/**
+/**O
  * recyclerView 自己滚动
  *
  * @author： sk_comic@163.com
@@ -42,12 +42,16 @@ public class MarqueeRecyclerView extends BaseRecyclerView {
 
     private void init() {
         //主线程的handler，用于执行Marquee的滚动消息
+        int width =(ScreenSizeUtil.getScreenWidth(getContext()) - ScreenSizeUtil.dp2px(getContext(), 56)) >> 2;
         mHandler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
                     case 1://不论是竖直滚动还是水平滚动，都是偏移5个像素
-                        scrollBy(10, 10);
+                        if (canScrollHorizontally(1)) {
+                            smoothScrollBy(width, 10);
+                        } else
+                            smoothScrollToPosition(0);
                         break;
                 }
                 return false;
@@ -59,7 +63,7 @@ public class MarqueeRecyclerView extends BaseRecyclerView {
                 public void run() {
                     while (shouldContinue.get()) {
                         try {
-                            Thread.sleep(200);
+                            Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
