@@ -38,6 +38,7 @@ public abstract class BaseAbsAdapter<T> extends BaseAdapter {
      */
     public void update(List<T> dataList) {
         if (dataList != null) {
+            mDataSource.clear();
             mDataSource.addAll(dataList);
         }
 

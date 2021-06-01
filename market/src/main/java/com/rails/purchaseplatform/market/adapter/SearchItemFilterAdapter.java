@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.widget.CompoundButton;
 
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
@@ -31,9 +32,22 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
         } else {
             binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         }
-        binding.flow.setAdapter(adapter);
-        ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
-        adapter.update(tags);
+
+        binding.cbExpand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                binding.flow.setAdapter(adapter);
+                ArrayList<SearchFilterValue> tags;
+                if (isChecked) {
+                    tags = new ArrayList<>(searchFilterBean.getFilterValues());
+                } else {
+                    tags = new ArrayList<>();
+                }
+                adapter.update(tags);
+            }
+        });
+
+        binding.cbExpand.setChecked(p < 2);
     }
 
     public ArrayList getData() {

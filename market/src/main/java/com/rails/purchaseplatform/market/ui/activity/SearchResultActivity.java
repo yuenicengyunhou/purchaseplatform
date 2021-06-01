@@ -42,7 +42,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     private String mCid = "";
     private String mMode = "";
 
-    private boolean salesSortFlag = true; // false 降序排列
+    private boolean salesSortFlag = false; // false 降序排列
     private boolean priceSortFlag = true; // true  升序排列
 
     private String mMinPrice = "", mMaxPrice = "";
@@ -161,34 +161,40 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         // 点击综合排序
         binding.cbCommonSort.setOnClickListener(v -> {
-            setSelected(true, false, false);
             if (mSearchType == 0) {
                 fragment1.sort(1, null, null, mSearchKey, mCid);
             } else {
                 fragment2.sort(1, null, null, mSearchKey, null);
             }
+            setSelected(true, false, false);
+            priceSortFlag = true;
+            salesSortFlag = false;
         });
 
         // 点击销量排序
         binding.cbSaleSort.setOnClickListener(v -> {
-            setSelected(false, true, false);
-            salesSortFlag = !salesSortFlag;
             if (mSearchType == 0) {
                 fragment1.sort(1, "saleCount", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
                 fragment2.sort(1, "shopSaleCount", salesSortFlag ? "desc" : "asc", mSearchKey, null);
             }
+            setSelected(false, true, false);
+            binding.cbSaleSort.setChecked(salesSortFlag);
+            salesSortFlag = !salesSortFlag;
+            priceSortFlag = true;
         });
 
         // 点击价格排序
         binding.cbPriceSort.setOnClickListener(v -> {
-            setSelected(false, false, true);
-            priceSortFlag = !priceSortFlag;
             if (mSearchType == 0) {
                 fragment1.sort(1, "sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, mCid);
             } else {
-//              fragment2.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, null);
+                // fragment2.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, null);
             }
+            setSelected(false, false, true);
+            binding.cbPriceSort.setChecked(salesSortFlag);
+            priceSortFlag = !priceSortFlag;
+            salesSortFlag = false;
         });
 
         // 点击搜索按钮 刷新当前搜索结果（重新搜索）

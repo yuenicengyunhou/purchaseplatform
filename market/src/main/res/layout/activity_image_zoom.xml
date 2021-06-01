@@ -7,19 +7,19 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.ImageZoomActivity">
 
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/pv_zoom_image"
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/ssiv_zoom_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
 
     <ImageView
         android:id="@+id/iv_close"
         android:layout_width="@dimen/dp_16"
         android:layout_height="@dimen/dp_16"
-        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:background="@drawable/svg_close"
+        android:background="@drawable/svg_close_white"
         android:padding="@dimen/dp_16" />
 
 </RelativeLayout>

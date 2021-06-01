@@ -4,19 +4,17 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
+import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutionException;
 
 
@@ -27,10 +25,24 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
     final private int START_LOADING = 31;
     final private int FINISH_LOADING = 63;
 
-    private PhotoViewAttacher mAttach;
     private Bitmap mBitmap;
     private String mImageUrl = "";
-    private Handler mImageLoadHandler;
+    private Thread mConvertToBitmap;
+    private final Handler mImageLoadHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == FINISH_LOADING) {
+                if (mBitmap != null) {
+                    binding.ssivZoomImage.setImage(ImageSource.bitmap(mBitmap));
+                } else {
+                    binding.ssivZoomImage.setImage(ImageSource.resource(R.drawable.ic_placeholder_rect));
+                }
+                mConvertToBitmap.interrupt();
+                return true;
+            }
+            return false;
+        }
+    });
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -41,7 +53,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void initialize(Bundle bundle) {
-        mImageLoadHandler = new ImageLoadHandler(this);
+//        mImageLoadHandler = new ImageLoadHandler(this);
         getBitmapFromUrl(mImageUrl);
     }
 
@@ -62,6 +74,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void onClick() {
+        binding.ssivZoomImage.setOnClickListener(v -> finish());
         binding.ivClose.setOnClickListener(v -> finish());
     }
 
@@ -76,8 +89,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
      * @param imgUrl
      */
     public void getBitmapFromUrl(String imgUrl) {
-        mAttach = new PhotoViewAttacher(binding.pvZoomImage);
-        new Thread(new Runnable() {
+        mConvertToBitmap = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -93,28 +105,8 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                     e.printStackTrace();
                 }
             }
-        }).start();
-    }
-
-
-    static class ImageLoadHandler extends Handler {
-        private final WeakReference<ImageZoomActivity> mWeakReference;
-
-        public ImageLoadHandler(ImageZoomActivity activity) {
-            mWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            ImageZoomActivity activity = mWeakReference.get();
-            if (msg.what == activity.FINISH_LOADING) {
-                if (activity.mBitmap != null)
-                    activity.binding.pvZoomImage.setImageBitmap(activity.mBitmap);
-                else
-                    activity.binding.pvZoomImage.setImageResource(R.drawable.ic_placeholder_rect);
-                activity.mAttach.update();
-            }
-        }
+        });
+        mConvertToBitmap.start();
     }
 
 }

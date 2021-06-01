@@ -85,7 +85,7 @@ public class ProductDetailsPresenterImpl
                     serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_updates, "售后换货说明",
                             afterSale.getChangeService() == 1 ? "特殊商品，一经签收不予换货。。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请换货。"));
                     serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_saves, "售后质保说明",
-                            "确认收货后" + afterSale.getRepaireDuration() + "月内出现质量问题可审请质保。"));
+                            "确认收货后" + afterSale.getRepaireDuration() + "个月内出现质量问题可申请质保。"));
                 } catch (Exception e) {
                 }
 
@@ -105,7 +105,7 @@ public class ProductDetailsPresenterImpl
 
 
                 if (isCallBack()) {
-                    baseView.onGetProductDetailsSuccess(detailsBean, serviceBeans, companyBeans, getSpecificationPopBeans(detailsBean));
+                    baseView.onGetProductDetailsSuccess(detailsBean, serviceBeans, companyBeans, getSpecificationPopBeans3(detailsBean));
                 }
 
                 baseView.dismissDialog();
@@ -162,6 +162,78 @@ public class ProductDetailsPresenterImpl
                 specificationPopBeans.add(specificationPopBean);
             }
         }
+        return specificationPopBeans;
+    }
+
+    /**
+     * -01- 使用第一个ItemSkuInfo获取所有的 型号名称 单存一个集合 记录集合长度
+     * -02- 切割每个ItemSkuInfo的attributeName 存入集合 有重复的不要存
+     * -03- 呵呵
+     *
+     * @param bean
+     * @return
+     */
+
+    private ArrayList<SpecificationPopBean> getSpecificationPopBeans3(ProductDetailsBean bean) {
+        // 最后需要返回的集合
+        ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
+
+        // 属性数量 也是默认选中的个数
+        int typeCount = bean.getItemSkuInfoList().get(0).getAttributesName().split(";").length;
+
+        // 属性名称集合
+        ArrayList<String> typeNames = new ArrayList<>();
+
+        // 预组装的集合
+        ArrayList<String> nameList = new ArrayList<>(); // 每个元素的格式：【CPU型号:inter-i7】
+        ArrayList<String> nameIdList = new ArrayList<>(); // 每个元素的格式：【12345:67890】
+
+        // 遍历所有sku
+        for (int i = 0; i < bean.getItemSkuInfoList().size(); i++) {
+            ItemSkuInfo defaultSkuInfo = bean.getItemSkuInfoList().get(i);
+            String[] names = defaultSkuInfo.getAttributesName().split(";"); // 每个元素的格式：【CPU型号:inter-i7】
+            String[] nameIds = defaultSkuInfo.getAttributes().split(";"); // 每个元素的格式：【12345:67890】
+            // 遍历每个sku中包含的属性
+            for (int j = 0; j < typeCount; j++) { //
+                // 先拿到所有属性名 使用默认的skuInfo （一个sku应该含有所有的型号属性）
+                if (i == 0) {
+                    typeNames.add(names[j].split(":")[0]);
+                }
+                // 把所有型号都添加到预组装集合中，过滤重复的型号
+                if (!nameList.contains(names[j]) && !nameIdList.contains(nameIds[j])) {
+                    nameList.add(names[j]);
+                    nameIdList.add(nameIds[j]);
+                }
+            }
+        }
+
+        int allAttrCount = nameList.size();
+        // 遍历属性名称集合
+        for (String typeName : typeNames) {
+            SpecificationPopBean popBean = new SpecificationPopBean();
+            popBean.setAttrName(typeName);
+            ArrayList<SpecificationValue> valueList = new ArrayList<>();
+            // 遍历预组装集合
+            for (int i = 0; i < allAttrCount; i++) {
+                SpecificationValue valueBean = new SpecificationValue();
+                String[] names = nameList.get(i).split(":");
+                String[] ids = nameIdList.get(i).split(":");
+                String typeNameKey = names[0];
+                String typeNameValue = names[1];
+                String typeNameKeyId = ids[0];
+                String typeNameValueId = ids[1];
+                if (typeName.equals(typeNameKey)) {
+                    popBean.setAttrId(typeNameKeyId);
+                    valueBean.setAttrValueName(typeNameValue);
+                    valueBean.setAttrValueId(typeNameValueId);
+                    if (i < typeCount) valueBean.setSelect(true);
+                    valueList.add(valueBean);
+                }
+            }
+            popBean.setSpecificationValue(valueList);
+            specificationPopBeans.add(popBean);
+        }
+
         return specificationPopBeans;
     }
 
@@ -365,6 +437,18 @@ public class ProductDetailsPresenterImpl
     }
 
 
+    /**
+     * 请求sku库存
+     *
+     * @param supplierId
+     * @param provinceId
+     * @param cityId
+     * @param countryId
+     * @param address
+     * @param skuNum
+     * @param skuId
+     * @param isDialog
+     */
     public void querySkuSaleStocks(String supplierId, String provinceId, String cityId, String countryId,
                                    String address, String skuNum, String skuId, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);

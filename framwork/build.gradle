@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include:['*.jar'], dir:'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
@@ -125,7 +125,7 @@ dependencies {
     api 'com.teprinciple:updateapputils:2.3.0'
 
     //加载长图
-//    api 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    api 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
 
 
     //高德地图
@@ -139,6 +139,6 @@ dependencies {
     api "com.umeng.umsdk:asms:1.2.2"
     api "com.umeng.umsdk:apm:1.2.0"
 
-    // 手势操作图片放大、缩小、平移等
-    api 'com.github.chrisbanes:PhotoView:2.3.0'
+    // 手势操作图片放大、缩小、平移等 （查看超长图片时清晰度不够）
+    // api 'com.github.chrisbanes:PhotoView:2.3.0'
 }
