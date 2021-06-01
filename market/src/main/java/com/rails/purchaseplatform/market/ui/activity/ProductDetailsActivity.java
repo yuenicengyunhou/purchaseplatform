@@ -1,14 +1,18 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,6 +63,7 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 商品详情页
@@ -71,6 +76,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         AddressToolContract.AddressToolView {
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
+
+    final private int LOAD_BITMAP = 63;
+    private Handler mHandler;
+    private Thread mThread;
 
     final private String CREDIT_LEVEL_1 = "A";
     final private String CREDIT_LEVEL_2 = "B";
@@ -637,7 +646,42 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     pics.add(picture);
                 }
             }
-            imgAdapter.update(pics, true);
+
+            mHandler = new Handler(new Handler.Callback() {
+                @Override
+                public boolean handleMessage(@NonNull Message msg) {
+                    if (msg.what == LOAD_BITMAP) {
+                        imgAdapter.update(pics, true);
+                        mThread.interrupt();
+                        mHandler.removeCallbacksAndMessages(null);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            ArrayList<Bitmap> bitmaps = new ArrayList<>();
+            mThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        for (int i = 0; i < pics.size(); i++) {
+                            Bitmap bitmap = Glide.with(ProductDetailsActivity.this)
+                                    .asBitmap()
+                                    .load(pics.get(i).getPictureUrl())
+                                    .submit(960, 960)
+                                    .get();
+                            pics.get(i).setBitmap(bitmap);
+                        }
+                        Message msg = Message.obtain();
+                        msg.what = LOAD_BITMAP;
+                        mHandler.sendMessage(msg);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            mThread.start();
         }
 
         mSpecificationPopBeanList = specificationPopBeanList;

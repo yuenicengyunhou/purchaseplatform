@@ -1,5 +1,7 @@
 package com.rails.lib_data.bean.forNetRequest.productDetails;
 
+import android.graphics.Bitmap;
+
 public class ItemPicture {
 
 
@@ -16,7 +18,16 @@ public class ItemPicture {
     private String yn;
     private String skuId;
     private String annexType;
+    private Bitmap bitmap;
 
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     public String getId() {
         return id;
