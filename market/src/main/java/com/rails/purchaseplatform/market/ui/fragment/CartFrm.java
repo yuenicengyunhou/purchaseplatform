@@ -493,7 +493,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         for (CartShopBean shopBean : shopBeans) {
             ArrayList<String> skuIds = new ArrayList<>();
             for (CartShopProductBean bean : shopBean.getSkuList()) {
-                if (bean.isSel.get() && bean.canSel.get())
+                if (bean.isSel.get())
                     skuIds.add(bean.getSkuId());
             }
             map.put(String.valueOf(shopBean.getShopId()), skuIds);
