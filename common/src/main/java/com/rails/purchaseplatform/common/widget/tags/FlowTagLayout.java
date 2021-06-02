@@ -57,6 +57,16 @@ public class FlowTagLayout extends ViewGroup {
     OnTagSelectListener mOnTagSelectListener;
 
     /**
+     * 是否展示更多行
+     */
+    private boolean isShowMore = false;
+
+    /**
+     * 最大行数
+     */
+    private int MAX_LINES = 2;
+
+    /**
      * 标签流式布局选中模式，默认是不支持选中的
      */
     private int mTagCheckMode = FLOW_TAG_CHECKED_NONE;
@@ -81,6 +91,7 @@ public class FlowTagLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int line = 0;
 
         //获取Padding
         // 获得它的父容器为它设置的测量模式和大小
@@ -115,6 +126,10 @@ public class FlowTagLayout extends ViewGroup {
 
             //如果当前一行的宽度加上要加入的子view的宽度大于父容器给的宽度，就换行
             if ((lineWidth + realChildWidth) > sizeWidth) {
+                line++;
+                if (isShowMore && line >= MAX_LINES) {
+                    break;
+                }
                 //换行
                 resultWidth = Math.max(lineWidth, realChildWidth);
                 resultHeight += realChildHeight;
@@ -143,6 +158,7 @@ public class FlowTagLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        int line = 0;
 
         int flowWidth = getWidth();
 
@@ -166,6 +182,10 @@ public class FlowTagLayout extends ViewGroup {
             MarginLayoutParams mlp = (MarginLayoutParams) childView.getLayoutParams();
 
             if (childLeft + mlp.leftMargin + childWidth + mlp.rightMargin > flowWidth) {
+                line++;
+                if (isShowMore && line >= MAX_LINES) {
+                    break;
+                }
                 //换行处理
                 childTop += (mlp.topMargin + childHeight + mlp.bottomMargin);
                 childLeft = 0;
@@ -422,5 +442,15 @@ public class FlowTagLayout extends ViewGroup {
      */
     public void setTagCheckedMode(int tagMode) {
         this.mTagCheckMode = tagMode;
+    }
+
+
+    public boolean isShowMore() {
+        return isShowMore;
+    }
+
+    public void setShowMore(boolean isShowMore) {
+        this.isShowMore = isShowMore;
+        requestLayout();
     }
 }

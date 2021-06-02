@@ -13,6 +13,7 @@ import com.rails.purchaseplatform.market.databinding.ItemProductPropertyBinding;
 import java.util.ArrayList;
 
 public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, ItemProductPropertyBinding> {
+    final private String TAG = SearchItemFilterAdapter.class.getSimpleName();
 
     public SearchItemFilterAdapter(Context context) {
         super(context);
@@ -33,22 +34,35 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
             binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         }
 
+        binding.flow.setShowMore(false);
         binding.cbExpand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 binding.flow.setAdapter(adapter);
                 ArrayList<SearchFilterValue> tags;
-                if (isChecked) {
-                    tags = new ArrayList<>(searchFilterBean.getFilterValues());
-                } else {
-                    tags = new ArrayList<>();
-                }
+
+//                Log.d(TAG, "POSITION ======== " + p);
+//                Log.d(TAG, "   INDEX = " + binding.flow.getLastChildIndexInTwoLines());
+//                Log.d(TAG, "MaxLines = " + binding.flow.getMaxLines());
+//                if (isChecked) {
+                tags = new ArrayList<>(searchFilterBean.getFilterValues());
+//                } else {
+//                    tags = new ArrayList<>();
+//                }
+
+                binding.flow.setShowMore(isChecked);
+
                 adapter.update(tags);
             }
         });
 
         binding.cbExpand.setSelected(true);
-        binding.cbExpand.setChecked(p < 2);
+        binding.cbExpand.setChecked(true);
+//        binding.cbExpand.setChecked(true);
+
+//        Log.d(TAG, "POSITION ======== " + p);
+//        Log.d(TAG, "   INDEX = " + binding.flow.getLastChildIndexInTwoLines());
+//        Log.d(TAG, "MaxLines = " + binding.flow.getMaxLines());
     }
 
     public ArrayList getData() {

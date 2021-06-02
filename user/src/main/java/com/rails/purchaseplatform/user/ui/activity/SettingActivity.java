@@ -6,21 +6,18 @@ import android.view.View;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AuthorBean;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivitySettingBinding;
-import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
-
-import java.util.Set;
 
 /**
  * 设置页面
@@ -43,10 +40,10 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
                 .setShowLine(true);
 
         presenter = new UserToolPresenterImpl(this, this);
-            presenter.queryAuthor();
+        presenter.queryAuthor();
 
-            String version = SystemUtil.getVersionName(this);
-            barBinding.btnVersion.setContent("V"+version);
+        String version = SystemUtil.getVersionName(this);
+        barBinding.btnVersion.setContent("V" + version);
     }
 
     @Override
@@ -102,6 +99,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
                         @Override
                         public void onLeft() {
                             PrefrenceUtil.getInstance(SettingActivity.this).clear();
+                            BaseActManager.getInstance().clear();
                             ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                             dismissDialog();
                             finish();
