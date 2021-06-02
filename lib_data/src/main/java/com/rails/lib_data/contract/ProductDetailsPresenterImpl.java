@@ -183,6 +183,12 @@ public class ProductDetailsPresenterImpl
             return specificationPopBeans;
         }
 
+        // 全都是空的
+        ItemSkuInfo defaultSkuInfo = bean.getItemSkuInfoList().get(0);
+        if (TextUtils.isEmpty(defaultSkuInfo.getAttributes()) || TextUtils.isEmpty(defaultSkuInfo.getAttributesName())) {
+            return specificationPopBeans;
+        }
+
         // 属性数量 也是默认选中的个数
         int typeCount = bean.getItemSkuInfoList().get(0).getAttributesName().split(";").length;
 
@@ -195,7 +201,7 @@ public class ProductDetailsPresenterImpl
 
         // 遍历所有sku
         for (int i = 0; i < bean.getItemSkuInfoList().size(); i++) {
-            ItemSkuInfo defaultSkuInfo = bean.getItemSkuInfoList().get(i);
+            defaultSkuInfo = bean.getItemSkuInfoList().get(i);
             String[] names = defaultSkuInfo.getAttributesName().split(";"); // 每个元素的格式：【CPU型号:inter-i7】
             String[] nameIds = defaultSkuInfo.getAttributes().split(";"); // 每个元素的格式：【12345:67890】
             // 遍历每个sku中包含的属性
