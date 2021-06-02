@@ -129,10 +129,10 @@ public class ConRoute {
 //        public final static String BASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
 
         //dev地址
-//        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
+        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
 
         // 生产环境
-        public final static String BASEURL = "https://mall.95306.cn/purchase-android-web/#/";
+//        public final static String BASEURL = "https://mall.95306.cn/purchase-android-web/#/";
 
 
         public final static String HOME = BASEURL + "home";
