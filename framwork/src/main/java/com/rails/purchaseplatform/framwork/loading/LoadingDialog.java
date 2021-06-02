@@ -81,6 +81,20 @@ public class LoadingDialog extends Dialog {
             loadingIndicatorView = mContentView.findViewById(R.id.loading);
         }
 
+        /**
+         * 构建器
+         *
+         * @param context
+         * @param hasBackground
+         */
+        public Builder(Context context, boolean hasBackground) {
+            mContext = context;
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            mContentView = inflater.inflate(R.layout.dialog_loading_with_background, null);
+            mMessage = mContentView.findViewById(R.id.message_txt);
+            loadingIndicatorView = mContentView.findViewById(R.id.loading);
+        }
+
 
         /**
          * 设置提示信息
@@ -111,6 +125,21 @@ public class LoadingDialog extends Dialog {
          */
         public LoadingDialog create() {
             LoadingDialog dialog = new LoadingDialog(mContext, R.style.dialog);
+            dialog.setContentView(mContentView);
+            dialog.setCancelable(mCancelable);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setAnimatorView(loadingIndicatorView);
+            loadingIndicatorView.start();
+            return dialog;
+        }
+
+        /**
+         * 创建对话框-带有背景
+         *
+         * @return 自定义对话框实例
+         */
+        public LoadingDialog createWithBackground() {
+            LoadingDialog dialog = new LoadingDialog(mContext, R.style.dialog_with_background);
             dialog.setContentView(mContentView);
             dialog.setCancelable(mCancelable);
             dialog.setCanceledOnTouchOutside(false);

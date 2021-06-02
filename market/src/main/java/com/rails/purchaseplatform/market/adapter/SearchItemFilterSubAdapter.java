@@ -7,7 +7,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.framwork.adapter.BaseAbsAdapter;
 import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
@@ -44,7 +46,7 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
         boolean select = mDataSource.get(position).isSelect();
         holder.rbTag.setSelected(select);
         holder.rbTag.setOnClickListener(v -> {
-            LoadingDialog mLoadingDialog = new LoadingDialog.Builder(mContext).setMessage("Loading").create();
+            LoadingDialog mLoadingDialog = new LoadingDialog.Builder(mContext, true).setMessage("Loading").createWithBackground();
             mLoadingDialog.setCancelable(true);
             LoadingHandler mHandler = new LoadingHandler(mLoadingDialog);
             mLoadingDialog.show();
@@ -62,7 +64,7 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
             Message message = new Message();
             message.what = COUNTING;
             message.obj = COUNT_NUM;
-            mHandler.sendMessageDelayed(message, 500);
+            mHandler.sendMessageDelayed(message, 800);
         });
 
         return convertView;
