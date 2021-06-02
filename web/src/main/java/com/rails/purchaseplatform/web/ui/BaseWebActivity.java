@@ -4,6 +4,7 @@ import android.content.Context;
 import android.webkit.SslErrorHandler;
 
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.framwork.BaseApp;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +24,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.internal.platform.Platform;
+
+import static com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit.isDebug;
 
 /**
  * @author： sk_comic@163.com
@@ -62,11 +65,13 @@ public abstract class BaseWebActivity<T extends ViewBinding> extends BaseErrorAc
     }
 
 
-
     public void ssl(Context context, final SslErrorHandler handler, String url) {
         OkHttpClient.Builder builder;
         try {
-            builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("CARS-CA.cer"));
+            if (!isDebug)
+                builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("shop.cer"));
+            else
+                builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("CARS-CA.cer"));
         } catch (IOException e) {
             builder = new OkHttpClient.Builder();
         }
