@@ -47,6 +47,7 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
             }
         });
 
+        binding.cbExpand.setSelected(true);
         binding.cbExpand.setChecked(p < 2);
     }
 
