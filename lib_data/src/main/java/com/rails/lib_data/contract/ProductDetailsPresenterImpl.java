@@ -178,6 +178,11 @@ public class ProductDetailsPresenterImpl
         // 最后需要返回的集合
         ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
 
+        // 什么垃圾数据? itemSkuInfoList能是null?
+        if (bean != null && bean.getItemSkuInfoList() != null && bean.getItemSkuInfoList().size() != 0) {
+            return specificationPopBeans;
+        }
+
         // 属性数量 也是默认选中的个数
         int typeCount = bean.getItemSkuInfoList().get(0).getAttributesName().split(";").length;
 

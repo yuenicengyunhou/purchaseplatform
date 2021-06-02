@@ -511,7 +511,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
         if (String.valueOf(s).length() >= 7) {
             binding.etNum.setText("999999");
             binding.tvAdd.setTextColor(fontGray);
-        } else if (Integer.parseInt(String.valueOf(s)) == 999999) {
+        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) == 999999) {
             binding.tvAdd.setTextColor(fontGray);
         } else {
             binding.tvAdd.setTextColor(fontBlack);
