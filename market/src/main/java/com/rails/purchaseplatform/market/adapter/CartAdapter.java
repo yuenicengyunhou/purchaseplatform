@@ -290,13 +290,14 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
      * @return
      */
     public boolean isNext() {
+        if (mDataSource.isEmpty())
+            return false;
         for (CartShopBean shopBean : mDataSource) {
             for (CartShopProductBean productBean : shopBean.getSkuList()) {
                 if (productBean.isSel.get())
                     if (shopBean.isshow.get())
                         return false;
             }
-
         }
         return true;
     }

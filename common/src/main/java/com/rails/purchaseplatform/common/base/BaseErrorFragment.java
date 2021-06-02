@@ -1,13 +1,17 @@
 package com.rails.purchaseplatform.common.base;
 
+import android.content.Intent;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.base.BaseAbsFragment;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
+import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
+import static android.app.Activity.RESULT_OK;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
@@ -33,7 +37,7 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
             case HTTP_ERROR:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(getActivity(), ConRoute.CODE.LOGIN_CODE);
             }
             break;
             case UN_KNOWN_ERROR: {
@@ -45,6 +49,23 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
                 ToastUtil.showCenter(getActivity(), msg);
                 break;
         }
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == ConRoute.CODE.LOGIN_CODE) {
+            reLoadData();
+        }
+    }
+
+
+    /**
+     * 重新加载数据
+     */
+    public void reLoadData() {
 
     }
 }

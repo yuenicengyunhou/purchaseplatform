@@ -129,10 +129,10 @@ public class ConRoute {
 //        public final static String BASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
 
         //dev地址
-//        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
+        public final static String BASEURL = "http://crmall.rails.cn/purchase-android-web/#/";
 
         // 生产环境
-        public final static String BASEURL = "https://mall.95306.cn/purchase-android-web/#/";
+//        public final static String BASEURL = "https://mall.95306.cn/purchase-android-web/#/";
 
 
         public final static String HOME = BASEURL + "home";
@@ -169,19 +169,12 @@ public class ConRoute {
         // 已驳回   // 已通过
         public final static String TURN_DOWN_LIST = BASEURL + "kindsApproval";
 
+    }
 
-        // 商品信息
-        public final static String PRODUCT_INFO = BASEURL + "productInfo";
 
-        // 包装列表
-        public final static String PACKAGE_LIST = BASEURL + "packingList";
-
-        // 售后服务
-        public final static String SERVICES = BASEURL + "serviceOrPartner?service=1";
-
-        // 推荐单位
-        public final static String RECOMMENDS = BASEURL + "serviceOrPartner?service=0";
-
+    public final static class CODE{
+        //登录编号
+        public final static  int LOGIN_CODE = 0x99;
     }
 
 

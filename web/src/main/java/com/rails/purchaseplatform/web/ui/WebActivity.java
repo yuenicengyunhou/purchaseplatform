@@ -47,6 +47,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
         super.getExtraEvent(extras);
         jsCls = extras.getString("module", "app");
         url = extras.getString("url", "");
+        synCookies(url);
     }
 
     public void onBack(WebView web) {
@@ -69,8 +70,6 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
     public String getToken() {
         return PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
     }
-
-
 
 
     /**
@@ -137,7 +136,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
 //                super.onReceivedSslError(view, handler, error);
-                ssl(WebActivity.this,handler,view.getUrl());
+                ssl(WebActivity.this, handler, view.getUrl());
             }
 
             @Override
@@ -166,7 +165,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
     /**
      * 将cookie同步到WebView
      *
-     * @param url    WebView要加载的url
+     * @param url WebView要加载的url
      * @return true 同步cookie成功，false同步cookie失败
      * @Author JPH
      */
@@ -177,7 +176,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
         /**
          * cookies是在HttpClient中获得的cookie
          */
-        String token = PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN,"");
+        String token = PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
         if (TextUtils.isEmpty(token)) {
             return;
         }

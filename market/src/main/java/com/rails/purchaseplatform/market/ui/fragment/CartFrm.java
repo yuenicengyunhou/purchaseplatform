@@ -224,6 +224,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         ToastUtil.showCenter(getActivity(), "删除成功");
         if (type == 1 && position != -1) {
             cartAdapter.updateSubAdater(position);
+            setTotal();
         } else {
             presenter.getCarts(false, addressBean.getId());
         }
@@ -366,6 +367,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      */
     private void setTotal() {
         cartAdapter.updateShopPrice();
+        binding.btnCommit.setEnabled(cartAdapter.isNext());
         binding.imgTotal.setSelected(cartAdapter.isAll());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
                 DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
@@ -380,6 +382,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private void setDefTotal(CartBean bean) {
         if (bean == null)
             return;
+        binding.btnCommit.setEnabled(cartAdapter.isNext());
         binding.imgTotal.setSelected(bean.getSelected());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
                 DecimalUtil.formatDouble(Double.parseDouble(bean.getTotalPrice())), "", 18));
