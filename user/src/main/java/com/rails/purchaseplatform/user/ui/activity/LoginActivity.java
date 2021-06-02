@@ -6,11 +6,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 
@@ -107,14 +109,45 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             startActivity(intent);
         });
 
+        binding.rlPasswordVisible.setOnClickListener(v -> {
+            boolean isChecked = binding.cbPasswordVisible.isChecked();
+            binding.cbPasswordVisible.setChecked(!isChecked);
+        });
+
+        binding.cbPasswordVisible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                } else {
+                    binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
+
         binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) ->
                 setInputLineBackground(hasFocus, binding.viewPhoneInputLine));
 
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) ->
                 setInputLineBackground(hasFocus, binding.viewPasswordInputLine));
 
-        binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) ->
-                setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine));
+        binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) -> {
+            setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine);
+            // TODO: 2021/6/2 需要监视软键盘状态，软件盘未弹出时并不会滚动
+            if (hasFocus) {
+                binding.nsvLogin.scrollTo(0, 150);
+            } else {
+                binding.nsvLogin.scrollTo(0, 0);
+            }
+        });
+
+        // TODO: 2021/6/2 需要监视软键盘状态，软件盘未弹出时并不会滚动
+        binding.etVerifyNumInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.nsvLogin.scrollTo(0, 150);
+            }
+        });
 
 
     }
