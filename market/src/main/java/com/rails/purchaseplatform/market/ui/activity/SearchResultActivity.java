@@ -192,7 +192,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 // fragment2.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, null);
             }
             setSelected(false, false, true);
-            binding.cbPriceSort.setChecked(salesSortFlag);
+            binding.cbPriceSort.setChecked(priceSortFlag);
             priceSortFlag = !priceSortFlag;
             salesSortFlag = false;
         });

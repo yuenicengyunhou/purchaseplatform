@@ -179,7 +179,7 @@ public class ProductDetailsPresenterImpl
         ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
 
         // 什么垃圾数据? itemSkuInfoList能是null?
-        if (bean != null && bean.getItemSkuInfoList() != null && bean.getItemSkuInfoList().size() != 0) {
+        if (bean == null || bean.getItemSkuInfoList() == null || bean.getItemSkuInfoList().size() == 0) {
             return specificationPopBeans;
         }
 

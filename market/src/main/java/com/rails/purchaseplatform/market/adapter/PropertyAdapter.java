@@ -1,7 +1,9 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -10,7 +12,6 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.purchaseplatform.common.widget.tags.FlowTagLayout;
 import com.rails.purchaseplatform.common.widget.tags.OnTagClickListener;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
-import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductPropertyBinding;
 
@@ -26,11 +27,14 @@ import java.util.HashMap;
 public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, ItemProductPropertyBinding> {
     private final String TAG = PropertyAdapter.class.getSimpleName();
 
+    private Context mContext;
+
     private ArrayList<ItemSkuInfo> mItemSkuInfoList;
     private OnItemClicked onItemClicked;
 
     public PropertyAdapter(Context context) {
         super(context);
+        mContext = context;
     }
 
     @Override
@@ -40,7 +44,10 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
 
     @Override
     protected void onBindItem(ItemProductPropertyBinding binding, SpecificationPopBean specificationPopBean, int p) {
+        binding.cbExpand.setVisibility(View.GONE);
         binding.tvName.setText(specificationPopBean.getAttrName());
+        binding.tvName.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        binding.tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
         PropertySubAdapter adapter = new PropertySubAdapter(mContext);
         binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         binding.flow.setAdapter(adapter);
