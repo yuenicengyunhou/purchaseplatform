@@ -660,7 +660,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 }
             });
 
-            ArrayList<Bitmap> bitmaps = new ArrayList<>();
             mThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -673,11 +672,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                                     .get();
                             pics.get(i).setBitmap(bitmap);
                         }
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
                         Message msg = Message.obtain();
                         msg.what = LOAD_BITMAP;
                         mHandler.sendMessage(msg);
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
             });

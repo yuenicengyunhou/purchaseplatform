@@ -30,6 +30,10 @@ public class DetailImgAdapter extends BaseRecyclerAdapter<ItemPicture, ItemProdu
 
     @Override
     protected void onBindItem(ItemProductDetailImgBinding binding, ItemPicture s, int position) {
+        if (s.getBitmap() == null) {
+            binding.ssivDetails.setImage(ImageSource.resource(R.drawable.ic_placeholder_rect));
+            return;
+        }
         binding.ssivDetails.setImage(ImageSource.bitmap(s.getBitmap()));
         binding.ssivDetails.setZoomEnabled(false);
         binding.ssivDetails.setOnClickListener(v -> {
