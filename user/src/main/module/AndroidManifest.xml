@@ -3,31 +3,23 @@
     package="com.rails.purchaseplatform.user">
 
     <application>
-
-        <!--注册-->
+        <activity
+            android:name=".ui.activity.ModifyPswActivity"
+            android:screenOrientation="portrait" /><!--密码修改-->
+        <!-- 注册 -->
         <activity
             android:name=".ui.activity.RegisterActivity"
-            android:screenOrientation="portrait" />
-
-
-        <!-- 登录页面 -->
+            android:screenOrientation="portrait" /> <!-- 登录页面 -->
         <activity
             android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-
-        <!-- 找回密码页面 -->
+            android:screenOrientation="portrait" /> <!-- 找回密码页面 -->
         <activity
             android:name=".ui.activity.RetrievePasswordActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- 找回密码2 -->
+            android:screenOrientation="portrait" /> <!-- 找回密码2 -->
         <activity
             android:name=".ui.activity.RetrievePasswordConfirmActivity"
-            android:screenOrientation="portrait" />
-
-
-        <!--设置-->
+            android:screenOrientation="portrait" /> <!-- 设置 -->
         <activity
             android:name=".ui.activity.SettingActivity"
             android:screenOrientation="portrait" />
