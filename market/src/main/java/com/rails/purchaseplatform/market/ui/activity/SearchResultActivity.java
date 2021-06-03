@@ -1,9 +1,12 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
@@ -13,6 +16,7 @@ import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
@@ -36,6 +40,9 @@ import java.util.ArrayList;
 @Route(path = ConRoute.MARKET.SEARCH_RESULT)
 public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding>
         implements View.OnClickListener {
+
+    private static int COUNTING = 1;
+    private static LoadingDialog mLoadingDialog = null;
 
     private int mSearchType = 0;
     private String mSearchKey = "";
@@ -112,6 +119,15 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
         // 筛选器
         binding.rlFilter.setOnClickListener(v -> {
+            /* 触发点击事件弹出Loading, 在pop中最后一个元素加载完成后取消Loading */
+            if (mLoadingDialog == null) {
+                mLoadingDialog = new LoadingDialog
+                        .Builder(SearchResultActivity.this)
+                        .setMessage("Loading")
+                        .create();
+                mLoadingDialog.setCancelable(true);
+                mLoadingDialog.show();
+            }
             // 商品筛选弹窗
             if (mSearchType == 0) {
                 ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
@@ -302,5 +318,18 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          */
         void sendShopFilterData(int page, String isBought, String shopType, String saleArea);
 
+    }
+
+    public static class LoadingHandlerInSearchActivity extends Handler {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == COUNTING) {
+                if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                    mLoadingDialog.dismiss();
+                    mLoadingDialog = null;
+                }
+            }
+        }
     }
 }

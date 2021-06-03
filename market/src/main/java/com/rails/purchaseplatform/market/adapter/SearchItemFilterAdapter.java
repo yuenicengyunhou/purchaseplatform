@@ -28,7 +28,7 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
     @Override
     protected void onBindItem(ItemProductPropertyBinding binding, SearchFilterBean searchFilterBean, int p) {
         binding.tvName.setText(searchFilterBean.getFilterName());
-        SearchItemFilterSubAdapter adapter = new SearchItemFilterSubAdapter(mContext, searchFilterBean.isMultiSelect());
+        SearchItemFilterSubAdapter adapter = new SearchItemFilterSubAdapter(mContext, searchFilterBean.isMultiSelect(), mDataSource.size() - 1 == p);
         ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
 
         binding.flow.setTagCheckedMode(searchFilterBean.isMultiSelect()

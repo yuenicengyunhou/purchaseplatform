@@ -14,6 +14,7 @@ import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.framwork.adapter.BaseAbsAdapter;
 import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue> {
 
@@ -25,10 +26,19 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
 
     private boolean isMultiSelect;
 
+    private boolean isLastGroup;
+
     public SearchItemFilterSubAdapter(Context context, boolean isMultiSelect) {
         super(context);
         this.mContext = context;
         this.isMultiSelect = isMultiSelect;
+    }
+
+    public SearchItemFilterSubAdapter(Context context, boolean isMultiSelect, boolean isLastGroup) {
+        super(context);
+        this.mContext = context;
+        this.isMultiSelect = isMultiSelect;
+        this.isLastGroup = isLastGroup;
     }
 
     @Override
@@ -66,6 +76,13 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
             message.obj = COUNT_NUM;
             mHandler.sendMessageDelayed(message, 800);
         });
+
+        if (isLastGroup && mDataSource.size() - 1 == position) {
+            SearchResultActivity.LoadingHandlerInSearchActivity handler = new SearchResultActivity.LoadingHandlerInSearchActivity();
+            Message message = Message.obtain();
+            message.what = COUNTING;
+            handler.sendMessage(message);
+        }
 
         return convertView;
     }
