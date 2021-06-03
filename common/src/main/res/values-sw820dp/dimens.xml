@@ -87,5 +87,6 @@
     <dimen name="font_size_19">47.5sp</dimen>
     <dimen name="font_size_20">50sp</dimen>
     <dimen name="font_size_26">65sp</dimen>
+    <dimen name="font_size_30">75sp</dimen>
     <dimen name="font_size_35">87.5sp</dimen>
 </resources>

@@ -78,6 +78,12 @@ public class InvoicePresenterImpl extends BasePresenter<InvoiceContract.InvoiceV
             @Override
             protected void onSuccess(ListBeen<InvoiceTitleBean> listBeen) {
                 baseView.dismissDialog();
+                if (listBeen == null){
+                    listBeen = new ListBeen<>();
+                    listBeen.setList(new ArrayList<>());
+                }
+
+
                 baseView.getInvoiceTitles(listBeen);
             }
         });

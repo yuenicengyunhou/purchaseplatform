@@ -11,6 +11,8 @@ import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 
 public interface RecommendItemsService {
-    @GET("platform/platform/floor/queryFloorSettingList")
+
+    //首页
+    @GET("passport/platform/platform/floor/queryFloorSettingList")
     Observable<HttpResult<ArrayList<RecommendItemsBean>>> getRecommendItems(@QueryMap HashMap<String, String> params);
 }

@@ -32,7 +32,7 @@ public interface ProductService {
     /**
      * 获取商城首页推荐商品列表
      */
-    @GET("platform/platform/floor/queryFloorSettingList")
+    @GET("passport/platform/platform/floor/queryFloorSettingList")
     Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts(@QueryMap HashMap<String, String> params);
 
 

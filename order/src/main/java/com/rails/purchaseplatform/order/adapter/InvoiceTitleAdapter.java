@@ -66,6 +66,7 @@ public class InvoiceTitleAdapter extends BaseRecyclerAdapter<InvoiceTitleBean, I
     @Override
     public void update(ArrayList itemDatas, boolean isClear) {
         super.update(itemDatas, isClear);
+        lastBean = null;
         if (isClear && !itemDatas.isEmpty()) {
             lastBean = (InvoiceTitleBean) itemDatas.get(0);
             lastBean.isSel.set(true);

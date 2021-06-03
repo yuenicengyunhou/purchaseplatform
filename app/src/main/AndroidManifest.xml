@@ -40,11 +40,11 @@
 
 
         <!-- 高德地图定位-->
-<!--        <service android:name="com.amap.api.location.APSService" />-->
+        <!--        <service android:name="com.amap.api.location.APSService" />-->
 
-<!--        <meta-data-->
-<!--            android:name="com.amap.api.v2.apikey"-->
-<!--            android:value="3006a399561cd66b491b5fdb41dd510c"/>-->
+        <!--        <meta-data-->
+        <!--            android:name="com.amap.api.v2.apikey"-->
+        <!--            android:value="3006a399561cd66b491b5fdb41dd510c"/>-->
 
         <activity
             android:name=".SplashActivity"
@@ -57,7 +57,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
-
+                <!--dev放开，正式屏掉-->
 <!--                <data-->
 <!--                    android:host="oidcnativeapp"-->
 <!--                    android:scheme="shop" />-->

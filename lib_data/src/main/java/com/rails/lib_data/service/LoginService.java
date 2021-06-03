@@ -25,7 +25,7 @@ public interface LoginService {
      * @param params
      * @return
      */
-    @POST("appLogin")
+    @POST("passport/appLogin")
     Observable<HttpResult<String>> onLogin(@Body HashMap<String, String> params);
 
 
@@ -34,7 +34,7 @@ public interface LoginService {
      *
      * @return
      */
-    @POST("phoneCode/send/{phone}")
+    @POST("passport/phoneCode/send/{phone}")
     Observable<HttpResult<String>> getCode(@Path("phone") String phone);
 
 
@@ -54,7 +54,7 @@ public interface LoginService {
      * @param params
      * @return
      */
-    @POST("passwd/findpd")
+    @POST("passport/passwd/findpd")
     Observable<HttpResult<String>> retrievePassword(@Body HashMap<String, Object> params);
 
 }
