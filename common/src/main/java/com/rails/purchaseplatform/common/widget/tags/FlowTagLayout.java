@@ -193,7 +193,8 @@ public class FlowTagLayout extends ViewGroup {
             if (childLeft + mlp.leftMargin + childWidth + mlp.rightMargin > flowWidth) {
                 line++;
                 if (isShowMore && line >= MAX_LINES) {
-                    mOnChildLayoutListener.needShowMore(true);
+                    if (mOnChildLayoutListener != null)
+                        mOnChildLayoutListener.needShowMore(true);
                     break;
                 }
                 //换行处理
@@ -209,7 +210,8 @@ public class FlowTagLayout extends ViewGroup {
 
             childLeft += (mlp.leftMargin + childWidth + mlp.rightMargin);
 
-            mOnChildLayoutListener.needShowMore(line >= MAX_LINES);
+            if (mOnChildLayoutListener != null)
+                mOnChildLayoutListener.needShowMore(line >= MAX_LINES);
         }
     }
 
