@@ -36,6 +36,8 @@ public class ConRoute {
 
         // 找回密码
         public final static String RETRIEVE_PASSWORD = "/retrieve/password";
+        //更改密码
+        public final static String USER_MODIFY_PAW = "/user/modify_paw";
     }
 
     // 通用COMMON
@@ -106,8 +108,7 @@ public class ConRoute {
         public final static String WEB_COLLECT = "/web/collect";
         //浏览记录
         public final static String WEB_BROWSE = "/web/browse";
-        //更改密码
-        public final static String WEB_MODIFY_PAW = "/web/modify_paw";
+
         //我的消息
         public final static String WEB_MSG = "/web/msg";
         //评价
@@ -172,9 +173,9 @@ public class ConRoute {
     }
 
 
-    public final static class CODE{
+    public final static class CODE {
         //登录编号
-        public final static  int LOGIN_CODE = 0x99;
+        public final static int LOGIN_CODE = 0x99;
     }
 
 
