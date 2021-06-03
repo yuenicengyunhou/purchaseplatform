@@ -15,7 +15,6 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
  * @date: 2021/3/23
  */
 
-//@Route(path = ConRoute.WEB.WEB_MODIFY_PAW)
 public class ModifyPawActivity extends WebActivity<BaseWebBinding> implements JSEvaluteBack {
 
     @Override

@@ -17,7 +17,7 @@ import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityModifyPswBinding;
 
-@Route(path = ConRoute.WEB.WEB_MODIFY_PAW)
+@Route(path = ConRoute.USER.USER_MODIFY_PAW)
 public class ModifyPswActivity extends ToolbarActivity<ActivityModifyPswBinding> implements PswContract.PassWordView {
 
     private PswContract.PswPresenter presenter;

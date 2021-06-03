@@ -82,7 +82,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
             @Override
             public void onClick(View v) {
                 ARouter.getInstance()
-                        .build(ConRoute.WEB.WEB_MODIFY_PAW)
+                        .build(ConRoute.USER.USER_MODIFY_PAW)
                         .withString("url", ConRoute.WEB_URL.MODIFYPAW)
                         .navigation();
             }
