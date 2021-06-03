@@ -1,9 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:scrollbars="none"
     tools:context=".ui.activity.ModifyPswActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_30">
+
+        <TextView
+            android:id="@+id/tv_page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_38"
+            android:text="@string/user_set_modifypaw"
+            android:textColor="@color/font_black_psw"
+            android:textSize="@dimen/font_size_30"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_instru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/user_modify_verify"
+            android:textColor="@color/font_black_psw"
+            android:textSize="@dimen/font_size_13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_page_title" />
+
+        <EditText
+            android:id="@+id/et_old"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_22"
+            android:inputType="textPassword"
+            android:layout_marginTop="@dimen/dp_65"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:paddingEnd="@dimen/dp_40"
+            android:paddingStart="@dimen/paddingS"
+            android:background="@drawable/selector_edit_input"
+            android:hint="@string/input_old_password"
+            android:lines="1"
+            android:textSize="@dimen/font_size_15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_instru"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+
+        <View
+            android:id="@+id/view_old"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_50"
+            app:layout_constraintBottom_toBottomOf="@id/et_old"
+            app:layout_constraintEnd_toEndOf="@id/et_old" />
+        <CheckBox
+            android:id="@+id/eye_old"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/padding"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:background="@drawable/selector_eye"
+            android:button="@null"
+            app:layout_constraintBottom_toBottomOf="@id/et_old"
+            app:layout_constraintEnd_toEndOf="@id/et_old" />
+
+        <EditText
+            android:id="@+id/et_new"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_22"
+            android:paddingEnd="@dimen/dp_40"
+            android:inputType="textPassword"
+            android:paddingStart="@dimen/paddingS"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:background="@drawable/selector_edit_input"
+            android:hint="@string/input_new_password"
+            android:lines="1"
+            android:textSize="@dimen/font_size_15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_old"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <View
+            android:id="@+id/view_new"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_50"
+            app:layout_constraintBottom_toBottomOf="@id/et_new"
+            app:layout_constraintEnd_toEndOf="@id/et_new" />
+        <CheckBox
+            android:id="@+id/eye_new"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/padding"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:background="@drawable/selector_eye"
+            android:button="@null"
+            app:layout_constraintBottom_toBottomOf="@id/et_new"
+            app:layout_constraintEnd_toEndOf="@id/et_new" />
+
+
+        <EditText
+            android:id="@+id/et_new_again"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_40"
+            android:paddingStart="@dimen/paddingS"
+            android:inputType="textPassword"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:background="@drawable/selector_edit_input"
+            android:hint="@string/input_new_psw_again"
+            android:lines="1"
+            android:textSize="@dimen/font_size_15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_new"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <View
+            android:id="@+id/view_again"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_50"
+            app:layout_constraintBottom_toBottomOf="@id/et_new_again"
+            app:layout_constraintEnd_toEndOf="@id/et_new_again" />
+        <CheckBox
+            android:id="@+id/eye_new_again"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/padding"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:background="@drawable/selector_eye"
+            android:button="@null"
+            app:layout_constraintBottom_toBottomOf="@id/et_new_again"
+            app:layout_constraintEnd_toEndOf="@id/et_new_again" />
+
+
+        <TextView
+            android:id="@+id/tv_commit"
+            style="@style/btn_commit.blue"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_48"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:gravity="center"
+            android:text="@string/sure"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_new_again" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 /**
@@ -59,4 +60,7 @@ public interface UserService {
     @GET("app-user-service/app/v1/buyer/roleresource/queryButtonByAccountId")
     Observable<HttpResult<ArrayList<AuthorButtonBean>>> queryResourceButton(@QueryMap HashMap<String, Object> params);
 
+
+    @POST("portal/passWord/updatePassWordBySelf")
+    Observable<HttpResult<Object>> updatePassword(@QueryMap HashMap<String, Object> params);
 }
