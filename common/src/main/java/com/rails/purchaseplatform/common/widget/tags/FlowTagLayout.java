@@ -57,14 +57,21 @@ public class FlowTagLayout extends ViewGroup {
     OnTagSelectListener mOnTagSelectListener;
 
     /**
-     * 是否展示更多行
+     * 是否展示更多行, 默认为false, 展示的行数由{@link #MAX_LINES}控制
+     * <p>
+     * 值为true时将不控制最大行数
      */
     private boolean isShowMore = false;
 
     /**
      * 最大行数
      */
-    private int MAX_LINES = 2;
+    final private int MAX_LINES = 2;
+
+    /**
+     * 监听子组件布局
+     */
+    private OnChildLayoutListener mOnChildLayoutListener;
 
     /**
      * 标签流式布局选中模式，默认是不支持选中的
@@ -127,15 +134,17 @@ public class FlowTagLayout extends ViewGroup {
             //如果当前一行的宽度加上要加入的子view的宽度大于父容器给的宽度，就换行
             if ((lineWidth + realChildWidth) > sizeWidth) {
                 line++;
-                if (isShowMore && line >= MAX_LINES) {
-                    break;
-                }
                 //换行
                 resultWidth = Math.max(lineWidth, realChildWidth);
                 resultHeight += realChildHeight;
                 //换行了，lineWidth和lineHeight重新算
                 lineWidth = realChildWidth;
                 lineHeight = realChildHeight;
+                if (isShowMore && line >= MAX_LINES) {
+                    setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : resultWidth,
+                            modeHeight == MeasureSpec.EXACTLY ? sizeHeight : resultHeight);
+                    break;
+                }
             } else {
                 //不换行，直接相加
                 lineWidth += realChildWidth;
@@ -184,6 +193,8 @@ public class FlowTagLayout extends ViewGroup {
             if (childLeft + mlp.leftMargin + childWidth + mlp.rightMargin > flowWidth) {
                 line++;
                 if (isShowMore && line >= MAX_LINES) {
+                    mOnChildLayoutListener.needShowMore(true);
+                    mOnChildLayoutListener.isAllChildLayoutCompleted(false);
                     break;
                 }
                 //换行处理
@@ -198,6 +209,11 @@ public class FlowTagLayout extends ViewGroup {
             childView.layout(left, top, right, bottom);
 
             childLeft += (mlp.leftMargin + childWidth + mlp.rightMargin);
+            if (i == childCount - 1) {
+                mOnChildLayoutListener.isAllChildLayoutCompleted(true);
+            }
+
+            mOnChildLayoutListener.needShowMore(line >= MAX_LINES);
         }
     }
 
@@ -452,5 +468,15 @@ public class FlowTagLayout extends ViewGroup {
     public void setShowMore(boolean isShowMore) {
         this.isShowMore = isShowMore;
         requestLayout();
+    }
+
+    public interface OnChildLayoutListener {
+        void isAllChildLayoutCompleted(boolean isCompleted);
+
+        void needShowMore(boolean needShowMore);
+    }
+
+    public void setOnChildLayoutListener(OnChildLayoutListener listener) {
+        this.mOnChildLayoutListener = listener;
     }
 }

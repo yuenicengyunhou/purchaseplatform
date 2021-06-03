@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
@@ -28,41 +30,36 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
     protected void onBindItem(ItemProductPropertyBinding binding, SearchFilterBean searchFilterBean, int p) {
         binding.tvName.setText(searchFilterBean.getFilterName());
         SearchItemFilterSubAdapter adapter = new SearchItemFilterSubAdapter(mContext, searchFilterBean.isMultiSelect());
-        if (searchFilterBean.isMultiSelect()) {
-            binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
-        } else {
-            binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-        }
 
-        binding.flow.setShowMore(false);
+        binding.flow.setTagCheckedMode(searchFilterBean.isMultiSelect()
+                ? FlowTagLayout.FLOW_TAG_CHECKED_MULTI
+                : FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+        binding.flow.setOnChildLayoutListener(new FlowTagLayout.OnChildLayoutListener() {
+            @Override
+            public void isAllChildLayoutCompleted(boolean isCompleted) {
+                Log.d(TAG, "======== completed\t" + p + "\t  =  \t" + isCompleted);
+//                binding.flow.setShowMore(isCompleted);
+            }
+
+            @Override
+            public void needShowMore(boolean needShowMore) {
+                Log.d(TAG, "======== showMore\t" + p + "\t  =  \t" + needShowMore);
+                binding.cbExpand.setVisibility(needShowMore ? View.VISIBLE : View.GONE);
+            }
+        });
+        binding.flow.setAdapter(adapter);
+        binding.flow.setShowMore(true);
+
         binding.cbExpand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                binding.flow.setAdapter(adapter);
-                ArrayList<SearchFilterValue> tags;
-
-//                Log.d(TAG, "POSITION ======== " + p);
-//                Log.d(TAG, "   INDEX = " + binding.flow.getLastChildIndexInTwoLines());
-//                Log.d(TAG, "MaxLines = " + binding.flow.getMaxLines());
-//                if (isChecked) {
-                tags = new ArrayList<>(searchFilterBean.getFilterValues());
-//                } else {
-//                    tags = new ArrayList<>();
-//                }
-
+                ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
                 binding.flow.setShowMore(isChecked);
-
                 adapter.update(tags);
             }
         });
-
         binding.cbExpand.setSelected(true);
         binding.cbExpand.setChecked(true);
-//        binding.cbExpand.setChecked(true);
-
-//        Log.d(TAG, "POSITION ======== " + p);
-//        Log.d(TAG, "   INDEX = " + binding.flow.getLastChildIndexInTwoLines());
-//        Log.d(TAG, "MaxLines = " + binding.flow.getMaxLines());
     }
 
     public ArrayList getData() {
