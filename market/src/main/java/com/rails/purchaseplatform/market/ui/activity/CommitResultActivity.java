@@ -161,10 +161,13 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
                             .withString("id", webBean.getOrderNo())
                             .navigation();
                 } else {
-                    ARouter.getInstance()
-                            .build(webBean.getUrlright())
-                            .withParcelable("webBean", webBean)
-                            .navigation();
+                    if (webBean.getCode() == 3)
+                        finish();
+                    else
+                        ARouter.getInstance()
+                                .build(webBean.getUrlright())
+                                .withParcelable("webBean", webBean)
+                                .navigation();
                 }
                 finish();
 
