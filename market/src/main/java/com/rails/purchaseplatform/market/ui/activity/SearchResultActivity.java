@@ -190,9 +190,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 点击销量排序
         binding.cbSaleSort.setOnClickListener(v -> {
             if (mSearchType == 0) {
-                fragment1.sort(1, "saleCount", salesSortFlag ? "desc" : "asc", mSearchKey, mCid);
+                fragment1.sort(1, "saleCount", salesSortFlag ? "asc" : "desc", mSearchKey, mCid);
             } else {
-                fragment2.sort(1, "shopSaleCount", salesSortFlag ? "desc" : "asc", mSearchKey, null);
+                fragment2.sort(1, "shopSaleCount", salesSortFlag ? "asc" : "desc", mSearchKey, null);
             }
             setSelected(false, true, false);
             binding.cbSaleSort.setChecked(salesSortFlag);
@@ -203,7 +203,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         // 点击价格排序
         binding.cbPriceSort.setOnClickListener(v -> {
             if (mSearchType == 0) {
-                fragment1.sort(1, "sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, mCid);
+                fragment1.sort(1, "sellPrice", priceSortFlag ? "asc" : "desc", mSearchKey, mCid);
             } else {
                 // fragment2.sort("sellPrice", priceSortFlag ? "desc" : "asc", mSearchKey, null);
             }
