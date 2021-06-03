@@ -251,6 +251,7 @@ public class PropertyPop<T> extends BasePop<PopMarketPropertyBinding> {
                     value.setSelect(false);
                 }
             }
+            ((SearchFilterBean) mBeans.get(0)).getFilterValues().get(1).setSelect(true); // 将 "是否购买过" 选项置为 "全部" (固定第1行第2个)
             adapter1.update(mBeans, true);
         });
         binding.btnOk.setOnClickListener(v -> {

@@ -194,7 +194,6 @@ public class FlowTagLayout extends ViewGroup {
                 line++;
                 if (isShowMore && line >= MAX_LINES) {
                     mOnChildLayoutListener.needShowMore(true);
-                    mOnChildLayoutListener.isAllChildLayoutCompleted(false);
                     break;
                 }
                 //换行处理
@@ -209,9 +208,6 @@ public class FlowTagLayout extends ViewGroup {
             childView.layout(left, top, right, bottom);
 
             childLeft += (mlp.leftMargin + childWidth + mlp.rightMargin);
-            if (i == childCount - 1) {
-                mOnChildLayoutListener.isAllChildLayoutCompleted(true);
-            }
 
             mOnChildLayoutListener.needShowMore(line >= MAX_LINES);
         }
@@ -465,17 +461,35 @@ public class FlowTagLayout extends ViewGroup {
         return isShowMore;
     }
 
+    /**
+     * 设置是否展示更多
+     *
+     * @param isShowMore
+     */
     public void setShowMore(boolean isShowMore) {
         this.isShowMore = isShowMore;
         requestLayout();
     }
 
+    /**
+     * 监视child
+     */
     public interface OnChildLayoutListener {
-        void isAllChildLayoutCompleted(boolean isCompleted);
-
+        /**
+         * 是否需要展示更多按钮
+         * <p>
+         * 如果换行超过2次则需要展开/收起按钮
+         *
+         * @param needShowMore
+         */
         void needShowMore(boolean needShowMore);
     }
 
+    /**
+     * 设置监听事件
+     *
+     * @param listener {@link OnChildLayoutListener}
+     */
     public void setOnChildLayoutListener(OnChildLayoutListener listener) {
         this.mOnChildLayoutListener = listener;
     }

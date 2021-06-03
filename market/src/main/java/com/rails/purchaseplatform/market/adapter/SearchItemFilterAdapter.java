@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -30,20 +29,14 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
     protected void onBindItem(ItemProductPropertyBinding binding, SearchFilterBean searchFilterBean, int p) {
         binding.tvName.setText(searchFilterBean.getFilterName());
         SearchItemFilterSubAdapter adapter = new SearchItemFilterSubAdapter(mContext, searchFilterBean.isMultiSelect());
+        ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
 
         binding.flow.setTagCheckedMode(searchFilterBean.isMultiSelect()
                 ? FlowTagLayout.FLOW_TAG_CHECKED_MULTI
                 : FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         binding.flow.setOnChildLayoutListener(new FlowTagLayout.OnChildLayoutListener() {
             @Override
-            public void isAllChildLayoutCompleted(boolean isCompleted) {
-                Log.d(TAG, "======== completed\t" + p + "\t  =  \t" + isCompleted);
-//                binding.flow.setShowMore(isCompleted);
-            }
-
-            @Override
             public void needShowMore(boolean needShowMore) {
-                Log.d(TAG, "======== showMore\t" + p + "\t  =  \t" + needShowMore);
                 binding.cbExpand.setVisibility(needShowMore ? View.VISIBLE : View.GONE);
             }
         });
@@ -53,13 +46,13 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
         binding.cbExpand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
                 binding.flow.setShowMore(isChecked);
                 adapter.update(tags);
             }
         });
         binding.cbExpand.setSelected(true);
         binding.cbExpand.setChecked(true);
+        adapter.update(tags);
     }
 
     public ArrayList getData() {
