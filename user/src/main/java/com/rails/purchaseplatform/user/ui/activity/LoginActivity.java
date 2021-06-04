@@ -190,8 +190,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public void getUserInfo(UserInfoBean bean) {
         PrefrenceUtil.getInstance(this).setBean(ConShare.USERINFO, bean);
-        ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
         BaseActManager.getInstance().clear();
+        ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
         finish();
     }
 
