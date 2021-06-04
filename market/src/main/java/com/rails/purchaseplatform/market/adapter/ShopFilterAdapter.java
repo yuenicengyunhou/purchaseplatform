@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
@@ -37,6 +38,7 @@ public class ShopFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, Ite
         } else {
             binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         }
+        binding.flow.setOnChildLayoutListener(needShowMore -> binding.cbExpand.setVisibility(needShowMore ? View.VISIBLE : View.GONE));
         binding.flow.setAdapter(adapter);
         ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
         adapter.update(tags);
@@ -62,6 +64,13 @@ public class ShopFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, Ite
 
             }
         });
+        binding.flow.setShowMore(true);
+        binding.cbExpand.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            binding.flow.setShowMore(isChecked);
+            adapter.update(tags);
+        });
+        binding.cbExpand.setSelected(true);
+        binding.cbExpand.setChecked(true);
 //        binding.flow.setOnTagSelectListener((parent, selectedList) -> {
 //            for (int i = 0; i < selectedList.size(); i++) {
 //                Integer integer = selectedList.get(i);

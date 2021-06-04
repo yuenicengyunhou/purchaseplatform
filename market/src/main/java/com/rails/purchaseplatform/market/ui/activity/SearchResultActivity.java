@@ -122,9 +122,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             /* 触发点击事件弹出Loading, 在pop中最后一个元素加载完成后取消Loading */
             if (mLoadingDialog == null) {
                 mLoadingDialog = new LoadingDialog
-                        .Builder(SearchResultActivity.this)
+                        .Builder(SearchResultActivity.this,true)
                         .setMessage("Loading")
-                        .create();
+                        .createWithBackground();
                 mLoadingDialog.setCancelable(true);
                 mLoadingDialog.show();
             }
