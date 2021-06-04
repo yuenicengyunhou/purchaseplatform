@@ -35,7 +35,7 @@ public class ConRoute {
         public final static String REGISTER = "/user/register";
 
         // 找回密码
-        public final static String RETRIEVE_PASSWORD = "/retrieve/password";
+        public final static String RETRIEVE_PASSWORD = "/user/password";
         //更改密码
         public final static String USER_MODIFY_PAW = "/user/modify_paw";
     }

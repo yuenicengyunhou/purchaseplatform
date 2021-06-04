@@ -199,7 +199,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            BaseActManager.getInstance().clear();
+            BaseActManager.getInstance().clear();
             ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
             finish();
             return false;

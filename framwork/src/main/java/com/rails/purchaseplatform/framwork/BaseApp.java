@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
@@ -70,8 +71,8 @@ public class BaseApp extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
-                return BuildConfig.DEBUG;
-//                return true;
+//                return BuildConfig.DEBUG;
+                return true;
             }
         });
     }
