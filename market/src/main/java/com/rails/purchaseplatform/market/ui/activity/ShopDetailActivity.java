@@ -1,5 +1,7 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -23,7 +25,6 @@ import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
 import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
 
 import java.util.ArrayList;
-
 
 import static com.rails.purchaseplatform.market.config.MarketConfig.SHOP_RECOMMEND_PAGE_SIZE;
 
@@ -82,7 +83,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
         barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         barBinding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
-         barBinding.empty.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        barBinding.empty.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         barBinding.recRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -102,6 +103,12 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             barBinding.recRecycler.scrollToPosition(0);
             barBinding.imgTop.setVisibility(View.GONE);
             userScrollY = 0;
+        });
+
+        barBinding.ivMakePhone.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + barBinding.tvPhone.getText().toString()));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
 
 
@@ -134,7 +141,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     }
 
     private void queryShopProductList() {
-        presenter.getShopItemList(mPage==PAGE_DEF,shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+        presenter.getShopItemList(mPage == PAGE_DEF, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
     }
 
     /**
@@ -150,7 +157,6 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 ////            mPop = null;
 ////        }
 //    }
-
     @Override
     protected int getColor() {
         return android.R.color.white;
@@ -180,7 +186,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
                     mPage = PAGE_DEF;
                     orderType = barBinding.rbSale.isChecked() ? "asc" : "desc";
                     orderColumn = "saleCount";
-                    presenter.getShopItemList(true,shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
                 }
         );
 
@@ -189,7 +195,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
                     mPage = PAGE_DEF;
                     orderType = barBinding.rbPrice.isChecked() ? "asc" : "desc";
                     orderColumn = "sellPrice";
-                    presenter.getShopItemList(true,shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
                 }
 
         );
@@ -199,7 +205,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             orderColumn = "";
             orderType = "";
             mPage = PAGE_DEF;
-            presenter.getShopItemList(true,shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
         });
 
         barBinding.rbSel.setOnClickListener(v -> showPop());
@@ -233,7 +239,7 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             mPop.setCompleteListener(filterbeans -> {
                 filterList = filterbeans;
                 mPage = PAGE_DEF;
-                presenter.getShopItemList(true,shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+                presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
             });
             mPop.setGravity(Gravity.BOTTOM);
         }
@@ -259,7 +265,6 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
             }
         }
     }
-
 
 
     /**

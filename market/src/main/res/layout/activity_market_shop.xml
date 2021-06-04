@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="shopInfo"
             type="com.rails.lib_data.bean.shop.ShopInfoBean" />
@@ -77,11 +79,11 @@
                                 android:id="@+id/iv_mark"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_shop_defend"
-                                android:visibility="@{shopInfo.showMarkImg()?View.VISIBLE:View.GONE}"
-                                android:layout_toStartOf="@id/tv_level"
                                 android:layout_alignBottom="@id/tv_level"
                                 android:layout_marginEnd="@dimen/padding"
+                                android:layout_toStartOf="@id/tv_level"
+                                android:src="@drawable/ic_shop_defend"
+                                android:visibility="@{shopInfo.showMarkImg()?View.VISIBLE:View.GONE}"
                                 tools:ignore="ContentDescription" />
 
 
@@ -94,17 +96,17 @@
                                 android:layout_marginEnd="@dimen/common_border"
                                 android:text="@{shopInfo.creditLevel}"
                                 android:textColor="@color/font_black_light"
-                                android:textSize="@dimen/font_size_12"
-                                />
+                                android:textSize="@dimen/font_size_12" />
+
                             <TextView
                                 android:id="@+id/tv_organizeName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_below="@id/tv_name"
                                 android:layout_alignStart="@+id/tv_name"
+                                android:layout_marginTop="@dimen/padding"
                                 android:ellipsize="end"
                                 android:lines="1"
-                                android:layout_marginTop="@dimen/padding"
-                                android:layout_below="@id/tv_name"
                                 android:text='@{@string/shop_organizeName_is+shopInfo.organizeName}'
                                 android:textColor="@color/font_gray"
                                 android:textSize="@dimen/font_size_12" />
@@ -113,15 +115,26 @@
                                 android:id="@+id/tv_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@+id/tv_name"
-                                android:lines="1"
-                                android:ellipsize="end"
                                 android:layout_below="@id/tv_organizeName"
+                                android:layout_alignStart="@+id/tv_name"
                                 android:layout_marginTop="@dimen/padding"
                                 android:layout_marginEnd="@dimen/common_border"
+                                android:layout_toStartOf="@+id/iv_make_phone"
+                                android:ellipsize="end"
+                                android:lines="1"
                                 android:text='@{@string/shop_mobile_is+shopInfo.mobile}'
                                 android:textColor="@color/font_gray"
                                 android:textSize="@dimen/font_size_12" />
+
+                            <ImageView
+                                android:id="@+id/iv_make_phone"
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:layout_alignBottom="@+id/img_shop"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="@dimen/dp_16"
+                                android:background="@drawable/ic_make_phone"
+                                android:padding="@dimen/dp_6" />
 
 
                         </RelativeLayout>
