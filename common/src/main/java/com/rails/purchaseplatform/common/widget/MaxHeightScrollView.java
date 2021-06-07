@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.common.widget;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -34,7 +36,12 @@ public class MaxHeightScrollView extends NestedScrollView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int height = getMeasuredHeight();
-        maxHeight = ScreenSizeUtil.getScreenHeight(getContext()) >> 1;
+        try{
+            maxHeight = ScreenSizeUtil.getScreenHeight(scanForActivity(getContext())) >> 1;
+        }catch (Exception e){
+            maxHeight = 500;
+        }
+
         if (height >= maxHeight) {
             setMeasuredDimension(widthMeasureSpec, maxHeight);
         } else {
@@ -75,6 +82,17 @@ public class MaxHeightScrollView extends NestedScrollView {
 
     public interface ScrollViewListener {
         void onScrollChanged(MaxHeightScrollView scrollView, int x, int y, int oldx, int oldy);
+    }
+
+
+    private  Activity scanForActivity(Context cont) {
+        if (cont == null)
+            return null;
+        else if (cont instanceof Activity)
+            return (Activity)cont;
+        else if (cont instanceof ContextWrapper)
+            return scanForActivity(((ContextWrapper)cont).getBaseContext());
+        return null;
     }
 
 }

@@ -27,6 +27,11 @@
         <activity
             android:name=".ui.activity.CommitResultActivity"
             android:screenOrientation="portrait" />
+
+        <!--        竞价排名-->
+        <activity
+            android:name=".ui.activity.RankActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
