@@ -106,6 +106,11 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 
+    @Override
+    public void goDeliveredPage(long platformId, String orderNo) {
+
+    }
+
 
     @JavascriptInterface
     @Override

@@ -68,6 +68,11 @@ public class MsgActivity extends WebActivity<BaseWebBinding> implements JSEvalut
 
     }
 
+    @Override
+    public void goDeliveredPage(long platformId, String orderNo) {
+
+    }
+
 
     @JavascriptInterface
     @Override

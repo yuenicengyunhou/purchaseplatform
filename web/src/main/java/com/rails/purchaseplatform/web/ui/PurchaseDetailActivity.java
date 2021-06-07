@@ -119,4 +119,9 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         bundle.putString("itemId", String.valueOf(itemId));
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
+
+    @Override
+    public void goDeliveredPage(long platformId, String orderNo) {
+
+    }
 }

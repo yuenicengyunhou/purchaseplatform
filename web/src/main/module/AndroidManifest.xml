@@ -29,9 +29,6 @@
             android:screenOrientation="portrait" />
 
         <!--更改密码-->
-        <activity
-            android:name=".ui.ModifyPawActivity"
-            android:screenOrientation="portrait" />
 
 
         <!--审批-->

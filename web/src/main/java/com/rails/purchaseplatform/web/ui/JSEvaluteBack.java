@@ -52,5 +52,10 @@ public interface JSEvaluteBack extends JSBack {
      */
     void goProductDetails(long platformId, long itemId);
 
+    /**
+     * 跳转到妥投文件页面
+     */
+    void goDeliveredPage(long platformId, String orderNo);
+
 
 }
