@@ -11,12 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
+import com.rails.purchaseplatform.common.widget.tags.OnInitSelectedPosition;
 import com.rails.purchaseplatform.framwork.adapter.BaseAbsAdapter;
 import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
-public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue> {
+public class SearchItemFilterSubAdapter
+        extends BaseAbsAdapter<SearchFilterValue>
+        implements OnInitSelectedPosition {
 
     private Context mContext;
 
@@ -56,10 +59,10 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
         boolean select = mDataSource.get(position).isSelect();
         holder.rbTag.setSelected(select);
         holder.rbTag.setOnClickListener(v -> {
-            LoadingDialog mLoadingDialog = new LoadingDialog.Builder(mContext, true).setMessage("Loading").createWithBackground();
-            mLoadingDialog.setCancelable(true);
-            LoadingHandler mHandler = new LoadingHandler(mLoadingDialog);
-            mLoadingDialog.show();
+//            LoadingDialog mLoadingDialog = new LoadingDialog.Builder(mContext, true).setMessage("Loading").createWithBackground();
+//            mLoadingDialog.setCancelable(true);
+//            LoadingHandler mHandler = new LoadingHandler(mLoadingDialog);
+//            mLoadingDialog.show();
 
             if (!isMultiSelect) {
                 for (SearchFilterValue value : mDataSource) {
@@ -71,10 +74,10 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
             mDataSource.get(position).setSelect(!select);
             notifyDataSetChanged();
 
-            Message message = new Message();
-            message.what = COUNTING;
-            message.obj = COUNT_NUM;
-            mHandler.sendMessageDelayed(message, 800);
+//            Message message = new Message();
+//            message.what = COUNTING;
+//            message.obj = COUNT_NUM;
+//            mHandler.sendMessageDelayed(message, 400);
         });
 
         if (isLastGroup && mDataSource.size() - 1 == position) {
@@ -85,6 +88,11 @@ public class SearchItemFilterSubAdapter extends BaseAbsAdapter<SearchFilterValue
         }
 
         return convertView;
+    }
+
+    @Override
+    public boolean isSelectedPosition(int position) {
+        return mDataSource.get(position).isSelect();
     }
 
     class ViewHolder {

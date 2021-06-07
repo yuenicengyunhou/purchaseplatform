@@ -6,7 +6,6 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.bean.UserInfoBean;
@@ -45,7 +44,6 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         if (userInfoBean != null) {
             url = url + "&userId=" + userInfoBean.getId();
         }
-        Logger.d("WQ", "--url==" + url);
     }
 
     @Override
@@ -115,6 +113,11 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         Bundle bundle = new Bundle();
         bundle.putString("itemId", String.valueOf(itemId));
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
+    }
+
+    @Override
+    public void goDeliveredPage(long platformId, String orderNo) {
+
     }
 
 }
