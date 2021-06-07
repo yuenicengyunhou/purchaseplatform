@@ -163,6 +163,7 @@
                     android:background="@null"
                     android:gravity="center"
                     android:minWidth="@dimen/dp_30"
+                    android:maxLength="6"
                     android:singleLine="true"
                     android:text="@{String.valueOf(product.num)}"
                     android:textColor="@color/font_black"
