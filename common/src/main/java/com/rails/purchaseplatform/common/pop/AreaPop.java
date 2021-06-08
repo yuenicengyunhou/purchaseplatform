@@ -104,7 +104,6 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
             areas.put(type, bean.getName());
             String mCode = bean.getCode();
             areaCodes.put(type, mCode);
-            Logger.e("WQ", "code====" + mCode + "    =" + type);
             StringBuilder buffer = new StringBuilder();
             if (type == TOWN) {
                 if (listener != null) {

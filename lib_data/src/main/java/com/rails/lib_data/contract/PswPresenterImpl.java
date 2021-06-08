@@ -64,7 +64,6 @@ public class PswPresenterImpl extends BasePresenter<PswContract.PassWordView> im
                 ToastUtil.showCenter(mContext, "操作成功");
                 baseView.finishPage();
 //                String msg = response.getMsg();
-//                Log.e("WQ", "====" + "msg");
 //                ToastUtil.showCenter();
             }
         });

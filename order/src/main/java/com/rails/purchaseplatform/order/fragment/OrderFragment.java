@@ -8,8 +8,8 @@ import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
+import com.rails.lib_data.bean.orderdetails.DeliveredFile;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.lib_data.contract.UserToolContract;
@@ -237,6 +237,10 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
         }
     }
 
+    @Override
+    public void loadDeliveredFileList(ArrayList<DeliveredFile> list) {
+
+    }
 
     @Override
     public void onError(ErrorBean errorBean) {

@@ -107,7 +107,7 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
     }
 
     @Override
-    public void goDeliveredPage(long platformId, String orderNo) {
+    public void goDeliveredPage( String orderNo) {
 
     }
 

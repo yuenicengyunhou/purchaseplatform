@@ -28,6 +28,7 @@ import com.rails.lib_data.bean.BuyerBean;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.OrderStatusBean;
+import com.rails.lib_data.bean.orderdetails.DeliveredFile;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -189,7 +190,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         if (mType == 1 || mType == 2 || mType == 5 || mType == 8) {
             content = conditionId;
         }
-        Log.e("WQ", "====" + mType);
         fragment.notifyFragment(mType, content, filterBean);
     }
 
@@ -478,6 +478,11 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             adapter.setType(mType);
             adapter.update(list, true);
         }
+    }
+
+    @Override
+    public void loadDeliveredFileList(ArrayList<DeliveredFile> list) {
+
     }
 
     @Override

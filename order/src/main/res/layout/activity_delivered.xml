@@ -6,12 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".activity.DeliveredActivity">
 
-    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="@dimen/margin"
-        android:paddingEnd="@dimen/margin"
-        android:id="@+id/recycler"
-        />
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/margin"
+                android:paddingEnd="@dimen/margin" />
+
+            <com.rails.purchaseplatform.common.widget.EmptyView
+                android:id="@+id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

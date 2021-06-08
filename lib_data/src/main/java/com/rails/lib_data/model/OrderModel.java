@@ -1,14 +1,19 @@
 package com.rails.lib_data.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderStatusBean;
+import com.rails.lib_data.bean.orderdetails.DeliveredFile;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.OrderService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.StringUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +30,7 @@ public class OrderModel {
                 .subscribe(httpRxObserver);
     }
 
-    public void getPurchasePageList( int queryType, String squence, String content, int page, OrderFilterBean filterBean, HttpRxObserver httpRxObserver) {
+    public void getPurchasePageList(int queryType, String squence, String content, int page, OrderFilterBean filterBean, HttpRxObserver httpRxObserver) {
 //        if (null == platformId) {
 //            platformId = "20";
 //        }
@@ -94,7 +99,7 @@ public class OrderModel {
         }
     }
 
-    public void getBuyerNames( String like, String findType, String organizeId, HttpRxObserver httpRxObserver) {
+    public void getBuyerNames(String like, String findType, String organizeId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("nameLike", like);
         map.put("findType", findType);
@@ -133,7 +138,7 @@ public class OrderModel {
 
     }
 
-    public void getBrandList(String keyWord,  String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
+    public void getBrandList(String keyWord, String organizeName, String organizeId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("keyWord", keyWord);
 //        map.put("accountId", accountId);
@@ -144,6 +149,49 @@ public class OrderModel {
                 .create(OrderService.class).queryBrandList(map))
                 .subscribe(httpRxObserver);
 
+    }
+
+    /**
+     * 获取妥投文件
+     */
+    public void getDeliverFiles(String platformId, String orderNo, HttpRxObserver httpRxObserver) {
+        if (null == platformId) {
+            platformId = "20";
+        }
+//        orderNo = "1200806112300005";
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", platformId);
+        map.put("orderNo", orderNo);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(OrderService.class).getDeliveredFiles(map))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
+     * 处理妥投文件数据，按，分隔链接和文件名
+     */
+    public ArrayList<DeliveredFile> getFileList(String fileLinks, String fileNames) {
+
+        ArrayList<DeliveredFile> deliveredFiles = new ArrayList<>();
+        if (TextUtils.isEmpty(fileLinks)||TextUtils.isEmpty(fileNames)) {
+            return deliveredFiles;
+        }
+        List<String> linkList = Arrays.asList(fileLinks.split(","));
+        List<String> nameList = Arrays.asList(fileNames.split(","));
+        String name;
+        for (int i = 0; i < linkList.size(); i++) {
+            String s = linkList.get(i);
+            if (i < nameList.size()) {
+                name = nameList.get(i);
+            } else {
+                name = "";
+            }
+            DeliveredFile deliveredFile = new DeliveredFile();
+            deliveredFile.setUrl(s);
+            deliveredFile.setFileName(name);
+            deliveredFiles.add(deliveredFile);
+        }
+        return deliveredFiles;
     }
 
 
