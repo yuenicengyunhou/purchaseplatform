@@ -38,8 +38,10 @@ import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartToolPresenterImpl;
 import com.rails.lib_data.contract.ProductDetailsContract;
+import com.rails.lib_data.contract.ProductDetailsContract2;
 import com.rails.lib_data.contract.ProductDetailsDataUtils;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
+import com.rails.lib_data.contract.ProductDetailsPresenterImpl2;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.AreaPop;
@@ -73,6 +75,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         implements
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
+        ProductDetailsContract2.ProductDetailsView2,
         AddressToolContract.AddressToolView {
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
@@ -110,6 +113,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
     private AddressToolContract.AddressToolPresenter mAddressPresenter;
 
+    /**
+     * 实现并行和串行网络请求
+     */
+    private ProductDetailsContract2.ProductDetailsPresenter2 mProductDetailsPresenterImpl2;
+
     private ProductDetailsBean productDetailsBean;
 
     private boolean isCollect = false;
@@ -137,6 +145,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     protected void initialize(Bundle bundle) {
+        mProductDetailsPresenterImpl2 = new ProductDetailsPresenterImpl2(this, this);
+        mProductDetailsPresenterImpl2.getProductDetailsStep1("20", mItemId, "", true);
 
         setTextStyleDeprecated();
 
@@ -803,4 +813,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         super.onDestroy();
     }
 
+    @Override
+    public void onProductInfoLoadCompleted() {
+
+    }
 }
