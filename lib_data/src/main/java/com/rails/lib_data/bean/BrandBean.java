@@ -26,6 +26,8 @@ public class BrandBean implements Serializable {
      * yn : 1
      */
 
+
+
     private String id;
     private String key;
     private String platformId;
@@ -38,6 +40,12 @@ public class BrandBean implements Serializable {
     private String created;
     private String modified;
     private String yn;
+
+    private String brandId;
+    private String brandName;
+    private String brandLogoUrl;
+    private String createTime;
+    private String countNum;
 
     public String getId() {
         return id;
@@ -133,5 +141,45 @@ public class BrandBean implements Serializable {
 
     public void setYn(String yn) {
         this.yn = yn;
+    }
+
+    public String getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getBrandLogoUrl() {
+        return brandLogoUrl;
+    }
+
+    public void setBrandLogoUrl(String brandLogoUrl) {
+        this.brandLogoUrl = brandLogoUrl;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCountNum() {
+        return countNum;
+    }
+
+    public void setCountNum(String countNum) {
+        this.countNum = countNum;
     }
 }

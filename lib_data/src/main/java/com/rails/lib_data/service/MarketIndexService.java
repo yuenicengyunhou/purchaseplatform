@@ -2,6 +2,7 @@ package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.NavigationBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
@@ -48,6 +49,14 @@ public interface MarketIndexService {
      */
     @GET("platform/platform/brandWall/queryBrandWallSettingList")
     Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands(@QueryMap HashMap<String, String> params);
+
+
+    /**
+     * 获取品牌列表
+     * @return
+     */
+    @GET("ds/itembrandranking/receive/queryItemBrandRanking")
+    Observable<HttpResult<ListBeen<BrandBean>>> getBrands(@QueryMap HashMap<String, Object> params);
 
 
     /**

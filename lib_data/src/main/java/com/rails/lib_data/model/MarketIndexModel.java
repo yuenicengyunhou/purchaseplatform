@@ -4,6 +4,7 @@ import com.rails.lib_data.R;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.NavigationBean;
 import com.rails.lib_data.bean.ProductRecBean;
@@ -73,11 +74,19 @@ public class MarketIndexModel {
      *
      * @return
      */
-    private Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("platformId", "20");
+//    private Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands() {
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("platformId", "20");
+//        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+//                .create(MarketIndexService.class).getRecBrands(params));
+//    }
+
+    private Observable<HttpResult<ListBeen<BrandBean>>> getRecBrands() {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("pageNum",0);
+        params.put("pageSize",20);
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(MarketIndexService.class).getRecBrands(params));
+                .create(MarketIndexService.class,1).getBrands(params));
     }
 
 
@@ -122,23 +131,18 @@ public class MarketIndexModel {
         Observable categorys = getCategorys().subscribeOn(Schedulers.io());
 
 
-        Observable.zip(recProducts, brands, banners, categorys, (Function4<ArrayList<ProductRecBean>, ArrayList<BrandBean>, ArrayList<BannerBean>,
-                ArrayList<NavigationBean>, MarketIndexBean>) (products, hBrands, hBanners, hCategorys) -> {
+        Observable.zip(recProducts, brands, banners, categorys, (Function4<ArrayList<ProductRecBean>, ListBeen<BrandBean>, ArrayList<BannerBean>,
+                ArrayList<NavigationBean>, MarketIndexBean>) (products, brandListBeen, hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
 
             String[] resourese = new String[]{"#5566DF", "#47ACF1", "#DDA15B", "#4F5468", "#3DC999"};
-            int[] res = new int[]{R.drawable.ic_category_electronic, R.drawable.ic_category_office, R.drawable.ic_category_food, R.drawable.ic_category_tool, R.drawable.ic_category_goods};
-
             for (int i = 0; i < products.size(); i++) {
                 products.get(i).setColor(resourese[i % 5]);
             }
             marketIndexBean.setRecBeans(products);
-            marketIndexBean.setBrandBeans(hBrands);
+            marketIndexBean.setBrandBeans(brandListBeen.getList());
             marketIndexBean.setBannerBeans(hBanners);
 
-            for (int i = 0; i < hCategorys.size(); i++) {
-                hCategorys.get(i).setRes(res[i % 5]);
-            }
             marketIndexBean.setCategorySubBeans(hCategorys);
 
             return marketIndexBean;
