@@ -8,6 +8,7 @@ import com.rails.lib_data.bean.OrderBean;
 import com.rails.lib_data.bean.OrderBudgetBean;
 import com.rails.lib_data.bean.OrderInfoBean;
 import com.rails.lib_data.bean.OrderPurchaseBean;
+import com.rails.lib_data.bean.orderdetails.OrderDetails;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.ArrayList;
@@ -111,4 +112,11 @@ public interface OrderService {
      */
     @GET("app-item-service/app/v1/buyer/brandController/queryBrandForPlatformId")
     Observable<HttpResult<ArrayList<BuyerBean>>> queryBrandList(@QueryMap HashMap<String, Object> params);
+
+
+    /**
+     * 获取妥投文件
+     */
+    @GET("order-service/buyer/order/getOrderInfo")
+    Observable<HttpResult<OrderDetails>> getDeliveredFiles(@QueryMap HashMap<String, Object> params);
 }

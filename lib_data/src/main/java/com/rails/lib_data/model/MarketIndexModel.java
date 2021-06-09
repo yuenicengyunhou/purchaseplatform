@@ -42,7 +42,7 @@ public class MarketIndexModel {
         params.put("pageSize", pageSize);
         HttpRxObservable.getObservable(RetrofitUtil
                 .getInstance()
-                .create(MarketIndexService.class,2)
+                .create(MarketIndexService.class, 2)
                 .getHotProducts(params))
                 .subscribe(httpRxObserver);
     }
@@ -57,7 +57,7 @@ public class MarketIndexModel {
         params.put("pageSize", "10");
         return HttpRxObservable.getObservable(RetrofitUtil
                 .getInstance()
-                .create(MarketIndexService.class,2)
+                .create(MarketIndexService.class, 2)
                 .getHotProducts(params));
     }
 
@@ -68,12 +68,10 @@ public class MarketIndexModel {
      * @param httpRxObserver
      */
     public void getRecProducts(HttpRxObserver httpRxObserver) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("platformId", "20");
         HttpRxObservable.getObservable(RetrofitUtil
                 .getInstance()
-                .create(MarketIndexService.class)
-                .getRecProducts(params))
+                .create(MarketIndexService.class, 2)
+                .getRecProducts())
                 .subscribe(httpRxObserver);
     }
 
@@ -84,10 +82,26 @@ public class MarketIndexModel {
      * @return
      */
     private Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("platformId", "20");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(MarketIndexService.class).getRecProducts(params));
+                .create(MarketIndexService.class, 2).getRecProducts());
+    }
+
+
+    /**
+     * 获取单个楼层品类列表
+     *
+     * @param floorId
+     * @param httpRxObserver
+     */
+    public void getFloorProducts(int page, String pageSize, String floorId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum", page);
+        params.put("pageSize", pageSize);
+        params.put("firstCategoryId", floorId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(MarketIndexService.class, 2)
+                .getFloorProducts(params))
+                .subscribe(httpRxObserver);
     }
 
 
@@ -101,7 +115,9 @@ public class MarketIndexModel {
         params.put("pageNum", page);
         params.put("pageSize", pageSize);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(MarketIndexService.class, 2).getBrands(params));
+                .create(MarketIndexService.class, 2)
+                .getBrands(params))
+                .subscribe(httpRxObserver);
     }
 
 

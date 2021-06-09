@@ -50,6 +50,10 @@ public class ProductRecBean implements Serializable {
     private int res;
 
 
+    private String firstCategoryId;
+    private String firstCategoryName;
+
+
     public Integer getId() {
         return id;
     }
@@ -193,5 +197,22 @@ public class ProductRecBean implements Serializable {
 
     public void setRes(int res) {
         this.res = res;
+    }
+
+
+    public String getFirstCategoryId() {
+        return firstCategoryId;
+    }
+
+    public void setFirstCategoryId(String firstCategoryId) {
+        this.firstCategoryId = firstCategoryId;
+    }
+
+    public String getFirstCategoryName() {
+        return firstCategoryName;
+    }
+
+    public void setFirstCategoryName(String firstCategoryName) {
+        this.firstCategoryName = firstCategoryName;
     }
 }

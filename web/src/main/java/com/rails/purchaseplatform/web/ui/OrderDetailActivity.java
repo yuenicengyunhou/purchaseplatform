@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.web.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -115,9 +116,12 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 
+    @JavascriptInterface
     @Override
-    public void goDeliveredPage(long platformId, String orderNo) {
-
+    public void goDeliveredPage(String orderNo) {
+        Bundle bundle = new Bundle();
+        bundle.putString("orderNo", orderNo);
+        ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation();
     }
 
 }

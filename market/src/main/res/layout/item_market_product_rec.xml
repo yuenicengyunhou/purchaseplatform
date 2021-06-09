@@ -32,7 +32,7 @@
                 android:layout_marginTop="@dimen/dp_15"
                 app:isBold="true"
                 app:is_hide="true"
-                app:key="@{floor.floorTitle}"
+                app:key="@{floor.firstCategoryName}"
                 app:key_color="@color/font_black"
                 app:key_size="@dimen/font_size_16"
                 app:value_color="@color/font_grays"

@@ -28,9 +28,18 @@ public interface MarketIndexService {
      *
      * @return
      */
-    @GET("platform/platform/floor/queryFloorSettingList")
-    Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts(@QueryMap HashMap<String, String> params);
+    @GET("ds/firstCategoryRank/floorList")
+    Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts();
 
+
+    /**
+     * 获取楼层单个品类排行列表
+     *
+     * @param params
+     * @return
+     */
+    @GET("ds/firstCategoryRank/goodsRank")
+    Observable<HttpResult<ArrayList<ProductRecBean>>> getFloorProducts(@QueryMap HashMap<String, Object> params);
 
     /**
      * 获取商城banner列表

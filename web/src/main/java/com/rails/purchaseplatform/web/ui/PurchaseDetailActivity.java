@@ -45,7 +45,6 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         if (userInfoBean != null) {
             url = url + "&userId=" + userInfoBean.getId();
         }
-        Logger.d("WQ", "pur==" + url);
 
     }
 
@@ -121,7 +120,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     }
 
     @Override
-    public void goDeliveredPage(long platformId, String orderNo) {
+    public void goDeliveredPage( String orderNo) {
 
     }
 }
