@@ -50,6 +50,11 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
         binding.setFloor(bean);
         try {
             binding.lrTitle.setKeyColor(colors[position % 5]);
+            if (position == 0){
+                binding.lrTitle.setKeyRightIcon(R.drawable.ic_hot);
+            }else{
+                binding.lrTitle.removeKeyRightIcon();
+            }
         } catch (Exception e) {
 
         }

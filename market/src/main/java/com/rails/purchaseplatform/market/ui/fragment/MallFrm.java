@@ -56,6 +56,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     private ProductRecAdapter recAdapter;
     private NavigationAdapter categoryAdapter;
     private BrandAdapter brandAdapter;
+    private MarketIndexBean indexBean;
 
     private MarketIndexContract.MarketIndexPresenter presenter;
 
@@ -107,18 +108,15 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             @Override
             public void onPosition(BrandBean bean, int position) {
 
-                String linkUrl = bean.getLinkUrl();
+                String shopId = bean.getBrandId();
                 Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(linkUrl))
+                if (TextUtils.isEmpty(shopId))
                     return;
-                if (linkUrl.contains("shopId")) {
-                    try {
-                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
-                        bundle.putString("shopInfoId", cid);
-                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
-                    } catch (Exception e) {
+                try {
+                    bundle.putString("shopInfoId", shopId);
+                    goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                } catch (Exception e) {
 
-                    }
                 }
             }
         });
@@ -130,7 +128,11 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         recAdapter.setMulPositionListener(new MulPositionListener() {
             @Override
             public void onPosition(Object bean, int position, int... params) {
-                startIntent(RankActivity.class);
+                if(indexBean != null){
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("bean",indexBean);
+                    startIntent(RankActivity.class,bundle);
+                }
             }
         });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
@@ -231,6 +233,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
+        indexBean = bean;
         brandAdapter.update(bean.getBrandBeans(), true);
         recAdapter.update(bean.getRecBeans(), true);
         categoryAdapter.update(bean.getCategorySubBeans(), true);

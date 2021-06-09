@@ -47,12 +47,29 @@ import androidx.fragment.app.FragmentPagerAdapter;
  */
 public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> implements MarketIndexContract.MarketIndexView {
 
-    private ArrayList<Fragment> fragments;
     private ViewPageAdapter viewPageAdapter;
     private MarketIndexContract.MarketIndexPresenter presenter;
 
+    private MarketIndexBean indexBean;
+
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        indexBean = (MarketIndexBean) extras.getSerializable("bean");
+    }
+
     @Override
     protected void initialize(Bundle bundle) {
+
+        if (indexBean != null) {
+            ProductRecBean recBean = new ProductRecBean();
+            recBean.setFirstCategoryName("热销品牌");
+            recBean.setFirstCategoryId("");
+            indexBean.getRecBeans().add(0, recBean);
+            initPager(indexBean.getRecBeans());
+        }
+
 
         presenter = new MarKetIndexPresenterImpl(this, this);
         presenter.getRectProducts(false, false);
@@ -60,7 +77,7 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
 
     @Override
     protected int getColor() {
-        return 0;
+        return android.R.color.white;
     }
 
     @Override
@@ -77,39 +94,38 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
     /**
      * 初始化pageradapter
      */
-    private void initPager(ArrayList<ProductRecBean> recBeans) {
-        fragments = new ArrayList<>();
-        for (ProductRecBean bean :recBeans)
-            fragments.add(new RankFragment());
+    private void initPager(ArrayList<ProductRecBean> beans) {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        Fragment fragment;
+        for (int i = 0; i < beans.size(); i++) {
+            fragment = new RankFragment();
+            fragments.add(fragment);
+        }
+
 
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.viewPager.setAdapter(viewPageAdapter);
-        binding.viewPager.setOffscreenPageLimit(recBeans.size());
+        binding.viewPager.setOffscreenPageLimit(beans.size());
         viewPageAdapter.update(fragments, true);
 
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdjustMode(true);
+        commonNavigator.setAdjustMode(false);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {
-                return recBeans == null ? 0 : recBeans.size();
+                return beans.size();
             }
 
             @Override
-            public IPagerTitleView getTitleView(Context context, final int index) {
+            public IPagerTitleView getTitleView(Context context, int index) {
+
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.font_black));
+                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.font_black_light));
                 colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_blue));
-                colorTransitionPagerTitleView.setTypeface(Typeface.DEFAULT_BOLD);
                 colorTransitionPagerTitleView.setTextSize(14f);
-                colorTransitionPagerTitleView.setText(recBeans.get(index).getFloorTitle());
-                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        binding.viewPager.setCurrentItem(index);
-                    }
-                });
+                colorTransitionPagerTitleView.setText(beans.get(index).getFirstCategoryName());
+                colorTransitionPagerTitleView.setOnClickListener(view -> binding.viewPager.setCurrentItem(index));
                 return colorTransitionPagerTitleView;
             }
 
@@ -121,14 +137,13 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
                 return indicator;
             }
         });
-        binding.magicIndicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(binding.magicIndicator, binding.viewPager);
+        binding.indicator.setNavigator(commonNavigator);
+        ViewPagerHelper.bind(binding.indicator, binding.viewPager);
         binding.viewPager.setCurrentItem(0);
     }
 
     @Override
     public void getRecProducts(ArrayList<ProductRecBean> beans) {
-        initPager(beans);
     }
 
     @Override

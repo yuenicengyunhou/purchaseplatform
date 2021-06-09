@@ -104,7 +104,7 @@ public class LrLableLayout extends RelativeLayout {
             if (leftIcon != null)
                 binding.tvKey.setCompoundDrawablesWithIntrinsicBounds(leftIcon, null, null, null);
 
-            if(keyRightImg != null)
+            if (keyRightImg != null)
                 binding.tvKey.setCompoundDrawablesWithIntrinsicBounds(null, null, keyRightImg, null);
 
             if (valueRightIcon != null)
@@ -160,6 +160,22 @@ public class LrLableLayout extends RelativeLayout {
      */
     public void removeValueRightIcon() {
         binding.etValue.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+    }
+
+
+    /**
+     * 设置key右侧图标
+     *
+     * @param res
+     */
+    public void setKeyRightIcon(@DrawableRes int res) {
+        Drawable valueRightIcon = getResources().getDrawable(res);
+        if (valueRightIcon != null)
+            binding.tvKey.setCompoundDrawablesWithIntrinsicBounds(null, null, valueRightIcon, null);
+    }
+
+    public void removeKeyRightIcon() {
+        binding.tvKey.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
     }
 
     /**

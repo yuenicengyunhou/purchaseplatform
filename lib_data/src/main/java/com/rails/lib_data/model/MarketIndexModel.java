@@ -185,7 +185,8 @@ public class MarketIndexModel {
 
             ProductRecBean recBean = new ProductRecBean();
             recBean.setFloorList(hotListBeen.getList());
-            recBean.setFloorTitle("热门推荐");
+            recBean.setFirstCategoryName("热销商品");
+            recBean.setFirstCategoryId("1");
             products.add(0, recBean);
             for (int i = 0; i < products.size(); i++) {
                 products.get(i).setColor(resourese[i % 5]);

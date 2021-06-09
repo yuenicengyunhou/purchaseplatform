@@ -4,6 +4,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.market.databinding.FragmentMarketRankBinding;
 
 /**
+ * 楼层当个品类排行列表
  * @author： sk_comic@163.com
  * @date: 2021/6/9
  */

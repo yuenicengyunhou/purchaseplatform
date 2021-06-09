@@ -38,6 +38,7 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/font_black"
+                android:drawablePadding="@dimen/dp_5"
                 android:textSize="@dimen/font_size_15" />
 
         </LinearLayout>
