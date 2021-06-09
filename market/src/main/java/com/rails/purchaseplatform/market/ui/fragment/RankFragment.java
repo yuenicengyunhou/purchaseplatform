@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.market.databinding.FragmentMarketRankBinding;
 
@@ -9,6 +10,19 @@ import com.rails.purchaseplatform.market.databinding.FragmentMarketRankBinding;
  * @date: 2021/6/9
  */
 public class RankFragment extends LazyFragment<FragmentMarketRankBinding> {
+
+    private String categoryId;
+
+    private RankFragment(String categoryId) {
+       this.categoryId = categoryId;
+    }
+
+    public static RankFragment getInstance(String categoryId) {
+        return new RankFragment(categoryId);
+
+    }
+
+
     @Override
     protected void loadData() {
 

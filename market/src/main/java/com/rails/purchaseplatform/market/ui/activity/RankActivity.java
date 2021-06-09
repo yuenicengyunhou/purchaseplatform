@@ -10,6 +10,7 @@ import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
@@ -72,7 +73,6 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
 
 
         presenter = new MarKetIndexPresenterImpl(this, this);
-        presenter.getRectProducts(false, false);
     }
 
     @Override
@@ -97,8 +97,8 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
     private void initPager(ArrayList<ProductRecBean> beans) {
         ArrayList<Fragment> fragments = new ArrayList<>();
         Fragment fragment;
-        for (int i = 0; i < beans.size(); i++) {
-            fragment = new RankFragment();
+        for (ProductRecBean bean : beans) {
+            fragment = RankFragment.getInstance(bean.getFirstCategoryId());
             fragments.add(fragment);
         }
 
@@ -143,23 +143,10 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
     }
 
     @Override
-    public void getRecProducts(ArrayList<ProductRecBean> beans) {
-    }
-
-    @Override
-    public void getBanners(ArrayList<BannerBean> bannerBeans) {
+    public void getHotProducts(ArrayList<ProductBean> beans) {
 
     }
 
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans) {
-
-    }
-
-    @Override
-    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
-
-    }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {

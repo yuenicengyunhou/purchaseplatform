@@ -8,7 +8,9 @@ import com.rails.lib_data.R;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.MarketIndexBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.model.MarketIndexModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -39,10 +41,10 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     }
 
     @Override
-    public void getRectProducts(boolean isDialog, boolean isHot) {
+    public void getHotProducts(boolean isDialog, int page, String pageSize) {
         if (isDialog)
             baseView.showDialog("加载中...");
-        model.getRecProducts(new HttpRxObserver<ArrayList<ProductRecBean>>() {
+        model.getHotProducts(page, pageSize, new HttpRxObserver<ListBeen<ProductBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -50,31 +52,15 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
             }
 
             @Override
-            protected void onSuccess(ArrayList<ProductRecBean> beans) {
+            protected void onSuccess(ListBeen<ProductBean> listBeen) {
                 baseView.dismissDialog();
-                if (isCallBack())
-                    baseView.getRecProducts(beans);
+                if (isCallBack()) {
+                    if (listBeen != null)
+                        baseView.getHotProducts(listBeen.getList());
+                }
+
             }
         });
-    }
-
-    @Deprecated
-    @Override
-    public void getBanners() {
-        Type type = new TypeToken<ArrayList<BannerBean>>() {
-        }.getType();
-        ArrayList<BannerBean> beans = JsonUtil.parseJson(mContext, "banner.json", type);
-        baseView.getBanners(beans);
-    }
-
-    @Override
-    public void getBrands() {
-
-    }
-
-    @Override
-    public void getRecCategorys() {
-
     }
 
 

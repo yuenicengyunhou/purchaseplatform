@@ -4,6 +4,7 @@ import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -25,31 +26,7 @@ public interface MarketIndexContract {
          *
          * @param beans
          */
-        void getRecProducts(ArrayList<ProductRecBean> beans);
-
-
-        /**
-         * 获取banner列表
-         *
-         * @param bannerBeans
-         */
-        void getBanners(ArrayList<BannerBean> bannerBeans);
-
-
-        /**
-         * 获取推荐品牌
-         *
-         * @param brandBeans
-         */
-        void getBrands(ArrayList<BrandBean> brandBeans);
-
-
-        /**
-         * 获取推荐分类
-         *
-         * @param beans
-         */
-        void getRecCategorys(ArrayList<CategorySubBean> beans);
+        void getHotProducts(ArrayList<ProductBean> beans);
 
 
         /**
@@ -65,29 +42,13 @@ public interface MarketIndexContract {
 
 
         /**
-         * 获取首页推荐产品列表
+         * 获取热门推荐产品
          *
          * @param isDialog 是否显示加载窗口
-         * @param isHot    是否显示热门产品
          */
-        void getRectProducts(boolean isDialog, boolean isHot);
+        void getHotProducts(boolean isDialog, int page,String pageSize);
 
 
-        /**
-         * 获取banner列表
-         */
-        void getBanners();
-
-        /**
-         * 获取推荐品牌
-         */
-        void getBrands();
-
-
-        /**
-         * 获取推荐分类
-         */
-        void getRecCategorys();
 
         /**
          * 首页列表聚合

@@ -212,23 +212,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
 
     @Override
-    public void getRecProducts(ArrayList<ProductRecBean> beans) {
-        recAdapter.update(beans, true);
-    }
+    public void getHotProducts(ArrayList<ProductBean> beans) {
 
-    @Override
-    public void getBanners(ArrayList<BannerBean> bannerBeans) {
-        setBanners(bannerBeans);
-    }
-
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans) {
-        brandAdapter.update(brandBeans, true);
-    }
-
-    @Override
-    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
-        categoryAdapter.update(beans, true);
     }
 
     @Override
