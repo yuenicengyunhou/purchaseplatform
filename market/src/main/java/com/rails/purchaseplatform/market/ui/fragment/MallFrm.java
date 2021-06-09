@@ -20,6 +20,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
@@ -49,7 +50,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding>
-        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>{
+        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean> {
 
 
     private ProductRecAdapter recAdapter;
@@ -126,6 +127,12 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         //推荐商品列表
         recAdapter = new ProductRecAdapter(getActivity());
         recAdapter.setListener(this);
+        recAdapter.setMulPositionListener(new MulPositionListener() {
+            @Override
+            public void onPosition(Object bean, int position, int... params) {
+                startIntent(RankActivity.class);
+            }
+        });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
         binding.recycler.setAdapter(recAdapter);

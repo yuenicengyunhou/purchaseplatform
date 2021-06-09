@@ -1,43 +1,65 @@
 package com.rails.lib_data.model;
 
-import com.rails.lib_data.R;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
-import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.NavigationBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.MarketIndexService;
-import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.NetWorkUtil;
 
-import java.text.FieldPosition;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.annotations.Nullable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function4;
+import io.reactivex.functions.Function5;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.Subject;
 
 /**
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
 public class MarketIndexModel {
+
+
+    /**
+     * 获取热门推荐列表
+     *
+     * @param page
+     * @param pageSize
+     * @param httpRxObserver
+     */
+    public void getHotProducts(int page, String pageSize, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum", page);
+        params.put("pageSize", pageSize);
+        HttpRxObservable.getObservable(RetrofitUtil
+                .getInstance()
+                .create(MarketIndexService.class,2)
+                .getHotProducts(params))
+                .subscribe(httpRxObserver);
+    }
+
+
+    /**
+     * 获取热门推荐列表
+     */
+    private Observable<HttpResult<ListBeen<ProductBean>>> getHotProducts() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum", 0);
+        params.put("pageSize", "10");
+        return HttpRxObservable.getObservable(RetrofitUtil
+                .getInstance()
+                .create(MarketIndexService.class,2)
+                .getHotProducts(params));
+    }
 
 
     /**
@@ -72,21 +94,28 @@ public class MarketIndexModel {
     /**
      * 获取品牌列表
      *
+     * @param httpRxObserver
+     */
+    public void getRecBrands(int page, String pageSize, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum", page);
+        params.put("pageSize", pageSize);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(MarketIndexService.class, 2).getBrands(params));
+    }
+
+
+    /**
+     * 获取首页品牌列表
+     *
      * @return
      */
-//    private Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands() {
-//        HashMap<String, String> params = new HashMap<>();
-//        params.put("platformId", "20");
-//        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-//                .create(MarketIndexService.class).getRecBrands(params));
-//    }
-
     private Observable<HttpResult<ListBeen<BrandBean>>> getRecBrands() {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("pageNum",0);
-        params.put("pageSize",20);
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum", 0);
+        params.put("pageSize", 10);
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(MarketIndexService.class,1).getBrands(params));
+                .create(MarketIndexService.class, 2).getBrands(params));
     }
 
 
@@ -125,17 +154,23 @@ public class MarketIndexModel {
     public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
         // TODO: 2016/9/30 读取缓存数据
+        Observable hotProducts = getHotProducts().subscribeOn(Schedulers.io());
         Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());
         Observable brands = getRecBrands().subscribeOn(Schedulers.io());
         Observable banners = getBanners().subscribeOn(Schedulers.io());
         Observable categorys = getCategorys().subscribeOn(Schedulers.io());
 
 
-        Observable.zip(recProducts, brands, banners, categorys, (Function4<ArrayList<ProductRecBean>, ListBeen<BrandBean>, ArrayList<BannerBean>,
-                ArrayList<NavigationBean>, MarketIndexBean>) (products, brandListBeen, hBanners, hCategorys) -> {
+        Observable.zip(hotProducts, recProducts, brands, banners, categorys, (Function5<ListBeen<ProductBean>, ArrayList<ProductRecBean>, ListBeen<BrandBean>, ArrayList<BannerBean>,
+                ArrayList<NavigationBean>, MarketIndexBean>) (hotListBeen, products, brandListBeen, hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
 
             String[] resourese = new String[]{"#5566DF", "#47ACF1", "#DDA15B", "#4F5468", "#3DC999"};
+
+            ProductRecBean recBean = new ProductRecBean();
+            recBean.setFloorList(hotListBeen.getList());
+            recBean.setFloorTitle("热门推荐");
+            products.add(0, recBean);
             for (int i = 0; i < products.size(); i++) {
                 products.get(i).setColor(resourese[i % 5]);
             }

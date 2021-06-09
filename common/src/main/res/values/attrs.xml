@@ -67,6 +67,7 @@
         <attr name="isBold" format="boolean"/>
         <attr name="left_icon" />
         <attr name="left_img" format="integer" />
+        <attr name="key_right_img" format="integer"/>
         <attr name="right_img" format="integer" />
         <attr name="value_right_icon" />
         <attr name="padding_bottom" format="dimension" />

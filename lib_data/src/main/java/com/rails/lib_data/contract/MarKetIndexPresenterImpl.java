@@ -67,28 +67,16 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
         baseView.getBanners(beans);
     }
 
-
-    @Deprecated
     @Override
     public void getBrands() {
-        Type type = new TypeToken<ArrayList<BrandBean>>() {
-        }.getType();
-        ArrayList<BrandBean> beans = JsonUtil.parseJson(mContext, "brand.json", type);
-        baseView.getBrands(beans);
+
     }
 
-    @Deprecated
     @Override
     public void getRecCategorys() {
-        ArrayList<CategorySubBean> beans = new ArrayList<>();
-        beans.add(new CategorySubBean("电子产品", R.drawable.ic_category_electronic));
-        beans.add(new CategorySubBean("办公用品", R.drawable.ic_category_office));
-        beans.add(new CategorySubBean("粮油食品", R.drawable.ic_category_food));
-        beans.add(new CategorySubBean("通用工具", R.drawable.ic_category_tool));
-        beans.add(new CategorySubBean("防疫物资", R.drawable.ic_category_goods));
 
-        baseView.getRecCategorys(beans);
     }
+
 
     @Override
     public void getMarketIndexInfo(boolean isCache, boolean isDialog) {

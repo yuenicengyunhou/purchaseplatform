@@ -31,7 +31,7 @@
             app:displayBorder="true"
             app:displayType="round_rect"
             app:h="64"
-            app:imgUrl="@{product.pictureUrl}"
+            app:imgUrl="@{product.itemLogoUrl}"
             app:w="53" />
 
 
@@ -44,7 +44,7 @@
             android:layout_marginRight="@dimen/dp_5"
             android:ellipsize="end"
             android:lines="2"
-            android:text="@{product.pictureName}"
+            android:text="@{product.itemName}"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_12" />
 

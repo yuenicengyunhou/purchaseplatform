@@ -37,8 +37,8 @@ public class ProductBean implements Serializable {
      * saleNum : null
      */
 
-    private Integer id;
-    private Integer key;
+    private String id;
+    private String key;
     private Integer platformId;
     private String pictureUrl;
     private String pictureName;
@@ -60,6 +60,12 @@ public class ProductBean implements Serializable {
     private Object saleNum;
     private int cid;
     private long shopId;
+
+
+    private String itemName;
+    private String sellPrice;
+    private String itemLogoUrl;
+    private String countNum;
 
 
     public String getSkuName() {
@@ -86,19 +92,19 @@ public class ProductBean implements Serializable {
         this.shopId = shopId;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getKey() {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(Integer key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -267,5 +273,38 @@ public class ProductBean implements Serializable {
         } else {
             setItemId(urls[1]);
         }
+    }
+
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(String sellPrice) {
+        this.sellPrice = sellPrice;
+    }
+
+    public String getItemLogoUrl() {
+        return itemLogoUrl;
+    }
+
+    public void setItemLogoUrl(String itemLogoUrl) {
+        this.itemLogoUrl = itemLogoUrl;
+    }
+
+    public String getCountNum() {
+        return countNum;
+    }
+
+    public void setCountNum(String countNum) {
+        this.countNum = countNum;
     }
 }

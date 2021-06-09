@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.common.widget;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -72,6 +73,7 @@ public class LrLableLayout extends RelativeLayout {
             Drawable leftIcon = typedArray.getDrawable(R.styleable.LrLable_left_icon);
             Drawable valueRightIcon = typedArray.getDrawable(R.styleable.LrLable_value_right_icon);
             Drawable leftImg = typedArray.getDrawable(R.styleable.LrLable_left_img);
+            Drawable keyRightImg = typedArray.getDrawable(R.styleable.LrLable_key_right_img);
             Drawable rightImg = typedArray.getDrawable(R.styleable.LrLable_right_img);
 
             if (!TextUtils.isEmpty(key))
@@ -101,6 +103,9 @@ public class LrLableLayout extends RelativeLayout {
 
             if (leftIcon != null)
                 binding.tvKey.setCompoundDrawablesWithIntrinsicBounds(leftIcon, null, null, null);
+
+            if(keyRightImg != null)
+                binding.tvKey.setCompoundDrawablesWithIntrinsicBounds(null, null, keyRightImg, null);
 
             if (valueRightIcon != null)
                 binding.etValue.setCompoundDrawablesWithIntrinsicBounds(null, null, valueRightIcon, null);
@@ -174,6 +179,12 @@ public class LrLableLayout extends RelativeLayout {
         if (!TextUtils.isEmpty(key)) {
             binding.tvKey.setText(Html.fromHtml(key));
         }
+    }
+
+
+    public void setKeyColor(String color) {
+        if (!TextUtils.isEmpty(color))
+            binding.tvKey.setTextColor(Color.parseColor(color));
     }
 
 

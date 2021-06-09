@@ -26,18 +26,10 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
  */
 public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemMarketProductRecBinding> {
 
-    private int[] res;
     private String[] colors;
 
     public ProductRecAdapter(Context context) {
         super(context);
-        res = new int[]{
-                R.drawable.ic_market_bluethree,
-                R.drawable.ic_market_bluelightthree,
-                R.drawable.ic_market_brownthree,
-                R.drawable.ic_market_blacklightthree,
-                R.drawable.ic_market_greenthree
-        };
 
         colors = new String[]{
                 "#5566DF",
@@ -57,9 +49,7 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
         try {
-            binding.tvTitle.setTextColor(Color.parseColor(colors[position % 5]));
-            binding.imgLeft.setImageResource(res[position % 5]);
-            binding.imgRight.setImageResource(res[position % 5]);
+            binding.lrTitle.setKeyColor(colors[position % 5]);
         } catch (Exception e) {
 
         }
@@ -67,7 +57,6 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
 
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
         binding.recycler.setLayoutManager(new GridLayoutManager(mContext, 3));
-//        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recycler.setAdapter(adapter);
         adapter.update(bean.getFloorList(), true);
 
@@ -78,7 +67,12 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
                     positionListener.onPosition(bean, position);
                 }
             }
+        });
 
+        binding.lrTitle.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(bean, position);
+            }
         });
 
     }
