@@ -207,5 +207,14 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            binding.cartRecycler.detachedObserver();
+        } catch (Exception e) {
 
+        }
+
+    }
 }

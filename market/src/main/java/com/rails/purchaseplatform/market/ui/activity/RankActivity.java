@@ -53,11 +53,13 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding>{
 
     private ViewPageAdapter viewPageAdapter;
     private MarketIndexBean indexBean;
+    private int position = 0;
 
 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
+        position = extras.getInt("position");
     }
 
     @Override
@@ -136,7 +138,7 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding>{
         });
         binding.indicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(binding.indicator, binding.viewPager);
-        binding.viewPager.setCurrentItem(0);
+        binding.viewPager.setCurrentItem(position);
     }
 
 

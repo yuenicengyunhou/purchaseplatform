@@ -130,7 +130,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             public void onPosition(Object bean, int position, int... params) {
                 if (indexBean != null) {
                     try {
-                        startIntent(RankActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", ++position);
+                        startIntent(RankActivity.class,bundle);
                     } catch (Exception e) {
 
                     }
@@ -266,7 +268,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.lrTitle.setOnClickListener(v -> {
             if (indexBean != null) {
                 try {
-                    startIntent(RankActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position", 0);
+                    startIntent(RankActivity.class, bundle);
                 } catch (Exception e) {
 
                 }
