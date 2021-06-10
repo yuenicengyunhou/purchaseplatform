@@ -63,7 +63,7 @@ public class ProductBean implements Serializable {
 
 
     private String itemName;
-    private String sellPrice;
+    private double sellPrice;
     private String itemLogoUrl;
     private String countNum;
 
@@ -284,11 +284,11 @@ public class ProductBean implements Serializable {
         this.itemName = itemName;
     }
 
-    public String getSellPrice() {
+    public double getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(String sellPrice) {
+    public void setSellPrice(double sellPrice) {
         this.sellPrice = sellPrice;
     }
 

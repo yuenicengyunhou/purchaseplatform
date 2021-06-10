@@ -16,6 +16,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.RankBrandAdapter;
 import com.rails.purchaseplatform.market.adapter.RankProductAdapter;
@@ -60,6 +61,7 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
 
     @Override
     protected void loadData() {
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         if (TextUtils.isEmpty(categoryId)) {
             brandAdapter = new RankBrandAdapter(getActivity());
@@ -96,6 +98,7 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
 
             });
         }
+        binding.cartRecycler.setEmptyView(binding.empty);
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
         onRefresh();

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemRankProductBinding;
 
@@ -40,6 +41,9 @@ public class RankProductAdapter extends BaseRecyclerAdapter<ProductBean, ItemRan
             binding.tvRank.setText(String.valueOf(++position));
             binding.tvRank.setBackground(null);
         }
+
+        String price = DecimalUtil.formatDouble(productBean.getSellPrice());
+        binding.tvPrice.setText("¥ "+price);
 
         binding.getRoot().setOnClickListener(v -> {
             if (positionListener != null)

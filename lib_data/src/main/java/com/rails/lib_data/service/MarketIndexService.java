@@ -29,7 +29,7 @@ public interface MarketIndexService {
      *
      * @return
      */
-    @GET("ds/firstCategoryRank/floorList")
+    @GET("firstCategoryRank/floorList")
     Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts();
 
 
@@ -39,7 +39,7 @@ public interface MarketIndexService {
      * @param params
      * @return
      */
-    @GET("ds/firstCategoryRank/goodsRank")
+    @GET("firstCategoryRank/goodsRank")
     Observable<HttpResult<ListBeen<ProductBean>>> getFloorProducts(@QueryMap HashMap<String, Object> params);
 
     /**
@@ -58,7 +58,7 @@ public interface MarketIndexService {
      * @param params
      * @return
      */
-    @GET("ds/itemproductdispose/query/queryItemProductDispose")
+    @GET("itemproductdispose/query/queryItemProductDispose")
     Observable<HttpResult<ListBeen<ProductBean>>> getHotProducts(@QueryMap HashMap<String, Object> params);
 
 
@@ -78,7 +78,7 @@ public interface MarketIndexService {
      *
      * @return
      */
-    @GET("ds/itembrandranking/receive/queryItemBrandRanking")
+    @GET("itembrandranking/receive/queryItemBrandRanking")
     Observable<HttpResult<ListBeen<BrandBean>>> getBrands(@QueryMap HashMap<String, Object> params);
 
 

@@ -83,7 +83,12 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
-                    baseView.onError(e);
+                    if (page == 1){
+                        ArrayList<BrandBean> productBeans = new ArrayList<>();
+                        baseView.getBrands(productBeans,false,true);
+                    }else{
+                        baseView.onError(e);
+                    }
                 }
 
                 @Override
@@ -101,7 +106,12 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
-                    baseView.onError(e);
+                    if (page == 1){
+                        ArrayList<ProductBean> productBeans = new ArrayList<>();
+                        baseView.getFloorProducts(productBeans,false,true);
+                    }else{
+                        baseView.onError(e);
+                    }
                 }
 
                 @Override
@@ -121,7 +131,13 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
-                    baseView.onError(e);
+                    if (page == 1){
+                        ArrayList<ProductBean> productBeans = new ArrayList<>();
+                        baseView.getFloorProducts(productBeans,false,true);
+                    }else{
+                        baseView.onError(e);
+                    }
+
                 }
 
                 @Override

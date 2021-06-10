@@ -74,7 +74,7 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding>{
 
     @Override
     protected int getColor() {
-        return android.R.color.white;
+        return android.R.color.transparent;
     }
 
     @Override
