@@ -323,7 +323,14 @@ public class ProductDetailsModel2 {
 
                     @NotNull
                     @Override
-                    public ProductDetailsStep2Bean apply(@NotNull DeliveryBean deliveryBean, @NotNull Boolean aBoolean, @NotNull ArrayList<ProductPriceBean> productPriceBeans, @NotNull JSONObject jsonObject, @NotNull HotSaleBean hotSaleBean, @NotNull ArrayList<SkuStockBean> skuStockBeans) throws Exception {
+                    public ProductDetailsStep2Bean apply(
+                            @NotNull DeliveryBean deliveryBean,
+                            @NotNull Boolean aBoolean,
+                            @NotNull ArrayList<ProductPriceBean> productPriceBeans,
+                            @NotNull JSONObject jsonObject,
+                            @NotNull HotSaleBean hotSaleBean,
+                            @NotNull ArrayList<SkuStockBean> skuStockBeans) throws Exception {
+
                         ProductDetailsStep2Bean bean = new ProductDetailsStep2Bean();
                         bean.setDeliveryBean(deliveryBean);
                         bean.setVisitTrack(aBoolean);
@@ -339,5 +346,68 @@ public class ProductDetailsModel2 {
 
     }
 
+
+    /**
+     * 请求商品信息
+     *
+     * @param platformId
+     * @param cid
+     * @param skuId
+     * @param shopId
+     * @param provinceId
+     * @param cityId
+     * @param countryId
+     * @param address
+     * @param skuNum
+     * @param httpRxObserver
+     */
+    public void getProductDetailsPop(String platformId,
+                                     String cid,
+                                     String skuId,
+                                     String shopId,
+                                     String provinceId,
+                                     String cityId,
+                                     String countryId,
+                                     String address,
+                                     String skuNum,
+                                     HttpRxObserver httpRxObserver) {
+
+        Observable visit
+                = addSkuVisitTrack(cid, skuId).subscribeOn(Schedulers.io());
+        Observable productPrice
+                = getProductPrice(platformId, skuId);
+        Observable userCollect
+                = getUserCollect(skuId);
+        Observable skuStock
+                = querySkuSaleStocks(shopId, provinceId, cityId, countryId, address, skuNum, skuId);
+
+        Observable.zip(
+                visit, productPrice, userCollect, skuStock,
+                new Function4<
+                        Boolean,
+                        ArrayList<ProductPriceBean>,
+                        JSONObject,
+                        ArrayList<SkuStockBean>,
+                        ProductDetailsStep2Bean>() {
+
+                    @NotNull
+                    @Override
+                    public ProductDetailsStep2Bean apply(
+                            @NotNull Boolean aBoolean,
+                            @NotNull ArrayList<ProductPriceBean> productPriceBeans,
+                            @NotNull JSONObject jsonObject,
+                            @NotNull ArrayList<SkuStockBean> skuStockBeans) throws Exception {
+
+                        ProductDetailsStep2Bean bean = new ProductDetailsStep2Bean();
+                        bean.setVisitTrack(aBoolean);
+                        bean.setProductPriceBeans(productPriceBeans);
+                        bean.setCollect(jsonObject);
+                        bean.setSkuStockBeans(skuStockBeans);
+                        return bean;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(httpRxObserver);
+    }
 
 }

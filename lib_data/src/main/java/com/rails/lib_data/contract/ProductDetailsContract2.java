@@ -3,9 +3,12 @@ package com.rails.lib_data.contract;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPageBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
+
 public interface ProductDetailsContract2 {
 
+
     interface ProductDetailsView2 extends BaseView {
+
         /**
          * 全部请求完成时调用
          */
@@ -17,7 +20,17 @@ public interface ProductDetailsContract2 {
         void onHaveNoSkuId();
     }
 
+
     interface ProductDetailsPresenter2 {
+
+        /**
+         * 获取商品信息
+         *
+         * @param platformId
+         * @param itemId
+         * @param addressType
+         * @param isDialog
+         */
         void getAllProductInfo(String platformId,
                                String itemId,
                                String addressType,

@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -33,7 +32,6 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.contract.AddressToolContract;
-import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
 import com.rails.lib_data.contract.CartToolPresenterImpl;
 import com.rails.lib_data.contract.ProductDetailsContract;
@@ -63,7 +61,6 @@ import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -80,27 +77,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     final private int LOAD_BITMAP = 63;
+
     private Handler mHandler;
     private Thread mThread;
-
-    private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
-
-    private PropertyPop<SpecificationPopBean> mPop;
-
-    private String mItemId;
-    private String mShopId;
-    private String mPlatformId = "20";
-    private String mSkuId;
-    private SkuStockBean mSkuStockBean;
-    private ArrayList<AddressBean> addresses;
-    private String mProvinceCode, mCityCode, mCountryCode;
-
-    private ProductDetailsParamsPop mParamsPop;
-    private ProductDetailsChooseAddressPop mChooseAddressPop;
-
-    private CartContract.CartPresenter2 mPresenter;
-    private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
-    private AddressToolContract.AddressToolPresenter mAddressPresenter;
 
     /**
      * 实现并行和串行网络请求
@@ -114,11 +93,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private ProductDetailsBean productDetailsBean;
 
-    private boolean isCollect = false;
+    private String mItemId;
+    private String mPlatformId = "20";
 
-    private ArrayList<SpecificationPopBean> mSpecificationPopBeanList;
+    private PropertyPop<SpecificationPopBean> mPop;
+    private ProductDetailsChooseAddressPop mChooseAddressPop;
+    private ProductDetailsParamsPop mParamsPop;
 
-    //
+    private CartContract.CartPresenter2 mPresenter;
+    private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
+
+    private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private DetailImgAdapter imgAdapter;
     private ProductBillAdapter billAdapter;
     private ProductRecCompanyAdapter companyAdapter;
@@ -143,7 +128,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mProductDetailsPresenterImpl2.getAllProductInfo("20", mItemId, "", true);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
-        mAddressPresenter = new AddressToolPresenterImpl(this, this);
         mPresenter = new CartToolPresenterImpl(this, this);
 
         // 请求商品信息（弃用的）
@@ -230,10 +214,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 binding.nestedScrollView.scrollTo(0, 0);
             }
         });
-
-        // 左上角返回按钮
-        binding.ibBack.setOnClickListener(v -> finish());
-        binding.ibBack1.setOnClickListener(v -> finish());
     }
 
 
@@ -345,54 +325,66 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     protected void onClick() {
         super.onClick();
 
+        // 左上角返回按钮
+        binding.ibBack.setOnClickListener(v -> finish());
+        binding.ibBack1.setOnClickListener(v -> finish());
+
+        // 设置轮播点击事件
+        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
+                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+            }
+        });
+
+        // 跳转到店铺详情
         binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail());
         binding.tvGoInShop.setOnClickListener(v -> productDetailGoShopDetail());
+        binding.llShop.setOnClickListener(v -> productDetailGoShopDetail());
 
+        // 弹出添加购物车Pop
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop(0, 2, mSkuId);
+            showPropertyPop(0, 2, mPageBean.getCurrentItemSkuInfo().getId());
         });
 
+        // 弹出选择型号Pop
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop(1, 1, mSkuId);
+            showPropertyPop(1, 1, mPageBean.getCurrentItemSkuInfo().getId());
         });
+
+        // 弹出选择地址Pop
         binding.rlAddressChosen.setOnClickListener(v -> {
             showChooseAddressPop();
         });
+
+        // 弹出详细参数Pop
         binding.rlParamsCheck.setOnClickListener(v -> {
             showParamsCheckPop();
         });
 
-        // 点击店铺按钮 跳转到店铺详情页
-        binding.llShop.setOnClickListener(v -> {
-            productDetailGoShopDetail();
-        });
-
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(mSkuId))
+            if (TextUtils.isEmpty(mPageBean.getCurrentItemSkuInfo().getId()))
                 return;
-            mPresenter.onCollect(String.valueOf(mSkuId), "20", this.isCollect, -1);
+            mPresenter.onCollect(String.valueOf(mPageBean.getCurrentItemSkuInfo().getId()), "20", mPageBean.isCollected(), -1);
         });
 
         // 点击购物车按钮 跳转到购物车页面
         binding.llCart.setOnClickListener(v -> startIntent(CartActivity.class));
     }
 
+
     /**
      * 商品详情跳转到店铺详情
      */
     private void productDetailGoShopDetail() {
         Bundle bundle = new Bundle();
-        bundle.putString("shopInfoId", mShopId);
+        bundle.putString("shopInfoId", mPageBean.getShopId());
         ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
     }
 
-
-    public void getLocalVisibleRect(Context context, View view) {
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        view.setTag(location[1]);//存储y方向的位置
-    }
 
     /**
      * 获取View与Window的距离
@@ -421,9 +413,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         }
         if (mPop == null) {
 //            Log.d(TAG, "mPop == null 执行一次");
-            mPop = new PropertyPop<>(mSpecificationPopBeanList, itemSkuInfoList, mSkuStockBean,
+
+            mPop = new PropertyPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getSkuStockBean(),
                     mPageBean.getSellPrice(), mPageBean.getDelivery(),
-                    mShopId, mProvinceCode, mCityCode, mCountryCode,
+                    mPageBean.getShopId(), mPageBean.getProvinceCode(), mPageBean.getCityCode(), mPageBean.getCountryCode(),
                     "", "1", mode);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
@@ -436,7 +429,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                                 30L, 40L, 50, // 非必要属性
                                 String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", count, mPageBean.getCurrentItemSkuInfo().getId()),
                                 true);
-                        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
+                        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mPageBean.getCurrentItemSkuInfo().getId(), false);
                         mPop.dismiss();
                     } else {
                         ToastUtil.showCenter(ProductDetailsActivity.this, "没有此型号商品或商品库存不足");
@@ -448,11 +441,21 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 public void getSkuInfo(ItemSkuInfo itemSkuInfo) {
                     if (itemSkuInfo != null) {
                         mPageBean.setCurrentItemSkuInfo(itemSkuInfo);
-                        mSkuId = itemSkuInfo.getId();
                         binding.tvSelectType.setText(itemSkuInfo.getAttributesName());
                         binding.tvItemName.setText(itemSkuInfo.getSkuName());
-                        mGetProductDetailsPresenter.getProductPrice("20", mSkuId, true);
-                        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
+                        mGetProductDetailsPresenter.getProductPrice(
+                                "20",
+                                mPageBean.getCurrentItemSkuInfo().getId(),
+                                true);
+                        mGetProductDetailsPresenter.querySkuSaleStocks(
+                                mPageBean.getShopId(),
+                                mPageBean.getProvinceCode(),
+                                mPageBean.getCityCode(),
+                                mPageBean.getCountryCode(),
+                                mPageBean.getFullAddress(),
+                                "1",
+                                mPageBean.getCurrentItemSkuInfo().getId(),
+                                false);
                     } else {
 
                     }
@@ -488,7 +491,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     void showChooseAddressPop() {
         if (mChooseAddressPop == null) {
-            mChooseAddressPop = new ProductDetailsChooseAddressPop(this, addresses);
+            mChooseAddressPop = new ProductDetailsChooseAddressPop(this, mPageBean.getAddressList());
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
             mChooseAddressPop.setListener(new ProductDetailsChooseAddressPop.AddressListener() {
@@ -503,9 +506,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     pop.setGravity(Gravity.BOTTOM);
                     pop.setType(BasePop.MATCH_WRAP);
                     pop.setListener((address, provinceCode, cityCode, countryCode) -> {
-                        mProvinceCode = provinceCode;
-                        mCityCode = cityCode;
-                        mCountryCode = countryCode;
+                        mPageBean.setProvinceCode(provinceCode);
+                        mPageBean.setCityCode(cityCode);
+                        mPageBean.setCountryCode(countryCode);
+                        mPageBean.setFullAddress(address);
                         binding.tvAddressDefault.setText(address);
                     });
                     pop.show(getSupportFragmentManager(), "area");
@@ -528,22 +532,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetUserCollectSuccess(boolean isCollect) {
-        if (isCollect) {
-            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
-        } else {
-            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
-        }
-        this.isCollect = isCollect;
     }
 
     @Override
     public void onCollect(boolean isCollect, int position) {
-        if (this.isCollect) {
+        // TODO: 2021/6/10 保留 点击收藏按钮时发送网络请求 成功后更新收藏状态
+        if (mPageBean.isCollected()) {
             binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
         } else {
             binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
         }
-        this.isCollect = !this.isCollect;
+        mPageBean.setCollected(!mPageBean.isCollected());
     }
 
 
@@ -559,57 +558,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                                            ArrayList<ProductServiceBean> serviceBeans,
                                            ArrayList<ProductServiceBean> recCompanys,
                                            ArrayList<SpecificationPopBean> specificationPopBeanList) {
-        if (bean == null)
-            return;
-        this.productDetailsBean = bean;
+    }
 
-        serviceAdapter.update(serviceBeans, true);
-        companyAdapter.update(recCompanys, true);
 
-        // 请求接口 获取运费
-        mGetProductDetailsPresenter.getProductDelivery(bean.getItemPublishVo().getShopId());
-
-        // 设置商品名称
-        binding.tvItemName.setText(bean.getItemPublishVo().getItemName());
-        // 设置店铺名称
-        binding.textView.setText(bean.getItemPublishVo().getShopName());
-
-        // 不同规格组合产生的名称
-        String attrName = bean.getItemSkuInfoList().get(0).getAttributesName();
-        if (TextUtils.isEmpty(attrName)) {
-            binding.rlTypeChosen.setVisibility(View.GONE);
-        } else {
-            binding.tvSelectType.setText(bean.getItemSkuInfoList().get(0).getAttributesName());
-        }
-
-        // 获取skuId和shopId
-        List<ItemSkuInfo> itemSkuInfo = bean.getItemSkuInfoList();
-        if (itemSkuInfo == null)
-            return;
-        if (itemSkuInfo.isEmpty())
-            return;
-        mSkuId = itemSkuInfo.get(0).getId();
-        mShopId = String.valueOf(bean.getItemPublishVo().getShopId());
-
-        // 请求接口 添加浏览记录
-        mGetProductDetailsPresenter.addSkuVisitTrack(String.valueOf(bean.getItemPublishVo().getCid()), mSkuId, false);
-        // 请求接口 获取sku价格
-        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mSkuId, false);
-        // 请求接口 获取商品收藏状态
-        mGetProductDetailsPresenter.getUserCollect(mSkuId, false);
-        // 请求接口 获取店铺推荐商品
-        mGetProductDetailsPresenter.getHotSale(mPlatformId, "", String.valueOf(bean.getItemPublishVo().getCid()), 1, false);
-        // 请求接口 获取全部地址
-        mAddressPresenter.getAddress("", "1");
-        // 请求接口 获取默认地址
-        mAddressPresenter.getDefAddress("", "1");
-
-        Glide.with(this)
-                .load("https:" + bean.getItemPublishVo().getLogoUrl())
-                .placeholder(R.drawable.ic_placeholder)
-                .into(binding.ratioImage);
-
-        String longUrl = bean.getItemPublishVo().getDescribeUrl();
+    /**
+     * 展示商品介绍图片
+     */
+    private void showDescribePictures() {
+        String longUrl = mPageBean.getDetailsPictureUrl();
         if (!TextUtils.isEmpty(longUrl) && longUrl.contains(".jpg")) {
             ArrayList<ItemPicture> pics = new ArrayList<>();
             String[] urls = longUrl.split("\\.jpg");
@@ -658,8 +614,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             });
             mThread.start();
         }
-
-        mSpecificationPopBeanList = specificationPopBeanList;
     }
 
 
@@ -699,31 +653,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {
-        this.addresses = addressBeans;
     }
 
     @Override
     public void getDefAddress(AddressBean bean) {
-        if (bean == null) {
-            mProvinceCode = "11";
-            mCityCode = "1101";
-            mCountryCode = "110101";
-            binding.tvAddressDefault.setText("北京市市辖区东城区");
-        } else {
-            mProvinceCode = bean.getProvinceCode();
-            mCityCode = bean.getCityCode();
-            mCountryCode = bean.getCountryCode();
-            binding.tvAddressDefault.setText(bean.getFullAddress());
-        }
-        mGetProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceCode, mCityCode, mCountryCode, "", "1", mSkuId, false);
     }
 
     @Override
     public void getSkuSaleStocks(SkuStockBean bean) {
-        mSkuStockBean = bean;
-        if (bean == null || bean.getSaleState() == null || bean.getSaleState().equals("0") || bean.getSkuStock() == null || bean.getSkuStock().equals("0")) {
-//            binding.tvPutInCart.setBackground(this.getResources().getDrawable(R.drawable.bg_corner_gray_20_8e8e8e));
-        }
     }
 
 
@@ -736,25 +673,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void onProductInfoLoadCompleted(ProductDetailsPageBean finalProductBean) {
         mPageBean = finalProductBean;
 
-        // 设置轮播点击事件
-        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Bundle bundle = new Bundle();
-                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
-                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
-            }
-        });
+        this.productDetailsBean = mPageBean.getProductDetailsBean();
 
         // 设置轮播图
         binding.productPictureHD.setImages(mPageBean.getTopPictureList()).
                 setImageLoader(new GlideImageLoader4ProductDetails()).start();
-
-        // 设置购物车内商品数量
-        binding.tvCartCount.setText(mPageBean.getCartCount());
-
-        // 更新店铺推荐商品
-        recommendItemsRecyclerAdapter.update(mPageBean.getRecommendItemList(), false);
 
         // 设置价格
         binding.tvSellPrice.setText(mPageBean.getSellPrice());
@@ -765,11 +688,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             binding.tvPriceGray.setText(mPageBean.getMarketPrice());
         }
 
-        // 设置邮费
-        if (TextUtils.isEmpty(mPageBean.getDelivery())) {
-            binding.rlDelivery.setVisibility(View.VISIBLE);
-            binding.tvDelivery.setText(mPageBean.getDelivery());
-        }
+        // 设置商品名称
+        binding.tvItemName.setText(mPageBean.getProductName());
 
         // 设置商品评分
         binding.fsvScore.setStar(mPageBean.getProductScore());
@@ -777,12 +697,60 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置商品销量
         binding.itemSalesCounts.setText(mPageBean.getSaleCount());
 
-        // 更新包装清单
-        billAdapter.update(mPageBean.getPackingList(), true);
+        // 不同规格组合产生的名称
+        if (TextUtils.isEmpty(mPageBean.getProductAttrName())) {
+            binding.rlTypeChosen.setVisibility(View.GONE);
+        } else {
+            binding.tvSelectType.setText(mPageBean.getProductAttrName());
+        }
+
+        // 显示地址
+        binding.tvAddressDefault.setText(mPageBean.getFullAddress());
+
+        // 设置邮费
+        if (!TextUtils.isEmpty(mPageBean.getDelivery())) {
+            binding.rlDelivery.setVisibility(View.VISIBLE);
+            binding.tvDelivery.setText(mPageBean.getDelivery());
+        }
+
+        // 设置店铺Logo
+        Glide.with(this)
+                .load("https:" + mPageBean.getShopLogo())
+                .placeholder(R.drawable.ic_placeholder)
+                .into(binding.ratioImage);
+
+        // 设置店铺名称
+        binding.textView.setText(mPageBean.getShopName());
 
         // 设置店铺风险等级
         binding.tvCredit.setText(mPageBean.getShopSecurity());
         binding.ivCreditLevel.setBackground(mPageBean.getShopSecurityIcon());
+
+        // 更新店铺推荐商品
+        recommendItemsRecyclerAdapter.update(mPageBean.getRecommendItemList(), false);
+
+        // 展示商品介绍图片
+        showDescribePictures();
+
+        // 更新包装清单
+        billAdapter.update(mPageBean.getPackingList(), true);
+
+        // 更新售后服务
+        serviceAdapter.update(mPageBean.getServiceList(), true);
+
+        // 更新推荐单位
+        companyAdapter.update(mPageBean.getCompanyList(), true);
+
+        // 设置收藏状态
+        if (mPageBean.isCollected()) binding.ivCollect.setBackground(
+                this.getResources().getDrawable(R.drawable.ic_collect_true));
+        else binding.ivCollect.setBackground(
+                this.getResources().getDrawable(R.drawable.ic_collection));
+
+        // 设置购物车内商品数量
+        binding.tvCartCount.setText(mPageBean.getCartCount());
+
+
     }
 
     @Override

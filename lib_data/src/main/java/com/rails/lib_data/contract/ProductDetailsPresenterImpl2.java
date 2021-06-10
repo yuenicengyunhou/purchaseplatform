@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.text.TextUtils;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
@@ -12,6 +11,8 @@ import com.rails.lib_data.model.ProductDetailsModel2;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+
+import java.util.ArrayList;
 
 /**
  * 对{@link ProductDetailsPresenterImpl}类整合,实现并行和串行网络请求
@@ -42,6 +43,9 @@ public class ProductDetailsPresenterImpl2
 
             @Override
             protected void onSuccess(ProductDetailsStep1Bean response1) {
+                // 数据工具类
+                ProductDetailsDataUtils dataUtils = ProductDetailsDataUtils.getInstance();
+
                 // 查询不到skuId 就终止下一步请求
                 if (response1.getProductDetailsBean() == null
                         || response1.getProductDetailsBean().getItemSkuInfoList() == null
@@ -56,25 +60,12 @@ public class ProductDetailsPresenterImpl2
                 String shopId = response1.getProductDetailsBean().getItemPublishVo().getShopId();
                 String cid = String.valueOf(response1.getProductDetailsBean().getItemPublishVo().getCid());
                 String skuId = response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId();
-                String provinceId = "11";
-                String cityId = "1101";
-                String countryId = "110101";
-                String address = "北京市市辖区东城区";
+                ArrayList<AddressBean> addressBeanList = response1.getAddressBeanList();
+                String provinceId = dataUtils.getProvinceCode(addressBeanList);
+                String cityId = dataUtils.getCityCode(addressBeanList);
+                String countryId = dataUtils.getCountryCode(addressBeanList);
+                String address = dataUtils.getFullAddress(addressBeanList);
                 String skuNum = "1";
-
-                // 用户有自己的地址 使用用户的地址替换
-                if (response1.getAddressBeanList() != null
-                        && response1.getAddressBeanList().size() != 0) {
-                    AddressBean defaultAddress = response1.getAddressBeanList().get(0);
-                    if (!TextUtils.isEmpty(defaultAddress.getProvinceCode()))
-                        provinceId = response1.getAddressBeanList().get(0).getProvinceCode();
-                    if (!TextUtils.isEmpty(defaultAddress.getCityCode()))
-                        cityId = response1.getAddressBeanList().get(0).getCityCode();
-                    if (!TextUtils.isEmpty(defaultAddress.getCountryCode()))
-                        countryId = response1.getAddressBeanList().get(0).getCountryCode();
-                    if (!TextUtils.isEmpty(defaultAddress.getFullAddress()))
-                        address = response1.getAddressBeanList().get(0).getFullAddress();
-                }
 
                 // 下一步请求
                 mModel.getProductDetailsStep2(platformId, shopId, cid, skuId, provinceId, cityId, countryId, address, skuNum, new HttpRxObserver<ProductDetailsStep2Bean>() {
@@ -86,8 +77,7 @@ public class ProductDetailsPresenterImpl2
 
                     @Override
                     protected void onSuccess(ProductDetailsStep2Bean response2) {
-                        ProductDetailsPageBean productDetailsPageBean
-                                = ProductDetailsDataUtils.getInstance()
+                        ProductDetailsPageBean productDetailsPageBean = dataUtils
                                 .getBean(mContext.getApplicationContext(), response1, response2);
 
                         baseView.onProductInfoLoadCompleted(productDetailsPageBean);

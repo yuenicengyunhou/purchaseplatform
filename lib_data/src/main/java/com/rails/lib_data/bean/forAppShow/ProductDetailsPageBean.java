@@ -5,7 +5,9 @@ import android.graphics.drawable.Drawable;
 
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 
 import java.util.ArrayList;
@@ -33,9 +35,14 @@ public class ProductDetailsPageBean {
     private String marketPrice;
 
     /**
-     * 商品名称（会跟随sku变化而变化）
+     * 商品名称（会跟随sku变化而变化，最开始取Item名称，切换sku取Sku名称）
      */
     private String productName;
+
+    /**
+     * 商品型号名称（会跟随sku变化而变化）
+     */
+    private String productAttrName;
 
     /**
      * 商品评分（会跟随sku变化而变化）
@@ -70,15 +77,30 @@ public class ProductDetailsPageBean {
     private ProductPriceBean priceBean;
 
     /**
+     * 商品信息
+     */
+    private ProductDetailsBean productDetailsBean;
+
+    /**
+     * 库存信息
+     */
+    private SkuStockBean skuStockBean;
+
+    /**
      * sku
      * 进入详情页时默认第一个（会跟随sku变化而变化）
      */
     private ItemSkuInfo currentItemSkuInfo;
 
     /**
+     * skuID
+     */
+    private String skuId;
+
+    /**
      * 选择型号弹窗
      */
-    private ArrayList<SpecificationPopBean> specPopBean;
+    private ArrayList<SpecificationPopBean> specPopBeanList;
 
     /**
      * 商品收藏状态
@@ -104,6 +126,26 @@ public class ProductDetailsPageBean {
      * 用户地址（默认地址 index = 0）
      */
     private ArrayList<AddressBean> addressList;
+
+    /**
+     * 省
+     */
+    private String provinceCode;
+
+    /**
+     * 地区
+     */
+    private String cityCode;
+
+    /**
+     * 市/县
+     */
+    private String countryCode;
+
+    /**
+     * 地址
+     */
+    private String fullAddress;
 
     /**
      * 运费
@@ -196,6 +238,14 @@ public class ProductDetailsPageBean {
         this.productName = productName;
     }
 
+    public String getProductAttrName() {
+        return productAttrName;
+    }
+
+    public void setProductAttrName(String productAttrName) {
+        this.productAttrName = productAttrName;
+    }
+
     public double getProductScore() {
         return productScore;
     }
@@ -220,6 +270,22 @@ public class ProductDetailsPageBean {
         this.priceBean = priceBean;
     }
 
+    public ProductDetailsBean getProductDetailsBean() {
+        return productDetailsBean;
+    }
+
+    public void setProductDetailsBean(ProductDetailsBean productDetailsBean) {
+        this.productDetailsBean = productDetailsBean;
+    }
+
+    public SkuStockBean getSkuStockBean() {
+        return skuStockBean;
+    }
+
+    public void setSkuStockBean(SkuStockBean skuStockBean) {
+        this.skuStockBean = skuStockBean;
+    }
+
     public ItemSkuInfo getCurrentItemSkuInfo() {
         return currentItemSkuInfo;
     }
@@ -228,12 +294,20 @@ public class ProductDetailsPageBean {
         this.currentItemSkuInfo = currentItemSkuInfo;
     }
 
-    public ArrayList<SpecificationPopBean> getSpecPopBean() {
-        return specPopBean;
+    public String getSkuId() {
+        return skuId;
     }
 
-    public void setSpecPopBean(ArrayList<SpecificationPopBean> specPopBean) {
-        this.specPopBean = specPopBean;
+    public void setSkuId(String skuId) {
+        this.skuId = skuId;
+    }
+
+    public ArrayList<SpecificationPopBean> getSpecPopBeanList() {
+        return specPopBeanList;
+    }
+
+    public void setSpecPopBeanList(ArrayList<SpecificationPopBean> specPopBeanList) {
+        this.specPopBeanList = specPopBeanList;
     }
 
     public String getSaleCount() {
@@ -282,6 +356,38 @@ public class ProductDetailsPageBean {
 
     public void setAddressList(ArrayList<AddressBean> addressList) {
         this.addressList = addressList;
+    }
+
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
     }
 
     public String getDelivery() {

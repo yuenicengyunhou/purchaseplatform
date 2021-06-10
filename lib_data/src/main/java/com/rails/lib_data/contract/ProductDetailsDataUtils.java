@@ -74,89 +74,138 @@ public class ProductDetailsDataUtils {
 
         ProductDetailsBean detailsBean = bean1.getProductDetailsBean();
 
+        // productBean todo 后期优化 不再使用此项属性
+        ProductDetailsBean productDetailsBean = bean1.getProductDetailsBean();
+        finalProductBean.setProductDetailsBean(productDetailsBean);
+
+        // skuStockBean
+        SkuStockBean stockBean = bean2.getSkuStockBeans().get(0);
+        finalProductBean.setSkuStockBean(stockBean);
+
         // 当前ItemSkuInfo
         ItemSkuInfo currentItemSkuInfo = bean1.getProductDetailsBean().getItemSkuInfoList().get(0);
+        finalProductBean.setCurrentItemSkuInfo(currentItemSkuInfo);
+
+        // 当前的skuId
+        String skuId = currentItemSkuInfo.getId();
+        finalProductBean.setSkuId(skuId);
 
         // sku价格（在售价格、市场价格、sku名称、sku图片、评分、销量）
         ProductPriceBean priceBean = bean2.getProductPriceBeans().get(0);
+        finalProductBean.setPriceBean(priceBean);
+
         // 在售价格
         String sellPrice = String.format("%.2f", priceBean.getSellPrice());
+        finalProductBean.setSellPrice(sellPrice);
+
         // 市场价格
         String marketPrice = String.format("%.2f", priceBean.getMarketPrice());
-        // sku名称 商品型号组成的名称
+        finalProductBean.setMarketPrice(marketPrice);
+
+        // sku名称 具体某个Sku的名称
         String productSkuName = currentItemSkuInfo.getSkuName();
+        finalProductBean.setSkuName(productSkuName);
+
+        // sku型号名称
+        String productSkuAttrName = currentItemSkuInfo.getAttributesName();
+        finalProductBean.setProductAttrName(productSkuAttrName);
+
         // 商品评分
         double productScore = priceBean.getScore();
+        finalProductBean.setProductScore(productScore);
+
         // 商品销量
         String saleCount = String.valueOf(priceBean.getSaleNum());
+        finalProductBean.setSaleCount(saleCount);
+
         // 包装清单
         ArrayList<ProductDetailsPackingBean> packingBeans = getPackingBeans(priceBean);
+        finalProductBean.setPackingList(packingBeans);
 
         // 页面顶部轮播图
         ArrayList<String> topPictures = getTopPictureList(detailsBean);
+        finalProductBean.setTopPictureList(topPictures);
 
         // 售后服务说明
         ArrayList<ProductServiceBean> serviceBeans = getServiceBeans(detailsBean);
+        finalProductBean.setServiceList(serviceBeans);
+
         // 推荐单位说明
         ArrayList<ProductServiceBean> companyBeans = getCompanyBeans(detailsBean);
+        finalProductBean.setCompanyList(companyBeans);
 
         // 选择型号弹窗Bean
         ArrayList<SpecificationPopBean> specPopBean = getSpecificationPopBeans(detailsBean);
+        finalProductBean.setSpecPopBeanList(specPopBean);
+
         // 店铺推荐商品Bean
         ArrayList<RecommendItemsBean> shopRecommendItemList = getRecommends(bean2.getHotSaleBean());
+        finalProductBean.setRecommendItemList(shopRecommendItemList);
+
         // 获取购物车内商品数量
         String cartCount = bean1.getCartCount();
+        finalProductBean.setCartCount(cartCount);
+
         // 获取邮费
         String delivery = getDelivery(bean2.getDeliveryBean());
+        finalProductBean.setDelivery(delivery);
+
         // 获取库存
         boolean isInStock = isInStock(bean2.getSkuStockBeans());
+        finalProductBean.setInStock(isInStock);
+
         // 获取商品收藏状态
         boolean isCollected = getItemCollected(currentItemSkuInfo.getId(), bean2.getCollect());
+        finalProductBean.setCollected(isCollected);
+
         // 获取商品名称
         String productName = detailsBean.getItemPublishVo().getItemName();
+        finalProductBean.setProductName(productName);
+
         // 获取店铺名称
         String shopName = detailsBean.getItemPublishVo().getShopName();
+        finalProductBean.setShopName(shopName);
+
         // 获取店铺ID
         String shopId = detailsBean.getItemPublishVo().getShopId();
+        finalProductBean.setShopId(shopId);
+
         // 获取店铺Logo
         String logoUrl = detailsBean.getItemPublishVo().getLogoUrl();
+        finalProductBean.setShopLogo(logoUrl);
+
         // 获取店铺风险等级
         String shopSecurity = getSecurityText(detailsBean);
+        finalProductBean.setShopSecurity(shopSecurity);
+
         // 获取风险等级图标
         Drawable shopSecurityIcon = getSecurityIcon(context, shopSecurity);
+        finalProductBean.setShopSecurityIcon(shopSecurityIcon);
+
         // 获取用户地址
         ArrayList<AddressBean> addressList = bean1.getAddressBeanList();
+        finalProductBean.setAddressList(addressList);
+
+        // 省
+        String provinceCode = getProvinceCode(addressList);
+        finalProductBean.setProvinceCode(provinceCode);
+
+        // 市
+        String cityCode = getCityCode(addressList);
+        finalProductBean.setCityCode(cityCode);
+
+        // 区/县
+        String countryCode = getCountryCode(addressList);
+        finalProductBean.setCountryCode(countryCode);
+
+        // 地址
+        String fullAddress = getFullAddress(addressList);
+        finalProductBean.setFullAddress(fullAddress);
+
         // 获取商品介绍
         String longDescribeUrl = bean1.getProductDetailsBean().getItemPublishVo().getDescribeUrl();
-
-
-        finalProductBean.setCurrentItemSkuInfo(currentItemSkuInfo);
-
-        finalProductBean.setPriceBean(priceBean);
-        finalProductBean.setSellPrice(sellPrice);
-        finalProductBean.setMarketPrice(marketPrice);
-        finalProductBean.setSkuName(productSkuName);
-        finalProductBean.setProductScore(productScore);
-        finalProductBean.setSaleCount(saleCount);
-        finalProductBean.setPackingList(packingBeans);
-
-        finalProductBean.setTopPictureList(topPictures);
-        finalProductBean.setServiceList(serviceBeans);
-        finalProductBean.setCompanyList(companyBeans);
-        finalProductBean.setSpecPopBean(specPopBean);
-        finalProductBean.setRecommendItemList(shopRecommendItemList);
-        finalProductBean.setCollected(isCollected);
-        finalProductBean.setCartCount(cartCount);
-        finalProductBean.setDelivery(delivery);
-        finalProductBean.setInStock(isInStock);
-        finalProductBean.setProductName(productName);
-        finalProductBean.setShopName(shopName);
-        finalProductBean.setShopId(shopId);
-        finalProductBean.setShopSecurity(shopSecurity);
-        finalProductBean.setShopSecurityIcon(shopSecurityIcon);
-        finalProductBean.setShopLogo(logoUrl);
-        finalProductBean.setAddressList(addressList);
         finalProductBean.setDetailsPictureUrl(longDescribeUrl);
+
 
         return finalProductBean;
     }
@@ -338,6 +387,62 @@ public class ProductDetailsDataUtils {
         packingBean.setAttrKey(key_value[0]);
         packingBean.setAttrValue(key_value[1]);
         packingBeans.add(packingBean);
+    }
+
+    /**
+     * 获取省码
+     *
+     * @param addressBeans
+     * @return
+     */
+    public String getProvinceCode(ArrayList<AddressBean> addressBeans) {
+        if (addressBeans == null
+                || addressBeans.size() == 0
+                || TextUtils.isEmpty(addressBeans.get(0).getProvinceCode()))
+            return "11";
+        return addressBeans.get(0).getProvinceCode();
+    }
+
+    /**
+     * 获取地区码
+     *
+     * @param addressBeans
+     * @return
+     */
+    public String getCityCode(ArrayList<AddressBean> addressBeans) {
+        if (addressBeans == null
+                || addressBeans.size() == 0
+                || TextUtils.isEmpty(addressBeans.get(0).getCityCode()))
+            return "01";
+        return addressBeans.get(0).getCityCode();
+    }
+
+    /**
+     * 获取市/县码
+     *
+     * @param addressBeans
+     * @return
+     */
+    public String getCountryCode(ArrayList<AddressBean> addressBeans) {
+        if (addressBeans == null
+                || addressBeans.size() == 0
+                || TextUtils.isEmpty(addressBeans.get(0).getCountryCode()))
+            return "01";
+        return addressBeans.get(0).getCountryCode();
+    }
+
+    /**
+     * 获取地址
+     *
+     * @param addressBeans
+     * @return
+     */
+    public String getFullAddress(ArrayList<AddressBean> addressBeans) {
+        if (addressBeans == null
+                || addressBeans.size() == 0
+                || TextUtils.isEmpty(addressBeans.get(0).getFullAddress()))
+            return "北京市市辖区东城区";
+        return addressBeans.get(0).getFullAddress();
     }
 
     /**
