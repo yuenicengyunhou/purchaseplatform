@@ -6,7 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 商品详情页商品价格
+ * 在售价格
+ * <p>
+ * 市场价格
+ * <p>
+ * sku名称
+ * <p>
+ * sku图片
+ * <p>
+ * 评分
+ * <p>
+ * 销量
+ * <p>
+ * 包装清单
  */
 public class ProductPriceBean {
     private int skuId;

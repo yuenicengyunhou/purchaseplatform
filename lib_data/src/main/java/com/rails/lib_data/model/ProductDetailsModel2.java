@@ -101,10 +101,8 @@ public class ProductDetailsModel2 {
 
         Observable productDetails
                 = getProductDetails(platformId, itemId).subscribeOn(Schedulers.io());
-
         Observable addressList
                 = getAddress(platformId, addressType).subscribeOn(Schedulers.io());
-
         Observable cartCount
                 = getCartCount(platformId, "", "");
 
@@ -301,19 +299,14 @@ public class ProductDetailsModel2 {
 
         Observable deliver
                 = getProductDelivery(shopId).subscribeOn(Schedulers.io());
-
         Observable visit
                 = addSkuVisitTrack(cid, skuId).subscribeOn(Schedulers.io());
-
         Observable productPrice
                 = getProductPrice(platformId, skuId);
-
         Observable userCollect
                 = getUserCollect(skuId);
-
         Observable hotSale
                 = getHotSale(platformId, cid, 1);
-
         Observable skuStock
                 = querySkuSaleStocks(shopId, provinceId, cityId, countryId, address, skuNum, skuId);
 
