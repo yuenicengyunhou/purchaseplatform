@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author： sk_comic@163.com
  * @date: 2021/3/9
  */
-public class BrandBean implements Serializable {
+public class BrandBean implements Serializable{
 
 
     /**
@@ -46,6 +46,7 @@ public class BrandBean implements Serializable {
     private String brandLogoUrl;
     private String createTime;
     private String countNum;
+    private String shopId;
 
     public String getId() {
         return id;
@@ -149,6 +150,14 @@ public class BrandBean implements Serializable {
 
     public void setBrandId(String brandId) {
         this.brandId = brandId;
+    }
+
+    public String getShopid() {
+        return shopId;
+    }
+
+    public void setShopid(String shopid) {
+        this.shopId = shopid;
     }
 
     public String getBrandName() {

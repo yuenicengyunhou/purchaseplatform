@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
@@ -73,6 +74,67 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
             }
         }
         getIndexInfo(isDialog);
+    }
+
+    @Override
+    public void getRanks(boolean isDialog, int page, String pageSize, String categoryId) {
+        if (TextUtils.isEmpty(categoryId)) {
+            model.getRecBrands(page, pageSize, new HttpRxObserver<ListBeen<BrandBean>>() {
+                @Override
+                protected void onError(ErrorBean e) {
+                    baseView.dismissDialog();
+                    baseView.onError(e);
+                }
+
+                @Override
+                protected void onSuccess(ListBeen<BrandBean> listBeen) {
+                    baseView.dismissDialog();
+                    if (isCallBack()){
+                        boolean isClear = listBeen.getPageNum()== 1;
+                        boolean hasMore = listBeen.getPageNum()< listBeen.getTotalPageCount();
+                        baseView.getBrands(listBeen.getList(),hasMore,isClear);
+                    }
+                }
+            });
+        } else if ("1".equals(categoryId)) {
+            model.getHotProducts(page, pageSize, new HttpRxObserver<ListBeen<ProductBean>>() {
+                @Override
+                protected void onError(ErrorBean e) {
+                    baseView.dismissDialog();
+                    baseView.onError(e);
+                }
+
+                @Override
+                protected void onSuccess(ListBeen<ProductBean> listBeen) {
+                    baseView.dismissDialog();
+                    if (isCallBack()){
+                        boolean isClear = listBeen.getPageNum()== 1;
+                        boolean hasMore = listBeen.getPageNum()< listBeen.getTotalPageCount();
+                        baseView.getFloorProducts(listBeen.getList(),hasMore,isClear);
+                    }
+                }
+
+            });
+        } else {
+            model.getFloorProducts(page, pageSize, categoryId, new HttpRxObserver<ListBeen<ProductBean>>() {
+
+                @Override
+                protected void onError(ErrorBean e) {
+                    baseView.dismissDialog();
+                    baseView.onError(e);
+                }
+
+                @Override
+                protected void onSuccess(ListBeen<ProductBean> listBeen) {
+                    baseView.dismissDialog();
+                    if (isCallBack()){
+                        boolean isClear = listBeen.getPageNum()== 1;
+                        boolean hasMore = listBeen.getPageNum()< listBeen.getTotalPageCount();
+                        baseView.getFloorProducts(listBeen.getList(),hasMore,isClear);
+                    }
+                }
+            });
+        }
     }
 
 

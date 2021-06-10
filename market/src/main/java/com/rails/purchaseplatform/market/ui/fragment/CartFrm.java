@@ -571,6 +571,16 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     }
 
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
+    }
+
 
     /**
      * 显示地址弹窗

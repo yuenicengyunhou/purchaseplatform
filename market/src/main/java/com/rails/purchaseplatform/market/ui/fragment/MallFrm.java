@@ -108,7 +108,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             @Override
             public void onPosition(BrandBean bean, int position) {
 
-                String shopId = bean.getBrandId();
+                String shopId = bean.getShopid();
                 Bundle bundle = new Bundle();
                 if (TextUtils.isEmpty(shopId))
                     return;
@@ -128,10 +128,12 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         recAdapter.setMulPositionListener(new MulPositionListener() {
             @Override
             public void onPosition(Object bean, int position, int... params) {
-                if(indexBean != null){
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("bean",indexBean);
-                    startIntent(RankActivity.class,bundle);
+                if (indexBean != null) {
+                    try {
+                        startIntent(RankActivity.class);
+                    } catch (Exception e) {
+
+                    }
                 }
             }
         });
@@ -227,6 +229,16 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     }
 
     @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
     protected void onClick() {
         super.onClick();
 
@@ -249,6 +261,16 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             Bundle bundle = new Bundle();
             bundle.putString("url", ConRoute.WEB_URL.MSG);
             goLogin(null, ConRoute.WEB.WEB_MSG, bundle);
+        });
+
+        binding.lrTitle.setOnClickListener(v -> {
+            if (indexBean != null) {
+                try {
+                    startIntent(RankActivity.class);
+                } catch (Exception e) {
+
+                }
+            }
         });
     }
 
@@ -295,7 +317,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             } else
                 startIntent(cls);
         }
-
     }
 
 

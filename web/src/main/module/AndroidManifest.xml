@@ -47,8 +47,15 @@
             android:name=".ui.EvaluteActivity"
             android:screenOrientation="portrait" />
         <!--采购单详情-->
-        <activity android:name=".ui.PurchaseDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.PurchaseDetailActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".ui.RankQuestionActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
     </application>

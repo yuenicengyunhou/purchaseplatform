@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
@@ -14,9 +15,11 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
+import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.utils.BASE64;
+import com.rails.purchaseplatform.framwork.utils.file.FileCacheUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketRankBinding;
 import com.rails.purchaseplatform.market.ui.fragment.RankFragment;
@@ -46,23 +49,20 @@ import androidx.fragment.app.FragmentPagerAdapter;
  * @author： sk_comic@163.com
  * @date: 2021/6/7
  */
-public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> implements MarketIndexContract.MarketIndexView {
+public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding>{
 
     private ViewPageAdapter viewPageAdapter;
-    private MarketIndexContract.MarketIndexPresenter presenter;
-
     private MarketIndexBean indexBean;
 
 
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        indexBean = (MarketIndexBean) extras.getSerializable("bean");
     }
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        indexBean =  (MarketIndexBean) FileCacheUtil.getInstance(this).readObject("mallInfo");
         if (indexBean != null) {
             ProductRecBean recBean = new ProductRecBean();
             recBean.setFirstCategoryName("热销品牌");
@@ -70,9 +70,6 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
             indexBean.getRecBeans().add(0, recBean);
             initPager(indexBean.getRecBeans());
         }
-
-
-        presenter = new MarKetIndexPresenterImpl(this, this);
     }
 
     @Override
@@ -121,9 +118,9 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
             public IPagerTitleView getTitleView(Context context, int index) {
 
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.font_black_light));
-                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_blue));
-                colorTransitionPagerTitleView.setTextSize(14f);
+                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.white));
+                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_yellow));
+                colorTransitionPagerTitleView.setTextSize(15f);
                 colorTransitionPagerTitleView.setText(beans.get(index).getFirstCategoryName());
                 colorTransitionPagerTitleView.setOnClickListener(view -> binding.viewPager.setCurrentItem(index));
                 return colorTransitionPagerTitleView;
@@ -133,7 +130,7 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
-                indicator.setColors(getResources().getColor(R.color.bg_blue));
+                indicator.setColors(getResources().getColor(R.color.font_yellow));
                 return indicator;
             }
         });
@@ -142,14 +139,17 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> i
         binding.viewPager.setCurrentItem(0);
     }
 
-    @Override
-    public void getHotProducts(ArrayList<ProductBean> beans) {
-
-    }
-
 
     @Override
-    public void getIndexInfo(MarketIndexBean bean) {
+    protected void onClick() {
+        super.onClick();
 
+        binding.imgLeft.setOnClickListener(v -> {
+            finish();
+        });
+
+        binding.imgRight.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.WEB.WEB_RANK_QUESTION).navigation();
+        });
     }
 }

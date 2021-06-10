@@ -35,6 +35,25 @@ public interface MarketIndexContract {
          * @param bean
          */
         void getIndexInfo(MarketIndexBean bean);
+
+
+        /**
+         * 获取品牌列表排行
+         * @param brandBeans
+         * @param hasMore
+         * @param isClear
+         */
+        void getBrands(ArrayList<BrandBean> brandBeans,boolean hasMore, boolean isClear);
+
+
+        /**
+         * 获取单个楼层列表排行
+         * @param productBeans
+         * @param hasMore
+         * @param isClear
+         */
+        void getFloorProducts(ArrayList<ProductBean> productBeans,boolean hasMore, boolean isClear);
+
     }
 
 
@@ -46,14 +65,24 @@ public interface MarketIndexContract {
          *
          * @param isDialog 是否显示加载窗口
          */
-        void getHotProducts(boolean isDialog, int page,String pageSize);
-
+        void getHotProducts(boolean isDialog, int page, String pageSize);
 
 
         /**
          * 首页列表聚合
          */
         void getMarketIndexInfo(boolean isCache, boolean isDialog);
+
+
+        /**
+         * 获取排行列表
+         *
+         * @param isDialog
+         * @param page
+         * @param pageSize
+         * @param categoryId 分类id   热销商品为 "1"， 热销品牌为 ""
+         */
+        void getRanks(boolean isDialog, int page, String pageSize, String categoryId);
 
     }
 

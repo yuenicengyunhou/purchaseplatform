@@ -46,7 +46,8 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:maxLines="1"
-                    android:textColor="@color/font_black"
+                    android:text="排行榜"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/font_size_18" />
 
                 <ImageView
@@ -72,6 +73,9 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_20"
+            android:background="@drawable/bg_corner_white_top_half_15"
             android:layout_height="match_parent" />
 
     </LinearLayout>

@@ -121,6 +121,8 @@ public class ConRoute {
         public final static String WEB_APPROVAL = "/web/approval";
         //采购单详情
         public final static String WEB_PURCHASE_DETAIL = "/web/purchase/detail";
+        //排行榜说明
+        public final static String WEB_RANK_QUESTION = "/web/rankquestion";
     }
 
 
@@ -171,6 +173,9 @@ public class ConRoute {
 
         // 已驳回   // 已通过
         public final static String TURN_DOWN_LIST = BASEURL + "kindsApproval";
+
+        //排行榜说明
+        public final static String RANK_QUESTION = BASEURL+"listDescription";
 
     }
 

@@ -10,6 +10,7 @@ import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -39,7 +40,7 @@ public interface MarketIndexService {
      * @return
      */
     @GET("ds/firstCategoryRank/goodsRank")
-    Observable<HttpResult<ArrayList<ProductRecBean>>> getFloorProducts(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<ListBeen<ProductBean>>> getFloorProducts(@QueryMap HashMap<String, Object> params);
 
     /**
      * 获取商城banner列表
