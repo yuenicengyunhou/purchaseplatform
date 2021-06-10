@@ -64,7 +64,7 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
      */
     private Drawable backgroundBlue, backgroundGray;
 
-    private TypeSelect mTypeSelect;
+    private ChooseSkuAndAddCart mChooseSkuAndAddCart;
 
     private String mMinPrice, mMaxPrice, mDelivery, mPrice;
 
@@ -203,13 +203,13 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
             public void onItemClicked(ItemSkuInfo itemSkuInfo) {
                 mItemSkuInfo = itemSkuInfo;
                 if (mItemSkuInfo != null) mPreviousItemSkuInfo = mItemSkuInfo;
-                if (itemSkuInfo != null && mTypeSelect != null) {
+                if (itemSkuInfo != null && mChooseSkuAndAddCart != null) {
                     Glide.with(getContext())
                             .load("https:" + mItemSkuInfo.getPictureUrl())
                             .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_placeholder_rect)
                             .into(binding.imgProduct); // 切换sku时切换图片
 //                    Bitmap bitmap =
-                    mTypeSelect.getSkuInfo(mItemSkuInfo); // 把ItemSkuInfo传给activity
+                    mChooseSkuAndAddCart.onSkuChanged(mItemSkuInfo); // 把ItemSkuInfo传给activity
                     mProductDetailsPresenter.getProductPrice("20", mItemSkuInfo.getId(), true); // 请求价格接口
                     mProductDetailsPresenter.querySkuSaleStocks(mShopId, mProvinceId, mCityId, mCountryId,
                             mAddress, mSkuNum, mItemSkuInfo.getId(), false); // 请求库存接口
@@ -219,7 +219,7 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
                     binding.tvCountState.setText(mStockStateStr); // 显示无货
                     binding.tvAdd.setTextColor(fontGray); // 增加数量按钮灰色
                     binding.addCart.setBackground(backgroundGray); // 确定（加入购物车）按钮灰色
-                    mTypeSelect.getSkuInfo(mPreviousItemSkuInfo); // 把ItemSkuInfo传给activity
+                    mChooseSkuAndAddCart.onSkuChanged(mPreviousItemSkuInfo); // 把ItemSkuInfo传给activity
                 }
             }
         });
@@ -246,8 +246,8 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
                 ToastUtil.showCenter(getActivity(), "请选择其它型号的商品");
                 return;
             }
-            if (null != mTypeSelect) {
-                mTypeSelect.onSelectComplete(binding.etNum.getText().toString().trim());
+            if (null != mChooseSkuAndAddCart) {
+                mChooseSkuAndAddCart.onAddCart(binding.etNum.getText().toString().trim());
             }
         });
         binding.etNum.addTextChangedListener(new TextWatcher() {
@@ -358,29 +358,29 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
     /**
      * 商品详情页 选择规格弹窗监听
      *
-     * @param typeSelect
+     * @param chooseSkuAndAddCart
      */
-    public void setTypeSelectListener(TypeSelect typeSelect) {
-        this.mTypeSelect = typeSelect;
+    public void setTypeSelectListener(ChooseSkuAndAddCart chooseSkuAndAddCart) {
+        this.mChooseSkuAndAddCart = chooseSkuAndAddCart;
     }
 
     /**
      * 商品详情页 选规格
      */
-    public interface TypeSelect {
+    public interface ChooseSkuAndAddCart {
 
         /**
          * 点击确定按钮 回传购买数量
          *
          * @param count
          */
-        void onSelectComplete(String count);
+        void onAddCart(String count);
 
         /**
          * 点击规格型号 回传ItemSkuInfo
          *
          * @param info
          */
-        void getSkuInfo(ItemSkuInfo info);
+        void onSkuChanged(ItemSkuInfo info);
     }
 }

@@ -6,6 +6,7 @@ import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep1Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep2Bean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep3Bean;
 import com.rails.lib_data.model.ProductDetailsModel2;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -30,7 +31,11 @@ public class ProductDetailsPresenterImpl2
 
 
     @Override
-    public void getAllProductInfo(String platformId, String itemId, String addressType, boolean isDialog) {
+    public void getAllProductInfo(String platformId,
+                                  String itemId,
+                                  String addressType,
+                                  boolean isDialog) {
+
         if (isDialog) baseView.showResDialog(R.string.loading);
 
         mModel.getProductDetailsStep1(platformId, itemId, addressType, new HttpRxObserver<ProductDetailsStep1Bean>() {
@@ -82,6 +87,39 @@ public class ProductDetailsPresenterImpl2
                         baseView.dismissDialog();
                     }
                 });
+            }
+        });
+    }
+
+
+    @Override
+    public void getProductSkuInfo(String platformId,
+                                  String cid,
+                                  String skuId,
+                                  String shopId,
+                                  String provinceId,
+                                  String cityId,
+                                  String countryId,
+                                  String address,
+                                  String skuNum,
+                                  boolean isDialog) {
+
+        if (isDialog) baseView.showResDialog(R.string.loading);
+
+        mModel.getProductDetailsPop(platformId, cid, skuId, shopId, provinceId, cityId, countryId, address, skuNum, new HttpRxObserver<ProductDetailsStep3Bean>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(ProductDetailsStep3Bean response) {
+                // 数据工具类
+                ProductDetailsDataUtils dataUtils = ProductDetailsDataUtils.getInstance();
+                dataUtils.analysisPopData(mContext.getApplicationContext(), response);
+                baseView.onPopViewClick(dataUtils.getProductDetailsPopBean());
+                baseView.dismissDialog();
             }
         });
     }

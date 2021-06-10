@@ -93,6 +93,11 @@ public class ProductDetailsPageBean {
     private ItemSkuInfo currentItemSkuInfo;
 
     /**
+     * cid 品类ID
+     */
+    private String cid;
+
+    /**
      * skuID
      */
     private String skuId;
@@ -292,6 +297,14 @@ public class ProductDetailsPageBean {
 
     public void setCurrentItemSkuInfo(ItemSkuInfo currentItemSkuInfo) {
         this.currentItemSkuInfo = currentItemSkuInfo;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
     public String getSkuId() {

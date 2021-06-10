@@ -427,15 +427,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
-            mPop.setTypeSelectListener(new AddCartPop.TypeSelect() {
+            mPop.setTypeSelectListener(new AddCartPop.ChooseSkuAndAddCart() {
                 @Override
-                public void onSelectComplete(String count) {
+                public void onAddCart(String count) {
                     if (mPageBean.getCurrentItemSkuInfo() != null) {
                         mPresenter.addCart(20L,
                                 30L, 40L, 50, // 非必要属性
                                 String.format("[{\"saleNum\":\"%s\",\"skuId\":\"%s\"}]", count, mPageBean.getCurrentItemSkuInfo().getId()),
                                 true);
-                        mGetProductDetailsPresenter.getProductPrice(mPlatformId, mPageBean.getCurrentItemSkuInfo().getId(), false);
+                        /*mGetProductDetailsPresenter.getProductPrice(mPlatformId, mPageBean.getCurrentItemSkuInfo().getId(), false);*/
                         mPop.dismiss();
                     } else {
                         ToastUtil.showCenter(ProductDetailsActivity.this, "没有此型号商品或商品库存不足");
@@ -444,7 +444,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
                 // 点击规格、加入购物车弹窗中的item时，会切换itemSku
                 @Override
-                public void getSkuInfo(ItemSkuInfo itemSkuInfo) {
+                public void onSkuChanged(ItemSkuInfo itemSkuInfo) {
                     if (itemSkuInfo != null) {
                         mPageBean.setCurrentItemSkuInfo(itemSkuInfo);
                         binding.tvSelectType.setText(itemSkuInfo.getAttributesName());
@@ -462,6 +462,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                                 "1",
                                 mPageBean.getCurrentItemSkuInfo().getId(),
                                 false);
+
+                        /*mProductDetailsPresenterImpl2.getProductSkuInfo("20", mPageBean.getCid(), mPageBean.getSkuId(),
+                                mPageBean.getShopId(), mPageBean.getProvinceCode(), mPageBean.getCityCode(), mPageBean.getCountryCode(),
+                                mPageBean.getFullAddress(), "1", true);*/
                     } else {
 
                     }
@@ -756,6 +760,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置购物车内商品数量
         binding.tvCartCount.setText(mPageBean.getCartCount());
 
+
+    }
+
+    @Override
+    public void onPopViewClick(ProductDetailsPopBean popBean) {
 
     }
 

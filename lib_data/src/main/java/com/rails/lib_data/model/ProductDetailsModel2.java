@@ -8,6 +8,7 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep1Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep2Bean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep3Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.AddressService;
@@ -388,17 +389,17 @@ public class ProductDetailsModel2 {
                         ArrayList<ProductPriceBean>,
                         JSONObject,
                         ArrayList<SkuStockBean>,
-                        ProductDetailsStep2Bean>() {
+                        ProductDetailsStep3Bean>() {
 
                     @NotNull
                     @Override
-                    public ProductDetailsStep2Bean apply(
+                    public ProductDetailsStep3Bean apply(
                             @NotNull Boolean aBoolean,
                             @NotNull ArrayList<ProductPriceBean> productPriceBeans,
                             @NotNull JSONObject jsonObject,
                             @NotNull ArrayList<SkuStockBean> skuStockBeans) throws Exception {
 
-                        ProductDetailsStep2Bean bean = new ProductDetailsStep2Bean();
+                        ProductDetailsStep3Bean bean = new ProductDetailsStep3Bean();
                         bean.setVisitTrack(aBoolean);
                         bean.setProductPriceBeans(productPriceBeans);
                         bean.setCollect(jsonObject);

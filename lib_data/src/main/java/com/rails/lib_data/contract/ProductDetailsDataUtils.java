@@ -32,6 +32,7 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.ItemSkuInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep1Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep2Bean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep3Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.SkuSpecInfo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportData;
@@ -95,6 +96,10 @@ public class ProductDetailsDataUtils {
         // productBean todo 后期优化 不再使用此项属性
         ProductDetailsBean productDetailsBean = bean1.getProductDetailsBean();
         pageBean.setProductDetailsBean(productDetailsBean);
+
+        // cid
+        String cid = String.valueOf(productDetailsBean.getItemPublishVo().getCid());
+        pageBean.setCid(cid);
 
         // skuStockBean
         SkuStockBean stockBean = bean2.getSkuStockBeans().get(0);
@@ -227,6 +232,11 @@ public class ProductDetailsDataUtils {
 
         productDetailsPageBean = pageBean;
         productDetailsPopBean = popBean;
+    }
+
+
+    public void analysisPopData(Context context, ProductDetailsStep3Bean bean3) {
+
     }
 
 
