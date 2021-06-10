@@ -24,6 +24,7 @@ import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPageBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPopBean;
 import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -54,9 +55,9 @@ import com.rails.purchaseplatform.market.adapter.pdetail.ProductBillAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.ProductRecCompanyAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.ProductServiceAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBinding;
+import com.rails.purchaseplatform.market.ui.pop.AddCartPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
-import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
 import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -91,12 +92,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private ProductDetailsPageBean mPageBean;
 
+    /**
+     * 添加购物车Pop中需要展示或计算的所有数据
+     */
+    private ProductDetailsPopBean mPopBean;
+
     private ProductDetailsBean productDetailsBean;
 
     private String mItemId;
     private String mPlatformId = "20";
 
-    private PropertyPop<SpecificationPopBean> mPop;
+    private AddCartPop<SpecificationPopBean> mPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
     private ProductDetailsParamsPop mParamsPop;
 
@@ -414,14 +420,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (mPop == null) {
 //            Log.d(TAG, "mPop == null 执行一次");
 
-            mPop = new PropertyPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getSkuStockBean(),
+            mPop = new AddCartPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getSkuStockBean(),
                     mPageBean.getSellPrice(), mPageBean.getDelivery(),
                     mPageBean.getShopId(), mPageBean.getProvinceCode(), mPageBean.getCityCode(), mPageBean.getCountryCode(),
-                    "", "1", mode);
+                    "", "1");
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
-            mPop.setTypeSelectListener(new PropertyPop.TypeSelect() {
+            mPop.setTypeSelectListener(new AddCartPop.TypeSelect() {
                 @Override
                 public void onSelectComplete(String count) {
                     if (mPageBean.getCurrentItemSkuInfo() != null) {

@@ -17,6 +17,7 @@ import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPageBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPopBean;
 import com.rails.lib_data.bean.forAppShow.ProductSpecificParameter;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -65,149 +66,167 @@ public class ProductDetailsDataUtils {
         private static final ProductDetailsDataUtils INSTANCE = new ProductDetailsDataUtils();
     }
 
+    private ProductDetailsPageBean productDetailsPageBean;
+
+    private ProductDetailsPopBean productDetailsPopBean;
+
+
+    public ProductDetailsPageBean getProductDetailsPageBean() {
+        return productDetailsPageBean;
+    }
+
+    public ProductDetailsPopBean getProductDetailsPopBean() {
+        return productDetailsPopBean;
+    }
 
     /**
-     * 获取ProductDetailsPageBean
+     * 解析数据获取 {@link #productDetailsPageBean} 和 {@link #productDetailsPopBean}
+     *
+     * @param context Context
+     * @param bean1   Step1 result
+     * @param bean2   Step2 result
      */
-    public ProductDetailsPageBean getBean(Context context, ProductDetailsStep1Bean bean1, ProductDetailsStep2Bean bean2) {
-        ProductDetailsPageBean finalProductBean = new ProductDetailsPageBean();
+    public void analysisAllData(Context context, ProductDetailsStep1Bean bean1, ProductDetailsStep2Bean bean2) {
+        ProductDetailsPageBean pageBean = new ProductDetailsPageBean();
+        ProductDetailsPopBean popBean = new ProductDetailsPopBean();
 
         ProductDetailsBean detailsBean = bean1.getProductDetailsBean();
 
         // productBean todo 后期优化 不再使用此项属性
         ProductDetailsBean productDetailsBean = bean1.getProductDetailsBean();
-        finalProductBean.setProductDetailsBean(productDetailsBean);
+        pageBean.setProductDetailsBean(productDetailsBean);
 
         // skuStockBean
         SkuStockBean stockBean = bean2.getSkuStockBeans().get(0);
-        finalProductBean.setSkuStockBean(stockBean);
+        pageBean.setSkuStockBean(stockBean);
 
         // 当前ItemSkuInfo
         ItemSkuInfo currentItemSkuInfo = bean1.getProductDetailsBean().getItemSkuInfoList().get(0);
-        finalProductBean.setCurrentItemSkuInfo(currentItemSkuInfo);
+        pageBean.setCurrentItemSkuInfo(currentItemSkuInfo);
 
         // 当前的skuId
         String skuId = currentItemSkuInfo.getId();
-        finalProductBean.setSkuId(skuId);
+        pageBean.setSkuId(skuId);
 
         // sku价格（在售价格、市场价格、sku名称、sku图片、评分、销量）
         ProductPriceBean priceBean = bean2.getProductPriceBeans().get(0);
-        finalProductBean.setPriceBean(priceBean);
+        pageBean.setPriceBean(priceBean);
 
         // 在售价格
         String sellPrice = String.format("%.2f", priceBean.getSellPrice());
-        finalProductBean.setSellPrice(sellPrice);
+        pageBean.setSellPrice(sellPrice);
 
         // 市场价格
         String marketPrice = String.format("%.2f", priceBean.getMarketPrice());
-        finalProductBean.setMarketPrice(marketPrice);
+        pageBean.setMarketPrice(marketPrice);
 
         // sku名称 具体某个Sku的名称
         String productSkuName = currentItemSkuInfo.getSkuName();
-        finalProductBean.setSkuName(productSkuName);
+        pageBean.setSkuName(productSkuName);
 
         // sku型号名称
         String productSkuAttrName = currentItemSkuInfo.getAttributesName();
-        finalProductBean.setProductAttrName(productSkuAttrName);
+        pageBean.setProductAttrName(productSkuAttrName);
 
         // 商品评分
         double productScore = priceBean.getScore();
-        finalProductBean.setProductScore(productScore);
+        pageBean.setProductScore(productScore);
 
         // 商品销量
         String saleCount = String.valueOf(priceBean.getSaleNum());
-        finalProductBean.setSaleCount(saleCount);
+        pageBean.setSaleCount(saleCount);
 
         // 包装清单
         ArrayList<ProductDetailsPackingBean> packingBeans = getPackingBeans(priceBean);
-        finalProductBean.setPackingList(packingBeans);
+        pageBean.setPackingList(packingBeans);
 
         // 页面顶部轮播图
         ArrayList<String> topPictures = getTopPictureList(detailsBean);
-        finalProductBean.setTopPictureList(topPictures);
+        pageBean.setTopPictureList(topPictures);
 
         // 售后服务说明
         ArrayList<ProductServiceBean> serviceBeans = getServiceBeans(detailsBean);
-        finalProductBean.setServiceList(serviceBeans);
+        pageBean.setServiceList(serviceBeans);
 
         // 推荐单位说明
         ArrayList<ProductServiceBean> companyBeans = getCompanyBeans(detailsBean);
-        finalProductBean.setCompanyList(companyBeans);
+        pageBean.setCompanyList(companyBeans);
 
         // 选择型号弹窗Bean
         ArrayList<SpecificationPopBean> specPopBean = getSpecificationPopBeans(detailsBean);
-        finalProductBean.setSpecPopBeanList(specPopBean);
+        pageBean.setSpecPopBeanList(specPopBean);
 
         // 店铺推荐商品Bean
         ArrayList<RecommendItemsBean> shopRecommendItemList = getRecommends(bean2.getHotSaleBean());
-        finalProductBean.setRecommendItemList(shopRecommendItemList);
+        pageBean.setRecommendItemList(shopRecommendItemList);
 
         // 获取购物车内商品数量
         String cartCount = bean1.getCartCount();
-        finalProductBean.setCartCount(cartCount);
+        pageBean.setCartCount(cartCount);
 
         // 获取邮费
         String delivery = getDelivery(bean2.getDeliveryBean());
-        finalProductBean.setDelivery(delivery);
+        pageBean.setDelivery(delivery);
 
         // 获取库存
         boolean isInStock = isInStock(bean2.getSkuStockBeans());
-        finalProductBean.setInStock(isInStock);
+        pageBean.setInStock(isInStock);
 
         // 获取商品收藏状态
         boolean isCollected = getItemCollected(currentItemSkuInfo.getId(), bean2.getCollect());
-        finalProductBean.setCollected(isCollected);
+        pageBean.setCollected(isCollected);
 
         // 获取商品名称
         String productName = detailsBean.getItemPublishVo().getItemName();
-        finalProductBean.setProductName(productName);
+        pageBean.setProductName(productName);
 
         // 获取店铺名称
         String shopName = detailsBean.getItemPublishVo().getShopName();
-        finalProductBean.setShopName(shopName);
+        pageBean.setShopName(shopName);
 
         // 获取店铺ID
         String shopId = detailsBean.getItemPublishVo().getShopId();
-        finalProductBean.setShopId(shopId);
+        pageBean.setShopId(shopId);
 
         // 获取店铺Logo
         String logoUrl = detailsBean.getItemPublishVo().getLogoUrl();
-        finalProductBean.setShopLogo(logoUrl);
+        pageBean.setShopLogo(logoUrl);
 
         // 获取店铺风险等级
         String shopSecurity = getSecurityText(detailsBean);
-        finalProductBean.setShopSecurity(shopSecurity);
+        pageBean.setShopSecurity(shopSecurity);
 
         // 获取风险等级图标
         Drawable shopSecurityIcon = getSecurityIcon(context, shopSecurity);
-        finalProductBean.setShopSecurityIcon(shopSecurityIcon);
+        pageBean.setShopSecurityIcon(shopSecurityIcon);
 
         // 获取用户地址
         ArrayList<AddressBean> addressList = bean1.getAddressBeanList();
-        finalProductBean.setAddressList(addressList);
+        pageBean.setAddressList(addressList);
 
         // 省
         String provinceCode = getProvinceCode(addressList);
-        finalProductBean.setProvinceCode(provinceCode);
+        pageBean.setProvinceCode(provinceCode);
 
         // 市
         String cityCode = getCityCode(addressList);
-        finalProductBean.setCityCode(cityCode);
+        pageBean.setCityCode(cityCode);
 
         // 区/县
         String countryCode = getCountryCode(addressList);
-        finalProductBean.setCountryCode(countryCode);
+        pageBean.setCountryCode(countryCode);
 
         // 地址
         String fullAddress = getFullAddress(addressList);
-        finalProductBean.setFullAddress(fullAddress);
+        pageBean.setFullAddress(fullAddress);
 
         // 获取商品介绍
         String longDescribeUrl = bean1.getProductDetailsBean().getItemPublishVo().getDescribeUrl();
-        finalProductBean.setDetailsPictureUrl(longDescribeUrl);
+        pageBean.setDetailsPictureUrl(longDescribeUrl);
 
 
-        return finalProductBean;
+        productDetailsPageBean = pageBean;
+        productDetailsPopBean = popBean;
     }
 
 

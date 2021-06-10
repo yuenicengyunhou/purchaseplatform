@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
-import com.rails.lib_data.bean.forAppShow.ProductDetailsPageBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep1Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep2Bean;
 import com.rails.lib_data.model.ProductDetailsModel2;
@@ -77,10 +76,9 @@ public class ProductDetailsPresenterImpl2
 
                     @Override
                     protected void onSuccess(ProductDetailsStep2Bean response2) {
-                        ProductDetailsPageBean productDetailsPageBean = dataUtils
-                                .getBean(mContext.getApplicationContext(), response1, response2);
+                        dataUtils.analysisAllData(mContext.getApplicationContext(), response1, response2);
 
-                        baseView.onProductInfoLoadCompleted(productDetailsPageBean);
+                        baseView.onProductInfoLoadCompleted(dataUtils.getProductDetailsPageBean());
                         baseView.dismissDialog();
                     }
                 });
