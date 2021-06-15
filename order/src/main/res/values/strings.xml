@@ -77,6 +77,9 @@
     <string name="orderNo">采购单号</string>
     <string name="skuNum">单品编码：</string>
     <string name="deliveredFiles">妥投证明</string>
+    <string name="download">下载</string>
+    <string name="downloading">下载中</string>
+    <string name="view">查看</string>
 
 
 </resources>

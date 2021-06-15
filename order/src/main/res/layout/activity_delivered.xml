@@ -8,6 +8,7 @@
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
+        android:id="@+id/refresh"
         android:layout_height="match_parent">
 
         <FrameLayout
@@ -17,9 +18,7 @@
             <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="@dimen/margin"
-                android:paddingEnd="@dimen/margin" />
+                android:layout_height="match_parent" />
 
             <com.rails.purchaseplatform.common.widget.EmptyView
                 android:id="@+id/empty"

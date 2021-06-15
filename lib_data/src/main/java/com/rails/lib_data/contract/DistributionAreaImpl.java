@@ -2,7 +2,7 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
-import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.address.AddressArea;
 import com.rails.lib_data.R;
 import com.rails.lib_data.model.DistributionAreaModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;

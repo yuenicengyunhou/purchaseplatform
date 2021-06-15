@@ -119,12 +119,21 @@ public abstract class BaseRetrofit {
      * @return
      */
     public Retrofit downloadRetrofit(DownloadRequestBody.DownloadProgressListener downloadProgressListener) {
-
+        X509TrustManager trustManager;
+        SSLSocketFactory sslSocketFactory;
+        try {
+            trustManager = trustManagerForCertificates(trustedCertificatesInputStream());
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[]{trustManager}, null);
+            sslSocketFactory = sslContext.getSocketFactory();
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        }
         DownInterceptor downloadInterceptor = new DownInterceptor(downloadProgressListener);
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(downloadInterceptor)
-//                .sslSocketFactory()
+                .sslSocketFactory(sslSocketFactory, trustManager)
                 .addInterceptor(loggingInterceptor)
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)

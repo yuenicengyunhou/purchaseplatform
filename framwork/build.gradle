@@ -46,6 +46,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
+    api files('libs\\tbs_sdk_thirdapp_v4.3.0.151_44051_sharewithdownloadwithfile_withoutGame_obfs_20210524_174029.jar')
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -141,4 +142,10 @@ dependencies {
 
     // 手势操作图片放大、缩小、平移等 （查看超长图片时清晰度不够）
     // api 'com.github.chrisbanes:PhotoView:2.3.0'
+
+     //下载
+    api 'com.liulishuo.filedownloader:library:1.7.7'
+
+//    api 'com.tencent.tbs.tbssdk:sdk:43939'
+
 }

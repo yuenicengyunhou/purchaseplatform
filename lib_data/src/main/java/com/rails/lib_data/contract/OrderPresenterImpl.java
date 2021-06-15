@@ -130,9 +130,9 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
                 baseView.dismissDialog();
                 LogisticsInfo logisticsInfo = response.getLogisticsInfo();
                 String deliveryFile = logisticsInfo.getDeliveryFile();
-                String deliveryFileName = logisticsInfo.getDeliveryFileName();
-                Log.e("WQ", "---file==" + deliveryFile + "    name===" + deliveryFileName);
-                ArrayList<DeliveredFile> fileList = model.getFileList(deliveryFile, deliveryFileName);
+//                String deliveryFileName = logisticsInfo.getDeliveryFileName();
+//                Log.e("WQ", "---file==" + deliveryFile + "    name===" + deliveryFileName);
+                ArrayList<DeliveredFile> fileList = model.getFileList(deliveryFile,orderNo);
                 baseView.loadDeliveredFileList(fileList);
 
             }

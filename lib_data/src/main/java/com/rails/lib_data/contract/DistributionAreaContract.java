@@ -1,6 +1,6 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.address.AddressArea;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;

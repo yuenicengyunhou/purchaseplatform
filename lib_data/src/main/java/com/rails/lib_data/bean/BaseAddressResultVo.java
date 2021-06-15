@@ -1,6 +1,6 @@
 package com.rails.lib_data.bean;
 
-import com.rails.lib_data.BaseAddress;
+import com.rails.lib_data.bean.address.BaseAddress;
 
 import java.util.ArrayList;
 

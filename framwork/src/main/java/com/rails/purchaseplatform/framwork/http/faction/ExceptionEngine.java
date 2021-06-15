@@ -63,7 +63,7 @@ public class ExceptionEngine {
             errorBean = new ErrorBean(e, DATA_ERROR);
             errorBean.setMsg("JSON解析异常");
             if (e.getMessage().contains("but was STRING")) {
-                errorBean.setMsg("but was STRING");
+                errorBean.setMsg("空空如也");
             }
             // 搜索skuId，如果是一个不存在的skuId,会报Json解析异常。
             // 设置ErrorBean.msg，在请求失败的回调方法中依据msg内容进行处理。

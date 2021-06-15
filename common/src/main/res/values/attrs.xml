@@ -115,4 +115,11 @@
         <attr name="rowSpace" format="dimension" />
     </declare-styleable>
 
+    <!--progress-->
+    <declare-styleable name="ProgressButton">
+        <attr name="ProgressButton_ProgressButton_pbColor" format="color" />
+        <attr name="ProgressButton_ProgressButton_pbTextColor" format="color" />
+        <attr name="button_text_color" format="color" />
+    </declare-styleable>
+
 </resources>

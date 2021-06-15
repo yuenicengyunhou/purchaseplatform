@@ -1,11 +1,16 @@
 package com.rails.purchaseplatform.web.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import androidx.annotation.Nullable;
+
+import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.facade.callback.NavCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
@@ -30,6 +35,7 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     private boolean isEvacommit = false;
     private boolean isReceive = false;
     private UserInfoBean userInfoBean;
+    private boolean neadResume = true;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -70,7 +76,9 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     @Override
     protected void onResume() {
         super.onResume();
-        initWeb(binding.web, this);
+        if (neadResume) {
+            initWeb(binding.web, this);
+        }
     }
 
     @JavascriptInterface
@@ -121,7 +129,14 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     public void goDeliveredPage(String orderNo) {
         Bundle bundle = new Bundle();
         bundle.putString("orderNo", orderNo);
-        ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation();
+        ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation(this, 0);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            neadResume = false;
+        }
+    }
 }

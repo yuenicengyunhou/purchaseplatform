@@ -2,7 +2,7 @@ package com.rails.lib_data.model;
 
 import android.text.TextUtils;
 
-import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.address.AddressArea;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.DistributionAreaService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;

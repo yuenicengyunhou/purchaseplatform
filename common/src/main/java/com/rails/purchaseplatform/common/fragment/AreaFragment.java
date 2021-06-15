@@ -1,6 +1,6 @@
 package com.rails.purchaseplatform.common.fragment;
 
-import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.address.AddressArea;
 import com.rails.lib_data.bean.KeyVelueBean;
 import com.rails.lib_data.contract.DistributionAreaContract;
 import com.rails.lib_data.contract.DistributionAreaImpl;
