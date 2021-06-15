@@ -172,7 +172,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
                 .setPath(mFilePath, false)
                 .setCallbackProgressTimes(300)
                 .setMinIntervalUpdateSpeed(400)
-                .setCallbackProgressMinInterval(20)
+                .setCallbackProgressMinInterval(10)
                 .setCallbackProgressTimes(10)
                 //.setTag()
                 .setListener(new FileDownloadSampleListener() {
@@ -182,6 +182,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        Log.d("feifei", "error taskId:" + task.getId() + ",progress:" + soFarBytes/totalBytes);
                         Message message = new Message();
                         message.arg1 = soFarBytes * 100 / totalBytes;
                         message.what = DOWNLOADING;

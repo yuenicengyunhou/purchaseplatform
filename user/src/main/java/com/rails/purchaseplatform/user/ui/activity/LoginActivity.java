@@ -216,7 +216,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public void setVerifyCode(String verifyCode) {
         this.mVerifyCode = verifyCode;
-        ToastUtil.showCenter(this, verifyCode);
 //        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
 //            if (aBoolean) {
                 SmsObserver smsObserver = new SmsObserver(mHandler2);
