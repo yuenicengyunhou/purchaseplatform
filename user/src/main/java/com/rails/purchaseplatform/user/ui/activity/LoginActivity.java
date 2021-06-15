@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -35,6 +36,14 @@ import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 import com.rails.purchaseplatform.user.ui.fragment.PhoneLoginFragment;
 import com.rails.purchaseplatform.user.ui.fragment.RandomCodeLoginFragment;
+
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
 
@@ -91,9 +100,43 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         fragmentList.add(new RandomCodeLoginFragment());
 
         mViewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        binding.viewPager.setAdapter(mViewPageAdapter);
+        binding.viewPager.setPagingEnabled(false);
         binding.viewPager.setOffscreenPageLimit(tabTitles.length);
+        binding.viewPager.setAdapter(mViewPageAdapter);
         mViewPageAdapter.update(fragmentList, true);
+
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+        commonNavigator.setAdjustMode(true);
+        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+            @Override
+            public int getCount() {
+                return tabTitles.length;
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, int index) {
+                ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
+                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.font_black_light));
+                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_blue));
+                colorTransitionPagerTitleView.setTextSize(14f);
+                colorTransitionPagerTitleView.setText(tabTitles[index]);
+                colorTransitionPagerTitleView.setOnClickListener(view -> binding.viewPager.setCurrentItem(index));
+                return colorTransitionPagerTitleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                indicator.setColors(getResources().getColor(R.color.bg_blue));
+                return indicator;
+            }
+        });
+
+//        binding.indicator.set
+        binding.indicator.setNavigator(commonNavigator);
+        ViewPagerHelper.bind(binding.indicator, binding.viewPager);
+        binding.viewPager.setCurrentItem(1);
     }
 
     @Override
