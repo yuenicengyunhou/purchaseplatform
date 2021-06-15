@@ -352,12 +352,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 弹出添加购物车Pop
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop(0, 2, mPageBean.getCurrentItemSkuInfo().getId());
+            showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
         });
 
         // 弹出选择型号Pop
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop(1, 1, mPageBean.getCurrentItemSkuInfo().getId());
+            showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
         });
 
         // 弹出选择地址Pop
@@ -407,10 +407,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 选择型号规格、加入购物车弹窗
      *
-     * @param flag 0-加入购物车 1-选择型号规格
-     * @param mode 2-加入购物车 1-选择型号规格
+     * @param skuId
      */
-    private void showPropertyPop(int flag, int mode, String skuId) {
+    private void showPropertyPop(String skuId) {
         if (TextUtils.isEmpty(skuId))
             return;
         ArrayList<ItemSkuInfo> itemSkuInfoList = new ArrayList<>();

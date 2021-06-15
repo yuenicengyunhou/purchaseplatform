@@ -15,6 +15,8 @@ import android.webkit.CookieSyncManager;
 import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -24,11 +26,17 @@ import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
+import com.rails.purchaseplatform.user.ui.fragment.PhoneLoginFragment;
+import com.rails.purchaseplatform.user.ui.fragment.RandomCodeLoginFragment;
+
+import java.util.ArrayList;
 
 /**
  * 登录页面
@@ -44,6 +52,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     private int COUNT_NUM = 60;
     private final long DURATION = 1000;
 
+    private LoginContract.LoginPresenter presenter;
+
+    private ViewPageAdapter mViewPageAdapter;
 
     private Handler mHandler2 = new Handler(new Handler.Callback() {
         @Override
@@ -66,14 +77,23 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         }
     });
 
-    private LoginContract.LoginPresenter presenter;
-
     @Override
     protected void initialize(Bundle bundle) {
 
         PrefrenceUtil.getInstance(this).clear();
 
         presenter = new LoginPresneterImpl(this, this);
+
+        String[] tabTitles = getResources().getStringArray(R.array.tab_titles);
+
+        ArrayList<Fragment> fragmentList = new ArrayList<>();
+        fragmentList.add(new PhoneLoginFragment());
+        fragmentList.add(new RandomCodeLoginFragment());
+
+        mViewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        binding.viewPager.setAdapter(mViewPageAdapter);
+        binding.viewPager.setOffscreenPageLimit(tabTitles.length);
+        mViewPageAdapter.update(fragmentList, true);
     }
 
     @Override
