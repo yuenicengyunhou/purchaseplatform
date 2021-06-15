@@ -32,6 +32,12 @@ public interface LoginContract {
          */
         void getUserInfo(UserInfoBean bean);
 
+
+        /**
+         * 填写验证码
+         */
+        void setVerifyCode(String verifyCode);
+
     }
 
 

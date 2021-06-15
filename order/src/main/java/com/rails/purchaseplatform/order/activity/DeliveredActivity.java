@@ -49,6 +49,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     //下载
     private int currentIndex = -1;//默认为-1,为-1时没有下载任务，不为-1时等待下载完成
     private final List<BaseDownloadTask> tasks = new ArrayList<>();
+    private HashMap<Integer, String> urlMap = new HashMap<>();
     private FileDownloadQueueSet queueSet;
 
     //刷新下载状态
@@ -60,6 +61,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     private class UIHandler extends Handler {
         private final WeakReference<DeliveredActivity> mActivity;
 
+        @SuppressWarnings("deprecation")
         public UIHandler(DeliveredActivity activity) {
             mActivity = new WeakReference<>(activity);
         }
@@ -100,10 +102,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
         adapter.setDownloadListener((position, url, fileName, downloadState) -> start_single(url, position + 1, position, downloadState));
 
 
-        barBinding.refresh.setOnRefreshListener(refreshLayout -> {
-
-            presenter.getDelivered(orderNo);
-        });
+        barBinding.refresh.setOnRefreshListener(refreshLayout -> presenter.getDelivered(orderNo));
 
         presenter = new OrderPresenterImpl(this, this);
         presenter.getDelivered(orderNo);
@@ -155,7 +154,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
         String mFilePath = mSinglePath + orderNo + "_" + positionPlus + extension;
         if (state == 2) {
 //            ToastUtil.showCenter(this,"查看");
-            readFile(mFilePath, extension);
+            readFile(mFilePath);
             return;
         }
         if (state == 1) {
@@ -173,17 +172,16 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
                 .setPath(mFilePath, false)
                 .setCallbackProgressTimes(300)
                 .setMinIntervalUpdateSpeed(400)
+                .setCallbackProgressMinInterval(20)
+                .setCallbackProgressTimes(10)
                 //.setTag()
                 .setListener(new FileDownloadSampleListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.d("feifei", "pending taskId:" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes + ",percent:" + soFarBytes * 1.0 / totalBytes);
-
                     }
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.d("feifei", "progress taskId:" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes + ",percent:" + soFarBytes * 1.0 / totalBytes + ",speed:" + task.getSpeed());
                         Message message = new Message();
                         message.arg1 = soFarBytes * 100 / totalBytes;
                         message.what = DOWNLOADING;
@@ -193,7 +191,6 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
                     @Override
                     protected void blockComplete(BaseDownloadTask task) {
-                        Log.d("feifei", "blockComplete taskId:" + task.getId() + ",filePath:" + task.getPath() + ",fileName:" + task.getFilename() + ",speed:" + task.getSpeed() + ",isReuse:" + task.reuse());
                         Message message = new Message();
                         message.what = COMPLETE;
                         uiHandler.sendMessage(message);
@@ -201,12 +198,10 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
                     @Override
                     protected void completed(BaseDownloadTask task) {
-                        Log.d("feifei", "completed taskId:" + task.getId() + ",isReuse:" + task.reuse());
                     }
 
                     @Override
                     protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.d("feifei", "paused taskId:" + task.getId() + ",soFarBytes:" + soFarBytes + ",totalBytes:" + totalBytes + ",percent:" + soFarBytes * 1.0 / totalBytes);
                     }
 
                     @Override
@@ -227,7 +222,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     //    private void OpenFile() {
 //
 //    }
-    private void readFile(String mFilePath, String extension) {
+    private void readFile(String mFilePath) {
 //        OpenFiles.getImageFileIntent(mFilePath)
         HashMap<String, String> params = new HashMap<>();
         params.put("style", "0");
@@ -237,26 +232,25 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     }
 
 
-    public void pause_single() {
-
-        Log.d("feifei", "pause_single task:" + singleTaskId);
-        FileDownloader.getImpl().pause(singleTaskId);
-    }
-
-    public void delete_single() {
-
-        //删除单个任务的database记录
-        boolean deleteData = FileDownloader.getImpl().clear(singleTaskId, mSaveFolder);
-        File targetFile = new File(mSinglePath);
-        boolean delate = false;
-        if (targetFile.exists()) {
-            delate = targetFile.delete();
-        }
-
-        Log.d("feifei", "delete_single file,deleteDataBase:" + deleteData + ",mSinglePath:" + mSinglePath + ",delate:" + delate);
-
-        new File(FileDownloadUtils.getTempPath(mSinglePath)).delete();
-    }
+//    public void pause_single() {
+//        Log.d("feifei", "pause_single task:" + singleTaskId);
+//        FileDownloader.getImpl().pause(singleTaskId);
+//    }
+//
+//    public void delete_single() {
+//
+//        //删除单个任务的database记录
+//        boolean deleteData = FileDownloader.getImpl().clear(singleTaskId, mSaveFolder);
+//        File targetFile = new File(mSinglePath);
+//        boolean delate = false;
+//        if (targetFile.exists()) {
+//            delate = targetFile.delete();
+//        }
+//
+//        Log.d("feifei", "delete_single file,deleteDataBase:" + deleteData + ",mSinglePath:" + mSinglePath + ",delate:" + delate);
+//
+//        new File(FileDownloadUtils.getTempPath(mSinglePath)).delete();
+//    }
 
     // 多任务下载
     private FileDownloadListener downloadListener;
@@ -322,10 +316,12 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
         };
     }
 
-//    private void createTask() {
-//        BaseDownloadTask task1 = FileDownloader.getImpl().create(BIG_FILE_URLS[3]).setPath(mSaveFolder,true);
-//        tasks.add(task1);
-//    }
+    private void addTasks(int position, String url) {
+        urlMap.put(position, url);
+        BaseDownloadTask task = FileDownloader.getImpl().create(url).setPath(mSaveFolder, true);
+        tasks.add(task);
+        start_multi();
+    }
 
     public void start_multi() {
 
@@ -333,29 +329,28 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
         //(1) 创建 FileDownloadQueueSet
         if (null == queueSet) {
             queueSet = new FileDownloadQueueSet(downloadListener);
-        }
-
-        //(2) 创建Task 队列
+            //(2) 创建Task 队列
 
 
 //        tasks.add(task1);
 //        BaseDownloadTask task2 = FileDownloader.getImpl().create(BIG_FILE_URLS[4]).setPath(mSaveFolder,true);
 //        tasks.add(task2);
 
-        //(3) 设置参数
+            //(3) 设置参数
 
-        // 每个任务的进度 无回调
-        //queueSet.disableCallbackProgressTimes();
-        // do not want each task's download progress's callback,we just consider which task will completed.
+            // 每个任务的进度 无回调
+            //queueSet.disableCallbackProgressTimes();
+            // do not want each task's download progress's callback,we just consider which task will completed.
 
-        queueSet.setCallbackProgressTimes(100);
-        queueSet.setCallbackProgressMinInterval(100);
-        //失败 重试次数
-        queueSet.setAutoRetryTimes(3);
+            queueSet.setCallbackProgressTimes(100);
+            queueSet.setCallbackProgressMinInterval(100);
+            //失败 重试次数
+            queueSet.setAutoRetryTimes(3);
 
-        //避免掉帧
-        FileDownloader.enableAvoidDropFrame();
+            //避免掉帧
+            FileDownloader.enableAvoidDropFrame();
 
+        }
         //(4)串行下载
         queueSet.downloadSequentially(tasks);
 

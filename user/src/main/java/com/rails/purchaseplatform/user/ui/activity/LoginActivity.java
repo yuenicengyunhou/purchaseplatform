@@ -1,13 +1,18 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.database.ContentObserver;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -15,6 +20,7 @@ import android.webkit.CookieSyncManager;
 import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -25,10 +31,15 @@ import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.contentProviderr.SmsObserver;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
+import com.tbruyelle.rxpermissions.RxPermissions;
+
+import java.text.MessageFormat;
+import java.util.Collection;
 
 /**
  * 登录页面
@@ -43,6 +54,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     private final int COUNTING = 1;
     private int COUNT_NUM = 60;
     private final long DURATION = 1000;
+    private final int VERIFY_CODE_RECEIVE = 0;
+    private final Uri uri = Uri.parse("content://sms/");
+    private String mVerifyCode;
 
 
     private Handler mHandler2 = new Handler(new Handler.Callback() {
@@ -50,7 +64,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         public boolean handleMessage(@NonNull Message msg) {
             if (msg.what == COUNTING) {
                 int count = (int) msg.obj;
-                binding.tvCountDown.setText(count + "s");
+                binding.tvCountDown.setText(MessageFormat.format("{0}s", count));
                 if (count > 0) {
                     Message msg1 = mHandler2.obtainMessage();
                     msg1.what = COUNTING;
@@ -61,6 +75,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
                     binding.tvGetVerifyNum.setVisibility(View.VISIBLE);
                 }
                 return true;
+            } else if (msg.what == VERIFY_CODE_RECEIVE) {
+                if (null != mVerifyCode) {
+                    binding.etVerifyNumInput.setText(mVerifyCode);
+                }
             }
             return false;
         }
@@ -195,6 +213,21 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         finish();
     }
 
+    @Override
+    public void setVerifyCode(String verifyCode) {
+        this.mVerifyCode = verifyCode;
+        ToastUtil.showCenter(this, verifyCode);
+//        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
+//            if (aBoolean) {
+                SmsObserver smsObserver = new SmsObserver(mHandler2);
+                getContentResolver().registerContentObserver(uri, true, smsObserver);
+//                smsObserver.setVerifyCodeListener(() -> {
+
+//                });
+//            }
+//        });
+
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -249,6 +282,43 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         String cookie = cookieManager.getCookie("cookie");
         Logger.d(cookie);
 
+    }
+
+    class SmsObserver extends ContentObserver {
+
+        /**
+         * Creates a content observer.
+         *
+         * @param handler The handler to run {@link #onChange} on, or null if none.
+         */
+        public SmsObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, @Nullable Uri uri) {
+            super.onChange(selfChange, uri);
+            if (null == uri) return;
+            if (uri.toString().equals("content://sms/raw")) {
+                return;
+            }
+            Uri inboxUri = Uri.parse("content://sms/inbox");
+            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    String address = cursor.getString(cursor.getColumnIndex("address"));
+                    Log.e("WQ", "----" + address);
+                    String body = cursor.getString(cursor.getColumnIndex("body"));
+                    Log.e("WQ", "====" + body);
+                    if (address.equals("95306") && body.contains(mVerifyCode)) {
+                        Message message = new Message();
+                        message.what = VERIFY_CODE_RECEIVE;
+                        mHandler2.sendMessage(message);
+                    }
+                }
+                cursor.close();
+            }
+        }
     }
 
 }
