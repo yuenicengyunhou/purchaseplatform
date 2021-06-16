@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -12,12 +14,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,8 +76,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
                 }
                 return true;
             } else if (msg.what == VERIFY_CODE_RECEIVE) {
-                if (null != mVerifyCode) {
-                    binding.etVerifyNumInput.setText(mVerifyCode);
+                if (null != mVerifyCode && null != clipboardManager) {
+                    ClipData clipData = ClipData.newPlainText("text", mVerifyCode);
+                    clipboardManager.setPrimaryClip(clipData);
                 }
             }
             return false;
@@ -85,6 +86,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     });
 
     private LoginContract.LoginPresenter presenter;
+    private ClipboardManager clipboardManager;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -132,14 +134,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             binding.cbPasswordVisible.setChecked(!isChecked);
         });
 
-        binding.cbPasswordVisible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                } else {
-                    binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }
+        binding.cbPasswordVisible.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             }
         });
 
@@ -216,15 +215,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     public void setVerifyCode(String verifyCode) {
         this.mVerifyCode = verifyCode;
-//        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
-//            if (aBoolean) {
-                SmsObserver smsObserver = new SmsObserver(mHandler2);
-                getContentResolver().registerContentObserver(uri, true, smsObserver);
-//                smsObserver.setVerifyCodeListener(() -> {
-
-//                });
-//            }
-//        });
+        clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
+            if (aBoolean) {
+        SmsObserver smsObserver = new SmsObserver(mHandler2);
+        getContentResolver().registerContentObserver(uri, true, smsObserver);
+            }
+        });
 
     }
 
@@ -306,9 +303,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             if (null != cursor) {
                 if (cursor.moveToFirst()) {
                     String address = cursor.getString(cursor.getColumnIndex("address"));
-                    Log.e("WQ", "----" + address);
                     String body = cursor.getString(cursor.getColumnIndex("body"));
-                    Log.e("WQ", "====" + body);
                     if (address.equals("95306") && body.contains(mVerifyCode)) {
                         Message message = new Message();
                         message.what = VERIFY_CODE_RECEIVE;

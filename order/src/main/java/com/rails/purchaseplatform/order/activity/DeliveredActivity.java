@@ -99,7 +99,11 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
         barBinding.empty.setDescEmpty(R.string.order_empty).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         barBinding.recycler.setAdapter(adapter);
         barBinding.recycler.setEmptyView(barBinding.empty);
-        adapter.setDownloadListener((position, url, fileName, downloadState) -> start_single(url, position + 1, position, downloadState));
+        adapter.setDownloadListener((position, url, fileName, downloadState) -> {
+
+            start_single(url, position + 1, position, downloadState);
+//            addTasks(position, url,position+1,downloadState);
+        });
 
 
         barBinding.refresh.setOnRefreshListener(refreshLayout -> presenter.getDelivered(orderNo));
@@ -182,7 +186,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.d("feifei", "error taskId:" + task.getId() + ",progress:" + soFarBytes/totalBytes);
+                        Log.d("feifei", "error taskId:" + task.getId() + ",progress:" + (float)soFarBytes/totalBytes);
                         Message message = new Message();
                         message.arg1 = soFarBytes * 100 / totalBytes;
                         message.what = DOWNLOADING;
@@ -317,9 +321,12 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
         };
     }
 
-    private void addTasks(int position, String url) {
+    private void addTasks(int position, String url, int positionPlus, int downloadState) {
+        adapter.notifyDownloadState(position, 1, 0);
+        String extension = url.substring(url.lastIndexOf("."));
+        String mFilePath = mSinglePath + orderNo + "_" + positionPlus + extension;
         urlMap.put(position, url);
-        BaseDownloadTask task = FileDownloader.getImpl().create(url).setPath(mSaveFolder, true);
+        BaseDownloadTask task = FileDownloader.getImpl().create(url).setPath(mFilePath, false);
         tasks.add(task);
         start_multi();
     }
