@@ -37,4 +37,8 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
         infoList.add(binding.etVerifyNumInput.getText().toString().trim());
         return infoList;
     }
+
+    public void setVerifyCode(String code) {
+        binding.etVerifyNumInput.setText(code);
+    }
 }

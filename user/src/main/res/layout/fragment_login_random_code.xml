@@ -102,7 +102,7 @@
     <TextView
         android:id="@+id/tv_randomCode"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_32"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tv_password"
         android:layout_marginStart="@dimen/dp_35"
         android:layout_marginTop="@dimen/dp_95"
@@ -120,6 +120,7 @@
         android:layout_marginStart="@dimen/dp_6"
         android:layout_toEndOf="@+id/tv_randomCode"
         android:background="@null"
+        android:scaleType="fitCenter"
         android:src="@mipmap/ic_reload" />
 
     <RelativeLayout

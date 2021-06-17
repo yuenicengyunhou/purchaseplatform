@@ -44,11 +44,11 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'com.google.android.material:material:1.2.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //    网络请求
     api "com.squareup.okhttp3:okhttp:$rails.okhttp"
@@ -65,7 +65,6 @@ dependencies {
 
     api 'androidx.recyclerview:recyclerview:1.1.0'
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    api 'com.google.android.material:material:1.2.1'
 
 
     api 'org.greenrobot:eventbus:3.2.0'

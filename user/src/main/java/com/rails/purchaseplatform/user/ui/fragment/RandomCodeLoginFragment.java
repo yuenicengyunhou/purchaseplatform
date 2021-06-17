@@ -39,4 +39,10 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
         infoList.add(binding.et3.getText().toString().trim());
         return infoList;
     }
+
+    public void setCoordinateText(String... strings) {
+        binding.et1.setText(strings[0]);
+        binding.et2.setText(strings[1]);
+        binding.et3.setText(strings[2]);
+    }
 }

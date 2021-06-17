@@ -1,7 +1,8 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,25 +10,29 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
@@ -36,14 +41,9 @@ import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 import com.rails.purchaseplatform.user.ui.fragment.PhoneLoginFragment;
 import com.rails.purchaseplatform.user.ui.fragment.RandomCodeLoginFragment;
+import com.rails.purchaseplatform.user.utils.ViewPager2Util;
 
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -62,8 +62,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     private final long DURATION = 1000;
 
     private LoginContract.LoginPresenter presenter;
-
-    private ViewPageAdapter mViewPageAdapter;
 
     private Handler mHandler2 = new Handler(new Handler.Callback() {
         @Override
@@ -86,6 +84,27 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         }
     });
 
+    private TabLayoutMediator mediator;
+
+    private ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageSelected(int position) {
+            //可以来设置选中时tab的大小
+            int tabCount = binding.tabLayout.getTabCount();
+            for (int i = 0; i < tabCount; i++) {
+                TabLayout.Tab tab = binding.tabLayout.getTabAt(i);
+                TextView tabView = (TextView) tab.getCustomView();
+                if (tab.getPosition() == position) {
+                    tabView.setTextSize(18);
+                    tabView.setTypeface(Typeface.DEFAULT_BOLD);
+                } else {
+                    tabView.setTextSize(14);
+                    tabView.setTypeface(Typeface.DEFAULT);
+                }
+            }
+        }
+    };
+
     @Override
     protected void initialize(Bundle bundle) {
 
@@ -96,47 +115,49 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         String[] tabTitles = getResources().getStringArray(R.array.tab_titles);
 
         ArrayList<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new PhoneLoginFragment());
         fragmentList.add(new RandomCodeLoginFragment());
+        fragmentList.add(new PhoneLoginFragment());
 
-        mViewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        binding.viewPager.setPagingEnabled(false);
-        binding.viewPager.setOffscreenPageLimit(tabTitles.length);
-        binding.viewPager.setAdapter(mViewPageAdapter);
-        mViewPageAdapter.update(fragmentList, true);
-
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdjustMode(true);
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+        binding.viewPager.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
+        binding.viewPager.setAdapter(new FragmentStateAdapter(getSupportFragmentManager(), getLifecycle()) {
+            @NonNull
+            @NotNull
             @Override
-            public int getCount() {
+            public Fragment createFragment(int position) {
+                return fragmentList.get(position);
+            }
+
+            @Override
+            public int getItemCount() {
                 return tabTitles.length;
             }
+        });
+        binding.viewPager.registerOnPageChangeCallback(changeCallback);
+        ViewPager2Util.changeToNeverMode(binding.viewPager);
 
+        mediator = new TabLayoutMediator(binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.font_black_light));
-                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_blue));
-                colorTransitionPagerTitleView.setTextSize(14f);
-                colorTransitionPagerTitleView.setText(tabTitles[index]);
-                colorTransitionPagerTitleView.setOnClickListener(view -> binding.viewPager.setCurrentItem(index));
-                return colorTransitionPagerTitleView;
-            }
+            public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
+                //这里可以自定义TabView
+                TextView tabView = new TextView(LoginActivity.this);
 
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
-                indicator.setColors(getResources().getColor(R.color.bg_blue));
-                return indicator;
+                int[][] states = new int[2][];
+                states[0] = new int[]{android.R.attr.state_selected};
+                states[1] = new int[]{};
+
+                int[] colors = new int[]{
+                        getResources().getColor(R.color.font_blue),
+                        getResources().getColor(R.color.font_gray)};
+                ColorStateList colorStateList = new ColorStateList(states, colors);
+                tabView.setGravity(Gravity.CENTER);
+                tabView.setText(tabTitles[position]);
+                tabView.setTextSize(14);
+                tabView.setTextColor(colorStateList);
+
+                tab.setCustomView(tabView);
             }
         });
-
-//        binding.indicator.set
-        binding.indicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(binding.indicator, binding.viewPager);
-        binding.viewPager.setCurrentItem(1);
+        mediator.attach();
     }
 
     @Override
@@ -272,6 +293,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
 
     @Override
     protected void onDestroy() {
+        mediator.detach();
+        binding.viewPager.unregisterOnPageChangeCallback(changeCallback);
         if (mHandler2 != null) {
             mHandler2.removeCallbacksAndMessages(null);
             mHandler2 = null;
