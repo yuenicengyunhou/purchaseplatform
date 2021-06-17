@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> implements OrderContract.OrderPresenter {
 
     private final OrderModel model;
-    //    private String accountId = "";
     private String organizeName;
     private String organizationId = "";
     private String platformId;
@@ -132,7 +131,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
                 String deliveryFile = logisticsInfo.getDeliveryFile();
 //                String deliveryFileName = logisticsInfo.getDeliveryFileName();
 //                Log.e("WQ", "---file==" + deliveryFile + "    name===" + deliveryFileName);
-                ArrayList<DeliveredFile> fileList = model.getFileList(deliveryFile,orderNo);
+                ArrayList<DeliveredFile> fileList = model.getFileList(deliveryFile, orderNo);
                 baseView.loadDeliveredFileList(fileList);
 
             }
@@ -154,9 +153,9 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
                 if (e.getMsg().contains("but was STRING")) {
                     ArrayList<OrderInfoBean> list = new ArrayList<>();
                     baseView.getOrder(list, true, 0);
-                } else {
-                    baseView.onError(e);
+                    e.setMsg("空空如也");
                 }
+                baseView.onError(e);
                 baseView.dismissDialog();
             }
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -56,6 +55,10 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     private final UIHandler uiHandler = new UIHandler(this);
     private final int COMPLETE = 2;
     private final int DOWNLOADING = 1;
+
+    //记录下载状态
+    private final int STATE_DEFAULT = -1;
+    private int mDownloadState = STATE_DEFAULT;
 
     @SuppressLint("HandlerLeak")
     private class UIHandler extends Handler {
@@ -182,11 +185,13 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
                 .setListener(new FileDownloadSampleListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        mDownloadState = STATE_DEFAULT;
                     }
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.d("feifei", "error taskId:" + task.getId() + ",progress:" + (float)soFarBytes/totalBytes);
+                        Log.d("feifei", "progress taskId:" + task.getId() + ",progress:" + (float) soFarBytes / totalBytes);
+                        mDownloadState = DOWNLOADING;
                         Message message = new Message();
                         message.arg1 = soFarBytes * 100 / totalBytes;
                         message.what = DOWNLOADING;
@@ -196,6 +201,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
                     @Override
                     protected void blockComplete(BaseDownloadTask task) {
+                        mDownloadState = STATE_DEFAULT;
                         Message message = new Message();
                         message.what = COMPLETE;
                         uiHandler.sendMessage(message);
@@ -207,15 +213,18 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
                     @Override
                     protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        mDownloadState = STATE_DEFAULT;
                     }
 
                     @Override
                     protected void error(BaseDownloadTask task, Throwable e) {
+                        mDownloadState = STATE_DEFAULT;
                         Log.d("feifei", "error taskId:" + task.getId() + ",e:" + e.getLocalizedMessage());
                     }
 
                     @Override
                     protected void warn(BaseDownloadTask task) {
+                        mDownloadState = STATE_DEFAULT;
                         Log.d("feifei", "warn taskId:" + task.getId());
                     }
                 });
@@ -400,24 +409,32 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
         } while (false);
 
-        Toast.makeText(this,
-                String.format("Complete delete %d files", count), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, String.format("Complete delete %d files", count), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onBack() {
-        finishWithResult();
+        beforeFinish();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finishWithResult();
+        beforeFinish();
     }
 
-    private void finishWithResult() {
+    private void beforeFinish() {
+        if (mDownloadState == DOWNLOADING) {
+            ToastUtil.showCenter(this, "已切换到后台下载");
+        }
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
     }
 }
