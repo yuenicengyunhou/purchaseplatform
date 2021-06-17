@@ -69,4 +69,7 @@
     <string name="url_head">https:</string>
     <string name="rmb">¥</string>
 
+
+    <string name="market_rank_num">近7日累计下单&#160;%s&#160;次</string>
+
 </resources>

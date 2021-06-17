@@ -20,6 +20,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
@@ -49,12 +50,13 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding>
-        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>{
+        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean> {
 
 
     private ProductRecAdapter recAdapter;
     private NavigationAdapter categoryAdapter;
     private BrandAdapter brandAdapter;
+    private MarketIndexBean indexBean;
 
     private MarketIndexContract.MarketIndexPresenter presenter;
 
@@ -106,18 +108,15 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             @Override
             public void onPosition(BrandBean bean, int position) {
 
-                String linkUrl = bean.getLinkUrl();
+                String shopId = bean.getShopid();
                 Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(linkUrl))
+                if (TextUtils.isEmpty(shopId))
                     return;
-                if (linkUrl.contains("shopId")) {
-                    try {
-                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
-                        bundle.putString("shopInfoId", cid);
-                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
-                    } catch (Exception e) {
+                try {
+                    bundle.putString("shopInfoId", shopId);
+                    goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                } catch (Exception e) {
 
-                    }
                 }
             }
         });
@@ -126,6 +125,20 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         //推荐商品列表
         recAdapter = new ProductRecAdapter(getActivity());
         recAdapter.setListener(this);
+        recAdapter.setMulPositionListener(new MulPositionListener() {
+            @Override
+            public void onPosition(Object bean, int position, int... params) {
+                if (indexBean != null) {
+                    try {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", ++position);
+                        startIntent(RankActivity.class,bundle);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
         binding.recycler.setAdapter(recAdapter);
@@ -203,31 +216,27 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
 
     @Override
-    public void getRecProducts(ArrayList<ProductRecBean> beans) {
-        recAdapter.update(beans, true);
-    }
+    public void getHotProducts(ArrayList<ProductBean> beans) {
 
-    @Override
-    public void getBanners(ArrayList<BannerBean> bannerBeans) {
-        setBanners(bannerBeans);
-    }
-
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans) {
-        brandAdapter.update(brandBeans, true);
-    }
-
-    @Override
-    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
-        categoryAdapter.update(beans, true);
     }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
+        indexBean = bean;
         brandAdapter.update(bean.getBrandBeans(), true);
         recAdapter.update(bean.getRecBeans(), true);
         categoryAdapter.update(bean.getCategorySubBeans(), true);
         setBanners(bean.getBannerBeans());
+
+    }
+
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
     }
 
@@ -254,6 +263,18 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             Bundle bundle = new Bundle();
             bundle.putString("url", ConRoute.WEB_URL.MSG);
             goLogin(null, ConRoute.WEB.WEB_MSG, bundle);
+        });
+
+        binding.lrTitle.setOnClickListener(v -> {
+            if (indexBean != null) {
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position", 0);
+                    startIntent(RankActivity.class, bundle);
+                } catch (Exception e) {
+
+                }
+            }
         });
     }
 
@@ -300,7 +321,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             } else
                 startIntent(cls);
         }
-
     }
 
 

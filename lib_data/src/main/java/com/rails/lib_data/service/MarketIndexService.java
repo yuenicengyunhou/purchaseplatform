@@ -2,12 +2,15 @@ package com.rails.lib_data.service;
 
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
+import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.NavigationBean;
+import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -26,9 +29,18 @@ public interface MarketIndexService {
      *
      * @return
      */
-    @GET("platform/platform/floor/queryFloorSettingList")
-    Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts(@QueryMap HashMap<String, String> params);
+    @GET("firstCategoryRank/floorList")
+    Observable<HttpResult<ArrayList<ProductRecBean>>> getRecProducts();
 
+
+    /**
+     * 获取楼层单个品类排行列表
+     *
+     * @param params
+     * @return
+     */
+    @GET("firstCategoryRank/goodsRank")
+    Observable<HttpResult<ListBeen<ProductBean>>> getFloorProducts(@QueryMap HashMap<String, Object> params);
 
     /**
      * 获取商城banner列表
@@ -41,13 +53,33 @@ public interface MarketIndexService {
 
 
     /**
+     * 获取热门商品
+     *
+     * @param params
+     * @return
+     */
+    @GET("itemproductdispose/query/queryItemProductDispose")
+    Observable<HttpResult<ListBeen<ProductBean>>> getHotProducts(@QueryMap HashMap<String, Object> params);
+
+
+    /**
      * 品牌
      *
      * @param params
      * @return
      */
+    @Deprecated
     @GET("platform/platform/brandWall/queryBrandWallSettingList")
     Observable<HttpResult<ArrayList<BrandBean>>> getRecBrands(@QueryMap HashMap<String, String> params);
+
+
+    /**
+     * 获取品牌列表
+     *
+     * @return
+     */
+    @GET("itembrandranking/receive/queryItemBrandRanking")
+    Observable<HttpResult<ListBeen<BrandBean>>> getBrands(@QueryMap HashMap<String, Object> params);
 
 
     /**

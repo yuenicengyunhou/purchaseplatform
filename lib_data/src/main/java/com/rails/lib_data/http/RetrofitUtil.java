@@ -41,10 +41,22 @@ public class RetrofitUtil extends BaseRetrofit {
 
     @Override
     public String getBaseUrl(int type) {
-        if (!isDebug)
-            return HttpConstants.PLATFORM_URL;
-        else
-            return HttpConstants.DEBUG_PLATFORM_URL;
+        if (!isDebug) {
+            //生产环境
+            if (type == 1) {//门户接口
+                return HttpConstants.PLATFORM_URL;
+            } else if (type == 2)//排行接口
+                return HttpConstants.RANK_URL;
+            else
+                return HttpConstants.PLATFORM_URL;
+        } else {
+            if (type == 1) {
+                return HttpConstants.DEBUG_PLATFORM_URL;
+            } else if (type == 2)
+                return HttpConstants.DEBUG_RANK_URL;
+            else
+                return HttpConstants.DEBUG_PLATFORM_URL;
+        }
     }
 
     @Override

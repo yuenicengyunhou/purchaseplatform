@@ -146,18 +146,6 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
         });
 
 
-//        binding.more.setMoreListener(new MoreLinearLayout.OnMoreListener() {
-//            @Override
-//            public void onMore() {
-//                EventBus.getDefault().post(new BusEvent("onMore", "CategoryFragment"));
-//            }
-//
-//            @Override
-//            public void onChange(int l, int t, int oldl, int oldt) {
-//
-//            }
-//        });
-
         binding.recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -176,7 +164,6 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
 
             }
         });
-
     }
 
 

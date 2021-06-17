@@ -1,5 +1,6 @@
 package com.rails.lib_data.contract;
 
+import android.Manifest;
 import android.app.Activity;
 import android.text.TextUtils;
 
@@ -13,6 +14,9 @@ import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
+import com.tbruyelle.rxpermissions.RxPermissions;
+
+import rx.functions.Action1;
 
 
 /**
@@ -117,6 +121,8 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 //                PrefrenceUtil.getInstance(mContext).setString(ConShare.CODE_PHONE, phone);
                 baseView.dismissDialog();
                 baseView.onResult(1, "获取成功", response);
+                baseView.setVerifyCode(response);
+
             }
         });
     }

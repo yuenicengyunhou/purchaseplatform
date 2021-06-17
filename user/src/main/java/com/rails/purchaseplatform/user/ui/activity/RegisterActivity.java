@@ -48,4 +48,9 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
     public void getUserInfo(UserInfoBean bean) {
 
     }
+
+    @Override
+    public void setVerifyCode(String verifyCode) {
+
+    }
 }

@@ -68,7 +68,7 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
 //                    }
 //                }
                 if (isCallBack()) {
-                    if (!addressBeans.isEmpty())
+                    if (null != addressBeans && !addressBeans.isEmpty())
                         baseView.getDefAddress(addressBeans.get(0));
                     else
                         baseView.getDefAddress(null);

@@ -104,13 +104,11 @@ public class ShopModel {
 
                         switch (attrFlag) {
                             case 0: //0-brand
-                                Log.e("WQ", "有brands===" + valueName);
                                 brands.append(valueName).append(",");
                                 break;
                             case 1://1-cid
                                 hasCid = true;
 //                                cidIdList.add(valueId);
-                                Log.e("WQ", "有cid===" + valueName);
                                 cidIdList.add(valueId);
 //                                cidIdList.add("1000682");
                                 break;
@@ -119,7 +117,6 @@ public class ShopModel {
                                     categoryAttrValueIds.add(filterName + "_");
                                     cateFirst = false;
                                 }
-                                Log.e("WQ", "有cate===" + valueName);
                                 categoryAttrValueIds.add(valueName);
                                 break;
                             case 3:// 3-expandAttrValue
@@ -127,7 +124,6 @@ public class ShopModel {
                                     expandAttrValueIds.add(filterName + "_");
                                     expanFirst = false;
                                 }
-                                Log.e("WQ", "有expand===" + valueName);
                                 expandAttrValueIds.add(valueName);
                                 break;
                         }
@@ -148,7 +144,6 @@ public class ShopModel {
 //               String cidJson= cidString + StringUtil.getJointString("||", cidIdList)+"@";
 //                Gson gson = new Gson();
 //                String cidsJson = gson.toJson(cidIdList);
-                Log.e("WQ", "cidSize===" + cidIdList.size());
                 String s = cidIdList.get(0);
 //                String cidsJson = "";
 //                map.put("cidList", cidJson);

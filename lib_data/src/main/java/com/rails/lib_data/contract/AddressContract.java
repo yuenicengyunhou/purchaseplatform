@@ -1,6 +1,6 @@
 package com.rails.lib_data.contract;
 
-import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.address.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 

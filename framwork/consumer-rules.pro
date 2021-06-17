@@ -100,3 +100,16 @@
 -keep class rx.schedulers.TestScheduler {
     public <methods>;
 }
+
+
+#TBS
+-dontwarn dalvik.**
+-dontwarn com.tencent.smtt.**
+
+-keep class com.tencent.smtt.** {
+    *;
+}
+
+-keep class com.tencent.tbs.** {
+    *;
+}

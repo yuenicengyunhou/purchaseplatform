@@ -1,9 +1,15 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
+import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.database.ContentObserver;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +21,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -42,9 +48,11 @@ import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 import com.rails.purchaseplatform.user.ui.fragment.PhoneLoginFragment;
 import com.rails.purchaseplatform.user.ui.fragment.RandomCodeLoginFragment;
 import com.rails.purchaseplatform.user.utils.ViewPager2Util;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -60,15 +68,17 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     private final int COUNTING = 1;
     private int COUNT_NUM = 60;
     private final long DURATION = 1000;
+    private final int VERIFY_CODE_RECEIVE = 0;
+    private final Uri uri = Uri.parse("content://sms/");
+    private String mVerifyCode;
 
-    private LoginContract.LoginPresenter presenter;
 
     private Handler mHandler2 = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             if (msg.what == COUNTING) {
                 int count = (int) msg.obj;
-                binding.tvCountDown.setText(count + "s");
+                binding.tvCountDown.setText(MessageFormat.format("{0}s", count));
                 if (count > 0) {
                     Message msg1 = mHandler2.obtainMessage();
                     msg1.what = COUNTING;
@@ -79,10 +89,18 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
                     binding.tvGetVerifyNum.setVisibility(View.VISIBLE);
                 }
                 return true;
+            } else if (msg.what == VERIFY_CODE_RECEIVE) {
+                if (null != mVerifyCode && null != clipboardManager) {
+                    ClipData clipData = ClipData.newPlainText("text", mVerifyCode);
+                    clipboardManager.setPrimaryClip(clipData);
+                }
             }
             return false;
         }
     });
+
+    private LoginContract.LoginPresenter presenter;
+    private ClipboardManager clipboardManager;
 
     private TabLayoutMediator mediator;
 
@@ -198,14 +216,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             binding.cbPasswordVisible.setChecked(!isChecked);
         });
 
-        binding.cbPasswordVisible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                } else {
-                    binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }
+        binding.cbPasswordVisible.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             }
         });
 
@@ -279,6 +294,18 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         finish();
     }
 
+    @Override
+    public void setVerifyCode(String verifyCode) {
+        this.mVerifyCode = verifyCode;
+        clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
+            if (aBoolean) {
+                SmsObserver smsObserver = new SmsObserver(mHandler2);
+                getContentResolver().registerContentObserver(uri, true, smsObserver);
+            }
+        });
+
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -335,6 +362,41 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         String cookie = cookieManager.getCookie("cookie");
         Logger.d(cookie);
 
+    }
+
+    class SmsObserver extends ContentObserver {
+
+        /**
+         * Creates a content observer.
+         *
+         * @param handler The handler to run {@link #onChange} on, or null if none.
+         */
+        public SmsObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, @Nullable Uri uri) {
+            super.onChange(selfChange, uri);
+            if (null == uri) return;
+            if (uri.toString().equals("content://sms/raw")) {
+                return;
+            }
+            Uri inboxUri = Uri.parse("content://sms/inbox");
+            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    String address = cursor.getString(cursor.getColumnIndex("address"));
+                    String body = cursor.getString(cursor.getColumnIndex("body"));
+                    if (address.equals("95306") && body.contains(mVerifyCode)) {
+                        Message message = new Message();
+                        message.what = VERIFY_CODE_RECEIVE;
+                        mHandler2.sendMessage(message);
+                    }
+                }
+                cursor.close();
+            }
+        }
     }
 
 }

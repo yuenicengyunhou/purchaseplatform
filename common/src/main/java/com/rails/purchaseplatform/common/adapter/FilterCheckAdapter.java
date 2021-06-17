@@ -1,9 +1,9 @@
 package com.rails.purchaseplatform.common.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class FilterCheckAdapter extends RecyclerView.Adapter {
 
-    private Context mContext;
+    private final Context mContext;
     private List<OrderStatusBean> mData;
 
     private PositionListener<OrderStatusBean> positionListener;
@@ -51,14 +51,11 @@ public class FilterCheckAdapter extends RecyclerView.Adapter {
         boolean checked = bean.isChecked();
         checkBox.setText(bean.getStatus());
         checkBox.setSelected(checked);
+        Log.e("WQ", "刷新");
         checkBox.setOnClickListener(v -> {
             for (int i = 0; i < mData.size(); i++) {
                 OrderStatusBean statusBean = mData.get(i);
-                if (position == i) {
-                    statusBean.setChecked(true);
-                } else {
-                    statusBean.setChecked(false);
-                }
+                statusBean.setChecked(position == i);
             }
             notifyDataSetChanged();
         });

@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.rails.purchaseplatform.common.R;
+import com.rails.purchaseplatform.framwork.utils.BASE64;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 
@@ -58,6 +59,21 @@ public class BindAdapter {
 
         Glide.with(view)
                 .load(imageUrl)
+                .centerInside()
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
+                .into(view);
+    }
+
+
+    @androidx.databinding.BindingAdapter("imgByte")
+    public static void bindImageBytes(ImageView view, String imageUrl) {
+        if (TextUtils.isEmpty(imageUrl))
+            imageUrl = "";
+
+        Glide.with(view)
+                .asBitmap()
+                .load(BASE64.decode(imageUrl))
                 .centerInside()
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_placeholder)

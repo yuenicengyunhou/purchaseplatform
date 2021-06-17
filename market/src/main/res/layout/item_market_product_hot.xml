@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:overScrollMode="never"
-                app:imgUrl="@{product.pictureUrl}" />
+                app:imgUrl="@{product.itemLogoUrl}" />
 
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_marginBottom="@dimen/dp_15"
                 android:ellipsize="end"
                 android:lines="2"
-                android:text="@{product.pictureName}"
+                android:text="@{product.itemName}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_13" />
 

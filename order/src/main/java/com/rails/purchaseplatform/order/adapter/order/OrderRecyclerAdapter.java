@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -145,6 +146,9 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
                         .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
                         .withString("orderNo", String.valueOf(orderNo))
                         .navigation();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("orderNo", orderNo);
+//                ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation();
             } else {
                 ToastUtil.showCenter(mContext, "此状态订单无订单详情");
             }

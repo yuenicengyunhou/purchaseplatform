@@ -4,11 +4,15 @@ import android.app.Application;
 import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.rails.purchaseplatform.framwork.http.trust.OkHttp3Connection;
+import com.rails.purchaseplatform.framwork.utils.SSLUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -17,11 +21,16 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.smtt.export.external.TbsCoreSettings;
+import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
 import androidx.annotation.Nullable;
 import androidx.multidex.MultiDex;
+
+import java.util.HashMap;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -39,8 +48,33 @@ public class BaseApp extends Application {
         initUM();
         initAroute();
         initFont();
+        initFileDownloader();
+        initTBS();
         MultiDex.install(this);
         context = getApplicationContext();
+    }
+
+    /**
+     * 初始化X5 tbs,文件预览功能
+     */
+    private void initTBS() {
+
+        HashMap map = new HashMap();
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
+        QbSdk.initTbsSettings(map);
+
+        QbSdk.initX5Environment(getApplicationContext(), new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+                Logger.d("x5内核加载完成");
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+                Logger.d("x5内核加载" + b);
+            }
+        });
     }
 
 
@@ -92,6 +126,23 @@ public class BaseApp extends Application {
                 .setDefaultFontPath("lantinghei.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
+    }
+
+    private void initFileDownloader() {
+        FileDownloader.setupOnApplicationOnCreate(this)
+                .connectionCreator(new FileDownloadUrlConnection
+                        .Creator(new FileDownloadUrlConnection.Configuration()
+                        .connectTimeout(15_000) // set connection timeout.
+                        .readTimeout(15_000) // set read timeout.
+                ))
+                .commit();
+        FileDownloader.setupOnApplicationOnCreate(this).connectionCreator(new OkHttp3Connection.
+                Creator(SSLUtils.createOkHttp()));
+//                .connectTimeout(15_000)
+//                .readTimeout(15_000))
+//        )
+//                .commit();
+
     }
 
 

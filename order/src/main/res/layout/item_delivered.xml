@@ -1,31 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="file"
+            type="com.rails.lib_data.bean.orderdetails.DeliveredFile" />
+
     </data>
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
+        android:layout_height="@dimen/dp_42"
+        android:background="@color/white"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin">
 
         <TextView
             android:id="@+id/tv_file_name"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/paddingL"
+            android:layout_marginEnd="@dimen/paddingL"
             android:layout_marginBottom="@dimen/paddingL"
-            android:text="@string/app_name"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{file.fileName}"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_15" />
+            android:textSize="@dimen/font_size_15"
+            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="下载"
-            android:textSize="@dimen/font_size_10" />
-    </LinearLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_download"-->
+<!--            android:layout_width="@dimen/dp_50"-->
+<!--            android:layout_height="@dimen/dp_22"-->
+<!--            android:background="@drawable/bg_file_download"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/download"-->
+<!--            android:textColor="@color/font_blue"-->
+<!--            android:textSize="@dimen/font_size_10"-->
+<!--            />-->
+        <com.rails.purchaseplatform.common.widget.ProgresButton
+            android:id="@+id/tv_download"
+            android:layout_width="@dimen/dp_50"
+            android:textColor="@color/font_blue"
+            android:textSize="@dimen/font_size_10"
+            android:background="@drawable/bg_file_download"
+            android:layout_height="@dimen/dp_22"
+            app:ProgressButton_ProgressButton_pbColor="@color/bg_blue"
+            app:ProgressButton_ProgressButton_pbTextColor="@color/white"
+            />
+
+<!--        <ProgressBar-->
+<!--            style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
+<!--            android:layout_width="@dimen/dp_50"-->
+<!--            android:layout_height="@dimen/dp_22"-->
+<!--            android:progress="50"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintStart_toStartOf="@id/tv_download"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tv_download" />-->
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

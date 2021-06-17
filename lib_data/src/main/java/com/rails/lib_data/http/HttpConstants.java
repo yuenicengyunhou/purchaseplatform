@@ -10,15 +10,15 @@ public class HttpConstants {
      */
     public final static String DEBUG_SHOP_URL = "https://shop.rails.cn/proxy/";
     public final static String DEBUG_PLATFORM_URL = "https://crmall.rails.cn/proxy/";
-//    public final static String DEBUG_PLATFORM_URL = "https://crmall.rails.cn/proxy/passport/";
+    public final static String DEBUG_RANK_URL ="https://crmall.rails.cn/proxy/dataserver/";
 
 
     /**
      * 生产环境
      */
     public final static String SHOP_URL = "https://mall.95306.cn/proxy/";
-//    public final static String PLATFORM_URL = "https://cg.95306.cn/proxy/passport/";
     public final static String PLATFORM_URL = "https://cg.95306.cn/proxy/";
+    public final static String RANK_URL ="https://cg.95306.cn/proxy/dataserver/";
 
 
 }
