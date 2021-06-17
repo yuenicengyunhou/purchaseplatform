@@ -69,9 +69,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     private int COUNT_NUM = 60;
     private final long DURATION = 1000;
     private final int VERIFY_CODE_RECEIVE = 0;
+
     private final Uri uri = Uri.parse("content://sms/");
     private String mVerifyCode;
 
+    private int mPosition = 0;
+    private RandomCodeLoginFragment mRandomCodeLoginFragment = new RandomCodeLoginFragment();
+    private PhoneLoginFragment mPhoneLoginFragment = new PhoneLoginFragment();
 
     private Handler mHandler2 = new Handler(new Handler.Callback() {
         @Override
@@ -129,12 +133,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         PrefrenceUtil.getInstance(this).clear();
 
         presenter = new LoginPresneterImpl(this, this);
+        mRandomCodeLoginFragment.setPresenter(presenter);
+        mPhoneLoginFragment.setPresenter(presenter);
 
         String[] tabTitles = getResources().getStringArray(R.array.tab_titles);
 
         ArrayList<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new RandomCodeLoginFragment());
-        fragmentList.add(new PhoneLoginFragment());
+        fragmentList.add(mRandomCodeLoginFragment);
+        fragmentList.add(mPhoneLoginFragment);
 
         binding.viewPager.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
         binding.viewPager.setAdapter(new FragmentStateAdapter(getSupportFragmentManager(), getLifecycle()) {
@@ -156,6 +162,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         mediator = new TabLayoutMediator(binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
+                mPosition = position;
                 //这里可以自定义TabView
                 TextView tabView = new TextView(LoginActivity.this);
 
@@ -197,13 +204,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     @Override
     protected void onClick() {
         super.onClick();
-        binding.btnLogin.setOnClickListener(v -> presenter.onLogin(
-                binding.etPhoneInput.getText().toString().trim(),
-                binding.etPasswordInput.getText().toString().trim(),
-                binding.etVerifyNumInput.getText().toString().trim()));
+        binding.btnLogin.setOnClickListener(v -> {
+            if (mPosition == 0) {
 
-        binding.tvGetVerifyNum.setOnClickListener(v ->
-                presenter.getCode(binding.etPhoneInput.getText().toString().trim()));
+            } else {
+                ArrayList<String> infoList = mPhoneLoginFragment.getLoginInfo();
+                presenter.onLogin(infoList.get(0), infoList.get(1), infoList.get(2));
+            }
+        });
 
         binding.tvForgetPassword.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

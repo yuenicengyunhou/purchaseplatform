@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.user.ui.fragment;
 
 import android.view.View;
 
+import com.rails.lib_data.contract.LoginContract;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginRandomCodeBinding;
 
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 
 public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCodeBinding> {
     final private String TAG = RandomCodeLoginFragment.class.getSimpleName();
+
+    private LoginContract.LoginPresenter mPresenter;
 
     @Override
     protected void loadData() {
@@ -28,6 +31,10 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     @Override
     protected boolean isBindEventBus() {
         return false;
+    }
+
+    public void setPresenter(LoginContract.LoginPresenter presenter) {
+        mPresenter = presenter;
     }
 
     public ArrayList<String> getLoginInfo() {
