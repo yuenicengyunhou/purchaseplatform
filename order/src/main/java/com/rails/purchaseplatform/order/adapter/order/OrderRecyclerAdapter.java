@@ -1,7 +1,6 @@
 package com.rails.purchaseplatform.order.adapter.order;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -74,11 +73,6 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         String orderTime = subOrderInfoBean.getOrderTime();
         int orderStatus = subOrderInfoBean.getOrderStatus();
         String orderStatusView = subOrderInfoBean.getOrderStatusView();
-//        String orderNumber = subOrderInfoBean.getSkuNum();
-//        String generateTime = subOrderInfoBean.getOrderTime();
-//        String provider = subOrderInfoBean.getProvider();
-//        String buyer = subOrderInfoBean.getBuyer();
-//        String delayTime = subOrderInfoBean.getDelayTime() == null ? "" : subOrderInfoBean.getDelayTime();
 
         if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
             holder.tvOrderNum.setText(orderNo);
