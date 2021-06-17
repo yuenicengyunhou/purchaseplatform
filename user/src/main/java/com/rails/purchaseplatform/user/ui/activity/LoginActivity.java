@@ -8,13 +8,11 @@ import android.content.res.ColorStateList;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -41,6 +39,7 @@ import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
+import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
@@ -54,6 +53,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * 登录页面
@@ -111,6 +111,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
     private ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageSelected(int position) {
+            mPosition = position;
             //可以来设置选中时tab的大小
             int tabCount = binding.tabLayout.getTabCount();
             for (int i = 0; i < tabCount; i++) {
@@ -162,7 +163,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         mediator = new TabLayoutMediator(binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
-                mPosition = position;
                 //这里可以自定义TabView
                 TextView tabView = new TextView(LoginActivity.this);
 
@@ -183,6 +183,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             }
         });
         mediator.attach();
+
+        presenter.getRandInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true);
     }
 
     @Override
@@ -206,7 +208,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         super.onClick();
         binding.btnLogin.setOnClickListener(v -> {
             if (mPosition == 0) {
-
             } else {
                 ArrayList<String> infoList = mPhoneLoginFragment.getLoginInfo();
                 presenter.onLogin(infoList.get(0), infoList.get(1), infoList.get(2));
@@ -219,59 +220,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             startActivity(intent);
         });
 
-        binding.rlPasswordVisible.setOnClickListener(v -> {
-            boolean isChecked = binding.cbPasswordVisible.isChecked();
-            binding.cbPasswordVisible.setChecked(!isChecked);
-        });
-
-        binding.cbPasswordVisible.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-            } else {
-                binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            }
-        });
-
-        binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) ->
-                setInputLineBackground(hasFocus, binding.viewPhoneInputLine));
-
-        binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) ->
-                setInputLineBackground(hasFocus, binding.viewPasswordInputLine));
-
-        binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) -> {
-            setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine);
-            // TODO: 2021/6/2 需要监视软键盘状态，软件盘未弹出时并不会滚动
-            if (hasFocus) {
-                binding.nsvLogin.scrollTo(0, 150);
-            } else {
-                binding.nsvLogin.scrollTo(0, 0);
-            }
-        });
-
-        // TODO: 2021/6/2 需要监视软键盘状态，软件盘未弹出时并不会滚动
-        binding.etVerifyNumInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.nsvLogin.scrollTo(0, 150);
-            }
-        });
-
-
-    }
-
-    /**
-     * 设置输入框下方的线颜色变化
-     *
-     * @param hasFocus 是否有焦点
-     * @param view     需要改变颜色的View
-     */
-    private void setInputLineBackground(boolean hasFocus, View view) {
-        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5);
-        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5);
-        if (hasFocus)
-            view.setBackground(drawableHasFocus);
-        else
-            view.setBackground(drawableLoseFocus);
     }
 
 
@@ -313,6 +261,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             }
         });
 
+    }
+
+    @Override
+    public void onGetRandInitSuccess(String randInit) {
+        mRandomCodeLoginFragment.setRandInit(randInit);
     }
 
     @Override

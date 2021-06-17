@@ -53,4 +53,9 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
     public void setVerifyCode(String verifyCode) {
 
     }
+
+    @Override
+    public void onGetRandInitSuccess(String randInit) {
+
+    }
 }

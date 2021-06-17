@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function4;
 import io.reactivex.functions.Function6;
 import io.reactivex.schedulers.Schedulers;
@@ -108,11 +109,10 @@ public class ProductDetailsModel2 {
                 = getCartCount(platformId, "", "");
 
         Observable.zip(
-                productDetails, addressList, cartCount, cartCount,
-                new Function4<
+                productDetails, addressList, cartCount,
+                new Function3<
                         ProductDetailsBean,
                         ArrayList<AddressBean>,
-                        String,
                         String,
                         ProductDetailsStep1Bean>() {
 
@@ -121,8 +121,7 @@ public class ProductDetailsModel2 {
                     public ProductDetailsStep1Bean apply(
                             @NotNull ProductDetailsBean productDetailsBean,
                             @NotNull ArrayList<AddressBean> addressBeans,
-                            @NotNull String cartCount,
-                            @NotNull String cartCount2) {
+                            @NotNull String cartCount) {
 
                         ProductDetailsStep1Bean bean = new ProductDetailsStep1Bean();
                         bean.setProductDetailsBean(productDetailsBean);

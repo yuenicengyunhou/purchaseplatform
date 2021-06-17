@@ -1,22 +1,16 @@
 package com.rails.lib_data.contract;
 
-import android.Manifest;
 import android.app.Activity;
 import android.text.TextUtils;
 
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
-import com.tbruyelle.rxpermissions.RxPermissions;
-
-import rx.functions.Action1;
 
 
 /**
@@ -24,6 +18,7 @@ import rx.functions.Action1;
  * date: 2021/2/23
  */
 public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> implements LoginContract.LoginPresenter {
+    final private String TAG = LoginPresneterImpl.class.getSimpleName();
 
     private LoginModel model;
 
@@ -150,6 +145,24 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             protected void onSuccess(UserInfoBean bean) {
                 baseView.dismissDialog();
                 baseView.getUserInfo(bean);
+            }
+        });
+    }
+
+    @Override
+    public void getRandInit(String code, boolean isDialog) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+        model.getRandInit(code, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.onGetRandInitSuccess(response);
+                baseView.dismissDialog();
             }
         });
     }

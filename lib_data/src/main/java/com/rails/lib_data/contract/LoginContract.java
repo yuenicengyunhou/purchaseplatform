@@ -3,8 +3,6 @@ package com.rails.lib_data.contract;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
-import java.util.ArrayList;
-
 /**
  * 测试用
  *
@@ -38,6 +36,13 @@ public interface LoginContract {
          */
         void setVerifyCode(String verifyCode);
 
+        /**
+         * 获取标记成功时的回调
+         *
+         * @param randInit
+         */
+        void onGetRandInitSuccess(String randInit);
+
     }
 
 
@@ -67,6 +72,15 @@ public interface LoginContract {
          *
          * @param isDialog 是否显示loading窗口
          */
-        void getUserInfo(boolean isDialog,String token);
+        void getUserInfo(boolean isDialog, String token);
+
+
+        /**
+         * 获取坐标 step1
+         *
+         * @param code
+         * @param isDialog
+         */
+        void getRandInit(String code, boolean isDialog);
     }
 }

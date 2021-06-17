@@ -77,7 +77,8 @@
         android:layout_alignTop="@+id/et_passwordInput"
         android:layout_alignBottom="@id/et_passwordInput"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/dp_32">
+        android:layout_marginEnd="@dimen/dp_32"
+        android:focusable="false">
 
         <CheckBox
             android:id="@+id/cb_passwordVisible"
@@ -86,7 +87,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_12"
             android:background="@drawable/selector_password_visible"
-            android:button="@null" />
+            android:button="@null"
+            android:focusable="false" />
     </RelativeLayout>
 
     <View
