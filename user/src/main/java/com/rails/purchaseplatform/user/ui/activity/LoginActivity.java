@@ -191,7 +191,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         });
         mediator.attach();
 
-        presenter.getRandInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true);
+//        String code = UUID.randomUUID().toString() + System.currentTimeMillis();
+//        Log.d(TAG, "UUID + CurrentTime == " + code);
+//        presenter.randomInit(MD5Util.MD5(code), true);
+
+        presenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true);
     }
 
     @Override
@@ -283,7 +287,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     }
 
     @Override
-    public void onGetRandInitSuccess(String randInit) {
+    public void onRandomInitSuccess(String randInit) {
         mRandInit = randInit;
         mRandomCodeLoginFragment.setRandInit(randInit);
     }

@@ -9,6 +9,7 @@ import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
 
@@ -150,9 +151,9 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     }
 
     @Override
-    public void getRandInit(String code, boolean isDialog) {
+    public void randomInit(String code, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.getRandInit(code, new HttpRxObserver<String>() {
+        model.randomInit(code, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -161,7 +162,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
             @Override
             protected void onSuccess(String response) {
-                baseView.onGetRandInitSuccess(response);
+                baseView.onRandomInitSuccess(response);
                 baseView.dismissDialog();
             }
         });
@@ -182,10 +183,39 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     public void randomCodeLogin(String account, String password, String randInit, String randomCode1, String randomCode2, String randomCode3, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-        // TODO: 2021/6/18 验证输入格式
-        // TODO: 2021/6/18 rndCode 需要如何运算？
+//        String beforeMd5 = randInit + randomCode1 + randomCode2 + randomCode3;
+//        Log.d(TAG, beforeMd5);
+//        String rndCode = MD5Util.MD5(beforeMd5);
 
-        model.randomCodeLogin(account, password, "", randInit, new HttpRxObserver<String>() {
+        String rndCodeAsMd5 = MD5Util.MD5(randInit + randomCode1 + randomCode2 + randomCode3);
+        String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
+
+        if (TextUtils.isEmpty(account)) {
+            ToastUtil.showCenter(mContext, "用户名不能为空");
+            return;
+        }
+
+        if (!VerificationUtil.isUserName_login(account)) {
+            ToastUtil.showCenter(mContext, "用户名格式错误");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            ToastUtil.showCenter(mContext, "密码不能为空");
+            return;
+        }
+
+        if (!VerificationUtil.isPaw(password)) {
+            ToastUtil.showCenter(mContext, "密码格式错误");
+            return;
+        }
+
+        if (!VerificationUtil.isRandomCode(randomCode1, randomCode2, randomCode3)) {
+            ToastUtil.showCenter(mContext, "随机码格式错误");
+            return;
+        }
+
+        model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsMd5, randInit, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);

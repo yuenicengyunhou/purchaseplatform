@@ -107,9 +107,9 @@ public class LoginModel {
      * @param code
      * @param httpRxObserver
      */
-    public void getRandInit(String code, HttpRxObserver httpRxObserver) {
+    public void randomInit(String code, HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(LoginService.class, 1).getRandInit(code))
+                .create(LoginService.class, 1).randomInit(code))
                 .subscribe(httpRxObserver);
     }
 
@@ -165,20 +165,20 @@ public class LoginModel {
      * 随机码登录
      *
      * @param account
-     * @param paw
+     * @param password
      * @param rndCode
      * @param requestFlag
      * @param httpRxObserver
      */
-    public void randomCodeLogin(String account, String paw, String rndCode, String requestFlag, HttpRxObserver httpRxObserver) {
+    public void randomCodeLogin(String account, String password, String rndCode, String requestFlag, HttpRxObserver httpRxObserver) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("loginType", "3"); // 应该固定是3 或者别的
         params.put("userAccount", account); // 账号
-        params.put("userPassword", MD5Util.MD5(MD5Util.MD5(paw))); // 密码
+        params.put("userPassword", password); // 密码
         params.put("rndCode", rndCode); // 随机码
         params.put("loginDevice", "android"); // 登录设备 固定Android
-        params.put("loginMedia", String.valueOf(Build.VERSION.SDK_INT)); // 设备版本 or APP版本
+        params.put("loginMedia", "api" + Build.VERSION.SDK_INT); // 设备版本 or APP版本
         params.put("requestFlag", requestFlag); // 这是啥？ 是randInit接口返回的字符串？
         params.put("isWeakPwd", "0"); // 不是弱密码 固定0
         params.put("returnUrl", "aaa"); // 返回的url 不需要

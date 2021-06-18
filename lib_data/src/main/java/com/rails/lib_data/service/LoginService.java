@@ -64,7 +64,7 @@ public interface LoginService {
      * @return
      */
     @POST("passport/randInit/{hex_md5_wz_code}")
-    Observable<HttpResult<String>> getRandInit(@Path("hex_md5_wz_code") String code);
+    Observable<HttpResult<String>> randomInit(@Path("hex_md5_wz_code") String code);
 
     // TODO: 2021/6/17 返回值类型是什么？
 
@@ -101,6 +101,6 @@ public interface LoginService {
      * @param params
      * @return
      */
-    @POST("passport/appLogin2")
+    @POST("passport/appLogin")
     Observable<HttpResult<String>> randomCodeLogin(@Body HashMap<String, String> params);
 }

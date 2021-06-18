@@ -41,7 +41,7 @@ public interface LoginContract {
          *
          * @param randInit
          */
-        void onGetRandInitSuccess(String randInit);
+        void onRandomInitSuccess(String randInit);
 
     }
 
@@ -81,7 +81,7 @@ public interface LoginContract {
          * @param code
          * @param isDialog
          */
-        void getRandInit(String code, boolean isDialog);
+        void randomInit(String code, boolean isDialog);
 
 
         /**

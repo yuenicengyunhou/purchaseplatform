@@ -55,7 +55,7 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
     }
 
     @Override
-    public void onGetRandInitSuccess(String randInit) {
+    public void onRandomInitSuccess(String randInit) {
 
     }
 }

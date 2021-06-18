@@ -83,6 +83,30 @@ public class VerificationUtil {
         }
     }
 
+
+    /**
+     * 随机码格式校验
+     *
+     * @param randomCodes
+     * @return
+     */
+    public static boolean isRandomCode(String... randomCodes) {
+        boolean isChecked = true;
+        for (String code : randomCodes) {
+            if (TextUtils.isEmpty(code)) {
+                isChecked = false;
+                break;
+            }
+            Pattern p = Pattern.compile("^[0-9]{3}$");
+            Matcher m = p.matcher(code.trim());
+            if (!m.matches()) {
+                isChecked = false;
+                break;
+            }
+        }
+        return isChecked;
+    }
+
     /**
      * 验证邮箱
      *

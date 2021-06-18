@@ -25,9 +25,9 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     @Override
     protected void loadData() {
-        // 请求随机码坐标
+        // 刷新随机码坐标
         binding.ibReloadRandomCode.setOnClickListener(v ->
-                mPresenter.getRandInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true));
+                mPresenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true));
 
         // 点击显示/隐藏密码更改图标状态
         binding.rlPasswordVisible.setOnClickListener(v -> {
