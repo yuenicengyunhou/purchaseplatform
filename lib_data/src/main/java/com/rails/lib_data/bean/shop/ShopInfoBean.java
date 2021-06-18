@@ -68,7 +68,7 @@ public class ShopInfoBean {
     private Object detailAddress;
     private Object fullAddress;
     private Object zcode;
-    private long mobile;
+    private String mobile;
     private Object landline;
     private Object email;
     private Object dataRejectReason;
@@ -131,6 +131,9 @@ public class ShopInfoBean {
     }
 
     public String getOrganizeName() {
+        if (null == organizeName) {
+            return "";
+        }
         return organizeName;
     }
 
@@ -266,11 +269,14 @@ public class ShopInfoBean {
         this.zcode = zcode;
     }
 
-    public long getMobile() {
+    public String getMobile() {
+        if (null == mobile) {
+            return "";
+        }
         return mobile;
     }
 
-    public void setMobile(long mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 

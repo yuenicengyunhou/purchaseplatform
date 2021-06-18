@@ -1,8 +1,8 @@
 package com.rails.lib_data.model;
 
 import android.text.TextUtils;
-import android.util.Log;
 
+import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import com.rails.lib_data.bean.OrderFilterBean;
 import com.rails.lib_data.bean.OrderStatusBean;
 import com.rails.lib_data.bean.orderdetails.DeliveredFile;
@@ -10,8 +10,9 @@ import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.OrderService;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.StringUtil;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -170,28 +171,36 @@ public class OrderModel {
     /**
      * 处理妥投文件数据，按，分隔链接和文件名
      */
-    public ArrayList<DeliveredFile> getFileList(String fileLinks, String fileNames) {
-
+    public ArrayList<DeliveredFile> getFileList(String fileLinks, String orderNo) {
+        String mSinglePath = FileDownloadUtils.getDefaultSaveRootPath() + File.separator + "GTSC"
+                + File.separator;
         ArrayList<DeliveredFile> deliveredFiles = new ArrayList<>();
-        if (TextUtils.isEmpty(fileLinks)||TextUtils.isEmpty(fileNames)) {
+        if (TextUtils.isEmpty(fileLinks)) {
             return deliveredFiles;
         }
         List<String> linkList = Arrays.asList(fileLinks.split(","));
-        List<String> nameList = Arrays.asList(fileNames.split(","));
-        String name;
         for (int i = 0; i < linkList.size(); i++) {
             String s = linkList.get(i);
-            if (i < nameList.size()) {
-                name = nameList.get(i);
-            } else {
-                name = "";
-            }
             DeliveredFile deliveredFile = new DeliveredFile();
-            deliveredFile.setUrl(s);
-            deliveredFile.setFileName(name);
+            String extension = s.substring(s.lastIndexOf("."));
+            String filePath = mSinglePath + orderNo + "_" + (i + 1) + extension;
+            deliveredFile.setProgress(0);
+            deliveredFile.setDownloadState(checkFileDownloadState(filePath));//判断文件是否已经下载
+            if (s.contains("https")) {
+                deliveredFile.setUrl(s);
+            } else {
+                deliveredFile.setUrl(MessageFormat.format("https:{0}", s));
+            }
+            deliveredFile.setFileName(MessageFormat.format("妥投证明{0}", i + 1));
             deliveredFiles.add(deliveredFile);
         }
         return deliveredFiles;
+    }
+
+    public int checkFileDownloadState(String filePath) {
+        File file = new File(filePath);
+        boolean exists = file.exists();
+        return exists ? 2 : 0;
     }
 
 

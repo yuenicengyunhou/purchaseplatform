@@ -73,11 +73,6 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
         String orderTime = subOrderInfoBean.getOrderTime();
         int orderStatus = subOrderInfoBean.getOrderStatus();
         String orderStatusView = subOrderInfoBean.getOrderStatusView();
-//        String orderNumber = subOrderInfoBean.getSkuNum();
-//        String generateTime = subOrderInfoBean.getOrderTime();
-//        String provider = subOrderInfoBean.getProvider();
-//        String buyer = subOrderInfoBean.getBuyer();
-//        String delayTime = subOrderInfoBean.getDelayTime() == null ? "" : subOrderInfoBean.getDelayTime();
 
         if (orderStatus == 25 || orderStatus == 30 || orderStatus == 40) {
             holder.tvOrderNum.setText(orderNo);
@@ -145,6 +140,9 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
                         .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
                         .withString("orderNo", String.valueOf(orderNo))
                         .navigation();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("orderNo", orderNo);
+//                ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation();
             } else {
                 ToastUtil.showCenter(mContext, "此状态订单无订单详情");
             }

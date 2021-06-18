@@ -9,7 +9,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +20,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.gson.reflect.TypeToken;
@@ -56,6 +56,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 采购单列表页面
@@ -70,8 +71,8 @@ import java.util.ArrayList;
 public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> implements OrderContract.OrderView {
 
     private ViewPageAdapter viewPageAdapter;
+    private int mCurrentFragmentPosition;
 
-    private PopupWindow mTypePopup;//采购单切换检索条件的pop
 
     /**
      * Search type, default 0.
@@ -79,14 +80,20 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 1 - 采购人用户名
      * 2 - 供应商名称
      */
+    private PopupWindow mTypePopup;//采购单切换检索条件的pop
     private int mType = 0;
     private PopupWindow listPop;//采购人姓名和供应商检索列表
     private OrderPresenterImpl presenter;
     private ConditionAdapter adapter;//采购人姓名和供应商检索列表的adapter
     private String conditionId = "";
-    private OrderFilterBean filterBean;
+    /**
+     * 筛选采购单状态弹出框
+     */
+//    private OrderFilterPop mFilterPopup;//筛选弹窗
+//    private OrderFilterBean filterBean;
     private String statusCode = null;
-    private OrderFilterPop mFilterPopup;//筛选弹窗
+    private HashMap<Integer, OrderFilterBean> mFilterCache;
+
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -96,8 +103,8 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
     @Override
     protected void initialize(Bundle bundle) {
-        initFilterBean();
         String[] tabs = getResources().getStringArray(R.array.order_list_tab);
+        initFilterBean(tabs);//初始化filter数据和cache，放在initPager之前
         initPager(tabs);
         binding.noneScrollViewPager.setPagingEnabled(false);
 
@@ -110,7 +117,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                     listPop.dismiss();
                 }
                 if (mType == 0 || mType == 3 || mType == 4 || mType == 6 || mType == 7 || mType == 9) {
-                    callFragmentToSearch(filterBean);
+                    callFragmentToSearch(mFilterCache.get(mCurrentFragmentPosition));
                 } else if (mType == 1) {
                     searchIfPop("请先检索采购人用户名");
                 } else if (mType == 2) {
@@ -143,15 +150,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             }
         });
 
-
-//        if (null != statusCode) {
-//            callFragmentToSearch(filterBean);
-//        }
-
-
-        //获取organizeId
-
-
     }
 
     /**
@@ -161,23 +159,29 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         String trim = binding.etSearchKey.getText().toString().trim();
         if (TextUtils.isEmpty(trim)) {
             conditionId = "";//重置搜索条件
-            callFragmentToSearch(filterBean);
+            callFragmentToSearch(mFilterCache.get(mCurrentFragmentPosition));
         } else {
             ToastUtil.show(this, toast);
         }
     }
 
-    private void initFilterBean() {
-        this.filterBean = new OrderFilterBean();
-        Type type = new TypeToken<ArrayList<OrderStatusBean>>() {
-        }.getType();
-        ArrayList<OrderStatusBean> statusBeans = JsonUtil.parseJson(this, "orderStatus.json", type);
-        if (null != statusCode) {
-            for (OrderStatusBean status : statusBeans) {
-                status.setChecked(status.getStatusCode().equals(statusCode));
+    private void initFilterBean(String[] tabs) {
+        mFilterCache = new HashMap<>();//初始化cache，分开存储两个filterBean
+        for (int i = 0; i < tabs.length; i++) {
+            OrderFilterBean filterBean = new OrderFilterBean();
+            Type type = new TypeToken<ArrayList<OrderStatusBean>>() {
+            }.getType();
+            ArrayList<OrderStatusBean> statusBeans = JsonUtil.parseJson(this, "orderStatus.json", type);
+            if (null != statusCode) {
+                for (OrderStatusBean status : statusBeans) {
+                    status.setChecked(status.getStatusCode().equals(statusCode));
+                }
             }
+            filterBean.setStatusBeans(statusBeans);
+            mFilterCache.put(i, filterBean);
         }
-        this.filterBean.setStatusBeans(statusBeans);
+
+
     }
 
     /**
@@ -186,6 +190,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     private void callFragmentToSearch(OrderFilterBean filterBean) {
         String content = binding.etSearchKey.getText().toString();
         int currentItem = binding.noneScrollViewPager.getCurrentItem();
+        mFilterCache.put(currentItem, filterBean);
         OrderFragment fragment = (OrderFragment) viewPageAdapter.getItem(currentItem);
         if (mType == 1 || mType == 2 || mType == 5 || mType == 8) {
             content = conditionId;
@@ -230,12 +235,10 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      */
     private void showFilterPopup() {
         String[] text = {"采购单状态", "采购单金额", "下单时间"};
-        if (null == mFilterPopup) {
-            mFilterPopup = new OrderFilterPop(text, filterBean);
-            mFilterPopup.setCompleteListener(this::callFragmentToSearch);
-            mFilterPopup.setType(BasePop.MATCH_WRAP);
-            mFilterPopup.setGravity(Gravity.BOTTOM);
-        }
+        OrderFilterPop mFilterPopup = new OrderFilterPop(text, mFilterCache.get(mCurrentFragmentPosition));
+        mFilterPopup.setCompleteListener(this::callFragmentToSearch);
+        mFilterPopup.setType(BasePop.MATCH_WRAP);
+        mFilterPopup.setGravity(Gravity.BOTTOM);
         mFilterPopup.show(getSupportFragmentManager(), "orderStatus");
     }
 
@@ -250,14 +253,10 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         int width = ScreenSizeUtil.dp2px(this, 150);
         int height = ScreenSizeUtil.dp2px(this, 150);
         mTypePopup = new PopupWindow(view, width, height, true);
-        TextView orderNum = view.findViewById(R.id.tv_orderNum),
-                orderUser = view.findViewById(R.id.tv_orderUser),
-                orderProvider = view.findViewById(R.id.tv_orderProvider);
+        TextView orderNum = view.findViewById(R.id.tv_orderNum);
+        TextView orderUser = view.findViewById(R.id.tv_orderUser);
+        TextView orderProvider = view.findViewById(R.id.tv_orderProvider);
         TextView subOrderNum = view.findViewById(R.id.tv_subOrderNum);
-//        TextView tvSkuNum = view.findViewById(R.id.tv_skuNum);
-//        TextView tvSkuName = view.findViewById(R.id.tv_skuName);
-//        TextView tvReceiverName = view.findViewById(R.id.tv_receiverName);
-//        TextView tvReceiverPhone = view.findViewById(R.id.tv_recieverPhone);
         TextView tvBrand = view.findViewById(R.id.tv_brand);
         TextView tvNeedNum = view.findViewById(R.id.tv_needNum);
 
@@ -277,18 +276,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             case "订单号":
                 subOrderNum.setTextColor(colorBlue);
                 break;
-//            case "单品编码":
-//                tvSkuNum.setTextColor(colorBlue);
-//                break;
-//            case "商品名称":
-//                tvSkuName.setTextColor(colorBlue);
-//                break;
-//            case "收货人名称":
-//                tvReceiverName.setTextColor(colorBlue);
-//                break;
-//            case "收货人联系方式":
-//                tvReceiverPhone.setTextColor(colorBlue);
-//                break;
             case "品牌":
                 tvBrand.setTextColor(colorBlue);
                 break;
@@ -298,18 +285,9 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         }
 
         orderNum.setOnClickListener(num -> onConditionChoose("搜索单号", "采购单号", InputType.TYPE_CLASS_NUMBER, 0));
-
         orderUser.setOnClickListener(user -> onConditionChoose("搜索用户名", "采购人用户名", InputType.TYPE_CLASS_TEXT, 1));
-
         orderProvider.setOnClickListener(provider -> onConditionChoose("搜索供应商", "供应商名称", InputType.TYPE_CLASS_TEXT, 2));
-
         subOrderNum.setOnClickListener(provider -> onConditionChoose("搜索订单号", "订单号", InputType.TYPE_CLASS_NUMBER, 3));
-
-//        tvSkuNum.setOnClickListener(provider -> onConditionChoose("搜索单品编码", "单品编码", InputType.TYPE_CLASS_NUMBER, 4));
-//        tvSkuName.setOnClickListener(provider -> onConditionChoose("搜索商品名称", "商品名称", InputType.TYPE_CLASS_TEXT, 5));
-//        tvReceiverName.setOnClickListener(provider -> onConditionChoose("搜索收货人名称", "收货人名称", InputType.TYPE_CLASS_TEXT, 6));
-
-//        tvReceiverPhone.setOnClickListener(provider -> onConditionChoose("搜索收货人联系方式", "收货人联系方式", InputType.TYPE_CLASS_NUMBER, 7));
         tvBrand.setOnClickListener(provider -> onConditionChoose("搜索品牌", "品牌", InputType.TYPE_CLASS_TEXT, 8));
         tvNeedNum.setOnClickListener(provider -> onConditionChoose("搜索需求编号", "需求编号", InputType.TYPE_CLASS_NUMBER, 9));
 
@@ -342,7 +320,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         Point point = new Point();
         defaultDisplay.getSize(point);
         int screenHeight = point.y;
-//        int screenHeight = defaultDisplay.getHeight();
         int[] location = new int[2];
         itemView.getLocationInWindow(location);
         int itemViewY = location[1];
@@ -358,16 +335,14 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         ArrayList<Fragment> fragments = new ArrayList<>();
         Fragment fragment;
         for (int i = 0; i < tabs.length; i++) {
-            fragment = OrderFragment.getInstance(i, statusCode, statusCode == null ? null : this.filterBean);
+            fragment = OrderFragment.getInstance(i, statusCode, statusCode == null ? null : mFilterCache.get(mCurrentFragmentPosition));
             fragments.add(fragment);
         }
-
 
         viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.noneScrollViewPager.setAdapter(viewPageAdapter);
         binding.noneScrollViewPager.setOffscreenPageLimit(tabs.length);
         viewPageAdapter.update(fragments, true);
-
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
@@ -379,7 +354,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
-
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.font_black_light));
                 colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.font_blue));
@@ -397,6 +371,22 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 return indicator;
             }
         });
+        binding.noneScrollViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mCurrentFragmentPosition = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         binding.indicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(binding.indicator, binding.noneScrollViewPager);
         binding.noneScrollViewPager.setCurrentItem(0);
@@ -406,7 +396,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 点击采购人用户名、供应商名称，弹框给用户选择搜索
      */
     private void showConditionListPopWindow(String condition) {
-//        this.conditionId = condition;
         if (mType == 0 || mType == 3 || mType == 4 || mType == 6 || mType == 7 || mType == 9) {
             return;
         }
@@ -423,16 +412,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                 adapter = new ConditionAdapter(this);
                 listBinding.recycler.setAdapter(adapter);
                 adapter.setChooseListener((name, id) -> {
-//                        String accountName = bean.getAccountName();
-//                        String supplierName = bean.getSupplierName();
-//                        String name = null == supplierName ? accountName : supplierName;
                     binding.etSearchKey.setText(name);
                     conditionId = id;
-                    callFragmentToSearch(filterBean);
+                    callFragmentToSearch(mFilterCache.get(mCurrentFragmentPosition));
                     listPop.dismiss();
                 });
                 getConditons(condition);
-//                listPop.setFocusable(true);
                 listPop.setOutsideTouchable(true);
                 listPop.showAsDropDown(binding.etSearchKey, 150, -20);
                 listPop.setOnDismissListener(() -> {
@@ -467,7 +452,6 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     public void getOrder(ArrayList<OrderInfoBean> orderBeans, boolean firstPage, int totalCount) {
 
     }
-    //175.24
 
     /**
      * 加载采购人用户列表/供应商名称列表
@@ -484,12 +468,5 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     public void loadDeliveredFileList(ArrayList<DeliveredFile> list) {
 
     }
-
-    @Override
-    public void finish() {
-        super.finish();
-        if (null != mFilterPopup) {
-            mFilterPopup = null;
-        }
-    }
+    
 }

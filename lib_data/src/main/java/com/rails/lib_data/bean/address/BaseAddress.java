@@ -1,4 +1,4 @@
-package com.rails.lib_data;
+package com.rails.lib_data.bean.address;
 
 public class BaseAddress {
 

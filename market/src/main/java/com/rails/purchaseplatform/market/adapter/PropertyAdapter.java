@@ -44,10 +44,12 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
 
     @Override
     protected void onBindItem(ItemProductPropertyBinding binding, SpecificationPopBean specificationPopBean, int p) {
+
         binding.cbExpand.setVisibility(View.GONE);
         binding.tvName.setText(specificationPopBean.getAttrName());
         binding.tvName.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         binding.tvName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+
         PropertySubAdapter adapter = new PropertySubAdapter(mContext);
         binding.flow.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
         binding.flow.setAdapter(adapter);
@@ -156,6 +158,11 @@ public class PropertyAdapter extends BaseRecyclerAdapter<SpecificationPopBean, I
     }
 
 
+    /**
+     * 设置监听接口
+     *
+     * @param onItemClicked
+     */
     public void setOnItemClicked(OnItemClicked onItemClicked) {
         this.onItemClicked = onItemClicked;
     }

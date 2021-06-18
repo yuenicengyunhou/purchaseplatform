@@ -57,4 +57,41 @@ public interface LoginService {
     @POST("passport/passwd/findpd")
     Observable<HttpResult<String>> retrievePassword(@Body HashMap<String, Object> params);
 
+    /**
+     * 随机码登录 step1 获取标记
+     *
+     * @param code
+     * @return
+     */
+    @POST("passport/randInit/{hex_md5_wz_code}")
+    Observable<HttpResult<String>> getRandInit(@Path("hex_md5_wz_code") String code);
+
+    // TODO: 2021/6/17 返回值类型是什么？
+
+    /**
+     * 获取第一个坐标
+     *
+     * @param randInit
+     * @return
+     */
+    @GET("passport/coordinate/v1/{rand_init}")
+    Observable<HttpResult<String>> getCoordinate1(@Path("rand_init") String randInit);
+
+    /**
+     * 获取第二个坐标
+     *
+     * @param randInit
+     * @return
+     */
+    @GET("passport/coordinate/v2/{rand_init}")
+    Observable<HttpResult<String>> getCoordinate2(@Path("rand_init") String randInit);
+
+    /**
+     * 获取第三个坐标
+     *
+     * @param randInit
+     * @return
+     */
+    @GET("passport/coordinate/v3/{rand_init}")
+    Observable<HttpResult<String>> getCoordinate3(@Path("rand_init") String randInit);
 }

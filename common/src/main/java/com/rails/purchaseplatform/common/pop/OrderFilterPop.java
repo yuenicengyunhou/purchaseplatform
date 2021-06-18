@@ -162,14 +162,12 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
      */
     private void loadData() {
 
-//        String lowPrice = filterBean.getLowPrice();
-//        binding.etLowPrice.setText(lowPrice);
-//
-//        String highPrice = filterBean.getHighPrice();
-//        binding.etHighPrice.setText(highPrice);
-
         binding.tvDateRange.setText(dateRangeStr);
 
+        mAdapter2.update(filterBean.getStatusBeans());
+    }
+
+    public void updateFilterBean(OrderFilterBean filterBean) {
         mAdapter2.update(filterBean.getStatusBeans());
     }
 
@@ -194,19 +192,6 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
             return TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD);
         }
     }
-//    /**
-//     * 设置时间
-//     */
-//    public void setDateRange(String dateRange, String startFormattTime, String endFormattTime) {
-////        binding.tvDateRange.setText(dateRange);
-//        this.startDate = startFormattTime;
-//        this.endDate = endFormattTime;
-//
-//    }
-
-//    public interface DatePickListener {
-//        void onDatePick();
-//    }
 
     public interface PopDismissListener {
         void dismiss(OrderFilterBean data);

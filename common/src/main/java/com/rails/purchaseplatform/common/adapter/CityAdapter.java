@@ -2,7 +2,7 @@ package com.rails.purchaseplatform.common.adapter;
 
 import android.content.Context;
 
-import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.address.AddressArea;
 import com.rails.purchaseplatform.common.R;
 import com.rails.purchaseplatform.common.databinding.ItemAddressCityBinding;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;

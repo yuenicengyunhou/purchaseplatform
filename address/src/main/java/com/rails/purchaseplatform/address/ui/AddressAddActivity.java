@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.AddressArea;
+import com.rails.lib_data.bean.address.AddressArea;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;

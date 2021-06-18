@@ -32,7 +32,7 @@ public class VerificationUtil {
      * @return
      */
     public static boolean isMobile(String strMoible) {
-        String strPattern = "1+[0-9]{10}";
+        String strPattern = "^1+[0-9]{10}$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strMoible);
         return m.matches();
