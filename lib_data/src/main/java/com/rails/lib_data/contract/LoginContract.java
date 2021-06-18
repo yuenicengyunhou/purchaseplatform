@@ -82,5 +82,19 @@ public interface LoginContract {
          * @param isDialog
          */
         void getRandInit(String code, boolean isDialog);
+
+
+        /**
+         * 随机码登录
+         *
+         * @param account
+         * @param password
+         * @param randInit
+         * @param randomCode1
+         * @param randomCode2
+         * @param randomCode3
+         * @param isDialog
+         */
+        void randomCodeLogin(String account, String password, String randInit, String randomCode1, String randomCode2, String randomCode3, boolean isDialog);
     }
 }

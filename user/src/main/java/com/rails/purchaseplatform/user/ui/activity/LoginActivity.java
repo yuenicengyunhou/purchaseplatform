@@ -76,6 +76,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     private final Uri uri = Uri.parse("content://sms/");
     private String mVerifyCode;
+    private String mRandInit = "";
 
     private int mPosition = 0;
     private RandomCodeLoginFragment mRandomCodeLoginFragment = new RandomCodeLoginFragment();
@@ -214,9 +215,21 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         super.onClick();
         binding.btnLogin.setOnClickListener(v -> {
             if (mPosition == 0) {
+                ArrayList<String> infoList = mRandomCodeLoginFragment.getLoginInfo();
+                presenter.randomCodeLogin(
+                        infoList.get(0),
+                        infoList.get(1),
+                        mRandInit,
+                        infoList.get(2),
+                        infoList.get(3),
+                        infoList.get(4),
+                        true);
             } else {
                 ArrayList<String> infoList = mPhoneLoginFragment.getLoginInfo();
-                presenter.onLogin(infoList.get(0), infoList.get(1), infoList.get(2));
+                presenter.onLogin(
+                        infoList.get(0),
+                        infoList.get(1),
+                        infoList.get(2));
             }
         });
 
@@ -271,6 +284,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     public void onGetRandInitSuccess(String randInit) {
+        mRandInit = randInit;
         mRandomCodeLoginFragment.setRandInit(randInit);
     }
 
@@ -336,6 +350,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     }
 
+    /**
+     * What is this?
+     */
     class SmsObserver extends ContentObserver {
 
         /**

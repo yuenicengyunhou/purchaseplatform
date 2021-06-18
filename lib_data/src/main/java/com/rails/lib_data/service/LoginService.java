@@ -20,7 +20,7 @@ public interface LoginService {
 
 
     /**
-     * lognin
+     * 手机号登录
      *
      * @param params
      * @return
@@ -94,4 +94,13 @@ public interface LoginService {
      */
     @GET("passport/coordinate/v3/{rand_init}")
     Observable<HttpResult<String>> getCoordinate3(@Path("rand_init") String randInit);
+
+    /**
+     * 随机码登录
+     *
+     * @param params
+     * @return
+     */
+    @POST("passport/appLogin2")
+    Observable<HttpResult<String>> randomCodeLogin(@Body HashMap<String, String> params);
 }

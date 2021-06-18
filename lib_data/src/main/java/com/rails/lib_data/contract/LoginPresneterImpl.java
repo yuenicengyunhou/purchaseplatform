@@ -166,4 +166,37 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             }
         });
     }
+
+    /**
+     * 随机码登录
+     *
+     * @param account
+     * @param password
+     * @param randInit
+     * @param randomCode1
+     * @param randomCode2
+     * @param randomCode3
+     * @param isDialog
+     */
+    @Override
+    public void randomCodeLogin(String account, String password, String randInit, String randomCode1, String randomCode2, String randomCode3, boolean isDialog) {
+        if (isDialog) baseView.showResDialog(R.string.loading);
+
+        // TODO: 2021/6/18 验证输入格式
+        // TODO: 2021/6/18 rndCode 需要如何运算？
+
+        model.randomCodeLogin(account, password, "", randInit, new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+                baseView.dismissDialog();
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                baseView.dismissDialog();
+                baseView.onResult(0, "登录成功", response);
+            }
+        });
+    }
 }
