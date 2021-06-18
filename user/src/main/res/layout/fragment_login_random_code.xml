@@ -25,6 +25,7 @@
         android:background="@null"
         android:ems="12"
         android:hint="请输入账号"
+        android:imeOptions="actionNext"
         android:inputType="text"
         android:maxLength="11"
         android:maxLines="1"
@@ -64,6 +65,7 @@
         android:layout_toStartOf="@+id/rl_passwordVisible"
         android:background="@null"
         android:hint="请输入密码"
+        android:imeOptions="actionNext"
         android:inputType="textPassword"
         android:maxLines="1"
         android:textColor="@color/font_black"
@@ -153,6 +155,9 @@
             android:layout_toEndOf="@+id/iv_1"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLines="1"
             android:textSize="@dimen/font_size_20"
             android:textStyle="bold" />
 
@@ -182,6 +187,9 @@
             android:layout_toEndOf="@+id/baseline"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLines="1"
             android:textSize="@dimen/font_size_20"
             android:textStyle="bold" />
 
@@ -204,6 +212,9 @@
             android:layout_marginStart="@dimen/dp_4"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLines="1"
             android:textSize="@dimen/font_size_20"
             android:textStyle="bold" />
 
@@ -215,7 +226,8 @@
         android:layout_below="@+id/rl_random_code"
         android:layout_marginStart="@dimen/dp_35"
         android:layout_marginTop="@dimen/dp_10"
-        android:gravity="center"
+        android:layout_marginEnd="@dimen/dp_35"
+        android:gravity="center_vertical"
         android:text="请根据图片上的坐标值输入电子口令卡上对应数字"
         android:textSize="@dimen/font_size_13" />
 

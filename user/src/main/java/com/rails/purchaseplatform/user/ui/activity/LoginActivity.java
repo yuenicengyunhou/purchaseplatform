@@ -62,7 +62,11 @@ import java.util.UUID;
  * @date: 2021/1/27
  */
 @Route(path = ConRoute.USER.LOGIN)
-public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> implements LoginContract.LoginView {
+public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
+        implements
+        LoginContract.LoginView,
+        PhoneLoginFragment.ScrollUpListener,
+        RandomCodeLoginFragment.ScrollUpListener {
     final private String TAG = LoginActivity.class.getSimpleName();
 
     private final int COUNTING = 1;
@@ -108,7 +112,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
 
     private TabLayoutMediator mediator;
 
-    private ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
+    private final ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageSelected(int position) {
             mPosition = position;
@@ -135,7 +139,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
 
         presenter = new LoginPresneterImpl(this, this);
         mRandomCodeLoginFragment.setPresenter(presenter);
+        mRandomCodeLoginFragment.setNeedScrollUpListener(this);
         mPhoneLoginFragment.setPresenter(presenter);
+        mPhoneLoginFragment.setNeedScrollUpListener(this);
 
         String[] tabTitles = getResources().getStringArray(R.array.tab_titles);
 
@@ -277,6 +283,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void scrollUp() {
+        binding.nsvLogin.scrollTo(0, 360);
     }
 
     @Override

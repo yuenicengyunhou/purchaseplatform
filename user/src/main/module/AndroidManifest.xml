@@ -18,14 +18,17 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" /> <!-- 找回密码页面 -->
+            android:screenOrientation="portrait" />
+        <!-- 找回密码页面 -->
         <activity
             android:name=".ui.activity.RetrievePasswordActivity"
-            android:screenOrientation="portrait" /> <!-- 找回密码2 -->
+            android:screenOrientation="portrait" />
+        <!-- 找回密码确认 -->
         <activity
             android:name=".ui.activity.RetrievePasswordConfirmActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" /> <!-- 设置 -->
+            android:screenOrientation="portrait" />
+        <!-- 设置 -->
         <activity
             android:name=".ui.activity.SettingActivity"
             android:launchMode="singleTop"

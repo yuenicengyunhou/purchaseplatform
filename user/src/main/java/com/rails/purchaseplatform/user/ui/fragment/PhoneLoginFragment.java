@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> {
     final private String TAG = PhoneLoginFragment.class.getSimpleName();
 
+    private RandomCodeLoginFragment.ScrollUpListener mScrollUpListener;
+
     private LoginContract.LoginPresenter mPresenter;
 
     @Override
@@ -39,24 +41,15 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
         // 获得/丢失焦点时更改横线颜色
         binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) ->
                 setInputLineBackground(hasFocus, binding.viewPhoneInputLine));
-        binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) ->
-                setInputLineBackground(hasFocus, binding.viewPasswordInputLine));
+        binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
+            setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
+            // 输入密码获得焦点时 将整个页面上移
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+        });
         binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine);
-            // TODO: 2021/6/2 需要监视软键盘状态，软件盘未弹出时并不会滚动
-//            if (hasFocus) {
-//                getActivity().nsvLogin.scrollTo(0, 150);
-//            } else {
-//                binding.nsvLogin.scrollTo(0, 0);
-//            }
-        });
-
-        // TODO: 2021/6/2 需要监视软键盘状态，软件盘未弹出时并不会滚动
-        binding.etVerifyNumInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                binding.nsvLogin.scrollTo(0, 150);
-            }
+            // 输入验证码获得焦点时 将整个页面上移
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
         });
     }
 
@@ -100,5 +93,14 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
             view.setBackground(drawableHasFocus);
         else
             view.setBackground(drawableLoseFocus);
+    }
+
+
+    public void setNeedScrollUpListener(RandomCodeLoginFragment.ScrollUpListener listener) {
+        this.mScrollUpListener = listener;
+    }
+
+    public interface ScrollUpListener {
+        void scrollUp();
     }
 }

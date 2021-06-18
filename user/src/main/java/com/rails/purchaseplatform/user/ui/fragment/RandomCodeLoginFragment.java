@@ -18,6 +18,8 @@ import java.util.UUID;
 public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCodeBinding> {
     final private String TAG = RandomCodeLoginFragment.class.getSimpleName();
 
+    private ScrollUpListener mScrollUpListener;
+
     private LoginContract.LoginPresenter mPresenter;
     private String url = HttpConstants.DEBUG_PLATFORM_URL;
 
@@ -45,8 +47,24 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
         // 获得/丢失焦点时更改横线颜色
         binding.etAccountInput.setOnFocusChangeListener((v, hasFocus) ->
                 setInputLineBackground(hasFocus, binding.viewAccountInputLine));
-        binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) ->
-                setInputLineBackground(hasFocus, binding.viewPasswordInputLine));
+        binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
+            setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
+            // 输入密码框获得焦点时 整个页面上移
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+        });
+
+
+        // 坐标输入框获得焦点时 整个页面上移
+        binding.et1.setOnFocusChangeListener((v, hasFocus) -> {
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+        });
+        binding.et2.setOnFocusChangeListener((v, hasFocus) -> {
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+        });
+        binding.et3.setOnFocusChangeListener((v, hasFocus) -> {
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+        });
+
     }
 
     @Override
@@ -103,5 +121,13 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             view.setBackground(drawableHasFocus);
         else
             view.setBackground(drawableLoseFocus);
+    }
+
+    public void setNeedScrollUpListener(ScrollUpListener listener) {
+        this.mScrollUpListener = listener;
+    }
+
+    public interface ScrollUpListener {
+        void scrollUp();
     }
 }

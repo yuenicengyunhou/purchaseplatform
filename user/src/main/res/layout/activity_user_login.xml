@@ -38,8 +38,9 @@
                 android:layout_alignTop="@+id/iv_logo"
                 android:layout_alignBottom="@+id/iv_logo"
                 android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_35"
                 android:layout_toEndOf="@+id/iv_logo"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="欢迎登录国铁采购商城"
                 android:textColor="#333333"
                 android:textSize="22sp"
@@ -255,17 +256,22 @@
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/font_size_18" />
 
-            <TextView
-                android:id="@+id/tv_forgetPassword"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn_login"
-                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/dp_40"
-                android:text="忘记密码？"
-                android:textColor="#999999"
-                android:textSize="@dimen/font_size_15" />
+                android:padding="@dimen/dp_30">
+
+                <TextView
+                    android:id="@+id/tv_forgetPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_4"
+                    android:text="忘记密码？"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/font_size_15" />
+            </FrameLayout>
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
