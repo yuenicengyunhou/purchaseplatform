@@ -1,166 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_corner_white_top_half_10">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_16"
-        android:text="筛选"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_18" />
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_5"
-        android:text="选择品牌"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_13" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:text="筛选"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_18"
+            android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_status"
+        <ImageButton
+            android:id="@+id/ib_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@null"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/svg_close_gray_12" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_status"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_16" />
+        android:layout_above="@+id/ll_bottom"
+        android:layout_below="@+id/rl_title">
 
-    <TextView
-        android:id="@+id/tv_price"
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rl_priceRange"
+            android:layout_marginLeft="@dimen/common_border"
+            android:layout_marginRight="@dimen/common_border"
+            android:overScrollMode="never" />
+
+        <RelativeLayout
+            android:id="@+id/rl_priceRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/tv_priceRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="价格区间"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view_lowPrice"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_30"
+                android:layout_below="@+id/tv_priceRange"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/bg_corner_gray_20" />
+
+            <EditText
+                android:id="@+id/et_lowPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/view_lowPrice"
+                android:layout_alignTop="@+id/view_lowPrice"
+                android:layout_alignEnd="@+id/view_lowPrice"
+                android:layout_alignBottom="@id/view_lowPrice"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="最低金额"
+                android:inputType="number"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_13" />
+
+            <View
+                android:id="@+id/view_split"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="1dp"
+                android:layout_alignTop="@+id/view_lowPrice"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_toEndOf="@id/view_lowPrice"
+                android:background="@color/bg_gray" />
+
+            <View
+                android:id="@+id/view_highPrice"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_30"
+                android:layout_below="@+id/tv_priceRange"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toEndOf="@+id/view_split"
+                android:background="@drawable/bg_corner_gray_20" />
+
+
+            <EditText
+                android:id="@+id/et_highPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/view_highPrice"
+                android:layout_alignTop="@+id/view_highPrice"
+                android:layout_alignEnd="@+id/view_highPrice"
+                android:layout_alignBottom="@id/view_highPrice"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="最高金额"
+                android:inputType="number"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_13" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/recycler_status"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_15"
-        android:text="价格区间"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_14"
-        android:textStyle="bold" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginBottom="@dimen/dp_25">
 
-    <View
-        android:id="@+id/view_lowPrice"
-        android:layout_width="@dimen/dp_90"
-        android:layout_height="@dimen/dp_30"
-        android:layout_below="@+id/tv_price"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@drawable/bg_corner_gray_20" />
-
-    <EditText
-        android:id="@+id/et_lowPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/view_lowPrice"
-        android:layout_alignTop="@+id/view_lowPrice"
-        android:layout_alignEnd="@+id/view_lowPrice"
-        android:layout_alignBottom="@id/view_lowPrice"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="最低金额"
-        android:textColor="@color/font_gray"
-        android:textSize="@dimen/font_size_13" />
-
-    <View
-        android:id="@+id/view_split"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="1dp"
-        android:layout_alignTop="@+id/view_lowPrice"
-        android:layout_marginStart="@dimen/dp_8"
-        android:layout_marginTop="@dimen/dp_15"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:layout_toEndOf="@id/view_lowPrice"
-        android:background="@color/bg_gray" />
-
-    <View
-        android:id="@+id/view_highPrice"
-        android:layout_width="@dimen/dp_90"
-        android:layout_height="@dimen/dp_30"
-        android:layout_below="@+id/tv_price"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_toEndOf="@+id/view_split"
-        android:background="@drawable/bg_corner_gray_20" />
+        <TextView
+            android:id="@+id/btn_reset"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_35"
+            android:background="@drawable/bg_corner_border_gray_20"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="重置"
+            android:textColor="@color/font_black_light"
+            android:textSize="@dimen/font_size_15" />
 
 
-    <EditText
-        android:id="@+id/et_highPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/view_highPrice"
-        android:layout_alignTop="@+id/view_highPrice"
-        android:layout_alignEnd="@+id/view_highPrice"
-        android:layout_alignBottom="@id/view_highPrice"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="最高金额"
-        android:textColor="@color/font_gray"
-        android:textSize="@dimen/font_size_13" />
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corner_blue_20"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_15" />
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view_lowPrice"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="上市时间"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_13" />
-
-    <View
-        android:id="@+id/view_reset"
-        android:layout_width="@dimen/dp_110"
-        android:layout_height="@dimen/dp_40"
-        android:layout_below="@+id/tv_time"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/dp_70"
-        android:layout_marginTop="@dimen/dp_90"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:background="@drawable/bg_conner_blank_gray_20" />
-
-    <TextView
-        android:id="@+id/tv_reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/view_reset"
-        android:layout_alignTop="@+id/view_reset"
-        android:layout_alignEnd="@id/view_reset"
-        android:layout_alignBottom="@+id/view_reset"
-        android:gravity="center"
-        android:text="重置"
-        android:textColor="@color/font_black_light"
-        android:textSize="@dimen/font_size_15" />
-
-    <View
-        android:id="@+id/view_complete"
-        android:layout_width="@dimen/dp_110"
-        android:layout_height="@dimen/dp_40"
-        android:layout_below="@+id/tv_time"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/dp_90"
-        android:layout_marginEnd="@dimen/dp_70"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:background="@drawable/bg_corner_blue_20" />
-
-    <TextView
-        android:id="@+id/tv_complete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/view_complete"
-        android:layout_alignTop="@+id/view_complete"
-        android:layout_alignEnd="@id/view_complete"
-        android:layout_alignBottom="@+id/view_complete"
-        android:gravity="center"
-        android:text="完成"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_15" />
+    </LinearLayout>
 
 </RelativeLayout>
+

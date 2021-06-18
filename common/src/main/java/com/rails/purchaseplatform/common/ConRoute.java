@@ -1,5 +1,7 @@
 package com.rails.purchaseplatform.common;
 
+import com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit;
+
 /**
  * 路由常数
  *
@@ -133,11 +135,10 @@ public class ConRoute {
         // WangYuhang - local
 //        public final static String BASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
 
-        //dev地址
-        public final static String BASEURL = "https://shop.rails.cn/purchase-android-web/#/";
-
-        // 生产环境
-//        public final static String BASEURL = "https://mall.95306.cn/purchase-android-web/#/";
+        // 地址
+        public final static String BASEURL = BaseRetrofit.isDebug
+                ? "https://shop.rails.cn/purchase-android-web/#/"
+                : "https://mall.95306.cn/purchase-android-web/#/";
 
 
         public final static String HOME = BASEURL + "home";
@@ -175,7 +176,7 @@ public class ConRoute {
         public final static String TURN_DOWN_LIST = BASEURL + "kindsApproval";
 
         //排行榜说明
-        public final static String RANK_QUESTION = BASEURL+"listDescription";
+        public final static String RANK_QUESTION = BASEURL + "listDescription";
 
     }
 

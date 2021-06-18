@@ -24,6 +24,7 @@ import com.rails.purchaseplatform.market.databinding.ActivitySearchResultBinding
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByProductFragment;
 import com.rails.purchaseplatform.market.ui.fragment.SearchResultByShopFragment;
 import com.rails.purchaseplatform.market.ui.pop.PropertyPop;
+import com.rails.purchaseplatform.market.ui.pop.SearchResultFilterPop;
 
 import java.util.ArrayList;
 
@@ -122,7 +123,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             /* 触发点击事件弹出Loading, 在pop中最后一个元素加载完成后取消Loading */
             if (mLoadingDialog == null) {
                 mLoadingDialog = new LoadingDialog
-                        .Builder(SearchResultActivity.this,true)
+                        .Builder(SearchResultActivity.this, true)
                         .setMessage("Loading")
                         .createWithBackground();
                 mLoadingDialog.setCancelable(true);
@@ -135,10 +136,12 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                     ToastUtil.showCenter(this, "没有过滤条件");
                     return;
                 }
-                PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3, mMinPrice, mMaxPrice);
+//                PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3, mMinPrice, mMaxPrice);
+                SearchResultFilterPop mPop = new SearchResultFilterPop(filterBeans, 3, mMinPrice, mMaxPrice);
                 mPop.setGravity(Gravity.BOTTOM);
                 mPop.setType(BasePop.MATCH_WRAP);
-                mPop.setFilterListener(new PropertyPop.DoFilter() {
+//                mPop.setFilterListener(new PropertyPop.DoFilter() {
+                mPop.setFilterListener(new SearchResultFilterPop.DoFilter() {
                     @Override
                     public void doFilter(String brand, String cid, String categoryAttr, String expandAttr, String minPrice, String maxPrice) {
                         fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice}, 1);

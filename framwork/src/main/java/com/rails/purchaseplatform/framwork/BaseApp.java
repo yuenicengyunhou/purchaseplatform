@@ -3,14 +3,17 @@ package com.rails.purchaseplatform.framwork;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.annotation.Nullable;
+import androidx.multidex.MultiDex;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
 import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit;
 import com.rails.purchaseplatform.framwork.http.trust.OkHttp3Connection;
 import com.rails.purchaseplatform.framwork.utils.SSLUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -25,9 +28,6 @@ import com.tencent.smtt.export.external.TbsCoreSettings;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
-
-import androidx.annotation.Nullable;
-import androidx.multidex.MultiDex;
 
 import java.util.HashMap;
 
@@ -105,8 +105,7 @@ public class BaseApp extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
-//                return BuildConfig.DEBUG;
-                return true;
+                return BaseRetrofit.isDebug;
             }
         });
     }
