@@ -45,7 +45,6 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private final int status;// 区分我的/全部
 //    private String statusCode;//区分采购单状态
 
-    private String squence = "purchaseNo";//默认采购单编号搜索
     private int searchType = 0;
     private String searchContent = "";
     private OrderFilterBean filterBean;
@@ -59,7 +58,6 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
 
     public static OrderFragment getInstance(int status, String statusCode, OrderFilterBean bean) {
         return new OrderFragment(status, statusCode, bean);
-
     }
 
     @Override
@@ -123,7 +121,8 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
      */
     private void notifyData(boolean isDialog, int page, int searchType, String searchContent, OrderFilterBean filterBean) {
         int queryType = status == 0 ? 1 : 0;
-        squence = getQuestSquence(searchType);
+        //默认采购单编号搜索
+        String squence = getQuestSquence(searchType);
         presenter.getOrder(isDialog, page, queryType, squence, searchContent, filterBean);
     }
 

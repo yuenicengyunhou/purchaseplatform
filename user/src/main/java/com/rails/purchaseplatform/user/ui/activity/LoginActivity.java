@@ -127,6 +127,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
             }
         }
     };
+    private SmsObserver smsObserver;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -256,7 +257,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
             if (aBoolean) {
-                SmsObserver smsObserver = new SmsObserver(mHandler2);
+                smsObserver = new SmsObserver(mHandler2);
                 getContentResolver().registerContentObserver(uri, true, smsObserver);
             }
         });
@@ -286,6 +287,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding> i
         if (mHandler2 != null) {
             mHandler2.removeCallbacksAndMessages(null);
             mHandler2 = null;
+        }
+        if (null != smsObserver) {
+            getContentResolver().unregisterContentObserver(smsObserver);
         }
         super.onDestroy();
 

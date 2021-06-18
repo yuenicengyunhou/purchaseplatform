@@ -57,7 +57,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onSuccess(CartBean cartBean) {
                 baseView.dismissDialog();
+
                 if (isCallBack()) {
+                    if (null == cartBean) return;
                     for (CartShopBean shopBean : cartBean.getShopList()) {
                         StringBuffer buffer = new StringBuffer();
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
@@ -73,10 +75,10 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                             if (productBean.num.get() <= 1) {
                                 productBean.canReduce.set(false);
                                 productBean.canAdd.set(true);
-                            } else if (productBean.num.get()>1 && productBean.num.get()<999999){
+                            } else if (productBean.num.get() > 1 && productBean.num.get() < 999999) {
                                 productBean.canReduce.set(true);
                                 productBean.canAdd.set(true);
-                            }else{
+                            } else {
                                 productBean.canReduce.set(true);
                                 productBean.canAdd.set(false);
                             }
@@ -87,13 +89,13 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                         double total = shopPrice(shopBean);
                         String freightS = shopBean.getFreightPrice();
                         double freight = 0D;
-                        try{
-                            if (TextUtils.isEmpty(freightS)){
+                        try {
+                            if (TextUtils.isEmpty(freightS)) {
                                 freight = 0;
-                            }else
+                            } else
                                 freight = Double.parseDouble(freightS);
-                        }catch (Exception e){
-
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
 
 
