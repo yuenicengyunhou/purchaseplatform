@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.user.ui.fragment;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -7,16 +8,12 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AuthorBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.UserStatisticsBean;
-import com.rails.lib_data.contract.LoginContract;
-import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
-import com.rails.purchaseplatform.common.widget.EmptyView;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
-import com.rails.purchaseplatform.framwork.utils.NetWorkUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
@@ -29,7 +26,6 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.UN_KNOWN_ERROR;
 
 /**
  * 购物车--个人中心
@@ -49,7 +45,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     @Override
     protected void loadData() {
 
-//        setNetView(binding.netError);
         toolPresenter = new UserToolPresenterImpl(getActivity(), this);
     }
 
@@ -57,8 +52,8 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
 
-        UserInfoBean bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO,UserInfoBean.class);
-        if (bean != null){
+        UserInfoBean bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
+        if (bean != null) {
             toolPresenter.getUserStatictics();
             toolPresenter.getUserInfoStatictics();
             toolPresenter.queryAuthor();
@@ -75,15 +70,27 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     protected void onClick() {
         super.onClick();
 
+        binding.tvLogin.setOnClickListener(v -> {
+            ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+        });
+
         binding.btnMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!hasToken()) {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                    return;
+                }
                 ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
             }
         });
 
 
         binding.btnSetting.setOnClickListener(v -> {
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
+            }
             startIntent(SettingActivity.class);
         });
 
@@ -91,6 +98,11 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.orderAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!hasToken()) {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                    return;
+                }
+
                 if (!isPurchase) {
                     ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
@@ -102,6 +114,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!hasToken()) {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                    return;
+                }
                 //待下单
                 if (!isPurchase) {
                     ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
@@ -117,6 +133,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tabRecivice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!hasToken()) {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                    return;
+                }
                 //待收货 "status": "待收货", "statusCode": "30"
                 if (!isPurchase) {
                     ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
@@ -130,6 +150,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         });
 
         binding.tabSend.setOnClickListener(v -> {
+                    if (!hasToken()) {
+                        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                        return;
+                    }
                     //待发货 "status": "待发货", "statusCode": "20"
                     if (!isPurchase) {
                         ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
@@ -143,6 +167,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         );
 
         binding.tabQuit.setOnClickListener(v -> {
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
+            }
             //待发货 "status": "已经取消", "statusCode": "70"
             if (!isPurchase) {
                 ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
@@ -157,6 +185,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tvWatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!hasToken()) {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                    return;
+                }
                 if (!isTrack) {
                     ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
@@ -172,6 +204,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         binding.tvCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!hasToken()) {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                    return;
+                }
                 if (!isCollect) {
                     ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                     return;
@@ -186,6 +222,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.llAudit.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到审批列表页面
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
+            }
             if (!isApprove) {
                 ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
@@ -198,6 +238,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.llRejected.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到驳回页面
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
+            }
             if (!isApprove) {
                 ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
@@ -211,6 +255,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         binding.llPass.setOnClickListener(v -> {
             // TODO: 2021/4/1 跳转到通过页面
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
+            }
             if (!isApprove) {
                 ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
@@ -272,7 +320,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     private void setUserInfo(UserStatisticsBean bean) {
         if (bean == null)
             return;
-
+        goLogin(true);
         binding.tvName.setText(String.valueOf(bean.getUserName()));
         binding.tvDepartment.setText(bean.getDepartmentOrganizationName());
 
@@ -290,44 +338,46 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             case HTTP_ERROR:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                PrefrenceUtil.getInstance(getActivity()).setString(ConShare.TOKEN, "");
+                goLogin(false);
             }
             break;
             case CONNECT_ERROR: {
                 binding.netError.setVisibility(View.VISIBLE);
             }
             break;
-            case "500":{
+            case "500": {
                 ToastUtil.showCenter(getActivity(), errorBean.getMsg());
             }
+            break;
+        }
+    }
+
+
+    private void goLogin(boolean isLogin) {
+        if (isLogin) {
+            binding.tvName.setVisibility(View.VISIBLE);
+            binding.tvDepartment.setVisibility(View.VISIBLE);
+            binding.tvLogin.setVisibility(View.GONE);
+        } else {
+            binding.tvName.setVisibility(View.GONE);
+            binding.tvDepartment.setVisibility(View.GONE);
+            binding.tvLogin.setVisibility(View.VISIBLE);
         }
     }
 
 
     /**
-     * 设置重试
+     * token是否存在
      *
-     * @param netView
+     * @return
      */
-    private void setNetView(EmptyView netView) {
-        if (netView != null) {
-            netView.setImgEmpty(R.drawable.ic_net_error).setContentEmpty("没有获取权限信息").setMarginTop(100)
-                    .setBtnEmpty("刷新重试")
-                    .setListener(v -> {
-                        if (NetWorkUtil.isWifiEnabled(getActivity())) {
-                            binding.netError.setVisibility(View.GONE);
-                            reNetLoad();
-                        } else {
-                            binding.netError.setVisibility(View.VISIBLE);
-                        }
-                    });
-        }
-    }
-
-    private void reNetLoad() {
-            toolPresenter.getUserStatictics();
-            toolPresenter.getUserInfoStatictics();
-            toolPresenter.queryAuthor();
+    private boolean hasToken() {
+        String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
+        if (TextUtils.isEmpty(token))
+            return false;
+        else
+            return true;
     }
 
 }

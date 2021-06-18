@@ -123,16 +123,6 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
     }
 
 
-    /**
-     * token是否存在
-     *
-     * @return
-     */
-    private boolean hasToken() {
-        String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
-        return !TextUtils.isEmpty(token);
-    }
-
 
     /**
      * 跳转页面
@@ -140,14 +130,7 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
      * @param page
      */
     private void goLogin(int page) {
-        if (!hasToken()) {
-            ARouter.getInstance()
-                    .build(ConRoute.USER.LOGIN)
-                    .navigation();
-        }
         binding.viewpager.setCurrentItem(page);
-
-
     }
 
 }
