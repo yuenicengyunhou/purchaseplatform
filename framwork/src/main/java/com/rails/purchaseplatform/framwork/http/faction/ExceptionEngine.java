@@ -30,6 +30,8 @@ public class ExceptionEngine {
     public static final String ERROR_UNLOAD = "0-0004";
     public static final String ERROR_TIMEOUT = "0-0202";
     public static final String ERROR_UNLOAD_2 = "0000010200006";
+    //502,跳转维护页面
+    public static final String ERROE_502 = "502";
 
     //网络请求异常
     public static final String HTTP_ERROR = "9999";
@@ -47,8 +49,13 @@ public class ExceptionEngine {
         ErrorBean errorBean;
         Logger.e(Objects.requireNonNull(e.getMessage()));
         if (e instanceof HttpException) {//HTTP错误
-            errorBean = new ErrorBean(e, HTTP_ERROR);
-            errorBean.setMsg("网络请求异常");  //均视为网络错误
+            if (((HttpException) e).code() == 502) {
+                errorBean = new ErrorBean(e, ERROE_502);
+                errorBean.setMsg("");
+            } else {
+                errorBean = new ErrorBean(e, HTTP_ERROR);
+                errorBean.setMsg("网络请求异常");  //均视为网络错误
+            }
         } else if (e instanceof HttpError) {    //服务器返回的错误
             HttpError httpError = (HttpError) e;
             errorBean = new ErrorBean(httpError, httpError.getCode());
