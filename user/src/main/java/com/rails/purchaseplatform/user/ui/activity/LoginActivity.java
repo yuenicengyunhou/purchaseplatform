@@ -192,10 +192,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         });
         mediator.attach();
 
-//        String code = UUID.randomUUID().toString() + System.currentTimeMillis();
-//        Log.d(TAG, "UUID + CurrentTime == " + code);
-//        presenter.randomInit(MD5Util.MD5(code), true);
-
+        // 请求随机码坐标
         presenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true);
     }
 
@@ -242,6 +239,15 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             Bundle bundle = new Bundle();
             Intent intent = new Intent(this, RetrievePasswordActivity.class);
             startActivity(intent);
+        });
+
+        binding.imgLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseActManager.getInstance().clear();
+                ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
+                finish();
+            }
         });
 
     }
