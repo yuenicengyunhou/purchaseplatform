@@ -18,6 +18,9 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
     private ArrayList<ProductSpecificParameter> mParameters;
     private ArrayList<ProductSpecificParameter> mSpecParameters;
 
+    private ProDetailsParamsAdapter adapter;
+    private ProDetailsParamsAdapter adapterSpec;
+
     public ProductDetailsParamsPop() {
         super();
     }
@@ -30,12 +33,12 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
 
     @Override
     protected void initialize(Bundle bundle) {
-        ProDetailsParamsAdapter adapter = new ProDetailsParamsAdapter(getActivity());
+        adapter = new ProDetailsParamsAdapter(getActivity());
         binding.brvProductParams.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvProductParams.setAdapter(adapter);
         adapter.update(mParameters, true);
 
-        ProDetailsParamsAdapter adapterSpec = new ProDetailsParamsAdapter(getActivity());
+        adapterSpec = new ProDetailsParamsAdapter(getActivity());
         binding.brvProductSpecParams.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvProductSpecParams.setAdapter(adapterSpec);
         adapterSpec.update(mSpecParameters, true);
@@ -45,5 +48,15 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
         // 确定按钮
         binding.tvConfirm.setOnClickListener(v -> dismiss());
 
+    }
+
+    public void setParameters(ArrayList<ProductSpecificParameter> parameters) {
+        this.mParameters = parameters;
+        adapter.update(mParameters, true);
+    }
+
+    public void setSpecParameters(ArrayList<ProductSpecificParameter> specParameters) {
+        this.mSpecParameters = specParameters;
+        adapterSpec.update(mSpecParameters, true);
     }
 }

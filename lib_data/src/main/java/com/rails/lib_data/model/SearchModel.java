@@ -19,6 +19,7 @@ public class SearchModel {
 
 
     /**
+     * 已弃用
      * 请求商品列表
      *
      * @param orderColumn
@@ -76,6 +77,7 @@ public class SearchModel {
 
 
     /**
+     * 已弃用
      * 请求商品列表 cid
      *
      * @param orderColumn
@@ -99,6 +101,22 @@ public class SearchModel {
     }
 
 
+    /**
+     * 请求商品搜索结果 仅使用keyword
+     *
+     * @param keyword
+     * @param orderColumn
+     * @param orderType
+     * @param brands
+     * @param brandsString
+     * @param categoryAttrValueIds
+     * @param expandAttrValueIds
+     * @param minPrice
+     * @param maxPrice
+     * @param pageNum
+     * @param pageSize
+     * @param httpRxObserver
+     */
     public void queryItemListByKeyword(String keyword,
                                        String orderColumn, String orderType,
                                        String brands, String brandsString,
@@ -136,6 +154,23 @@ public class SearchModel {
     }
 
 
+    /**
+     * 搜索商品列表 使用Cid 或cid|keyword同时使用
+     *
+     * @param keyword
+     * @param cid
+     * @param orderColumn
+     * @param orderType
+     * @param brands
+     * @param brandsString
+     * @param categoryAttrValueIds
+     * @param expandAttrValueIds
+     * @param minPrice
+     * @param maxPrice
+     * @param pageNum
+     * @param pageSize
+     * @param httpRxObserver
+     */
     public void queryItemListByCid(String keyword, String cid,
                                    String orderColumn, String orderType,
                                    String brands, String brandsString,

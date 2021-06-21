@@ -100,6 +100,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private ProductDetailsBean productDetailsBean;
 
     private String mItemId;
+    private String mSkuId;
     private String mPlatformId = "20";
 
     private AddCartPop<SpecificationPopBean> mPop;
@@ -120,6 +121,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         mItemId = extras.getString("itemId", "");
+        mSkuId = extras.getString("skuId", "");
     }
 
 
@@ -131,7 +133,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 请求商品信息
         mProductDetailsPresenterImpl2 = new ProductDetailsPresenterImpl2(this, this);
-        mProductDetailsPresenterImpl2.getAllProductInfo("20", mItemId, "", true);
+        mProductDetailsPresenterImpl2.getAllProductInfo("20", mItemId, mSkuId, "", true);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mPresenter = new CartToolPresenterImpl(this, this);
@@ -482,15 +484,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             ToastUtil.showCenter(this, "产品参数未上传");
             return;
         }
+        ProductDetailsDataUtils utils = ProductDetailsDataUtils.getInstance();
+        ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
+        utils.getCommonParams(parameters, productDetailsBean, mPageBean.getCurrentItemSkuInfo());
+        ArrayList<ProductSpecificParameter> specParameters = new ArrayList<>();
+        utils.getSpecParams(specParameters, productDetailsBean, mPageBean.getCurrentItemSkuInfo());
         if (mParamsPop == null) {
-            ProductDetailsDataUtils utils = ProductDetailsDataUtils.getInstance();
-            ArrayList<ProductSpecificParameter> parameters = new ArrayList<>();
-            utils.getCommonParams(parameters, productDetailsBean, mPageBean.getCurrentItemSkuInfo());
-            ArrayList<ProductSpecificParameter> specParameters = new ArrayList<>();
-            utils.getSpecParams(specParameters, productDetailsBean, mPageBean.getCurrentItemSkuInfo());
             mParamsPop = new ProductDetailsParamsPop(parameters, specParameters);
             mParamsPop.setType(BasePop.MATCH_WRAP);
             mParamsPop.setGravity(Gravity.BOTTOM);
+        } else {
+            mParamsPop.setParameters(parameters);
+            mParamsPop.setSpecParameters(specParameters);
         }
         mParamsPop.show(getSupportFragmentManager(), "product_details_params");
     }

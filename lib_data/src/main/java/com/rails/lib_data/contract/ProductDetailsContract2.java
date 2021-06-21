@@ -38,11 +38,13 @@ public interface ProductDetailsContract2 {
          *
          * @param platformId
          * @param itemId
+         * @param skuId
          * @param addressType
          * @param isDialog
          */
         void getAllProductInfo(String platformId,
                                String itemId,
+                               String skuId,
                                String addressType,
                                boolean isDialog);
 

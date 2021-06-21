@@ -113,6 +113,22 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                 });
     }
 
+    /**
+     * 使用Keyword搜索商品
+     *
+     * @param keyword
+     * @param orderColumn
+     * @param orderType
+     * @param brands
+     * @param brandsString
+     * @param categoryAttrValueIds
+     * @param expandAttrValueIds
+     * @param minPrice
+     * @param maxPrice
+     * @param pageNum
+     * @param pageSize
+     * @param isDialog
+     */
     @Override
     public void queryItemListByKeyword(String keyword, String orderColumn, String orderType,
                                        String brands, String brandsString, String categoryAttrValueIds, String expandAttrValueIds,
@@ -145,6 +161,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                             ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(bean);
                             boolean isClear = pageNum <= 1;
                             baseView.onQueryItemListByKeywordSuccess(itemAttributes, searchFilterBeans, false, isClear);
+                            baseView.dismissDialog();
                         }
                         // 否则，如果含有itemId属性 返回itemId并跳转到详情页
                         else if (response.has("itemId")) {
@@ -152,9 +169,9 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                             String itemId = TextUtils.isEmpty(element.toString())
                                     ? ""
                                     : element.toString();
-                            baseView.onQueryItemListByKeywordSuccess2(itemId);
+                            // 走到这一步说明keyword应该是一个skuId, 直接跳转到商品详情
+                            baseView.onQueryItemListByKeywordSuccess2(itemId, keyword);
                         }
-                        baseView.dismissDialog();
                     }
                 });
     }

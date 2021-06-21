@@ -133,9 +133,10 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     }
 
     @Override
-    public void onQueryItemListByKeywordSuccess2(String itemId) {
+    public void onQueryItemListByKeywordSuccess2(String itemId, String skuId) {
         Bundle bundle = new Bundle();
         bundle.putString("itemId", itemId);
+        bundle.putString("skuId", skuId);
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
         Objects.requireNonNull(getActivity()).finish();
     }

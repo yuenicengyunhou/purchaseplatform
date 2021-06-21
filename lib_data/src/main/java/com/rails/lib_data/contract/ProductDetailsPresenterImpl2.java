@@ -1,6 +1,7 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
@@ -33,6 +34,7 @@ public class ProductDetailsPresenterImpl2
     @Override
     public void getAllProductInfo(String platformId,
                                   String itemId,
+                                  String paramSkuId,
                                   String addressType,
                                   boolean isDialog) {
 
@@ -51,9 +53,10 @@ public class ProductDetailsPresenterImpl2
                 ProductDetailsDataUtils dataUtils = ProductDetailsDataUtils.getInstance();
 
                 // 查询不到skuId 就终止下一步请求
-                if (response1.getProductDetailsBean() == null
+                if ((response1.getProductDetailsBean() == null
                         || response1.getProductDetailsBean().getItemSkuInfoList() == null
-                        || response1.getProductDetailsBean().getItemSkuInfoList().size() == 0) {
+                        || response1.getProductDetailsBean().getItemSkuInfoList().size() == 0)
+                        && TextUtils.isEmpty(paramSkuId)) {
                     baseView.onHaveNoSkuId();
                     baseView.dismissDialog();
                     return;
@@ -63,7 +66,9 @@ public class ProductDetailsPresenterImpl2
                 String platformId = "20";
                 String shopId = response1.getProductDetailsBean().getItemPublishVo().getShopId();
                 String cid = String.valueOf(response1.getProductDetailsBean().getItemPublishVo().getCid());
-                String skuId = response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId();
+                String skuId = TextUtils.isEmpty(paramSkuId)
+                        ? response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId()
+                        : paramSkuId;
                 ArrayList<AddressBean> addressBeanList = response1.getAddressBeanList();
                 String provinceId = dataUtils.getProvinceCode(addressBeanList);
                 String cityId = dataUtils.getCityCode(addressBeanList);

@@ -24,12 +24,12 @@ public interface SearchContract {
         void onQueryItemListByKeywordSuccess(ArrayList<ItemAttribute> searchResultBeans, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
 
         /**
-         * 获取商品列表成功 回调
+         * 搜索skuId成功 回调
          * 搜索skuId
          *
          * @param itemId
          */
-        void onQueryItemListByKeywordSuccess2(String itemId);
+        void onQueryItemListByKeywordSuccess2(String itemId, String skuId);
 
         /**
          * 获取商品列表成功 使用cid
