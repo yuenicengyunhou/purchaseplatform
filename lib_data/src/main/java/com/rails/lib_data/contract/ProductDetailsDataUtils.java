@@ -509,6 +509,9 @@ public class ProductDetailsDataUtils {
             return specificationPopBeans;
         }
 
+        currentItemSkuInfo.getAttributesName().split(";");
+        currentItemSkuInfo.getAttributes().split(";");
+
         // 属性数量 也是默认选中的个数
         int typeCount = bean.getItemSkuInfoList().get(0).getAttributesName().split(";").length;
 
@@ -557,7 +560,12 @@ public class ProductDetailsDataUtils {
                     popBean.setAttrId(typeNameKeyId);
                     valueBean.setAttrValueName(typeNameValue);
                     valueBean.setAttrValueId(typeNameValueId);
-                    if (i < typeCount) valueBean.setSelect(true);
+                    for (String attr : currentItemSkuInfo.getAttributes().split(";")) {
+                        if (attr.equals(nameIdList.get(i))) {
+                            valueBean.setSelect(true);
+                        }
+                    }
+//                    if (i < typeCount) valueBean.setSelect(true);
                     valueList.add(valueBean);
                 }
             }
