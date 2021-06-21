@@ -25,6 +25,14 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     @Override
     protected void loadData() {
+        if (BaseRetrofit.isDebug) {
+            binding.etAccountInput.setText("cezdbj001");
+            binding.etPasswordInput.setText("Pass!word@1234");
+            binding.et1.setText("000");
+            binding.et2.setText("000");
+            binding.et3.setText("000");
+        }
+
         // 刷新随机码坐标
         binding.ibReloadRandomCode.setOnClickListener(v ->
                 mPresenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true));

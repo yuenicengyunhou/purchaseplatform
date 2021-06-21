@@ -22,8 +22,9 @@ public class ProductDetailsPresenterImpl2
         extends BasePresenter<ProductDetailsContract2.ProductDetailsView2>
         implements ProductDetailsContract2.ProductDetailsPresenter2 {
 
-    private ProductDetailsModel2 mModel;
+    final private String TAG = ProductDetailsPresenterImpl2.class.getSimpleName();
 
+    private ProductDetailsModel2 mModel;
 
     public ProductDetailsPresenterImpl2(Activity mContext, ProductDetailsContract2.ProductDetailsView2 productDetailsView2) {
         super(mContext, productDetailsView2);
@@ -86,7 +87,7 @@ public class ProductDetailsPresenterImpl2
 
                     @Override
                     protected void onSuccess(ProductDetailsStep2Bean response2) {
-                        dataUtils.analysisAllData(mContext.getApplicationContext(), response1, response2);
+                        dataUtils.analysisAllData(mContext.getApplicationContext(), skuId, response1, response2);
 
                         baseView.onProductInfoLoadCompleted(dataUtils.getProductDetailsPageBean());
                         baseView.dismissDialog();

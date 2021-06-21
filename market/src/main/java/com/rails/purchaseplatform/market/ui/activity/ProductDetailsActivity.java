@@ -419,8 +419,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             itemSkuInfoList = (ArrayList<ItemSkuInfo>) productDetailsBean.getItemSkuInfoList();
         }
         if (mPop == null) {
-//            Log.d(TAG, "mPop == null 执行一次");
-
             mPop = new AddCartPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getSkuStockBean(),
                     mPageBean.getSellPrice(), mPageBean.getDelivery(),
                     mPageBean.getShopId(), mPageBean.getProvinceCode(), mPageBean.getCityCode(), mPageBean.getCountryCode(),

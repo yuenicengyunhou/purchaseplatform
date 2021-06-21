@@ -87,7 +87,7 @@ public class ProductDetailsDataUtils {
      * @param bean1   Step1 result
      * @param bean2   Step2 result
      */
-    public void analysisAllData(Context context, ProductDetailsStep1Bean bean1, ProductDetailsStep2Bean bean2) {
+    public void analysisAllData(Context context, String paramsSkuID, ProductDetailsStep1Bean bean1, ProductDetailsStep2Bean bean2) {
         ProductDetailsPageBean pageBean = new ProductDetailsPageBean();
         ProductDetailsPopBean popBean = new ProductDetailsPopBean();
 
@@ -106,12 +106,23 @@ public class ProductDetailsDataUtils {
         pageBean.setSkuStockBean(stockBean);
 
         // 当前ItemSkuInfo
-        ItemSkuInfo currentItemSkuInfo = bean1.getProductDetailsBean().getItemSkuInfoList().get(0);
-        pageBean.setCurrentItemSkuInfo(currentItemSkuInfo);
-
+        ItemSkuInfo currentItemSkuInfo = null;
         // 当前的skuId
-        String skuId = currentItemSkuInfo.getId();
-        pageBean.setSkuId(skuId);
+        String currentSkuId;
+        if (TextUtils.isEmpty(paramsSkuID)) {
+            currentItemSkuInfo = bean1.getProductDetailsBean().getItemSkuInfoList().get(0);
+            currentSkuId = currentItemSkuInfo.getId();
+        } else {
+            currentSkuId = paramsSkuID;
+            for (ItemSkuInfo itemSkuInfo : bean1.getProductDetailsBean().getItemSkuInfoList()) {
+                if (itemSkuInfo.getId().equals(currentSkuId)) {
+                    currentItemSkuInfo = itemSkuInfo;
+                    break;
+                }
+            }
+        }
+        pageBean.setCurrentItemSkuInfo(currentItemSkuInfo);
+        pageBean.setSkuId(currentSkuId);
 
         // sku价格（在售价格、市场价格、sku名称、sku图片、评分、销量）
         ProductPriceBean priceBean = bean2.getProductPriceBeans().get(0);
@@ -158,7 +169,7 @@ public class ProductDetailsDataUtils {
         pageBean.setCompanyList(companyBeans);
 
         // 选择型号弹窗Bean
-        ArrayList<SpecificationPopBean> specPopBean = getSpecificationPopBeans(detailsBean);
+        ArrayList<SpecificationPopBean> specPopBean = getSpecificationPopBeans(detailsBean, currentItemSkuInfo);
         pageBean.setSpecPopBeanList(specPopBean);
 
         // 店铺推荐商品Bean
@@ -483,7 +494,7 @@ public class ProductDetailsDataUtils {
      * @param bean
      * @return
      */
-    public ArrayList<SpecificationPopBean> getSpecificationPopBeans(ProductDetailsBean bean) {
+    public ArrayList<SpecificationPopBean> getSpecificationPopBeans(ProductDetailsBean bean, ItemSkuInfo currentItemSkuInfo) {
         // 最后需要返回的集合
         ArrayList<SpecificationPopBean> specificationPopBeans = new ArrayList<>();
 
@@ -493,7 +504,7 @@ public class ProductDetailsDataUtils {
         }
 
         // 全都是空的
-        ItemSkuInfo defaultSkuInfo = bean.getItemSkuInfoList().get(0);
+        ItemSkuInfo defaultSkuInfo = currentItemSkuInfo;
         if (TextUtils.isEmpty(defaultSkuInfo.getAttributes()) || TextUtils.isEmpty(defaultSkuInfo.getAttributesName())) {
             return specificationPopBeans;
         }
