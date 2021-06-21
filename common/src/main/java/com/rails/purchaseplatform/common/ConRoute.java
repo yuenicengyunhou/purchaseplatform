@@ -135,10 +135,10 @@ public class ConRoute {
         // WangYuhang - local
 //        public final static String BASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
 
-        // 地址
+        // H5地址
         public final static String BASEURL = BaseRetrofit.isDebug
-                ? "https://shop.rails.cn/purchase-android-web/#/"
-                : "https://mall.95306.cn/purchase-android-web/#/";
+                ? "https://shop.rails.cn/purchase-android-web/#/"   // DEBUG
+                : "https://mall.95306.cn/purchase-android-web/#/";  // RELEASE
 
 
         public final static String HOME = BASEURL + "home";
