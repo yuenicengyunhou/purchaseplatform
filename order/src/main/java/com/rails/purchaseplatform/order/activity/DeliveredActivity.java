@@ -40,7 +40,6 @@ import java.util.List;
 @Route(path = ConRoute.ORDER.ORDER_DELIVER)
 public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding> implements OrderContract.OrderView {
 
-
     private String orderNo;
     private DeliveredAdapter adapter;
     private OrderPresenterImpl presenter;
@@ -102,12 +101,8 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
         barBinding.empty.setDescEmpty(R.string.order_empty).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         barBinding.recycler.setAdapter(adapter);
         barBinding.recycler.setEmptyView(barBinding.empty);
-        adapter.setDownloadListener((position, url, fileName, downloadState) -> {
-
-            start_single(url, position + 1, position, downloadState);
+        adapter.setDownloadListener((position, url, fileName, downloadState) -> start_single(url, position + 1, position, downloadState));
 //            addTasks(position, url,position+1,downloadState);
-        });
-
 
         barBinding.refresh.setOnRefreshListener(refreshLayout -> presenter.getDelivered(orderNo));
 
@@ -151,7 +146,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     public int singleTaskId = 0;
     public String mSinglePath = FileDownloadUtils.getDefaultSaveRootPath() + File.separator + "GTSC"
             + File.separator;
-    public String mSaveFolder = FileDownloadUtils.getDefaultSaveRootPath() + File.separator + "GTSC";
+//    public String mSaveFolder = FileDownloadUtils.getDefaultSaveRootPath() + File.separator + "GTSC";
 
     /**
      * positionPlus=index+1

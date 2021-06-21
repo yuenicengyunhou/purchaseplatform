@@ -162,6 +162,17 @@ public class EmptyView extends LinearLayout {
     }
 
 
+    public EmptyView setBtnListener(OnClickListener onClickListener) {
+        if (binding.btnUnEmpty.getVisibility() == View.VISIBLE)
+            binding.btnUnEmpty.setOnClickListener(onClickListener);
+
+        if (binding.btnEmpty.getVisibility() == View.VISIBLE)
+            binding.btnEmpty.setOnClickListener(onClickListener);
+
+        return this;
+    }
+
+
     public EmptyView setMarginTop(int marginTop) {
         if (marginTop != 0) {
             binding.llEmpty.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);

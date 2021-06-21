@@ -25,7 +25,7 @@ public interface OrderContract {
 
         /**
          * 加载妥投文件列表
-         * @param list
+         * param list
          */
         void loadDeliveredFileList(ArrayList<DeliveredFile> list);
 

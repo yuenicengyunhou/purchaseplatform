@@ -32,6 +32,7 @@ import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
@@ -52,6 +53,13 @@ import java.util.HashMap;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.CONNECT_ERROR;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
 
 /**
  * 购物车
@@ -106,9 +114,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.cartRecycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.line_gray));
         binding.cartRecycler.setAdapter(cartAdapter);
-        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
-        binding.cartRecycler.setEmptyView(binding.empty);
-
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null)
+                .setMarginTop(80)
+                .setBtnEmpty("立即登录")
+                .setBtnListener(v -> {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                });
+        binding.empty.setVisibility(View.VISIBLE);
         recAdapter = new ProductHotAdapter(getActivity(), 0);
         hotManager = new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false);
         binding.recRecycler.setLayoutManager(hotManager);
@@ -185,7 +197,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        productPresenter.getHotProducts(false, page,"10");
+        productPresenter.getHotProducts(false, page, "10");
     }
 
     @Override
@@ -196,7 +208,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getCartInfo(CartBean cartBean) {
-        cartAdapter.update((ArrayList) cartBean.getShopList(), true);
+        ArrayList<CartShopBean> shopBeans = (ArrayList<CartShopBean>) cartBean.getShopList();
+        if (shopBeans.isEmpty()) {
+            binding.empty.setVisibility(View.VISIBLE);
+        } else {
+            binding.empty.setVisibility(View.GONE);
+        }
+        binding.cartRecycler.setEmptyView(binding.empty);
+        cartAdapter.update(shopBeans, true);
         setDefTotal(cartBean);
     }
 
@@ -415,10 +434,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (bean.num.get() <= 1) {
             bean.canReduce.set(false);
             bean.canAdd.set(true);
-        } else if (bean.num.get()>1 && bean.num.get()<999999){
+        } else if (bean.num.get() > 1 && bean.num.get() < 999999) {
             bean.canReduce.set(true);
             bean.canAdd.set(true);
-        }else{
+        } else {
             bean.canReduce.set(true);
             bean.canAdd.set(false);
         }
@@ -453,6 +472,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getDefAddress(AddressBean bean) {
+        binding.empty.setBtnEmpty("");
         if (bean == null) {
             Boolean isAddressManager = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_ADDRESS, false);
             if (!isAddressManager) {
@@ -604,5 +624,22 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                     }
                 })
                 .builder().show();
+    }
+
+
+    @Override
+    public void onError(ErrorBean errorBean) {
+        String errorCode = errorBean.getCode();
+        switch (errorCode) {
+            case ERROR_PASTDUE:
+            case ERROR_UNLOAD:
+            case HTTP_ERROR:
+            case ERROR_UNLOAD_2:
+            case ERROR_TIMEOUT: {
+                binding.empty.setBtnEmpty("立即登录");
+                ToastUtil.showCenter(getActivity(), errorBean.getMsg());
+            }
+            break;
+        }
     }
 }
