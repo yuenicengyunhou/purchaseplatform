@@ -187,7 +187,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 //        Log.d(TAG, beforeMd5);
 //        String rndCode = MD5Util.MD5(beforeMd5);
 
-        String rndCodeAsMd5 = MD5Util.MD5(randInit + randomCode1 + randomCode2 + randomCode3);
+        String rndCodeAsMd5 = MD5Util.MD5((randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
         String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
 
         if (TextUtils.isEmpty(account)) {
