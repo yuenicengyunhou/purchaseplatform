@@ -2,10 +2,13 @@ package com.rails.purchaseplatform.framwork.utils;
 
 import android.text.TextUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import androidx.annotation.NonNull;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * MD5 加密工具类
@@ -38,7 +41,8 @@ public class MD5Util {
     }
 
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
-    public static String MD5(String input)  {
+
+    public static String MD5(String input) {
         byte[] bytes = new byte[0];
         try {
             bytes = MessageDigest.getInstance("MD5").digest(input.getBytes());
@@ -57,5 +61,15 @@ public class MD5Util {
         return r.toString();
     }
 
+
+    /**
+     * md5加密字符串123
+     *
+     * @param str
+     * @return
+     */
+    public static String md5md5(String str) {
+        return DigestUtils.md5Hex(str.getBytes(StandardCharsets.UTF_8));
+    }
 
 }

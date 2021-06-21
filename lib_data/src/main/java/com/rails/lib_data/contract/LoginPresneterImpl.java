@@ -183,11 +183,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
     public void randomCodeLogin(String account, String password, String randInit, String randomCode1, String randomCode2, String randomCode3, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
 
-//        String beforeMd5 = randInit + randomCode1 + randomCode2 + randomCode3;
-//        Log.d(TAG, beforeMd5);
-//        String rndCode = MD5Util.MD5(beforeMd5);
-
-        String rndCodeAsMd5 = MD5Util.MD5(randInit + randomCode1 + randomCode2 + randomCode3);
+        String rndCodeAsDoubleMd5 = MD5Util.md5md5(MD5Util.md5md5(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
         String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
 
         if (TextUtils.isEmpty(account)) {
@@ -215,7 +211,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsMd5, randInit, new HttpRxObserver<String>() {
+        model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsDoubleMd5, randInit, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
