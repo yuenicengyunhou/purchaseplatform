@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,8 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.widget.TextView;
@@ -72,6 +75,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     private int COUNT_NUM = 60;
     private final long DURATION = 1000;
     private final int VERIFY_CODE_RECEIVE = 0;
+
+    private String mScrollFlag = "";
 
     private final Uri uri = Uri.parse("content://sms/");
     private String mVerifyCode;
@@ -134,6 +139,33 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     protected void initialize(Bundle bundle) {
 
         PrefrenceUtil.getInstance(this).clear();
+
+        ViewGroup parentContent = findViewById(android.R.id.content);
+        parentContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                parentContent.getWindowVisibleDisplayFrame(r);
+
+                int displayHeight = r.bottom - r.top;
+                int parentHeight = parentContent.getHeight();
+                int softKeyHeight = parentHeight - displayHeight;
+
+                if (softKeyHeight > 700) {
+                    switch (mScrollFlag) {
+                        case "password":
+                            binding.nsvLogin.scrollTo(0, 360);
+                            break;
+                        case "randomCode":
+                        case "verifyCode":
+                            binding.nsvLogin.scrollTo(0, 720);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        });
 
         presenter = new LoginPresneterImpl(this, this);
         mRandomCodeLoginFragment.setPresenter(presenter);
@@ -305,8 +337,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     }
 
     @Override
-    public void scrollUp() {
-        binding.nsvLogin.scrollTo(0, 360);
+    public void scrollUp(String flag) {
+        mScrollFlag = flag;
     }
 
     @Override

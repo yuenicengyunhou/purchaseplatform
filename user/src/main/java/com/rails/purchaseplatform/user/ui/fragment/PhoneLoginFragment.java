@@ -45,12 +45,12 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
             // 输入密码获得焦点时 将整个页面上移
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("password");
         });
         binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine);
             // 输入验证码获得焦点时 将整个页面上移
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("verifyCode");
         });
     }
 
@@ -118,6 +118,6 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
     }
 
     public interface ScrollUpListener {
-        void scrollUp();
+        void scrollUp(String flag);
     }
 }

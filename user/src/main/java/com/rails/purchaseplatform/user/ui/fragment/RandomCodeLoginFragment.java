@@ -58,19 +58,19 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
             // 输入密码框获得焦点时 整个页面上移
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("password");
         });
 
 
         // 坐标输入框获得焦点时 整个页面上移
         binding.et1.setOnFocusChangeListener((v, hasFocus) -> {
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
         });
         binding.et2.setOnFocusChangeListener((v, hasFocus) -> {
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
         });
         binding.et3.setOnFocusChangeListener((v, hasFocus) -> {
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp();
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
         });
 
     }
@@ -136,6 +136,6 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     }
 
     public interface ScrollUpListener {
-        void scrollUp();
+        void scrollUp(String flag);
     }
 }
