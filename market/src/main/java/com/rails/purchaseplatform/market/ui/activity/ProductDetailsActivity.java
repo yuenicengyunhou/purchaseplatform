@@ -388,6 +388,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 商品详情跳转到店铺详情
      */
     private void productDetailGoShopDetail() {
+        if (null == mPageBean) {
+            ToastUtil.showCenter(this,"商品信息为空");
+            return;
+        }
         Bundle bundle = new Bundle();
         bundle.putString("shopInfoId", mPageBean.getShopId());
         ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();

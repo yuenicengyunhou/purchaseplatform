@@ -51,7 +51,7 @@ public class ShopInfoBean {
     private Object sellerId;
     private long shopId;
     private int organizeId;
-    private String organizeName;
+    private String organizeName = "";
     private String shopName;
     private Object shortCode;
     private int shopType;
@@ -68,7 +68,7 @@ public class ShopInfoBean {
     private Object detailAddress;
     private Object fullAddress;
     private Object zcode;
-    private String mobile;
+    private String mobile="";
     private Object landline;
     private Object email;
     private Object dataRejectReason;
@@ -277,6 +277,9 @@ public class ShopInfoBean {
     }
 
     public void setMobile(String mobile) {
+        if (null == mobile) {
+            mobile = "";
+        }
         this.mobile = mobile;
     }
 

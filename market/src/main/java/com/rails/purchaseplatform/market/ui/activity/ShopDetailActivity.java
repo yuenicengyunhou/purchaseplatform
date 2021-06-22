@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 
@@ -24,6 +25,7 @@ import com.rails.purchaseplatform.market.adapter.ShopAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
 import com.rails.purchaseplatform.market.ui.pop.FilterShopPop;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import static com.rails.purchaseplatform.market.config.MarketConfig.SHOP_RECOMMEND_PAGE_SIZE;
@@ -251,6 +253,15 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     @Override
     public void loadShopInfo(ShopInfoBean shop) {
         barBinding.setShopInfo(shop);
+        if (null != shop) {
+            barBinding.tvPhone.setText(MessageFormat.format("联系电话：{0}", shop.getMobile()));
+            barBinding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
+            if (TextUtils.isEmpty(shop.getMobile())) {
+                barBinding.ivMakePhone.setVisibility(View.GONE);
+            } else {
+                barBinding.ivMakePhone.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override

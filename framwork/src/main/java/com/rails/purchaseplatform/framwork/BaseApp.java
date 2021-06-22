@@ -105,7 +105,7 @@ public class BaseApp extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
-                return BaseRetrofit.isDebug;
+                return true;
             }
         });
     }
