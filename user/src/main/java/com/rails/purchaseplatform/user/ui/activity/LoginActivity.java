@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.user.ui.activity;
 import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.ContentObserver;
@@ -20,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.widget.TextView;
@@ -56,6 +58,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.UUID;
+
+import static com.rails.purchaseplatform.framwork.BaseApp.getContext;
 
 /**
  * 登录页面
@@ -137,6 +141,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
+        InputMethodManager manager = ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE));
 
         PrefrenceUtil.getInstance(this).clear();
 
@@ -153,6 +158,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
                 if (softKeyHeight > 700) {
                     switch (mScrollFlag) {
+                        case "account":
+                        case "phone":
+                            binding.nsvLogin.scrollTo(0, 0);
+                            break;
                         case "password":
                             binding.nsvLogin.scrollTo(0, 360);
                             break;
@@ -169,8 +178,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
         presenter = new LoginPresneterImpl(this, this);
         mRandomCodeLoginFragment.setPresenter(presenter);
+        mRandomCodeLoginFragment.setManager(manager);
         mRandomCodeLoginFragment.setNeedScrollUpListener(this);
         mPhoneLoginFragment.setPresenter(presenter);
+        mPhoneLoginFragment.setManager(manager);
         mPhoneLoginFragment.setNeedScrollUpListener(this);
 
         String[] tabTitles = getResources().getStringArray(R.array.tab_titles);

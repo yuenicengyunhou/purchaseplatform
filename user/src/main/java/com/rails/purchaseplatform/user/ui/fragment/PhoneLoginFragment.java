@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.user.ui.fragment;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.purchaseplatform.common.base.LazyFragment;
@@ -15,6 +16,8 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
     final private String TAG = PhoneLoginFragment.class.getSimpleName();
 
     private RandomCodeLoginFragment.ScrollUpListener mScrollUpListener;
+
+    private InputMethodManager mManager;
 
     private LoginContract.LoginPresenter mPresenter;
 
@@ -39,17 +42,23 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
             }
         });
 
-        // 获得/丢失焦点时更改横线颜色
-        binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) ->
-                setInputLineBackground(hasFocus, binding.viewPhoneInputLine));
+        // 获得/丢失焦点时更改横线颜色 页面滚动
+        binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) -> {
+            setInputLineBackground(hasFocus, binding.viewPhoneInputLine);
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("phone");
+        });
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
-            // 输入密码获得焦点时 将整个页面上移
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("password");
         });
         binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine);
-            // 输入验证码获得焦点时 将整个页面上移
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("verifyCode");
         });
     }
@@ -66,6 +75,10 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
 
     public void setPresenter(LoginContract.LoginPresenter presenter) {
         mPresenter = presenter;
+    }
+
+    public void setManager(InputMethodManager manager) {
+        this.mManager = manager;
     }
 
     public ArrayList<String> getLoginInfo() {

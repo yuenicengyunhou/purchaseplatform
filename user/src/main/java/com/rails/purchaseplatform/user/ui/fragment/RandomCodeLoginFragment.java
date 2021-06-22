@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.user.ui.fragment;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.contract.LoginContract;
@@ -20,7 +21,10 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     private ScrollUpListener mScrollUpListener;
 
+    private InputMethodManager mManager;
+
     private LoginContract.LoginPresenter mPresenter;
+
     private String url = HttpConstants.DEBUG_PLATFORM_URL;
 
     @Override
@@ -52,24 +56,35 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             }
         });
 
-        // 获得/丢失焦点时更改横线颜色
-        binding.etAccountInput.setOnFocusChangeListener((v, hasFocus) ->
-                setInputLineBackground(hasFocus, binding.viewAccountInputLine));
+        // 获得/丢失焦点时更改横线颜色 页面滚动
+        binding.etAccountInput.setOnFocusChangeListener((v, hasFocus) -> {
+            setInputLineBackground(hasFocus, binding.viewAccountInputLine);
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("account");
+        });
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
-            // 输入密码框获得焦点时 整个页面上移
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("password");
         });
 
 
-        // 坐标输入框获得焦点时 整个页面上移
+        // 坐标输入框获得焦点时 页面滚动
         binding.et1.setOnFocusChangeListener((v, hasFocus) -> {
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
         });
         binding.et2.setOnFocusChangeListener((v, hasFocus) -> {
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
         });
         binding.et3.setOnFocusChangeListener((v, hasFocus) -> {
+            if (mManager != null && !hasFocus)
+                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
         });
 
@@ -87,6 +102,10 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     public void setPresenter(LoginContract.LoginPresenter presenter) {
         mPresenter = presenter;
+    }
+
+    public void setManager(InputMethodManager manager) {
+        this.mManager = manager;
     }
 
     public ArrayList<String> getLoginInfo() {
