@@ -59,33 +59,26 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
         // 获得/丢失焦点时更改横线颜色 页面滚动
         binding.etAccountInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewAccountInputLine);
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("account");
+            scrollUp("account", v, hasFocus);
         });
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("password");
+            scrollUp("password", v, hasFocus);
         });
 
 
         // 坐标输入框获得焦点时 页面滚动
         binding.et1.setOnFocusChangeListener((v, hasFocus) -> {
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
+//            setRandomCodeInputBackground(hasFocus, binding.et1);
+            scrollUp("randomCode", v, hasFocus);
         });
         binding.et2.setOnFocusChangeListener((v, hasFocus) -> {
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
+//            setRandomCodeInputBackground(hasFocus, binding.et2);
+            scrollUp("randomCode", v, hasFocus);
         });
         binding.et3.setOnFocusChangeListener((v, hasFocus) -> {
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("randomCode");
+//            setRandomCodeInputBackground(hasFocus, binding.et3);
+            scrollUp("randomCode", v, hasFocus);
         });
 
     }
@@ -148,6 +141,36 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             view.setBackground(drawableHasFocus);
         else
             view.setBackground(drawableLoseFocus);
+    }
+
+    /**
+     * 设置随机码输入框边线颜色变化
+     *
+     * @param hasFocus 是否有焦点
+     * @param view     需要改变颜色的View
+     */
+    private void setRandomCodeInputBackground(boolean hasFocus, View view) {
+        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_border_blue_50);
+        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_border_gray_50);
+        if (hasFocus)
+            view.setBackground(drawableHasFocus);
+        else
+            view.setBackground(drawableLoseFocus);
+    }
+
+
+    /**
+     * 失去焦点时收回键盘
+     * 获得焦点时根据flag滚动到指定位置
+     *
+     * @param flag
+     * @param v
+     * @param hasFocus
+     */
+    private void scrollUp(String flag, View v, boolean hasFocus) {
+        if (mManager != null && !hasFocus)
+            mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp(flag);
     }
 
     public void setNeedScrollUpListener(ScrollUpListener listener) {

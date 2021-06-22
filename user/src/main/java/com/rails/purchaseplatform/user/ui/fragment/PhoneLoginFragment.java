@@ -45,21 +45,15 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
         // 获得/丢失焦点时更改横线颜色 页面滚动
         binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPhoneInputLine);
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("phone");
+            scrollUp("phone", v, hasFocus);
         });
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("password");
+            scrollUp("password", v, hasFocus);
         });
         binding.etVerifyNumInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewVerifyNumInputLine);
-            if (mManager != null && !hasFocus)
-                mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp("verifyCode");
+            scrollUp("verifyCode", v, hasFocus);
         });
     }
 
@@ -107,6 +101,21 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
             view.setBackground(drawableHasFocus);
         else
             view.setBackground(drawableLoseFocus);
+    }
+
+
+    /**
+     * 失去焦点时收回键盘
+     * 获得焦点时根据flag滚动到指定位置
+     *
+     * @param flag
+     * @param v
+     * @param hasFocus
+     */
+    private void scrollUp(String flag, View v, boolean hasFocus) {
+        if (mManager != null && !hasFocus)
+            mManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        if (mScrollUpListener != null && hasFocus) mScrollUpListener.scrollUp(flag);
     }
 
 
