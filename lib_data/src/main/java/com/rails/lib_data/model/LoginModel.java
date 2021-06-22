@@ -42,7 +42,9 @@ public class LoginModel {
         params.put("userPassword", MD5Util.MD5(MD5Util.MD5(paw)));
         params.put("mobilePhoneCode", code);
         params.put("isWeakPwd", "0");
-        params.put("returnUrl", "aaa");
+        params.put("returnUrl", "");
+        params.put("loginDevice", "android"); // 登录设备 固定Android
+        params.put("loginMedia", "api" + Build.VERSION.SDK_INT); // 设备版本 or APP版本
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(LoginService.class, 1).onLogin(params))
@@ -181,7 +183,7 @@ public class LoginModel {
         params.put("loginMedia", "api" + Build.VERSION.SDK_INT); // 设备版本 or APP版本
         params.put("requestFlag", requestFlag); // 这是啥？ 是randInit接口返回的字符串？
         params.put("isWeakPwd", "0"); // 不是弱密码 固定0
-        params.put("returnUrl", "aaa"); // 返回的url 不需要
+        params.put("returnUrl", ""); // 返回的url 不需要
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(LoginService.class, 1).randomCodeLogin(params))
