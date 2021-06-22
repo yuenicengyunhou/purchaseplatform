@@ -276,7 +276,7 @@ public class ProductDetailsDataUtils {
             addParam(parameters, "商品产地：", itemPublishVo.getOrigin());
             addParam(parameters, "商品编码：", String.valueOf(itemPublishVo.getId()));
             addParam(parameters, "单品编码：", currentItemSkuInfo.getId());
-            addParam(parameters, "单品条码：", currentItemSkuInfo.getBarCode());
+            addParam(parameters, "商品条码：", currentItemSkuInfo.getBarCode());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -319,11 +319,11 @@ public class ProductDetailsDataUtils {
         try {
             JSONObject data = detailsBean.getItemPublishVo().getSkuSpecMap();
             Set<String> keys = data.keySet();
-            ArrayList<SkuSpecInfo> infoList;
             Gson gson = new GsonBuilder().create();
             for (String key : keys) {
-                infoList = gson.fromJson(String.valueOf(data.getJSONArray(key)), new TypeToken<ArrayList<SkuSpecInfo>>() {
-                }.getType());
+                ArrayList<SkuSpecInfo> infoList =
+                        gson.fromJson(String.valueOf(data.getJSONArray(key)), new TypeToken<ArrayList<SkuSpecInfo>>() {
+                        }.getType());
                 if (currentItemSkuInfo != null && currentItemSkuInfo.getId().equals(key)) {
                     for (SkuSpecInfo info : infoList) {
                         if (TextUtils.equals(info.getAttrValue(), "-")) // 生产许可证号为 "-" 不显示
@@ -335,8 +335,15 @@ public class ProductDetailsDataUtils {
                             parameters.add(parameter);
                         }
                     }
+                    if (!TextUtils.isEmpty(currentItemSkuInfo.getMaterialCode())) {
+                        ProductSpecificParameter parameter = new ProductSpecificParameter();
+                        parameter.setParamKey("物资编码：");
+                        parameter.setParamValue(currentItemSkuInfo.getMaterialCode());
+                        parameters.add(parameter);
+                    }
                 }
             }
+
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
         }

@@ -13,7 +13,7 @@ public class ItemPublishVo {
     private String itemName;
     private int cid;
     private int brandId;
-    private String BrandName;
+    private String brandName;
     private String origin;
     private String categoryAttributes;
     private String specAttributes;
@@ -83,11 +83,11 @@ public class ItemPublishVo {
     }
 
     public String getBrandName() {
-        return BrandName;
+        return brandName;
     }
 
     public void setBrandName(String brandName) {
-        BrandName = brandName;
+        this.brandName = brandName;
     }
 
     public SupplierInfoImportData getSupplierInfoImportData() {

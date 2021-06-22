@@ -21,10 +21,19 @@ public class ItemSkuInfo {
     private String attributesName;
     private ItemSkuPriceResultVo itemSkuPriceResultVo;
     private String skuUnit;
+    private String materialCode;
 
 
     // ===========================================================================================
 
+
+    public String getMaterialCode() {
+        return materialCode;
+    }
+
+    public void setMaterialCode(String materialCode) {
+        this.materialCode = materialCode;
+    }
 
     public String getSkuUnit() {
         return skuUnit;
