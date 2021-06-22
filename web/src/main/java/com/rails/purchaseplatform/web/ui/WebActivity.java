@@ -30,6 +30,8 @@ import java.util.HashMap;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
+import static com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit.isDebug;
+
 
 /**
  * webView基层类
@@ -136,7 +138,11 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
 //                super.onReceivedSslError(view, handler, error);
-                ssl(WebActivity.this, handler, view.getUrl());
+                if (isDebug) {
+                    handler.proceed();
+                } else {
+                    ssl(WebActivity.this, handler, view.getUrl());
+                }
             }
 
             @Override

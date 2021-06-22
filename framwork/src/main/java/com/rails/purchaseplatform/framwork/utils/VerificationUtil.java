@@ -137,6 +137,7 @@ public class VerificationUtil {
             } else {
 //                "[^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\d!@#$%^&*,.]+$)[a-zA-Z\d!@#$%^&*,.]+$]"
                 Pattern p = Pattern.compile("[a-zA-Z0-9\\$@#!,-_\\.\\?]+");
+//                Pattern p = Pattern.compile("[^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\\d!@#$%^&*,.]+$)[a-zA-Z\\d!@#$%^&*,.]+$]");
                 Matcher m = p.matcher(password);
                 return m.matches();
             }
