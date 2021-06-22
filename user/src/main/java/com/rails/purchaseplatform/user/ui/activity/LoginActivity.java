@@ -51,7 +51,6 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -87,15 +86,12 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         public boolean handleMessage(@NonNull Message msg) {
             if (msg.what == COUNTING) {
                 int count = (int) msg.obj;
-                binding.tvCountDown.setText(MessageFormat.format("{0}s", count));
-                if (count > 0) {
+                if (count >= 0) {
+                    mPhoneLoginFragment.setCountDown(count);
                     Message msg1 = mHandler2.obtainMessage();
                     msg1.what = COUNTING;
                     msg1.obj = count - 1;
                     mHandler2.sendMessageDelayed(msg1, DURATION);
-                } else {
-                    binding.tvCountDown.setVisibility(View.GONE);
-                    binding.tvGetVerifyNum.setVisibility(View.VISIBLE);
                 }
                 return true;
             } else if (msg.what == VERIFY_CODE_RECEIVE) {
@@ -257,8 +253,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     public void onResult(int type, String msg, String token) {
         ToastUtil.showCenter(this, msg);
         if (type == 1) {
-            binding.tvGetVerifyNum.setVisibility(View.INVISIBLE);
-            binding.tvCountDown.setVisibility(View.VISIBLE);
             Message message = new Message();
             message.what = COUNTING;
             message.obj = COUNT_NUM;

@@ -8,6 +8,7 @@ import com.rails.lib_data.contract.LoginContract;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginPhoneBinding;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> {
@@ -93,6 +94,22 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
             view.setBackground(drawableHasFocus);
         else
             view.setBackground(drawableLoseFocus);
+    }
+
+
+    /**
+     * @param count
+     */
+    public void setCountDown(int count) {
+        if (count == 60) {
+            binding.tvCountDown.setVisibility(View.VISIBLE);
+            binding.tvGetVerifyNum.setVisibility(View.INVISIBLE);
+        }
+        binding.tvCountDown.setText(MessageFormat.format("{0}s", count));
+        if (count <= 0) {
+            binding.tvCountDown.setVisibility(View.GONE);
+            binding.tvGetVerifyNum.setVisibility(View.VISIBLE);
+        }
     }
 
 
