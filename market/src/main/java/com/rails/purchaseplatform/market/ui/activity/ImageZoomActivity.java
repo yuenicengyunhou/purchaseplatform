@@ -15,6 +15,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.adapter.pdetail.ZoomImgVp2Adapter;
 import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
 
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
     private ArrayList<String> mImageUrlList = new ArrayList<>();
     private ArrayList<Bitmap> mBitmapList = new ArrayList<>();
 
+    private ZoomImgVp2Adapter zoomImgVp2Adapter;
+
     private Thread mConvertToBitmap;
 
     private final Handler mImageLoadHandler = new Handler(new Handler.Callback() {
@@ -49,6 +52,8 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                 return true;
             } else if (msg.what == FINISH_LOADING_2) {
                 // TODO: 2021/6/24 更新ViewPager2数据。
+                zoomImgVp2Adapter.update(mBitmapList, true);
+//                binding.viewPager.setCurrentItem();
                 return true;
             }
             return false;
@@ -69,6 +74,8 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
         } else {
             binding.viewPager.setVisibility(View.VISIBLE);
             // TODO: 2021/6/24 ViewPager2初始化工作，包括初始化并设置Adapter。
+            zoomImgVp2Adapter = new ZoomImgVp2Adapter(ImageZoomActivity.this);
+            binding.viewPager.setAdapter(zoomImgVp2Adapter);
         }
         getBitmapFromUrl();
     }
@@ -118,7 +125,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                         for (String url : mImageUrlList) {
                             Bitmap bitmap = Glide.with(ImageZoomActivity.this)
                                     .asBitmap()
-                                    .load("https:" + url)
+                                    .load(url)
                                     .submit(960, 960)
                                     .get();
                             mBitmapList.add(bitmap);

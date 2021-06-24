@@ -343,7 +343,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             @Override
             public void OnBannerClick(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
+//                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
+                bundle.putStringArrayList("imageUrlList", mPageBean.getTopPictureList());
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
             }
         });
