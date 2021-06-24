@@ -73,13 +73,23 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_12"
-                    android:layout_marginEnd="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:layout_toStartOf="@+id/ib_clear_search"
                     android:layout_toEndOf="@+id/baseline"
                     android:background="@null"
                     android:hint="@string/keys_searching"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"
                     android:textSize="@dimen/font_size_12" />
+
+                <ImageButton
+                    android:id="@+id/ib_clear_search"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:background="@null"
+                    android:src="@drawable/ic_baseline_cancel_24" />
             </RelativeLayout>
 
             <TextView
@@ -96,16 +106,32 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_searchHistory"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_24"
-            android:layout_marginBottom="@dimen/dp_16"
-            android:text="@string/search_history"
-            android:textColor="#FF000000"
-            android:textSize="@dimen/font_size_16" />
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/tv_searchHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginStart="@dimen/dp_16"
+                android:gravity="center"
+                android:text="@string/search_history"
+                android:textColor="#FF000000"
+                android:textSize="@dimen/font_size_16" />
+
+            <ImageButton
+                android:id="@+id/ib_clear_history"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_delete_24" />
+
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSearchHistory"

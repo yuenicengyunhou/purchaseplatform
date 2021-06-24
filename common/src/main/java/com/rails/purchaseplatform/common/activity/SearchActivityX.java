@@ -27,6 +27,7 @@ import com.rails.purchaseplatform.common.adapter.SearchHistoryFlowAdapter;
 import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
+import com.rails.purchaseplatform.common.pop.AlterDialog;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
@@ -48,6 +49,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         HotSearchContract.HotSearchView,
         HotSearchRecyclerAdapter.OnClickCallBack,
         SearchHistoryFlowAdapter.OnClickCallBack {
+    final private String TAG = SearchActivityX.class.getSimpleName();
 
     private SharedPreferences mSp;
     private List<String> mHistorySearchList;
@@ -213,6 +215,33 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
                 return true;
             }
             return false;
+        });
+
+        // 清空搜索关键字按钮
+        binding.ibClearSearch.setOnClickListener(v -> binding.searchText.setText(""));
+
+        // 清空搜索记录按钮 1427992 1428147 1428148 1428149 1428150
+        binding.ibClearHistory.setOnClickListener(v -> {
+            new AlterDialog.Builder().context(this)
+                    .title("提示")
+                    .msg("是否清空搜索历史")
+                    .leftBtn("确定")
+                    .rightBtn("取消")
+                    .setDialogListener(new AlterDialog.DialogListener() {
+                        @Override
+                        public void onLeft() {
+                            mSp.edit().clear().apply();
+                            mHistorySearchList.clear();
+                            mSearchHistoryFlowAdapter.notifyDataSetChanged();
+                            dismissDialog();
+                        }
+
+                        @Override
+                        public void onRight() {
+                            dismissDialog();
+                        }
+                    })
+                    .builder().show();
         });
 
         // 切换搜索类型按钮

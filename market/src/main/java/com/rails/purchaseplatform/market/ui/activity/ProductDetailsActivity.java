@@ -389,7 +389,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private void productDetailGoShopDetail() {
         if (null == mPageBean) {
-            ToastUtil.showCenter(this,"商品信息为空");
+            ToastUtil.showCenter(this, "商品信息为空");
             return;
         }
         Bundle bundle = new Bundle();

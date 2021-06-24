@@ -134,6 +134,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
                 if (filterBeans == null || filterBeans.size() == 0) {
                     ToastUtil.showCenter(this, "没有过滤条件");
+                    if (mLoadingDialog != null && mLoadingDialog.isShowing())
+                        mLoadingDialog.dismiss();
                     return;
                 }
 //                PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3, mMinPrice, mMaxPrice);
@@ -156,6 +158,8 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 ArrayList<SearchFilterBean> filterBeans = fragment2.getFilterData();
                 if (filterBeans == null || filterBeans.size() == 0) {
                     ToastUtil.showCenter(this, "没有过滤条件");
+                    if (mLoadingDialog != null && mLoadingDialog.isShowing())
+                        mLoadingDialog.dismiss();
                     return;
                 }
                 PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 4);
@@ -240,7 +244,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchType = extras.getInt("search_type");
         mSearchKey = extras.getString("search_key");
         mCid = extras.getString("cid");
-        mMode = extras.getString("mode");
+        mMode = extras.getString("mode", "");
     }
 
     /**
@@ -258,12 +262,24 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     @Override
     public void onClick(View v) {
+        // 2047-保留搜索关键字
+        // 2048-不保留搜索关键字
         int id = v.getId();
+        // 点击搜索关键字
         if (id == R.id.tv_searchKey) {
             goSearchActivity(2047);
         }
-        if (id == R.id.iv_searchCancel || id == R.id.cl_searchBar || id == R.id.tv_type_name) {
+        // 点击搜索关键字后的 ×
+        else if (id == R.id.iv_searchCancel) {
             goSearchActivity(2048);
+        }
+        // 点击搜索条
+        else if (id == R.id.cl_searchBar) {
+            goSearchActivity(2047);
+        }
+        // 点击搜索类型
+        else if (id == R.id.tv_type_name) {
+            goSearchActivity(2047);
         }
     }
 
