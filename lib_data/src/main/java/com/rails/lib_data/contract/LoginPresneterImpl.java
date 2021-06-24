@@ -181,11 +181,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
      */
     @Override
     public void randomCodeLogin(String account, String password, String randInit, String randomCode1, String randomCode2, String randomCode3, boolean isDialog) {
-        if (isDialog) baseView.showResDialog(R.string.loading);
-
-        String rndCodeAsDoubleMd5 = MD5Util.md5md5(MD5Util.md5md5(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
-        String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
-
         if (TextUtils.isEmpty(account)) {
             ToastUtil.showCenter(mContext, "用户名不能为空");
             return;
@@ -211,6 +206,10 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
+        String rndCodeAsDoubleMd5 = MD5Util.md5md5(MD5Util.md5md5(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
+        String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
+
+        if (isDialog) baseView.showResDialog(R.string.loading);
         model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsDoubleMd5, randInit, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
