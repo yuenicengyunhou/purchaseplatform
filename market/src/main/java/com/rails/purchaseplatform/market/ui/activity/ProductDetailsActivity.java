@@ -345,6 +345,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 Bundle bundle = new Bundle();
 //                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
                 bundle.putStringArrayList("imageUrlList", mPageBean.getTopPictureList());
+                bundle.putInt("position", position);
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
             }
         });

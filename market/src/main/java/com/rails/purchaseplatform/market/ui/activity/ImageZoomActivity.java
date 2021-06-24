@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
@@ -18,6 +19,7 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.pdetail.ZoomImgVp2Adapter;
 import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -35,6 +37,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     private ArrayList<String> mImageUrlList = new ArrayList<>();
     private ArrayList<Bitmap> mBitmapList = new ArrayList<>();
+    private int mPosition = 0;
 
     private ZoomImgVp2Adapter zoomImgVp2Adapter;
 
@@ -51,9 +54,9 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                 }
                 return true;
             } else if (msg.what == FINISH_LOADING_2) {
-                // TODO: 2021/6/24 更新ViewPager2数据。
                 zoomImgVp2Adapter.update(mBitmapList, true);
-//                binding.viewPager.setCurrentItem();
+                binding.viewPager.setCurrentItem(mPosition);
+                binding.tvCurrentCount.setText(MessageFormat.format("{0}/{1}", mPosition + 1, mBitmapList.size()));
                 return true;
             }
             return false;
@@ -64,7 +67,9 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         mImageUrl = extras.getString("imageUrl");
-        mImageUrlList.addAll(extras.getStringArrayList("imageUrlList"));
+        ArrayList<String> list = extras.getStringArrayList("imageUrlList");
+        if (list != null) mImageUrlList.addAll(list);
+        mPosition = extras.getInt("position");
     }
 
     @Override
@@ -72,10 +77,16 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
         if (!TextUtils.isEmpty(mImageUrl)) {
             binding.ssivZoomImage.setVisibility(View.VISIBLE);
         } else {
+            int size = mImageUrlList.size();
             binding.viewPager.setVisibility(View.VISIBLE);
-            // TODO: 2021/6/24 ViewPager2初始化工作，包括初始化并设置Adapter。
             zoomImgVp2Adapter = new ZoomImgVp2Adapter(ImageZoomActivity.this);
             binding.viewPager.setAdapter(zoomImgVp2Adapter);
+            binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    binding.tvCurrentCount.setText(MessageFormat.format("{0}/{1}", position + 1, size));
+                }
+            });
         }
         getBitmapFromUrl();
     }
