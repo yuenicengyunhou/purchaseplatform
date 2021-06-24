@@ -87,7 +87,7 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
      * @param price
      * @param delivery
      */
-    public AddCartPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, SkuStockBean skuStockBean, String price, String delivery,
+    public AddCartPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, ItemSkuInfo currentSkuInfo, SkuStockBean skuStockBean, String price, String delivery,
                       String supplierId, String provinceId, String cityId, String countryId,
                       String address, String skuNum) {
         super();
@@ -99,7 +99,7 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
         mAddress = address;
         mSkuNum = skuNum;
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
-        mItemSkuInfo = (skuInfos != null && skuInfos.size() != 0) ? skuInfos.get(0) : null;
+        mItemSkuInfo = currentSkuInfo;
         mPreviousItemSkuInfo = mItemSkuInfo;
         mDelivery = delivery;
         mPrice = price;
@@ -113,6 +113,14 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans) {
                 binding.tvPrice.setText(String.valueOf(bean.getSellPrice()));
+                // 显示单位
+                String skuUnitStr = mItemSkuInfo.getSkuUnit();
+                if (!TextUtils.isEmpty(skuUnitStr)) {
+                    binding.tvSkuUnit.setVisibility(View.VISIBLE);
+                    binding.tvSkuUnit.setText(String.format("/%s", mItemSkuInfo.getSkuUnit()));
+                } else {
+                    binding.tvSkuUnit.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -194,6 +202,14 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
                 .placeholder(com.rails.purchaseplatform.common.R.drawable.ic_placeholder_rect)
                 .into(binding.imgProduct); // 显示sku图片
         binding.tvPrice.setText(mPrice); // 显示价格
+        // 显示单位
+        String skuUnitStr = mItemSkuInfo.getSkuUnit();
+        if (!TextUtils.isEmpty(skuUnitStr)) {
+            binding.tvSkuUnit.setVisibility(View.VISIBLE);
+            binding.tvSkuUnit.setText(String.format("/%s", mItemSkuInfo.getSkuUnit()));
+        } else {
+            binding.tvSkuUnit.setVisibility(View.GONE);
+        }
         binding.tvSend.setText(mDelivery); // 显示运费
 
         PropertyAdapter mAdapter = new PropertyAdapter(getActivity()); // 型号列表Adapter

@@ -130,6 +130,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置市场价格文字删除线
         binding.tvRmbGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         binding.tvPriceGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        binding.tvSkuUnitGray.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         // 请求商品信息
         mProductDetailsPresenterImpl2 = new ProductDetailsPresenterImpl2(this, this);
@@ -423,7 +424,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             itemSkuInfoList = (ArrayList<ItemSkuInfo>) productDetailsBean.getItemSkuInfoList();
         }
         if (mPop == null) {
-            mPop = new AddCartPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getSkuStockBean(),
+            mPop = new AddCartPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getCurrentItemSkuInfo(), mPageBean.getSkuStockBean(),
                     mPageBean.getSellPrice(), mPageBean.getDelivery(),
                     mPageBean.getShopId(), mPageBean.getProvinceCode(), mPageBean.getCityCode(), mPageBean.getCountryCode(),
                     "", "1");
@@ -643,6 +644,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         } else {
             binding.tvPriceGray.setText(String.format("%.2f", bean.getMarketPrice()));
         }
+        // 设置价格单位
+        String skuUnitStr = mPageBean.getCurrentItemSkuInfo().getSkuUnit();
+        if (!TextUtils.isEmpty(skuUnitStr)) {
+            binding.tvSkuUnit.setText(String.format("/%s", skuUnitStr));
+            binding.tvSkuUnitGray.setText(String.format("/%s", skuUnitStr));
+        } else {
+            binding.tvSkuUnit.setVisibility(View.GONE);
+            binding.tvSkuUnitGray.setVisibility(View.GONE);
+        }
+        // 设置商品评分
         binding.fsvScore.setStar(bean.getScore());
         // 设置商品销量
         binding.itemSalesCounts.setText(String.valueOf(bean.getSaleNum()));
@@ -702,6 +713,15 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             binding.tvPriceGray.setVisibility(View.INVISIBLE);
         } else {
             binding.tvPriceGray.setText(mPageBean.getMarketPrice());
+        }
+        // 设置价格单位
+        String skuUnitStr = mPageBean.getCurrentItemSkuInfo().getSkuUnit();
+        if (!TextUtils.isEmpty(skuUnitStr)) {
+            binding.tvSkuUnit.setText(String.format("/%s", skuUnitStr));
+            binding.tvSkuUnitGray.setText(String.format("/%s", skuUnitStr));
+        } else {
+            binding.tvSkuUnit.setVisibility(View.GONE);
+            binding.tvSkuUnitGray.setVisibility(View.GONE);
         }
 
         // 设置商品名称
