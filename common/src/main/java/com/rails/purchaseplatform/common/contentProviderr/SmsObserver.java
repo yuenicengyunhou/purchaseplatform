@@ -47,7 +47,6 @@ public class SmsObserver extends ContentObserver {
             if (cursor.moveToFirst()) {
                 String address = cursor.getString(cursor.getColumnIndex("address"));
                 String body = cursor.getString(cursor.getColumnIndex("body"));
-                Log.e("WQ", "----" + address + "       body===" + body);
                 if (address.equals(mPlatformPhone) && body.contains(mVerifyCode)) {
                     if (null != verifyCodeListener) {
                         verifyCodeListener.onSuccess();

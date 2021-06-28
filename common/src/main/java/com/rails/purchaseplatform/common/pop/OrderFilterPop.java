@@ -167,10 +167,6 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         mAdapter2.update(filterBean.getStatusBeans());
     }
 
-    public void updateFilterBean(OrderFilterBean filterBean) {
-        mAdapter2.update(filterBean.getStatusBeans());
-    }
-
 
     /**
      * 重置

@@ -43,8 +43,9 @@
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_5"
             android:text="采购单状态"
+            android:textStyle="bold"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13" />
+            android:textSize="@dimen/font_size_14" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_status"
@@ -133,8 +134,9 @@
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:text="下单时间"
+            android:textStyle="bold"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_13" />
+            android:textSize="@dimen/font_size_14" />
 
         <TextView
             android:id="@+id/tv_date_range"

@@ -41,7 +41,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
 
-
         <!-- 高德地图定位-->
         <!--        <service android:name="com.amap.api.location.APSService" />-->
 

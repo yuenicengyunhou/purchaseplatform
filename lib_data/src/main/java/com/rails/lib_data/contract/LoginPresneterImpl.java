@@ -85,7 +85,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             @Override
             protected void onSuccess(String response) {
                 baseView.dismissDialog();
-                baseView.onResult(0, "登录成功", response);
+                baseView.onResult(0, "", response);
             }
         });
     }
@@ -146,6 +146,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             protected void onSuccess(UserInfoBean bean) {
                 baseView.dismissDialog();
                 baseView.getUserInfo(bean);
+                ToastUtil.showCenter(mContext, "登录成功");
             }
         });
     }
@@ -220,7 +221,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             @Override
             protected void onSuccess(String response) {
                 baseView.dismissDialog();
-                baseView.onResult(0, "登录成功", response);
+                baseView.onResult(0, "", response);
             }
         });
     }
