@@ -83,21 +83,20 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
-                    if (page == 1){
+                    if (page == 1) {
                         ArrayList<BrandBean> productBeans = new ArrayList<>();
-                        baseView.getBrands(productBeans,false,true);
-                    }else{
-                        baseView.onError(e);
+                        baseView.getBrands(productBeans, false, true);
                     }
+                    baseView.onError(e);
                 }
 
                 @Override
                 protected void onSuccess(ListBeen<BrandBean> listBeen) {
                     baseView.dismissDialog();
-                    if (isCallBack()){
-                        boolean isClear = listBeen.getPageNum()== 1;
-                        boolean hasMore = listBeen.getPageNum()< listBeen.getTotalPageCount();
-                        baseView.getBrands(listBeen.getList(),hasMore,isClear);
+                    if (isCallBack()) {
+                        boolean isClear = listBeen.getPageNum() == 1;
+                        boolean hasMore = listBeen.getPageNum() < listBeen.getTotalPageCount();
+                        baseView.getBrands(listBeen.getList(), hasMore, isClear);
                     }
                 }
             });
@@ -106,21 +105,21 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
-                    if (page == 1){
+                    if (page == 1) {
                         ArrayList<ProductBean> productBeans = new ArrayList<>();
-                        baseView.getFloorProducts(productBeans,false,true);
-                    }else{
-                        baseView.onError(e);
+                        baseView.getFloorProducts(productBeans, false, true);
                     }
+                    baseView.onError(e);
+
                 }
 
                 @Override
                 protected void onSuccess(ListBeen<ProductBean> listBeen) {
                     baseView.dismissDialog();
-                    if (isCallBack()){
-                        boolean isClear = listBeen.getPageNum()== 1;
-                        boolean hasMore = listBeen.getPageNum()< listBeen.getTotalPageCount();
-                        baseView.getFloorProducts(listBeen.getList(),hasMore,isClear);
+                    if (isCallBack()) {
+                        boolean isClear = listBeen.getPageNum() == 1;
+                        boolean hasMore = listBeen.getPageNum() < listBeen.getTotalPageCount();
+                        baseView.getFloorProducts(listBeen.getList(), hasMore, isClear);
                     }
                 }
 
@@ -131,22 +130,21 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
-                    if (page == 1){
+                    if (page == 1) {
                         ArrayList<ProductBean> productBeans = new ArrayList<>();
-                        baseView.getFloorProducts(productBeans,false,true);
-                    }else{
-                        baseView.onError(e);
+                        baseView.getFloorProducts(productBeans, false, true);
                     }
+                    baseView.onError(e);
 
                 }
 
                 @Override
                 protected void onSuccess(ListBeen<ProductBean> listBeen) {
                     baseView.dismissDialog();
-                    if (isCallBack()){
-                        boolean isClear = listBeen.getPageNum()== 1;
-                        boolean hasMore = listBeen.getPageNum()< listBeen.getTotalPageCount();
-                        baseView.getFloorProducts(listBeen.getList(),hasMore,isClear);
+                    if (isCallBack()) {
+                        boolean isClear = listBeen.getPageNum() == 1;
+                        boolean hasMore = listBeen.getPageNum() < listBeen.getTotalPageCount();
+                        baseView.getFloorProducts(listBeen.getList(), hasMore, isClear);
                     }
                 }
             });

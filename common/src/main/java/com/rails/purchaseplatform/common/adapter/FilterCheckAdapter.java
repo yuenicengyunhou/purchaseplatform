@@ -51,7 +51,6 @@ public class FilterCheckAdapter extends RecyclerView.Adapter {
         boolean checked = bean.isChecked();
         checkBox.setText(bean.getStatus());
         checkBox.setSelected(checked);
-        Log.e("WQ", "刷新");
         checkBox.setOnClickListener(v -> {
             for (int i = 0; i < mData.size(); i++) {
                 OrderStatusBean statusBean = mData.get(i);

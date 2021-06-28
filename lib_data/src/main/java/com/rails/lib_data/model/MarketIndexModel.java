@@ -53,7 +53,7 @@ public class MarketIndexModel {
      */
     private Observable<HttpResult<ListBeen<ProductBean>>> getHotProducts() {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("pageNum", 0);
+        params.put("pageNum", 1);
         params.put("pageSize", "10");
         return HttpRxObservable.getObservable(RetrofitUtil
                 .getInstance()
@@ -128,7 +128,7 @@ public class MarketIndexModel {
      */
     private Observable<HttpResult<ListBeen<BrandBean>>> getRecBrands() {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("pageNum", 0);
+        params.put("pageNum", 1);
         params.put("pageSize", 10);
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(MarketIndexService.class, 2).getBrands(params));
@@ -170,11 +170,12 @@ public class MarketIndexModel {
     public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
         // TODO: 2016/9/30 读取缓存数据
-        Observable hotProducts = getHotProducts().subscribeOn(Schedulers.io());
-        Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());
-        Observable brands = getRecBrands().subscribeOn(Schedulers.io());
-        Observable banners = getBanners().subscribeOn(Schedulers.io());
-        Observable categorys = getCategorys().subscribeOn(Schedulers.io());
+        Observable hotProducts = getHotProducts().subscribeOn(Schedulers.io());//获取热销商品
+        Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());//获取商城首页推荐商品列表
+        Observable brands = getRecBrands().subscribeOn(Schedulers.io());//获取品牌列表
+
+        Observable banners = getBanners().subscribeOn(Schedulers.io());//获取商城banner列表
+        Observable categorys = getCategorys().subscribeOn(Schedulers.io());//获取导航
 
 
         Observable.zip(hotProducts, recProducts, brands, banners, categorys, (Function5<ListBeen<ProductBean>, ArrayList<ProductRecBean>, ListBeen<BrandBean>, ArrayList<BannerBean>,

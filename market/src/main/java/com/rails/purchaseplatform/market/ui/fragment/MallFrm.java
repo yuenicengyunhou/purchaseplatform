@@ -8,19 +8,15 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
-import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.NavigationBean;
 import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
-import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
-import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
@@ -34,20 +30,18 @@ import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.market.ui.activity.RankActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 商城首页
- *
- * @author： sk_comic@163.com
- * @date: 2021/1/28
+ * <p>
+ * author： sk_comic@163.com
+ * date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding>
         implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean> {
@@ -66,7 +60,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
         //设置banner的宽高
         CardView.LayoutParams linearParams = (CardView.LayoutParams) binding.banner.getLayoutParams();
-        linearParams.width = ScreenSizeUtil.getScreenWidth(getActivity()) - ScreenSizeUtil.dp2px(getActivity(), 32);
+        linearParams.width = ScreenSizeUtil.getScreenWidth(getActivity()) - ScreenSizeUtil.dp2px(Objects.requireNonNull(getActivity()), 32);
         linearParams.height = linearParams.width * 13 / 35;
         binding.banner.setLayoutParams(linearParams);
 
@@ -74,29 +68,26 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         categoryAdapter = new NavigationAdapter(getActivity());
         binding.categoryRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 0);
         binding.categoryRecycler.setAdapter(categoryAdapter);
-        categoryAdapter.setListener(new PositionListener<NavigationBean>() {
-            @Override
-            public void onPosition(NavigationBean bean, int position) {
-                String linkUrl = bean.getLinkUrl();
-                Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(linkUrl))
-                    return;
-                if (linkUrl.contains("cid")) {
-                    try {
-                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
-                        bundle.putString("cid", cid);
-                        bundle.putString("mode", "form_main");
-                        goLogin(null, ConRoute.MARKET.SEARCH_RESULT, bundle);
-                    } catch (Exception e) {
-
-                    }
-                } else {
-                    bundle.putString("url", linkUrl);
-                    bundle.putString("title", bean.getNavigationBarName());
-                    goLogin(null, ConRoute.WEB.WEB_COMMON, bundle);
+        categoryAdapter.setListener((PositionListener<NavigationBean>) (bean, position) -> {
+            String linkUrl = bean.getLinkUrl();
+            Bundle bundle = new Bundle();
+            if (TextUtils.isEmpty(linkUrl))
+                return;
+            if (linkUrl.contains("cid")) {
+                try {
+                    String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
+                    bundle.putString("cid", cid);
+                    bundle.putString("mode", "form_main");
+                    goLogin(null, ConRoute.MARKET.SEARCH_RESULT, bundle);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
+            } else {
+                bundle.putString("url", linkUrl);
+                bundle.putString("title", bean.getNavigationBarName());
+                goLogin(null, ConRoute.WEB.WEB_COMMON, bundle);
             }
+
         });
 
 
@@ -104,20 +95,17 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter = new BrandAdapter(getActivity());
         binding.brandRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 0);
         binding.brandRecycler.setAdapter(brandAdapter);
-        brandAdapter.setListener(new PositionListener<BrandBean>() {
-            @Override
-            public void onPosition(BrandBean bean, int position) {
+        brandAdapter.setListener((PositionListener<BrandBean>) (bean, position) -> {
 
-                String shopId = bean.getShopid();
-                Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(shopId))
-                    return;
-                try {
-                    bundle.putString("shopInfoId", shopId);
-                    goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
-                } catch (Exception e) {
-
-                }
+            String shopId = bean.getShopid();
+            Bundle bundle = new Bundle();
+            if (TextUtils.isEmpty(shopId))
+                return;
+            try {
+                bundle.putString("shopInfoId", shopId);
+                goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
@@ -125,17 +113,14 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         //推荐商品列表
         recAdapter = new ProductRecAdapter(getActivity());
         recAdapter.setListener(this);
-        recAdapter.setMulPositionListener(new MulPositionListener() {
-            @Override
-            public void onPosition(Object bean, int position, int... params) {
-                if (indexBean != null) {
-                    try {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("position", ++position);
-                        startIntent(RankActivity.class,bundle);
-                    } catch (Exception e) {
-
-                    }
+        recAdapter.setMulPositionListener((bean, position, params) -> {
+            if (indexBean != null) {
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position", ++position);
+                    startIntent(RankActivity.class, bundle);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -144,14 +129,11 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.recycler.setAdapter(recAdapter);
 
 
-        binding.scroll.setScrollViewListener(new AlphaScrollView.ScrollViewListener() {
-            @Override
-            public void onScrollChanged(AlphaScrollView scrollView, int x, int y, int oldx, int oldy) {
-                if (y > 800) {
-                    binding.imgTop.setVisibility(View.VISIBLE);
-                } else
-                    binding.imgTop.setVisibility(View.GONE);
-            }
+        binding.scroll.setScrollViewListener((scrollView, x, y, oldx, oldy) -> {
+            if (y > 800) {
+                binding.imgTop.setVisibility(View.VISIBLE);
+            } else
+                binding.imgTop.setVisibility(View.GONE);
         });
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
@@ -163,8 +145,8 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     /**
      * 设置Banner
-     *
-     * @param banners
+     * <p>
+     * param banners
      */
     void setBanners(ArrayList<BannerBean> banners) {
         if (banners == null)
@@ -186,12 +168,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
      */
     void onRefresh() {
         binding.rlRecycler.setEnableLoadMore(false);
-        binding.rlRecycler.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                binding.rlRecycler.finishRefresh();
-                presenter.getMarketIndexInfo(false, false);
-            }
+        binding.rlRecycler.setOnRefreshListener(refreshLayout -> {
+            binding.rlRecycler.finishRefresh();
+            presenter.getMarketIndexInfo(false, false);
         });
         presenter.getMarketIndexInfo(true, true);
     }
@@ -245,19 +224,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         super.onClick();
 
         // 搜索页面跳转
-        binding.etSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLogin(null, ConRoute.COMMON.SEARCH, null);
-            }
-        });
+        binding.etSearch.setOnClickListener(v -> goLogin(null, ConRoute.COMMON.SEARCH, null));
 
-        binding.imgTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.scroll.smoothScrollTo(0, 0);
-            }
-        });
+        binding.imgTop.setOnClickListener(v -> binding.scroll.smoothScrollTo(0, 0));
 
         binding.imgMsg.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -272,7 +241,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
                     bundle.putInt("position", 0);
                     startIntent(RankActivity.class, bundle);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -292,23 +261,20 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     /**
      * token是否存在
-     *
-     * @return
+     * <p>
+     * return
      */
     private boolean hasToken() {
         String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
-        if (TextUtils.isEmpty(token))
-            return false;
-        else
-            return true;
+        return !TextUtils.isEmpty(token);
     }
 
 
     /**
      * 跳转页面
-     *
-     * @param cls
-     * @param aPath
+     * <p>
+     * param cls
+     * param aPath
      */
     private void goLogin(Class cls, String aPath, Bundle bundle) {
         if (!hasToken()) {
