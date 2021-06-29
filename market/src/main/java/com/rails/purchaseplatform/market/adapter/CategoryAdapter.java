@@ -35,8 +35,6 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCateg
     protected void onBindItem(ItemCategoryBinding binding, CategoryBean categoryBean, int position) {
         binding.setCategory(categoryBean);
         CategorySubAdapter adapter = new CategorySubAdapter(mContext);
-        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
-        binding.recycler.addItemDecoration(new CategoryDecoration(mContext));
         binding.recycler.setAdapter(adapter);
         adapter.update(categoryBean.getThirdPlatformCategoryList(), true);
         adapter.setListener(new PositionListener<CategorySubBean>() {
@@ -49,4 +47,11 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCateg
 
     }
 
+
+    @Override
+    protected void onBindView(ItemCategoryBinding binding) {
+        super.onBindView(binding);
+        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
+        binding.recycler.addItemDecoration(new CategoryDecoration(mContext));
+    }
 }

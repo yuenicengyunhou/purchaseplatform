@@ -22,6 +22,7 @@ public class CategoryBean extends BaseObservable implements Serializable {
     private String name;
     private String fcid;
     private ArrayList<CategorySubBean> thirdPlatformCategoryList;
+    public final ObservableField<Boolean> isSel = new ObservableField<>();
 
 
     public String getName() {

@@ -51,7 +51,6 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
         switch (errorCode) {
             case ERROR_PASTDUE:
             case ERROR_UNLOAD:
-            case HTTP_ERROR:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(this, ConRoute.CODE.LOGIN_CODE);

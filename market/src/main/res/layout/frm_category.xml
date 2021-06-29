@@ -77,11 +77,33 @@
                 android:background="@color/bg_gray_light"
                 android:overScrollMode="never" />
 
-            <com.rails.purchaseplatform.common.widget.SlideViewPager
-                android:id="@+id/pager"
+            <LinearLayout
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                    android:id="@+id/magic"
+                    android:layout_width="match_parent"
+                    android:overScrollMode="never"
+                    android:layout_height="@dimen/dp_50"
+                    app:tabMode="scrollable" />
+
+
+                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                    android:id="@+id/subRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    app:canH="false"
+                    app:canV="true" />
+
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
 
