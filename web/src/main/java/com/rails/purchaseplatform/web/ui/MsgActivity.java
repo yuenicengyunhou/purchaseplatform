@@ -73,6 +73,12 @@ public class MsgActivity extends WebActivity<BaseWebBinding> implements JSEvalut
 
     }
 
+    @JavascriptInterface
+    @Override
+    public void callJump() {
+
+    }
+
 
     @JavascriptInterface
     @Override

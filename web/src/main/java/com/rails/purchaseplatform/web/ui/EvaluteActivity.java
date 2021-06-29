@@ -85,6 +85,11 @@ public class EvaluteActivity extends WebActivity<BaseWebBinding> implements JSEv
     public void goDeliveredPage( String orderNo) {
 
     }
+    @JavascriptInterface
+    @Override
+    public void callJump() {
+
+    }
 
 
     @JavascriptInterface

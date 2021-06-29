@@ -119,6 +119,12 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
     }
 
+    @JavascriptInterface
+    @Override
+    public void callJump() {
+
+    }
+
     @Override
     public void goDeliveredPage( String orderNo) {
 

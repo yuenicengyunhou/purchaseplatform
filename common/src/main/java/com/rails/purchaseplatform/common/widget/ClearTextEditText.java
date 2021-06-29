@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +24,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 
-public class ClearTextEditText extends AppCompatEditText implements View.OnTouchListener, TextWatcher, View.OnFocusChangeListener {
+@SuppressLint("AppCompatCustomView")
+public class ClearTextEditText extends EditText  {
 
     private Drawable mClearTextDrawable;
     private OnFocusChangeListener mOnFocusChangeListener;
@@ -58,10 +60,10 @@ public class ClearTextEditText extends AppCompatEditText implements View.OnTouch
         DrawableCompat.setTint(wrappedDrawable, getCurrentHintTextColor());
         mClearTextDrawable = wrappedDrawable;
         mClearTextDrawable.setBounds(0, 0, mClearTextDrawable.getIntrinsicHeight(), mClearTextDrawable.getIntrinsicWidth());
-        setmClearTextDrawableVisible(false);
-        super.setOnTouchListener(this);
-        super.setOnFocusChangeListener(this);
-        addTextChangedListener(this);
+        setmClearTextDrawableVisible(true);
+//        super.setOnTouchListener(this);
+//        super.setOnFocusChangeListener(this);
+//        addTextChangedListener(this);
     }
 
     private void setmClearTextDrawableVisible(boolean visible) {
@@ -80,44 +82,44 @@ public class ClearTextEditText extends AppCompatEditText implements View.OnTouch
         this.mTouchListener = mTouchListener;
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        float x = event.getX();
-        if (mClearTextDrawable.isVisible() && x > getWidth() - getPaddingEnd() - mClearTextDrawable.getIntrinsicWidth()) {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                setText("");
-            }
-            return true;
-        }
-        return mTouchListener != null && mTouchListener.onTouch(v, event);
-    }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            setmClearTextDrawableVisible(Objects.requireNonNull(getText()).length() > 0);
-        } else {
-            setmClearTextDrawableVisible(false);
-        }
-        if (null != mOnFocusChangeListener) {
-            mOnFocusChangeListener.onFocusChange(v, hasFocus);
-        }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (hasFocus()) {
-            setmClearTextDrawableVisible(s.length() > 0);
-        }
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-    }
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event) {
+//        float x = event.getX();
+//        if (mClearTextDrawable.isVisible() && x > getWidth() - getPaddingEnd() - mClearTextDrawable.getIntrinsicWidth()) {
+//            if (event.getAction() == MotionEvent.ACTION_UP) {
+//                setText("");
+//            }
+//            return true;
+//        }
+//        return mTouchListener != null && mTouchListener.onTouch(v, event);
+//    }
+//
+//    @Override
+//    public void onFocusChange(View v, boolean hasFocus) {
+//        if (hasFocus) {
+//            setmClearTextDrawableVisible(Objects.requireNonNull(getText()).length() > 0);
+//        } else {
+//            setmClearTextDrawableVisible(false);
+//        }
+//        if (null != mOnFocusChangeListener) {
+//            mOnFocusChangeListener.onFocusChange(v, hasFocus);
+//        }
+//    }
+//
+//    @Override
+//    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//    }
+//
+//    @Override
+//    public void onTextChanged(CharSequence s, int start, int before, int count) {
+//        if (hasFocus()) {
+//            setmClearTextDrawableVisible(s.length() > 0);
+//        }
+//    }
+//
+//    @Override
+//    public void afterTextChanged(Editable s) {
+//
+//    }
 }

@@ -84,4 +84,11 @@ public class RankQuestionActivity extends WebActivity<BaseWebBinding> implements
     @Override
     public void onLogin() {
     }
+
+
+    @JavascriptInterface
+    @Override
+    public void callJump() {
+
+    }
 }

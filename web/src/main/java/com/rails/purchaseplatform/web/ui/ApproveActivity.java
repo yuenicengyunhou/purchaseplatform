@@ -111,6 +111,12 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
 
     }
 
+    @JavascriptInterface
+    @Override
+    public void callJump() {
+
+    }
+
 
     @JavascriptInterface
     @Override

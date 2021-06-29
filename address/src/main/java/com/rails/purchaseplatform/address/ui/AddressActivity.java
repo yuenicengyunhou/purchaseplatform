@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.address.ui;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -17,6 +18,7 @@ import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
@@ -34,7 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * 地址管理列表页面
  */
 @Route(path = ConRoute.ADDRESS.ADDRESS_MAIN)
-public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> implements AddressContract.AddressView,
+public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> implements AddressContract.AddressView,
         PositionListener<AddressBean>, MulPositionListener<AddressBean>, UserToolContract.UserToolView {
     private final int PAGE_DEF = 1;
     private int mPage = PAGE_DEF;
@@ -62,22 +64,26 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
     @Override
     protected void initialize(Bundle bundle) {
-        binding.titleBar
-                .setTitleBar(R.string.address_main)
-                .setShowLine(true)
-                .setImgLeftRes(R.drawable.svg_back_black);
+//        binding.titleBar
+//                .setTitleBar(R.string.address_main)
+//                .setShowLine(true)
+//                .setImgLeftRes(R.drawable.svg_back_black);
+//        binding.editText.setmTouchListener((v, event) -> false);
+//        binding.editText.setOnFocusChangeListener((v, hasFocus) -> {
+//
+//        });
 
         if (!isAdd) {
-            barBinding.btnAdd.setVisibility(View.GONE);
+            binding.btnAdd.setVisibility(View.GONE);
         }
         addressAdapter = new AddressAdapter(this);
         addressAdapter.setListener(this);
         addressAdapter.setMulPositionListener(this);
 
 
-        barBinding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
-        barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        barBinding.recycler.setAdapter(addressAdapter);
+        binding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        binding.recycler.setAdapter(addressAdapter);
 
         toolPresenter = new UserToolPresenterImpl(this, this);
             toolPresenter.queryAuthor();
@@ -88,12 +94,12 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
 
         //下拉刷新和上拉加载
-//        barBinding.smart.setOnLoadMoreListener(refreshLayout -> {
+//        binding.smart.setOnLoadMoreListener(refreshLayout -> {
 //            mPage++;
 //            onRefresh(true);
 //        });
-//        barBinding.recycler.useDefaultLoadMore();
-//        barBinding.recycler.setLoadMoreListener(new SwipeRecyclerView.LoadMoreListener() {
+//        binding.recycler.useDefaultLoadMore();
+//        binding.recycler.setLoadMoreListener(new SwipeRecyclerView.LoadMoreListener() {
 //            @Override
 //            public void onLoadMore() {
 //                mPage++;
@@ -101,12 +107,12 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 //            }
 //        });
 
-        barBinding.smart.setOnRefreshListener(refreshLayout -> {
+        binding.smart.setOnRefreshListener(refreshLayout -> {
             mPage = PAGE_DEF;
             onRefresh(true);
         });
 
-        barBinding.smart.setOnLoadMoreListener(refreshLayout -> {
+        binding.smart.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
             onRefresh((false));
         });
@@ -125,7 +131,7 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     @Override
     protected void onClick() {
         super.onClick();
-        barBinding.btnAdd.setOnClickListener(v -> startIntent(AddressAddActivity.class));
+        binding.btnAdd.setOnClickListener(v -> startIntent(AddressAddActivity.class));
     }
 
 
@@ -144,8 +150,8 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
 
     @Override
     public void getAddresses(ArrayList<AddressBean> addressBeans, boolean isLastPage, int totalCount) {
-        barBinding.smart.finishLoadMore();
-        barBinding.smart.finishRefresh();
+        binding.smart.finishLoadMore();
+        binding.smart.finishRefresh();
         if (mPage != PAGE_DEF && isLastPage && addressAdapter.getItemCount() >= totalCount) {
             return;
         }
@@ -212,15 +218,15 @@ public class AddressActivity extends ToolbarActivity<ActivityAddressBinding> imp
     public void getAuthor(AuthorBean authorBean) {
         isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
         if (!isAdd) {
-            barBinding.btnAdd.setVisibility(View.GONE);
+            binding.btnAdd.setVisibility(View.GONE);
         } else {
-            barBinding.btnAdd.setVisibility(View.VISIBLE);
+            binding.btnAdd.setVisibility(View.VISIBLE);
         }
     }
 
-    @Override
-    protected void reNetLoad() {
-        super.reNetLoad();
-            toolPresenter.queryAuthor();
-    }
+//    @Override
+//    protected void reNetLoad() {
+//        super.reNetLoad();
+//            toolPresenter.queryAuthor();
+//    }
 }

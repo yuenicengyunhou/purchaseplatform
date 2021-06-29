@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -33,19 +32,11 @@
 
             <com.rails.purchaseplatform.common.widget.ClearTextEditText
                 android:layout_width="0dp"
-                android:id="@+id/editText"
                 android:layout_height="@dimen/dp_30"
-                android:focusableInTouchMode="true"
-                android:paddingStart="@dimen/paddingL"
-                android:paddingEnd="@dimen/paddingL"
-                android:textSize="@dimen/font_size_10"
-                android:hint="@string/search"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_corner_gray_20"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginEnd="@dimen/paddingL"
                 android:layout_weight="1"
-             />
+                android:background="@color/bg_gray" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.webkit.JavascriptInterface;
 
 import androidx.annotation.Nullable;
@@ -16,6 +17,9 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.pop.AreaPop;
+import com.rails.purchaseplatform.common.pop.QuickJumpPop;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.web.R;
@@ -36,6 +40,7 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     private boolean isReceive = false;
     private UserInfoBean userInfoBean;
     private boolean neadResume = true;
+//    private QuickJumpPop quickJumpPop;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -130,6 +135,26 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         Bundle bundle = new Bundle();
         bundle.putString("orderNo", orderNo);
         ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation(this, 0);
+    }
+
+    @JavascriptInterface
+    @Override
+    public void callJump() {
+        Log.e("WQ", "callJump");
+        AreaPop pop = new AreaPop();
+        pop.setGravity(Gravity.BOTTOM);
+        pop.setType(BasePop.MATCH_WRAP);
+        pop.setListener((area, provinceCode, cityCode, countryCode) -> {
+//            barBinding.etArea.setContent(area);
+//            this.provinceCode = provinceCode;
+//            this.cityCode = cityCode;
+//            this.countryCode = countryCode;
+        });
+        pop.show(getSupportFragmentManager(), "area");
+//        QuickJumpPop  quickJumpPop = new QuickJumpPop();
+//            quickJumpPop.setGravity(Gravity.BOTTOM);
+//        quickJumpPop.setType(BasePop.MATCH_CUSTOM);
+//        quickJumpPop.show(getSupportFragmentManager(),"quick");
     }
 
     @Override

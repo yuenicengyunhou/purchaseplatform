@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_180"
+    android:background="@drawable/bg_corner_white_top_half_10">
+
+    <TextView
+        android:id="@+id/tv_to_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:drawablePadding="@dimen/padding"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:src="@mipmap/ic_to_home"
+        android:text="@string/toHome"
+        android:textColor="@color/font_quick_jump"
+        android:textSize="@dimen/font_size_10"
+        app:drawableTopCompat="@mipmap/ic_to_home"
+        app:layout_constraintEnd_toStartOf="@id/tv_to_search"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_to_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/padding"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:text="@string/search"
+        android:textColor="@color/font_quick_jump"
+        android:textSize="@dimen/font_size_10"
+        app:drawableTopCompat="@mipmap/ic_to_search"
+        app:layout_constraintEnd_toStartOf="@id/tv_to_cart"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tv_to_home"
+        app:layout_constraintTop_toTopOf="@id/tv_to_home" />
+
+    <TextView
+        android:id="@+id/tv_to_cart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/padding"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:src="@mipmap/ic_to_cart"
+        android:text="@string/toCart"
+        android:textColor="@color/font_quick_jump"
+        android:textSize="@dimen/font_size_10"
+        app:drawableTopCompat="@mipmap/ic_to_cart"
+        app:layout_constraintEnd_toStartOf="@id/tv_to_mine"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tv_to_search"
+        app:layout_constraintTop_toTopOf="@id/tv_to_home" />
+
+    <TextView
+        android:id="@+id/tv_to_mine"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/padding"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:src="@mipmap/ic_to_mine"
+        android:text="@string/toMine"
+        android:textColor="@color/font_quick_jump"
+        android:textSize="@dimen/font_size_10"
+        app:drawableTopCompat="@mipmap/ic_to_mine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tv_to_cart"
+        app:layout_constraintTop_toTopOf="@id/tv_to_home" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/paddingL"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:background="@drawable/bg_corner_blue_20"
+        android:gravity="center"
+        android:text="@string/dismiss"
+        android:textColor="@color/white"
+        android:id="@+id/tv_dismiss"
+        android:textSize="@dimen/font_size_16"
+        app:layout_constraintTop_toBottomOf="@id/tv_to_home" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

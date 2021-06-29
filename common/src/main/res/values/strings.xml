@@ -19,4 +19,8 @@
 
 
     <string name="common_author_null">权限不足\n 请联系上级管理员</string>
+    <string name="toHome">去首页</string>
+    <string name="toCart">购物车</string>
+    <string name="toMine">我的</string>
+    <string name="dismiss">取消</string>
 </resources>

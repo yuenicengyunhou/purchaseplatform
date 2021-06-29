@@ -57,5 +57,10 @@ public interface JSEvaluteBack extends JSBack {
      */
     void goDeliveredPage(String orderNo);
 
+    /**
+     * 快捷导航弹窗
+     */
+    void callJump();
+
 
 }
