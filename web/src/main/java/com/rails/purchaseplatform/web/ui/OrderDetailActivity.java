@@ -40,7 +40,8 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     private boolean isReceive = false;
     private UserInfoBean userInfoBean;
     private boolean neadResume = true;
-//    private QuickJumpPop quickJumpPop;
+    private QuickJumpPop pop;
+    //    private QuickJumpPop quickJumpPop;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -140,21 +141,12 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     @JavascriptInterface
     @Override
     public void callJump() {
-        Log.e("WQ", "callJump");
-        AreaPop pop = new AreaPop();
-        pop.setGravity(Gravity.BOTTOM);
-        pop.setType(BasePop.MATCH_WRAP);
-        pop.setListener((area, provinceCode, cityCode, countryCode) -> {
-//            barBinding.etArea.setContent(area);
-//            this.provinceCode = provinceCode;
-//            this.cityCode = cityCode;
-//            this.countryCode = countryCode;
-        });
-        pop.show(getSupportFragmentManager(), "area");
-//        QuickJumpPop  quickJumpPop = new QuickJumpPop();
-//            quickJumpPop.setGravity(Gravity.BOTTOM);
-//        quickJumpPop.setType(BasePop.MATCH_CUSTOM);
-//        quickJumpPop.show(getSupportFragmentManager(),"quick");
+        if (null == pop) {
+            pop = new QuickJumpPop();
+            pop.setGravity(Gravity.BOTTOM);
+            pop.setType(BasePop.MATCH_WRAP);
+        }
+        pop.show(getSupportFragmentManager(), "quick");
     }
 
     @Override

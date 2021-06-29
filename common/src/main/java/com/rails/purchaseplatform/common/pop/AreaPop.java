@@ -55,8 +55,8 @@ public class AreaPop extends BasePop<PopAddressAreaBinding> {
         maps = new HashMap<>();
         areas = new SparseArray<>();
         areaCodes = new SparseArray<>();
-        initPager();
-        onClick();
+//        initPager();
+//        onClick();
     }
 
 

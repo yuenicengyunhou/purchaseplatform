@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.framwork.base;
 
 import android.app.Activity;
+import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class BaseActManager {
     }
 
     public synchronized void addActivity(Activity activity) {
+        Log.e("WQ", "====" + activity.getClass().getSimpleName());
         mActivities.add(activity);
     }
 
