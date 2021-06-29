@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ import com.rails.lib_data.contract.ProductDetailsPresenterImpl2;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.AreaPop;
+import com.rails.purchaseplatform.common.pop.QuickJumpPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -106,6 +108,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private AddCartPop<SpecificationPopBean> mPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
     private ProductDetailsParamsPop mParamsPop;
+    private QuickJumpPop mQuickJumpPop;
 
     private CartContract.CartPresenter2 mPresenter;
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
@@ -241,8 +244,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void updateBackButtonStateOnScroll(int scrollY) {
         if (scrollY <= 200) {
             binding.ibBack1.setAlpha(1F);
+            binding.ibQuickJump1.setAlpha(1F);
         } else {
             binding.ibBack1.setAlpha(0F);
+            binding.ibQuickJump1.setAlpha(0F);
         }
     }
 
@@ -338,6 +343,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.ibBack.setOnClickListener(v -> finish());
         binding.ibBack1.setOnClickListener(v -> finish());
 
+        // 右上角快捷跳转
+        binding.ibQuickJump.setOnClickListener(v -> showJumpPop());
+        binding.ibQuickJump1.setOnClickListener(v -> showJumpPop());
+
         // 设置轮播点击事件
         binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
             @Override
@@ -398,6 +407,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         Bundle bundle = new Bundle();
         bundle.putString("shopInfoId", mPageBean.getShopId());
         ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
+    }
+
+    private void showJumpPop() {
+        if (null == mQuickJumpPop) {
+            mQuickJumpPop = new QuickJumpPop();
+            mQuickJumpPop.setGravity(Gravity.BOTTOM);
+            mQuickJumpPop.setType(BasePop.MATCH_WRAP);
+            mQuickJumpPop.setQuickTabListener(this::onQuickClick);
+        }
+        mQuickJumpPop.show(getSupportFragmentManager(), "quick");
     }
 
 
@@ -537,6 +556,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             });
         }
         mChooseAddressPop.show(getSupportFragmentManager(), "product_details_choose_address");
+    }
+
+    /**
+     * 快捷跳转的方法
+     *
+     * @param type 根据此参数决定跳转目标页面
+     */
+    public void onQuickClick(String type) {
+        // TODO: 2021/6/29 处理4个点击事件
+        Log.d(TAG, "TYPE_VALUE = " + type);
     }
 
 
