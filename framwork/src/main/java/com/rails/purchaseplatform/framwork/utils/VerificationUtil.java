@@ -132,15 +132,12 @@ public class VerificationUtil {
             return false;
         } else {
             password = password.trim();
-            if (password.length() < 8) {
-                return false;
-            } else {
-//                "[^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\d!@#$%^&*,.]+$)[a-zA-Z\d!@#$%^&*,.]+$]"
-                Pattern p = Pattern.compile("[a-zA-Z0-9\\$@#!,-_\\.\\?]+");
-//                Pattern p = Pattern.compile("[^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\\d!@#$%^&*,.]+$)[a-zA-Z\\d!@#$%^&*,.]+$]");
-                Matcher m = p.matcher(password);
-                return m.matches();
-            }
+            // 后台给的正则 好像不太对的样子
+            // "[^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\d!@#$%^&*,.]+$)[a-zA-Z\d!@#$%^&*,.]+$]"
+            String strPattern = "(?=.*?[A-Z])(?=.*[a-z]+)(?=.*[\\d]+)(?=.*[\\W]+)(?!.*\\s).{8,}";
+            Pattern p = Pattern.compile(strPattern);
+            Matcher m = p.matcher(password);
+            return m.matches();
         }
     }
 
