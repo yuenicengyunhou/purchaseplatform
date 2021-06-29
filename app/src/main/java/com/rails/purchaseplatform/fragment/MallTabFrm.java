@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RadioButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.ResultWebBean;
@@ -33,7 +34,18 @@ import androidx.navigation.fragment.NavHostFragment;
  */
 public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
 
-    private int position = 0;
+    private int position;
+
+
+    private MallTabFrm(int position) {
+        this.position = position;
+    }
+
+
+    public static MallTabFrm newInstance(int position) {
+        return new MallTabFrm(position);
+    }
+
 
     @Override
     protected void loadData() {
@@ -120,8 +132,8 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         binding.viewpager.setAdapter(viewPageAdapter);
         binding.viewpager.setOffscreenPageLimit(4);
         binding.viewpager.setCurrentItem(position);
+        ((RadioButton) binding.rbGroup.getChildAt(position)).setChecked(true);
     }
-
 
 
     /**
