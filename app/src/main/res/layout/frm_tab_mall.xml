@@ -23,7 +23,7 @@
         <View style="@style/line_thin_shade" />
 
         <RadioGroup
-
+            android:id="@+id/rb_group"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_55"
             android:gravity="center_vertical"

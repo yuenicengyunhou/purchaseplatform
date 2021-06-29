@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.web.ui;
 
+import android.app.ActivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;

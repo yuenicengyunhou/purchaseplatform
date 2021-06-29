@@ -9,9 +9,11 @@ import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.databinding.ActivityMainBinding;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.fragment.MallTabFrm;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,6 +27,7 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
     private ResultWebBean webBean;
     // 定义一个变量，来标识是否退出
     private boolean isExit = false;
+    private int position = 0;
 
     Handler mHandler = new Handler(msg -> {
         isExit = false;
@@ -41,7 +44,13 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
     @Override
     protected void initialize(Bundle bundle) {
         if (webBean != null) {
-            EventBus.getDefault().post(new BusEvent<ResultWebBean>(webBean, ConRoute.EVENTCODE.MAIN_CODE));
+            position = webBean.getCode();
+        }
+
+        if (bundle == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(com.rails.purchaseplatform.market.R.id.container, MallTabFrm.newInstance(position))
+                    .commitNow();
         }
     }
 
