@@ -42,4 +42,14 @@ public interface SearchService {
     @GET("elasticsearch-service/mall/search/queryItemListByCid")
     Observable<HttpResult<SearchDataByItemBean>> getItemListWithCid(@QueryMap HashMap<String, Object> params);
 
+
+    /**
+     * 商品搜索记录搜索关键字接口
+     *
+     * @param params
+     * @return
+     */
+    @GET("statistic-service/statistic/searchRecord")
+    Observable<HttpResult<JsonObject>> searchRecord(@QueryMap HashMap<String, Object> params);
+
 }

@@ -3,9 +3,11 @@ package com.rails.lib_data.contract;
 import android.app.Activity;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
@@ -174,6 +176,38 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                         }
                     }
                 });
+    }
+
+    /**
+     * 商品搜索记录搜索关键字接口
+     * <p>
+     * 调用：
+     * <p>
+     * -1- 点击搜索按钮且搜索关键字不为空
+     * <p>
+     * -2- 点击搜索记录条目
+     * <p>
+     * -3- 点击热门搜索条目
+     * <p>
+     * -notice- 在搜索结果页面进行的各种排序搜索不做记录
+     *
+     * @param type
+     * @param keyword
+     */
+    @Override
+    public void searchRecord(String type, String keyword) {
+        model.searchRecord(type, keyword, new HttpRxObserver<JSONObject>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(JSONObject response) {
+                Logger.d("SUCCESS", TAG);
+                // TODO: 2021/6/30 返回的数据结构
+            }
+        });
     }
 
     /**

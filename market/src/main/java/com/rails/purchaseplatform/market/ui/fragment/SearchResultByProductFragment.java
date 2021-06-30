@@ -92,6 +92,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         notifyData(mSearchKey, mCid, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
                 minPrice, maxPrice, page, 30, true);
+        if (!TextUtils.isEmpty(mSearchKey)) {
+            mPresenter.searchRecord("1", mSearchKey);
+        }
     }
 
 

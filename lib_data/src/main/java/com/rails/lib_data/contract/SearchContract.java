@@ -43,28 +43,31 @@ public interface SearchContract {
 
 
     interface SearchItemPresenter {
-        /**
-         * 商品列表 从搜索栏跳转 使用keyword
-         *
-         * @param orderColumn
-         * @param orderType
-         * @param keyword
-         * @param pageNum
-         * @param isDialog
-         */
+
         @Deprecated
         void getItemListWithKeywordOnly(String orderColumn, String orderType, String keyword, int pageNum, boolean isDialog);
 
-        /**
-         * 商品列表 从首页金刚区跳转 使用cid搜索
-         *
-         * @param cid
-         * @param pageNum
-         * @param isDialog
-         */
         @Deprecated
         void getItemListWithCid(String orderColumn, String orderType, String cid, int pageNum, boolean isDialog);
 
+
+        /**
+         * 使用cid搜索
+         *
+         * @param keyword
+         * @param cid
+         * @param orderColumn
+         * @param orderType
+         * @param brands
+         * @param brandsString
+         * @param categoryAttrValueIds
+         * @param expandAttrValueIds
+         * @param minPrice
+         * @param maxPrice
+         * @param pageNum
+         * @param pageSize
+         * @param isDialog
+         */
         void queryItemListByCid(String keyword, String cid,
                                 String orderColumn, String orderType,
                                 String brands, String brandsString,
@@ -72,12 +75,37 @@ public interface SearchContract {
                                 String minPrice, String maxPrice,
                                 int pageNum, int pageSize, boolean isDialog);
 
+
+        /**
+         * 使用keyword搜索
+         *
+         * @param keyword
+         * @param orderColumn
+         * @param orderType
+         * @param brands
+         * @param brandsString
+         * @param categoryAttrValueIds
+         * @param expandAttrValueIds
+         * @param minPrice
+         * @param maxPrice
+         * @param pageNum
+         * @param pageSize
+         * @param isDialog
+         */
         void queryItemListByKeyword(String keyword,
                                     String orderColumn, String orderType,
                                     String brands, String brandsString,
                                     String categoryAttrValueIds, String expandAttrValueIds,
                                     String minPrice, String maxPrice,
                                     int pageNum, int pageSize, boolean isDialog);
+
+        /**
+         * 商品搜索记录搜索关键字
+         *
+         * @param type
+         * @param keyword
+         */
+        void searchRecord(String type, String keyword);
     }
 
 
@@ -89,7 +117,6 @@ public interface SearchContract {
          * @param hasMore
          * @param isClear
          */
-        // TODO: 2021/04/19 修改参数
         void getShopListWithKeywordOnly(ArrayList<ShopAttribute> bean, boolean hasMore, boolean isClear);
     }
 

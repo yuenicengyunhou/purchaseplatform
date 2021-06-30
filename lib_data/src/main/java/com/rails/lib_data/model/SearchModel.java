@@ -2,6 +2,7 @@ package com.rails.lib_data.model;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.SearchService;
@@ -208,6 +209,26 @@ public class SearchModel {
                 .getItemListWithCid(params))
                 .subscribe(httpRxObserver);
 
+    }
+
+
+    /**
+     * 商品搜索记录搜索关键字
+     *
+     * @param type
+     * @param keyword
+     * @param httpRxObserver
+     */
+    public void searchRecord(String type, String keyword, HttpRxObserver<JSONObject> httpRxObserver) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("sourceType", type);
+        params.put("keywords", keyword);
+
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(SearchService.class)
+                .searchRecord(params))
+                .subscribe(httpRxObserver);
     }
 
 }
