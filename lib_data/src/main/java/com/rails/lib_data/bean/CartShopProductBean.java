@@ -71,6 +71,7 @@ public class CartShopProductBean {
     private String skuStatus;
     //计量单位
     private String unit;
+    private String unitName;
     //sku 采购数量
     private long skuNum;
     // 市场价格
@@ -406,5 +407,13 @@ public class CartShopProductBean {
 
     public void setCanUser(Boolean canUser) {
         this.canUser = canUser;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 }
