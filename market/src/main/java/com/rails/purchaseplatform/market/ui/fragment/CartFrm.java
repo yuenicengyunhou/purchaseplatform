@@ -630,11 +630,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             case ERROR_UNLOAD:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
+                cartAdapter.update(new ArrayList(), true);
                 binding.empty.setBtnEmpty("立即登录");
                 ToastUtil.showCenter(getActivity(), errorBean.getMsg());
             }
             break;
             case HTTP_ERROR: {
+                cartAdapter.update(new ArrayList(), true);
                 binding.empty.setBtnEmpty("立即登录");
             }
             break;
