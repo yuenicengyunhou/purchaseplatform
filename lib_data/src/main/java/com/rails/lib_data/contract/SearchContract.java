@@ -100,7 +100,17 @@ public interface SearchContract {
                                     int pageNum, int pageSize, boolean isDialog);
 
         /**
-         * 商品搜索记录搜索关键字
+         * 商品搜索记录搜索关键字接口
+         * <p>
+         * 调用：
+         * <p>
+         * -1- 点击搜索按钮且搜索关键字不为空
+         * <p>
+         * -2- 点击搜索记录条目
+         * <p>
+         * -3- 点击热门搜索条目
+         * <p>
+         * -notice- 在搜索结果页面进行的各种排序搜索不做记录
          *
          * @param type
          * @param keyword
