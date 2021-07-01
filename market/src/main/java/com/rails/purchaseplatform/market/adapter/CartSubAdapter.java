@@ -60,7 +60,8 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         }
 
         String price = DecimalUtil.formatDouble(productBean.getSellPrice());
-        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, "", 18));
+        String unit = productBean.getUnitName();
+        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, 18));
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,9 +164,4 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         return mDataSource.size();
     }
 
-
-//    public void canSwipe(boolean isSwipe) {
-//        this.isSwipe = isSwipe;
-//        notifyDataSetChanged();
-//    }
 }
