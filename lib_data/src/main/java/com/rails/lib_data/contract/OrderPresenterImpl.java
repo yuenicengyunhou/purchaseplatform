@@ -33,7 +33,7 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
     public OrderPresenterImpl(Activity mContext, OrderContract.OrderView orderView) {
         super(mContext, orderView);
         model = new OrderModel();
-        UserInfoBean bean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
+        UserInfoBean bean = PrefrenceUtil.getInstance(mContext).getBean(ConShare.USERINFO, UserInfoBean.class);
         if (null == bean) {
             return;
         }

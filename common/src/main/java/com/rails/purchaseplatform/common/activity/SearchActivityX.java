@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -215,6 +217,26 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
                 return true;
             }
             return false;
+        });
+
+        // 显示/隐藏清空输入按钮
+        binding.searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.ibClearSearch.setVisibility(
+                        String.valueOf(s).length() == 0
+                                ? View.GONE : View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
 
         // 清空搜索关键字按钮
