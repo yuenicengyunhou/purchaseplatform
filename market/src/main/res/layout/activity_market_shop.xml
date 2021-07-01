@@ -13,15 +13,75 @@
 
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg">
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30">
+
+                <ImageButton
+                    android:id="@+id/ib_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:paddingStart="@dimen/common_border"
+                    android:paddingEnd="@dimen/dp_0"
+                    android:src="@drawable/svg_back_black"
+                    tools:ignore="ContentDescription" />
+
+
+                <com.rails.purchaseplatform.common.widget.ClearTextEditText
+                    android:id="@+id/editText"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/paddingL"
+                    android:layout_marginEnd="@dimen/paddingL"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_corner_gray_20"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:hint="@string/searchProducts"
+                    android:lines="1"
+                    android:paddingStart="@dimen/paddingL"
+                    android:paddingEnd="@dimen/paddingL"
+                    android:textSize="@dimen/font_size_12" />
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/paddingL"
+                    android:paddingEnd="@dimen/paddingL"
+                    android:text="@string/searchInShop"
+                    android:textColor="@color/font_black" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.Toolbar>
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:background="@color/bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintVertical_weight="1">
 
 
             <com.rails.purchaseplatform.common.widget.BaseCoordinatorLayout
@@ -128,13 +188,14 @@
                                 android:id="@+id/iv_make_phone"
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
-                                android:layout_marginStart="@dimen/padding"
                                 android:layout_alignBottom="@+id/tv_phone"
                                 android:layout_alignParentEnd="true"
+                                android:layout_marginStart="@dimen/padding"
                                 android:layout_marginEnd="@dimen/dp_16"
-                                android:visibility="gone"
                                 android:background="@drawable/ic_make_phone"
-                                android:padding="@dimen/dp_6" />
+                                android:padding="@dimen/dp_6"
+                                android:visibility="gone"
+                                tools:ignore="ContentDescription" />
 
 
                         </RelativeLayout>
@@ -262,14 +323,17 @@
             android:id="@+id/img_top"
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
-            android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/common_border"
             android:layout_marginBottom="@dimen/common_border"
             android:padding="@dimen/dp_5"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/ic_go_top"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="ContentDescription" />
 
-    </FrameLayout>
+    </RelativeLayout>
 </layout>
 

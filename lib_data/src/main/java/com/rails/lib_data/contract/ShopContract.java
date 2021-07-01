@@ -3,11 +3,9 @@ package com.rails.lib_data.contract;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.shop.ResultListBean;
 import com.rails.lib_data.bean.shop.ShopInfoBean;
-import com.rails.lib_data.bean.shop.ShopRecommendBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 商城--店铺
@@ -32,7 +30,7 @@ public interface ShopContract {
         /**
          * 筛选弹窗
          */
-        void loadFilter(ArrayList<SearchFilterBean> filterBeans);
+        void loadFilter(ArrayList<SearchFilterBean> filterBeans, boolean resetFilter);
 
     }
 
@@ -48,7 +46,7 @@ public interface ShopContract {
         /**
          * 店铺推荐商品列表
          */
-        void getShopItemList(boolean showLoading,String shopInfoId, int page, int pageSize,String orderColumn,String orderType,ArrayList<SearchFilterBean> filterBeans);
+        void getShopItemList(boolean showLoading,String shopInfoId, int page, int pageSize,String orderColumn,String orderType,ArrayList<SearchFilterBean> filterBeans,String keyword);
 
     }
 }

@@ -54,6 +54,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -165,7 +167,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         }
     }
 
-    private void initFilterBean(String[] tabs) {
+    private void initFilterBean(@NotNull String[] tabs) {
         mFilterCache = new HashMap<>();//初始化cache，分开存储两个filterBean
         for (int i = 0; i < tabs.length; i++) {
             OrderFilterBean filterBean = new OrderFilterBean();

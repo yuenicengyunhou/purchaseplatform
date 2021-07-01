@@ -135,43 +135,8 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
             pop = new QuickJumpPop();
             pop.setGravity(Gravity.BOTTOM);
             pop.setType(BasePop.MATCH_WRAP);
-            pop.setQuickTabListener(this::toJump);
         }
         pop.show(getSupportFragmentManager(), "quick");
-    }
-
-    private void toJump(String type) {
-        switch (type) {
-            case "购物车":
-                String json = "{\"type\": 1,\"msg\": \"采购单提交成功\",\"btnleft\": \"查看采购单\",\"btnright\": \"返回首页\",\"urlleft\": \"/order/mian\",\"urlright\": \"/rails/main\",\"code\": 2}";
-                toActivity(ConRoute.RAILS.MAIN, json);
-                break;
-            case "首页":
-                break;
-            case "我的":
-                break;
-            case "搜索":
-                break;
-        }
-    }
-
-    private void toActivity(String path, String json) {
-        ResultWebBean webBean = JsonUtil.parseJson(json, ResultWebBean.class);
-        ARouter.getInstance()
-                .build(webBean.getUrlright())
-                .withParcelable("webBean", webBean)
-                .navigation();
-
-
-//        Bundle bundle = new Bundle();
-//        bundle.putString("webBean", json);
-//        ARouter.getInstance()
-//                .build(path)
-//                .navigation();
-//        ResultWebBean bean = JsonUtil.parseJson(json, ResultWebBean.class);
-//        EventBus.getDefault().post(new BusEvent<>(bean, ConRoute.EVENTCODE.MAIN_CODE));
-//        activity.finish();
-
     }
 
     @Override

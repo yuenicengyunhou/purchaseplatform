@@ -3,6 +3,8 @@ package com.rails.purchaseplatform.address.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.PopupWindow;
+import android.widget.ScrollView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.ConShare;
@@ -13,31 +15,29 @@ import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
-import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressSelAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressSelBinding;
+import com.rails.purchaseplatform.address.databinding.PopAddressSearchBinding;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 选择地址
- *
- * @author： sk_comic@163.com
- * @date: 2021/3/28
+ * <p>
+ * author： sk_comic@163.com
+ * date: 2021/3/28
  */
 @Route(path = ConRoute.ADDRESS.ADDRESS_SEL)
-public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBinding> implements UserToolContract.UserToolView,
+public class AddressSelActivity extends BaseErrorActivity<ActivityAddressSelBinding> implements UserToolContract.UserToolView,
         AddressToolContract.AddressToolView, MulPositionListener<AddressBean>, PositionListener<AddressBean> {
 
     private AddressSelAdapter addressAdapter;
@@ -60,27 +60,32 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     protected void initialize(Bundle bundle) {
 
-        binding.titleBar
-                .setTitleBar(R.string.address_main)
-                .setShowLine(true)
-                .setImgLeftRes(R.drawable.svg_back_black);
+//        binding.titleBar
+//                .setTitleBar(R.string.address_main)
+//                .setShowLine(true)
+//                .setImgLeftRes(R.drawable.svg_back_black);
 
         if (!isAdd) {
-            barBinding.btnAdd.setVisibility(View.GONE);
+            binding.btnAdd.setVisibility(View.GONE);
         }
 
 
-        barBinding.smart.setEnableLoadMore(false);
+        binding.smart.setEnableLoadMore(false);
         addressAdapter = new AddressSelAdapter(this);
         addressAdapter.setMulPositionListener(this);
         addressAdapter.setListener(this);
-        barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        barBinding.recycler.setAdapter(addressAdapter);
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        binding.recycler.setAdapter(addressAdapter);
 
         toolPresenter = new UserToolPresenterImpl(this, this);
         toolPresenter.queryAuthor();
 
         presenter = new AddressToolPresenterImpl(this, this);
+
+        binding.ibBack.setOnClickListener(v -> finish());
+        binding.tvPop.setOnClickListener(v -> showSearchTypePop(binding.tvPop.getText().toString()));
+        binding.tvSearch.setOnClickListener(v -> onRefresh());
+
         onRefresh();
 
     }
@@ -90,14 +95,11 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
      * 刷新请求
      */
     private void onRefresh() {
-        barBinding.smart.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                barBinding.smart.finishRefresh();
-                presenter.getAddress("", type);
-            }
+        binding.smart.setOnRefreshListener(refreshLayout -> {
+            binding.smart.finishRefresh();
+            presenter.getAddress("", type, binding.tvPop.getText().toString(), binding.editText.getText().toString().trim());
         });
-        presenter.getAddress("", type);
+        presenter.getAddress("", type, binding.tvPop.getText().toString(), binding.editText.getText().toString().trim());
     }
 
 
@@ -114,6 +116,34 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     @Override
     protected boolean isBindEventBus() {
         return false;
+    }
+
+    /**
+     * 选择搜索类型的弹窗
+     */
+    private void showSearchTypePop(String text) {
+        PopAddressSearchBinding popBinding = PopAddressSearchBinding.inflate(getLayoutInflater());
+        ScrollView root = popBinding.getRoot();
+        int width = ScreenSizeUtil.dp2px(this, 150);
+        int height = ScreenSizeUtil.dp2px(this, 130);
+        popBinding.tvReceiver.setChecked(text.equals("收货人"));
+        popBinding.tvMobile.setChecked(text.equals("手机号码"));
+        popBinding.tvFullAddress.setChecked(text.equals("详细地址"));
+
+        PopupWindow popupWindow = new PopupWindow(root, width, height, true);
+        popBinding.tvReceiver.setOnClickListener(v -> onToolbarChange("收货人", "搜索收货人", popupWindow));
+        popBinding.tvMobile.setOnClickListener(v -> onToolbarChange("手机号码", "搜索手机号码", popupWindow));
+        popBinding.tvFullAddress.setOnClickListener(v -> onToolbarChange("详细地址", "搜索详细地址", popupWindow));
+        popupWindow.showAsDropDown((View) binding.tvPop.getParent());
+    }
+
+    /**
+     * 点击弹窗条件之后，搜索栏信息切换
+     */
+    private void onToolbarChange(String text, String hint, PopupWindow popupWindow) {
+        binding.tvPop.setText(text);
+        binding.editText.setHint(hint);
+        popupWindow.dismiss();
     }
 
 
@@ -137,9 +167,7 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     protected void onClick() {
         super.onClick();
 
-        barBinding.btnAdd.setOnClickListener(v -> {
-            startIntent(AddressAddActivity.class);
-        });
+        binding.btnAdd.setOnClickListener(v -> startIntent(AddressAddActivity.class));
     }
 
     @Override
@@ -178,9 +206,9 @@ public class AddressSelActivity extends ToolbarActivity<ActivityAddressSelBindin
     public void getAuthor(AuthorBean authorBean) {
         isAdd = PrefrenceUtil.getInstance(this).getBoolean(ConShare.BUTTON_ADDRESS_ADD, false);
         if (!isAdd) {
-            barBinding.btnAdd.setVisibility(View.GONE);
+            binding.btnAdd.setVisibility(View.GONE);
         } else {
-            barBinding.btnAdd.setVisibility(View.VISIBLE);
+            binding.btnAdd.setVisibility(View.VISIBLE);
         }
     }
 
