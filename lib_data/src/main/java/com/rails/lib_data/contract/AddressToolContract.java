@@ -42,8 +42,10 @@ public interface AddressToolContract {
          *
          * @param paltId
          * @param addressType 1：收货地址  2：收发票地址
+         *                    type  搜索类型 收货人 手机号   详细地址
+         *                    keyword 搜索关键字
          */
-        void getAddress(String paltId, String addressType);
+        void getAddress(String paltId, String addressType, String searchType, String keyword);
 
 
         /**
@@ -51,8 +53,10 @@ public interface AddressToolContract {
          *
          * @param paltId
          * @param addressType 1：收货地址  2：收发票地址
+         *                    type  搜索类型 收货人 手机号   详细地址
+         *                    *                    keyword 搜索关键字
          */
-        void getDefAddress(String paltId, String addressType);
+        void getDefAddress(String paltId, String addressType, String searchType, String keyword);
 
     }
 

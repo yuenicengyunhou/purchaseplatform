@@ -29,6 +29,10 @@
 
     <!--    地图列表-->
     <string name="address_map_address">%1$s%2$s%3$s</string>
+    <string name="receiver">收货人</string>
+    <string name="mobile">手机号码</string>
+    <string name="fullAddress">详细地址</string>
+    <string name="toSearchReceiver">搜索收货人</string>
 
 
 </resources>

@@ -321,12 +321,12 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     public void setVerifyCode(String verifyCode) {
         this.mVerifyCode = verifyCode;
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
-            if (aBoolean) {
-                smsObserver = new SmsObserver(mHandler2);
-                getContentResolver().registerContentObserver(uri, true, smsObserver);
-            }
-        });
+//        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
+//            if (aBoolean) {
+//                smsObserver = new SmsObserver(mHandler2);
+//                getContentResolver().registerContentObserver(uri, true, smsObserver);
+//            }
+//        });
 
     }
 
@@ -360,9 +360,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             mHandler2.removeCallbacksAndMessages(null);
             mHandler2 = null;
         }
-        if (null != smsObserver) {
-            getContentResolver().unregisterContentObserver(smsObserver);
-        }
+//        if (null != smsObserver) {
+//            getContentResolver().unregisterContentObserver(smsObserver);
+//        }
         super.onDestroy();
 
     }

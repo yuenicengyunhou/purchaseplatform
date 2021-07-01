@@ -100,7 +100,7 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         presenter = new InvoicePresenterImpl(this, this);
         addressToolPresenter = new AddressToolPresenterImpl(this, this);
 
-        addressToolPresenter.getDefAddress("20", addressType);
+        addressToolPresenter.getDefAddress("20", addressType,"","");
 
         presenter.getInvoiceContents();
         presenter.getInvoiceContents(false);

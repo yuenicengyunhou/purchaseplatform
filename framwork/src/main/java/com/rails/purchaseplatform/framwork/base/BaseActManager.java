@@ -63,4 +63,16 @@ public class BaseActManager {
             i = mActivities.size() - 1;
         }
     }
+
+    /**
+     * 清除mainActivity上面的activity
+     */
+    public synchronized void clearToMainActivity() {
+//        for (int i = mActivities.size() - 1; i > -1; i--) {
+//            Activity activity = mActivities.get(i);
+//            removeActivity(activity);
+//            activity.finish();
+//            i = mActivities.size();
+//        }
+    }
 }

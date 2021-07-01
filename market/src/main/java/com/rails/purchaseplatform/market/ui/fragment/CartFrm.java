@@ -170,11 +170,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.swipe.finishRefresh();
                 page = DEF_PAGE;
-                addressPresenter.getDefAddress("20", "1");
+                addressPresenter.getDefAddress("20", "1","","");
                 notifyData(false, page);
             }
         });
-        addressPresenter.getDefAddress("20", "1");
+        addressPresenter.getDefAddress("20", "1", "", "");
         notifyData(false, page);
     }
 

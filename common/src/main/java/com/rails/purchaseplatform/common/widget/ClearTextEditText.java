@@ -25,7 +25,7 @@ import java.util.Objects;
 
 
 @SuppressLint("AppCompatCustomView")
-public class ClearTextEditText extends EditText  {
+public class ClearTextEditText extends EditText implements View.OnTouchListener, View.OnFocusChangeListener, TextWatcher {
 
     private Drawable mClearTextDrawable;
     private OnFocusChangeListener mOnFocusChangeListener;
@@ -38,10 +38,12 @@ public class ClearTextEditText extends EditText  {
 
     public ClearTextEditText(@NonNull @NotNull Context context, @Nullable @org.jetbrains.annotations.Nullable AttributeSet attrs) {
         this(context, attrs, 0);
+        initEdit(context);
     }
 
     public ClearTextEditText(@NonNull @NotNull Context context, @Nullable @org.jetbrains.annotations.Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initEdit(context);
     }
 
     /**
@@ -54,16 +56,16 @@ public class ClearTextEditText extends EditText  {
     @SuppressLint("ClickableViewAccessibility")
     private void initEdit(Context context) {
         initAttr();
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.abc_ic_clear_material);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_baseline_cancel_24);
         if (null == drawable) return;
         Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
         DrawableCompat.setTint(wrappedDrawable, getCurrentHintTextColor());
         mClearTextDrawable = wrappedDrawable;
         mClearTextDrawable.setBounds(0, 0, mClearTextDrawable.getIntrinsicHeight(), mClearTextDrawable.getIntrinsicWidth());
-        setmClearTextDrawableVisible(true);
-//        super.setOnTouchListener(this);
-//        super.setOnFocusChangeListener(this);
-//        addTextChangedListener(this);
+        setmClearTextDrawableVisible(false);
+        super.setOnTouchListener(this);
+        super.setOnFocusChangeListener(this);
+        addTextChangedListener(this);
     }
 
     private void setmClearTextDrawableVisible(boolean visible) {
@@ -82,44 +84,44 @@ public class ClearTextEditText extends EditText  {
         this.mTouchListener = mTouchListener;
     }
 
-//    @Override
-//    public boolean onTouch(View v, MotionEvent event) {
-//        float x = event.getX();
-//        if (mClearTextDrawable.isVisible() && x > getWidth() - getPaddingEnd() - mClearTextDrawable.getIntrinsicWidth()) {
-//            if (event.getAction() == MotionEvent.ACTION_UP) {
-//                setText("");
-//            }
-//            return true;
-//        }
-//        return mTouchListener != null && mTouchListener.onTouch(v, event);
-//    }
-//
-//    @Override
-//    public void onFocusChange(View v, boolean hasFocus) {
-//        if (hasFocus) {
-//            setmClearTextDrawableVisible(Objects.requireNonNull(getText()).length() > 0);
-//        } else {
-//            setmClearTextDrawableVisible(false);
-//        }
-//        if (null != mOnFocusChangeListener) {
-//            mOnFocusChangeListener.onFocusChange(v, hasFocus);
-//        }
-//    }
-//
-//    @Override
-//    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//    }
-//
-//    @Override
-//    public void onTextChanged(CharSequence s, int start, int before, int count) {
-//        if (hasFocus()) {
-//            setmClearTextDrawableVisible(s.length() > 0);
-//        }
-//    }
-//
-//    @Override
-//    public void afterTextChanged(Editable s) {
-//
-//    }
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        float x = event.getX();
+        if (mClearTextDrawable.isVisible() && x > getWidth() - getPaddingEnd() - mClearTextDrawable.getIntrinsicWidth()) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                setText("");
+            }
+            return true;
+        }
+        return mTouchListener != null && mTouchListener.onTouch(v, event);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            setmClearTextDrawableVisible(Objects.requireNonNull(getText()).length() > 0);
+        } else {
+            setmClearTextDrawableVisible(false);
+        }
+        if (null != mOnFocusChangeListener) {
+            mOnFocusChangeListener.onFocusChange(v, hasFocus);
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (hasFocus()) {
+            setmClearTextDrawableVisible(s.length() > 0);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }

@@ -45,13 +45,17 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 //        accountType = bean.getAccountType();
     }
 
-
+    /**
+     * 获取地址列表
+     * <p>
+     * param isDialog 是否显示dialog    type-搜索类型 0收货人  1手机号码  2详细地址  -1无条件
+     */
     @Override
-    public void getAddresses(Boolean isDialog, int page) {
+    public void getAddresses(Boolean isDialog, int page, String type, String params) {
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
-        model.queryAddressList( page, new HttpRxObserver<ListBeen<AddressBean>>() {
+        model.queryAddressList(page, type, params, new HttpRxObserver<ListBeen<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (isDialog) {
@@ -186,7 +190,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
 //            ToastUtil.show(mContext, "市级地区码未获取，请尝试重选地址");
 //            return;
 //        }
-        if (TextUtils.isEmpty(countryCode)||TextUtils.isEmpty(cityCode)) {
+        if (TextUtils.isEmpty(countryCode) || TextUtils.isEmpty(cityCode)) {
             ToastUtil.showCenter(mContext, "地区码未获取，请尝试重选地址");
             return;
         }
@@ -203,7 +207,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         dto.setInvoiceAddress(String.valueOf(isInvoiceAddress));
         String json = new Gson().toJson(dto);
         if (null == addressId || TextUtils.isEmpty(addressId)) {
-            model.addAddress( json, new HttpRxObserver<Boolean>() {
+            model.addAddress(json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();
@@ -219,7 +223,7 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
                 }
             });
         } else {
-            model.editAddress( addressId, json, new HttpRxObserver<Boolean>() {
+            model.editAddress(addressId, json, new HttpRxObserver<Boolean>() {
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();

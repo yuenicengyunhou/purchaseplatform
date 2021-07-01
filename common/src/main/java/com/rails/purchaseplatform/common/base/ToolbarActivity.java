@@ -82,12 +82,12 @@ public abstract class ToolbarActivity<T extends ViewBinding> extends BaseErrorAc
         finish();
     }
 
-
-    /**
-     *
-     */
-    protected void reNetLoad() {
-    }
+//
+//    /**
+//     *
+//     */
+//    protected void reNetLoad() {
+//    }
 
 
     @Override

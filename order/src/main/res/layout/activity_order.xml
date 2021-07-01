@@ -10,13 +10,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44"
-        android:layout_marginTop="@dimen/dp_10">
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center_vertical">
 
         <ImageButton
             android:id="@+id/ib_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
             android:background="@null"
             android:paddingStart="@dimen/common_border"
             android:paddingEnd="@dimen/dp_0"
@@ -42,44 +42,49 @@
             android:layout_height="match_parent"
             android:layout_alignStart="@+id/conner_background"
             android:layout_marginStart="@dimen/dp_12"
+            android:drawablePadding="@dimen/padding"
             android:gravity="center"
             android:text="@string/orderNo"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_12" />
+            android:textSize="@dimen/font_size_12"
+            app:drawableEndCompat="@mipmap/icon_down" />
 
-        <ImageView
-            android:id="@+id/iv_down"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/tv_select_type"
-            android:padding="4dp"
-            android:src="@mipmap/icon_down"
-            tools:ignore="ContentDescription" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_down"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_toEndOf="@+id/tv_select_type"-->
+        <!--            android:padding="4dp"-->
+        <!--            android:src="@mipmap/icon_down"-->
+        <!--            tools:ignore="ContentDescription" />-->
 
-        <View
-            android:id="@+id/view_split"
-            android:layout_width="@dimen/dp_tiny"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_4"
-            android:layout_marginTop="@dimen/dp_14"
-            android:layout_marginBottom="@dimen/dp_14"
-            android:layout_toEndOf="@+id/iv_down"
-            android:background="@color/bg_gray" />
+        <!--        <View-->
+        <!--            android:id="@+id/view_split"-->
+        <!--            android:layout_width="@dimen/dp_tiny"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_marginStart="@dimen/dp_4"-->
+        <!--            android:layout_marginTop="@dimen/dp_14"-->
+        <!--            android:layout_marginBottom="@dimen/dp_14"-->
+        <!--            android:layout_toEndOf="@+id/tv_select_type"-->
+        <!--            android:background="@color/bg_gray" />-->
 
-        <EditText
+        <com.rails.purchaseplatform.common.widget.ClearTextEditText
             android:id="@+id/et_searchKey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_8"
-            android:layout_toEndOf="@+id/view_split"
-            android:background="@null"
-            android:ems="12"
+            android:layout_marginEnd="@dimen/paddingL"
+            android:layout_toStartOf="@id/ib_filter"
+            android:layout_toEndOf="@+id/tv_select_type"
             android:ellipsize="end"
-            android:inputType="text"
-            android:singleLine="true"
-            android:imeOptions="actionSearch"
+            android:ems="12"
+            android:focusableInTouchMode="true"
             android:hint="@string/searchOrderNo"
+            android:inputType="text"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/paddingL"
+            android:singleLine="true"
             android:textColor="@color/font_gray"
             android:textSize="@dimen/font_size_12"
             tools:ignore="Autofill,TextFields" />

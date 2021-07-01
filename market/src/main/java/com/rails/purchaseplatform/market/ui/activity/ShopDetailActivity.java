@@ -17,7 +17,7 @@ import com.rails.lib_data.bean.shop.ShopInfoBean;
 import com.rails.lib_data.contract.ShopContract;
 import com.rails.lib_data.contract.ShopPresenterImp;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.R;
@@ -37,19 +37,21 @@ import static com.rails.purchaseplatform.market.config.MarketConfig.SHOP_RECOMME
  * date: 2021/3/23
  */
 @Route(path = ConRoute.MARKET.SHOP_DETAILS)
-public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBinding> implements ShopContract.ShopView {
+public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBinding> implements ShopContract.ShopView {
 
-    //    private SearchResultRecyclerAdapter adapter;
     private ShopAdapter adapter;
     private ShopPresenterImp presenter;
     private String shopInfoId;
     private final int PAGE_DEF = 1;
     private int mPage = PAGE_DEF;
+    /**
+     * 搜索
+     */
     private ArrayList<SearchFilterBean> filterList = null;
-    //    private ArrayList<SearchFilterBean> FILTER_DEF = null;
     private String orderColumn = "";//默认的排序方式为空字符
     private String orderType = "";//默认的排序顺序为空字符
-    private FilterShopPop mPop;
+//    private FilterShopPop mPop;
+
     private int userScrollY;//用户滑动距离
 
     /**
@@ -76,61 +78,64 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
     @Override
     protected void initialize(Bundle bundle) {
-        binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
-                .setTitleBar(R.string.market_shop);
+//        binding.titleBar.setImgLeftRes(R.drawable.svg_back_black)
+//                .setTitleBar(R.string.market_shop);
+        setSupportActionBar(binding.toolbar);
 
-        barBinding.swipe.setEnableLoadMore(true);
+        binding.swipe.setEnableLoadMore(true);
 
         adapter = new ShopAdapter(this);
 
-        barBinding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
-        barBinding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
-        barBinding.empty.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        barBinding.recRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.recRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        binding.empty.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        binding.recRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 userScrollY = userScrollY + dy;
                 if (userScrollY > 1000) {
-                    barBinding.imgTop.setVisibility(View.VISIBLE);
+                    binding.imgTop.setVisibility(View.VISIBLE);
                 } else {
-                    barBinding.imgTop.setVisibility(View.GONE);
+                    binding.imgTop.setVisibility(View.GONE);
                 }
             }
         });
-        barBinding.recRecycler.setAdapter(adapter);
-        barBinding.recRecycler.setEmptyView(barBinding.empty);
+        binding.recRecycler.setAdapter(adapter);
+        binding.recRecycler.setEmptyView(binding.empty);
 
-        barBinding.imgTop.setOnClickListener(v -> {
-            barBinding.recRecycler.scrollToPosition(0);
-            barBinding.imgTop.setVisibility(View.GONE);
+        binding.imgTop.setOnClickListener(v -> {
+            binding.recRecycler.scrollToPosition(0);
+            binding.imgTop.setVisibility(View.GONE);
             userScrollY = 0;
         });
 
-        barBinding.ivMakePhone.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + barBinding.tvPhone.getText().toString()));
+        binding.ivMakePhone.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + binding.tvPhone.getText().toString()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
 
-
+        binding.ibBack.setOnClickListener(v -> finish());
         //上拉加载
-        barBinding.swipe.setOnLoadMoreListener(refreshLayout -> {
+        binding.swipe.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
             queryShopProductList();
         });
 
         //下拉刷新
-        barBinding.swipe.setOnRefreshListener(refreshLayout -> {
+        binding.swipe.setOnRefreshListener(refreshLayout -> {
 //            clearAllConditions();
             mPage = PAGE_DEF;
             queryShopInfo();
             queryShopProductList();
         });
 
+        //店铺内搜索
+        binding.tvSearch.setOnClickListener(v -> toSearch());
+
 //        clearAllConditions();
         setSelected(true, false, false, false);
-
 
         presenter = new ShopPresenterImp(this, this);
         queryShopInfo();//获取店铺信息
@@ -138,12 +143,17 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
     }
 
+    private void toSearch() {
+        mPage = PAGE_DEF;
+        queryShopProductList();
+    }
+
     private void queryShopInfo() {
         presenter.getShopDetails(shopInfoId);
     }
 
     private void queryShopProductList() {
-        presenter.getShopItemList(mPage == PAGE_DEF, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+        presenter.getShopItemList(mPage == PAGE_DEF, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
     }
 
     /**
@@ -183,36 +193,36 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
     protected void onClick() {
         super.onClick();
         //true向上 false向下
-        barBinding.rbSale.setOnClickListener(v -> {
+        binding.rbSale.setOnClickListener(v -> {
                     setSelected(false, true, false, false);
                     mPage = PAGE_DEF;
-                    orderType = barBinding.rbSale.isChecked() ? "asc" : "desc";
+                    orderType = binding.rbSale.isChecked() ? "asc" : "desc";
                     orderColumn = "saleCount";
-                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
                 }
         );
 
-        barBinding.rbPrice.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.rbPrice.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     setSelected(false, false, true, false);
                     mPage = PAGE_DEF;
-                    orderType = barBinding.rbPrice.isChecked() ? "asc" : "desc";
+                    orderType = binding.rbPrice.isChecked() ? "asc" : "desc";
                     orderColumn = "sellPrice";
-                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
                 }
 
         );
 
-        barBinding.rbAll.setOnClickListener(v -> {
+        binding.rbAll.setOnClickListener(v -> {
             setSelected(true, false, false, false);
             orderColumn = "";
             orderType = "";
             mPage = PAGE_DEF;
-            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
+            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
         });
 
-        barBinding.rbSel.setOnClickListener(v -> showPop());
+        binding.rbSel.setOnClickListener(v -> showPop());
 
-//        barBinding.swipe.setEnableLoadMore(true);
+//        binding.swipe.setEnableLoadMore(true);
     }
 
 
@@ -225,10 +235,10 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
         int len = booleans.length;
         if (len <= 0)
             return;
-        barBinding.rbAll.setSelected(booleans[0]);
-        barBinding.rbSale.setSelected(booleans[1]);
-        barBinding.rbPrice.setSelected(booleans[2]);
-        barBinding.rbSel.setSelected(booleans[3]);
+        binding.rbAll.setSelected(booleans[0]);
+        binding.rbSale.setSelected(booleans[1]);
+        binding.rbPrice.setSelected(booleans[2]);
+        binding.rbSel.setSelected(booleans[3]);
     }
 
     /**
@@ -236,15 +246,15 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
      */
     private void showPop() {
         if (null == filterList) return;
-        if (null == mPop) {
-            mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
-            mPop.setCompleteListener(filterbeans -> {
-                filterList = filterbeans;
-                mPage = PAGE_DEF;
-                presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList);
-            });
-            mPop.setGravity(Gravity.BOTTOM);
-        }
+//        if (null == mPop) {
+        FilterShopPop mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
+        mPop.setCompleteListener(filterbeans -> {
+            filterList = filterbeans;
+            mPage = PAGE_DEF;
+            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+        });
+        mPop.setGravity(Gravity.BOTTOM);
+//        }
         mPop.setType(BasePop.MATCH_WRAP);
         mPop.show(getSupportFragmentManager(), "property");
     }
@@ -252,22 +262,22 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
 
     @Override
     public void loadShopInfo(ShopInfoBean shop) {
-        barBinding.setShopInfo(shop);
+        binding.setShopInfo(shop);
         if (null != shop) {
-            barBinding.tvPhone.setText(MessageFormat.format("联系电话：{0}", shop.getMobile()));
-            barBinding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
+            binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", shop.getMobile()));
+            binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
             if (TextUtils.isEmpty(shop.getMobile())) {
-                barBinding.ivMakePhone.setVisibility(View.GONE);
+                binding.ivMakePhone.setVisibility(View.GONE);
             } else {
-                barBinding.ivMakePhone.setVisibility(View.VISIBLE);
+                binding.ivMakePhone.setVisibility(View.VISIBLE);
             }
         }
     }
 
     @Override
     public void loadShopProductList(ArrayList<ResultListBean> list, int totalCount) {
-        barBinding.swipe.finishLoadMore();
-        barBinding.swipe.finishRefresh();
+        binding.swipe.finishLoadMore();
+        binding.swipe.finishRefresh();
         if (mPage == PAGE_DEF) {
             adapter.update(list, true);
         } else {
@@ -282,19 +292,10 @@ public class ShopDetailActivity extends ToolbarActivity<ActivityMarketShopBindin
      * 筛选
      */
     @Override
-    public void loadFilter(ArrayList<SearchFilterBean> filterBeans) {
-        if (null == filterList) {
-//            FILTER_DEF = filterBeans;
-//            filterList = FILTER_DEF;
+    public void loadFilter(ArrayList<SearchFilterBean> filterBeans, boolean resetFilter) {
+        if (resetFilter||null==filterList) {
             filterList = filterBeans;
         }
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        if (null != mPop) {
-            mPop = null;
-        }
-    }
 }

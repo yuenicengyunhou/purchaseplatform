@@ -1,8 +1,9 @@
 package com.rails.purchaseplatform.address.ui;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.PopupWindow;
+import android.widget.ScrollView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.address.AddressArea;
@@ -13,17 +14,17 @@ import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.lib_data.contract.UserToolContract;
-import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
+import com.rails.purchaseplatform.address.databinding.PopAddressSearchBinding;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
-import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
     private int mPage = PAGE_DEF;
     private AddressAdapter addressAdapter;
     private AddressContract.AddressPresenter presenter;
-    private UserToolContract.UserToolPresenter toolPresenter;
 
     // 是否有新增地址权限
     private boolean isAdd = false;
@@ -64,14 +64,7 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
 
     @Override
     protected void initialize(Bundle bundle) {
-//        binding.titleBar
-//                .setTitleBar(R.string.address_main)
-//                .setShowLine(true)
-//                .setImgLeftRes(R.drawable.svg_back_black);
-//        binding.editText.setmTouchListener((v, event) -> false);
-//        binding.editText.setOnFocusChangeListener((v, hasFocus) -> {
-//
-//        });
+        setSupportActionBar(binding.toolbar);
 
         if (!isAdd) {
             binding.btnAdd.setVisibility(View.GONE);
@@ -85,27 +78,12 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         binding.recycler.setAdapter(addressAdapter);
 
-        toolPresenter = new UserToolPresenterImpl(this, this);
-            toolPresenter.queryAuthor();
+//        toolPresenter = new UserToolPresenterImpl(this, this);
+//            toolPresenter.queryAuthor();
 
 
         presenter = new AddressPresenterImpl(this, this);
         onRefresh(true);
-
-
-        //下拉刷新和上拉加载
-//        binding.smart.setOnLoadMoreListener(refreshLayout -> {
-//            mPage++;
-//            onRefresh(true);
-//        });
-//        binding.recycler.useDefaultLoadMore();
-//        binding.recycler.setLoadMoreListener(new SwipeRecyclerView.LoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//                mPage++;
-//                onRefresh(true);
-//            }
-//        });
 
         binding.smart.setOnRefreshListener(refreshLayout -> {
             mPage = PAGE_DEF;
@@ -117,6 +95,16 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
             onRefresh((false));
         });
 
+        binding.ibBack.setOnClickListener(v -> finish());
+
+        binding.tvPop.setOnClickListener(v -> showSearchTypePop(binding.tvPop.getText().toString()));
+        //搜索
+        binding.tvSearch.setOnClickListener(v -> {
+            mPage = PAGE_DEF;
+            onRefresh(true);
+        });
+
+
     }
 
 
@@ -124,7 +112,7 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
      * 刷新请求
      */
     private void onRefresh(boolean isDialog) {
-        presenter.getAddresses(isDialog, mPage);
+        presenter.getAddresses(isDialog, mPage, binding.tvPop.getText().toString(), binding.editText.getText().toString().trim());
     }
 
 
@@ -134,7 +122,38 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
         binding.btnAdd.setOnClickListener(v -> startIntent(AddressAddActivity.class));
     }
 
+    /**
+     * 选择搜索类型的弹窗
+     */
+    private void showSearchTypePop(String text) {
+        PopAddressSearchBinding popBinding = PopAddressSearchBinding.inflate(getLayoutInflater());
+        ScrollView root = popBinding.getRoot();
+        int width = ScreenSizeUtil.dp2px(this, 150);
+        int height = ScreenSizeUtil.dp2px(this, 130);
+        popBinding.tvReceiver.setChecked(text.equals("收货人"));
+        popBinding.tvMobile.setChecked(text.equals("手机号码"));
+        popBinding.tvFullAddress.setChecked(text.equals("详细地址"));
 
+        PopupWindow popupWindow = new PopupWindow(root, width, height, true);
+        popBinding.tvReceiver.setOnClickListener(v -> onToolbarChange("收货人", "搜索收货人", popupWindow));
+        popBinding.tvMobile.setOnClickListener(v -> onToolbarChange("手机号码", "搜索手机号码", popupWindow));
+        popBinding.tvFullAddress.setOnClickListener(v -> onToolbarChange("详细地址", "搜索详细地址", popupWindow));
+        popupWindow.showAsDropDown((View) binding.tvPop.getParent());
+    }
+
+    /**
+     * 点击弹窗条件之后，搜索栏信息切换
+     */
+    private void onToolbarChange(String text, String hint, PopupWindow popupWindow) {
+        binding.tvPop.setText(text);
+        binding.editText.setHint(hint);
+        popupWindow.dismiss();
+    }
+
+
+    /**
+     * 刷新列表
+     */
     @Override
     public void getResult(int type, int position, String msg) {
         if (type == 0) {
@@ -156,18 +175,6 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
             return;
         }
         addressAdapter.update(addressBeans, mPage == PAGE_DEF);
-//        int defPosition = 0;
-//        boolean defExist = false;
-//        for (int i = 0; i < addressBeans.size(); i++) {
-//            if (addressBeans.get(i).getHasDefault() == 1) {
-//                defPosition = i;
-//                defExist = true;
-//                break;
-//            }
-//        }
-//        if (defExist) {
-//            getResult(1, defPosition, null);
-//        }
     }
 
     @Override
@@ -185,7 +192,6 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
     @Override
     public void onPosition(AddressBean bean, int position, int... params) {
         presenter.delAddress(bean.getAddressId(), position);
-//        presenter.setDefAddress(bean.getAddressId(), position, bean.getReceivingAddress() == 1, bean.getInvoiceAddress() == 1);
     }
 
     @Override
@@ -224,9 +230,5 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
         }
     }
 
-//    @Override
-//    protected void reNetLoad() {
-//        super.reNetLoad();
-//            toolPresenter.queryAuthor();
-//    }
+
 }
