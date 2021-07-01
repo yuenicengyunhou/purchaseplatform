@@ -131,6 +131,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
      */
     private void checkShopAll(CartShopBean cartShopBean, boolean isChecked) {
         try {
+            cartShopBean.isSel.set(isChecked);
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
                 bean.isSel.set(isChecked);

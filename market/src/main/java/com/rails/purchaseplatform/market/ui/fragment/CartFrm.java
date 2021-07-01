@@ -371,7 +371,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         } else {
             // TODO: 2021/3/22 更改选中按钮，计算总价
-            presenter.modifyShopSel(bean.getShopId(), bean.getItemIds(), !bean.isSel.get());
+            presenter.modifyShopSel(bean.getShopId(), bean.getItemIds(), bean.isSel.get());
         }
     }
 
