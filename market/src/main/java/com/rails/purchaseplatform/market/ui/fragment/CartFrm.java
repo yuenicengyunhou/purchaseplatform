@@ -371,7 +371,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         } else {
             // TODO: 2021/3/22 更改选中按钮，计算总价
-            presenter.modifyShopSel(bean.getShopId(), bean.getItemIds(), !bean.isSel.get());
+            presenter.modifyShopSel(bean.getShopId(), bean.getItemIds(), bean.isSel.get());
         }
     }
 
@@ -630,11 +630,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             case ERROR_UNLOAD:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
+                cartAdapter.update(new ArrayList(), true);
                 binding.empty.setBtnEmpty("立即登录");
                 ToastUtil.showCenter(getActivity(), errorBean.getMsg());
             }
             break;
             case HTTP_ERROR: {
+                cartAdapter.update(new ArrayList(), true);
                 binding.empty.setBtnEmpty("立即登录");
             }
             break;

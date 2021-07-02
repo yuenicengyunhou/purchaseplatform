@@ -53,7 +53,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
 
 
-        PrefrenceUtil.getInstance(getActivity()).setString(ConShare.TOKEN, "");
+        PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
         goLogin(hasToken());
         binding.tvWatch.setKey(String.format(getResources().getString(R.string.mine_seek), "0"));
         binding.tvCollect.setKey(String.format(getResources().getString(R.string.mine_collect), "0"));

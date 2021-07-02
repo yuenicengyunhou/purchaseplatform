@@ -68,8 +68,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             public void onPosition(CartShopProductBean bean, int len, int... params) {
                 int size = adapter.getSize();
                 if (params[0] == CartSubAdapter.CHECK) {
-                    boolean isCheck = isAllChecked(cartShopBean);
-                    cartShopBean.isSel.set(isCheck);
+                    cartShopBean.isSel.set(isAllChecked(cartShopBean));
                     mulPositionListener.onPosition(bean, len, CHECK);
 
                 } else if (params[0] == CartSubAdapter.PROPERTY) {
@@ -132,6 +131,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
      */
     private void checkShopAll(CartShopBean cartShopBean, boolean isChecked) {
         try {
+            cartShopBean.isSel.set(isChecked);
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
                 bean.isSel.set(isChecked);
