@@ -4,6 +4,7 @@ package com.rails.lib_data.http.interceptor;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.framwork.BaseApp;
@@ -32,12 +33,10 @@ public class CommonInterceptor implements Interceptor {
     private static final MediaType TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
     private String token;
-    private UserInfoBean userInfoBean;
 
 
     public CommonInterceptor() {
         token = PrefrenceUtil.getInstance(BaseApp.getContext()).getString(ConShare.TOKEN, "");
-        userInfoBean = PrefrenceUtil.getInstance(BaseApp.getContext()).getBean(ConShare.USERINFO, UserInfoBean.class);
     }
 
 
@@ -48,15 +47,6 @@ public class CommonInterceptor implements Interceptor {
         if (!TextUtils.isEmpty(token)) {
             builder.addHeader("Authorization", token);
         }
-
-        if (userInfoBean != null) {
-            builder.addHeader("accountId", userInfoBean.getId());
-        }
-
-        //添加网络默认头
-//        builder.addHeader("version", version);
-//        builder.addHeader("appSystem", "android");
-//        builder.addHeader("appVersion", "1.0");
 
         if ("GET".equals(request.method())) {
             request = methodGet(request, builder);

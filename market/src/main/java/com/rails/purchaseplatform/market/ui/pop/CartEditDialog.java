@@ -156,7 +156,10 @@ public class CartEditDialog {
             public void onClick(View v) {
                 String paw = bind.etMsg.getText().toString().trim();
                 if (TextUtils.isEmpty(paw) || !TextUtils.isDigitsOnly(paw)) {
-                    ToastUtil.show(context, "请输入正确信息");
+                    ToastUtil.showCenter(context, "请输入正确信息");
+                    return;
+                }else if ("0".equals(paw)){
+                    ToastUtil.showCenter(context, "数量不能为0");
                     return;
                 }
                 if (dialogListener != null)

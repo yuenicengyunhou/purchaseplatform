@@ -2,26 +2,23 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.shop.ItemListBean;
 import com.rails.lib_data.bean.shop.ResultListBean;
 import com.rails.lib_data.bean.shop.ShopInfoBean;
 import com.rails.lib_data.bean.shop.ShopRecommendBean;
 import com.rails.lib_data.model.ShopModel;
-import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import java.util.ArrayList;
 
 public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> implements ShopContract.ShopPresenter {
 
     private final ShopModel model;
+    private String keywordCache = "";
 //    private String platformId = null;
 
     public ShopPresenterImp(Activity mContext, ShopContract.ShopView shopView) {
@@ -53,12 +50,16 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
         });
     }
 
+    /**
+     * keyword  搜索关键字
+     */
     @Override
-    public void getShopItemList(boolean showLoading, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list) {
+    public void getShopItemList(boolean showLoading, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list, String keyword) {
         if (showLoading) {
             baseView.showResDialog(R.string.loading);
         }
-        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, new HttpRxObserver<ShopRecommendBean>() {
+
+        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (showLoading) {
@@ -78,7 +79,8 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
                 baseView.loadShopProductList(resultList, count);
                 if (page < 2) {
                     ArrayList<SearchFilterBean> filterBeans = model.getFilterBeans(response);
-                    baseView.loadFilter(filterBeans);
+                    baseView.loadFilter(filterBeans, !keywordCache.equals(keyword));
+                    keywordCache = keyword;
                 }
             }
         });

@@ -7,15 +7,12 @@ import android.view.View;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
-import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
@@ -41,7 +38,6 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
-import com.rails.purchaseplatform.market.ui.activity.ProductDetailsActivity;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -54,7 +50,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.CONNECT_ERROR;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
@@ -175,11 +170,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.swipe.finishRefresh();
                 page = DEF_PAGE;
-                addressPresenter.getDefAddress("20", "1");
+                addressPresenter.getDefAddress("20", "1","","");
                 notifyData(false, page);
             }
         });
-        addressPresenter.getDefAddress("20", "1");
+        addressPresenter.getDefAddress("20", "1", "", "");
         notifyData(false, page);
     }
 
@@ -214,9 +209,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         } else {
             binding.empty.setVisibility(View.GONE);
         }
-        binding.cartRecycler.setEmptyView(binding.empty);
         cartAdapter.update(shopBeans, true);
         setDefTotal(cartBean);
+        binding.cartRecycler.setEmptyView(binding.empty);
     }
 
     @Override
@@ -376,7 +371,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         } else {
             // TODO: 2021/3/22 更改选中按钮，计算总价
-            presenter.modifyShopSel(bean.getShopId(), bean.getItemIds(), !bean.isSel.get());
+            presenter.modifyShopSel(bean.getShopId(), bean.getItemIds(), bean.isSel.get());
         }
     }
 
@@ -633,13 +628,22 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         switch (errorCode) {
             case ERROR_PASTDUE:
             case ERROR_UNLOAD:
-            case HTTP_ERROR:
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
+                cartAdapter.update(new ArrayList(), true);
                 binding.empty.setBtnEmpty("立即登录");
                 ToastUtil.showCenter(getActivity(), errorBean.getMsg());
             }
             break;
+            case HTTP_ERROR: {
+                cartAdapter.update(new ArrayList(), true);
+                binding.empty.setBtnEmpty("立即登录");
+            }
+            break;
+            default:
+                String msg = errorBean.getMsg();
+                ToastUtil.showCenter(getActivity(), msg);
+                break;
         }
     }
 }

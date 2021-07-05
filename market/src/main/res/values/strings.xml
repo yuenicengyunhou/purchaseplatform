@@ -71,5 +71,7 @@
 
 
     <string name="market_rank_num">近7日累计下单&#160;%s&#160;次</string>
+    <string name="searchProducts">搜索店铺内商品</string>
+    <string name="searchInShop">搜本店</string>
 
 </resources>

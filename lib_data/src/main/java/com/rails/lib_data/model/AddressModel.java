@@ -16,7 +16,7 @@ public class AddressModel {
     /**
      * 获取维护地址列表
      */
-    public void queryAddressList( long pageNum, HttpRxObserver httpRxObserver) {
+    public void queryAddressList(long pageNum, String type, String params, HttpRxObserver httpRxObserver) {
 //        if (null == platformId || TextUtils.isEmpty(platformId)) {
 //            platformId = "20";
 //        }
@@ -26,6 +26,17 @@ public class AddressModel {
 //        map.put("accountType", accountType);
         map.put("pageNum", pageNum);
         map.put("pageSize", pageSize);
+        switch (type) {
+            case "收货人":
+                map.put("receiverName", params);
+                break;
+            case "手机号码":
+                map.put("mobile", params);
+                break;
+            case "详细地址":
+                map.put("fullAddress", params);
+                break;
+        }
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).getAddressList(map))
                 .subscribe(httpRxObserver);
@@ -52,7 +63,7 @@ public class AddressModel {
     /**
      * 添加地址
      */
-    public void addAddress( String requestStr, HttpRxObserver httpRxObserver) {
+    public void addAddress(String requestStr, HttpRxObserver httpRxObserver) {
 //        if (null == platformId || TextUtils.isEmpty(platformId)) {
 //            platformId = "20";
 //        }
@@ -110,7 +121,7 @@ public class AddressModel {
     /**
      * 地址编辑
      */
-    public void editAddress( String addressId, String json, HttpRxObserver httpRxObserver) {
+    public void editAddress(String addressId, String json, HttpRxObserver httpRxObserver) {
 //        if (null == platformId || TextUtils.isEmpty(platformId)) {
 //            platformId = "20";
 //        }
@@ -129,7 +140,7 @@ public class AddressModel {
      * 获取地区
      */
     @Deprecated
-    public void getArea( String parentCode, HttpRxObserver httpRxObserver) {
+    public void getArea(String parentCode, HttpRxObserver httpRxObserver) {
 //        if (null == platformId || TextUtils.isEmpty(platformId)) {
 //            platformId = "20";
 //        }
@@ -156,10 +167,21 @@ public class AddressModel {
      * @param addressType    1：收货地址   2：收发票地址
      * @param httpRxObserver
      */
-    public void getAddress(String platformId, String addressType, String userId, String userType, HttpRxObserver httpRxObserver) {
+    public void getAddress(String platformId, String addressType, String userId, String userType, String type,String keyword, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
 //        params.put("platformId", platformId);
         params.put("addressType", addressType);
+        switch (type) {
+            case "收货人":
+                params.put("receiverName", keyword);
+                break;
+            case "手机号码":
+                params.put("mobile", keyword);
+                break;
+            case "详细地址":
+                params.put("fullAddress", keyword);
+                break;
+        }
 //        params.put("accountId",userId);
 //        params.put("accountType",userType);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()

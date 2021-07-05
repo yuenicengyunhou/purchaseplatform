@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
-import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -52,14 +51,11 @@ import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 import com.rails.purchaseplatform.user.ui.fragment.PhoneLoginFragment;
 import com.rails.purchaseplatform.user.ui.fragment.RandomCodeLoginFragment;
 import com.rails.purchaseplatform.user.utils.ViewPager2Util;
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
-import static com.rails.purchaseplatform.framwork.BaseApp.getContext;
 
 /**
  * 登录页面
@@ -141,7 +137,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
-        InputMethodManager manager = ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE));
+        InputMethodManager manager = ((InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE));
 
         PrefrenceUtil.getInstance(this).clear();
 
@@ -321,12 +317,12 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     public void setVerifyCode(String verifyCode) {
         this.mVerifyCode = verifyCode;
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
-            if (aBoolean) {
-                smsObserver = new SmsObserver(mHandler2);
-                getContentResolver().registerContentObserver(uri, true, smsObserver);
-            }
-        });
+//        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
+//            if (aBoolean) {
+//                smsObserver = new SmsObserver(mHandler2);
+//                getContentResolver().registerContentObserver(uri, true, smsObserver);
+//            }
+//        });
 
     }
 
@@ -360,9 +356,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             mHandler2.removeCallbacksAndMessages(null);
             mHandler2 = null;
         }
-        if (null != smsObserver) {
-            getContentResolver().unregisterContentObserver(smsObserver);
-        }
+//        if (null != smsObserver) {
+//            getContentResolver().unregisterContentObserver(smsObserver);
+//        }
         super.onDestroy();
 
     }

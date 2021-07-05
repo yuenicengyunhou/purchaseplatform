@@ -82,4 +82,10 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
     public void reLoadData() {
 
     }
+
+    /**
+     *
+     */
+    protected void reNetLoad() {
+    }
 }

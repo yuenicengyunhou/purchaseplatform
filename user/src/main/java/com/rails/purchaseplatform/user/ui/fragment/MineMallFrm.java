@@ -52,6 +52,13 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     protected void loadPreVisitData() {
         StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
 
+
+        PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
+        goLogin(hasToken());
+        binding.tvWatch.setKey(String.format(getResources().getString(R.string.mine_seek), "0"));
+        binding.tvCollect.setKey(String.format(getResources().getString(R.string.mine_collect), "0"));
+
+
         UserInfoBean bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         if (bean != null) {
             toolPresenter.getUserStatictics();

@@ -37,8 +37,8 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
     }
 
     @Override
-    public void getAddress(String paltId, String addressType) {
-        model.getAddress(paltId, addressType, userId, userType, new HttpRxObserver<ArrayList<AddressBean>>() {
+    public void getAddress(String paltId, String addressType, String type, String keyword) {
+        model.getAddress(paltId, addressType, userId, userType, type, keyword, new HttpRxObserver<ArrayList<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
@@ -52,8 +52,8 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
     }
 
     @Override
-    public void getDefAddress(String paltId, String addressType) {
-        model.getAddress(paltId, addressType, userId, userType, new HttpRxObserver<ArrayList<AddressBean>>() {
+    public void getDefAddress(String paltId, String addressType, String type, String keyword) {
+        model.getAddress(paltId, addressType, userId, userType, type, keyword, new HttpRxObserver<ArrayList<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);

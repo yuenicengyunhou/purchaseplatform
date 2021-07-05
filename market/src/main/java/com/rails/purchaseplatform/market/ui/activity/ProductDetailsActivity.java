@@ -99,6 +99,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private ProductDetailsPopBean mPopBean;
 
+
+    /**
+     * 三个点 快捷跳转的pop
+     */
+    private QuickJumpPop pop;
+
     private ProductDetailsBean productDetailsBean;
 
     private String mItemId;
@@ -414,7 +420,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             mQuickJumpPop = new QuickJumpPop();
             mQuickJumpPop.setGravity(Gravity.BOTTOM);
             mQuickJumpPop.setType(BasePop.MATCH_WRAP);
-            mQuickJumpPop.setQuickTabListener(this::onQuickClick);
         }
         mQuickJumpPop.show(getSupportFragmentManager(), "quick");
     }
@@ -564,8 +569,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * @param type 根据此参数决定跳转目标页面
      */
     public void onQuickClick(String type) {
-        // TODO: 2021/6/29 处理4个点击事件
-        Log.d(TAG, "TYPE_VALUE = " + type);
+        if (null == pop) {
+            pop = new QuickJumpPop();
+            pop.setGravity(Gravity.BOTTOM);
+            pop.setType(BasePop.MATCH_WRAP);
+        }
+        pop.show(getSupportFragmentManager(), "quick");
     }
 
 
