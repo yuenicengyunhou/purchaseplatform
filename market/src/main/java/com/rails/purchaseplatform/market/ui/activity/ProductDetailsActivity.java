@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,7 +142,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 请求商品信息
         mProductDetailsPresenterImpl2 = new ProductDetailsPresenterImpl2(this, this);
-        mProductDetailsPresenterImpl2.getAllProductInfo("20", mItemId, mSkuId, "", true);
+        mProductDetailsPresenterImpl2.getAllProductInfo("20", mItemId, mSkuId, "1", true);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mPresenter = new CartToolPresenterImpl(this, this);
