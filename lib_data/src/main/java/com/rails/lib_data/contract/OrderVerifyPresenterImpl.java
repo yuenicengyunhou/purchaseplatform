@@ -132,10 +132,11 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
                 if (DATA_ERROR.equals(e.getCode())) {
-                    if (isCallBack()){
+                    if (isCallBack()) {
                         OrderBudgetBean bean = new OrderBudgetBean();
-                        bean.setBudgetAmount(0d);
-                        bean.setUsedAmount(0d);
+                        bean.setBudgetAmount(-1d);
+                        bean.setUsedAmount(-1d);
+                        bean.setDialog(false);
                         baseView.getBudget(bean);
                     }
 
@@ -146,8 +147,11 @@ public class OrderVerifyPresenterImpl extends BasePresenter<OrderVerifyContract.
             @Override
             protected void onSuccess(OrderBudgetBean response) {
                 baseView.dismissDialog();
-                if (isCallBack())
+                if (isCallBack()) {
+                    response.setDialog(true);
                     baseView.getBudget(response);
+                }
+
             }
         });
     }

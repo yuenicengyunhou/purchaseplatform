@@ -14,6 +14,8 @@ public class OrderBudgetBean {
     private String budgetYear;
     private double budgetAmount;
     private double usedAmount;
+    //是否弹窗
+    private boolean isDialog;
 
     public String getId() {
         return id;
@@ -53,5 +55,13 @@ public class OrderBudgetBean {
 
     public void setUsedAmount(double usedAmount) {
         this.usedAmount = usedAmount;
+    }
+
+    public boolean isDialog() {
+        return isDialog;
+    }
+
+    public void setDialog(boolean dialog) {
+        isDialog = dialog;
     }
 }
