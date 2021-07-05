@@ -1,11 +1,13 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
+import android.util.Log;
 
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.databinding.PopQuickJumpBinding;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 
@@ -39,12 +41,15 @@ public class QuickJumpPop extends BasePop<PopQuickJumpBinding> {
     }
 
     private void toActivity(String json) {
-        dismiss();
         ResultWebBean webBean = JsonUtil.parseJson(json, ResultWebBean.class);
+        if (webBean.getUrlright().contains("main")) {
+            BaseActManager.getInstance().clear();
+        }
         ARouter.getInstance()
                 .build(webBean.getUrlright())
                 .withParcelable("webBean", webBean)
                 .navigation();
+        dismiss();
     }
 
 

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
@@ -27,6 +28,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("WQ", "---" + getClass().getSimpleName());
 //        overridePendingTransition(R.anim.right_in, R.anim.left_out);
         BaseActManager.getInstance().addActivity(this);
         setLayout();

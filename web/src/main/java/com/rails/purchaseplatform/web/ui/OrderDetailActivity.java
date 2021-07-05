@@ -156,4 +156,13 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
             neadResume = false;
         }
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (null != pop) {
+            pop.dismiss();
+            pop = null;
+        }
+    }
 }

@@ -143,4 +143,13 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     public void goDeliveredPage(String orderNo) {
 
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (null != pop) {
+            pop.dismiss();
+            pop = null;
+        }
+    }
 }

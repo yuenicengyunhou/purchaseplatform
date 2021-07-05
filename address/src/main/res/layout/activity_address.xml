@@ -42,9 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/paddingL"
+                    android:drawablePadding="@dimen/paddingS"
                     android:padding="@dimen/padding"
                     android:text="@string/receiver"
-                    android:drawablePadding="@dimen/paddingS"
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_12"
                     app:drawableEndCompat="@mipmap/icon_down" />
@@ -53,7 +53,6 @@
                 <com.rails.purchaseplatform.common.widget.ClearTextEditText
                     android:id="@+id/editText"
                     android:layout_width="0dp"
-                    android:lines="1"
                     android:layout_height="@dimen/dp_30"
                     android:layout_marginStart="@dimen/padding"
                     android:layout_marginEnd="@dimen/paddingL"
@@ -62,7 +61,8 @@
                     android:gravity="center_vertical"
                     android:hint="@string/toSearchReceiver"
                     android:paddingStart="@dimen/paddingL"
-                    android:paddingEnd="@dimen/paddingL"
+                    android:paddingEnd="@dimen/paddingS"
+                    android:singleLine="true"
                     android:textSize="@dimen/font_size_12" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -88,10 +88,21 @@
         app:srlEnableLoadMore="true">
 
 
-        <com.rails.purchaseplatform.common.widget.recycler.SlideRecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+            <com.rails.purchaseplatform.common.widget.recycler.SlideRecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+<!--            <com.rails.purchaseplatform.common.widget.EmptyView-->
+<!--                android:id="@+id/empty"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:visibility="gone" />-->
+<!--        </FrameLayout>-->
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
