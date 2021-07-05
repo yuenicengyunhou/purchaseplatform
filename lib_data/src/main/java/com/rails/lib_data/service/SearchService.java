@@ -50,6 +50,6 @@ public interface SearchService {
      * @return
      */
     @GET("statistic-service/statistic/searchRecord")
-    Observable<HttpResult<JsonObject>> searchRecord(@QueryMap HashMap<String, Object> params);
+    Observable<HttpResult<String>> searchRecord(@QueryMap HashMap<String, Object> params);
 
 }

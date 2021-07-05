@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.rails.purchaseplatform.framwork.BaseApp.getContext;
 
 /**
  * 搜索页面，点击首页搜索跳转到此页面
@@ -300,6 +303,14 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         switch (resultCode) {
             case 2047:
                 binding.searchText.setText(mSearchKey);
+//                binding.searchText.addTextChangedListener();
+                binding.searchText.setFocusable(true);
+                binding.searchText.setFocusableInTouchMode(true);
+                binding.searchText.requestFocus();
+                binding.searchText.setSelection(binding.searchText.getText().length());
+                InputMethodManager inputManager =
+                        (InputMethodManager) binding.searchText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
             case 2048:
                 binding.searchText.setText("");

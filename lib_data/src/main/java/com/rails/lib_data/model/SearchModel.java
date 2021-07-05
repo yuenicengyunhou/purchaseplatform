@@ -2,7 +2,6 @@ package com.rails.lib_data.model;
 
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.SearchService;
@@ -219,7 +218,7 @@ public class SearchModel {
      * @param keyword
      * @param httpRxObserver
      */
-    public void searchRecord(String type, String keyword, HttpRxObserver<JSONObject> httpRxObserver) {
+    public void searchRecord(String type, String keyword, HttpRxObserver<String> httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("sourceType", type);
