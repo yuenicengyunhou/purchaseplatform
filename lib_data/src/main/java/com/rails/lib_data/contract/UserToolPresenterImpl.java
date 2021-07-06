@@ -90,7 +90,7 @@ public class UserToolPresenterImpl extends BasePresenter<UserToolContract.UserTo
 //                if ("500".equals(code))
                 baseView.onError(e);
 //                else {
-                    e.setCode(CONNECT_ERROR);
+                e.setCode(CONNECT_ERROR);
 //                    baseView.onError(e);
 //                }
 
