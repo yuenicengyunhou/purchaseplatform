@@ -31,6 +31,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -45,11 +46,13 @@ import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
+import com.rails.purchaseplatform.user.adapter.LoginInfoAdapter;
 import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 import com.rails.purchaseplatform.user.ui.fragment.PhoneLoginFragment;
 import com.rails.purchaseplatform.user.ui.fragment.RandomCodeLoginFragment;
@@ -83,10 +86,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     private InputMethodManager mManager;
 
     private PopupWindow mLoginInfoListPop;
+    private View mPopView;
 
     private SharedPreferences mAccountSp, mPhoneSp;
     private ArrayList<String> mAccountList = new ArrayList<>(), mPhoneList = new ArrayList<>();
     private String mCurrentAccount, mCurrentPhone;
+
+    private LoginInfoAdapter mLoginInfoAdapter;
 
     private final int COUNTING = 1;
     private int COUNT_NUM = 60;
@@ -178,12 +184,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                         case "account":
                             binding.nsvLogin.scrollTo(0, 0);
                             if (!mLoginInfoListPop.isShowing()) {
+                                mLoginInfoAdapter.updateData(mAccountList, 0, true);
                                 mRandomCodeLoginFragment.showLoginInfoList();
                             }
                             break;
                         case "phone":
                             binding.nsvLogin.scrollTo(0, 0);
                             if (!mLoginInfoListPop.isShowing()) {
+                                mLoginInfoAdapter.updateData(mPhoneList, 1, true);
                                 mPhoneLoginFragment.showLoginInfoList();
                             }
                             break;
@@ -360,8 +368,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     public void getUserInfo(UserInfoBean bean) {
-        // TODO: 2021/7/6 获取用户信息成功时，保存此次登录的账号
-        //  根据 mPosition 属性判断，0-保存账号，1-保存手机号
         switch (mPosition) {
             case 0:
                 saveLogin(mAccountList, mCurrentAccount, mAccountSp, ACCOUNT);
@@ -395,10 +401,17 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     private void initPop() {
         if (mLoginInfoListPop == null) {
             mLoginInfoListPop = new PopupWindow(this);
-            mLoginInfoListPop.setContentView(LayoutInflater.from(this)
-                    .inflate(R.layout.pop_login_info_list, null));
+            mPopView = LayoutInflater.from(this)
+                    .inflate(R.layout.pop_login_info_list, null);
+            mLoginInfoListPop.setContentView(mPopView);
             mLoginInfoListPop.setOutsideTouchable(true);
             mLoginInfoListPop.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.bg_corner_gray_5));
+            BaseRecyclerView recyclerView = mPopView.findViewById(R.id.recycler_info);
+            mLoginInfoAdapter = new LoginInfoAdapter(this);
+            mLoginInfoAdapter.setFillAccountListener(mRandomCodeLoginFragment);
+            mLoginInfoAdapter.setFillPhoneListener(mPhoneLoginFragment);
+            recyclerView.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+            recyclerView.setAdapter(mLoginInfoAdapter);
         }
     }
 

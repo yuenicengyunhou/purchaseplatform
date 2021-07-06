@@ -9,12 +9,15 @@ import android.widget.PopupWindow;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.user.adapter.LoginInfoAdapter;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginPhoneBinding;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> {
+public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
+        implements LoginInfoAdapter.FillPhoneListener {
+
     final private String TAG = PhoneLoginFragment.class.getSimpleName();
 
     private RandomCodeLoginFragment.ScrollUpListener mScrollUpListener;
@@ -102,7 +105,7 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
     }
 
     public void showLoginInfoList() {
-        mPop.showAsDropDown(binding.etPhoneInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 6F));
+        mPop.showAsDropDown(binding.etPhoneInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 8F));
     }
 
 
@@ -160,6 +163,12 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
 
     public void setNeedScrollUpListener(RandomCodeLoginFragment.ScrollUpListener listener) {
         this.mScrollUpListener = listener;
+    }
+
+    @Override
+    public void fillPhone(String phone) {
+        binding.etPhoneInput.setText(phone);
+        mPop.dismiss();
     }
 
     public interface ScrollUpListener {

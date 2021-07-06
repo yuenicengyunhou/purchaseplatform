@@ -13,12 +13,15 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.user.adapter.LoginInfoAdapter;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginRandomCodeBinding;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCodeBinding> {
+public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCodeBinding>
+        implements LoginInfoAdapter.FillAccountListener {
+
     final private String TAG = RandomCodeLoginFragment.class.getSimpleName();
 
     private ScrollUpListener mScrollUpListener;
@@ -142,7 +145,7 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     }
 
     public void showLoginInfoList() {
-        mPop.showAsDropDown(binding.etAccountInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 6F));
+        mPop.showAsDropDown(binding.etAccountInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 8F));
     }
 
 
@@ -196,6 +199,12 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     public void setNeedScrollUpListener(ScrollUpListener listener) {
         this.mScrollUpListener = listener;
+    }
+
+    @Override
+    public void fillAccount(String account) {
+        binding.etAccountInput.setText(account);
+        mPop.dismiss();
     }
 
     public interface ScrollUpListener {
