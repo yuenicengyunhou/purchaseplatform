@@ -27,6 +27,8 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     private String url = HttpConstants.DEBUG_PLATFORM_URL;
 
+    private ArrayList<String> mAccountList;
+
     @Override
     protected void loadData() {
         if (BaseRetrofit.isDebug) {
@@ -158,6 +160,9 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             view.setBackground(drawableLoseFocus);
     }
 
+    public void setLoginAccountList(ArrayList<String> accountList) {
+        this.mAccountList = accountList;
+    }
 
     /**
      * 失去焦点时收回键盘

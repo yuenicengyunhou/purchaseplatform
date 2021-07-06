@@ -48,7 +48,7 @@
 
 
     <string-array name="tab_titles">
-        <item>随机码登录</item>
+        <item>口令卡登录</item>
         <item>手机登录</item>
     </string-array>
 

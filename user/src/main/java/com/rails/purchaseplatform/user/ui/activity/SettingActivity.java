@@ -99,6 +99,9 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
                         @Override
                         public void onLeft() {
                             PrefrenceUtil.getInstance(SettingActivity.this).clear();
+                            SettingActivity.this
+                                    .getSharedPreferences("SEARCH_HISTORY", MODE_PRIVATE)
+                                    .edit().clear().apply();
                             BaseActManager.getInstance().clear();
                             ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                             dismissDialog();

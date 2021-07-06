@@ -21,6 +21,8 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
 
     private LoginContract.LoginPresenter mPresenter;
 
+    private ArrayList<String> mPhoneList;
+
     @Override
     protected void loadData() {
         // 请求验证码
@@ -101,6 +103,11 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
             view.setBackground(drawableHasFocus);
         else
             view.setBackground(drawableLoseFocus);
+    }
+
+
+    public void setLoginPhoneList(ArrayList<String> phoneList) {
+        this.mPhoneList = phoneList;
     }
 
 

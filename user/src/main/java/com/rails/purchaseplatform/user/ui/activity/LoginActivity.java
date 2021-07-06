@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -70,6 +71,16 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         PhoneLoginFragment.ScrollUpListener,
         RandomCodeLoginFragment.ScrollUpListener {
     final private String TAG = LoginActivity.class.getSimpleName();
+
+    final private String
+            LOGIN_ACCOUNT = "LOGIN_ACCOUNT",
+            LOGIN_PHONE = "LOGIN_PHONE",
+            ACCOUNT = "account",
+            PHONE = "phone";
+
+    private SharedPreferences mAccountSp, mPhoneSp;
+    private ArrayList<String> mAccountList = new ArrayList<>(), mPhoneList = new ArrayList<>();
+    private String mCurrentAccount, mCurrentPhone;
 
     private final int COUNTING = 1;
     private int COUNT_NUM = 60;
@@ -141,6 +152,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
         PrefrenceUtil.getInstance(this).clear();
 
+        getLoginInfoFormSp();
+
         ViewGroup parentContent = findViewById(android.R.id.content);
         parentContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -176,9 +189,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         mRandomCodeLoginFragment.setPresenter(presenter);
         mRandomCodeLoginFragment.setManager(manager);
         mRandomCodeLoginFragment.setNeedScrollUpListener(this);
+        mRandomCodeLoginFragment.setLoginAccountList(mAccountList);
         mPhoneLoginFragment.setPresenter(presenter);
         mPhoneLoginFragment.setManager(manager);
         mPhoneLoginFragment.setNeedScrollUpListener(this);
+        mPhoneLoginFragment.setLoginPhoneList(mPhoneList);
 
         String[] tabTitles = getResources().getStringArray(R.array.tab_titles);
 
@@ -231,6 +246,24 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         presenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true);
     }
 
+    private void getLoginInfoFormSp() {
+        // 进入登录页面 获取登录过的账号信息
+        mAccountSp = this.getSharedPreferences(LOGIN_ACCOUNT, MODE_PRIVATE);
+        mPhoneSp = this.getSharedPreferences(LOGIN_PHONE, MODE_PRIVATE);
+        if (mAccountSp.getAll().size() != 0) {
+            mAccountList.clear();
+            for (int i = 0; i < mAccountSp.getAll().size(); i++) {
+                mAccountList.add(mAccountSp.getString(ACCOUNT + i, ""));
+            }
+        }
+        if (mPhoneSp.getAll().size() != 0) {
+            mPhoneList.clear();
+            for (int i = 0; i < mPhoneSp.getAll().size(); i++) {
+                mPhoneList.add(mPhoneSp.getString(PHONE + i, ""));
+            }
+        }
+    }
+
     @Override
     protected int getColor() {
         return android.R.color.white;
@@ -253,6 +286,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         binding.btnLogin.setOnClickListener(v -> {
             if (mPosition == 0) {
                 ArrayList<String> infoList = mRandomCodeLoginFragment.getLoginInfo();
+                mCurrentAccount = infoList.get(0);
                 presenter.randomCodeLogin(
                         infoList.get(0),
                         infoList.get(1),
@@ -263,6 +297,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                         true);
             } else {
                 ArrayList<String> infoList = mPhoneLoginFragment.getLoginInfo();
+                mCurrentPhone = infoList.get(0);
                 presenter.onLogin(
                         infoList.get(0),
                         infoList.get(1),
@@ -307,10 +342,35 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     public void getUserInfo(UserInfoBean bean) {
+        // TODO: 2021/7/6 获取用户信息成功时，保存此次登录的账号
+        //  根据 mPosition 属性判断，0-保存账号，1-保存手机号
+        switch (mPosition) {
+            case 0:
+                saveLogin(mAccountList, mCurrentAccount, mAccountSp, ACCOUNT);
+                break;
+            case 1:
+                saveLogin(mPhoneList, mCurrentPhone, mPhoneSp, PHONE);
+                break;
+            default:
+                break;
+        }
+
         PrefrenceUtil.getInstance(this).setBean(ConShare.USERINFO, bean);
         BaseActManager.getInstance().clear();
         ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
         finish();
+    }
+
+    // 保存登录过的账号、手机号
+    private void saveLogin(ArrayList<String> loginList, String currentLogin, SharedPreferences sp, String tag) {
+        loginList.remove(currentLogin);
+        loginList.add(0, currentLogin);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        for (int i = 0; i < loginList.size(); i++) {
+            editor.putString(tag + i, loginList.get(i));
+        }
+        editor.apply();
     }
 
     @Override
