@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.web.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -9,6 +10,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.pop.QuickJumpPop;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.SystemUtil;
@@ -107,14 +110,17 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
     }
 
     @Override
-    public void goDeliveredPage( String orderNo) {
+    public void goDeliveredPage(String orderNo) {
 
     }
 
     @JavascriptInterface
     @Override
     public void callJump() {
-
+        QuickJumpPop pop = new QuickJumpPop();
+        pop.setGravity(Gravity.BOTTOM);
+        pop.setType(BasePop.MATCH_WRAP);
+        pop.show(getSupportFragmentManager(), "quick");
     }
 
 

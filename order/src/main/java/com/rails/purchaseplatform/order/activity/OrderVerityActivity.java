@@ -176,8 +176,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
     public void getBudget(OrderBudgetBean bean) {
         if (bean != null) {
             extraPrice = bean.getUsedAmount();
-            barBinding.rlTotal.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getBudgetAmount())));
-            barBinding.rlExtra.setContent(String.valueOf(DecimalUtil.formatDouble(bean.getUsedAmount())));
+            double budget = bean.getBudgetAmount();
+            barBinding.rlTotal.setContent(budget >= 0 ? String.valueOf(DecimalUtil.formatDouble(budget)) : "请联系管理员设置");
+            barBinding.rlExtra.setContent(extraPrice >= 0 ? String.valueOf(DecimalUtil.formatDouble(extraPrice)) : "请联系管理员设置");
         }
     }
 
@@ -278,7 +279,7 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         });
 
         barBinding.btnCommit.setOnClickListener(v -> {
-            if (itemPrice > extraPrice) {
+            if (extraPrice >= 0 && itemPrice > extraPrice) {
                 showDialog();
             } else
                 commitOrder();

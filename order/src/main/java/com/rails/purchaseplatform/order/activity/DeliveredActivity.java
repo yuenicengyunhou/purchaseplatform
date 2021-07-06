@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -23,8 +24,11 @@ import com.rails.lib_data.bean.orderdetails.DeliveredFile;
 import com.rails.lib_data.contract.OrderContract;
 import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.pop.QuickJumpPop;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.order_details.DeliveredAdapter;
@@ -38,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Route(path = ConRoute.ORDER.ORDER_DELIVER)
-public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding> implements OrderContract.OrderView {
+public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBinding> implements OrderContract.OrderView {
 
     private String orderNo;
     private DeliveredAdapter adapter;
@@ -58,6 +62,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     //记录下载状态
     private final int STATE_DEFAULT = -1;
     private int mDownloadState = STATE_DEFAULT;
+    private QuickJumpPop mQuickJumpPop;
 
     @SuppressLint("HandlerLeak")
     private class UIHandler extends Handler {
@@ -89,25 +94,38 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
-        binding.titleBar
-                .setTitleBar(R.string.deliveredFiles)
-                .setShowLine(true)
-                .setImgLeftRes(R.drawable.svg_back_black);
-
+//        binding.titleBar
+//                .setTitleBar(R.string.deliveredFiles)
+//                .setShowLine(true)
+//                .setImgLeftRes(R.drawable.svg_back_black);
+        setSupportActionBar(binding.toolbar);
+        binding.tvTitle.setText("妥投证明");
 
         adapter = new DeliveredAdapter(this);
-        barBinding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
-        barBinding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        barBinding.empty.setDescEmpty(R.string.order_empty).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
-        barBinding.recycler.setAdapter(adapter);
-        barBinding.recycler.setEmptyView(barBinding.empty);
+        binding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.empty.setDescEmpty(R.string.order_empty).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        binding.recycler.setAdapter(adapter);
+        binding.recycler.setEmptyView(binding.empty);
         adapter.setDownloadListener((position, url, fileName, downloadState) -> start_single(url, position + 1, position, downloadState));
 //            addTasks(position, url,position+1,downloadState);
 
-        barBinding.refresh.setOnRefreshListener(refreshLayout -> presenter.getDelivered(orderNo));
+        binding.refresh.setOnRefreshListener(refreshLayout -> presenter.getDelivered(orderNo));
 
         presenter = new OrderPresenterImpl(this, this);
         presenter.getDelivered(orderNo);
+
+        binding.ibBack.setOnClickListener(v -> finish());
+        binding.ivMore.setOnClickListener(v -> showJumpPop());
+    }
+
+    private void showJumpPop() {
+        if (null == mQuickJumpPop) {
+            mQuickJumpPop = new QuickJumpPop();
+            mQuickJumpPop.setGravity(Gravity.BOTTOM);
+            mQuickJumpPop.setType(BasePop.MATCH_WRAP);
+        }
+        mQuickJumpPop.show(getSupportFragmentManager(), "quick");
     }
 
     @Override
@@ -127,7 +145,7 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 
     @Override
     public void loadDeliveredFileList(ArrayList<DeliveredFile> list) {
-        barBinding.refresh.finishRefresh();
+        binding.refresh.finishRefresh();
         if (null != adapter) {
             adapter.update(list, true);
         }
@@ -407,10 +425,10 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
 //        Toast.makeText(this, String.format("Complete delete %d files", count), Toast.LENGTH_LONG).show();
     }
 
-    @Override
+/*    @Override
     public void onBack() {
         beforeFinish();
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -430,6 +448,10 @@ public class DeliveredActivity extends ToolbarActivity<ActivityDeliveredBinding>
     @Override
     public void finish() {
         super.finish();
+        if (null != mQuickJumpPop) {
+            mQuickJumpPop.dismiss();
+            mQuickJumpPop = null;
+        }
 
     }
 }

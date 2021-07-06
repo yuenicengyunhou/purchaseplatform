@@ -13,6 +13,7 @@ import org.json.JSONException;
 import java.net.ConnectException;
 import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.Objects;
 
@@ -79,7 +80,7 @@ public class ExceptionEngine {
             else if (e.getMessage().contains("but was com.google.gson.JsonNull")) {
                 errorBean.setMsg("but was com.google.gson.JsonNull");
             }
-        } else if (e instanceof ConnectException||e instanceof NoRouteToHostException) {//连接网络错误
+        } else if (e instanceof ConnectException||e instanceof NoRouteToHostException|| e instanceof UnknownHostException) {//连接网络错误
             errorBean = new ErrorBean(e, CONNECT_ERROR);
             errorBean.setMsg("连接失败，请检查网络状况");
         } else if (e instanceof SocketTimeoutException) {//网络超时

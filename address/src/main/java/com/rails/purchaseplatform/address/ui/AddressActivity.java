@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.address.ui;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
@@ -76,6 +77,7 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
 
         binding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+//        binding.empty.setDescEmpty(R.string.empty_data).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.recycler.setAdapter(addressAdapter);
 
 //        toolPresenter = new UserToolPresenterImpl(this, this);
@@ -145,7 +147,17 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
      * 点击弹窗条件之后，搜索栏信息切换
      */
     private void onToolbarChange(String text, String hint, PopupWindow popupWindow) {
+        switch (text) {
+            case "收货人":
+            case "详细地址":
+                binding.editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                break;
+            case "手机号码":
+                binding.editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+        }
         binding.tvPop.setText(text);
+        binding.editText.setText("");
         binding.editText.setHint(hint);
         popupWindow.dismiss();
     }

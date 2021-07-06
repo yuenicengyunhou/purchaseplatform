@@ -148,9 +148,16 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             @Override
             public void afterTextChanged(Editable s) {
                 String string = binding.etSearchKey.getText().toString();
+                if (string.length() > 0) {
+                    binding.ivClear.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivClear.setVisibility(View.GONE);
+                }
                 showConditionListPopWindow(string);
             }
         });
+
+        binding.ivClear.setOnClickListener(v -> binding.etSearchKey.setText(""));
 
     }
 
