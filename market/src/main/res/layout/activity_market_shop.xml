@@ -47,17 +47,17 @@
                     android:id="@+id/editText"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_30"
-                    android:layout_marginStart="@dimen/paddingL"
+                    android:background="@drawable/bg_conner_blank_gray_20"
+                    android:layout_marginStart="@dimen/padding"
                     android:layout_marginEnd="@dimen/paddingL"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_corner_gray_20"
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:hint="@string/searchProducts"
                     android:imeOptions="actionSearch"
-                    android:lines="1"
                     android:paddingStart="@dimen/paddingL"
-                    android:paddingEnd="@dimen/paddingL"
+                    android:paddingEnd="@dimen/paddingS"
+                    android:singleLine="true"
                     android:textSize="@dimen/font_size_12" />
 
                 <TextView

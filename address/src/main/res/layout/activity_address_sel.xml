@@ -61,9 +61,9 @@
                     android:gravity="center_vertical"
                     android:hint="@string/toSearchReceiver"
                     android:imeOptions="actionSearch"
-                    android:lines="1"
                     android:paddingStart="@dimen/paddingL"
-                    android:paddingEnd="@dimen/paddingL"
+                    android:paddingEnd="@dimen/paddingS"
+                    android:singleLine="true"
                     android:textSize="@dimen/font_size_12" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
