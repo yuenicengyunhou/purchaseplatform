@@ -18,12 +18,14 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -77,6 +79,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             LOGIN_PHONE = "LOGIN_PHONE",
             ACCOUNT = "account",
             PHONE = "phone";
+
+    private InputMethodManager mManager;
+
+    private PopupWindow mLoginInfoListPop;
 
     private SharedPreferences mAccountSp, mPhoneSp;
     private ArrayList<String> mAccountList = new ArrayList<>(), mPhoneList = new ArrayList<>();
@@ -148,11 +154,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
-        InputMethodManager manager = ((InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE));
+        mManager = ((InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE));
 
         PrefrenceUtil.getInstance(this).clear();
 
         getLoginInfoFormSp();
+
+        initPop();
 
         ViewGroup parentContent = findViewById(android.R.id.content);
         parentContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -168,8 +176,16 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                 if (softKeyHeight > 700) {
                     switch (mScrollFlag) {
                         case "account":
+                            binding.nsvLogin.scrollTo(0, 0);
+                            if (!mLoginInfoListPop.isShowing()) {
+                                mRandomCodeLoginFragment.showLoginInfoList();
+                            }
+                            break;
                         case "phone":
                             binding.nsvLogin.scrollTo(0, 0);
+                            if (!mLoginInfoListPop.isShowing()) {
+                                mPhoneLoginFragment.showLoginInfoList();
+                            }
                             break;
                         case "password":
                             binding.nsvLogin.scrollTo(0, 360);
@@ -187,13 +203,15 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
         presenter = new LoginPresneterImpl(this, this);
         mRandomCodeLoginFragment.setPresenter(presenter);
-        mRandomCodeLoginFragment.setManager(manager);
+        mRandomCodeLoginFragment.setManager(mManager);
         mRandomCodeLoginFragment.setNeedScrollUpListener(this);
         mRandomCodeLoginFragment.setLoginAccountList(mAccountList);
+        mRandomCodeLoginFragment.setPop(mLoginInfoListPop);
         mPhoneLoginFragment.setPresenter(presenter);
-        mPhoneLoginFragment.setManager(manager);
+        mPhoneLoginFragment.setManager(mManager);
         mPhoneLoginFragment.setNeedScrollUpListener(this);
         mPhoneLoginFragment.setLoginPhoneList(mPhoneList);
+        mPhoneLoginFragment.setPop(mLoginInfoListPop);
 
         String[] tabTitles = getResources().getStringArray(R.array.tab_titles);
 
@@ -371,6 +389,17 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             editor.putString(tag + i, loginList.get(i));
         }
         editor.apply();
+    }
+
+    // 初始化Pop
+    private void initPop() {
+        if (mLoginInfoListPop == null) {
+            mLoginInfoListPop = new PopupWindow(this);
+            mLoginInfoListPop.setContentView(LayoutInflater.from(this)
+                    .inflate(R.layout.pop_login_info_list, null));
+            mLoginInfoListPop.setOutsideTouchable(true);
+            mLoginInfoListPop.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.bg_corner_gray_5));
+        }
     }
 
     @Override

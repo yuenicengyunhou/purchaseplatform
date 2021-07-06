@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.contract.LoginContract;
@@ -11,6 +12,7 @@ import com.rails.lib_data.http.HttpConstants;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginRandomCodeBinding;
 
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     private String url = HttpConstants.DEBUG_PLATFORM_URL;
 
     private ArrayList<String> mAccountList;
+
+    private PopupWindow mPop;
 
     @Override
     protected void loadData() {
@@ -56,6 +60,10 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             } else {
                 binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             }
+        });
+
+        binding.etAccountInput.setOnClickListener(v -> {
+            if (!mPop.isShowing()) showLoginInfoList();
         });
 
         // 获得/丢失焦点时更改横线颜色 页面滚动
@@ -127,6 +135,14 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
         Glide.with(requireActivity())
                 .load(url + "passport/coordinate/v3/" + randInit)
                 .into(binding.iv3);
+    }
+
+    public void setPop(PopupWindow pop) {
+        this.mPop = pop;
+    }
+
+    public void showLoginInfoList() {
+        mPop.showAsDropDown(binding.etAccountInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 6F));
     }
 
 

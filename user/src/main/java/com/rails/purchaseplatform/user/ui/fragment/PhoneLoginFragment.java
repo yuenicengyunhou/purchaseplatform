@@ -4,9 +4,11 @@ import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupWindow;
 
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.purchaseplatform.common.base.LazyFragment;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginPhoneBinding;
 
 import java.text.MessageFormat;
@@ -22,6 +24,8 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
     private LoginContract.LoginPresenter mPresenter;
 
     private ArrayList<String> mPhoneList;
+
+    private PopupWindow mPop;
 
     @Override
     protected void loadData() {
@@ -42,6 +46,10 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
             } else {
                 binding.etPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             }
+        });
+
+        binding.etPhoneInput.setOnClickListener(v -> {
+            if (!mPop.isShowing()) showLoginInfoList();
         });
 
         // 获得/丢失焦点时更改横线颜色 页面滚动
@@ -87,6 +95,14 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding> 
 
     public void setVerifyCode(String code) {
         binding.etVerifyNumInput.setText(code);
+    }
+
+    public void setPop(PopupWindow pop) {
+        this.mPop = pop;
+    }
+
+    public void showLoginInfoList() {
+        mPop.showAsDropDown(binding.etPhoneInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 6F));
     }
 
 
