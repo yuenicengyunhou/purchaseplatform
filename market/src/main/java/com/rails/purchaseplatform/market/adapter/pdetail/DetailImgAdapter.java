@@ -1,12 +1,9 @@
 package com.rails.purchaseplatform.market.adapter.pdetail;
 
 import android.content.Context;
-import android.os.Bundle;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
-import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductDetailImgBinding;
@@ -17,6 +14,8 @@ import com.rails.purchaseplatform.market.databinding.ItemProductDetailImgBinding
  * author:wangchao
  */
 public class DetailImgAdapter extends BaseRecyclerAdapter<ItemPicture, ItemProductDetailImgBinding> {
+
+    private ItemClickListener mItemClickListener;
 
 
     public DetailImgAdapter(Context context) {
@@ -37,10 +36,20 @@ public class DetailImgAdapter extends BaseRecyclerAdapter<ItemPicture, ItemProdu
         binding.ssivDetails.setImage(ImageSource.bitmap(s.getBitmap()));
         binding.ssivDetails.setZoomEnabled(false);
         binding.ssivDetails.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("imageUrl", s.getPictureUrl());
-            ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+            if (mItemClickListener != null)
+                mItemClickListener.onItemClick(position);
+//            Bundle bundle = new Bundle();
+//            bundle.putString("imageUrl", s.getPictureUrl());
+//            ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
         });
+    }
+
+    public void setOnItemClickListener(ItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(int position);
     }
 
 }
