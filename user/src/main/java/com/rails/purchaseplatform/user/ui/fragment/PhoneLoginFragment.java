@@ -63,6 +63,9 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
         binding.etPhoneInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPhoneInputLine);
             scrollUp("phone", v, hasFocus);
+            if (mPop != null && !mPop.isShowing() && hasFocus) {
+                showLoginInfoList();
+            }
         });
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);

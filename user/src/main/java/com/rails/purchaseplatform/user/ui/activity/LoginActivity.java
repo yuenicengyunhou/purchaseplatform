@@ -105,6 +105,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     private final int VERIFY_CODE_RECEIVE = 0;
 
     private String mScrollFlag = "";
+    private boolean isScrolling;
 
     private final Uri uri = Uri.parse("content://sms/");
     private String mVerifyCode;
@@ -143,6 +144,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     private TabLayoutMediator mediator;
 
     private final ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            Log.d(TAG, "====== POSITION_OFFSET == " + positionOffset);
+            isScrolling = positionOffset != 0F;
+        }
+
         @Override
         public void onPageSelected(int position) {
             mPosition = position;
@@ -179,6 +187,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         parentContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+//                Log.d(TAG, "ViewTreeObserver.OnGlobalLayoutListener#onGlobalLayout");
                 Rect r = new Rect();
                 parentContent.getWindowVisibleDisplayFrame(r);
 
@@ -189,18 +198,20 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                 if (softKeyHeight > 700) {
                     switch (mScrollFlag) {
                         case "account":
-                            binding.nsvLogin.scrollTo(0, 0);
-                            if (!mLoginInfoListPop.isShowing()) {
+//                            Log.d(TAG, "==========================!!!!");
+//                            binding.nsvLogin.scrollTo(0, 0);
+//                            if (!mLoginInfoListPop.isShowing() && !isScrolling) {
                                 mLoginInfoAdapter.updateData(mAccountList, 0, true);
-                                mRandomCodeLoginFragment.showLoginInfoList();
-                            }
+//                                mRandomCodeLoginFragment.showLoginInfoList();
+//                            }
                             break;
                         case "phone":
-                            binding.nsvLogin.scrollTo(0, 0);
-                            if (!mLoginInfoListPop.isShowing()) {
+//                            Log.d(TAG, "==========================????");
+//                            binding.nsvLogin.scrollTo(0, 0);
+//                            if (!mLoginInfoListPop.isShowing() && !isScrolling) {
                                 mLoginInfoAdapter.updateData(mPhoneList, 1, true);
-                                mPhoneLoginFragment.showLoginInfoList();
-                            }
+//                                mPhoneLoginFragment.showLoginInfoList();
+//                            }
                             break;
                         case "password":
                             binding.nsvLogin.scrollTo(0, 360);

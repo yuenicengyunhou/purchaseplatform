@@ -76,6 +76,9 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
         binding.etAccountInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewAccountInputLine);
             scrollUp("account", v, hasFocus);
+            if (mPop != null && !mPop.isShowing() && hasFocus) {
+                showLoginInfoList();
+            }
         });
         binding.etPasswordInput.setOnFocusChangeListener((v, hasFocus) -> {
             setInputLineBackground(hasFocus, binding.viewPasswordInputLine);
