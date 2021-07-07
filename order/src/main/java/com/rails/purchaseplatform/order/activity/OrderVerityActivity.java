@@ -92,6 +92,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
     private double itemPrice, extraPrice;
 
+    //是否有下单权限
+    private boolean canOrder;
+
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
@@ -279,10 +282,14 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         });
 
         barBinding.btnCommit.setOnClickListener(v -> {
-            if (extraPrice >= 0 && itemPrice > extraPrice) {
-                showDialog();
-            } else
-                commitOrder();
+            if (canOrder) {
+                if (extraPrice >= 0 && itemPrice > extraPrice) {
+                    showDialog();
+                } else
+                    commitOrder();
+            } else {
+                ToastUtil.showCenter(this, getResources().getString(R.string.common_author_null));
+            }
 
 
         });
@@ -488,7 +495,8 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
     @Override
     public void checkPermissions(UserStatisticsBean bean) {
-        barBinding.btnCommit.setEnabled(bean.getSubmitPurchaseOrder());
+        canOrder = bean.getSubmitPurchaseOrder();
+//        barBinding.btnCommit.setEnabled(bean.getSubmitPurchaseOrder());
     }
 
     @Override

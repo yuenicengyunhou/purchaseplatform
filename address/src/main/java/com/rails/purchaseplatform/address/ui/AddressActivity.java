@@ -1,10 +1,15 @@
 package com.rails.purchaseplatform.address.ui;
 
 import android.os.Bundle;
+import android.security.keystore.KeyInfo;
 import android.text.InputType;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.address.AddressArea;
@@ -15,6 +20,7 @@ import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.AddressContract;
 import com.rails.lib_data.contract.AddressPresenterImpl;
 import com.rails.lib_data.contract.UserToolContract;
+import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
@@ -47,6 +53,7 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
 
     // 是否有新增地址权限
     private boolean isAdd = false;
+    private UserToolPresenterImpl toolPresenter;
 
     @Override
     protected int getColor() {
@@ -80,8 +87,8 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
 //        binding.empty.setDescEmpty(R.string.empty_data).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.recycler.setAdapter(addressAdapter);
 
-//        toolPresenter = new UserToolPresenterImpl(this, this);
-//            toolPresenter.queryAuthor();
+        toolPresenter = new UserToolPresenterImpl(this, this);
+        toolPresenter.queryAuthor();
 
 
         presenter = new AddressPresenterImpl(this, this);
@@ -104,6 +111,16 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
         binding.tvSearch.setOnClickListener(v -> {
             mPage = PAGE_DEF;
             onRefresh(true);
+        });
+
+        //搜索确认按键监听
+        binding.editText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                mPage = PAGE_DEF;
+                onRefresh(true);
+                return true;
+            }
+            return false;
         });
 
 

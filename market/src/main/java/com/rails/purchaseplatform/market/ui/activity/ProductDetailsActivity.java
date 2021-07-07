@@ -104,6 +104,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private QuickJumpPop pop;
 
+    private ArrayList<String> mDescribeUrlList = new ArrayList<>();
+
     private ProductDetailsBean productDetailsBean;
 
     private String mItemId;
@@ -153,6 +155,16 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         //图片详情列表
         imgAdapter = new DetailImgAdapter(this);
+        imgAdapter.setOnItemClickListener(new DetailImgAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Bundle bundle = new Bundle();
+//                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
+                bundle.putStringArrayList("imageUrlList", mDescribeUrlList);
+                bundle.putInt("position", position);
+                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+            }
+        });
         binding.webProductInfo.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.webProductInfo.setAdapter(imgAdapter);
 
@@ -624,6 +636,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         String longUrl = mPageBean.getDetailsPictureUrl();
         if (!TextUtils.isEmpty(longUrl) && longUrl.contains(".jpg")) {
             ArrayList<ItemPicture> pics = new ArrayList<>();
+            mDescribeUrlList.clear();
             String[] urls = longUrl.split("\\.jpg");
             for (String string : urls) {
                 if (string.contains("//")) {
@@ -631,6 +644,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     ItemPicture picture = new ItemPicture();
                     picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
                     pics.add(picture);
+                    mDescribeUrlList.add("https://" + realUrls[1] + ".jpg");
                 }
             }
 

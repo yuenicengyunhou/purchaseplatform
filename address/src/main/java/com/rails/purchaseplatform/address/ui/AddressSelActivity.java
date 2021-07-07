@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 
@@ -89,6 +90,15 @@ public class AddressSelActivity extends BaseErrorActivity<ActivityAddressSelBind
         binding.ibBack.setOnClickListener(v -> finish());
         binding.tvPop.setOnClickListener(v -> showSearchTypePop(binding.tvPop.getText().toString()));
         binding.tvSearch.setOnClickListener(v -> onRefresh());
+
+        //搜索确认按键监听
+        binding.editText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                onRefresh();
+                return true;
+            }
+            return false;
+        });
 
         onRefresh();
 

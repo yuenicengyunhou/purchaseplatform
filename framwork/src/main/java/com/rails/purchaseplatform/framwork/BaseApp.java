@@ -147,12 +147,9 @@ public class BaseApp extends Application {
 
     static {
         //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
-            @Override
-            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                layout.setPrimaryColorsId(R.color.header_color, android.R.color.darker_gray);//全局设置主题颜色
-                return new ClassicsHeader(context);
-            }
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
+            layout.setPrimaryColorsId(R.color.header_color, android.R.color.darker_gray);//全局设置主题颜色
+            return new ClassicsHeader(context);
         });
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {

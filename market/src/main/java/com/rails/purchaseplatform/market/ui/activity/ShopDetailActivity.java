@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -133,6 +134,14 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 
         //店铺内搜索
         binding.tvSearch.setOnClickListener(v -> toSearch());
+        //搜索确认按键监听
+        binding.editText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                toSearch();
+                return true;
+            }
+            return false;
+        });
 
 //        clearAllConditions();
         setSelected(true, false, false, false);
@@ -293,7 +302,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
      */
     @Override
     public void loadFilter(ArrayList<SearchFilterBean> filterBeans, boolean resetFilter) {
-        if (resetFilter||null==filterList) {
+        if (resetFilter || null == filterList) {
             filterList = filterBeans;
         }
     }
