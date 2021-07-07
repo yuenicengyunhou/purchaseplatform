@@ -36,7 +36,6 @@ public class BaseActManager {
     }
 
     public synchronized void addActivity(Activity activity) {
-        Log.e("WQ", "====" + activity.getClass().getSimpleName());
         mActivities.add(activity);
     }
 

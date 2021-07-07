@@ -47,6 +47,7 @@
     <string name="input_new_psw_again">请再次输入新密码</string>
 
 
+
     <string-array name="tab_titles">
         <item>口令卡登录</item>
         <item>手机登录</item>

@@ -1,15 +1,11 @@
 package com.rails.purchaseplatform.address.ui;
 
 import android.os.Bundle;
-import android.security.keystore.KeyInfo;
 import android.text.InputType;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.bean.address.AddressArea;
@@ -53,7 +49,6 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
 
     // 是否有新增地址权限
     private boolean isAdd = false;
-    private UserToolPresenterImpl toolPresenter;
 
     @Override
     protected int getColor() {
@@ -73,26 +68,36 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
     @Override
     protected void initialize(Bundle bundle) {
         setSupportActionBar(binding.toolbar);
-
+//判断有没有添加地址的权限
         if (!isAdd) {
             binding.btnAdd.setVisibility(View.GONE);
         }
+        //初始化地址列表
         addressAdapter = new AddressAdapter(this);
         addressAdapter.setListener(this);
         addressAdapter.setMulPositionListener(this);
-
-
         binding.recycler.addItemDecoration(new SpaceDecoration(this, 1, R.color.line_gray));
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-//        binding.empty.setDescEmpty(R.string.empty_data).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.recycler.setAdapter(addressAdapter);
-
-        toolPresenter = new UserToolPresenterImpl(this, this);
+//请求权限接口
+        UserToolPresenterImpl toolPresenter = new UserToolPresenterImpl(this, this);
         toolPresenter.queryAuthor();
 
-
+//请求地址接口
         presenter = new AddressPresenterImpl(this, this);
         onRefresh(true);
+//控件交互时间
+        onViewClick();
+
+    }
+
+    /**
+     * 控件交互事件
+     */
+    private void onViewClick() {
+        binding.ibBack.setOnClickListener(v -> finish());
+//切换搜索条件按钮
+        binding.tvPop.setOnClickListener(v -> showSearchTypePop(binding.tvPop.getText().toString()));
 
         binding.smart.setOnRefreshListener(refreshLayout -> {
             mPage = PAGE_DEF;
@@ -104,9 +109,6 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
             onRefresh((false));
         });
 
-        binding.ibBack.setOnClickListener(v -> finish());
-
-        binding.tvPop.setOnClickListener(v -> showSearchTypePop(binding.tvPop.getText().toString()));
         //搜索
         binding.tvSearch.setOnClickListener(v -> {
             mPage = PAGE_DEF;
@@ -122,8 +124,6 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
             }
             return false;
         });
-
-
     }
 
 

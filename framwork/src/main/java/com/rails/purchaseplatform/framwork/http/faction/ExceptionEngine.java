@@ -8,6 +8,7 @@ import com.google.gson.stream.MalformedJsonException;
 import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 
 import java.net.ConnectException;
@@ -47,6 +48,7 @@ public class ExceptionEngine {
     public static final String UN_KNOWN_ERROR = "9995";
 
 
+    @NotNull
     public static ErrorBean handleException(Throwable e) {
         ErrorBean errorBean;
         Logger.e(Objects.requireNonNull(e.getMessage()));

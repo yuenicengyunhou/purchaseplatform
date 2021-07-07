@@ -52,6 +52,7 @@ public interface AddressContract {
     interface AddressPresenter {
 
 
+
         /**
          * 获取地址列表
          * <p>

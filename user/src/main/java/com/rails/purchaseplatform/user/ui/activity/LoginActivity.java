@@ -50,8 +50,10 @@ import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.contract.LoginPresneterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.pop.PermissionPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -173,7 +175,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
-        requestPermission();
+
+        //进来直接展示请求权限说明的弹窗
+        showPermissionPop();
 
         mManager = ((InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE));
 
@@ -288,6 +292,17 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
         // 请求随机码坐标
         presenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true);
+    }
+
+    /**
+     * 权限请求说明弹窗
+     */
+    private void showPermissionPop() {
+        PermissionPop permissionPop = new PermissionPop();
+        permissionPop.setGravity(Gravity.CENTER);
+        permissionPop.setType(BasePop.WRAP_WRAP);
+        permissionPop.setOnClickListener(v -> requestPermission());
+        permissionPop.show(getSupportFragmentManager(), "permission");
     }
 
     private void getLoginInfoFormSp() {

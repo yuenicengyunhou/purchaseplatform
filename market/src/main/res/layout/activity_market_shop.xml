@@ -47,7 +47,7 @@
                     android:id="@+id/editText"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_30"
-                    android:background="@drawable/bg_conner_blank_gray_20"
+                    android:background="@drawable/bg_corner_gray_20"
                     android:layout_marginStart="@dimen/padding"
                     android:layout_marginEnd="@dimen/paddingL"
                     android:layout_weight="1"

@@ -28,7 +28,6 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("WQ", "---" + getClass().getSimpleName());
 //        overridePendingTransition(R.anim.right_in, R.anim.left_out);
         BaseActManager.getInstance().addActivity(this);
         setLayout();
