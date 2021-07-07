@@ -109,7 +109,8 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
     }
 
     public void showLoginInfoList() {
-        mPop.showAsDropDown(binding.etPhoneInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 8F));
+        if (mPhoneList.size() != 0)
+            mPop.showAsDropDown(binding.etPhoneInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 8F));
     }
 
 

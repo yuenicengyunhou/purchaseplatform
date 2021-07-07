@@ -148,7 +148,8 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     }
 
     public void showLoginInfoList() {
-        mPop.showAsDropDown(binding.etAccountInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 8F));
+        if (mAccountList.size() != 0)
+            mPop.showAsDropDown(binding.etAccountInput, 0, ScreenSizeUtil.dp2px(requireActivity(), 8F));
     }
 
 
