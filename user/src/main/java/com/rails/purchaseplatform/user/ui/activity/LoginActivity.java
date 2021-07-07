@@ -205,7 +205,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 //                            Log.d(TAG, "==========================!!!!");
 //                            binding.nsvLogin.scrollTo(0, 0);
 //                            if (!mLoginInfoListPop.isShowing() && !isScrolling) {
-                                mLoginInfoAdapter.updateData(mAccountList, 0, true);
+                            mLoginInfoAdapter.updateData(mAccountList, 0, true);
 //                                mRandomCodeLoginFragment.showLoginInfoList();
 //                            }
                             break;
@@ -213,7 +213,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 //                            Log.d(TAG, "==========================????");
 //                            binding.nsvLogin.scrollTo(0, 0);
 //                            if (!mLoginInfoListPop.isShowing() && !isScrolling) {
-                                mLoginInfoAdapter.updateData(mPhoneList, 1, true);
+                            mLoginInfoAdapter.updateData(mPhoneList, 1, true);
 //                                mPhoneLoginFragment.showLoginInfoList();
 //                            }
                             break;
@@ -298,11 +298,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
      * 权限请求说明弹窗
      */
     private void showPermissionPop() {
-        PermissionPop permissionPop = new PermissionPop();
-        permissionPop.setGravity(Gravity.CENTER);
-        permissionPop.setType(BasePop.WRAP_WRAP);
-        permissionPop.setOnClickListener(v -> requestPermission());
-        permissionPop.show(getSupportFragmentManager(), "permission");
+        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            PermissionPop permissionPop = new PermissionPop();
+            permissionPop.setGravity(Gravity.CENTER);
+            permissionPop.setType(BasePop.WRAP_WRAP);
+            permissionPop.setOnClickListener(v -> requestPermission());
+            permissionPop.show(getSupportFragmentManager(), "permission");
+        }
     }
 
     private void getLoginInfoFormSp() {
