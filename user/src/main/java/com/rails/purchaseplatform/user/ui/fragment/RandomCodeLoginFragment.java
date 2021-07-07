@@ -46,6 +46,9 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             binding.et3.setText("000");
         }
 
+        if (mAccountList.size() != 0)
+            binding.etAccountInput.setText(mAccountList.get(0));
+
         // 刷新随机码坐标
         binding.ibReloadRandomCode.setOnClickListener(v ->
                 mPresenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true));

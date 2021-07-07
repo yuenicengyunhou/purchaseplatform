@@ -32,6 +32,10 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
 
     @Override
     protected void loadData() {
+
+        if (mPhoneList.size() != 0)
+            binding.etPhoneInput.setText(mPhoneList.get(0));
+
         // 请求验证码
         binding.tvGetVerifyNum.setOnClickListener(v ->
                 mPresenter.getCode(binding.etPhoneInput.getText().toString().trim()));
