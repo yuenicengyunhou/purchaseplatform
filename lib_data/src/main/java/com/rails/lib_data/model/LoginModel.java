@@ -34,7 +34,7 @@ public class LoginModel {
      * @param code           验证码
      * @param httpRxObserver
      */
-    public void onLogin(String phone, String paw, String code, HttpRxObserver httpRxObserver) {
+    public void onLogin(String phone, String paw, String code, double[] location, HttpRxObserver httpRxObserver) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("loginType", "1");
@@ -43,8 +43,13 @@ public class LoginModel {
         params.put("mobilePhoneCode", code);
         params.put("isWeakPwd", "0");
         params.put("returnUrl", "");
-        params.put("loginDevice", "android"); // 登录设备 固定Android
+        params.put("loginDevice", "android" + Build.MODEL); // 登录设备 固定Android
+        params.put("osVersionNumber", "android" + Build.VERSION.RELEASE);
         params.put("loginMedia", "api" + Build.VERSION.SDK_INT); // 设备版本 or APP版本
+        if (location != null) {
+            params.put("longitude", String.format("%6f", location[0]));
+            params.put("latitude", String.format("%6f", location[1]));
+        }
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(LoginService.class, 1).onLogin(params))
@@ -172,18 +177,24 @@ public class LoginModel {
      * @param requestFlag
      * @param httpRxObserver
      */
-    public void randomCodeLogin(String account, String password, String rndCode, String requestFlag, HttpRxObserver httpRxObserver) {
+    public void randomCodeLogin(String account, String password, String rndCode, String requestFlag,
+                                double[] location, HttpRxObserver httpRxObserver) {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("loginType", "3"); // 应该固定是3 或者别的
         params.put("userAccount", account); // 账号
         params.put("userPassword", password); // 密码
         params.put("rndCode", rndCode); // 随机码
-        params.put("loginDevice", "android"); // 登录设备 固定Android
+        params.put("loginDevice", "android" + Build.MODEL); // 登录设备 固定Android
+        params.put("osVersionNumber", "android" + Build.VERSION.RELEASE);
         params.put("loginMedia", "api" + Build.VERSION.SDK_INT); // 设备版本 or APP版本
         params.put("requestFlag", requestFlag); // 这是啥？ 是randInit接口返回的字符串？
         params.put("isWeakPwd", "0"); // 不是弱密码 固定0
         params.put("returnUrl", ""); // 返回的url 不需要
+        if (location != null) {
+            params.put("longitude", String.format("%6f", location[0]));
+            params.put("latitude", String.format("%6f", location[1]));
+        }
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(LoginService.class, 1).randomCodeLogin(params))

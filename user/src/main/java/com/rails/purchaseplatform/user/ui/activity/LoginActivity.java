@@ -1,10 +1,12 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -30,6 +33,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -75,6 +79,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         LoginContract.LoginView,
         PhoneLoginFragment.ScrollUpListener,
         RandomCodeLoginFragment.ScrollUpListener {
+
     final private String TAG = LoginActivity.class.getSimpleName();
 
     final private String
@@ -160,6 +165,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
+        requestPermission();
+
         mManager = ((InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE));
 
         PrefrenceUtil.getInstance(this).clear();
@@ -534,6 +541,18 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                 }
                 cursor.close();
             }
+        }
+    }
+
+    private void requestPermission() {
+        Log.i(TAG, "requestPermission");
+        // Here, thisActivity is the current activity
+        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "checkSelfPermission");
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    0);
         }
     }
 

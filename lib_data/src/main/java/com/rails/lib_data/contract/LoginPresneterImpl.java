@@ -9,6 +9,7 @@ import com.rails.lib_data.model.LoginModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.GpsUtils;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.framwork.utils.VerificationUtil;
@@ -74,8 +75,13 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
+        double[] location = GpsUtils.getInstance(mContext).getLocation();
+        if (location == null) {
+            return;
+        }
+
         baseView.showResDialog(R.string.loading);
-        model.onLogin(phone, paw, code, new HttpRxObserver<String>() {
+        model.onLogin(phone, paw, code, location, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -210,8 +216,13 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
         String rndCodeAsDoubleMd5 = MD5Util.md5md5(MD5Util.md5md5(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
         String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
 
+        double[] location = GpsUtils.getInstance(mContext).getLocation();
+        if (location == null) {
+            return;
+        }
+
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsDoubleMd5, randInit, new HttpRxObserver<String>() {
+        model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsDoubleMd5, randInit, location, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
