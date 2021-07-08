@@ -44,8 +44,8 @@ public class LoginModel {
         params.put("isWeakPwd", "0");
         params.put("returnUrl", "");
         params.put("loginDevice", "android@" + Build.BRAND + "#" + Build.MODEL);// 登录设备 固定Android
-        params.put("osVersionNumber", "android@version" + Build.VERSION.RELEASE);
-        params.put("loginMedia", "android@api" + Build.VERSION.SDK_INT); // 设备版本 or APP版本
+        params.put("osVersionNumber", "android@version" + Build.VERSION.RELEASE + "#" + "api" + Build.VERSION.SDK_INT); // android版本&api版本
+        params.put("loginMedia", "APP"); // 固定值
         if (location != null) {
             params.put("longitude", String.format("%6f", location[0]));
             params.put("latitude", String.format("%6f", location[1]));
@@ -186,8 +186,8 @@ public class LoginModel {
         params.put("userPassword", password); // 密码
         params.put("rndCode", rndCode); // 随机码
         params.put("loginDevice", "android@" + Build.BRAND + "#" + Build.MODEL); // 登录设备 固定Android
-        params.put("osVersionNumber", "android@version" + Build.VERSION.RELEASE);
-        params.put("loginMedia", "android@api" + Build.VERSION.SDK_INT); // 设备版本 or APP版本
+        params.put("osVersionNumber", "android@version" + Build.VERSION.RELEASE + "#" + "api" + Build.VERSION.SDK_INT); // android版本&api版本
+        params.put("loginMedia", "APP"); // 固定值
         params.put("requestFlag", requestFlag); // 这是啥？ 是randInit接口返回的字符串？
         params.put("isWeakPwd", "0"); // 不是弱密码 固定0
         params.put("returnUrl", ""); // 返回的url 不需要

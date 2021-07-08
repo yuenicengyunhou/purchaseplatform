@@ -1,7 +1,11 @@
 package com.rails.lib_data.contract;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
+
+import androidx.core.app.ActivityCompat;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.UserInfoBean;
@@ -63,11 +67,12 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        double[] location = GpsUtils.getInstance(mContext).getLocation();
-        if (location == null) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ToastUtil.showCenter(mContext, "请授予地理位置权限");
             return;
         }
+        double[] location = GpsUtils.getInstance(mContext).getLocation();
 
         baseView.showResDialog(R.string.loading);
         model.onLogin(phone, paw, code, location, new HttpRxObserver<String>() {
@@ -205,11 +210,12 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
         String rndCodeAsDoubleMd5 = MD5Util.md5md5(MD5Util.md5md5(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
         String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
 
-        double[] location = GpsUtils.getInstance(mContext).getLocation();
-        if (location == null) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ToastUtil.showCenter(mContext, "请授予地理位置权限");
             return;
         }
+        double[] location = GpsUtils.getInstance(mContext).getLocation();
 
         if (isDialog) baseView.showResDialog(R.string.loading);
         model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsDoubleMd5, randInit, location, new HttpRxObserver<String>() {
