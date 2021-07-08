@@ -175,10 +175,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         }
     };
     private SmsObserver smsObserver;
+    private String phoneNumber;
 
     @Override
     protected void initialize(Bundle bundle) {
-        test();
         GpsUtils.getInstance(this).getLngAndLat(new GpsUtils.OnLocationResultListener() {
             @Override
             public void onLocationResult(Location location) {
@@ -310,6 +310,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             PermissionPop permissionPop = new PermissionPop();
             permissionPop.setGravity(Gravity.CENTER);
             permissionPop.setType(BasePop.WRAP_WRAP);
+            permissionPop.setCancelable(false);
             permissionPop.setOnClickListener(v -> requestPermission());
             permissionPop.show(getSupportFragmentManager(), "permission");
         }
@@ -459,12 +460,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     public void setVerifyCode(String verifyCode) {
         this.mVerifyCode = verifyCode;
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-//        RxPermissions.getInstance(this).request(Manifest.permission.READ_SMS).subscribe(aBoolean -> {
-//            if (aBoolean) {
-//                smsObserver = new SmsObserver(mHandler2);
-//                getContentResolver().registerContentObserver(uri, true, smsObserver);
-//            }
-//        });
+        smsObserver = new SmsObserver(mHandler2);
+        getContentResolver().registerContentObserver(uri, true, smsObserver);
 
     }
 
@@ -498,9 +495,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             mHandler2.removeCallbacksAndMessages(null);
             mHandler2 = null;
         }
-//        if (null != smsObserver) {
-//            getContentResolver().unregisterContentObserver(smsObserver);
-//        }
+        if (null != smsObserver) {
+            getContentResolver().unregisterContentObserver(smsObserver);
+        }
         super.onDestroy();
 
     }
@@ -558,42 +555,43 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             super.onChange(selfChange, uri);
             if (null == uri) return;
             if (uri.toString().equals("content://sms/raw")) {
+                Log.e("WQ", "duanxi");
                 return;
             }
-            Uri inboxUri = Uri.parse("content://sms/inbox");
-            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
-            if (null != cursor) {
-                if (cursor.moveToFirst()) {
-                    String address = cursor.getString(cursor.getColumnIndex("address"));
-                    String body = cursor.getString(cursor.getColumnIndex("body"));
-                    if (address.equals("95306") && body.contains(mVerifyCode)) {
-                        Message message = new Message();
-                        message.what = VERIFY_CODE_RECEIVE;
-                        mHandler2.sendMessage(message);
-                    }
-                }
-                cursor.close();
-            }
+            Log.e("WQ", "短信");
+//            Uri inboxUri = Uri.parse("content://sms/inbox");
+//            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
+//            if (null != cursor) {
+//                if (cursor.moveToFirst()) {
+//                    String address = cursor.getString(cursor.getColumnIndex("address"));
+//                    String body = cursor.getString(cursor.getColumnIndex("body"));
+//                    if (address.equals("95306") && body.contains(mVerifyCode)) {
+//                        Message message = new Message();
+//                        message.what = VERIFY_CODE_RECEIVE;
+//                        mHandler2.sendMessage(message);
+//                    }
+//                }
+//                cursor.close();
+//            }
         }
     }
 
+    @SuppressLint({"MissingPermission", "HardwareIds"})
     private void requestPermission() {
         // Here, thisActivity is the current activity
         if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "checkSelfPermission");
+                && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.READ_PHONE_STATE},
                     0);
         }
     }
 
-    private void test() {
-        RxPermissions.getInstance(this).request(Manifest.permission.READ_PHONE_STATE).subscribe(aBoolean -> {
-            TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            @SuppressLint({"MissingPermission", "HardwareIds"}) String line1Number = manager.getLine1Number();
-            ToastUtil.showCenter(this, "手机号--" + line1Number);
-        });
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (String permission : permissions) {
+            Log.e("WQ", "permission---" + permission);
+        }
     }
-
 }
