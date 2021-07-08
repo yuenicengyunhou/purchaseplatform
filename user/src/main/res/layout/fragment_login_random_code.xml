@@ -111,7 +111,7 @@
         android:layout_marginStart="@dimen/dp_35"
         android:layout_marginTop="@dimen/dp_95"
         android:gravity="center"
-        android:text="随机码"
+        android:text="口令"
         android:textColor="#333333"
         android:textSize="@dimen/font_size_17" />
 
