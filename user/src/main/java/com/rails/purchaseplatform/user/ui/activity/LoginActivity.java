@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,7 +27,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -65,6 +66,7 @@ import com.rails.purchaseplatform.user.databinding.ActivityUserLoginBinding;
 import com.rails.purchaseplatform.user.ui.fragment.PhoneLoginFragment;
 import com.rails.purchaseplatform.user.ui.fragment.RandomCodeLoginFragment;
 import com.rails.purchaseplatform.user.utils.ViewPager2Util;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -73,9 +75,9 @@ import java.util.UUID;
 
 /**
  * 登录页面
- *
- * @author： sk_comic@163.com
- * @date: 2021/1/27
+ * <p>
+ * author： sk_comic@163.com
+ * date: 2021/1/27
  */
 @Route(path = ConRoute.USER.LOGIN)
 public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
@@ -151,7 +153,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//            Log.d(TAG, "====== POSITION_OFFSET == " + positionOffset);
             isScrolling = positionOffset != 0F;
         }
 
@@ -177,7 +178,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        test();
         GpsUtils.getInstance(this).getLngAndLat(new GpsUtils.OnLocationResultListener() {
             @Override
             public void onLocationResult(Location location) {
@@ -200,45 +201,42 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         initPop();
 
         ViewGroup parentContent = findViewById(android.R.id.content);
-        parentContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
+        parentContent.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
 //                Log.d(TAG, "ViewTreeObserver.OnGlobalLayoutListener#onGlobalLayout");
-                Rect r = new Rect();
-                parentContent.getWindowVisibleDisplayFrame(r);
+            Rect r = new Rect();
+            parentContent.getWindowVisibleDisplayFrame(r);
 
-                int displayHeight = r.bottom - r.top;
-                int parentHeight = parentContent.getHeight();
-                int softKeyHeight = parentHeight - displayHeight;
+            int displayHeight = r.bottom - r.top;
+            int parentHeight = parentContent.getHeight();
+            int softKeyHeight = parentHeight - displayHeight;
 
-                if (softKeyHeight > 700) {
-                    switch (mScrollFlag) {
-                        case "account":
+            if (softKeyHeight > 700) {
+                switch (mScrollFlag) {
+                    case "account":
 //                            Log.d(TAG, "==========================!!!!");
 //                            binding.nsvLogin.scrollTo(0, 0);
 //                            if (!mLoginInfoListPop.isShowing() && !isScrolling) {
-                            mLoginInfoAdapter.updateData(mAccountList, 0, true);
+                        mLoginInfoAdapter.updateData(mAccountList, 0, true);
 //                                mRandomCodeLoginFragment.showLoginInfoList();
 //                            }
-                            break;
-                        case "phone":
+                        break;
+                    case "phone":
 //                            Log.d(TAG, "==========================????");
 //                            binding.nsvLogin.scrollTo(0, 0);
 //                            if (!mLoginInfoListPop.isShowing() && !isScrolling) {
-                            mLoginInfoAdapter.updateData(mPhoneList, 1, true);
+                        mLoginInfoAdapter.updateData(mPhoneList, 1, true);
 //                                mPhoneLoginFragment.showLoginInfoList();
 //                            }
-                            break;
-                        case "password":
-                            binding.nsvLogin.scrollTo(0, 360);
-                            break;
-                        case "randomCode":
-                        case "verifyCode":
-                            binding.nsvLogin.scrollTo(0, 720);
-                            break;
-                        default:
-                            break;
-                    }
+                        break;
+                    case "password":
+                        binding.nsvLogin.scrollTo(0, 360);
+                        break;
+                    case "randomCode":
+                    case "verifyCode":
+                        binding.nsvLogin.scrollTo(0, 720);
+                        break;
+                    default:
+                        break;
                 }
             }
         });
@@ -278,27 +276,24 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         binding.viewPager.registerOnPageChangeCallback(changeCallback);
         ViewPager2Util.changeToNeverMode(binding.viewPager);
 
-        mediator = new TabLayoutMediator(binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
-                //这里可以自定义TabView
-                TextView tabView = new TextView(LoginActivity.this);
+        mediator = new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
+            //这里可以自定义TabView
+            TextView tabView = new TextView(LoginActivity.this);
 
-                int[][] states = new int[2][];
-                states[0] = new int[]{android.R.attr.state_selected};
-                states[1] = new int[]{};
+            int[][] states = new int[2][];
+            states[0] = new int[]{android.R.attr.state_selected};
+            states[1] = new int[]{};
 
-                int[] colors = new int[]{
-                        getResources().getColor(R.color.font_blue),
-                        getResources().getColor(R.color.font_gray)};
-                ColorStateList colorStateList = new ColorStateList(states, colors);
-                tabView.setGravity(Gravity.CENTER);
-                tabView.setText(tabTitles[position]);
-                tabView.setTextSize(14);
-                tabView.setTextColor(colorStateList);
+            int[] colors = new int[]{
+                    getResources().getColor(R.color.font_blue),
+                    getResources().getColor(R.color.font_gray)};
+            ColorStateList colorStateList = new ColorStateList(states, colors);
+            tabView.setGravity(Gravity.CENTER);
+            tabView.setText(tabTitles[position]);
+            tabView.setTextSize(14);
+            tabView.setTextColor(colorStateList);
 
-                tab.setCustomView(tabView);
-            }
+            tab.setCustomView(tabView);
         });
         mediator.attach();
 
@@ -385,13 +380,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             startActivity(intent);
         });
 
-        binding.imgLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BaseActManager.getInstance().clear();
-                ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
-                finish();
-            }
+        binding.imgLeft.setOnClickListener(v -> {
+            BaseActManager.getInstance().clear();
+            ARouter.getInstance().build(ConRoute.RAILS.MAIN).navigation();
+            finish();
         });
 
     }
@@ -586,7 +578,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     }
 
     private void requestPermission() {
-        Log.i(TAG, "requestPermission");
         // Here, thisActivity is the current activity
         if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -595,6 +586,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     0);
         }
+    }
+
+    private void test() {
+        RxPermissions.getInstance(this).request(Manifest.permission.READ_PHONE_STATE).subscribe(aBoolean -> {
+            TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            @SuppressLint({"MissingPermission", "HardwareIds"}) String line1Number = manager.getLine1Number();
+            ToastUtil.showCenter(this, "手机号--" + line1Number);
+        });
     }
 
 }
