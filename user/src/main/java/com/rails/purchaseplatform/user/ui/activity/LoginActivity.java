@@ -12,6 +12,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ import com.rails.purchaseplatform.common.pop.PermissionPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.GpsUtils;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -175,6 +177,16 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     @Override
     protected void initialize(Bundle bundle) {
+
+        GpsUtils.getInstance(this).getLngAndLat(new GpsUtils.OnLocationResultListener() {
+            @Override
+            public void onLocationResult(Location location) {
+            }
+
+            @Override
+            public void OnLocationChange(Location location) {
+            }
+        });
 
         //进来直接展示请求权限说明的弹窗
         showPermissionPop();

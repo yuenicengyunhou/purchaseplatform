@@ -92,26 +92,6 @@ public class GpsUtils {
 
     // 获取经纬度
     public double[] getLocation() {
-        double[] locationValue = new double[2];
-
-        String locationProvider = null;
-        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-        //获取所有可用的位置提供器
-        List<String> providers = locationManager.getProviders(true);
-
-        if (providers.contains(LocationManager.GPS_PROVIDER)) {
-            //如果是GPS
-            locationProvider = LocationManager.GPS_PROVIDER;
-        } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            //如果是Network
-            locationProvider = LocationManager.NETWORK_PROVIDER;
-        } else {
-            Intent i = new Intent();
-            i.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            mContext.startActivity(i);
-            return null;
-        }
-
         // 判断是否申请权限
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -125,15 +105,33 @@ public class GpsUtils {
             return null;
         }
 
-        //获取Location
-        Location location = locationManager.getLastKnownLocation(locationProvider);
+        // 需要返回的经纬度数组
+        double[] locationValue = new double[2];
+        // LocationProvider
+        String locationProvider = null;
+        // LocationManager
+        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        // 获取所有可用的位置提供器
+        List<String> providers = locationManager.getProviders(true);
+        // 最终可用的Location
+        Location bestLocation = null;
+        // 遍历获取Location对象
+        for (String provider : providers) {
+            Location realLocation = locationManager.getLastKnownLocation(provider);
+            if (realLocation == null) {
+                continue;
+            }
+            if (bestLocation == null || realLocation.getAccuracy() < bestLocation.getAccuracy()) {
+                bestLocation = realLocation;
+            }
+        }
 
-        if (location == null) {
+        if (bestLocation == null) {
             return null;
         }
 
-        locationValue[0] = location.getLongitude();
-        locationValue[1] = location.getLatitude();
+        locationValue[0] = bestLocation.getLongitude();
+        locationValue[1] = bestLocation.getLatitude();
 
         return locationValue;
     }

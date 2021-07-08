@@ -32,12 +32,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
     @Override
     public void onLogin(String phone, String paw, String code) {
-//        String code_phone = PrefrenceUtil.getInstance(mContext).getString(ConShare.CODE_PHONE, "");
-//
-//        if (TextUtils.isEmpty(code_phone)) {
-//            ToastUtil.showCenter(mContext, "请先获取验证码");
-//            return;
-//        }
 
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.showCenter(mContext, "手机号码不能为空");
@@ -48,12 +42,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             ToastUtil.showCenter(mContext, "手机号码格式错误");
             return;
         }
-
-//        if (!code_phone.equals(phone)) {
-//            ToastUtil.showCenter(mContext, "与申请验证码的手机号码不一致");
-//            return;
-//        }
-
 
         if (TextUtils.isEmpty(paw)) {
             ToastUtil.showCenter(mContext, "密码不能为空");
@@ -77,6 +65,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
         double[] location = GpsUtils.getInstance(mContext).getLocation();
         if (location == null) {
+            ToastUtil.showCenter(mContext, "请授予地理位置权限");
             return;
         }
 
@@ -218,6 +207,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
         double[] location = GpsUtils.getInstance(mContext).getLocation();
         if (location == null) {
+            ToastUtil.showCenter(mContext, "请授予地理位置权限");
             return;
         }
 
