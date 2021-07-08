@@ -1,14 +1,29 @@
-{
-  "userPassword": "673E9F87098D111193B3C39A26130C06",
-  "isWeakPwd": "0",
-  "loginType": "3",
-  "userAccount": "bjadmin01",
-  "latitude": "37.421998",
-  "rndCode": "1640265CBB2744090B29D6772A3FE36F",
-  "loginDevice": "android#sdk_gphone_x86_arm",
-  "loginMedia": "api#30",
-  "returnUrl": "",
-  "requestFlag": "ea16b8afd5618100ce2f2b98e356edfe",
-  "osVersionNumber": "android#11",
-  "longitude": "-122.084000"
-}
+[
+  {
+    "userPassword": "673E9F87098D111193B3C39A26130C06",
+    "isWeakPwd": "0",
+    "mobilePhone": "18331099998",
+    "loginType": "1",
+    "latitude": "37.421998",
+    "loginDevice": "android@google#sdk_gphone_x86_arm",
+    "loginMedia": "APP",
+    "returnUrl": "",
+    "osVersionNumber": "android@version11#api30",
+    "mobilePhoneCode": "a8bn6t",
+    "longitude": "-122.084000"
+  },
+  {
+    "userPassword": "673E9F87098D111193B3C39A26130C06",
+    "isWeakPwd": "0",
+    "loginType": "3",
+    "userAccount": "cezdbj001",
+    "latitude": "37.421998",
+    "rndCode": "68BE602D5EE945DF45BA332CCBB15C6A",
+    "loginDevice": "android@google#sdk_gphone_x86_arm",
+    "loginMedia": "APP",
+    "returnUrl": "",
+    "requestFlag": "f3aca06e9c94467e4a2955ef6c80c15d",
+    "osVersionNumber": "android@version11#api30",
+    "longitude": "-122.084000"
+  }
+]
