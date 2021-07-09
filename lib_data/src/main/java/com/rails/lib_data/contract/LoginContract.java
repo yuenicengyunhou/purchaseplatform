@@ -34,7 +34,7 @@ public interface LoginContract {
         /**
          * 填写验证码
          */
-        void setVerifyCode(String verifyCode);
+        void setVerifyCode(String response,String userPhone);
 
         /**
          * 获取标记成功时的回调

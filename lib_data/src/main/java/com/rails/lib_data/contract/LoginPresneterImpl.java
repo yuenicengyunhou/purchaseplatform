@@ -117,7 +117,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 //                PrefrenceUtil.getInstance(mContext).setString(ConShare.CODE_PHONE, phone);
                 baseView.dismissDialog();
                 baseView.onResult(1, "获取成功", response);
-                baseView.setVerifyCode(response);
+                baseView.setVerifyCode(response,phone);
 
             }
         });

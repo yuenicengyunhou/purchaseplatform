@@ -50,7 +50,7 @@ public class RegisterActivity extends BaseErrorActivity<ActivityUserRegisterBind
     }
 
     @Override
-    public void setVerifyCode(String verifyCode) {
+    public void setVerifyCode(String response,String userPhone) {
 
     }
 

@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.ContentObserver;
-import android.database.Cursor;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -114,7 +113,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     private boolean isScrolling;
 
     private final Uri uri = Uri.parse("content://sms/");
-    private String mVerifyCode;
+    private String mVerifyCode = "";
     private String mRandInit = "";
 
     private int mPosition = 0;
@@ -135,7 +134,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                 }
                 return true;
             } else if (msg.what == VERIFY_CODE_RECEIVE) {
-                if (null != mVerifyCode && null != clipboardManager) {
+                if (null != mVerifyCode && null != clipboardManager && (phoneNumber.equals(mReadPhone))) {
                     ClipData clipData = ClipData.newPlainText("text", mVerifyCode);
                     clipboardManager.setPrimaryClip(clipData);
                 }
@@ -175,7 +174,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         }
     };
     private SmsObserver smsObserver;
-    private String phoneNumber;
+    private String phoneNumber = "";//用户输入的手机号
+    private boolean isMyPhoneNumber ;//用户输入的手机号，与获取的手机号是否一致
+    private String mReadPhone;
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -457,8 +458,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     }
 
     @Override
-    public void setVerifyCode(String verifyCode) {
-        this.mVerifyCode = verifyCode;
+    public void setVerifyCode(String verifyCode, String userPhone) {
+        this.mVerifyCode = verifyCode;//记录验证码，如果是用户的手机号，收到短信的时候复制到剪切板
+        this.phoneNumber = userPhone;//记录手机号
+        Log.e("WQ", "phoneNumber---" + phoneNumber);
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         smsObserver = new SmsObserver(mHandler2);
         getContentResolver().registerContentObserver(uri, true, smsObserver);
@@ -559,6 +562,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                 return;
             }
             Log.e("WQ", "短信");
+            mHandler2.sendEmptyMessage(VERIFY_CODE_RECEIVE);
 //            Uri inboxUri = Uri.parse("content://sms/inbox");
 //            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
 //            if (null != cursor) {
@@ -579,19 +583,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     @SuppressLint({"MissingPermission", "HardwareIds"})
     private void requestPermission() {
         // Here, thisActivity is the current activity
-        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.READ_PHONE_STATE},
-                    0);
-        }
+        TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        RxPermissions.getInstance(this).request(Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(aBoolean -> {
+            if (aBoolean) {
+                if (null == manager) return;
+                mReadPhone = manager.getLine1Number();
+            }
+        });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        for (String permission : permissions) {
-            Log.e("WQ", "permission---" + permission);
-        }
-    }
 }
