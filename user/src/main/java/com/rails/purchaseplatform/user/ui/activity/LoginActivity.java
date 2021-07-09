@@ -175,20 +175,11 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     };
     private SmsObserver smsObserver;
     private String phoneNumber = "";//用户输入的手机号
-    private boolean isMyPhoneNumber ;//用户输入的手机号，与获取的手机号是否一致
+    private boolean isMyPhoneNumber;//用户输入的手机号，与获取的手机号是否一致
     private String mReadPhone;
 
     @Override
     protected void initialize(Bundle bundle) {
-        GpsUtils.getInstance(this).getLngAndLat(new GpsUtils.OnLocationResultListener() {
-            @Override
-            public void onLocationResult(Location location) {
-            }
-
-            @Override
-            public void OnLocationChange(Location location) {
-            }
-        });
 
         //进来直接展示请求权限说明的弹窗
         showPermissionPop();
@@ -586,6 +577,15 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         RxPermissions.getInstance(this).request(Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(aBoolean -> {
             if (aBoolean) {
+                GpsUtils.getInstance(this).getLngAndLat(new GpsUtils.OnLocationResultListener() {
+                    @Override
+                    public void onLocationResult(Location location) {
+                    }
+
+                    @Override
+                    public void OnLocationChange(Location location) {
+                    }
+                });
                 if (null == manager) return;
                 mReadPhone = manager.getLine1Number();
             }
