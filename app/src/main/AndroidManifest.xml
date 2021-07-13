@@ -30,7 +30,7 @@
 
     <application
         android:name=".framwork.BaseApp"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:extractNativeLibs="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
