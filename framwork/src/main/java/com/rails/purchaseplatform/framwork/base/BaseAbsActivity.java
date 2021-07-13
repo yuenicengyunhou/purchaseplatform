@@ -3,6 +3,9 @@ package com.rails.purchaseplatform.framwork.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
@@ -11,14 +14,7 @@ import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import androidx.appcompat.app.AppCompatActivity;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-
-/**
- * Created by wangchao on 2016/9/22.
- * bese class 页面传值 页面跳转
- */
 /**
  * Created by wangchao on 2016/9/22.
  * bese class 页面传值 页面跳转
@@ -37,6 +33,7 @@ public abstract class BaseAbsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
             getExtraEvent(extras);
@@ -153,7 +150,7 @@ public abstract class BaseAbsActivity extends AppCompatActivity {
      * @param cls
      * @param code
      */
-    public void startIntent(Context context, Class<?> cls,  int code) {
+    public void startIntent(Context context, Class<?> cls, int code) {
         mIntent = new Intent(context, cls);
         startActivityForResult(mIntent, code);
     }
