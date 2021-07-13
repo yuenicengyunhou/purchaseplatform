@@ -15,8 +15,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -50,12 +53,13 @@ public abstract class BaseRetrofit {
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> Logger.d(message));
 
 
+
     /**
-     * okHttp配置
      *
+     * @param type 0：商城 1：平台 2：数据分析排名
      * @return
      */
-    public OkHttpClient getOkHttpClient() {
+    public OkHttpClient getOkHttpClient(int type) {
         X509TrustManager trustManager;
         SSLSocketFactory sslSocketFactory;
         try {
@@ -67,9 +71,20 @@ public abstract class BaseRetrofit {
             throw new RuntimeException(e);
         }
 
+        //添加host认证
+        final HostnameVerifier verifier = new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+//                return false;
+                boolean verify = HttpsURLConnection.getDefaultHostnameVerifier().verify(type== 0?getBaseUrl():getBaseUrl(type), session);
+                return verify;
+            }
+        };
+
         //打印retrofit日志
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
+                .hostnameVerifier(verifier)
                 .addInterceptor(getInterceptor())
                 .addInterceptor(loggingInterceptor)
                 .sslSocketFactory(sslSocketFactory, trustManager)
@@ -89,7 +104,7 @@ public abstract class BaseRetrofit {
                 .baseUrl(getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(getOkHttpClient())
+                .client(getOkHttpClient(0))
 
                 .build();
         return mRetrofit;
@@ -101,7 +116,7 @@ public abstract class BaseRetrofit {
                 .baseUrl(getBaseUrl(type))
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(getOkHttpClient())
+                .client(getOkHttpClient(type))
 
                 .build();
         return mRetrofit;
