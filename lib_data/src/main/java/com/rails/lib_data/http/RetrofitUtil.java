@@ -60,6 +60,14 @@ public class RetrofitUtil extends BaseRetrofit {
     }
 
     @Override
+    public String getHost(int type) {
+        if (type == 0) {
+            return isDebug ? HttpConstants.DEBUG_SHOP_HOST : HttpConstants.SHOP_HOST;
+        } else
+            return isDebug ? HttpConstants.DEBUG_PLATFORM_HOST : HttpConstants.PLATFORM_HOST;
+    }
+
+    @Override
     public Interceptor getInterceptor() {
         return new CommonInterceptor();
     }

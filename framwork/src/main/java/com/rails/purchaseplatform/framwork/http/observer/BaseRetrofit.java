@@ -47,6 +47,14 @@ public abstract class BaseRetrofit {
 
     public abstract String getBaseUrl(int type);
 
+
+    /**
+     * 获取host
+     * @param type 0：商城  1：平台
+     * @return
+     */
+    public abstract String getHost(int type);
+
     public abstract Interceptor getInterceptor();
 
 
@@ -76,7 +84,7 @@ public abstract class BaseRetrofit {
             @Override
             public boolean verify(String hostname, SSLSession session) {
 //                return false;
-                boolean verify = HttpsURLConnection.getDefaultHostnameVerifier().verify(type== 0?getBaseUrl():getBaseUrl(type), session);
+                boolean verify = HttpsURLConnection.getDefaultHostnameVerifier().verify(getHost(type), session);
                 return verify;
             }
         };
