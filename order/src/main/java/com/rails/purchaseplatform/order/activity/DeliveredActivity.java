@@ -98,7 +98,7 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
 //                .setTitleBar(R.string.deliveredFiles)
 //                .setShowLine(true)
 //                .setImgLeftRes(R.drawable.svg_back_black);
-        setSupportActionBar(binding.toolbar);
+//        setSupportActionBar(binding.toolbar);
         binding.tvTitle.setText("妥投证明");
 
         adapter = new DeliveredAdapter(this);
