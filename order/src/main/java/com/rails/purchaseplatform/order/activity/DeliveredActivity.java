@@ -249,7 +249,6 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
 //
 //    }
     private void readFile(String mFilePath) {
-//        OpenFiles.getImageFileIntent(mFilePath)
         HashMap<String, String> params = new HashMap<>();
         params.put("style", "0");
         params.put("local", "true");
