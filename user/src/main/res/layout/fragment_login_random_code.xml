@@ -139,8 +139,8 @@
 
         <ImageView
             android:id="@+id/iv_1"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
             android:background="#3599FE"
             android:gravity="center"
             android:textColor="#FFFFFF"
@@ -149,9 +149,9 @@
 
         <EditText
             android:id="@+id/et_1"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginStart="@dimen/dp_4"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_2"
             android:layout_toEndOf="@+id/iv_1"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
@@ -170,9 +170,9 @@
 
         <ImageView
             android:id="@+id/iv_2"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginEnd="@dimen/dp_1"
             android:layout_toStartOf="@+id/baseline"
             android:background="#3599FE"
             android:gravity="center"
@@ -182,9 +182,9 @@
 
         <EditText
             android:id="@+id/et_2"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginStart="@dimen/dp_2"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_1"
             android:layout_toEndOf="@+id/baseline"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
@@ -197,8 +197,8 @@
 
         <ImageView
             android:id="@+id/iv_3"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
             android:layout_toStartOf="@id/et_3"
             android:background="#3599FE"
             android:gravity="center"
@@ -208,10 +208,10 @@
 
         <EditText
             android:id="@+id/et_3"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/dp_4"
+            android:layout_marginStart="@dimen/dp_2"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
             android:imeOptions="actionDone"
