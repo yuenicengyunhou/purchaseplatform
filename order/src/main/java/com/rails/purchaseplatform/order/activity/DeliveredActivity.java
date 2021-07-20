@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.order.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -172,8 +173,13 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
         String extension = url.substring(url.lastIndexOf("."));
         String mFilePath = mSinglePath + orderNo + "_" + positionPlus + extension;
         if (state == 2) {
-//            ToastUtil.showCenter(this,"查看");
-            readFile(mFilePath);
+            String end = mFilePath.substring(mFilePath.lastIndexOf(".") + 1).toLowerCase();
+            if (end.equals("jpg") || end.equals("gif") || end.equals("png") ||
+                    end.equals("jpeg") || end.equals("bmp")) {
+                getImageFileIntent(mFilePath);
+            } else {
+                readFile(mFilePath);
+            }
             return;
         }
         if (state == 1) {
@@ -441,6 +447,17 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    //Android获取一个用于打开图片文件的intent
+    public static Intent getImageFileIntent(String param) {
+
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromFile(new File(param));
+        intent.setDataAndType(uri, "image/*");
+        return intent;
     }
 
     @Override
