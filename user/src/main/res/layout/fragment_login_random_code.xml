@@ -128,19 +128,115 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_reload" />
 
-    <RelativeLayout
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rl_random_code"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/tv_randomCode"-->
+<!--        android:layout_marginStart="@dimen/dp_35"-->
+<!--        android:layout_marginTop="@dimen/dp_10"-->
+<!--        android:layout_marginEnd="@dimen/dp_35">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_1"-->
+<!--            android:layout_width="@dimen/randomCodeWidth"-->
+<!--            android:layout_height="@dimen/randomCodeWidth"-->
+<!--            android:background="#3599FE"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="@dimen/font_size_20"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/et_1"-->
+<!--            android:layout_width="@dimen/randomCodeWidth"-->
+<!--            android:layout_height="@dimen/randomCodeWidth"-->
+<!--            android:layout_marginStart="@dimen/dp_2"-->
+<!--            android:layout_toEndOf="@+id/iv_1"-->
+<!--            android:background="@drawable/bg_border_gray_50"-->
+<!--            android:gravity="center"-->
+<!--            android:imeOptions="actionNext"-->
+<!--            android:inputType="number"-->
+<!--            android:maxLength="3"-->
+<!--            android:maxLines="1"-->
+<!--            android:textSize="@dimen/font_size_20"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/baseline"-->
+<!--            android:layout_width="@dimen/dp_0"-->
+<!--            android:layout_height="@dimen/dp_0"-->
+<!--            android:layout_centerInParent="true" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_2"-->
+<!--            android:layout_width="@dimen/randomCodeWidth"-->
+<!--            android:layout_height="@dimen/randomCodeWidth"-->
+<!--            android:layout_marginEnd="@dimen/dp_1"-->
+<!--            android:layout_toStartOf="@+id/baseline"-->
+<!--            android:background="#3599FE"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="@dimen/font_size_20"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/et_2"-->
+<!--            android:layout_width="@dimen/randomCodeWidth"-->
+<!--            android:layout_height="@dimen/randomCodeWidth"-->
+<!--            android:layout_marginStart="@dimen/dp_1"-->
+<!--            android:layout_toEndOf="@+id/baseline"-->
+<!--            android:background="@drawable/bg_border_gray_50"-->
+<!--            android:gravity="center"-->
+<!--            android:imeOptions="actionNext"-->
+<!--            android:inputType="number"-->
+<!--            android:maxLength="3"-->
+<!--            android:maxLines="1"-->
+<!--            android:textSize="@dimen/font_size_20"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_3"-->
+<!--            android:layout_width="@dimen/randomCodeWidth"-->
+<!--            android:layout_height="@dimen/randomCodeWidth"-->
+<!--            android:layout_toStartOf="@id/et_3"-->
+<!--            android:background="#3599FE"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="@dimen/font_size_20"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/et_3"-->
+<!--            android:layout_width="@dimen/dp_45"-->
+<!--            android:layout_height="@dimen/dp_45"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_marginStart="@dimen/dp_2"-->
+<!--            android:background="@drawable/bg_border_gray_50"-->
+<!--            android:gravity="center"-->
+<!--            android:imeOptions="actionDone"-->
+<!--            android:inputType="number"-->
+<!--            android:maxLength="3"-->
+<!--            android:maxLines="1"-->
+<!--            android:textSize="@dimen/font_size_20"-->
+<!--            android:textStyle="bold" />-->
+
+<!--    </RelativeLayout>-->
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/rl_random_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_randomCode"
+        android:orientation="horizontal"
+        android:layout_below="@id/tv_randomCode"
         android:layout_marginStart="@dimen/dp_35"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_35">
 
         <ImageView
             android:id="@+id/iv_1"
-            android:layout_width="@dimen/dp_45"
-            android:layout_height="@dimen/dp_45"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="#3599FE"
             android:gravity="center"
             android:textColor="#FFFFFF"
@@ -149,10 +245,12 @@
 
         <EditText
             android:id="@+id/et_1"
-            android:layout_width="@dimen/dp_45"
-            android:layout_height="@dimen/dp_45"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp_2"
             android:layout_toEndOf="@+id/iv_1"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/padding"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
             android:imeOptions="actionNext"
@@ -162,18 +260,11 @@
             android:textSize="@dimen/font_size_20"
             android:textStyle="bold" />
 
-        <View
-            android:id="@+id/baseline"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_0"
-            android:layout_centerInParent="true" />
-
         <ImageView
             android:id="@+id/iv_2"
-            android:layout_width="@dimen/dp_45"
-            android:layout_height="@dimen/dp_45"
-            android:layout_marginEnd="@dimen/dp_1"
-            android:layout_toStartOf="@+id/baseline"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="#3599FE"
             android:gravity="center"
             android:textColor="#FFFFFF"
@@ -182,10 +273,12 @@
 
         <EditText
             android:id="@+id/et_2"
-            android:layout_width="@dimen/dp_45"
-            android:layout_height="@dimen/dp_45"
-            android:layout_marginStart="@dimen/dp_1"
-            android:layout_toEndOf="@+id/baseline"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_toEndOf="@+id/iv_1"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/padding"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
             android:imeOptions="actionNext"
@@ -197,9 +290,9 @@
 
         <ImageView
             android:id="@+id/iv_3"
-            android:layout_width="@dimen/dp_45"
-            android:layout_height="@dimen/dp_45"
-            android:layout_toStartOf="@id/et_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="#3599FE"
             android:gravity="center"
             android:textColor="#FFFFFF"
@@ -208,20 +301,21 @@
 
         <EditText
             android:id="@+id/et_3"
-            android:layout_width="@dimen/dp_45"
-            android:layout_height="@dimen/dp_45"
-            android:layout_alignParentEnd="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp_2"
+            android:layout_toEndOf="@+id/iv_1"
+            android:layout_weight="1"
             android:background="@drawable/bg_border_gray_50"
             android:gravity="center"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="number"
             android:maxLength="3"
             android:maxLines="1"
             android:textSize="@dimen/font_size_20"
             android:textStyle="bold" />
 
-    </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
         android:layout_width="wrap_content"

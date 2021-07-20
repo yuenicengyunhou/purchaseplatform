@@ -113,7 +113,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 
         binding.ivMakePhone.setOnClickListener(v -> {
             String phoneText = binding.tvPhone.getText().toString();
-            String substring = phoneText.substring(phoneText.indexOf("："));
+            String substring = phoneText.substring(phoneText.indexOf("：")+1);
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + substring));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
