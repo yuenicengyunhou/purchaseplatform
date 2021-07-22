@@ -4,12 +4,14 @@ package com.rails.purchaseplatform.order.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -176,11 +178,10 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
             String end = mFilePath.substring(mFilePath.lastIndexOf(".") + 1).toLowerCase();
             if (end.equals("jpg") || end.equals("gif") || end.equals("png") ||
                     end.equals("jpeg") || end.equals("bmp")) {
-                getImageFileIntent(mFilePath);
+                openImage(mFilePath);
             } else {
                 readFile(mFilePath);
             }
-            return;
         }
         if (state == 1) {
             ToastUtil.showCenter(this, "正在下载");
@@ -426,13 +427,7 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
 
         } while (false);
 
-//        Toast.makeText(this, String.format("Complete delete %d files", count), Toast.LENGTH_LONG).show();
     }
-
-/*    @Override
-    public void onBack() {
-        beforeFinish();
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -449,16 +444,25 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
         finish();
     }
 
-    //Android获取一个用于打开图片文件的intent
-    public static Intent getImageFileIntent(String param) {
-
-        Intent intent = new Intent("android.intent.action.VIEW");
-        intent.addCategory("android.intent.category.DEFAULT");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Uri uri = Uri.fromFile(new File(param));
-        intent.setDataAndType(uri, "image/*");
-        return intent;
+    public void openImage(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+//判断是否是AndroidN以及更高的版本
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Uri contentUri = FileProvider.getUriForFile(this, "com.rails.purchaseplatform.fileprovider", file);
+                intent.setDataAndType(contentUri, "image/*");
+            } else {
+                intent.setDataAndType(Uri.fromFile(file), "image/*");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+            startActivity(intent);
+        } else {
+            ToastUtil.showCenter(this, "图片不存在");
+        }
     }
+
 
     @Override
     public void finish() {
