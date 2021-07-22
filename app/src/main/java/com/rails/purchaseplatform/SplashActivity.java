@@ -9,9 +9,11 @@ import com.rails.lib_data.contract.VersionContract;
 import com.rails.lib_data.contract.VersionPresenterImpl;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.databinding.ActivitySplashBinding;
+import com.rails.purchaseplatform.framwork.SignCheck;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import com.rails.purchaseplatform.framwork.utils.SystemUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import constant.UiType;
 import listener.OnBtnClickListener;
@@ -51,6 +53,11 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
 
     @Override
     protected void initialize(Bundle bundle) {
+        SignCheck check = new SignCheck(this, getResources().getString(R.string.JKS_SHA1));
+        if (!check.check()) {
+            ToastUtil.showCenter(this, "请下载正版应用程序");
+            this.finish();
+        }
         versionCode = SystemUtil.getVersionName(this);
         presenter = new VersionPresenterImpl(this, this);
         presenter.getVersion();
