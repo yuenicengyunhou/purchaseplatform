@@ -136,14 +136,14 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
                     ToastUtil.showCenter(mContext, mContext.getResources().getString(R.string.common_author_null));
                     return;
                 }
-             /*   ARouter.getInstance()
+                ARouter.getInstance()
                         .build(ConRoute.WEB.WEB_ORDER_DETAIL)
                         .withString("url", ConRoute.WEB_URL.ORDER_SUB_DETAIL)
                         .withString("orderNo", String.valueOf(orderNo))
-                        .navigation();*/
-                Bundle bundle = new Bundle();
-                bundle.putString("orderNo", orderNo);
-                ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation();
+                        .navigation();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("orderNo", orderNo);
+//                ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation();
             } else {
                 ToastUtil.showCenter(mContext, "此状态订单无订单详情");
             }
