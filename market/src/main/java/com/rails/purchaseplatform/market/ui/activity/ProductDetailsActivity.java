@@ -250,7 +250,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     protected void onResume() {
         super.onResume();
         //获取购物车数量
-//        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
+        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
     }
 
     /**
