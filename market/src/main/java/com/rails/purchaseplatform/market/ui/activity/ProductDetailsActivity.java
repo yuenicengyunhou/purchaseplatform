@@ -722,7 +722,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetCartCountSuccess(String count) {
-
+        binding.tvCartCount.setText(count);
     }
 
     @Override
