@@ -112,7 +112,7 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
 
             @Override
             public void onGetProductPriceSuccess(ProductPriceBean bean, ArrayList<ItemPicture> pics, ArrayList<ProductDetailsPackingBean> billBeans) {
-                binding.tvPrice.setText(String.valueOf(bean.getSellPrice()));
+                binding.tvPrice.setText(String.format("%.2f", bean.getSellPrice()));
                 // 显示单位
                 String skuUnitStr = mItemSkuInfo.getSkuUnit();
                 if (!TextUtils.isEmpty(skuUnitStr)) {
