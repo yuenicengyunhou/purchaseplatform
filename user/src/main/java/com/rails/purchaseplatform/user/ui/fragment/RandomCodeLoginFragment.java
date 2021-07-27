@@ -3,8 +3,12 @@ package com.rails.purchaseplatform.user.ui.fragment;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.contract.LoginContract;
@@ -17,6 +21,7 @@ import com.rails.purchaseplatform.user.adapter.LoginInfoAdapter;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginRandomCodeBinding;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCodeBinding>
@@ -45,6 +50,8 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             binding.et2.setText("000");
             binding.et3.setText("000");
         }
+        //动态设置随机码条形区域高度，确保随机码正方块
+        initRandomAreaHeight();
 
         if (mAccountList.size() != 0)
             binding.etAccountInput.setText(mAccountList.get(0));
@@ -100,6 +107,16 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             scrollUp("randomCode", v, hasFocus);
         });
 
+    }
+
+    private void initRandomAreaHeight() {
+        int screenWidth = ScreenSizeUtil.getScreenWidth(getActivity());
+        int marginSize = ScreenSizeUtil.dp2px(mActivity, 35);
+        int paddingSize = ScreenSizeUtil.dp2px(mActivity, 5);
+        int mHeight = (screenWidth - 2 * marginSize - 2 * paddingSize) / 6;
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.rlRandomCode.getLayoutParams();
+        layoutParams.height = mHeight;
+        binding.rlRandomCode.setLayoutParams(layoutParams);
     }
 
     @Override

@@ -51,6 +51,11 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
 
     @Override
     protected void initialize(Bundle bundle) {
+//        SignCheck check = new SignCheck(this, getResources().getString(R.string.JKS_SHA1));
+//        if (!check.check()) {
+//            ToastUtil.showCenter(this, "请下载正版应用程序");
+//            this.finish();
+//        }
         versionCode = SystemUtil.getVersionName(this);
         presenter = new VersionPresenterImpl(this, this);
         presenter.getVersion();

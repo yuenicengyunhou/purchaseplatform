@@ -28,6 +28,13 @@
     <external-path
         name="images"
         path="Pictures" />
+    <!--作用域 10.0适配-->
+    <external-path
+        name="files_root"
+        path="Android/data/com.rails.purchaseplatform/" />
+    <external-path
+        name="external_storage_root"
+        path="." />
 
 
 </paths>

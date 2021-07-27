@@ -125,6 +125,7 @@
 
     <!--控件宽高-->
     <dimen name="barHeight">@dimen/dp_44</dimen>
+    <dimen name="randomCodeWidth">@dimen/dp_45</dimen>
 
 
 
