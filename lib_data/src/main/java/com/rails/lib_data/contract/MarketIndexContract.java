@@ -4,7 +4,6 @@ import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
-import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
@@ -26,7 +25,31 @@ public interface MarketIndexContract {
          *
          * @param beans
          */
-        void getHotProducts(ArrayList<ProductBean> beans);
+        void getRecProducts(ArrayList<ProductRecBean> beans);
+
+
+        /**
+         * 获取banner列表
+         *
+         * @param bannerBeans
+         */
+        void getBanners(ArrayList<BannerBean> bannerBeans);
+
+
+        /**
+         * 获取推荐品牌
+         *
+         * @param brandBeans
+         */
+        void getBrands(ArrayList<BrandBean> brandBeans);
+
+
+        /**
+         * 获取推荐分类
+         *
+         * @param beans
+         */
+        void getRecCategorys(ArrayList<CategorySubBean> beans);
 
 
         /**
@@ -35,25 +58,6 @@ public interface MarketIndexContract {
          * @param bean
          */
         void getIndexInfo(MarketIndexBean bean);
-
-
-        /**
-         * 获取品牌列表排行
-         * @param brandBeans
-         * @param hasMore
-         * @param isClear
-         */
-        void getBrands(ArrayList<BrandBean> brandBeans,boolean hasMore, boolean isClear);
-
-
-        /**
-         * 获取单个楼层列表排行
-         * @param productBeans
-         * @param hasMore
-         * @param isClear
-         */
-        void getFloorProducts(ArrayList<ProductBean> productBeans,boolean hasMore, boolean isClear);
-
     }
 
 
@@ -61,30 +65,37 @@ public interface MarketIndexContract {
 
 
         /**
-         * 获取热门推荐产品
+         * 获取首页推荐产品列表
          *
          * @param isDialog 是否显示加载窗口
+         * @param isHot    是否显示热门产品
          */
-        void getHotProducts(boolean isDialog, int page, String pageSize);
+        void getRectProducts(boolean isDialog, boolean isHot);
 
+
+        /**
+         * 获取banner列表
+         */
+        void getBanners();
+
+        /**
+         * 获取推荐品牌
+         */
+        void getBrands();
+
+
+        /**
+         * 获取推荐分类
+         */
+        void getRecCategorys();
 
         /**
          * 首页列表聚合
          */
         void getMarketIndexInfo(boolean isCache, boolean isDialog);
 
-
-        /**
-         * 获取排行列表
-         *
-         * @param isDialog
-         * @param page
-         * @param pageSize
-         * @param categoryId 分类id   热销商品为 "1"， 热销品牌为 ""
-         */
-        void getRanks(boolean isDialog, int page, String pageSize, String categoryId);
-
     }
 
 
 }
+

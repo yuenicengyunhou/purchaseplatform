@@ -29,7 +29,7 @@
             app:borderWidth="@dimen/dp_1"
             app:displayBorder="true"
             app:displayType="round_rect"
-            app:imgByte="@{brand.brandLogoUrl}" />
+            app:imgUrl="@{brand.pictureUrl}" />
 
 
     </FrameLayout>

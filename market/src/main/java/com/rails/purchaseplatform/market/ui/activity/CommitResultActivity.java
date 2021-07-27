@@ -110,7 +110,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        productPresenter.getHotProducts(false, 1,"10");
+        productPresenter.getRectProducts(false, false);
     }
 
     @Override
@@ -185,27 +185,30 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     }
 
     @Override
-    public void getHotProducts(ArrayList<ProductBean> beans) {
-        if(beans == null)
-            return;
+    public void getRecProducts(ArrayList<ProductRecBean> beans) {
         if (beans.isEmpty())
             return;
-        recAdapter.update(beans, true);
+        recAdapter.update(beans.get(0).getFloorList(), true);
     }
 
+
+    @Override
+    public void getBanners(ArrayList<BannerBean> bannerBeans) {
+
+    }
+
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans) {
+
+    }
+
+    @Override
+    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
+
+    }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
-
-    }
-
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
-
-    }
-
-    @Override
-    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
     }
 }

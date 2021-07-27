@@ -1,7 +1,6 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
@@ -9,9 +8,7 @@ import com.rails.lib_data.R;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CategorySubBean;
-import com.rails.lib_data.bean.ListBeen;
 import com.rails.lib_data.bean.MarketIndexBean;
-import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.model.MarketIndexModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
@@ -42,10 +39,10 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     }
 
     @Override
-    public void getHotProducts(boolean isDialog, int page, String pageSize) {
+    public void getRectProducts(boolean isDialog, boolean isHot) {
         if (isDialog)
             baseView.showDialog("加载中...");
-        model.getHotProducts(page, pageSize, new HttpRxObserver<ListBeen<ProductBean>>() {
+        model.getRecProducts(new HttpRxObserver<ArrayList<ProductRecBean>>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
@@ -53,17 +50,45 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
             }
 
             @Override
-            protected void onSuccess(ListBeen<ProductBean> listBeen) {
+            protected void onSuccess(ArrayList<ProductRecBean> beans) {
                 baseView.dismissDialog();
-                if (isCallBack()) {
-                    if (listBeen != null)
-                        baseView.getHotProducts(listBeen.getList());
-                }
-
+                if (isCallBack())
+                    baseView.getRecProducts(beans);
             }
         });
     }
 
+    @Deprecated
+    @Override
+    public void getBanners() {
+        Type type = new TypeToken<ArrayList<BannerBean>>() {
+        }.getType();
+        ArrayList<BannerBean> beans = JsonUtil.parseJson(mContext, "banner.json", type);
+        baseView.getBanners(beans);
+    }
+
+
+    @Deprecated
+    @Override
+    public void getBrands() {
+        Type type = new TypeToken<ArrayList<BrandBean>>() {
+        }.getType();
+        ArrayList<BrandBean> beans = JsonUtil.parseJson(mContext, "brand.json", type);
+        baseView.getBrands(beans);
+    }
+
+    @Deprecated
+    @Override
+    public void getRecCategorys() {
+        ArrayList<CategorySubBean> beans = new ArrayList<>();
+        beans.add(new CategorySubBean("电子产品", R.drawable.ic_category_electronic));
+        beans.add(new CategorySubBean("办公用品", R.drawable.ic_category_office));
+        beans.add(new CategorySubBean("粮油食品", R.drawable.ic_category_food));
+        beans.add(new CategorySubBean("通用工具", R.drawable.ic_category_tool));
+        beans.add(new CategorySubBean("防疫物资", R.drawable.ic_category_goods));
+
+        baseView.getRecCategorys(beans);
+    }
 
     @Override
     public void getMarketIndexInfo(boolean isCache, boolean isDialog) {
@@ -74,81 +99,6 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
             }
         }
         getIndexInfo(isDialog);
-    }
-
-    @Override
-    public void getRanks(boolean isDialog, int page, String pageSize, String categoryId) {
-        if (TextUtils.isEmpty(categoryId)) {
-            model.getRecBrands(page, pageSize, new HttpRxObserver<ListBeen<BrandBean>>() {
-                @Override
-                protected void onError(ErrorBean e) {
-                    baseView.dismissDialog();
-                    if (page == 1) {
-                        ArrayList<BrandBean> productBeans = new ArrayList<>();
-                        baseView.getBrands(productBeans, false, true);
-                    }
-                    baseView.onError(e);
-                }
-
-                @Override
-                protected void onSuccess(ListBeen<BrandBean> listBeen) {
-                    baseView.dismissDialog();
-                    if (isCallBack()) {
-                        boolean isClear = listBeen.getPageNum() == 1;
-                        boolean hasMore = listBeen.getPageNum() < listBeen.getTotalPageCount();
-                        baseView.getBrands(listBeen.getList(), hasMore, isClear);
-                    }
-                }
-            });
-        } else if ("1".equals(categoryId)) {
-            model.getHotProducts(page, pageSize, new HttpRxObserver<ListBeen<ProductBean>>() {
-                @Override
-                protected void onError(ErrorBean e) {
-                    baseView.dismissDialog();
-                    if (page == 1) {
-                        ArrayList<ProductBean> productBeans = new ArrayList<>();
-                        baseView.getFloorProducts(productBeans, false, true);
-                    }
-                    baseView.onError(e);
-
-                }
-
-                @Override
-                protected void onSuccess(ListBeen<ProductBean> listBeen) {
-                    baseView.dismissDialog();
-                    if (isCallBack()) {
-                        boolean isClear = listBeen.getPageNum() == 1;
-                        boolean hasMore = listBeen.getPageNum() < listBeen.getTotalPageCount();
-                        baseView.getFloorProducts(listBeen.getList(), hasMore, isClear);
-                    }
-                }
-
-            });
-        } else {
-            model.getFloorProducts(page, pageSize, categoryId, new HttpRxObserver<ListBeen<ProductBean>>() {
-
-                @Override
-                protected void onError(ErrorBean e) {
-                    baseView.dismissDialog();
-                    if (page == 1) {
-                        ArrayList<ProductBean> productBeans = new ArrayList<>();
-                        baseView.getFloorProducts(productBeans, false, true);
-                    }
-                    baseView.onError(e);
-
-                }
-
-                @Override
-                protected void onSuccess(ListBeen<ProductBean> listBeen) {
-                    baseView.dismissDialog();
-                    if (isCallBack()) {
-                        boolean isClear = listBeen.getPageNum() == 1;
-                        boolean hasMore = listBeen.getPageNum() < listBeen.getTotalPageCount();
-                        baseView.getFloorProducts(listBeen.getList(), hasMore, isClear);
-                    }
-                }
-            });
-        }
     }
 
 
