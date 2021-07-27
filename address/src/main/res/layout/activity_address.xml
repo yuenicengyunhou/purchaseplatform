@@ -13,7 +13,8 @@
         android:layout_height="@dimen/dp_45"
         android:background="@color/white">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical">
@@ -29,13 +30,22 @@
                 android:src="@drawable/svg_back_black"
                 tools:ignore="ContentDescription" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/address_main"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_18" />
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding"
                 android:layout_marginEnd="@dimen/paddingL"
                 android:layout_weight="1"
-                android:background="@drawable/bg_corner_gray_20">
+                android:background="@drawable/bg_corner_gray_20"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_pop"
@@ -76,8 +86,9 @@
                 android:paddingStart="@dimen/paddingL"
                 android:paddingEnd="@dimen/paddingL"
                 android:text="@string/search"
-                android:textColor="@color/font_black" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:textColor="@color/font_black"
+                android:visibility="gone" />
+        </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 

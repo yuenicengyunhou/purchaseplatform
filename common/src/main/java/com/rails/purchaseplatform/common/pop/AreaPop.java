@@ -1,13 +1,9 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
-
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.KeyVelueBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.adapter.NavigatorAdapter;
