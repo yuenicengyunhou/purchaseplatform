@@ -365,13 +365,6 @@
     </androidx.core.widget.NestedScrollView>
 
 
-    <com.rails.purchaseplatform.common.widget.EmptyView
-        android:id="@+id/net_error"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-
 </FrameLayout>
 
 

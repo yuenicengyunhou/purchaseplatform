@@ -349,10 +349,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
                 goLogin(false);
             }
             break;
-            case CONNECT_ERROR: {
-                binding.netError.setVisibility(View.VISIBLE);
-            }
-            break;
             case "500": {
                 ToastUtil.showCenter(getActivity(), errorBean.getMsg());
             }
