@@ -50,6 +50,7 @@ public abstract class BaseRetrofit {
 
     /**
      * 获取host
+     *
      * @param type 0：商城  1：平台
      * @return
      */
@@ -61,9 +62,7 @@ public abstract class BaseRetrofit {
     HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> Logger.d(message));
 
 
-
     /**
-     *
      * @param type 0：商城 1：平台 2：数据分析排名
      * @return
      */
@@ -133,8 +132,8 @@ public abstract class BaseRetrofit {
     /**
      * 下载网络请求
      *
-     * param downloadProgressListener
-     * return
+     * @param downloadProgressListener
+     * @return
      */
     public Retrofit downloadRetrofit(DownloadRequestBody.DownloadProgressListener downloadProgressListener) {
         X509TrustManager trustManager;
@@ -228,9 +227,9 @@ public abstract class BaseRetrofit {
     /**
      * 获取对应的Service
      *
-     * param service Service 的 class
-     * param <T>
-     * return
+     * @param service Service 的 class
+     * @param <T>
+     * @return
      */
     public <T> T create(Class<T> service) {
         return getRetrofit().create(service);

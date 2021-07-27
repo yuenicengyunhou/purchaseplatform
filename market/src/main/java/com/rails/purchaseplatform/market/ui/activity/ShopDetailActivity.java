@@ -112,7 +112,9 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
         });
 
         binding.ivMakePhone.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + binding.tvPhone.getText().toString()));
+            String phoneText = binding.tvPhone.getText().toString();
+            String substring = phoneText.substring(phoneText.indexOf("：")+1);
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + substring));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
@@ -273,9 +275,10 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     public void loadShopInfo(ShopInfoBean shop) {
         binding.setShopInfo(shop);
         if (null != shop) {
-            binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", shop.getMobile()));
+            String mobile = shop.getMobile();
+            binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
             binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
-            if (TextUtils.isEmpty(shop.getMobile())) {
+            if (TextUtils.isEmpty(mobile)) {
                 binding.ivMakePhone.setVisibility(View.GONE);
             } else {
                 binding.ivMakePhone.setVisibility(View.VISIBLE);

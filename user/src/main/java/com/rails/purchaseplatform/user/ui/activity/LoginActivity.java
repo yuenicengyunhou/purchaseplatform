@@ -421,6 +421,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     // 保存登录过的账号、手机号
     private void saveLogin(ArrayList<String> loginList, String currentLogin, SharedPreferences sp, String tag) {
         loginList.remove(currentLogin);
+        if (loginList.size() == 5) loginList.remove(4);
         loginList.add(0, currentLogin);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();

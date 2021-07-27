@@ -82,4 +82,6 @@
     <dimen name="font_size_26">39sp</dimen>
     <dimen name="font_size_30">45sp</dimen>
     <dimen name="font_size_35">52.5sp</dimen>
+
+    <dimen name="randomCodeWidth">@dimen/dp_45</dimen>
 </resources>

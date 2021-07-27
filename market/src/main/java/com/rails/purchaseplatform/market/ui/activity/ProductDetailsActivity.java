@@ -150,7 +150,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         mPresenter = new CartToolPresenterImpl(this, this);
 
         // 请求商品信息（弃用的）
-        mGetProductDetailsPresenter.getProductDetails("20", mItemId, "20", true);
+//        mGetProductDetailsPresenter.getProductDetails("20", mItemId, "20", true);
 
 
         //图片详情列表
@@ -250,7 +250,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     protected void onResume() {
         super.onResume();
         //获取购物车数量
-        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
+//        mGetProductDetailsPresenter.getCartCount(mPlatformId, "", "", false);
     }
 
     /**

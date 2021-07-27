@@ -29,7 +29,7 @@
     <dimen name="dp_33">82.5dp</dimen>
     <dimen name="dp_36">90dp</dimen>
     <dimen name="dp_40">100dp</dimen>
-    <dimen name="dp_44">110</dimen>
+    <dimen name="dp_44">110dp</dimen>
     <dimen name="dp_45">112.5dp</dimen>
     <dimen name="dp_48">120dp</dimen>
     <dimen name="dp_50">125dp</dimen>
@@ -89,4 +89,6 @@
     <dimen name="font_size_26">65sp</dimen>
     <dimen name="font_size_30">75sp</dimen>
     <dimen name="font_size_35">87.5sp</dimen>
+
+    <dimen name="randomCodeWidth">@dimen/dp_45</dimen>
 </resources>
