@@ -381,18 +381,18 @@ public class ProductDetailsPresenterImpl
 
     @Override
     public void getCartCount(String platformId, String organizeId, String accountId, boolean isDialog) {
-        if (isDialog) baseView.showResDialog(R.string.loading);
+//        if (isDialog) baseView.showResDialog(R.string.loading);
         mModel.getCartCount(platformId, organizeId, accountId, new HttpRxObserver<String>() {
             @Override
             protected void onError(ErrorBean e) {
                 baseView.onError(e);
-                baseView.dismissDialog();
+//                baseView.dismissDialog();
             }
 
             @Override
             protected void onSuccess(String response) {
                 baseView.onGetCartCountSuccess(response);
-                baseView.dismissDialog();
+//                baseView.dismissDialog();
             }
         });
     }
