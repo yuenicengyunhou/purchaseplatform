@@ -173,7 +173,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.swipe.finishRefresh();
                 page = DEF_PAGE;
-                addressPresenter.getDefAddress("20", "1","","");
+                addressPresenter.getDefAddress("20", "1", "", "");
                 notifyData(false, page);
             }
         });
@@ -260,6 +260,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         } else if (type == 2) {
             cartAdapter.checkAll(isSel);
             binding.imgTotal.setSelected(isSel);
+            cartAdapter.updateShopPrice();
             binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
         }
     }
@@ -385,7 +386,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      */
     private void setTotal() {
         cartAdapter.updateShopPrice();
-        binding.btnCommit.setEnabled(cartAdapter.isNext());
         binding.imgTotal.setSelected(cartAdapter.isAll());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
                 DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
@@ -400,7 +400,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private void setDefTotal(CartBean bean) {
         if (bean == null)
             return;
-        binding.btnCommit.setEnabled(cartAdapter.isNext());
         binding.imgTotal.setSelected(bean.getSelected());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
                 DecimalUtil.formatDouble(Double.parseDouble(bean.getTotalPrice())), "", 18));
@@ -521,8 +520,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 if (bean.isSel.get())
                     skuIds.add(bean.getSkuId());
             }
-            map.put(String.valueOf(shopBean.getShopId()), skuIds);
+            if (!skuIds.isEmpty())
+                map.put(String.valueOf(shopBean.getShopId()), skuIds);
         }
+        if (map.isEmpty())
+            return;
         presenter.delProduct(map, -1);
 
     }
@@ -601,7 +603,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     public void getIndexInfo(MarketIndexBean bean) {
 
     }
-
 
 
     /**
