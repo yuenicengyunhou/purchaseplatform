@@ -51,6 +51,7 @@ public class BaseApp extends Application {
         initTBS();
         UpdateAppUtils.init(this);
         MultiDex.install(this);
+        UpdateAppUtils.init(this);
         context = getApplicationContext();
     }
 
