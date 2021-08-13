@@ -67,9 +67,19 @@ public class ProductDetailsPresenterImpl2
                 String platformId = "20";
                 String shopId = response1.getProductDetailsBean().getItemPublishVo().getShopId();
                 String cid = String.valueOf(response1.getProductDetailsBean().getItemPublishVo().getCid());
-                String skuId = TextUtils.isEmpty(paramSkuId)
-                        ? response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId()
-                        : paramSkuId;
+//                String skuId = TextUtils.isEmpty(paramSkuId)
+//                        ? response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId()
+//                        : paramSkuId;
+                // 先把作为参数传过来的paramSkuId赋值给skuId
+                String skuId = paramSkuId;
+                // 判断如果它是空的，就把ProductDetailsBean中skuId的取出来
+                if (TextUtils.isEmpty(paramSkuId)) {
+                    skuId = response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId();
+                }
+                // 如果它不是空的，判断作为参数传过来的paramSkuId是否和ProductDetailsBean中skuId一致，如果不一致，使用ProductDetailsBean中skuId
+                else if (!paramSkuId.equals(response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId())) {
+                    skuId = response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId();
+                }
                 ArrayList<AddressBean> addressBeanList = response1.getAddressBeanList();
                 String provinceId = dataUtils.getProvinceCode(addressBeanList);
                 String cityId = dataUtils.getCityCode(addressBeanList);
@@ -78,6 +88,7 @@ public class ProductDetailsPresenterImpl2
                 String skuNum = "1";
 
                 // 下一步请求
+                String finalSkuId = skuId;
                 mModel.getProductDetailsStep2(platformId, shopId, cid, skuId, provinceId, cityId, countryId, address, skuNum, new HttpRxObserver<ProductDetailsStep2Bean>() {
                     @Override
                     protected void onError(ErrorBean e) {
@@ -87,7 +98,7 @@ public class ProductDetailsPresenterImpl2
 
                     @Override
                     protected void onSuccess(ProductDetailsStep2Bean response2) {
-                        dataUtils.analysisAllData(mContext.getApplicationContext(), skuId, response1, response2);
+                        dataUtils.analysisAllData(mContext.getApplicationContext(), finalSkuId, response1, response2);
 
                         baseView.onProductInfoLoadCompleted(dataUtils.getProductDetailsPageBean());
                         baseView.dismissDialog();
