@@ -130,9 +130,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                     ToastUtil.showCenter(getActivity(), "商品不存在或已下架");
                     return;
                 }
-                Bundle bundle = new Bundle();
-                bundle.putString("itemId", bean.getItemId());
-                ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
+                if (hasToken()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("itemId", bean.getItemId());
+                    ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
+                } else {
+                    ARouter.getInstance()
+                            .build(ConRoute.USER.LOGIN)
+                            .navigation();
+                }
             }
         });
         binding.recRecycler.setAdapter(recAdapter);
@@ -654,4 +660,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 break;
         }
     }
+
+    /**
+     * token是否存在
+     * <p>
+     * return
+     */
+    private boolean hasToken() {
+        String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
+        return !TextUtils.isEmpty(token);
+    }
+
 }
