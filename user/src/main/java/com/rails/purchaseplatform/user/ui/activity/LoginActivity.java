@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.database.ContentObserver;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -18,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,7 +31,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -173,7 +170,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             }
         }
     };
-    private SmsObserver smsObserver;
+//    private SmsObserver smsObserver;
     private String phoneNumber = "";//用户输入的手机号
     private boolean isMyPhoneNumber;//用户输入的手机号，与获取的手机号是否一致
     private String mReadPhone;
@@ -455,8 +452,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         this.phoneNumber = userPhone;//记录手机号
         Log.e("WQ", "phoneNumber---" + phoneNumber);
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        smsObserver = new SmsObserver(mHandler2);
-        getContentResolver().registerContentObserver(uri, true, smsObserver);
+//        smsObserver = new SmsObserver(mHandler2);
+//        getContentResolver().registerContentObserver(uri, true, smsObserver);
 
     }
 
@@ -490,9 +487,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             mHandler2.removeCallbacksAndMessages(null);
             mHandler2 = null;
         }
-        if (null != smsObserver) {
-            getContentResolver().unregisterContentObserver(smsObserver);
-        }
+//        if (null != smsObserver) {
+//            getContentResolver().unregisterContentObserver(smsObserver);
+//        }
         super.onDestroy();
 
     }
@@ -531,51 +528,51 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     }
 
-    /**
-     * What is this?
-     */
-    class SmsObserver extends ContentObserver {
-
-        /**
-         * Creates a content observer.
-         *
-         * @param handler The handler to run {@link #onChange} on, or null if none.
-         */
-        public SmsObserver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        public void onChange(boolean selfChange, @Nullable Uri uri) {
-            super.onChange(selfChange, uri);
-            if (null == uri) return;
-            if (uri.toString().equals("content://sms/raw")) {
-                Log.e("WQ", "duanxi");
-                return;
-            }
-            Log.e("WQ", "短信");
-            mHandler2.sendEmptyMessage(VERIFY_CODE_RECEIVE);
-//            Uri inboxUri = Uri.parse("content://sms/inbox");
-//            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
-//            if (null != cursor) {
-//                if (cursor.moveToFirst()) {
-//                    String address = cursor.getString(cursor.getColumnIndex("address"));
-//                    String body = cursor.getString(cursor.getColumnIndex("body"));
-//                    if (address.equals("95306") && body.contains(mVerifyCode)) {
-//                        Message message = new Message();
-//                        message.what = VERIFY_CODE_RECEIVE;
-//                        mHandler2.sendMessage(message);
-//                    }
-//                }
-//                cursor.close();
+//    /**
+//     * What is this?
+//     */
+//    class SmsObserver extends ContentObserver {
+//
+//        /**
+//         * Creates a content observer.
+//         *
+//         * @param handler The handler to run {@link #onChange} on, or null if none.
+//         */
+//        public SmsObserver(Handler handler) {
+//            super(handler);
+//        }
+//
+//        @Override
+//        public void onChange(boolean selfChange, @Nullable Uri uri) {
+//            super.onChange(selfChange, uri);
+//            if (null == uri) return;
+//            if (uri.toString().equals("content://sms/raw")) {
+//                Log.e("WQ", "duanxi");
+//                return;
 //            }
-        }
-    }
+//            Log.e("WQ", "短信");
+//            mHandler2.sendEmptyMessage(VERIFY_CODE_RECEIVE);
+////            Uri inboxUri = Uri.parse("content://sms/inbox");
+////            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
+////            if (null != cursor) {
+////                if (cursor.moveToFirst()) {
+////                    String address = cursor.getString(cursor.getColumnIndex("address"));
+////                    String body = cursor.getString(cursor.getColumnIndex("body"));
+////                    if (address.equals("95306") && body.contains(mVerifyCode)) {
+////                        Message message = new Message();
+////                        message.what = VERIFY_CODE_RECEIVE;
+////                        mHandler2.sendMessage(message);
+////                    }
+////                }
+////                cursor.close();
+////            }
+//        }
+//    }
 
     @SuppressLint({"MissingPermission", "HardwareIds"})
     private void requestPermission() {
         // Here, thisActivity is the current activity
-        TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         RxPermissions.getInstance(this).request(Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(aBoolean -> {
             if (aBoolean) {
                 GpsUtils.getInstance(this).getLngAndLat(new GpsUtils.OnLocationResultListener() {
@@ -587,8 +584,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                     public void OnLocationChange(Location location) {
                     }
                 });
-                if (null == manager) return;
-                mReadPhone = manager.getLine1Number();
+//                if (null == manager) return;
+//                mReadPhone = manager.getLine1Number();
             }
         });
     }
