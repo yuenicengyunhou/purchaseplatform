@@ -1,20 +1,16 @@
 package com.rails.purchaseplatform.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioButton;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.R;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.adapter.ViewPageAdapter;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.databinding.FrmTabMallBinding;
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
 import com.rails.purchaseplatform.market.ui.fragment.CategoryFrm;
 import com.rails.purchaseplatform.market.ui.fragment.MallFrm;
@@ -35,6 +31,8 @@ import androidx.navigation.fragment.NavHostFragment;
 public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
 
     private int position;
+
+    public MallTabFrm(){}
 
 
     private MallTabFrm(int position) {
