@@ -27,8 +27,9 @@ android {
         targetSdkVersion 30
         // 线上版本 - 3 - 1.0.2
         // 0728打包版本 -4- 1.0.3
-        versionCode 4
-        versionName "1.0.3"
+        // 0816打包版本 -5- 1.0.4
+        versionCode 5
+        versionName "1.0.4"
         flavorDimensions "versionCode"
         multiDexEnabled true
 
