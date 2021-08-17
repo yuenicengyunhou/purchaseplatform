@@ -40,6 +40,8 @@ import com.rails.lib_data.contract.ProductDetailsContract2;
 import com.rails.lib_data.contract.ProductDetailsDataUtils;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl2;
+import com.rails.lib_data.contract.StatisticContract;
+import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.AreaPop;
@@ -74,7 +76,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
         ProductDetailsContract2.ProductDetailsView2,
-        AddressToolContract.AddressToolView {
+        AddressToolContract.AddressToolView,
+        StatisticContract.StatisticView {
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
@@ -119,6 +122,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     private CartContract.CartPresenter2 mPresenter;
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
+    private StatisticContract.StatisticPresenter statisticPresenter;
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private DetailImgAdapter imgAdapter;
@@ -839,7 +843,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置购物车内商品数量
         binding.tvCartCount.setText(mPageBean.getCartCount());
 
-
+        // 流量统计
+        statisticPresenter = new StatisticPresenterImpl(this, this);
+        statisticPresenter.getVisitors("0", mPageBean.getShopId(), mPageBean.getSkuId());
     }
 
     @Override

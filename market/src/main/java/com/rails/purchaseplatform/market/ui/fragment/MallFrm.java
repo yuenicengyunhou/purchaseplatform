@@ -15,6 +15,8 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
+import com.rails.lib_data.contract.StatisticContract;
+import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
@@ -31,7 +33,6 @@ import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
-import com.rails.purchaseplatform.market.ui.activity.RankActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -49,7 +50,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding>
-        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>{
+        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean> , StatisticContract.StatisticView {
 
 
     private ProductRecAdapter recAdapter;
@@ -57,6 +58,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     private BrandAdapter brandAdapter;
 
     private MarketIndexContract.MarketIndexPresenter presenter;
+    private StatisticContract.StatisticPresenter statisticPresenter;
 
 
     @Override
@@ -143,6 +145,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
 
+        statisticPresenter = new StatisticPresenterImpl(getActivity(), this);
+
+        //通用 首页请求此接口时 itemShopId skuId 为null
+        statisticPresenter.getVisitors("0", null, null);
 
         onRefresh();
     }

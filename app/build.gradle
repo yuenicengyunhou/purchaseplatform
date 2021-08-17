@@ -25,9 +25,24 @@ android {
         applicationId "com.rails.purchaseplatform"
         minSdkVersion 21
         targetSdkVersion 30
+<<<<<<< HEAD
         // 08月24日生产环境：版本号为7，版本名称为1.0.6。
         versionCode 40
         versionName "1.0.40"
+=======
+
+        // release
+        // 0728打包版本 - 4 - 1.0.3
+        // 0816打包版本 - 5 - 1.0.4 [backindex]分支 【当前线上版本】
+//        versionCode 5
+//        versionName "1.0.4"
+
+        // debug
+        // 0817 40 - 1.0.40 【当前测试环境版本】
+        versionCode 40
+        versionName "1.0.40"
+
+>>>>>>> 2d7ffa25... -1- 商详页流量统计
         flavorDimensions "versionCode"
         multiDexEnabled true
 
