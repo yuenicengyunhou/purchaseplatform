@@ -144,9 +144,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         });
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
-
         statisticPresenter = new StatisticPresenterImpl(getActivity(), this);
-
         //通用 首页请求此接口时 itemShopId skuId 为null
         statisticPresenter.getVisitors("0", null, null);
 
