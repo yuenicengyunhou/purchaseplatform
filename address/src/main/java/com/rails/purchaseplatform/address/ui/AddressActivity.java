@@ -148,7 +148,7 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
         PopAddressSearchBinding popBinding = PopAddressSearchBinding.inflate(getLayoutInflater());
         ScrollView root = popBinding.getRoot();
         int width = ScreenSizeUtil.dp2px(this, 150);
-        int height = ScreenSizeUtil.dp2px(this, 130);
+        int height = ScreenSizeUtil.dp2px(this, 160);
         popBinding.tvReceiver.setChecked(text.equals("收货人"));
         popBinding.tvMobile.setChecked(text.equals("手机号码"));
         popBinding.tvFullAddress.setChecked(text.equals("详细地址"));

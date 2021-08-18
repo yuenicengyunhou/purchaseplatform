@@ -12,7 +12,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_42"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -31,7 +31,7 @@
             android:lines="1"
             android:text="@{file.fileName}"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_15"
+            android:textSize="@dimen/font_size_14"
             />
 
 

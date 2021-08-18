@@ -83,7 +83,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 2 - 供应商名称
      */
     private PopupWindow mTypePopup;//采购单切换检索条件的pop
-    private int mType = 0;
+    private int mType = 0;//采购单号0  采购人用户名1  供应商名称2  订单号3   物资类型4   品牌8  需求编号9
     private PopupWindow listPop;//采购人姓名和供应商检索列表
     private OrderPresenterImpl presenter;
     private ConditionAdapter adapter;//采购人姓名和供应商检索列表的adapter
@@ -124,7 +124,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                     searchIfPop("请先检索采购人用户名");
                 } else if (mType == 2) {
                     searchIfPop("请先检索供应商名称");
-                } else if (mType == 5) {
+                }  else if (mType == 5) {
                     searchIfPop("请先检索商品名称");
                 } else if (mType == 8) {
                     searchIfPop("请先检索品牌");
@@ -259,7 +259,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         View itemView = (View) binding.tvSelectType.getParent();
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
-        int width = ScreenSizeUtil.dp2px(this, 150);
+        int width = ScreenSizeUtil.dp2px(this, 250);
         int height = ScreenSizeUtil.dp2px(this, 150);
         mTypePopup = new PopupWindow(view, width, height, true);
         TextView orderNum = view.findViewById(R.id.tv_orderNum);
@@ -295,10 +295,10 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
 
         orderNum.setOnClickListener(num -> onConditionChoose("搜索单号", "采购单号", InputType.TYPE_CLASS_NUMBER, 0));
         orderUser.setOnClickListener(user -> onConditionChoose("搜索用户名", "采购人用户名", InputType.TYPE_CLASS_TEXT, 1));
-        orderProvider.setOnClickListener(provider -> onConditionChoose("搜索供应商", "供应商名称", InputType.TYPE_CLASS_TEXT, 2));
-        subOrderNum.setOnClickListener(provider -> onConditionChoose("搜索订单号", "订单号", InputType.TYPE_CLASS_NUMBER, 3));
-        tvBrand.setOnClickListener(provider -> onConditionChoose("搜索品牌", "品牌", InputType.TYPE_CLASS_TEXT, 8));
-        tvNeedNum.setOnClickListener(provider -> onConditionChoose("搜索需求编号", "需求编号", InputType.TYPE_CLASS_NUMBER, 9));
+        orderProvider.setOnClickListener(provider -> onConditionChoose("搜索供应商", "供应商名称", InputType.TYPE_CLASS_TEXT, 2));//
+        subOrderNum.setOnClickListener(subOrder -> onConditionChoose("搜索订单号", "订单号", InputType.TYPE_CLASS_NUMBER, 3));
+        tvBrand.setOnClickListener(brand -> onConditionChoose("搜索品牌", "品牌", InputType.TYPE_CLASS_TEXT, 8));
+        tvNeedNum.setOnClickListener(needNum -> onConditionChoose("搜索需求编号", "需求编号", InputType.TYPE_CLASS_NUMBER, 9));
 
 
         mTypePopup.setOutsideTouchable(true);
@@ -316,7 +316,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         binding.etSearchKey.setInputType(inputType);
         binding.etSearchKey.setHint(hint);
         binding.tvSelectType.setText(text);
-        mType = type;
+        mType = type;//搜索类型
         if (null != listPop && listPop.isShowing()) {
             listPop.dismiss();
         }
@@ -471,6 +471,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
             adapter.setType(mType);
             adapter.update(list, true);
         }
+
     }
 
     @Override
