@@ -18,9 +18,7 @@ import com.rails.purchaseplatform.framwork.http.trust.OkHttp3Connection;
 import com.rails.purchaseplatform.framwork.utils.SSLUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -32,6 +30,7 @@ import com.umeng.commonsdk.UMConfigure;
 import java.util.HashMap;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import update.UpdateAppUtils;
 
 /**
  * author:wangchao
@@ -50,6 +49,7 @@ public class BaseApp extends Application {
         initFont();
         initFileDownloader();
         initTBS();
+        UpdateAppUtils.init(this);
         MultiDex.install(this);
         context = getApplicationContext();
     }
