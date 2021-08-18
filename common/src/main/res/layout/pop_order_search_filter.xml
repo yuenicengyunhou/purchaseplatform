@@ -193,13 +193,12 @@
             android:layout_toEndOf="@id/view_indicator"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginEnd="@dimen/dp_70"
             android:layout_marginBottom="@dimen/dp_20"
             android:background="@drawable/bg_corner_blue_20" />
 
         <TextView
             android:id="@+id/tv_complete"
-            android:layout_width="@dimen/dp_110"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/view_complete"
             android:layout_alignTop="@+id/view_complete"
