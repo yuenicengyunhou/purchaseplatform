@@ -140,14 +140,15 @@ public class AddressSelActivity extends BaseErrorActivity<ActivityAddressSelBind
     private void showSearchTypePop(String text) {
         PopAddressSearchBinding popBinding = PopAddressSearchBinding.inflate(getLayoutInflater());
         ScrollView root = popBinding.getRoot();
-        //        int width = 0;
-//        if (isPad(this)) {
-//            width = ScreenSizeUtil.dp2px(this, 200);
-//        } else {
-//            width = ScreenSizeUtil.dp2px(this, 150);
-//        }
-        int width = ScreenSizeUtil.dp2px(this, 150);
-        int height = ScreenSizeUtil.dp2px(this, 160);
+        int width;
+        int height;
+        if (isPad(this)) {
+            width = ScreenSizeUtil.dp2px(this, 150);
+            height = ScreenSizeUtil.dp2px(this, 160);
+        } else {
+            width = ScreenSizeUtil.dp2px(this, 100);
+            height = ScreenSizeUtil.dp2px(this, 130);
+        }
         popBinding.tvReceiver.setChecked(text.equals("收货人"));
         popBinding.tvMobile.setChecked(text.equals("手机号码"));
         popBinding.tvFullAddress.setChecked(text.equals("详细地址"));
