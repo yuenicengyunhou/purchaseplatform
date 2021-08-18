@@ -92,6 +92,7 @@
                 app:tabIndicatorColor="#007fff"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorHeight="0dp"
+                app:tabMinWidth="@dimen/dp_50"
                 app:tabRippleColor="@android:color/transparent" />
 
             <androidx.viewpager2.widget.ViewPager2
