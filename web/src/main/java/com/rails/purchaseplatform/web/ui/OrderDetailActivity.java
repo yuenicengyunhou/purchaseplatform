@@ -76,15 +76,15 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        initWeb(binding.web, this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (neadResume) {
-            initWeb(binding.web, this);
-        }
+//        if (neadResume) {
+//            initWeb(binding.web, this);
+//        }
     }
 
     @JavascriptInterface
