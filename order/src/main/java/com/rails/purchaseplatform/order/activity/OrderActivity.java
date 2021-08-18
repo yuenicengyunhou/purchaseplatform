@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.order.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
@@ -124,7 +125,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                     searchIfPop("请先检索采购人用户名");
                 } else if (mType == 2) {
                     searchIfPop("请先检索供应商名称");
-                }  else if (mType == 5) {
+                } else if (mType == 5) {
                     searchIfPop("请先检索商品名称");
                 } else if (mType == 8) {
                     searchIfPop("请先检索品牌");
@@ -259,7 +260,12 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         View itemView = (View) binding.tvSelectType.getParent();
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
-        int width = ScreenSizeUtil.dp2px(this, 200);
+        int width = 0;
+        if (isPad(this)) {
+            width = ScreenSizeUtil.dp2px(this, 200);
+        } else {
+            width = ScreenSizeUtil.dp2px(this, 150);
+        }
         int height = ScreenSizeUtil.dp2px(this, 150);
         mTypePopup = new PopupWindow(view, width, height, true);
         TextView orderNum = view.findViewById(R.id.tv_orderNum);
@@ -478,5 +484,11 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
     public void loadDeliveredFileList(ArrayList<DeliveredFile> list) {
 
     }
-    
+
+    private boolean isPad(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.address.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -138,6 +140,12 @@ public class AddressSelActivity extends BaseErrorActivity<ActivityAddressSelBind
     private void showSearchTypePop(String text) {
         PopAddressSearchBinding popBinding = PopAddressSearchBinding.inflate(getLayoutInflater());
         ScrollView root = popBinding.getRoot();
+        //        int width = 0;
+//        if (isPad(this)) {
+//            width = ScreenSizeUtil.dp2px(this, 200);
+//        } else {
+//            width = ScreenSizeUtil.dp2px(this, 150);
+//        }
         int width = ScreenSizeUtil.dp2px(this, 150);
         int height = ScreenSizeUtil.dp2px(this, 160);
         popBinding.tvReceiver.setChecked(text.equals("收货人"));
@@ -247,4 +255,11 @@ public class AddressSelActivity extends BaseErrorActivity<ActivityAddressSelBind
         super.onRestart();
         onRefresh();
     }
+
+    private boolean isPad(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
 }
