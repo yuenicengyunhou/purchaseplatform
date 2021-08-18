@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
@@ -31,6 +32,7 @@ import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
+import com.rails.purchaseplatform.common.pop.SearchPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
@@ -271,11 +273,13 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
 
         // 切换搜索类型按钮
         binding.tvTypeName.setOnClickListener(v -> {
+
+
             View itemView = (View) binding.tvTypeName.getParent();
 
             View view = LayoutInflater.from(SearchActivityX.this).inflate(R.layout.pop_search_type, null);
-            int width = ScreenSizeUtil.dp2px(SearchActivityX.this, 64);
-            int height = ScreenSizeUtil.dp2px(SearchActivityX.this, 84);
+            int width = ScreenSizeUtil.dp2px(SearchActivityX.this, 128);
+            int height = ScreenSizeUtil.dp2px(SearchActivityX.this, 168);
             mPopupWindow = new PopupWindow(view, width, height, true);
             TextView popTypeSales = view.findViewById(R.id.tv_popTypeSales);
             TextView popTypeShops = view.findViewById(R.id.tv_popTypeShop);
@@ -393,5 +397,11 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         putSearchKeyInSharedPreference();
         mSearchKey = text;
         ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation(this, 2047);
+    }
+
+
+    private void showPop() {
+        SearchPop pop = new SearchPop(this, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        pop.showAsDropDown(binding.tvTypeName);
     }
 }

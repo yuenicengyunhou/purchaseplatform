@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -13,6 +14,8 @@ import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
@@ -61,7 +64,21 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
 
         String price = DecimalUtil.formatDouble(productBean.getSellPrice());
         String unit = productBean.getUnitName();
-        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, 18));
+        int size;
+        int fontSize;
+        if (SystemUtil.isPad(mContext)) {
+            fontSize = ScreenSizeUtil.sp2px(6, mContext);
+        } else {
+            fontSize = 16;
+        }
+        binding.tvPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        if (SystemUtil.isPad(mContext)) {
+            size = ScreenSizeUtil.sp2px(14, mContext);
+        } else {
+            size = 18;
+        }
+
+        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, size));
 
         binding.imgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
