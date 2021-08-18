@@ -259,7 +259,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         View itemView = (View) binding.tvSelectType.getParent();
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
-        int width = ScreenSizeUtil.dp2px(this, 250);
+        int width = ScreenSizeUtil.dp2px(this, 200);
         int height = ScreenSizeUtil.dp2px(this, 150);
         mTypePopup = new PopupWindow(view, width, height, true);
         TextView orderNum = view.findViewById(R.id.tv_orderNum);
