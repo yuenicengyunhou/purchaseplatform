@@ -456,7 +456,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     public void setVerifyCode(String verifyCode, String userPhone) {
         this.mVerifyCode = verifyCode;//记录验证码，如果是用户的手机号，收到短信的时候复制到剪切板
         this.phoneNumber = userPhone;//记录手机号
-        Log.e("WQ", "phoneNumber---" + phoneNumber);
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 //        smsObserver = new SmsObserver(mHandler2);
 //        getContentResolver().registerContentObserver(uri, true, smsObserver);
@@ -592,6 +591,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                 });
 //                if (null == manager) return;
 //                mReadPhone = manager.getLine1Number();
+            } else {
+                showPermissionPop();
             }
         });
     }
