@@ -33,7 +33,7 @@ public abstract class BaseAbsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
             getExtraEvent(extras);
