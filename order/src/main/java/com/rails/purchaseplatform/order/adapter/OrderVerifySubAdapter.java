@@ -39,9 +39,9 @@ public class OrderVerifySubAdapter extends BaseRecyclerAdapter<CartShopProductBe
         if (SystemUtil.isPad(mContext)) {
             size = ScreenSizeUtil.sp2px(10, mContext);
         } else {
-            size = 18;
+            size = 13;
         }
 
-        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, 13));
+        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, size));
     }
 }

@@ -8,15 +8,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -32,15 +28,16 @@ import com.rails.purchaseplatform.common.adapter.SpaceItemDecoration;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.databinding.ActivitySearchXBinding;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
-import com.rails.purchaseplatform.common.pop.SearchPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.rails.purchaseplatform.framwork.BaseApp.getContext;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 搜索页面，点击首页搜索跳转到此页面
@@ -278,8 +275,16 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
             View itemView = (View) binding.tvTypeName.getParent();
 
             View view = LayoutInflater.from(SearchActivityX.this).inflate(R.layout.pop_search_type, null);
-            int width = ScreenSizeUtil.dp2px(SearchActivityX.this, 128);
-            int height = ScreenSizeUtil.dp2px(SearchActivityX.this, 168);
+            int width;
+            int height;
+            if (SystemUtil.isPad(this)){
+                width = ScreenSizeUtil.dp2px(SearchActivityX.this, 128);
+                height = ScreenSizeUtil.dp2px(SearchActivityX.this, 168);
+            }else{
+                width = ScreenSizeUtil.dp2px(SearchActivityX.this, 64);
+                height = ScreenSizeUtil.dp2px(SearchActivityX.this, 84); 
+            }
+
             mPopupWindow = new PopupWindow(view, width, height, true);
             TextView popTypeSales = view.findViewById(R.id.tv_popTypeSales);
             TextView popTypeShops = view.findViewById(R.id.tv_popTypeShop);
@@ -400,8 +405,4 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     }
 
 
-    private void showPop() {
-        SearchPop pop = new SearchPop(this, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        pop.showAsDropDown(binding.tvTypeName);
-    }
 }
