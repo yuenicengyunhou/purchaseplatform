@@ -33,8 +33,15 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
     @Override
     protected void loadData() {
 
-        if (mPhoneList.size() != 0)
-            binding.etPhoneInput.setText(mPhoneList.get(0));
+        if (mPhoneList.size() != 0) {
+            if (mPhoneList.get(0).contains("。")) {
+                binding.etPhoneInput.setText(mPhoneList.get(0).split("。")[0]);
+                binding.etPasswordInput.setText(mPhoneList.get(0).split("。")[1]);
+            } else {
+                binding.etPhoneInput.setText(mPhoneList.get(0));
+                binding.etPasswordInput.setText("");
+            }
+        }
 
         // 请求验证码
         binding.tvGetVerifyNum.setOnClickListener(v ->
@@ -175,7 +182,15 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
 
     @Override
     public void fillPhone(String phone) {
-        binding.etPhoneInput.setText(phone);
+        if (mPhoneList.get(0).contains("。")) {
+            String truePhone = phone.split("。")[0];
+            String password = phone.split("。")[1];
+            binding.etPhoneInput.setText(truePhone);
+            binding.etPasswordInput.setText(password);
+        } else {
+            binding.etPhoneInput.setText(mPhoneList.get(0));
+            binding.etPasswordInput.setText("");
+        }
         mPop.dismiss();
     }
 

@@ -170,7 +170,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             }
         }
     };
-//    private SmsObserver smsObserver;
+    //    private SmsObserver smsObserver;
     private String phoneNumber = "";//用户输入的手机号
     private boolean isMyPhoneNumber;//用户输入的手机号，与获取的手机号是否一致
     private String mReadPhone;
@@ -312,12 +312,14 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         if (mAccountSp.getAll().size() != 0) {
             mAccountList.clear();
             for (int i = 0; i < mAccountSp.getAll().size(); i++) {
+//                Log.d(TAG, mAccountSp.getString(ACCOUNT + i, ""));
                 mAccountList.add(mAccountSp.getString(ACCOUNT + i, ""));
             }
         }
         if (mPhoneSp.getAll().size() != 0) {
             mPhoneList.clear();
             for (int i = 0; i < mPhoneSp.getAll().size(); i++) {
+//                Log.d(TAG, mPhoneSp.getString(PHONE + i, ""));
                 mPhoneList.add(mPhoneSp.getString(PHONE + i, ""));
             }
         }
@@ -345,7 +347,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         binding.btnLogin.setOnClickListener(v -> {
             if (mPosition == 0) {
                 ArrayList<String> infoList = mRandomCodeLoginFragment.getLoginInfo();
-                mCurrentAccount = infoList.get(0);
+                mCurrentAccount = infoList.get(0) + "。" + infoList.get(1);
                 presenter.randomCodeLogin(
                         infoList.get(0),
                         infoList.get(1),
@@ -356,7 +358,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                         true);
             } else {
                 ArrayList<String> infoList = mPhoneLoginFragment.getLoginInfo();
-                mCurrentPhone = infoList.get(0);
+                mCurrentPhone = infoList.get(0) + "。" + infoList.get(1);
                 presenter.onLogin(
                         infoList.get(0),
                         infoList.get(1),
@@ -417,6 +419,10 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     // 保存登录过的账号、手机号
     private void saveLogin(ArrayList<String> loginList, String currentLogin, SharedPreferences sp, String tag) {
+        // 数据兼容。之前只存储账号/手机号，现在存储账号/手机号+密码。
+        // e.g.: 18331099998。Pass!word@1234
+        // 移除原来只有账号的条目，再移除当前格式的条目。
+        loginList.remove(currentLogin.split("。")[0]);
         loginList.remove(currentLogin);
         if (loginList.size() == 5) loginList.remove(4);
         loginList.add(0, currentLogin);

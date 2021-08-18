@@ -3,12 +3,9 @@ package com.rails.purchaseplatform.user.ui.fragment;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-
-import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.contract.LoginContract;
@@ -21,7 +18,6 @@ import com.rails.purchaseplatform.user.adapter.LoginInfoAdapter;
 import com.rails.purchaseplatform.user.databinding.FragmentLoginRandomCodeBinding;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.UUID;
 
 public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCodeBinding>
@@ -53,8 +49,15 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
         //动态设置随机码条形区域高度，确保随机码正方块
         initRandomAreaHeight();
 
-        if (mAccountList.size() != 0)
-            binding.etAccountInput.setText(mAccountList.get(0));
+        if (mAccountList.size() != 0) {
+            if (mAccountList.get(0).contains("。")) {
+                binding.etAccountInput.setText(mAccountList.get(0).split("。")[0]);
+                binding.etPasswordInput.setText(mAccountList.get(0).split("。")[1]);
+            } else {
+                binding.etAccountInput.setText(mAccountList.get(0));
+                binding.etPasswordInput.setText("");
+            }
+        }
 
         // 刷新随机码坐标
         binding.ibReloadRandomCode.setOnClickListener(v ->
@@ -227,7 +230,15 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     @Override
     public void fillAccount(String account) {
-        binding.etAccountInput.setText(account);
+        if (account.contains("。")) {
+            String trueAccount = account.split("。")[0];
+            String password = account.split("。")[1];
+            binding.etAccountInput.setText(trueAccount);
+            binding.etPasswordInput.setText(password);
+        } else {
+            binding.etAccountInput.setText(account);
+            binding.etPasswordInput.setText("");
+        }
         mPop.dismiss();
     }
 

@@ -29,7 +29,8 @@ public class LoginInfoAdapter extends BaseRecyclerAdapter<String, ItemLoginInfoB
 
     @Override
     protected void onBindItem(ItemLoginInfoBinding binding, String s, int position) {
-        binding.tvInfo.setText(s);
+        String trueText = s.split("。")[0];
+        binding.tvInfo.setText(trueText);
         binding.tvInfo.setOnClickListener(v -> {
             // TODO: 2021/7/6 通知对应的fragment填充账号信息
             if (type == 0) mFillAccountListener.fillAccount(s);
