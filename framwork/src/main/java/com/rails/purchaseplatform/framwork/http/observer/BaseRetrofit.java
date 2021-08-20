@@ -107,6 +107,7 @@ public abstract class BaseRetrofit {
 
 
     public Retrofit getRetrofit() {
+//        return getRetrofit(0);
         Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create())

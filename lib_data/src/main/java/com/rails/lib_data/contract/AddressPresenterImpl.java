@@ -196,15 +196,15 @@ public class AddressPresenterImpl extends BasePresenter<AddressContract.AddressV
         }
         baseView.showResDialog(R.string.saving);
         AddressDTO dto = new AddressDTO();
-        dto.setReceiverName(men);
-        dto.setMobile(phone);
-        dto.setFullAddress(area + address);
-        dto.setAttachAddress(address);
-        dto.setCityCode(cityCode);
-        dto.setProvinceCode(provinceCode);
-        dto.setCountryCode(countryCode);
-        dto.setReceivingAddress(String.valueOf(isReceiAddress));
-        dto.setInvoiceAddress(String.valueOf(isInvoiceAddress));
+        dto.setReceiverName(men);//收货人姓名
+        dto.setMobile(phone);//手机号
+        dto.setFullAddress(area + address);//全部地址-所在地区+详细地址
+        dto.setAttachAddress(address);//详细地址
+        dto.setCityCode(cityCode);//市号
+        dto.setProvinceCode(provinceCode);//省号
+        dto.setCountryCode(countryCode);//县号
+        dto.setReceivingAddress(String.valueOf(isReceiAddress));//是否收获地址 1是 0否
+        dto.setInvoiceAddress(String.valueOf(isInvoiceAddress));//是否发票地址 1是 0否
         String json = new Gson().toJson(dto);
         if (null == addressId || TextUtils.isEmpty(addressId)) {
             model.addAddress(json, new HttpRxObserver<Boolean>() {
