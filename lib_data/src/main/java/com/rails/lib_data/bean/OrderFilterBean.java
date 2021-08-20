@@ -14,6 +14,8 @@ public class OrderFilterBean implements Serializable {
 
     private List<OrderStatusBean> statusBeans;
 
+    private String goodsType = "0";//0通用  1专用
+
 //    private String checkedCode;
 //
 //    public String getCheckedCode() {
@@ -39,6 +41,15 @@ public class OrderFilterBean implements Serializable {
 //    public void setHighPrice(String highPrice) {
 //        this.highPrice = highPrice;
 //    }
+
+
+    public String getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(String goodsType) {
+        this.goodsType = goodsType;
+    }
 
     public String getStartDate() {
         return startDate;

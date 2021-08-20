@@ -55,25 +55,137 @@
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_16" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/tv_price"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_below="@+id/recycler_status"-->
-        <!--            android:layout_marginStart="@dimen/dp_16"-->
-        <!--            android:layout_marginTop="@dimen/dp_15"-->
-        <!--            android:text="采购单金额"-->
-        <!--            android:textColor="@color/font_black"-->
-        <!--            android:textSize="@dimen/font_size_13" />-->
+        <TextView
+            android:id="@+id/tv_goods_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_status"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="商品大类"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_14"
+            android:textStyle="bold" />
 
-        <!--        <View-->
-        <!--            android:id="@+id/view_lowPrice"-->
-        <!--            android:layout_width="@dimen/dp_90"-->
-        <!--            android:layout_height="@dimen/dp_30"-->
-        <!--            android:layout_below="@+id/tv_price"-->
-        <!--            android:layout_marginStart="@dimen/dp_16"-->
-        <!--            android:layout_marginTop="@dimen/dp_10"-->
-        <!--            android:background="@drawable/bg_corner_gray_20" />-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_goods_type"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/paddingL"
+            android:layout_marginEnd="@dimen/margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_common"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/paddingL"
+                android:background="@drawable/selector_corner_blue_white_20"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="@dimen/paddingL"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingEnd="@dimen/paddingL"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="通用物资"
+                android:textColor="@color/selector_white_gray_color"
+                android:textSize="@dimen/font_size_13" />
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/tv_common"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="@dimen/margin"-->
+            <!--                android:layout_marginEnd="@dimen/margin"-->
+            <!--                android:background="@drawable/selector_corner_blue_white_20"-->
+            <!--                android:gravity="center"-->
+            <!--                android:maxLines="1"-->
+            <!--                android:paddingLeft="@dimen/dp_10"-->
+            <!--                android:paddingTop="@dimen/dp_5"-->
+            <!--                android:paddingRight="@dimen/dp_10"-->
+            <!--                android:paddingBottom="@dimen/dp_5"-->
+            <!--                android:text="通用物资"-->
+            <!--                android:textColor="@color/selector_white_gray_color"-->
+            <!--                android:textSize="@dimen/font_size_13" />-->
+
+            <TextView
+                android:id="@+id/tv_special"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_corner_blue_white_20"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/margin"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="专用物资"
+                android:textColor="@color/selector_white_gray_color"
+                android:textSize="@dimen/font_size_13" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+<!--        <RadioGroup-->
+<!--            android:visibility="gone"-->
+<!--            android:id="@+id/radioGroup"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/dp_40"-->
+<!--            android:layout_below="@id/linear_type"-->
+<!--            android:layout_marginStart="@dimen/margin"-->
+<!--            android:layout_marginTop="@dimen/paddingL"-->
+<!--            android:layout_marginEnd="@dimen/margin"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/rb_all"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/selector_corner_blue_white_20_radio"-->
+<!--                android:button="@null"-->
+<!--                android:gravity="center"-->
+<!--                android:text="全部"-->
+<!--                android:textColor="@color/selector_text_white_gray_radio"-->
+<!--                android:textSize="@dimen/font_size_13" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/rb_common"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginStart="@dimen/margin"-->
+<!--                android:layout_marginEnd="@dimen/margin"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/selector_corner_blue_white_20_radio"-->
+<!--                android:button="@null"-->
+<!--                android:gravity="center"-->
+<!--                android:text="通用物资"-->
+<!--                android:textColor="@color/selector_text_white_gray_radio" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/rb_special"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/selector_corner_blue_white_20_radio"-->
+<!--                android:button="@null"-->
+<!--                android:gravity="center"-->
+<!--                android:text="专用物资"-->
+<!--                android:textColor="@color/selector_text_white_gray_radio" />-->
+<!--        </RadioGroup>-->
+
+        <!--                <View
+                            android:id="@+id/view_lowPrice"
+                            android:layout_width="@dimen/dp_90"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_below="@+id/tv_price"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:background="@drawable/bg_corner_gray_20" />-->
 
         <!--        <EditText-->
         <!--            android:id="@+id/et_lowPrice"-->
@@ -130,7 +242,7 @@
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/recycler_status"
+            android:layout_below="@+id/linear_type"
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_10"
             android:text="下单时间"
@@ -154,12 +266,12 @@
             android:paddingEnd="@dimen/paddingL"
             app:drawableEndCompat="@mipmap/ic_calendar" />
 
-        <View android:layout_width="1dp"
+        <View
+            android:id="@+id/view_indicator"
+            android:layout_width="1dp"
             android:layout_height="1dp"
             android:layout_below="@id/tv_date_range"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/view_indicator"
-            />
+            android:layout_centerHorizontal="true" />
 
         <View
             android:id="@+id/view_reset"
@@ -167,9 +279,9 @@
             android:layout_height="@dimen/dp_40"
             android:layout_below="@+id/tv_date_range"
             android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_toStartOf="@id/view_indicator"
-            android:layout_marginEnd="@dimen/dp_20"
             android:background="@drawable/bg_conner_blank_gray_20" />
 
         <TextView
@@ -190,10 +302,10 @@
             android:layout_width="@dimen/dp_110"
             android:layout_height="@dimen/dp_40"
             android:layout_below="@+id/tv_date_range"
-            android:layout_toEndOf="@id/view_indicator"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_20"
+            android:layout_toEndOf="@id/view_indicator"
             android:background="@drawable/bg_corner_blue_20" />
 
         <TextView

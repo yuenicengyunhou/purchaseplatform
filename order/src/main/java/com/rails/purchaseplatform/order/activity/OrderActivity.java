@@ -244,7 +244,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
      * 显示筛选PopupWindow
      */
     private void showFilterPopup() {
-        String[] text = {"采购单状态", "采购单金额", "下单时间"};
+        String[] text = {"采购单状态", "采购单金额","商品大类", "下单时间"};
         OrderFilterPop mFilterPopup = new OrderFilterPop(text, mFilterCache.get(mCurrentFragmentPosition));
         mFilterPopup.setCompleteListener(this::callFragmentToSearch);
         mFilterPopup.setType(BasePop.MATCH_WRAP);
@@ -260,7 +260,7 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
         View itemView = (View) binding.tvSelectType.getParent();
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.popup_search_type, null);
-        int width = 0;
+        int width;
         if (isPad(this)) {
             width = ScreenSizeUtil.dp2px(this, 200);
         } else {

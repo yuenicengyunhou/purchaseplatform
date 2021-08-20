@@ -61,32 +61,23 @@ public class OrderModel {
 //    }
 
     private void mergeMap(OrderFilterBean filterBean, HashMap<String, Object> map) {
-        if (null == filterBean) return;
-//        String lowPrice = filterBean.getLowPrice();
-//        String highPrice = filterBean.getHighPrice();
+        if (null == filterBean) {
+            map.put("materialType", "0");//默认通用物资
+            return;
+        }
         String startDate = filterBean.getStartDate();
         String endDate = filterBean.getEndDate();
+        String goodsType = filterBean.getGoodsType();
         List<OrderStatusBean> statusBeans = filterBean.getStatusBeans();
-//        StringBuilder builder = new StringBuilder();
-//        for (int i = 0; i < statusBeans.size(); i++) {
-//            OrderStatusBean statusBean = statusBeans.get(i);
-//            if (statusBean.isChecked()) {
-//                String statusCode = statusBean.getStatusCode();
-//                builder.append(statusCode).append(",");
-//            }
-//        }
         if (null != startDate && !TextUtils.isEmpty(startDate)) {
             map.put("orderTimeBegin", startDate);
         }
         if (null != endDate && !TextUtils.isEmpty(endDate)) {
             map.put("orderTimeEnd", endDate);
         }
-//        if (null != lowPrice && !TextUtils.isEmpty(lowPrice)) {
-//            map.put("paymentPriceBegin", lowPrice);
-//        }
-//        if (null != highPrice && !TextUtils.isEmpty(highPrice)) {
-//            map.put("paymentPriceEnd", highPrice);
-//        }
+        if (null != goodsType) {
+            map.put("materialType", goodsType);
+        }
         if (null != statusBeans) {
             String code = "";
             for (int i = 0; i < statusBeans.size(); i++) {

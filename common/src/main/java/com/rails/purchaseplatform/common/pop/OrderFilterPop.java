@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.google.gson.reflect.TypeToken;
@@ -28,11 +30,12 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     private CompleteListener<OrderFilterBean> completeListener;
     private OrderFilterBean filterBean;
     private FilterCheckAdapter mAdapter2;
-//    private DatePickListener datePickListener;
+    //    private DatePickListener datePickListener;
     private PopDismissListener popDismissListener;
     private String startDate = "";//起始时间，formatt之后的
     private String endDate = "";//截止时间，formatt之后的
     private String dateRangeStr = "";//起止日期显示字段
+    private String mGoodsType = "0";//0全部  1通用 2专用
 
 
     public void setPopDismissListener(PopDismissListener popDismissListener) {
@@ -72,6 +75,9 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         binding.recyclerStatus.addItemDecoration(new SpaceItemDecoration(20));
         mAdapter2 = new FilterCheckAdapter(getActivity());
         binding.recyclerStatus.setAdapter(mAdapter2);
+//        RadioButton rbAll = (RadioButton) binding.radioGroup.getChildAt(0);
+        binding.tvCommon.setSelected(true);
+//        rbAll.setChecked(true);
         List<OrderStatusBean> statusBeans = filterBean.getStatusBeans();
         if (null == statusBeans) {
             Type type = new TypeToken<ArrayList<OrderStatusBean>>() {
@@ -83,6 +89,8 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         } else {
             loadData();
         }
+        binding.tvCommon.setOnClickListener(v -> setTextSelectedState(binding.tvCommon));
+        binding.tvSpecial.setOnClickListener(v -> setTextSelectedState(binding.tvSpecial));
 
 
         binding.tvReset.setOnClickListener(v -> {
@@ -109,9 +117,6 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 
 
         binding.tvDateRange.setOnClickListener(v -> {
-//            if (null != datePickListener) {
-//                datePickListener.onDatePick();
-//            }
             Calendar now = Calendar.getInstance();
             DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd) -> {
                         startDate = formattTime(year, monthOfYear, dayOfMonth, true);
@@ -133,19 +138,32 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
 
     }
 
+    /**
+     * 物资大类选中
+     */
+    private void setTextSelectedState(TextView selectedText) {
+        if (selectedText == binding.tvCommon) {
+            mGoodsType = "0";
+        } else {
+            mGoodsType = "1";
+        }
+        for (int i = 0; i < binding.linearType.getChildCount(); i++) {
+            TextView child = (TextView) binding.linearType.getChildAt(i);
+            child.setSelected(child.getId() == selectedText.getId());
+        }
+
+    }
+
 
     /**
      * 记录用户筛选条件
      */
     private void saveFilterBean() {
         List<OrderStatusBean> orderStatusBeans = mAdapter2.getmData();
-//        String low = binding.etLowPrice.getText().toString().trim();
-//        String high = binding.etHighPrice.getText().toString().trim();
-//        filterBean.setLowPrice(low);
-//        filterBean.setHighPrice(high);
         filterBean.setStartDate(startDate);
         filterBean.setEndDate(endDate);
         filterBean.setStatusBeans(orderStatusBeans);
+        filterBean.setGoodsType(mGoodsType);
 
     }
 
@@ -153,7 +171,8 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         if (texts.length > 0) {
             binding.tvStatus.setText(texts[0]);
 //            binding.tvPrice.setText(texts[1]);
-            binding.tvTime.setText(texts[2]);
+
+            binding.tvTime.setText(texts[3]);
         }
     }
 
