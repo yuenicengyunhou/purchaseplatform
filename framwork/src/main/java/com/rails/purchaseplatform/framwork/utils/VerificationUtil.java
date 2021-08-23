@@ -128,13 +128,11 @@ public class VerificationUtil {
      * @return
      */
     public static boolean isPaw(String password) {
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password) || password.length() < 8) {
             return false;
         } else {
             password = password.trim();
-            // 后台给的正则 好像不太对的样子
-            // "[^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\d!@#$%^&*,.]+$)[a-zA-Z\d!@#$%^&*,.]+$]"
-            String strPattern = "(?=.*?[A-Z])(?=.*[a-z]+)(?=.*[\\d]+)(?=.*[\\W]+)(?!.*\\s).{8,}";
+            String strPattern = "^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*,.]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*,.]+$)(?![\\d!@#$%^&*,.]+$)[a-zA-Z\\d!@#$%^&*,.]+$";
             Pattern p = Pattern.compile(strPattern);
             Matcher m = p.matcher(password);
             return m.matches();

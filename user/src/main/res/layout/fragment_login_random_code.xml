@@ -27,7 +27,6 @@
         android:imeOptions="actionNext"
         android:inputType="text"
         android:maxEms="18"
-        android:maxLength="11"
         android:maxLines="1"
         android:textColor="@color/font_black"
         android:textColorHint="@color/font_hint"
