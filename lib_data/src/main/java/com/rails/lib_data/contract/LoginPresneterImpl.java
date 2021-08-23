@@ -52,10 +52,10 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        if (!VerificationUtil.isPaw(paw)) {
-            ToastUtil.showCenter(mContext, "密码格式错误");
-            return;
-        }
+//        if (!VerificationUtil.isPaw(paw)) {
+//            ToastUtil.showCenter(mContext, "密码格式错误");
+//            return;
+//        }
 
         if (TextUtils.isEmpty(code)) {
             ToastUtil.showCenter(mContext, "验证码不能为空");
