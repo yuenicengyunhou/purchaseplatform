@@ -42,30 +42,30 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-//        if (!VerificationUtil.isMobile(phone)) {
-//            ToastUtil.showCenter(mContext, "手机号码格式错误");
-//            return;
-//        }
+        if (!VerificationUtil.isMobile(phone)) {
+            ToastUtil.showCenter(mContext, "手机号码格式错误");
+            return;
+        }
 
         if (TextUtils.isEmpty(paw)) {
             ToastUtil.showCenter(mContext, "密码不能为空");
             return;
         }
 
-//        if (!VerificationUtil.isPaw(paw)) {
-//            ToastUtil.showCenter(mContext, "密码格式错误");
-//            return;
-//        }
+        if (!VerificationUtil.isPaw(paw)) {
+            ToastUtil.showCenter(mContext, "密码格式错误");
+            return;
+        }
 
         if (TextUtils.isEmpty(code)) {
             ToastUtil.showCenter(mContext, "验证码不能为空");
             return;
         }
 
-//        if (!VerificationUtil.isIdentify(code)) {
-//            ToastUtil.showCenter(mContext, "验证码格式错误");
-//            return;
-//        }
+        if (!VerificationUtil.isIdentify(code)) {
+            ToastUtil.showCenter(mContext, "验证码格式错误");
+            return;
+        }
 
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -187,20 +187,20 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-//        if (!VerificationUtil.isUserName_login(account)) {
-//            ToastUtil.showCenter(mContext, "用户名格式错误");
-//            return;
-//        }
+        if (!VerificationUtil.isUserName_login(account)) {
+            ToastUtil.showCenter(mContext, "用户名格式错误");
+            return;
+        }
 
         if (TextUtils.isEmpty(password)) {
             ToastUtil.showCenter(mContext, "密码不能为空");
             return;
         }
 
-//        if (!VerificationUtil.isPaw(password)) {
-//            ToastUtil.showCenter(mContext, "密码格式错误");
-//            return;
-//        }
+        if (!VerificationUtil.isPaw(password)) {
+            ToastUtil.showCenter(mContext, "密码格式错误");
+            return;
+        }
 
         if (!VerificationUtil.isRandomCode(randomCode1, randomCode2, randomCode3)) {
             ToastUtil.showCenter(mContext, "随机码格式错误");
