@@ -4,7 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute, ItemSearchResultByShopBinding> {
 
     private Context mContext;
+    private String mMaterialType;
 
     final private String CREDIT_LEVEL_1 = "A";
     final private String CREDIT_LEVEL_2 = "B";
@@ -34,6 +37,12 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
     public SearchResultByShopAdapter(Context context) {
         super(context);
         mContext = context;
+    }
+
+    public SearchResultByShopAdapter(Context context, String materialType) {
+        super(context);
+        mContext = context;
+        mMaterialType = materialType;
     }
 
     @Override
@@ -106,7 +115,7 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
             ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
         });
 
-        SearchResultByShopProductsAdapter adapter = new SearchResultByShopProductsAdapter(mContext);
+        SearchResultByShopProductsAdapter adapter = new SearchResultByShopProductsAdapter(mContext, mMaterialType);
         binding.brvProductRecycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.brvProductRecycler.setAdapter(adapter);
         adapter.update((ArrayList<ItemAttribute>) shopAttribute.getItems(), true);

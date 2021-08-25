@@ -55,11 +55,12 @@ public class SearchModel {
      * @param orderType
      * @param httpRxObserver
      */
-    public void getShopListWithKeywordOnly(String isBought, int pageNum, int pageSize, String keyword, String orderColumn, String orderType, String shopType, String saleArea, HttpRxObserver httpRxObserver) {
+    public void getShopListWithKeywordOnly(String materialType, String isBought, int pageNum, int pageSize, String keyword, String orderColumn, String orderType, String shopType, String saleArea, HttpRxObserver httpRxObserver) {
         boolean isBuy = false;
         if (isBought != null && isBought.equals("true")) isBuy = true;
 
         HashMap<String, Object> params = new HashMap<>();
+        params.put("materialType", materialType);
         params.put("isBuy", isBuy);
         params.put("pageNum", pageNum);
         params.put("pageSize", pageSize);
@@ -104,6 +105,7 @@ public class SearchModel {
     /**
      * 请求商品搜索结果 仅使用keyword
      *
+     * @param materialType         0-普通物资，1-专用物资。
      * @param keyword
      * @param orderColumn
      * @param orderType
@@ -117,14 +119,14 @@ public class SearchModel {
      * @param pageSize
      * @param httpRxObserver
      */
-    public void queryItemListByKeyword(String keyword,
+    public void queryItemListByKeyword(String materialType, String keyword,
                                        String orderColumn, String orderType,
                                        String brands, String brandsString,
                                        String categoryAttrValueIds, String expandAttrValueIds,
                                        String minPrice, String maxPrice,
                                        int pageNum, int pageSize, HttpRxObserver<JsonObject> httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("materialType", 0); // TODO: 2021/8/25 0：普通物资，1：专用物资。
+        params.put("materialType", materialType);
         params.put("businessType", 1);
         if (keyword != null && !keyword.equals(""))
             params.put("keyword", keyword);
@@ -172,7 +174,7 @@ public class SearchModel {
      * @param pageSize
      * @param httpRxObserver
      */
-    public void queryItemListByCid(String keyword, String cid,
+    public void queryItemListByCid(String materialType, String keyword, String cid,
                                    String orderColumn, String orderType,
                                    String brands, String brandsString,
                                    String categoryAttrValueIds, String expandAttrValueIds,
@@ -180,6 +182,7 @@ public class SearchModel {
                                    int pageNum, int pageSize, HttpRxObserver httpRxObserver) {
 
         HashMap<String, Object> params = new HashMap<>();
+        params.put("materialType", materialType);
         params.put("businessType", 1);
         if (keyword != null && !keyword.equals(""))
             params.put("keyword", keyword);

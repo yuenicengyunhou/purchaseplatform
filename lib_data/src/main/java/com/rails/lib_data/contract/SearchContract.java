@@ -68,7 +68,7 @@ public interface SearchContract {
          * @param pageSize
          * @param isDialog
          */
-        void queryItemListByCid(String keyword, String cid,
+        void queryItemListByCid(String materialType, String keyword, String cid,
                                 String orderColumn, String orderType,
                                 String brands, String brandsString,
                                 String categoryAttrValueIds, String expandAttrValueIds,
@@ -79,6 +79,7 @@ public interface SearchContract {
         /**
          * 使用keyword搜索
          *
+         * @param materialType         0-普通物资，1-专用物资。
          * @param keyword
          * @param orderColumn
          * @param orderType
@@ -92,7 +93,7 @@ public interface SearchContract {
          * @param pageSize
          * @param isDialog
          */
-        void queryItemListByKeyword(String keyword,
+        void queryItemListByKeyword(String materialType, String keyword,
                                     String orderColumn, String orderType,
                                     String brands, String brandsString,
                                     String categoryAttrValueIds, String expandAttrValueIds,
@@ -139,7 +140,7 @@ public interface SearchContract {
          * @param pageNum
          * @param pageSize
          */
-        void getShopListWithKeywordOnly(String isBought, int pageNum, int pageSize, String keyword,
+        void getShopListWithKeywordOnly(String materialType, String isBought, int pageNum, int pageSize, String keyword,
                                         String orderColumn, String orderType,
                                         String shopType, String saleArea, boolean isDialog);
 

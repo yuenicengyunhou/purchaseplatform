@@ -15,10 +15,17 @@ import com.rails.purchaseplatform.market.databinding.ItemSearchResultByShopProdu
 public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemAttribute, ItemSearchResultByShopProductBinding> {
 
     private Context mContext;
+    private String mMaterialType;
 
     public SearchResultByShopProductsAdapter(Context context) {
         super(context);
         mContext = context;
+    }
+
+    public SearchResultByShopProductsAdapter(Context context, String materialType) {
+        super(context);
+        mContext = context;
+        mMaterialType = materialType;
     }
 
     @Override
@@ -41,6 +48,11 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemA
             binding.tvItemShop.setText(shopName);
         } else {
             binding.tvItemShop.setVisibility(View.INVISIBLE);
+        }
+
+        if (mMaterialType.equals("1")) {
+            binding.tvItemShop.setVisibility(View.GONE);
+            binding.llPrice.setVisibility(View.GONE);
         }
 
         binding.rcProduct.setOnClickListener(v -> {

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -13,6 +14,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -35,9 +39,6 @@ import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 搜索页面，点击首页搜索跳转到此页面
@@ -69,6 +70,8 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     private String mSearchKey;
     private int mSearchType = 0; // 0-商品, 1-店铺,
 
+    private String mMaterialType;
+
     @Override
     protected int getColor() {
         return android.R.color.white;
@@ -83,6 +86,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     protected boolean isBindEventBus() {
         return false;
     }
+
 
     @Override
     protected void initialize(Bundle bundle) {
@@ -185,7 +189,10 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     @Override
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
-        if (extras != null) mSearchKey = extras.getString("search_key");
+        if (extras != null) {
+            mSearchKey = extras.getString("search_key");
+            mMaterialType = extras.getString("materialType", "1"); // TODO: 2021/8/25 通用物资/专用物资
+        }
     }
 
     @Override
@@ -277,12 +284,12 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
             View view = LayoutInflater.from(SearchActivityX.this).inflate(R.layout.pop_search_type, null);
             int width;
             int height;
-            if (SystemUtil.isPad(this)){
+            if (SystemUtil.isPad(this)) {
                 width = ScreenSizeUtil.dp2px(SearchActivityX.this, 128);
                 height = ScreenSizeUtil.dp2px(SearchActivityX.this, 168);
-            }else{
+            } else {
                 width = ScreenSizeUtil.dp2px(SearchActivityX.this, 64);
-                height = ScreenSizeUtil.dp2px(SearchActivityX.this, 84); 
+                height = ScreenSizeUtil.dp2px(SearchActivityX.this, 84);
             }
 
             mPopupWindow = new PopupWindow(view, width, height, true);
@@ -372,6 +379,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         bundle.putInt("search_type", mSearchType);
         bundle.putString("search_key", text);
         bundle.putString("mode", "form_search");
+        bundle.putString("materialType", mMaterialType);
         ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation(this, 2047);
     }
 

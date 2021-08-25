@@ -146,7 +146,6 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void getSkuSaleStocks(SkuStockBean bean) {
                 mSkuStockBean = bean;
-//                Log.d(TAG, "谁动了我的接口？？？？？？？");
                 setAddCartButton();
             }
 

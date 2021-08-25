@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -42,6 +43,8 @@ import java.util.ArrayList;
 public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResultBinding>
         implements View.OnClickListener {
 
+    final private String TAG = SearchResultActivity.class.getSimpleName();
+
     private static int COUNTING = 1;
     private static LoadingDialog mLoadingDialog = null;
 
@@ -49,7 +52,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     private String mSearchKey = "";
     private String mCid = "";
     private String mMode = "";
-    private String mMaterialType = "";
+    private String mMaterialType = "0"; // 默认值0，表示通用物资。
 
     private boolean salesSortFlag = false; // false 降序排列
     private boolean priceSortFlag = true; // true  升序排列
@@ -246,7 +249,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchType = extras.getInt("search_type");
         mSearchKey = extras.getString("search_key");
         mCid = extras.getString("cid");
-        mMaterialType = extras.getString("materialType", "0"); // TODO: 2021/8/25 没取到值就给0
+        mMaterialType = extras.getString("materialType", "1"); // TODO: 2021/8/25 没取到值就给0
         mMode = extras.getString("mode", "");
     }
 
@@ -291,7 +294,9 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
             setResult(resultCode);
             finish();
         } else {
-            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation(this);
+            Bundle bundle = new Bundle();
+            bundle.putString("materialType", mMaterialType);
+            ARouter.getInstance().build(ConRoute.COMMON.SEARCH).with(bundle).navigation(this);
         }
     }
 
