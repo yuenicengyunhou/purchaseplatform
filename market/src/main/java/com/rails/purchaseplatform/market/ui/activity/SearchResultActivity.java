@@ -49,6 +49,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     private String mSearchKey = "";
     private String mCid = "";
     private String mMode = "";
+    private String mMaterialType = "";
 
     private boolean salesSortFlag = false; // false 降序排列
     private boolean priceSortFlag = true; // true  升序排列
@@ -78,6 +79,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putString("search_key", mSearchKey);
         fragmentBundle.putString("cid", mCid);
+        fragmentBundle.putString("materialType", mMaterialType);
         fragment1 = new SearchResultByProductFragment();
         fragment1.setArguments(fragmentBundle);
         fragment2 = new SearchResultByShopFragment();
@@ -244,6 +246,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchType = extras.getInt("search_type");
         mSearchKey = extras.getString("search_key");
         mCid = extras.getString("cid");
+        mMaterialType = extras.getString("materialType", "0"); // TODO: 2021/8/25 没取到值就给0
         mMode = extras.getString("mode", "");
     }
 

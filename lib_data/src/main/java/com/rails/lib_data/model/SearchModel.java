@@ -124,6 +124,7 @@ public class SearchModel {
                                        String minPrice, String maxPrice,
                                        int pageNum, int pageSize, HttpRxObserver<JsonObject> httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
+        params.put("materialType", 0); // TODO: 2021/8/25 0：普通物资，1：专用物资。
         params.put("businessType", 1);
         if (keyword != null && !keyword.equals(""))
             params.put("keyword", keyword);
