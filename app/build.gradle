@@ -25,11 +25,9 @@ android {
         applicationId "com.rails.purchaseplatform"
         minSdkVersion 21
         targetSdkVersion 30
-        // 线上版本 - 3 - 1.0.2
-        // 0728打包版本 -4- 1.0.3
-        // 0816打包版本 -5- 1.0.4
-        versionCode 7
-        versionName "1.0.6"
+        // 08月24日生产环境：版本号为7，版本名称为1.0.6。
+        versionCode 40
+        versionName "1.0.40"
         flavorDimensions "versionCode"
         multiDexEnabled true
 
