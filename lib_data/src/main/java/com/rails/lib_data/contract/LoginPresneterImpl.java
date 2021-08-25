@@ -197,10 +197,10 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        if (!VerificationUtil.isPaw(password)) {
-            ToastUtil.showCenter(mContext, "密码格式错误");
-            return;
-        }
+//        if (!VerificationUtil.isPaw(password)) {
+//            ToastUtil.showCenter(mContext, "密码格式错误");
+//            return;
+//        }
 
         if (!VerificationUtil.isRandomCode(randomCode1, randomCode2, randomCode3)) {
             ToastUtil.showCenter(mContext, "随机码格式错误");
