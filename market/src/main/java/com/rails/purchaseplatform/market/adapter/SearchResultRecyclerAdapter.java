@@ -44,6 +44,7 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<ItemAttribu
         binding.llItems.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("itemId", String.valueOf(itemAttribute.getItemId()));
+            bundle.putString("materialType", mMaterialType);
             ARouter.getInstance()
                     .build(ConRoute.MARKET.PRODUCT_DETAIL)
                     .with(bundle).navigation();

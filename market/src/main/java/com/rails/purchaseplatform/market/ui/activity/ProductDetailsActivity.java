@@ -111,6 +111,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mItemId;
     private String mSkuId;
     private String mPlatformId = "20";
+    private String mMaterialType;
 
     private AddCartPop<SpecificationPopBean> mPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
@@ -132,6 +133,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         super.getExtraEvent(extras);
         mItemId = extras.getString("itemId", "");
         mSkuId = extras.getString("skuId", "");
+        mMaterialType = extras.getString("materialType", "0");
     }
 
 

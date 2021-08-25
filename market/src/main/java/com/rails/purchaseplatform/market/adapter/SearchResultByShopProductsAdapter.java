@@ -58,6 +58,7 @@ public class SearchResultByShopProductsAdapter extends BaseRecyclerAdapter<ItemA
         binding.rcProduct.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("itemId", String.valueOf(itemAttribute.getItemId()));
+            bundle.putString("materialType", mMaterialType);
 //            bundle.putInt("skuId", itemAttribute.getSkuId());
 //            bundle.putInt("cid", itemAttribute.getCid());
 //            bundle.putLong("shopId", itemAttribute.getItemId());

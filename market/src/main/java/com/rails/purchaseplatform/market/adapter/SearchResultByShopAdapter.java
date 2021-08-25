@@ -112,6 +112,7 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
         binding.llShop.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("shopInfoId", String.valueOf(shopAttribute.getShopId()));
+            bundle.putString("materialType", mMaterialType);
             ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
         });
 
