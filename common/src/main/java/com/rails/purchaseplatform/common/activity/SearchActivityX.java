@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -86,7 +85,6 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
     protected boolean isBindEventBus() {
         return false;
     }
-
 
     @Override
     protected void initialize(Bundle bundle) {

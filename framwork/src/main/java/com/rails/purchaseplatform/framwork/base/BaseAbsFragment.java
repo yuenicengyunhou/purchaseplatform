@@ -8,10 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.viewbinding.ViewBinding;
-
 import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
 
@@ -21,6 +17,10 @@ import org.greenrobot.eventbus.Subscribe;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
 
 /**
  * Fragment  基类
