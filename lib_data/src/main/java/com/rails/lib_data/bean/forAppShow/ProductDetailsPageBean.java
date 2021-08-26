@@ -207,6 +207,11 @@ public class ProductDetailsPageBean {
      */
     private ArrayList<ProductServiceBean> companyList;
 
+    /**
+     * 专用物资标识：0-普通物资，1-专用物资。
+     */
+    private String materialType;
+
 
     // ===========================================================================================
 
@@ -489,5 +494,13 @@ public class ProductDetailsPageBean {
 
     public void setCompanyList(ArrayList<ProductServiceBean> companyList) {
         this.companyList = companyList;
+    }
+
+    public String getMaterialType() {
+        return materialType;
+    }
+
+    public void setMaterialType(String materialType) {
+        this.materialType = materialType;
     }
 }

@@ -37,10 +37,19 @@ public class ItemPublishVo {
     private int itemSaleCount;
     private JSONObject skuSpecMap;
     private String logoUrl;
+    private String materialType;
 
 
     // ===========================================================================================
 
+
+    public String getMaterialType() {
+        return materialType;
+    }
+
+    public void setMaterialType(String materialType) {
+        this.materialType = materialType;
+    }
 
     public String getLogoUrl() {
         return logoUrl;
