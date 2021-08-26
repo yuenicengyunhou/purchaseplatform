@@ -114,6 +114,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mItemId;
     private String mSkuId;
     private String mPlatformId = "20";
+    private String mMaterialType;
 
     private AddCartPop<SpecificationPopBean> mPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
@@ -136,6 +137,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         super.getExtraEvent(extras);
         mItemId = extras.getString("itemId", "");
         mSkuId = extras.getString("skuId", "");
+        mMaterialType = extras.getString("materialType", "0");
     }
 
 
@@ -148,7 +150,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 请求商品信息
         mProductDetailsPresenterImpl2 = new ProductDetailsPresenterImpl2(this, this);
-        mProductDetailsPresenterImpl2.getAllProductInfo("20", mItemId, mSkuId, "1", true);
+        mProductDetailsPresenterImpl2.getAllProductInfo(mMaterialType, "20", mItemId, mSkuId, "1", true);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mPresenter = new CartToolPresenterImpl(this, this);
@@ -427,6 +429,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         }
         Bundle bundle = new Bundle();
         bundle.putString("shopInfoId", mPageBean.getShopId());
+        bundle.putString("materialType", mMaterialType);
         ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
     }
 
@@ -842,6 +845,13 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 设置购物车内商品数量
         binding.tvCartCount.setText(mPageBean.getCartCount());
+
+        // 专用物资 隐藏价格 显示物资编码
+        if (mMaterialType.equals("1")) {
+            binding.llFlag.setVisibility(View.GONE);
+            binding.llItemCode.setVisibility(View.VISIBLE);
+            binding.tvItemCode.setText("物资编码是XXXX");
+        }
 
         // 流量统计
         statisticPresenter = new StatisticPresenterImpl(this, this);

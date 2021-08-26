@@ -33,7 +33,8 @@ public class ProductDetailsPresenterImpl2
 
 
     @Override
-    public void getAllProductInfo(String platformId,
+    public void getAllProductInfo(String materialType,
+                                  String platformId,
                                   String itemId,
                                   String paramSkuId,
                                   String addressType,
@@ -89,7 +90,7 @@ public class ProductDetailsPresenterImpl2
 
                 // 下一步请求
                 String finalSkuId = skuId;
-                mModel.getProductDetailsStep2(platformId, shopId, cid, skuId, provinceId, cityId, countryId, address, skuNum, new HttpRxObserver<ProductDetailsStep2Bean>() {
+                mModel.getProductDetailsStep2(materialType, platformId, shopId, cid, skuId, provinceId, cityId, countryId, address, skuNum, new HttpRxObserver<ProductDetailsStep2Bean>() {
                     @Override
                     protected void onError(ErrorBean e) {
                         baseView.onError(e);

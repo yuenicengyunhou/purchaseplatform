@@ -216,11 +216,13 @@ public class ProductDetailsModel2 {
      * @param pageNum
      */
     public Observable<HttpResult<HotSaleBean>> getHotSale(
+            String materialType,
             String platformId,
             String cid,
             int pageNum) {
 
         HashMap<String, Object> params = new HashMap<>();
+        params.put("materialType", materialType);
         params.put("platformId", platformId);
 //        params.put("keyword", "11");
         params.put("businessType", 1);
@@ -275,6 +277,7 @@ public class ProductDetailsModel2 {
     /**
      * 请求商品信息
      *
+     * @param materialType
      * @param platformId
      * @param shopId
      * @param cid
@@ -286,7 +289,8 @@ public class ProductDetailsModel2 {
      * @param skuNum
      * @param httpRxObserver
      */
-    public void getProductDetailsStep2(String platformId,
+    public void getProductDetailsStep2(String materialType,
+                                       String platformId,
                                        String shopId,
                                        String cid,
                                        String skuId,
@@ -306,7 +310,7 @@ public class ProductDetailsModel2 {
         Observable userCollect
                 = getUserCollect(skuId);
         Observable hotSale
-                = getHotSale(platformId, cid, 1);
+                = getHotSale(materialType, platformId, cid, 1);
         Observable skuStock
                 = querySkuSaleStocks(shopId, provinceId, cityId, countryId, address, skuNum, skuId);
 
