@@ -189,7 +189,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         super.getExtraEvent(extras);
         if (extras != null) {
             mSearchKey = extras.getString("search_key");
-                mMaterialType = extras.getString("materialType", "0"); // TODO: 2021/8/25 通用物资/专用物资
+            mMaterialType = extras.getString("materialType", "0"); // TODO: 2021/8/25 通用物资/专用物资
         }
     }
 
@@ -407,6 +407,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         updateList(text);
         putSearchKeyInSharedPreference();
         mSearchKey = text;
+        bundle.putString("materialType", mMaterialType);
         ARouter.getInstance().build(ConRoute.MARKET.SEARCH_RESULT).with(bundle).navigation(this, 2047);
     }
 
