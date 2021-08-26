@@ -43,7 +43,8 @@ public interface ProductDetailsContract2 {
          * @param addressType
          * @param isDialog
          */
-        void getAllProductInfo(String platformId,
+        void getAllProductInfo(String materialType,
+                               String platformId,
                                String itemId,
                                String skuId,
                                String addressType,
