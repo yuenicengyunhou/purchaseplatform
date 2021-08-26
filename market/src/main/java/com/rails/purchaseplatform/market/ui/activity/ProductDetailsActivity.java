@@ -841,6 +841,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置购物车内商品数量
         binding.tvCartCount.setText(mPageBean.getCartCount());
 
+        // 专用物资 隐藏价格 显示物资编码
+        if (mMaterialType.equals("1")) {
+            binding.llFlag.setVisibility(View.GONE);
+            binding.llItemCode.setVisibility(View.VISIBLE);
+            binding.tvItemCode.setText("物资编码是XXXX");
+        }
 
     }
 
