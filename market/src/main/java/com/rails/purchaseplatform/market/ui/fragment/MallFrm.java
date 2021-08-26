@@ -94,7 +94,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
                     try {
                         //materialType  0:通用  1：专用
                         bundle.putString("mode", "form_main");
-                        bundle.putInt("materialType",1);
+                        bundle.putString("materialType", "1");
                         goLogin(null, ConRoute.MARKET.SEARCH_RESULT, bundle);
                     } catch (Exception e) {
 

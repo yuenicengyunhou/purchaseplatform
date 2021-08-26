@@ -189,7 +189,7 @@ public class SearchActivityX extends BaseErrorActivity<ActivitySearchXBinding>
         super.getExtraEvent(extras);
         if (extras != null) {
             mSearchKey = extras.getString("search_key");
-            mMaterialType = extras.getString("materialType", "1"); // TODO: 2021/8/25 通用物资/专用物资
+                mMaterialType = extras.getString("materialType", "0"); // TODO: 2021/8/25 通用物资/专用物资
         }
     }
 

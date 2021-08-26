@@ -248,7 +248,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         mSearchType = extras.getInt("search_type");
         mSearchKey = extras.getString("search_key");
         mCid = extras.getString("cid");
-        mMaterialType = extras.getString("materialType", "1"); // TODO: 2021/8/25 没取到值就给0
+        mMaterialType = extras.getString("materialType", "0"); // TODO: 2021/8/25 没取到值就给0
         mMode = extras.getString("mode", "");
     }
 

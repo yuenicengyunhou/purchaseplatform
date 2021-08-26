@@ -34,7 +34,7 @@ public interface SearchService {
     Observable<HttpResult<SearchDataByShopBean>> getShopListWithKeywordOnly(@QueryMap HashMap<String, Object> params);
 
     /**
-     * 获取店铺列表
+     * 获取商品列表，使用cid
      *
      * @param params
      * @return
