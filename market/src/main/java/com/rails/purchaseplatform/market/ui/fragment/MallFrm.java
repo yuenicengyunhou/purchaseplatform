@@ -93,8 +93,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
                 } else if (linkUrl.contains("specialMaterials")) {
                     try {
                         //materialType  0:通用  1：专用
-                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
-                        bundle.putString("cid", cid);
                         bundle.putString("mode", "form_main");
                         bundle.putInt("materialType",1);
                         goLogin(null, ConRoute.MARKET.SEARCH_RESULT, bundle);
