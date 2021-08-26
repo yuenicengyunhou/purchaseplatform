@@ -73,5 +73,10 @@
     <string name="market_rank_num">近7日累计下单&#160;%s&#160;次</string>
     <string name="searchProducts">搜索店铺内商品</string>
     <string name="searchInShop">搜本店</string>
+    <string name="text_shop">店铺</string>
+    <string name="text_collect">收藏</string>
+    <string name="text_cart">购物车</string>
+    <string name="text_zero">0</string>
+    <string name="text_add_to_cart">加入购物车</string>
 
 </resources>
