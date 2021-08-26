@@ -68,8 +68,13 @@ public class CategoryPresenterImpl extends BasePresenter<CategoryContract.Catego
             protected void onSuccess(ArrayList<CategoryRootBean> beans) {
                 if (isCallBack()) {
                     baseView.dismissDialog();
-                    baseView.getCategorys(beans);
-                    FileCacheUtil.getInstance(mContext).writeObject(beans, fileName);
+                    ArrayList<CategoryRootBean> rootBeans = new ArrayList<>();
+                    for (CategoryRootBean bean : beans) {
+                        if (bean.getMaterialType() == 0)
+                            rootBeans.add(bean);
+                    }
+                    baseView.getCategorys(rootBeans);
+                    FileCacheUtil.getInstance(mContext).writeObject(rootBeans, fileName);
                 }
             }
         });
