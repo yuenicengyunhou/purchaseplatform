@@ -50,7 +50,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding>
-        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean> , StatisticContract.StatisticView {
+        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>, StatisticContract.StatisticView {
 
 
     private ProductRecAdapter recAdapter;
@@ -86,6 +86,17 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
                         String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
                         bundle.putString("cid", cid);
                         bundle.putString("mode", "form_main");
+                        goLogin(null, ConRoute.MARKET.SEARCH_RESULT, bundle);
+                    } catch (Exception e) {
+
+                    }
+                } else if (linkUrl.contains("specialMaterials")) {
+                    try {
+                        //materialType  0:通用  1：专用
+                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
+                        bundle.putString("cid", cid);
+                        bundle.putString("mode", "form_main");
+                        bundle.putInt("materialType",1);
                         goLogin(null, ConRoute.MARKET.SEARCH_RESULT, bundle);
                     } catch (Exception e) {
 
