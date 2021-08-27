@@ -116,7 +116,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mPlatformId = "20";
     private String mMaterialType;
 
-    private AddCartPop<SpecificationPopBean> mPop;
+    private AddCartPop mPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
     private ProductDetailsParamsPop mParamsPop;
     private QuickJumpPop mQuickJumpPop;
@@ -468,10 +468,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             itemSkuInfoList = (ArrayList<ItemSkuInfo>) productDetailsBean.getItemSkuInfoList();
         }
         if (mPop == null) {
-            mPop = new AddCartPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getCurrentItemSkuInfo(), mPageBean.getSkuStockBean(),
-                    mPageBean.getSellPrice(), mPageBean.getDelivery(),
-                    mPageBean.getShopId(), mPageBean.getProvinceCode(), mPageBean.getCityCode(), mPageBean.getCountryCode(),
-                    "", "1");
+            mPop = new AddCartPop(mPageBean, itemSkuInfoList);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
