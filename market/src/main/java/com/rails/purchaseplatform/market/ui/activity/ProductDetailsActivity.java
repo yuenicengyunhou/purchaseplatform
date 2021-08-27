@@ -200,7 +200,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 //        binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
 
-        recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
+        recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this, mMaterialType);
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
 

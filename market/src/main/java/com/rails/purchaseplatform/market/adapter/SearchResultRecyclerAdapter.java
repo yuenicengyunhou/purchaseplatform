@@ -36,8 +36,7 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<ItemAttribu
     @Override
     protected void onBindItem(ItemSearchResultBinding binding, ItemAttribute itemAttribute, int position) {
         binding.setItemAttribute(itemAttribute);
-        if (mMaterialType.equals("1")) { // 值为1就是专用物资，隐藏店铺名称和价格。
-            binding.tvShop.setVisibility(View.GONE);
+        if (mMaterialType.equals("1")) { // 值为1就是专用物资，隐藏价格。
             binding.llPrice.setVisibility(View.GONE);
         }
         binding.tvPrice.setText(String.format("%.2f", itemAttribute.getSellPrice()));
