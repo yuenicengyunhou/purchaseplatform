@@ -850,7 +850,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (mPageBean.getMaterialType().equals("1")) {
             binding.llFlag.setVisibility(View.GONE);
             binding.llItemCode.setVisibility(View.VISIBLE);
-            binding.tvItemCode.setText("物资编码是XXXX");
+            binding.tvItemCode.setText(mPageBean.getCurrentItemSkuInfo().getMaterialCode());
         }
 
         // 流量统计
