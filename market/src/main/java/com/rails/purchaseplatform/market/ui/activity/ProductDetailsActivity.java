@@ -114,7 +114,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mItemId;
     private String mSkuId;
     private String mPlatformId = "20";
-    private String mMaterialType;
 
     private AddCartPop mPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
@@ -137,7 +136,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         super.getExtraEvent(extras);
         mItemId = extras.getString("itemId", "");
         mSkuId = extras.getString("skuId", "");
-        mMaterialType = extras.getString("materialType", "0");
     }
 
 
@@ -150,7 +148,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 请求商品信息
         mProductDetailsPresenterImpl2 = new ProductDetailsPresenterImpl2(this, this);
-        mProductDetailsPresenterImpl2.getAllProductInfo(mMaterialType, "20", mItemId, mSkuId, "1", true);
+        mProductDetailsPresenterImpl2.getAllProductInfo("20", mItemId, mSkuId, "1", true);
 
         mGetProductDetailsPresenter = new ProductDetailsPresenterImpl(this, this);
         mPresenter = new CartToolPresenterImpl(this, this);
@@ -200,7 +198,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 //        binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();
 
-        recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this, mMaterialType);
+        recommendItemsRecyclerAdapter = new RecommendItemsRecyclerAdapter(this);
         binding.recyclerRecommendItems.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recyclerRecommendItems.setAdapter(recommendItemsRecyclerAdapter);
 
@@ -429,7 +427,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         }
         Bundle bundle = new Bundle();
         bundle.putString("shopInfoId", mPageBean.getShopId());
-        bundle.putString("materialType", mMaterialType);
+        bundle.putString("materialType", mPageBean.getMaterialType());
         ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
     }
 
@@ -820,6 +818,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.ivCreditLevel.setBackground(mPageBean.getShopSecurityIcon());
 
         // 更新店铺推荐商品
+        recommendItemsRecyclerAdapter.setMaterialType(mPageBean.getMaterialType());
         recommendItemsRecyclerAdapter.update(mPageBean.getRecommendItemList(), false);
 
         // 展示商品介绍图片

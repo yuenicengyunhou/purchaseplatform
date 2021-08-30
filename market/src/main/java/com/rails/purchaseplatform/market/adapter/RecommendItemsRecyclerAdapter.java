@@ -14,8 +14,7 @@ import com.rails.purchaseplatform.market.databinding.ItemRecommendItemsBinding;
 public class RecommendItemsRecyclerAdapter extends BaseRecyclerAdapter<RecommendItemsBean, ItemRecommendItemsBinding> {
 
     private Context mContext;
-    private String mMaterialType;
-
+    private String mMaterialType = "0";
 
     public RecommendItemsRecyclerAdapter(Context context) {
         super(context);
@@ -50,4 +49,9 @@ public class RecommendItemsRecyclerAdapter extends BaseRecyclerAdapter<Recommend
                     .navigation();
         });
     }
+
+    public void setMaterialType(String materialType) {
+        mMaterialType = materialType;
+    }
+
 }

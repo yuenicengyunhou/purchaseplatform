@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPublishVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep1Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep2Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep3Bean;
@@ -33,8 +34,7 @@ public class ProductDetailsPresenterImpl2
 
 
     @Override
-    public void getAllProductInfo(String materialType,
-                                  String platformId,
+    public void getAllProductInfo(String platformId,
                                   String itemId,
                                   String paramSkuId,
                                   String addressType,
@@ -66,8 +66,9 @@ public class ProductDetailsPresenterImpl2
 
                 // 下一步请求需要的参数 地址给默认值
                 String platformId = "20";
-                String shopId = response1.getProductDetailsBean().getItemPublishVo().getShopId();
-                String cid = String.valueOf(response1.getProductDetailsBean().getItemPublishVo().getCid());
+                ItemPublishVo itemPublishVo = response1.getProductDetailsBean().getItemPublishVo();
+                String shopId = itemPublishVo.getShopId();
+                String cid = String.valueOf(itemPublishVo.getCid());
 //                String skuId = TextUtils.isEmpty(paramSkuId)
 //                        ? response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId()
 //                        : paramSkuId;
@@ -87,6 +88,7 @@ public class ProductDetailsPresenterImpl2
                 String countryId = dataUtils.getCountryCode(addressBeanList);
                 String address = dataUtils.getFullAddress(addressBeanList);
                 String skuNum = "1";
+                String materialType = itemPublishVo.getMaterialType();
 
                 // 下一步请求
                 String finalSkuId = skuId;

@@ -36,15 +36,13 @@ public interface ProductDetailsContract2 {
         /**
          * 获取商品信息
          *
-         * @param materialType
          * @param platformId
          * @param itemId
          * @param skuId
          * @param addressType
          * @param isDialog
          */
-        void getAllProductInfo(String materialType,
-                               String platformId,
+        void getAllProductInfo(String platformId,
                                String itemId,
                                String skuId,
                                String addressType,
