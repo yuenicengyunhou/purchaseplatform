@@ -19,7 +19,8 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
 
     private final ShopModel model;
     private String keywordCache = "";
-//    private String platformId = null;
+    //    private String platformId = null;
+    private int materialType;
 
     public ShopPresenterImp(Activity mContext, ShopContract.ShopView shopView) {
         super(mContext, shopView);
@@ -46,6 +47,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             protected void onSuccess(ShopInfoBean response) {
                 baseView.dismissDialog();
                 baseView.loadShopInfo(response);
+                materialType = response.getMaterialType();
             }
         });
     }
@@ -59,7 +61,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             baseView.showResDialog(R.string.loading);
         }
 
-        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, new HttpRxObserver<ShopRecommendBean>() {
+        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword,materialType, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (showLoading) {

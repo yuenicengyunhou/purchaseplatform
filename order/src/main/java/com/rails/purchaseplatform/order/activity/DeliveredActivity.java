@@ -114,7 +114,7 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
         presenter = new OrderPresenterImpl(this, this);
         presenter.getDelivered(orderNo);
 
-        binding.ibBack.setOnClickListener(v -> finish());
+        binding.ibBack.setOnClickListener(v -> beforeFinish());
         binding.ivMore.setOnClickListener(v -> showJumpPop());
     }
 
@@ -436,8 +436,8 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
         if (mDownloadState == DOWNLOADING) {
             ToastUtil.showCenter(this, "已切换到后台下载");
         }
-        Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
+//        Intent intent = new Intent();
+//        setResult(RESULT_OK, intent);
         finish();
     }
 

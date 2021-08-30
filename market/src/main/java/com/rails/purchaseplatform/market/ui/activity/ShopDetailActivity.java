@@ -275,6 +275,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     public void loadShopInfo(ShopInfoBean shop) {
         binding.setShopInfo(shop);
         if (null != shop) {
+//            int materialType = shop.getMaterialType();
             String mobile = shop.getMobile();
             binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
             binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
