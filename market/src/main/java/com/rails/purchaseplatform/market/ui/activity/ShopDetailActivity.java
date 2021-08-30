@@ -54,6 +54,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 //    private FilterShopPop mPop;
 
     private int userScrollY;//用户滑动距离
+//    private int materialType;
 
     /**
      * 排序：
@@ -150,7 +151,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 
         presenter = new ShopPresenterImp(this, this);
         queryShopInfo();//获取店铺信息
-        queryShopProductList();//获取店铺商品列表
+
 
     }
 
@@ -274,17 +275,15 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     @Override
     public void loadShopInfo(ShopInfoBean shop) {
         binding.setShopInfo(shop);
-        if (null != shop) {
-//            int materialType = shop.getMaterialType();
-            String mobile = shop.getMobile();
-            binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
-            binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
-            if (TextUtils.isEmpty(mobile)) {
-                binding.ivMakePhone.setVisibility(View.GONE);
-            } else {
-                binding.ivMakePhone.setVisibility(View.VISIBLE);
-            }
+        String mobile = shop.getMobile();
+        binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
+        binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
+        if (TextUtils.isEmpty(mobile)) {
+            binding.ivMakePhone.setVisibility(View.GONE);
+        } else {
+            binding.ivMakePhone.setVisibility(View.VISIBLE);
         }
+        queryShopProductList();//获取店铺商品列表
     }
 
     @Override

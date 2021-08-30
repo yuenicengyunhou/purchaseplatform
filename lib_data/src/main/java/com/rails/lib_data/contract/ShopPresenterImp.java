@@ -46,8 +46,12 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             @Override
             protected void onSuccess(ShopInfoBean response) {
                 baseView.dismissDialog();
-                baseView.loadShopInfo(response);
-                materialType = response.getMaterialType();
+                if (null != response) {
+//            materialType = shop.getMaterialType();
+                    materialType = response.getMaterialType();
+                    baseView.loadShopInfo(response);
+                }
+
             }
         });
     }
@@ -61,7 +65,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             baseView.showResDialog(R.string.loading);
         }
 
-        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword,materialType, new HttpRxObserver<ShopRecommendBean>() {
+        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, materialType, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (showLoading) {
