@@ -19,6 +19,7 @@ public class ItemPicture {
     private String skuId;
     private String annexType;
     private Bitmap bitmap;
+    private String watermarkUrl;
 
 
     public Bitmap getBitmap() {
@@ -132,4 +133,6 @@ public class ItemPicture {
     public void setAnnexType(String annexType) {
         this.annexType = annexType;
     }
+
+
 }
