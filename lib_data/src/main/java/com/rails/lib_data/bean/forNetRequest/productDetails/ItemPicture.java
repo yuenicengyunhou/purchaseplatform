@@ -134,5 +134,12 @@ public class ItemPicture {
         this.annexType = annexType;
     }
 
+    public String getWatermarkUrl() {
+        return watermarkUrl;
+    }
+
+    public void setWatermarkUrl(String watermarkUrl) {
+        this.watermarkUrl = watermarkUrl;
+    }
 
 }
