@@ -55,7 +55,7 @@ public class ShopModel {
      * 价格向下
      * orderColumn=sellPrice&orderType=desc
      */
-    public void getShopItemList( String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans,String keyword, HttpRxObserver httpRxObserver) {
+    public void getShopItemList( String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans,String keyword,int materialType, HttpRxObserver httpRxObserver) {
 //        String temp = platformId == null ? "20" : platformId;
         HashMap<String, Object> map = new HashMap<>();
 //        map.put("platformId", temp);
@@ -65,6 +65,7 @@ public class ShopModel {
         map.put("shopInfoId", shopInfoId);
         map.put("businessType", "1");
         map.put("keyword", keyword);
+        map.put("materialType", materialType);
         if (!TextUtils.isEmpty(orderColumn)) {
             map.put("orderColumn", orderColumn);//排序字段
             map.put("orderType", orderType);//排序顺序
