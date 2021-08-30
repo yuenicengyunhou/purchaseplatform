@@ -370,6 +370,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             public void OnBannerClick(int position) {
                 Bundle bundle = new Bundle();
 //                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
+                // TODO: 2021/8/30 这里需要修改图片，getSkuMarkPicList()
                 bundle.putStringArrayList("imageUrlList", mPageBean.getTopPictureList());
                 bundle.putInt("position", position);
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
@@ -697,6 +698,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         } else {
             binding.tvPriceGray.setText(String.format("%.2f", bean.getMarketPrice()));
         }
+        // 把sku图片取出来 带水印的和不带水印的 然后塞到mPageBean中
+        if (bean.getPictureUrlList() != null && bean.getPictureUrlList().size() != 0) {
+            ArrayList<String> skuPicList = new ArrayList<>();
+            ArrayList<String> skuMarkPicList = new ArrayList<>();
+            for (ItemPicture itemPicture : bean.getPictureUrlList()) {
+                skuPicList.add(itemPicture.getPictureUrl());
+                skuMarkPicList.add(itemPicture.getWatermarkUrl());
+            }
+            mPageBean.setSkuPicList(skuPicList);
+            mPageBean.setSkuMarkPicList(skuMarkPicList);
+        }
         // 设置价格单位
         String skuUnitStr = mPageBean.getCurrentItemSkuInfo().getSkuUnit();
         if (!TextUtils.isEmpty(skuUnitStr)) {
@@ -712,6 +724,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.itemSalesCounts.setText(String.valueOf(bean.getSaleNum()));
         // 设置包装清单
         billAdapter.update(billBeans, true);
+        // 更新轮播图
+        // TODO: 2021/8/30 更新轮播图
+        binding.productPictureHD
+                .setImages(mPageBean.getTopPictureList())
+                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
         // TODO: 2021/6/9 需要更新sku名称（应该是在点的时候通过查询本地ItemSkuInfoList更新了，不过推荐在请求成功后更新）
     }
 
@@ -756,9 +773,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         this.productDetailsBean = mPageBean.getProductDetailsBean();
 
         // 设置轮播图
+        // TODO: 2021/8/30 这里需要修改图片，getSkuPicList()
         binding.productPictureHD
                 .setImages(mPageBean.getTopPictureList())
-                .setImageLoader(new GlideImageLoader(24, 25)).start();
+                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
 
         // 设置价格
         binding.tvSellPrice.setText(mPageBean.getSellPrice());

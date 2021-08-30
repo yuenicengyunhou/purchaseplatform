@@ -17,9 +17,21 @@ public class GlideImageLoader extends ImageLoader {
     private int mWidth;
     private int mHeight;
 
-    public GlideImageLoader(int width, int height) {
+    private GlideImageLoader() {
+    }
+
+    private static class GlideImageLoaderHolder {
+        private static final GlideImageLoader INSTANCE = new GlideImageLoader();
+    }
+
+    public static GlideImageLoader getInstance() {
+        return GlideImageLoaderHolder.INSTANCE;
+    }
+
+    public GlideImageLoader setWidthHeight(int width, int height) {
         mWidth = width;
         mHeight = height;
+        return this;
     }
 
     @Override

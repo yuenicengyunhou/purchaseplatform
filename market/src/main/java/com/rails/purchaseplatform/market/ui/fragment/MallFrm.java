@@ -162,7 +162,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         for (BannerBean bean : banners)
             imgs.add(bean.getPictureUrl());
 
-        binding.banner.setImages(imgs).setDelayTime(3000).setImageLoader(new GlideImageLoader(35, 13)).start();
+        binding.banner.setImages(imgs).setDelayTime(3000)
+                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(35, 13))
+                .start();
 
     }
 
