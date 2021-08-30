@@ -59,7 +59,7 @@ import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBindi
 import com.rails.purchaseplatform.market.ui.pop.AddCartPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
-import com.rails.purchaseplatform.market.util.GlideImageLoader4ProductDetails;
+import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
@@ -756,8 +756,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         this.productDetailsBean = mPageBean.getProductDetailsBean();
 
         // 设置轮播图
-        binding.productPictureHD.setImages(mPageBean.getTopPictureList()).
-                setImageLoader(new GlideImageLoader4ProductDetails()).start();
+        binding.productPictureHD
+                .setImages(mPageBean.getTopPictureList())
+                .setImageLoader(new GlideImageLoader(24, 25)).start();
 
         // 设置价格
         binding.tvSellPrice.setText(mPageBean.getSellPrice());

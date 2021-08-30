@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BannerBean;
@@ -31,16 +35,11 @@ import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
-import com.rails.purchaseplatform.market.ui.activity.RankActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 商城首页
@@ -49,7 +48,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/1/28
  */
 public class MallFrm extends LazyFragment<FrmMallBinding>
-        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean>{
+        implements MarketIndexContract.MarketIndexView, PositionListener<ProductBean> {
 
 
     private ProductRecAdapter recAdapter;
@@ -163,7 +162,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         for (BannerBean bean : banners)
             imgs.add(bean.getPictureUrl());
 
-        binding.banner.setImages(imgs).setDelayTime(3000).setImageLoader(new GlideImageLoader()).start();
+        binding.banner.setImages(imgs).setDelayTime(3000).setImageLoader(new GlideImageLoader(35, 13)).start();
 
     }
 

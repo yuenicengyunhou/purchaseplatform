@@ -21,14 +21,14 @@ import java.util.List;
  * 包装清单
  */
 public class ProductPriceBean {
-    private int skuId;
+    private String skuId;
     private long shopId;
     private int shopType;
     private double marketPrice;
     private double sellPrice;
     private String skuName;
     private String shopName;
-    private List<ItemPicture> pictureUrl;
+    private List<ItemPicture> pictureUrlList;
     private ArrayList<ProductBillBean> packinglist;
     private String packageDis;
     private double score;
@@ -39,11 +39,11 @@ public class ProductPriceBean {
     // =======================================================================================
 
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 
@@ -95,12 +95,12 @@ public class ProductPriceBean {
         this.shopName = shopName;
     }
 
-    public List<ItemPicture> getPictureUrl() {
-        return pictureUrl;
+    public List<ItemPicture> getPictureUrlList() {
+        return pictureUrlList;
     }
 
-    public void setPictureUrl(List<ItemPicture> pictureUrl) {
-        this.pictureUrl = pictureUrl;
+    public void setPictureUrlList(List<ItemPicture> pictureUrlList) {
+        this.pictureUrlList = pictureUrlList;
     }
 
     public ArrayList<ProductBillBean> getPackinglist() {

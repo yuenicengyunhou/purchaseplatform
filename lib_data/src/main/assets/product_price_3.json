@@ -1,0 +1,55 @@
+{
+  "code": "0",
+  "msg": "查询sku区域价格成功",
+  "data": [
+    {
+      "skuId": 13078,
+      "shopId": 202003040112,
+      "shopType": 2,
+      "marketPrice": 59.90,
+      "sellPrice": 50.00,
+      "skuName": "金龙鱼 食用油黄金比例调和油 5L 1:1:1（5L）",
+      "shopName": "金龙鱼铁路总公司物资采购旗舰店",
+      "pictureUrl": [
+        {
+          "id": 123913,
+          "platformId": 20,
+          "itemId": 1001709,
+          "shopId": 202003040112,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/ed893213cfecaeed3a280c429b5bc83120200331153758935.jpg",
+          "watermarkUrl": "//xsky.rails.cn/mall/9125506bafe6a7dfcf078dd0956835a320210824190317702.jpg",
+          "altImages": "files.name`-1",
+          "sortNumber": 1,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 13078,
+          "annexType": 1
+        },
+        {
+          "id": 123914,
+          "platformId": 20,
+          "itemId": 1001709,
+          "shopId": 202003040112,
+          "sellerId": null,
+          "pictureUrl": "//xsky.rails.cn/mall/ac627ab1ccbdb62ec96e702f07f6425b20200331153758950.jpg",
+          "watermarkUrl": "//xsky.rails.cn/mall/9bc7831a3aebf3cbe9b1a5ec0328ced920210824190317751.jpg",
+          "altImages": "files.name`-1",
+          "sortNumber": 1,
+          "created": null,
+          "modified": null,
+          "yn": null,
+          "skuId": 13078,
+          "annexType": 1
+        }
+      ],
+      "packageDis": "450*120*180",
+      "packinglist": [],
+      "score": 0,
+      "saleNum": 224,
+      "creditLevel": "C",
+      "materialType": null
+    }
+  ]
+}

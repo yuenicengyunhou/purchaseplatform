@@ -208,6 +208,18 @@ public class ProductDetailsPageBean {
     private ArrayList<ProductServiceBean> companyList;
 
 
+    /**
+     * sku图片，不带水印
+     */
+    private ArrayList<String> skuPicList;
+
+
+    /**
+     * sku图片，带水印
+     */
+    private ArrayList<String> skuMarkPicList;
+
+
     // ===========================================================================================
 
 
@@ -489,5 +501,21 @@ public class ProductDetailsPageBean {
 
     public void setCompanyList(ArrayList<ProductServiceBean> companyList) {
         this.companyList = companyList;
+    }
+
+    public ArrayList<String> getSkuPicList() {
+        return skuPicList;
+    }
+
+    public void setSkuPicList(ArrayList<String> skuPicList) {
+        this.skuPicList = skuPicList;
+    }
+
+    public ArrayList<String> getSkuMarkPicList() {
+        return skuMarkPicList;
+    }
+
+    public void setSkuMarkPicList(ArrayList<String> skuPicMarkList) {
+        this.skuMarkPicList = skuPicMarkList;
     }
 }

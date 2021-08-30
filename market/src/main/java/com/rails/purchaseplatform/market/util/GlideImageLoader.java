@@ -13,6 +13,15 @@ import com.youth.banner.loader.ImageLoader;
  * @date: 2021/3/16
  */
 public class GlideImageLoader extends ImageLoader {
+
+    private int mWidth;
+    private int mHeight;
+
+    public GlideImageLoader(int width, int height) {
+        mWidth = width;
+        mHeight = height;
+    }
+
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         String url = (String) path;
@@ -28,8 +37,8 @@ public class GlideImageLoader extends ImageLoader {
     @Override
     public ImageView createImageView(Context context) {
         RatioImage image = new RatioImage(context);
-        image.setW(35);
-        image.setH(13);
+        image.setW(mWidth);
+        image.setH(mHeight);
         return image;
     }
 }

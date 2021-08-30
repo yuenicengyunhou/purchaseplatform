@@ -24,6 +24,7 @@ import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationValue;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemAfterSaleVo;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPicture;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPictureVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPublishVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ItemResult;
@@ -156,9 +157,17 @@ public class ProductDetailsDataUtils {
         ArrayList<ProductDetailsPackingBean> packingBeans = getPackingBeans(priceBean);
         pageBean.setPackingList(packingBeans);
 
-        // 页面顶部轮播图
+        // 页面顶部轮播图，不带水印
         ArrayList<String> topPictures = getTopPictureList(detailsBean);
         pageBean.setTopPictureList(topPictures);
+
+        // 页面顶部轮播图，取sku图片，带水印
+        ArrayList<String> skuPictures = getSkuPicList(priceBean);
+        pageBean.setSkuPicList(skuPictures);
+
+        // 页面顶部轮播图，取sku图片，不带水印
+        ArrayList<String> skuMarkPictures = getSkuMarkPicList(priceBean);
+        pageBean.setSkuMarkPicList(skuMarkPictures);
 
         // 售后服务说明
         ArrayList<ProductServiceBean> serviceBeans = getServiceBeans(detailsBean);
@@ -597,6 +606,41 @@ public class ProductDetailsDataUtils {
         }
         return pictures;
     }
+
+
+    /**
+     * 获取sku图片，不带水印
+     *
+     * @param priceBean
+     * @return
+     */
+    public ArrayList<String> getSkuPicList(ProductPriceBean priceBean) {
+        ArrayList<String> pictures = new ArrayList<>();
+        if (priceBean == null || priceBean.getPictureUrlList() == null || priceBean.getPictureUrlList().size() == 0)
+            return pictures;
+        for (ItemPicture itemPic : priceBean.getPictureUrlList()) {
+            pictures.add(itemPic.getPictureUrl());
+        }
+        return pictures;
+    }
+
+
+    /**
+     * 获取sku图片，带水印
+     *
+     * @param priceBean
+     * @return
+     */
+    public ArrayList<String> getSkuMarkPicList(ProductPriceBean priceBean) {
+        ArrayList<String> pictures = new ArrayList<>();
+        if (priceBean == null || priceBean.getPictureUrlList() == null || priceBean.getPictureUrlList().size() == 0)
+            return pictures;
+        for (ItemPicture itemPic : priceBean.getPictureUrlList()) {
+            pictures.add(itemPic.getWatermarkUrl());
+        }
+        return pictures;
+    }
+
 
     /**
      * 获取店铺推荐商品Bean
