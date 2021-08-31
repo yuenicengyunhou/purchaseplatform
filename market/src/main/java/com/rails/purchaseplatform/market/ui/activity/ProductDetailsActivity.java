@@ -371,7 +371,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 Bundle bundle = new Bundle();
 //                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
                 // TODO: 2021/8/30 这里需要修改图片，getSkuMarkPicList()
-                bundle.putStringArrayList("imageUrlList", mPageBean.getTopPictureList());
+                bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
                 bundle.putInt("position", position);
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
             }
@@ -727,7 +727,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 更新轮播图
         // TODO: 2021/8/30 更新轮播图
         binding.productPictureHD
-                .setImages(mPageBean.getTopPictureList())
+                .setImages(mPageBean.getSkuPicList())
                 .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
         // TODO: 2021/6/9 需要更新sku名称（应该是在点的时候通过查询本地ItemSkuInfoList更新了，不过推荐在请求成功后更新）
     }
@@ -775,7 +775,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置轮播图
         // TODO: 2021/8/30 这里需要修改图片，getSkuPicList()
         binding.productPictureHD
-                .setImages(mPageBean.getTopPictureList())
+                .setImages(mPageBean.getSkuPicList())
                 .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
 
         // 设置价格
