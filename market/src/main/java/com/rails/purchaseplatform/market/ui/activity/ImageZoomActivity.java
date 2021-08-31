@@ -134,6 +134,8 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                                 .get();
                     } else {
                         for (String url : mImageUrlList) {
+                            if (url != null && !url.startsWith("https:"))
+                                url = "https:" + url;
                             Bitmap bitmap = Glide.with(ImageZoomActivity.this)
                                     .asBitmap()
                                     .load(url)

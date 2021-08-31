@@ -161,11 +161,11 @@ public class ProductDetailsDataUtils {
         ArrayList<String> topPictures = getTopPictureList(detailsBean);
         pageBean.setTopPictureList(topPictures);
 
-        // 页面顶部轮播图，取sku图片，带水印
+        // 页面顶部轮播图，取sku图片，不带水印
         ArrayList<String> skuPictures = getSkuPicList(priceBean);
         pageBean.setSkuPicList(skuPictures);
 
-        // 页面顶部轮播图，取sku图片，不带水印
+        // 页面顶部轮播图，取sku图片，带水印
         ArrayList<String> skuMarkPictures = getSkuMarkPicList(priceBean);
         pageBean.setSkuMarkPicList(skuMarkPictures);
 
@@ -616,9 +616,9 @@ public class ProductDetailsDataUtils {
      */
     public ArrayList<String> getSkuPicList(ProductPriceBean priceBean) {
         ArrayList<String> pictures = new ArrayList<>();
-        if (priceBean == null || priceBean.getPictureUrlList() == null || priceBean.getPictureUrlList().size() == 0)
+        if (priceBean == null || priceBean.getPictureUrl() == null || priceBean.getPictureUrl().size() == 0)
             return pictures;
-        for (ItemPicture itemPic : priceBean.getPictureUrlList()) {
+        for (ItemPicture itemPic : priceBean.getPictureUrl()) {
             pictures.add(itemPic.getPictureUrl());
         }
         return pictures;
@@ -633,9 +633,9 @@ public class ProductDetailsDataUtils {
      */
     public ArrayList<String> getSkuMarkPicList(ProductPriceBean priceBean) {
         ArrayList<String> pictures = new ArrayList<>();
-        if (priceBean == null || priceBean.getPictureUrlList() == null || priceBean.getPictureUrlList().size() == 0)
+        if (priceBean == null || priceBean.getPictureUrl() == null || priceBean.getPictureUrl().size() == 0)
             return pictures;
-        for (ItemPicture itemPic : priceBean.getPictureUrlList()) {
+        for (ItemPicture itemPic : priceBean.getPictureUrl()) {
             pictures.add(itemPic.getWatermarkUrl());
         }
         return pictures;

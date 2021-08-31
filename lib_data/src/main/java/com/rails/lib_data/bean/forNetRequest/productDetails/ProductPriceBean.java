@@ -28,7 +28,7 @@ public class ProductPriceBean {
     private double sellPrice;
     private String skuName;
     private String shopName;
-    private List<ItemPicture> pictureUrlList;
+    private List<ItemPicture> pictureUrl;
     private ArrayList<ProductBillBean> packinglist;
     private String packageDis;
     private double score;
@@ -95,12 +95,12 @@ public class ProductPriceBean {
         this.shopName = shopName;
     }
 
-    public List<ItemPicture> getPictureUrlList() {
-        return pictureUrlList;
+    public List<ItemPicture> getPictureUrl() {
+        return pictureUrl;
     }
 
-    public void setPictureUrlList(List<ItemPicture> pictureUrlList) {
-        this.pictureUrlList = pictureUrlList;
+    public void setPictureUrl(List<ItemPicture> pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
     public ArrayList<ProductBillBean> getPackinglist() {

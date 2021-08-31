@@ -370,7 +370,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             public void OnBannerClick(int position) {
                 Bundle bundle = new Bundle();
 //                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
-                // TODO: 2021/8/30 这里需要修改图片，getSkuMarkPicList()
+//                for (String str : mPageBean.getSkuMarkPicList()) {
+//                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
+//                }
                 bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
                 bundle.putInt("position", position);
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
@@ -699,10 +701,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             binding.tvPriceGray.setText(String.format("%.2f", bean.getMarketPrice()));
         }
         // 把sku图片取出来 带水印的和不带水印的 然后塞到mPageBean中
-        if (bean.getPictureUrlList() != null && bean.getPictureUrlList().size() != 0) {
+        if (bean.getPictureUrl() != null && bean.getPictureUrl().size() != 0) {
             ArrayList<String> skuPicList = new ArrayList<>();
             ArrayList<String> skuMarkPicList = new ArrayList<>();
-            for (ItemPicture itemPicture : bean.getPictureUrlList()) {
+            for (ItemPicture itemPicture : bean.getPictureUrl()) {
                 skuPicList.add(itemPicture.getPictureUrl());
                 skuMarkPicList.add(itemPicture.getWatermarkUrl());
             }
@@ -725,7 +727,12 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置包装清单
         billAdapter.update(billBeans, true);
         // 更新轮播图
-        // TODO: 2021/8/30 更新轮播图
+//        for (String str : mPageBean.getSkuPicList()) {
+//            Log.d(TAG, "切换sku更新普通图片 = " + str);
+//        }
+//        for (String str : mPageBean.getSkuMarkPicList()) {
+//            Log.d(TAG, "切换sku更新水印图片 = " + str);
+//        }
         binding.productPictureHD
                 .setImages(mPageBean.getSkuPicList())
                 .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
@@ -772,8 +779,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         this.productDetailsBean = mPageBean.getProductDetailsBean();
 
+//        ArrayList<String> l1 = mPageBean.getSkuPicList();
+//        ArrayList<String> l2 = mPageBean.getSkuMarkPicList();
+//        for (String str : l1) {
+//            Log.d(TAG, "初始化的普通图片 = " + str);
+//        }
+//        for (String str : l2) {
+//            Log.d(TAG, "初始化的水印图片 = " + str);
+//        }
+
+
         // 设置轮播图
-        // TODO: 2021/8/30 这里需要修改图片，getSkuPicList()
         binding.productPictureHD
                 .setImages(mPageBean.getSkuPicList())
                 .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
