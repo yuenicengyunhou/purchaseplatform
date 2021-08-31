@@ -33,6 +33,7 @@ import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
+import com.rails.purchaseplatform.market.ui.activity.RankActivity;
 import com.rails.purchaseplatform.market.util.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -56,6 +57,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     private ProductRecAdapter recAdapter;
     private NavigationAdapter categoryAdapter;
     private BrandAdapter brandAdapter;
+    private MarketIndexBean indexBean;
 
     private MarketIndexContract.MarketIndexPresenter presenter;
     private StatisticContract.StatisticPresenter statisticPresenter;
@@ -137,19 +139,27 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         //推荐商品列表
         recAdapter = new ProductRecAdapter(getActivity());
         recAdapter.setListener(this);
+        recAdapter.setMulPositionListener((bean, position, params) -> {
+            if (indexBean != null) {
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position", ++position);
+                    startIntent(RankActivity.class, bundle);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
         binding.recycler.setAdapter(recAdapter);
 
 
-        binding.scroll.setScrollViewListener(new AlphaScrollView.ScrollViewListener() {
-            @Override
-            public void onScrollChanged(AlphaScrollView scrollView, int x, int y, int oldx, int oldy) {
-                if (y > 800) {
-                    binding.imgTop.setVisibility(View.VISIBLE);
-                } else
-                    binding.imgTop.setVisibility(View.GONE);
-            }
+        binding.scroll.setScrollViewListener((scrollView, x, y, oldx, oldy) -> {
+            if (y > 800) {
+                binding.imgTop.setVisibility(View.VISIBLE);
+            } else
+                binding.imgTop.setVisibility(View.GONE);
         });
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
@@ -186,12 +196,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
      */
     void onRefresh() {
         binding.rlRecycler.setEnableLoadMore(false);
-        binding.rlRecycler.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                binding.rlRecycler.finishRefresh();
-                presenter.getMarketIndexInfo(false, false);
-            }
+        binding.rlRecycler.setOnRefreshListener(refreshLayout -> {
+            binding.rlRecycler.finishRefresh();
+            presenter.getMarketIndexInfo(false, false);
         });
         presenter.getMarketIndexInfo(true, true);
     }
@@ -216,27 +223,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
 
     @Override
-    public void getRecProducts(ArrayList<ProductRecBean> beans) {
-        recAdapter.update(beans, true);
-    }
+    public void getHotProducts(ArrayList<ProductBean> beans) {
 
-    @Override
-    public void getBanners(ArrayList<BannerBean> bannerBeans) {
-        setBanners(bannerBeans);
-    }
-
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans) {
-        brandAdapter.update(brandBeans, true);
-    }
-
-    @Override
-    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
-        categoryAdapter.update(beans, true);
     }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
+        indexBean = bean;
         brandAdapter.update(bean.getBrandBeans(), true);
         recAdapter.update(bean.getRecBeans(), true);
         categoryAdapter.update(bean.getCategorySubBeans(), true);
@@ -245,28 +238,40 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     }
 
     @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
     protected void onClick() {
         super.onClick();
 
         // 搜索页面跳转
-        binding.etSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLogin(null, ConRoute.COMMON.SEARCH, null);
-            }
-        });
+        binding.etSearch.setOnClickListener(v -> goLogin(null, ConRoute.COMMON.SEARCH, null));
 
-        binding.imgTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.scroll.smoothScrollTo(0, 0);
-            }
-        });
+        binding.imgTop.setOnClickListener(v -> binding.scroll.smoothScrollTo(0, 0));
 
         binding.imgMsg.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("url", ConRoute.WEB_URL.MSG);
             goLogin(null, ConRoute.WEB.WEB_MSG, bundle);
+        });
+
+        binding.lrTitle.setOnClickListener(v -> {
+            if (indexBean != null) {
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position", 0);
+                    startIntent(RankActivity.class, bundle);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -289,10 +294,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
      */
     private boolean hasToken() {
         String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
-        if (TextUtils.isEmpty(token))
-            return false;
-        else
-            return true;
+        return !TextUtils.isEmpty(token);
     }
 
 
@@ -313,9 +315,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             } else
                 startIntent(cls);
         }
-
     }
 
 
 }
-

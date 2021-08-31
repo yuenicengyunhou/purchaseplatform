@@ -30,7 +30,7 @@
             app:displayBorder="true"
             app:displayType="round_rect"
             app:h="64"
-            app:imgUrl="@{product.pictureUrl}"
+            app:imgUrl="@{product.itemLogoUrl}"
             app:w="53" />
 
 
@@ -41,9 +41,9 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
-            android:lines="2"
             android:ellipsize="end"
-            android:text="@{product.pictureName}"
+            android:lines="2"
+            android:text="@{product.itemName}"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_12" />
 
@@ -56,10 +56,10 @@
             android:layout_marginRight="@dimen/dp_5"
             android:gravity="center"
             android:singleLine="true"
-            android:visibility="gone"
             android:text="@{product.pictureName}"
             android:textColor="@color/font_red"
-            android:textSize="@dimen/font_size_10" />
+            android:textSize="@dimen/font_size_10"
+            android:visibility="gone" />
 
     </LinearLayout>
 

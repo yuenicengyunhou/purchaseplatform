@@ -126,6 +126,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         recAdapter.setListener(new PositionListener<ProductBean>() {
             @Override
             public void onPosition(ProductBean bean, int position) {
+                //跳转商品详情
                 if (TextUtils.isEmpty(bean.getItemId())) {
                     ToastUtil.showCenter(getActivity(), "商品不存在或已下架");
                     return;
@@ -201,8 +202,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-//        productPresenter.getHotProducts(false, page, "10");
-        productPresenter.getRectProducts(false, false);
+        productPresenter.getHotProducts(false, page, "10");
     }
 
     @Override
@@ -584,29 +584,27 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
     @Override
-    public void getRecProducts(ArrayList<ProductRecBean> beans) {
+    public void getHotProducts(ArrayList<ProductBean> beans) {
+        if (beans == null)
+            return;
         if (beans.isEmpty())
             return;
-        recAdapter.update(beans.get(0).getFloorList(), true);
-    }
-
-    @Override
-    public void getBanners(ArrayList<BannerBean> bannerBeans) {
-
-    }
-
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans) {
-
-    }
-
-    @Override
-    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
-
+        recAdapter.update(beans, true);
+        binding.recRecycler.notifyMoreFinish(false);
     }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
+
+    }
+
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
     }
 
@@ -661,6 +659,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
     }
 
+
     /**
      * token是否存在
      * <p>
@@ -670,5 +669,4 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
         return !TextUtils.isEmpty(token);
     }
-
 }

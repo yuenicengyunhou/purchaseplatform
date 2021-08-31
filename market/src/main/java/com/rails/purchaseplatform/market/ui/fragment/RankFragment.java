@@ -5,12 +5,9 @@ import android.text.TextUtils;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
-import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
-import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -42,34 +39,69 @@ import androidx.recyclerview.widget.RecyclerView;
  * @date: 2021/6/9
  */
 public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implements MarketIndexContract.MarketIndexView {
-    @Override
-    public void getRecProducts(ArrayList<ProductRecBean> beans) {
+
+    private String categoryId;
+
+    private String pageSize = "10";
+    private final int DEF_PAGE = 1;
+    private int page = DEF_PAGE;
+    private MarketIndexContract.MarketIndexPresenter presenter;
+    private RankBrandAdapter brandAdapter;
+    private RankProductAdapter productAdapter;
+
+    private RankFragment(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public static RankFragment getInstance(String categoryId) {
+        return new RankFragment(categoryId);
 
     }
 
-    @Override
-    public void getBanners(ArrayList<BannerBean> bannerBeans) {
-
-    }
-
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans) {
-
-    }
-
-    @Override
-    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
-
-    }
-
-    @Override
-    public void getIndexInfo(MarketIndexBean bean) {
-
-    }
 
     @Override
     protected void loadData() {
+        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
+        if (TextUtils.isEmpty(categoryId)) {
+            brandAdapter = new RankBrandAdapter(getActivity());
+            binding.cartRecycler.setAdapter(brandAdapter);
+            brandAdapter.setListener(new PositionListener<BrandBean>() {
+                @Override
+                public void onPosition(BrandBean bean, int position) {
+                    String shopId = bean.getShopid();
+                    Bundle bundle = new Bundle();
+                    if (TextUtils.isEmpty(shopId))
+                        return;
+                    try {
+                        bundle.putString("shopInfoId", shopId);
+                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                    } catch (Exception e) {
 
+                    }
+                }
+            });
+        } else {
+            productAdapter = new RankProductAdapter(getActivity());
+            binding.cartRecycler.setAdapter(productAdapter);
+            productAdapter.setListener(new PositionListener<ProductBean>() {
+                @Override
+                public void onPosition(ProductBean bean, int position) {
+                    if (TextUtils.isEmpty(bean.getItemId())) {
+                        ToastUtil.showCenter(getActivity(), "商品不存在或已下架");
+                        return;
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putString("itemId", bean.getItemId());
+                    goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
+                }
+
+            });
+        }
+        binding.cartRecycler.setEmptyView(binding.empty);
+
+        presenter = new MarKetIndexPresenterImpl(getActivity(), this);
+        onRefresh();
     }
 
     @Override
@@ -82,181 +114,107 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
         return false;
     }
 
-//    private String categoryId;
-//
-//    private String pageSize = "10";
-//    private final int DEF_PAGE = 1;
-//    private int page = DEF_PAGE;
-//    private MarketIndexContract.MarketIndexPresenter presenter;
-//    private RankBrandAdapter brandAdapter;
-//    private RankProductAdapter productAdapter;
-//
-//    private RankFragment(String categoryId) {
-//        this.categoryId = categoryId;
-//    }
-//
-//    public static RankFragment getInstance(String categoryId) {
-//        return new RankFragment(categoryId);
-//
-//    }
-//
-//
-//    @Override
-//    protected void loadData() {
-//        binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
-//        binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
-//        if (TextUtils.isEmpty(categoryId)) {
-//            brandAdapter = new RankBrandAdapter(getActivity());
-//            binding.cartRecycler.setAdapter(brandAdapter);
-//            brandAdapter.setListener(new PositionListener<BrandBean>() {
-//                @Override
-//                public void onPosition(BrandBean bean, int position) {
-//                    String shopId = bean.getShopid();
-//                    Bundle bundle = new Bundle();
-//                    if (TextUtils.isEmpty(shopId))
-//                        return;
-//                    try {
-//                        bundle.putString("shopInfoId", shopId);
-//                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
-//                    } catch (Exception e) {
-//
-//                    }
-//                }
-//            });
-//        } else {
-//            productAdapter = new RankProductAdapter(getActivity());
-//            binding.cartRecycler.setAdapter(productAdapter);
-//            productAdapter.setListener(new PositionListener<ProductBean>() {
-//                @Override
-//                public void onPosition(ProductBean bean, int position) {
-//                    if (TextUtils.isEmpty(bean.getItemId())) {
-//                        ToastUtil.showCenter(getActivity(), "商品不存在或已下架");
-//                        return;
-//                    }
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("itemId", bean.getItemId());
-//                    goLogin(null, ConRoute.MARKET.PRODUCT_DETAIL, bundle);
-//                }
-//
-//            });
-//        }
-//        binding.cartRecycler.setEmptyView(binding.empty);
-//
-//        presenter = new MarKetIndexPresenterImpl(getActivity(), this);
-//        onRefresh();
-//    }
-//
-//    @Override
-//    protected void loadPreVisitData() {
-//
-//    }
-//
-//    @Override
-//    protected boolean isBindEventBus() {
-//        return false;
-//    }
-//
-//    @Override
-//    public void getHotProducts(ArrayList<ProductBean> beans) {
-//
-//    }
-//
-//    @Override
-//    public void getIndexInfo(MarketIndexBean bean) {
-//
-//    }
-//
-//    @Override
-//    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
-//        if (TextUtils.isEmpty(categoryId)) {
-//            binding.swipe.finishLoadMore();
-//            binding.swipe.setEnableLoadMore(hasMore);
-//            brandAdapter.update(brandBeans, isClear);
-//        }
-//    }
-//
-//    @Override
-//    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
-//        if (!TextUtils.isEmpty(categoryId)) {
-//            binding.swipe.finishLoadMore();
-//            binding.swipe.setEnableLoadMore(hasMore);
-//            productAdapter.update(productBeans, isClear);
-//        }
-//    }
-//
-//
-//    /**
-//     * 刷新效果
-//     */
-//    private void onRefresh() {
-//        binding.swipe.setOnRefreshListener(new OnRefreshListener() {
-//
-//            @Override
-//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-//                binding.swipe.finishRefresh();
-//                binding.swipe.setEnableLoadMore(true);
-//                page = DEF_PAGE;
-//                notifyData(false, page);
-//            }
-//        });
-//        binding.swipe.setOnLoadMoreListener(refreshLayout -> {
-//            page++;
-//            notifyData(false, page);
-//        });
-//        notifyData(true, page);
-//    }
-//
-//
-//    /**
-//     * @param isDialog
-//     * @param page
-//     */
-//    private void notifyData(boolean isDialog, int page) {
-//        presenter.getRanks(isDialog, page, pageSize, categoryId);
-//    }
-//
-//
-//    /**
-//     * token是否存在
-//     *
-//     * @return
-//     */
-//    private boolean hasToken() {
-//        String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
-//        if (TextUtils.isEmpty(token))
-//            return false;
-//        else
-//            return true;
-//    }
-//
-//
-//    /**
-//     * 跳转页面
-//     *
-//     * @param cls
-//     * @param aPath
-//     */
-//    private void goLogin(Class cls, String aPath, Bundle bundle) {
-//        if (!hasToken()) {
-//            ARouter.getInstance()
-//                    .build(ConRoute.USER.LOGIN)
-//                    .navigation();
-//        } else {
-//            if (cls == null) {
-//                ARouter.getInstance().build(aPath).with(bundle).navigation();
-//            } else
-//                startIntent(cls);
-//        }
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        try {
-//            binding.cartRecycler.detachedObserver();
-//        } catch (Exception e) {
-//
-//        }
-//
-//    }
+    @Override
+    public void getHotProducts(ArrayList<ProductBean> beans) {
+
+    }
+
+    @Override
+    public void getIndexInfo(MarketIndexBean bean) {
+
+    }
+
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
+        if (TextUtils.isEmpty(categoryId)) {
+            binding.swipe.finishLoadMore();
+            binding.swipe.setEnableLoadMore(hasMore);
+            brandAdapter.update(brandBeans, isClear);
+        }
+    }
+
+    @Override
+    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+        if (!TextUtils.isEmpty(categoryId)) {
+            binding.swipe.finishLoadMore();
+            binding.swipe.setEnableLoadMore(hasMore);
+            productAdapter.update(productBeans, isClear);
+        }
+    }
+
+
+    /**
+     * 刷新效果
+     */
+    private void onRefresh() {
+        binding.swipe.setOnRefreshListener(new OnRefreshListener() {
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                binding.swipe.finishRefresh();
+                binding.swipe.setEnableLoadMore(true);
+                page = DEF_PAGE;
+                notifyData(false, page);
+            }
+        });
+        binding.swipe.setOnLoadMoreListener(refreshLayout -> {
+            page++;
+            notifyData(false, page);
+        });
+        notifyData(true, page);
+    }
+
+
+    /**
+     * @param isDialog
+     * @param page
+     */
+    private void notifyData(boolean isDialog, int page) {
+        presenter.getRanks(isDialog, page, pageSize, categoryId);
+    }
+
+
+    /**
+     * token是否存在
+     *
+     * @return
+     */
+    private boolean hasToken() {
+        String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
+        if (TextUtils.isEmpty(token))
+            return false;
+        else
+            return true;
+    }
+
+
+    /**
+     * 跳转页面
+     *
+     * @param cls
+     * @param aPath
+     */
+    private void goLogin(Class cls, String aPath, Bundle bundle) {
+        if (!hasToken()) {
+            ARouter.getInstance()
+                    .build(ConRoute.USER.LOGIN)
+                    .navigation();
+        } else {
+            if (cls == null) {
+                ARouter.getInstance().build(aPath).with(bundle).navigation();
+            } else
+                startIntent(cls);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            binding.cartRecycler.detachedObserver();
+        } catch (Exception e) {
+
+        }
+
+    }
 }

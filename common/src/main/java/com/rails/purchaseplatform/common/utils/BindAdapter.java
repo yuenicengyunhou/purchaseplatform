@@ -68,16 +68,24 @@ public class BindAdapter {
 
     @androidx.databinding.BindingAdapter("imgByte")
     public static void bindImageBytes(ImageView view, String imageUrl) {
-        if (TextUtils.isEmpty(imageUrl))
-            imageUrl = "";
+        try {
+            if (TextUtils.isEmpty(imageUrl))
+                imageUrl = "";
 
-        Glide.with(view)
-                .asBitmap()
-                .load(BASE64.decode(imageUrl))
-                .centerInside()
-                .placeholder(R.drawable.ic_placeholder)
-                .error(R.drawable.ic_placeholder)
-                .into(view);
+            Glide.with(view)
+                    .asBitmap()
+                    .load(BASE64.decode(imageUrl))
+                    .centerInside()
+                    .error(R.drawable.ic_placeholder)
+                    .into(view);
+        } catch (Exception e) {
+            Glide.with(view)
+                    .load(imageUrl)
+                    .centerInside()
+                    .placeholder(R.drawable.ic_placeholder)
+                    .into(view);
+        }
+
     }
 
 

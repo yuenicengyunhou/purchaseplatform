@@ -1,5 +1,7 @@
 package com.rails.lib_data.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 /**
@@ -43,6 +45,7 @@ public class BrandBean implements Serializable{
 
     private String brandId;
     private String brandName;
+    private String brandNameE;
     private String brandLogoUrl;
     private String createTime;
     private String countNum;
@@ -161,11 +164,33 @@ public class BrandBean implements Serializable{
     }
 
     public String getBrandName() {
-        return brandName;
+        if (TextUtils.isEmpty(brandName))
+            return "";
+        else {
+            if (brandName.contains("(")) {
+                return brandName.substring(0, brandName.indexOf("("));
+            } else
+                return brandName;
+        }
     }
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public String getBrandNameE() {
+        if (TextUtils.isEmpty(brandName))
+            return "";
+        else {
+            if (brandName.contains("(")) {
+                return brandName.substring(brandName.indexOf("(") + 1, brandName.indexOf(")"));
+            } else
+                return brandName;
+        }
+    }
+
+    public void setBrandNameE(String brandNameE) {
+        this.brandNameE = brandNameE;
     }
 
     public String getBrandLogoUrl() {
