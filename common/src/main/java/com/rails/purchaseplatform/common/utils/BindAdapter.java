@@ -60,7 +60,6 @@ public class BindAdapter {
         Glide.with(view)
                 .load(imageUrl)
                 .centerInside()
-                .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_placeholder)
                 .into(view);
     }
