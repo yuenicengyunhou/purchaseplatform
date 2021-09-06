@@ -97,8 +97,8 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding>{
         ArrayList<Fragment> fragments = new ArrayList<>();
         Fragment fragment;
         for (ProductRecBean bean : beans) {
-//            fragment = RankFragment.getInstance(bean.getFirstCategoryId());
-//            fragments.add(fragment);
+            fragment = RankFragment.getInstance(bean.getFirstCategoryId());
+            fragments.add(fragment);
         }
 
 
