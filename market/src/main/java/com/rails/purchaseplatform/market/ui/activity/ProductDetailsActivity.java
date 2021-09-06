@@ -766,6 +766,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         if (mPageBean.getPriceBean().getMarketPrice() == 0 || mPageBean.getPriceBean().getMarketPrice() == mPageBean.getPriceBean().getSellPrice()) {
             binding.tvRmbGray.setVisibility(View.INVISIBLE);
             binding.tvPriceGray.setVisibility(View.INVISIBLE);
+            binding.tvSkuUnitGray.setVisibility(View.INVISIBLE);
         } else {
             binding.tvPriceGray.setText(mPageBean.getMarketPrice());
         }
@@ -842,16 +843,26 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置购物车内商品数量
         binding.tvCartCount.setText(mPageBean.getCartCount());
 
-        // 专用物资 隐藏价格 显示物资编码
+        // 专用物资 如果sellPrice是null或0.00或空字符串就隐藏价格并显示物资编码
         if (mPageBean.getMaterialType().equals("1")) {
-            binding.llFlag.setVisibility(View.GONE);
-            binding.llItemCode.setVisibility(View.VISIBLE);
-            binding.tvItemCode.setText(mPageBean.getCurrentItemSkuInfo().getMaterialCode());
+            if (isNonePrice(mPageBean.getSellPrice())) {
+                binding.llFlag.setVisibility(View.GONE);
+                binding.llItemCode.setVisibility(View.VISIBLE);
+                binding.tvItemCode.setText(mPageBean.getCurrentItemSkuInfo().getMaterialCode());
+            } else if (isNonePrice(mPageBean.getMarketPrice())) {
+                binding.tvRmbGray.setVisibility(View.GONE);
+                binding.tvPriceGray.setVisibility(View.GONE);
+                binding.tvSkuUnitGray.setVisibility(View.GONE);
+            }
         }
 
         // 流量统计
         statisticPresenter = new StatisticPresenterImpl(this, this);
         statisticPresenter.getVisitors("0", mPageBean.getShopId(), mPageBean.getSkuId());
+    }
+
+    private boolean isNonePrice(String price) {
+        return price == null || price.equals("0.00") || price.equals("");
     }
 
     @Override
