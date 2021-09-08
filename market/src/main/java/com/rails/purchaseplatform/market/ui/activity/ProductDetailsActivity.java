@@ -843,17 +843,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置购物车内商品数量
         binding.tvCartCount.setText(mPageBean.getCartCount());
 
-        // 专用物资 如果sellPrice是null或0.00或空字符串就隐藏价格并显示物资编码
+        // 专用物资 不显示价格 只显示物资编码。后续的比价、查看历史价格、购物车能看到价格。
         if (mPageBean.getMaterialType().equals("1")) {
-            if (isNonePrice(mPageBean.getSellPrice())) {
-                binding.llFlag.setVisibility(View.GONE);
-                binding.llItemCode.setVisibility(View.VISIBLE);
-                binding.tvItemCode.setText(mPageBean.getCurrentItemSkuInfo().getMaterialCode());
-            } else if (isNonePrice(mPageBean.getMarketPrice())) {
-                binding.tvRmbGray.setVisibility(View.GONE);
-                binding.tvPriceGray.setVisibility(View.GONE);
-                binding.tvSkuUnitGray.setVisibility(View.GONE);
-            }
+//            if (isNonePrice(mPageBean.getSellPrice())) {
+            binding.llFlag.setVisibility(View.GONE);
+            binding.llItemCode.setVisibility(View.VISIBLE);
+            binding.tvItemCode.setText(mPageBean.getCurrentItemSkuInfo().getMaterialCode());
+//            } else if (isNonePrice(mPageBean.getMarketPrice())) {
+//                binding.tvRmbGray.setVisibility(View.GONE);
+//                binding.tvPriceGray.setVisibility(View.GONE);
+//                binding.tvSkuUnitGray.setVisibility(View.GONE);
+//            }
         }
 
         // 流量统计
