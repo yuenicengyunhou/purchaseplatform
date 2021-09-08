@@ -103,6 +103,7 @@ public class ProductDetailsDataUtils {
 
         // 专用物资标识
         String materialType = productDetailsBean.getItemPublishVo().getMaterialType();
+        if (materialType == null) materialType = "0";
         pageBean.setMaterialType(materialType);
 
         // skuStockBean
