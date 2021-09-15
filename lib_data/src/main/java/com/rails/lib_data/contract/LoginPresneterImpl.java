@@ -72,7 +72,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             ToastUtil.showCenter(mContext, "请授予地理位置权限");
             return;
         }
-        double[] location = GpsUtils.getInstance(mContext).getLocation();
+        double[] location = new GpsUtils(mContext).getLocation();
 
         baseView.showResDialog(R.string.loading);
         model.onLogin(phone, paw, code, location, new HttpRxObserver<String>() {
@@ -215,7 +215,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             ToastUtil.showCenter(mContext, "请授予地理位置权限");
             return;
         }
-        double[] location = GpsUtils.getInstance(mContext).getLocation();
+        double[] location = new GpsUtils(mContext).getLocation();
 
         if (isDialog) baseView.showResDialog(R.string.loading);
         model.randomCodeLogin(account, passwordAsDoubleMd5, rndCodeAsDoubleMd5, randInit, location, new HttpRxObserver<String>() {
