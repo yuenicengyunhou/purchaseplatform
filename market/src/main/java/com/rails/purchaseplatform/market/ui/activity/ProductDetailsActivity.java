@@ -83,7 +83,19 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     final private int LOAD_BITMAP = 63;
 
-    private Handler mHandler;
+    private final Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == LOAD_BITMAP) {
+                imgAdapter.update(mDescribePictureList, true);
+                mThread.interrupt();
+                mHandler.removeCallbacksAndMessages(null);
+                return true;
+            }
+            return false;
+        }
+    });
+
     private Thread mThread;
 
     /**
@@ -94,7 +106,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 商品详情页面所有需要展示的、可能需要运算的数据
      */
-    private ProductDetailsPageBean mPageBean;
+    private ProductDetailsPageBean mPageBean = new ProductDetailsPageBean();
 
     /**
      * 添加购物车Pop中需要展示或计算的所有数据
@@ -108,6 +120,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private QuickJumpPop pop;
 
     private ArrayList<String> mDescribeUrlList = new ArrayList<>();
+    private ArrayList<ItemPicture> mDescribePictureList = new ArrayList<>();
 
     private ProductDetailsBean productDetailsBean;
 
@@ -387,12 +400,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 弹出添加购物车Pop
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
+            if (mPageBean.getCurrentItemSkuInfo() != null)
+                showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
         });
 
         // 弹出选择型号Pop
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
+            if (mPageBean.getCurrentItemSkuInfo() != null)
+                showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
         });
 
         // 弹出选择地址Pop
@@ -407,7 +422,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(mPageBean.getCurrentItemSkuInfo().getId()))
+            if (mPageBean.getCurrentItemSkuInfo() == null || TextUtils.isEmpty(mPageBean.getCurrentItemSkuInfo().getId()))
                 return;
             mPresenter.onCollect(String.valueOf(mPageBean.getCurrentItemSkuInfo().getId()), "20", mPageBean.isCollected(), -1);
         });
@@ -522,7 +537,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 弹出查看商品参数弹窗
      */
     void showParamsCheckPop() {
-        if (productDetailsBean == null) {
+        if (mPageBean.getCurrentItemSkuInfo() == null || productDetailsBean == null) {
             ToastUtil.showCenter(this, "产品参数未上传");
             return;
         }
@@ -637,43 +652,29 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void showDescribePictures() {
         String longUrl = mPageBean.getDetailsPictureUrl();
         if (!TextUtils.isEmpty(longUrl) && longUrl.contains(".jpg")) {
-            ArrayList<ItemPicture> pics = new ArrayList<>();
             mDescribeUrlList.clear();
             String[] urls = longUrl.split("\\.jpg");
             for (String string : urls) {
                 if (string.contains("//")) {
                     String[] realUrls = string.split("//");
                     ItemPicture picture = new ItemPicture();
-                    picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
-                    pics.add(picture);
                     mDescribeUrlList.add("https://" + realUrls[1] + ".jpg");
+                    picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
+                    mDescribePictureList.add(picture);
                 }
             }
-
-            mHandler = new Handler(new Handler.Callback() {
-                @Override
-                public boolean handleMessage(@NonNull Message msg) {
-                    if (msg.what == LOAD_BITMAP) {
-                        imgAdapter.update(pics, true);
-                        mThread.interrupt();
-                        mHandler.removeCallbacksAndMessages(null);
-                        return true;
-                    }
-                    return false;
-                }
-            });
 
             mThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        for (int i = 0; i < pics.size(); i++) {
+                        for (int i = 0; i < mDescribePictureList.size(); i++) {
                             Bitmap bitmap = Glide.with(ProductDetailsActivity.this)
                                     .asBitmap()
-                                    .load(pics.get(i).getPictureUrl())
+                                    .load(mDescribePictureList.get(i).getPictureUrl())
                                     .submit(960, 960)
                                     .get();
-                            pics.get(i).setBitmap(bitmap);
+                            mDescribePictureList.get(i).setBitmap(bitmap);
                         }
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
@@ -684,6 +685,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     }
                 }
             });
+            mThread.setDaemon(true);
             mThread.start();
         }
     }
@@ -748,6 +750,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onDestroy() {
+        mThread = null;
         super.onDestroy();
     }
 
