@@ -89,6 +89,7 @@ public class ProductDetailsPresenterImpl2
                 String address = dataUtils.getFullAddress(addressBeanList);
                 String skuNum = "1";
                 String materialType = itemPublishVo.getMaterialType();
+                if (materialType == null) materialType = "0";
 
                 // 下一步请求
                 String finalSkuId = skuId;

@@ -20,19 +20,11 @@ import java.util.List;
  */
 public class GpsUtils {
 
-    private static GpsUtils instance;
-    private Context mContext;
+    private final Context mContext;
     private LocationManager locationManager;
 
-    private GpsUtils(Context context) {
+    public GpsUtils(Context context) {
         this.mContext = context;
-    }
-
-    public static GpsUtils getInstance(Context context) {
-        if (instance == null) {
-            instance = new GpsUtils(context);
-        }
-        return instance;
     }
 
     /**
