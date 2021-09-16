@@ -1,5 +1,7 @@
 package com.rails.lib_data.model;
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.CartService;
@@ -27,7 +29,7 @@ public class CartModel {
 
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("addressId", addressId);
+        params.put("addressId", TextUtils.isEmpty(addressId)?"-1":addressId);
 //        params.put("organizeId", organizeId);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()

@@ -53,6 +53,7 @@
                 android:paddingLeft="@dimen/dp_5"
                 android:paddingRight="@dimen/dp_5"
                 android:singleLine="true"
+                android:maxLength="4"
                 android:text="@{brand.brandName}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_12"

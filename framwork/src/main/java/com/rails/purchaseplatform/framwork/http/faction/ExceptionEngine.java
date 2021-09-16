@@ -56,6 +56,9 @@ public class ExceptionEngine {
             if (((HttpException) e).code() == 502) {
                 errorBean = new ErrorBean(e, ERROE_502);
                 errorBean.setMsg("");
+            } else if (((HttpException) e).code() == 400) {
+                errorBean = new ErrorBean(e, ERROR_PASTDUE);
+                errorBean.setMsg("");
             } else {
                 errorBean = new ErrorBean(e, HTTP_ERROR);
                 errorBean.setMsg("网络请求异常");  //均视为网络错误
@@ -82,7 +85,7 @@ public class ExceptionEngine {
             else if (e.getMessage().contains("but was com.google.gson.JsonNull")) {
                 errorBean.setMsg("but was com.google.gson.JsonNull");
             }
-        } else if (e instanceof ConnectException||e instanceof NoRouteToHostException|| e instanceof UnknownHostException) {//连接网络错误
+        } else if (e instanceof ConnectException || e instanceof NoRouteToHostException || e instanceof UnknownHostException) {//连接网络错误
             errorBean = new ErrorBean(e, CONNECT_ERROR);
             errorBean.setMsg("连接失败，请检查网络状况");
         } else if (e instanceof SocketTimeoutException) {//网络超时

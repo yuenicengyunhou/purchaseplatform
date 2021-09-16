@@ -119,18 +119,15 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             @Override
             public void onPosition(BrandBean bean, int position) {
 
-                String linkUrl = bean.getLinkUrl();
+                String shopId = bean.getShopid();
                 Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(linkUrl))
+                if (TextUtils.isEmpty(shopId))
                     return;
-                if (linkUrl.contains("shopId")) {
-                    try {
-                        String cid = linkUrl.substring(linkUrl.lastIndexOf("=") + 1);
-                        bundle.putString("shopInfoId", cid);
-                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
-                    } catch (Exception e) {
+                try {
+                    bundle.putString("shopInfoId", shopId);
+                    goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                } catch (Exception e) {
 
-                    }
                 }
             }
         });

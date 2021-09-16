@@ -297,11 +297,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         });
 
-        binding.imgTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.scroll.smoothScrollTo(0, 0);
-            }
+
+        binding.imgTop.setOnClickListener(v -> {
+            binding.scroll.smoothScrollTo(0, 0);
         });
 
         binding.btnCommit.setOnClickListener(v -> {
@@ -478,15 +476,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     public void getDefAddress(AddressBean bean) {
         binding.empty.setBtnEmpty("");
         if (bean == null) {
-            Boolean isAddressManager = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_ADDRESS, false);
-            if (!isAddressManager) {
-                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
-                return;
-            } else {
-                showAddressDialog();
-            }
+            binding.tvAddress.setVisibility(View.GONE);
+            showAddressDialog();
             cartAdapter.update(new ArrayList(), true);
             return;
+        } else {
+            binding.tvAddress.setVisibility(View.VISIBLE);
+            binding.tvAddress.setText(bean.getFullAddress());
         }
         addressBean = bean;
         presenter.getCarts(true, String.valueOf(bean.getId()));
@@ -621,7 +617,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 .setDialogListener(new AlterDialog.DialogListener() {
                     @Override
                     public void onLeft() {
-                        ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+                        Boolean isAddressManager = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_ADDRESS, false);
+                        if (!isAddressManager) {
+                            ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                            return;
+                        } else {
+                            ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+                        }
+
                         dismissDialog();
                     }
 
