@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -26,12 +27,14 @@ import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
+import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
@@ -42,7 +45,9 @@ import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
+import com.rails.purchaseplatform.market.ui.pop.CartAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
+import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -72,7 +77,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     int type = 0;//是否显示标题
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
+
+    //默认选中第一个地址
     AddressBean addressBean;
+    //地址列表
+    ArrayList<AddressBean> addressBeans;
 
     CartAdapter cartAdapter;
     ProductHotAdapter recAdapter;
@@ -85,7 +94,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
 
     private CartShopProductBean lastBean;
-
 
     private CartFrm(int type) {
         this.type = type;
@@ -180,11 +188,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.swipe.finishRefresh();
                 page = DEF_PAGE;
-                addressPresenter.getDefAddress("20", "1", "", "");
+                addressPresenter.getAddress("20", "1", "", "");
                 notifyData(false, page);
             }
         });
-        addressPresenter.getDefAddress("20", "1", "", "");
+        addressPresenter.getAddress("20", "1", "", "");
         notifyData(false, page);
     }
 
@@ -317,15 +325,17 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
 
+        //选中收藏操作
         binding.btnCollect.setOnClickListener(v -> {
             collectAllParams(cartAdapter.getBeans());
         });
 
-
+        //返回按钮
         binding.btnBack.setOnClickListener(v -> {
             getActivity().finish();
         });
 
+        //管理操作
         binding.tvManager.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.tvManager.setText(R.string.market_cart_complement);
@@ -336,6 +346,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 binding.llOperate.setVisibility(View.GONE);
                 binding.llPrice.setVisibility(View.VISIBLE);
             }
+        });
+
+
+        //地址列表弹窗
+        binding.tvAddress.setOnClickListener(v -> {
+            showSelAddressDialog();
         });
     }
 
@@ -469,23 +485,28 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {
+        if (null != addressBeans && !addressBeans.isEmpty()) {
+            this.addressBeans = addressBeans;
+            addressBean = addressBeans.get(0);
+        }
 
-    }
-
-    @Override
-    public void getDefAddress(AddressBean bean) {
         binding.empty.setBtnEmpty("");
-        if (bean == null) {
+
+        if (addressBean == null) {
             binding.tvAddress.setVisibility(View.GONE);
             showAddressDialog();
             cartAdapter.update(new ArrayList(), true);
             return;
         } else {
             binding.tvAddress.setVisibility(View.VISIBLE);
-            binding.tvAddress.setText(bean.getFullAddress());
+            binding.tvAddress.setText(addressBean.getFullAddress());
         }
-        addressBean = bean;
-        presenter.getCarts(true, String.valueOf(bean.getId()));
+        presenter.getCarts(true, String.valueOf(addressBean.getId()));
+    }
+
+    @Override
+    public void getDefAddress(AddressBean bean) {
+
     }
 
 
@@ -671,5 +692,28 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private boolean hasToken() {
         String token = PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
         return !TextUtils.isEmpty(token);
+    }
+
+
+    /**
+     * 显示选择地址的弹窗
+     */
+    void showSelAddressDialog() {
+        if (addressBeans == null)
+            return;
+        if (addressBeans.isEmpty())
+            return;
+        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans);
+        addressPop.setType(BasePop.MATCH_WRAP);
+        addressPop.setGravity(Gravity.BOTTOM);
+        addressPop.setListener(new CartAddressPop.AddressListener() {
+            @Override
+            public void getAddrss(AddressBean bean) {
+                binding.tvAddress.setText(bean.getFullAddress());
+            }
+
+        });
+
+        addressPop.show(getChildFragmentManager(), "address");
     }
 }
