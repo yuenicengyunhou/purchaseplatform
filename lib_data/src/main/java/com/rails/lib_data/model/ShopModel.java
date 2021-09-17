@@ -60,15 +60,15 @@ public class ShopModel {
         HashMap<String, Object> map = new HashMap<>();
 //        map.put("platformId", temp);
 //        map.put("shopId", shopInfoId);
-        map.put("pageNum", page);
-        map.put("pageSize", pageSize);
-        map.put("shopInfoId", shopInfoId);
-        map.put("businessType", "1");
-        map.put("keyword", keyword);
-        map.put("materialType", materialType);
+        map.put("pageNum", page);//页码
+        map.put("pageSize", pageSize);//每页条目数
+        map.put("shopInfoId", shopInfoId);//店铺ID
+        map.put("businessType", "1");//
+        map.put("keyword", keyword);//搜索关键字
+        map.put("materialType", materialType);//是否是通用物资 0通用  1专用，由getShopInfo返回
         if (!TextUtils.isEmpty(orderColumn)) {
-            map.put("orderColumn", orderColumn);//排序字段
-            map.put("orderType", orderType);//排序顺序
+            map.put("orderColumn", orderColumn);//排序字段  销量 saleCount   ，  价格  sellPrice
+            map.put("orderType", orderType);//排序顺序    向下  desc    ,向上  asc
         }
         boolean hasCid = analyzeFilterData(map, filterBeans);//处理筛选条件数据，并返回，有没有类目筛选条件，有则调用queryItemListByCid接口，没有则调用queryItemListByKeyword接口
         ShopService shopService = RetrofitUtil.getInstance()
