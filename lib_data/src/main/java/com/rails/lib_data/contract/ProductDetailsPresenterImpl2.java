@@ -102,9 +102,10 @@ public class ProductDetailsPresenterImpl2
 
                     @Override
                     protected void onSuccess(ProductDetailsStep2Bean response2) {
-                        dataUtils.analysisAllData(mContext.getApplicationContext(), finalSkuId, response1, response2);
-
-                        baseView.onProductInfoLoadCompleted(dataUtils.getProductDetailsPageBean());
+                        if (isCallBack()) {
+                            dataUtils.analysisAllData(mContext.getApplicationContext(), finalSkuId, response1, response2);
+                            baseView.onProductInfoLoadCompleted(dataUtils.getProductDetailsPageBean());
+                        }
                         baseView.dismissDialog();
                     }
                 });

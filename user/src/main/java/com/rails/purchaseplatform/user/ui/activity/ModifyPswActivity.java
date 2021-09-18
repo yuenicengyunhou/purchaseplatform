@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.lib_data.contract.PswContract;
 import com.rails.lib_data.contract.PswPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
-import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityModifyPswBinding;

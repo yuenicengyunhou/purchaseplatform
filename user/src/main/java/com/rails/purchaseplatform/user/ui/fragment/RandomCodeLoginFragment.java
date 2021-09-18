@@ -33,7 +33,7 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
 
     private String url = HttpConstants.DEBUG_PLATFORM_URL;
 
-    private ArrayList<String> mAccountList;
+    private ArrayList<String> mAccountList = new ArrayList<>();
 
     private PopupWindow mPop;
 

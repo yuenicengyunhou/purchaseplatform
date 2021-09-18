@@ -207,7 +207,7 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        String rndCodeAsDoubleMd5 = MD5Util.md5md5(MD5Util.md5md5(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
+        String rndCodeAsDoubleMd5 = MD5Util.md5md5_2(MD5Util.md5md5_2(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
         String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
 
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED

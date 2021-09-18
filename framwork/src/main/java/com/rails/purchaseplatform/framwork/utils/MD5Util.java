@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 import androidx.annotation.NonNull;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -70,6 +71,9 @@ public class MD5Util {
      */
     public static String md5md5(String str) {
         return DigestUtils.md5Hex(str.getBytes(StandardCharsets.UTF_8));
+    }
+    public static String md5md5_2(String str) {
+        return new String(Hex.encodeHex(DigestUtils.md5(str)));
     }
 
 }

@@ -12,6 +12,7 @@ import com.rails.lib_data.model.ShopModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,10 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
 
     @Override
     public void getShopDetails(String id) {
+        if (null == id) {
+            ToastUtil.showCenter(mContext, "店铺id为空");
+            return;
+        }
         baseView.showResDialog(R.string.loading);
         model.getShopInfo(id, new HttpRxObserver<ShopInfoBean>() {
             @Override
@@ -50,6 +55,8 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
 //            materialType = shop.getMaterialType();
                     materialType = response.getMaterialType();
                     baseView.loadShopInfo(response);
+                } else {
+                    ToastUtil.showCenter(mContext,"店铺信息为空");
                 }
 
             }
@@ -61,6 +68,11 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
      */
     @Override
     public void getShopItemList(boolean showLoading, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list, String keyword) {
+        if (null == shopInfoId) {
+            ToastUtil.showCenter(mContext, "店铺id为空");
+            return;
+        }
+
         if (showLoading) {
             baseView.showResDialog(R.string.loading);
         }
@@ -71,7 +83,10 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
                 if (showLoading) {
                     baseView.dismissDialog();
                 }
+
                 baseView.onError(e);
+                ArrayList<ResultListBean> listBean = new ArrayList<>();
+                baseView.loadShopProductList(listBean,0);
             }
 
             @Override
