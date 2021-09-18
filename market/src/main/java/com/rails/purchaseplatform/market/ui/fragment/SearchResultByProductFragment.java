@@ -55,6 +55,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     private ArrayList<SearchFilterBean> mSearchFilterList;
 
+    public SearchResultByProductFragment(){
+
+    }
 
     @Override
     protected void loadData() {

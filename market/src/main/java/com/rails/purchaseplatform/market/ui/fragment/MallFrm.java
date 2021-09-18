@@ -63,6 +63,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     private StatisticContract.StatisticPresenter statisticPresenter;
 
 
+    public MallFrm(){
+
+    }
+
     @Override
     protected void loadData() {
 

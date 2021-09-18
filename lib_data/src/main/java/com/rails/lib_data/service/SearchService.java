@@ -8,7 +8,10 @@ import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 public interface SearchService {
@@ -20,8 +23,9 @@ public interface SearchService {
      * @param params
      * @return
      */
-    @GET("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<JsonObject>> getItemListWithKeywordOnly(@QueryMap HashMap<String, Object> params);
+    @FormUrlEncoded
+    @POST("elasticsearch-service/mall/search/queryItemListByKeyword")
+    Observable<HttpResult<JsonObject>> getItemListWithKeywordOnly(@FieldMap HashMap<String, Object> params);
 
 
     /**

@@ -47,6 +47,11 @@ public class CategorySubFragment extends LazyFragment<FragmentCategorySubBinding
     Drawable blueDraw, whiteDraw;
 
 
+    public CategorySubFragment(){
+
+    }
+
+
     public static CategorySubFragment newInstance(CategoryRootBean bean) {
         CategorySubFragment fragment = new CategorySubFragment();
         Bundle args = new Bundle();

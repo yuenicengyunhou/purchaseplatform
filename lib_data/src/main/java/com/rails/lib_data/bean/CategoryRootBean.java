@@ -21,6 +21,7 @@ public class CategoryRootBean implements Serializable {
 
     private String name;
     private String fcid;
+    //是否是专用物资 0：普通物资 1；专用物资
     private int materialType;
     private List<CategoryBean> secondPlatformCategoryList;
 

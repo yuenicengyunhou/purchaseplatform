@@ -29,7 +29,7 @@ import retrofit2.HttpException;
 public class ExceptionEngine {
 
     //登录
-    public static final String ERROR_PASTDUE = "99999-4";
+    public static final String ERROR_PASTDUE = "90000-21";
     public static final String ERROR_UNLOAD = "0-0004";
     public static final String ERROR_TIMEOUT = "0-0202";
     public static final String ERROR_UNLOAD_2 = "0000010200006";

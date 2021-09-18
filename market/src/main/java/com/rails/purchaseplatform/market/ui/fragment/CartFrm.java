@@ -95,6 +95,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     private CartShopProductBean lastBean;
 
+    public CartFrm() {
+    }
+
     private CartFrm(int type) {
         this.type = type;
     }
@@ -229,7 +232,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
         cartAdapter.update(shopBeans, true);
         setDefTotal(cartBean);
-        binding.cartRecycler.setEmptyView(binding.empty);
+//        binding.cartRecycler.setEmptyView(binding.empty);
     }
 
     @Override
@@ -491,6 +494,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
 
         binding.empty.setBtnEmpty("");
+        presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
 
         if (addressBean == null) {
             binding.tvAddress.setVisibility(View.GONE);
@@ -501,7 +505,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             binding.tvAddress.setVisibility(View.VISIBLE);
             binding.tvAddress.setText(addressBean.getFullAddress());
         }
-        presenter.getCarts(true, String.valueOf(addressBean.getId()));
     }
 
     @Override

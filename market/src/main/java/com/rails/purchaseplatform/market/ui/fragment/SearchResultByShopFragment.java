@@ -50,6 +50,10 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     private String isBought;
     private String mMaterialType;
 
+    public SearchResultByShopFragment(){
+
+    }
+
     @Override
     protected void loadData() {
         Bundle bundle = this.getArguments();

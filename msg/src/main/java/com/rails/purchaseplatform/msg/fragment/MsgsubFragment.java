@@ -23,6 +23,7 @@ public class MsgsubFragment extends LazyFragment<FragmentMsgSubBinding> {
     private int page = DEF_PAGE;
     MsgAdapter msgAdapter;
 
+    public MsgsubFragment(){}
 
     @Override
     protected void loadData() {

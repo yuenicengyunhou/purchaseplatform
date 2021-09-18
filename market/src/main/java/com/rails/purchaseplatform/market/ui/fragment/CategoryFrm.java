@@ -53,6 +53,11 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
 
     private CategoryAdapter subAdapter;
 
+
+    public CategoryFrm(){
+
+    }
+
     @Override
     protected void loadData() {
         adapter = new CategoryRootAdapter(getActivity());

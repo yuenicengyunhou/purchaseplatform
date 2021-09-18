@@ -37,6 +37,8 @@ public class MsgFrm extends LazyFragment<FrmMsgBinding> {
     private ArrayList<Fragment> fragments;
     private ViewPageAdapter viewPageAdapter;
 
+    public MsgFrm(){}
+
     @Override
     protected void loadData() {
 

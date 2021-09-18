@@ -125,8 +125,8 @@
                         android:layout_marginRight="@dimen/common_border"
                         app:cardCornerRadius="@dimen/dp_5"
                         app:cardElevation="@dimen/dp_1"
-                        app:h="13"
-                        app:w="35">
+                        app:h="109"
+                        app:w="345">
 
                         <com.youth.banner.Banner
                             android:id="@+id/banner"

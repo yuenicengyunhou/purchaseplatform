@@ -49,6 +49,10 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
     private RankBrandAdapter brandAdapter;
     private RankProductAdapter productAdapter;
 
+    public RankFragment(){
+
+    }
+
     private RankFragment(String categoryId) {
         this.categoryId = categoryId;
     }
