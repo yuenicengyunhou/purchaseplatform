@@ -26,7 +26,7 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
 
     private LoginContract.LoginPresenter mPresenter;
 
-    private ArrayList<String> mPhoneList;
+    private ArrayList<String> mPhoneList = new ArrayList<>();
 
     private PopupWindow mPop;
 
