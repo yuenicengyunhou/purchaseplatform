@@ -108,7 +108,9 @@ public class OrderPresenterImpl extends BasePresenter<OrderContract.OrderView> i
             }
         });
     }
-
+/**
+ * 获取妥投
+ */
     @Override
     public void getDelivered(String orderNo) {
         if (null == orderNo) {
