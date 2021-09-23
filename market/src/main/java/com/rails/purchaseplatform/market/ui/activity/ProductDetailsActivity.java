@@ -206,7 +206,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置banner宽高
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) binding.productPictureHD.getLayoutParams();
         layoutParams.width = ScreenSizeUtil.getScreenWidth(this);
-        layoutParams.height = layoutParams.width * 24 / 25;
+        layoutParams.height = layoutParams.width * 25 / 25;
         binding.productPictureHD.setLayoutParams(layoutParams);
 
 //        binding.productPictureHD.setImages(pictureUrls).setImageLoader(new GlideImageLoader4ProductDetails()).start();

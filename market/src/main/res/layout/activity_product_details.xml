@@ -30,7 +30,7 @@
                     <com.rails.purchaseplatform.common.widget.RatioCard
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:h="720"
+                        app:h="750"
                         app:w="750">
 
                         <com.youth.banner.Banner
