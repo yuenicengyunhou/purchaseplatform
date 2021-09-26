@@ -12,8 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_8"
+        android:background="@drawable/bg_corner_white_5"
         android:orientation="vertical">
 
 
@@ -23,10 +22,10 @@
             android:layout_gravity="center"
             android:overScrollMode="never"
             android:scaleType="centerInside"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
             android:topLeftRadius="@dimen/dp_5"
             android:topRightRadius="@dimen/dp_5"
-            app:borderColor="@color/line_gray"
-            app:borderWidth="@dimen/dp_1"
             app:displayBorder="true"
             app:displayType="round_rect"
             app:h="64"
@@ -54,6 +53,7 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_10"
             android:gravity="center"
             android:singleLine="true"
             android:text="@{product.pictureName}"

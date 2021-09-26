@@ -62,7 +62,7 @@ public class ProductRecSubAdapter extends BaseRecyclerAdapter<ProductBean, ItemM
         super.onBindView(binding);
         RecyclerView.LayoutParams linearParams =
                 (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
-        linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 64)) / 3;
+        linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 60)) / 3;
         binding.getRoot().setLayoutParams(linearParams);
     }
 }

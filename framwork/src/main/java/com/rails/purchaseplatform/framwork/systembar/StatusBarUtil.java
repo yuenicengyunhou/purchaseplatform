@@ -32,8 +32,32 @@ public class StatusBarUtil {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(color);
+//        tintManager.setStatusBarTintResource(color);
+        tintManager.setStatusBarTintColor(android.R.color.transparent);
     }
+
+
+    /**
+     * 修改状态栏颜色，支持4.4以上版本
+     *
+     * @param activity
+     * @param color
+     */
+    public static void setStatusTransColor(Activity activity, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = activity.getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+//        if (color == 0)
+        tintManager.setStatusBarTintResource(android.R.color.transparent);
+//        else
+//            tintManager.setStatusBarTintResource(color);
+    }
+
 
     /**
      * 状态栏亮色模式，设置状态栏黑色文字、图标，
@@ -92,7 +116,7 @@ public class StatusBarUtil {
     }
 
 
-    public static int StatusBarMode(Activity activity,int color) {
+    public static int StatusBarMode(Activity activity, int color) {
         int result = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (MIUISetStatusBarLightMode(activity, false)) {
@@ -108,7 +132,6 @@ public class StatusBarUtil {
         }
         return result;
     }
-
 
 
     /**

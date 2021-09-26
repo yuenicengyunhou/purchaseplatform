@@ -13,6 +13,7 @@ import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding;
 
+import androidx.databinding.adapters.Converters;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,14 +31,6 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
 
     public ProductRecAdapter(Context context) {
         super(context);
-
-        colors = new String[]{
-                "#5566DF",
-                "#47ACF1",
-                "#DDA15B",
-                "#4F5468",
-                "#3DC999"
-        };
     }
 
     @Override
@@ -49,16 +42,16 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
         try {
-            binding.lrTitle.setKeyColor(colors[position % 5]);
-            if (position == 0){
-                binding.lrTitle.setKeyRightIcon(R.drawable.ic_hot);
-            }else{
-                binding.lrTitle.removeKeyRightIcon();
-            }
+//            binding.tvTitle.setTextColor(Color.parseColor(colors[position % 5]));
+//            if (position == 0){
+//                binding.tvTitle.setKeyRightIcon(R.drawable.ic_hot);
+//            }else{
+//                binding.tvTitle.removeKeyRightIcon();
+//            }
         } catch (Exception e) {
-
         }
 
+        binding.recycler.setBackgroundColor(Color.parseColor(bean.getLowerRgb()));
 
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
         binding.recycler.setLayoutManager(new GridLayoutManager(mContext, 3));
@@ -74,7 +67,7 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
             }
         });
 
-        binding.lrTitle.setOnClickListener(v -> {
+        binding.tvTitle.setOnClickListener(v -> {
             if (mulPositionListener != null) {
                 mulPositionListener.onPosition(bean, position);
             }
@@ -86,6 +79,6 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindView(ItemMarketProductRecBinding binding) {
         super.onBindView(binding);
-        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 0, 15, 0, 15, R.color.white));
+        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 5, 15, 5, 15, R.color.white));
     }
 }
