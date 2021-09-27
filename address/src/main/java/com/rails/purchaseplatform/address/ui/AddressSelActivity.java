@@ -19,7 +19,6 @@ import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
-import com.rails.purchaseplatform.address.R;
 import com.rails.purchaseplatform.address.adapter.AddressSelAdapter;
 import com.rails.purchaseplatform.address.databinding.ActivityAddressSelBinding;
 import com.rails.purchaseplatform.address.databinding.PopAddressSearchBinding;
