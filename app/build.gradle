@@ -30,18 +30,6 @@ android {
         versionCode 41
         versionName "1.0.41"
 
-
-        // release
-        // 0728打包版本 - 4 - 1.0.3
-        // 0816打包版本 - 5 - 1.0.4 [backindex]分支 【当前线上版本】
-//        versionCode 5
-//        versionName "1.0.4"
-
-        // debug
-        // 0817 40 - 1.0.40 【当前测试环境版本】
-//        versionCode 40
-//        versionName "1.0.40"
-
         flavorDimensions "versionCode"
         multiDexEnabled true
 

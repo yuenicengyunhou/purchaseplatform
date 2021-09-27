@@ -49,6 +49,7 @@ import com.rails.purchaseplatform.common.pop.QuickJumpPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.base.XiaoMiStatusBar;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
@@ -88,7 +89,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         public boolean handleMessage(@NonNull Message msg) {
             if (msg.what == LOAD_BITMAP) {
                 imgAdapter.update(mDescribePictureList, true);
-                mThread.interrupt();
+                if (mThread != null) mThread.interrupt();
                 mHandler.removeCallbacksAndMessages(null);
                 return true;
             }
@@ -351,7 +352,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     protected int getColor() {
-        return android.R.color.white;
+        return XiaoMiStatusBar.isXiaomi() ?
+                android.R.color.transparent :
+                android.R.color.white;
     }
 
     @Override
