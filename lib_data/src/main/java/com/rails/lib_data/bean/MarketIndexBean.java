@@ -18,6 +18,8 @@ public class MarketIndexBean implements Serializable {
     //banner列表
     ArrayList<BannerBean> bannerBeans;
 
+    ArrayList<ProductBean> hotBeans;
+
     ArrayList<NavigationBean> categorySubBeans;
 
 
@@ -51,5 +53,13 @@ public class MarketIndexBean implements Serializable {
 
     public void setCategorySubBeans(ArrayList<NavigationBean> categorySubBeans) {
         this.categorySubBeans = categorySubBeans;
+    }
+
+    public ArrayList<ProductBean> getHotBeans() {
+        return hotBeans;
+    }
+
+    public void setHotBeans(ArrayList<ProductBean> hotBeans) {
+        this.hotBeans = hotBeans;
     }
 }

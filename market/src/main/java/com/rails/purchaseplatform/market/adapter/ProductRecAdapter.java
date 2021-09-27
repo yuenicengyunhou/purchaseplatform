@@ -41,17 +41,10 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
-        try {
-//            binding.tvTitle.setTextColor(Color.parseColor(colors[position % 5]));
-//            if (position == 0){
-//                binding.tvTitle.setKeyRightIcon(R.drawable.ic_hot);
-//            }else{
-//                binding.tvTitle.removeKeyRightIcon();
-//            }
-        } catch (Exception e) {
-        }
 
-        binding.recycler.setBackgroundColor(Color.parseColor(bean.getLowerRgb()));
+        binding.card.setCardBackgroundColor(Color.parseColor(bean.getLowerRgb()));
+        binding.tvTitle.setTextColor(Color.parseColor(bean.getChineseenglishRgb()));
+        binding.tvName.setTextColor(Color.parseColor(bean.getChineseenglishRgb()));
 
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
         binding.recycler.setLayoutManager(new GridLayoutManager(mContext, 3));
@@ -79,6 +72,6 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindView(ItemMarketProductRecBinding binding) {
         super.onBindView(binding);
-        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 5, 15, 5, 15, R.color.white));
+        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 5, 15, 5, 0, R.color.white));
     }
 }

@@ -118,7 +118,7 @@
                                 app:is_hide="true"
                                 app:key="@string/market_index_hot"
                                 app:key_color="@color/font_black"
-                                app:key_right_img="@drawable/ic_hot"
+                                app:key_right_img="@drawable/ic_index_hot"
                                 app:key_size="@dimen/font_size_16"
                                 app:value_color="@color/font_grays"
                                 app:value_content="查看更多"
@@ -237,7 +237,10 @@
                 <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                     android:id="@+id/magic"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_50"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:background="@color/bg"
                     android:overScrollMode="never" />
 
             </com.google.android.material.appbar.AppBarLayout>

@@ -24,6 +24,7 @@ import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
@@ -211,7 +212,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             }
         });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
-//        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
+        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
         binding.recycler.setAdapter(recAdapter);
 
 
@@ -295,7 +296,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     public void getIndexInfo(MarketIndexBean bean) {
         indexBean = bean;
         brandAdapter.update(bean.getBrandBeans(), true);
-        hotAdapter.update(bean.getRecBeans().get(0).getFloorList(), true);
+        hotAdapter.update(bean.getHotBeans(), true);
         tabAdapter.updateData(bean.getRecBeans(), true);
         recAdapter.update(bean.getRecBeans(), true);
         categoryAdapter.update(bean.getCategorySubBeans(), true);

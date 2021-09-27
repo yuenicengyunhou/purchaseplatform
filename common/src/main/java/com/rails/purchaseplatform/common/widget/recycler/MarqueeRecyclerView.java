@@ -43,7 +43,7 @@ public class MarqueeRecyclerView extends BaseRecyclerView {
 
     private void init() {
         //主线程的handler，用于执行Marquee的滚动消息
-        int width = (getWidth() - ScreenSizeUtil.dp2px(getContext(), 56)) >> 2;
+        int width = (ScreenSizeUtil.getScreenWidth(getContext()) - ScreenSizeUtil.dp2px(getContext(), 56)) >> 2;
         mHandler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {

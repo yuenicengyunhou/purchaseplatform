@@ -182,16 +182,16 @@ public class MarketIndexModel {
                 ArrayList<NavigationBean>, MarketIndexBean>) (hotListBeen, products, brandListBeen, hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
 
-            String[] resourese = new String[]{"#5566DF", "#47ACF1", "#DDA15B", "#4F5468", "#3DC999"};
+//            ProductRecBean recBean = new ProductRecBean();
+//            recBean.setFloorList(hotListBeen.getList());
+//            recBean.setFirstCategoryName("热销商品");
+//            recBean.setFirstCategoryId("1");
+//            products.add(0, recBean);
 
-            ProductRecBean recBean = new ProductRecBean();
-            recBean.setFloorList(hotListBeen.getList());
-            recBean.setFirstCategoryName("热销商品");
-            recBean.setFirstCategoryId("1");
-            products.add(0, recBean);
-            for (int i = 0; i < products.size(); i++) {
-                products.get(i).setColor(resourese[i % 5]);
-            }
+
+            marketIndexBean.setHotBeans(hotListBeen.getList());
+
+
             marketIndexBean.setRecBeans(products);
             marketIndexBean.setBrandBeans(brandListBeen.getList());
             marketIndexBean.setBannerBeans(hBanners);

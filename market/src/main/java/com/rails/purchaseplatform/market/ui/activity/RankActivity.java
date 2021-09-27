@@ -49,7 +49,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
  * @author： sk_comic@163.com
  * @date: 2021/6/7
  */
-public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding>{
+public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding> {
 
     private ViewPageAdapter viewPageAdapter;
     private MarketIndexBean indexBean;
@@ -64,12 +64,19 @@ public class RankActivity extends BaseErrorActivity<ActivityMarketRankBinding>{
 
     @Override
     protected void initialize(Bundle bundle) {
-        indexBean =  (MarketIndexBean) FileCacheUtil.getInstance(this).readObject("mallInfo");
+        indexBean = (MarketIndexBean) FileCacheUtil.getInstance(this).readObject("mallInfo");
         if (indexBean != null) {
             ProductRecBean recBean = new ProductRecBean();
             recBean.setFirstCategoryName("热销品牌");
             recBean.setFirstCategoryId("");
             indexBean.getRecBeans().add(0, recBean);
+
+            ProductRecBean recBean1 = new ProductRecBean();
+            recBean1.setFirstCategoryName("热销商品");
+            recBean1.setFirstCategoryId("1");
+            indexBean.getRecBeans().add(1, recBean1);
+
+
             initPager(indexBean.getRecBeans());
         }
     }
