@@ -29,4 +29,10 @@
     <string name="location">位置信息</string>
     <string name="device">设备信息</string>
     <string name="permission_text">为保证您可正常、安全的使用国铁商城，请允许获取以下权限</string>
+
+
+
+    <string name="indicator_color_error">指示器的颜色只能设置成“@color/colorID or #000000”</string>
+    <string name="banner_adapter_null_error">Adapter为空！请检查下参数</string>
+
 </resources>

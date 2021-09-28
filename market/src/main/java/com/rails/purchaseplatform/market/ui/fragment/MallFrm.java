@@ -1,15 +1,14 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.appbar.AppBarLayout;
-import com.orhanobut.logger.Logger;
+import com.google.android.material.tabs.TabLayout;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
@@ -25,6 +24,10 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.common.widget.banner.config.IndicatorConfig;
+import com.rails.purchaseplatform.common.widget.banner.indicator.BaseIndicator;
+import com.rails.purchaseplatform.common.widget.banner.indicator.CircleIndicator;
+import com.rails.purchaseplatform.common.widget.banner.indicator.DrawableIndicator;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
@@ -32,6 +35,7 @@ import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.adapter.BannerAdapter;
 import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.FloorTabAdapter;
 import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
@@ -45,6 +49,7 @@ import com.rails.purchaseplatform.market.widget.CenterManger;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -87,9 +92,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     protected void loadData() {
 
         //设置banner的宽高
-        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) binding.banner.getLayoutParams();
-        linearParams.width = ScreenSizeUtil.getScreenWidth(getActivity());
-        linearParams.height = linearParams.width * 227 / 375;
+        CardView.LayoutParams linearParams = (CardView.LayoutParams) binding.banner.getLayoutParams();
+        linearParams.width = ScreenSizeUtil.getScreenWidth(getActivity()) - ScreenSizeUtil.dp2px(getActivity(), 20);
+        linearParams.height = linearParams.width * 3 / 7;
         binding.banner.setLayoutParams(linearParams);
 
         //推荐分类列表
@@ -218,8 +223,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
         int tabHeight = -ScreenSizeUtil.dp2px(getActivity(), 100);
         binding.bar.addOnOffsetChangedListener((appBarLayout, i) -> {
-            binding.layoutHeader.setBackgroundColor(getResources().getColor(i < tabHeight ? R.color.bg_blue : R.color.trans));
+            binding.layoutHeader.setBackgroundColor(getResources().getColor(i < tabHeight ? R.color.bg_blue : R.color.bg_blue));
 
+//            binding.magic.setBackgroundColor(getResources().getColor(i <= height ? R.color.white : R.color.bg));
 
             if (i < -800) {
                 binding.imgTop.setVisibility(View.VISIBLE);
@@ -227,6 +233,14 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
                 binding.imgTop.setVisibility(View.GONE);
 
         });
+
+        binding.collapsing.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+            }
+        });
+
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
         statisticPresenter = new StatisticPresenterImpl(getActivity(), this);
@@ -251,9 +265,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         ArrayList<String> imgs = new ArrayList<>();
         for (BannerBean bean : banners)
             imgs.add(bean.getPictureUrl());
-
-        binding.banner.setImages(imgs).setDelayTime(3000).setImageLoader(new GlideImageLoader()).start();
-
+        binding.banner.setAdapter(new BannerAdapter(imgs))
+                .setIndicator(new DrawableIndicator(getActivity(), R.drawable.ic_dian, R.drawable.ic_dian_selected))
+                .setIndicatorGravity(IndicatorConfig.Direction.CENTER)
+                .addBannerLifecycleObserver(getActivity());
     }
 
 

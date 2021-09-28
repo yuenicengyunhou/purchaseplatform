@@ -60,7 +60,7 @@ public class CategoryTextView extends AppCompatTextView {
         Paint.FontMetrics fm = getPaint().getFontMetrics();
         int sizeHeight = (int) (fm.bottom - fm.top + fm.leading);
         mHeight = sizeHeight;
-        int iconHeight = mHeight * 3 / 5;
+        int iconHeight = mHeight  / 3;
         start = (int) getPaint().measureText(text.toString());
 
         path = new Path();

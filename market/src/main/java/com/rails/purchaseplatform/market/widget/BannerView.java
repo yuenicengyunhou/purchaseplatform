@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
-import com.youth.banner.Banner;
+
+import com.rails.purchaseplatform.common.widget.banner.Banner;
 
 import androidx.annotation.Nullable;
 

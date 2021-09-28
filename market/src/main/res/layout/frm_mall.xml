@@ -42,13 +42,46 @@
                         android:paddingTop="@dimen/dp_0">
 
 
-
-                        <com.rails.purchaseplatform.market.widget.BannerView
-                            android:id="@+id/banner"
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_200"
-                            app:h="227"
-                            app:w="375" />
+                            android:layout_height="@dimen/dp_100" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/bg_blue"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:background="@drawable/bg_corner_white_top_5">
+
+                                <com.rails.purchaseplatform.common.widget.RatioCard
+                                    android:id="@+id/card"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_10"
+                                    app:cardCornerRadius="@dimen/dp_5"
+                                    app:cardElevation="@dimen/dp_1"
+                                    app:h="3"
+                                    app:w="7">
+
+                                    <com.rails.purchaseplatform.common.widget.banner.Banner
+                                        android:id="@+id/banner"
+                                        android:layout_width="match_parent"
+                                        app:banner_indicator_normal_width="@dimen/dp_3"
+                                        app:banner_indicator_selected_width="@dimen/dp_3"
+                                        android:layout_height="wrap_content" />
+
+
+                                </com.rails.purchaseplatform.common.widget.RatioCard>
+
+                            </FrameLayout>
+
+                        </LinearLayout>
 
 
                         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
@@ -103,6 +136,9 @@
                         </LinearLayout>
 
 
+                        <View style="@style/line_bold_gray_10" />
+
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -135,22 +171,23 @@
                                 app:canH="true"
                                 app:canV="false" />
 
+                            <View style="@style/line_bold_gray_10" />
+
 
                         </LinearLayout>
                     </LinearLayout>
 
 
-
                     <androidx.appcompat.widget.Toolbar
                         android:layout_width="match_parent"
-                        app:layout_collapseMode="pin"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:layout_collapseMode="pin">
 
                         <RelativeLayout
                             android:id="@+id/layout_header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/trans">
+                            android:background="@color/bg_blue">
 
                             <RelativeLayout
                                 android:id="@+id/layout_search"
@@ -229,17 +266,13 @@
                     </androidx.appcompat.widget.Toolbar>
 
 
-
-
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
                 <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                     android:id="@+id/magic"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_height="@dimen/dp_50"
                     android:background="@color/bg"
                     android:overScrollMode="never" />
 
@@ -251,7 +284,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
-                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_25"
                 app:canH="false"
                 app:canV="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
