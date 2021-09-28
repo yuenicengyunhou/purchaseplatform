@@ -23,7 +23,10 @@ import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.common.widget.SpaceBottomDecoration;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
+import com.rails.purchaseplatform.common.widget.SpaceRightDecoration;
 import com.rails.purchaseplatform.common.widget.banner.config.IndicatorConfig;
 import com.rails.purchaseplatform.common.widget.banner.indicator.BaseIndicator;
 import com.rails.purchaseplatform.common.widget.banner.indicator.CircleIndicator;
@@ -39,6 +42,8 @@ import com.rails.purchaseplatform.market.adapter.BannerAdapter;
 import com.rails.purchaseplatform.market.adapter.BrandAdapter;
 import com.rails.purchaseplatform.market.adapter.FloorTabAdapter;
 import com.rails.purchaseplatform.market.adapter.NavigationAdapter;
+import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
+import com.rails.purchaseplatform.market.adapter.ProductHotIndexAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecSubAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
@@ -76,7 +81,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     //品牌区
     private BrandAdapter brandAdapter;
     //热门商品
-    private ProductRecSubAdapter hotAdapter;
+    private ProductHotIndexAdapter hotAdapter;
 
     private MarketIndexBean indexBean;
 
@@ -158,8 +163,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         });
 
 
-        hotAdapter = new ProductRecSubAdapter(getActivity());
+        hotAdapter = new ProductHotIndexAdapter(getActivity());
         hotAdapter.setListener(this);
+//        binding.recycler.addItemDecoration(new SpaceRightDecoration(getActivity(), 10, R.color.white));
         binding.hotRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.HORIZONTAL, false, 0);
         binding.hotRecycler.setAdapter(hotAdapter);
 
@@ -217,7 +223,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             }
         });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
-        binding.recycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.bg));
+        binding.recycler.addItemDecoration(new SpaceBottomDecoration(getActivity(), 10, R.color.bg));
         binding.recycler.setAdapter(recAdapter);
 
 
