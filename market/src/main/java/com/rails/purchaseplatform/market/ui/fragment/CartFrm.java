@@ -314,8 +314,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
         binding.btnCommit.setOnClickListener(v -> {
-            if (addressBean == null)
+            if (addressBean == null){
+                showAddressDialog();
                 return;
+            }
             if (cartAdapter.isNext())
                 presenter.verifyCart(String.valueOf(addressBean.getId()));
             else
@@ -354,7 +356,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         //地址列表弹窗
         binding.tvAddress.setOnClickListener(v -> {
-            showSelAddressDialog();
+            if(addressBean == null)
+                showAddressDialog();
+            else
+                showSelAddressDialog();
         });
     }
 
@@ -497,12 +502,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
 
         if (addressBean == null) {
-            binding.tvAddress.setVisibility(View.GONE);
-            showAddressDialog();
             cartAdapter.update(new ArrayList(), true);
             return;
         } else {
-            binding.tvAddress.setVisibility(View.VISIBLE);
             binding.tvAddress.setText(addressBean.getFullAddress());
         }
     }
