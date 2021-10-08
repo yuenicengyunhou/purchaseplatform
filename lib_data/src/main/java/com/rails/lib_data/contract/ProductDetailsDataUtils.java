@@ -594,10 +594,12 @@ public class ProductDetailsDataUtils {
 
     /**
      * 获取顶部轮播图
+     * 顶部轮播图不再从ItemPictureVoList字段中获取
      *
      * @param bean
      * @return
      */
+    @Deprecated
     public ArrayList<String> getTopPictureList(ProductDetailsBean bean) {
         ArrayList<String> pictures = new ArrayList<>();
         for (ItemPictureVo pictureVo : bean.getItemPictureVoList()) {
