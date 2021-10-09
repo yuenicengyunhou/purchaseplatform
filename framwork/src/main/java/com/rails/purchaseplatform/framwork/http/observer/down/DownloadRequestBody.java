@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.framwork.http.observer.down;
 
 
 import com.orhanobut.logger.Logger;
+import com.rails.purchaseplatform.framwork.http.observer.down.DownloadRequestBody.DownloadProgressListener;
 
 import java.io.IOException;
 
