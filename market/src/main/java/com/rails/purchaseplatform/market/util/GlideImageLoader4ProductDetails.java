@@ -23,7 +23,7 @@ public class GlideImageLoader4ProductDetails extends ImageLoader {
     @Override
     public ImageView createImageView(Context context) {
         RatioImage image = new RatioImage(context);
-        image.setW(24);
+        image.setW(25);
         image.setH(25);
         return image;
     }

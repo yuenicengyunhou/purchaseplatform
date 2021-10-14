@@ -420,7 +420,10 @@ public class ProductDetailsDataUtils {
     @NotNull
     public ArrayList<ProductDetailsPackingBean> getPackingBeans(ProductPriceBean priceBean) {
         ArrayList<ProductDetailsPackingBean> packingBeans = new ArrayList<>();
-        if (priceBean.getPackinglist() != null && priceBean.getPackinglist().size() != 0) {
+        if (priceBean.getPackinglist() != null
+                && priceBean.getPackinglist().size() != 0
+                && priceBean.getPackinglist().get(0).getAnnexName() != null
+                && TextUtils.isEmpty(priceBean.getPackinglist().get(0).getAnnexName())) {
             ProductDetailsPackingBean bean1 = new ProductDetailsPackingBean();
             bean1.setAttrKey("附件名称");
             bean1.setAttrValue("附件数量");
