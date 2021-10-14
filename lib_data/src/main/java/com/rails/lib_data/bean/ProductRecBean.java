@@ -69,6 +69,7 @@ public class ProductRecBean implements Serializable {
     private String lowerRgb;
     private String chineseenglishRgb;
     private String topPhoto;
+    private String topPhotoUrl;
     public final ObservableField<Boolean> isSel = new ObservableField<>();
 
 
@@ -302,5 +303,14 @@ public class ProductRecBean implements Serializable {
 
     public void setTopPhoto(String topPhoto) {
         this.topPhoto = topPhoto;
+    }
+
+
+    public String getTopPhotoUrl() {
+        return topPhotoUrl;
+    }
+
+    public void setTopPhotoUrl(String topPhotoUrl) {
+        this.topPhotoUrl = topPhotoUrl;
     }
 }

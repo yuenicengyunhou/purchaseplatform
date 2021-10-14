@@ -314,7 +314,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
         binding.btnCommit.setOnClickListener(v -> {
-            if (addressBean == null){
+            if (addressBean == null) {
                 showAddressDialog();
                 return;
             }
@@ -356,7 +356,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         //地址列表弹窗
         binding.tvAddress.setOnClickListener(v -> {
-            if(addressBean == null)
+            if (addressBean == null)
                 showAddressDialog();
             else
                 showSelAddressDialog();
@@ -501,11 +501,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.empty.setBtnEmpty("");
         presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
 
-        if (addressBean == null) {
-            cartAdapter.update(new ArrayList(), true);
-            return;
-        } else {
+        if (addressBean != null) {
+//            cartAdapter.update(new ArrayList(), true);
+//            return;
             binding.tvAddress.setText(addressBean.getFullAddress());
+        } else {
+
         }
     }
 
@@ -672,12 +673,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
                 cartAdapter.update(new ArrayList(), true);
-                binding.empty.setBtnEmpty("立即登录");
-                ToastUtil.showCenter(getActivity(), errorBean.getMsg());
-            }
-            break;
-            case HTTP_ERROR: {
-                cartAdapter.update(new ArrayList(), true);
+                binding.empty.setVisibility(View.VISIBLE);
                 binding.empty.setBtnEmpty("立即登录");
             }
             break;

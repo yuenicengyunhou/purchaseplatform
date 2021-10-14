@@ -72,6 +72,12 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindView(ItemMarketProductRecBinding binding) {
         super.onBindView(binding);
+
+        binding.recycler.setHasFixedSize(true);
+        binding.recycler.setNestedScrollingEnabled(false);
+        binding.recycler.setItemViewCacheSize(200);
+        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+        binding.recycler.setRecycledViewPool(recycledViewPool);
         binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 5, 15, 5, 0, R.color.white));
     }
 }

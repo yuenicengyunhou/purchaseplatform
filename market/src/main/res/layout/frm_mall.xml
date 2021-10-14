@@ -99,8 +99,10 @@
 
 
                         <LinearLayout
+                            android:id="@+id/ll_brand"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:orientation="vertical">
 
 
@@ -133,10 +135,10 @@
                                 app:canH="true"
                                 app:canV="false" />
 
+                            <View style="@style/line_bold_gray_10" />
+
                         </LinearLayout>
 
-
-                        <View style="@style/line_bold_gray_10" />
 
 
                         <LinearLayout

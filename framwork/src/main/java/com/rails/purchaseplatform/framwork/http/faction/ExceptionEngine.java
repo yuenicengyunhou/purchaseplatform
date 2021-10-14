@@ -59,7 +59,7 @@ public class ExceptionEngine {
             } else if (((HttpException) e).code() == 400) {
                 errorBean = new ErrorBean(e, ERROR_PASTDUE);
                 errorBean.setMsg("");
-            } else {
+            } else{
                 errorBean = new ErrorBean(e, HTTP_ERROR);
                 errorBean.setMsg("网络请求异常");  //均视为网络错误
             }

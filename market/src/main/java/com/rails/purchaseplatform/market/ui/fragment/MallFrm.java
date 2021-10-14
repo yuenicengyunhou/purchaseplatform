@@ -287,7 +287,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             binding.rlRecycler.finishRefresh();
             presenter.getMarketIndexInfo(false, false);
         });
-        presenter.getMarketIndexInfo(true, true);
+        presenter.getMarketIndexInfo(true, false);
     }
 
     @Override
@@ -316,7 +316,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
         indexBean = bean;
-        brandAdapter.update(bean.getBrandBeans(), true);
+        if (bean.getBrandBeans() == null){
+            binding.llBrand.setVisibility(View.GONE);
+        }else{
+            binding.llBrand.setVisibility(View.VISIBLE);
+            brandAdapter.update(bean.getBrandBeans(), true);
+        }
+
         hotAdapter.update(bean.getHotBeans(), true);
         tabAdapter.updateData(bean.getRecBeans(), true);
         recAdapter.update(bean.getRecBeans(), true);

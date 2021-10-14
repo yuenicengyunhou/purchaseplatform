@@ -178,25 +178,44 @@ public class MarketIndexModel {
         Observable categorys = getCategorys().subscribeOn(Schedulers.io());//获取导航
 
 
-        Observable.zip(hotProducts, recProducts, brands, banners, categorys, (Function5<ListBeen<ProductBean>, ArrayList<ProductRecBean>, ListBeen<BrandBean>, ArrayList<BannerBean>,
+        Observable.zip(hotProducts, recProducts, brands, banners, categorys, (Function5<ListBeen<ProductBean>, ArrayList<ProductRecBean>, Object, ArrayList<BannerBean>,
                 ArrayList<NavigationBean>, MarketIndexBean>) (hotListBeen, products, brandListBeen, hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
 
-//            ProductRecBean recBean = new ProductRecBean();
-//            recBean.setFloorList(hotListBeen.getList());
-//            recBean.setFirstCategoryName("热销商品");
-//            recBean.setFirstCategoryId("1");
-//            products.add(0, recBean);
+
+            try {
+                marketIndexBean.setHotBeans(hotListBeen.getList());
+            } catch (Exception e) {
+
+            }
 
 
-            marketIndexBean.setHotBeans(hotListBeen.getList());
+            try {
+                marketIndexBean.setRecBeans(products);
+            } catch (Exception e) {
+
+            }
 
 
-            marketIndexBean.setRecBeans(products);
-            marketIndexBean.setBrandBeans(brandListBeen.getList());
-            marketIndexBean.setBannerBeans(hBanners);
+            try {
+                if (brandListBeen instanceof ListBeen)
+                    marketIndexBean.setBrandBeans((ArrayList<BrandBean>) ((ListBeen<?>) brandListBeen).getList());
+            } catch (Exception e) {
+                marketIndexBean.setHotBeans(null);
+            }
 
-            marketIndexBean.setCategorySubBeans(hCategorys);
+
+            try {
+                marketIndexBean.setBannerBeans(hBanners);
+            } catch (Exception e) {
+
+            }
+
+            try {
+                marketIndexBean.setCategorySubBeans(hCategorys);
+            } catch (Exception e) {
+
+            }
 
             return marketIndexBean;
         }).observeOn(AndroidSchedulers.mainThread())
