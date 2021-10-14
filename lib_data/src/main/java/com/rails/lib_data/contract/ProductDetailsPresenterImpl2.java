@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
+import com.rails.lib_data.bean.forNetRequest.productDetails.ItemPublishVo;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep1Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep2Bean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsStep3Bean;
@@ -65,8 +66,9 @@ public class ProductDetailsPresenterImpl2
 
                 // 下一步请求需要的参数 地址给默认值
                 String platformId = "20";
-                String shopId = response1.getProductDetailsBean().getItemPublishVo().getShopId();
-                String cid = String.valueOf(response1.getProductDetailsBean().getItemPublishVo().getCid());
+                ItemPublishVo itemPublishVo = response1.getProductDetailsBean().getItemPublishVo();
+                String shopId = itemPublishVo.getShopId();
+                String cid = String.valueOf(itemPublishVo.getCid());
 //                String skuId = TextUtils.isEmpty(paramSkuId)
 //                        ? response1.getProductDetailsBean().getItemSkuInfoList().get(0).getId()
 //                        : paramSkuId;
@@ -86,10 +88,12 @@ public class ProductDetailsPresenterImpl2
                 String countryId = dataUtils.getCountryCode(addressBeanList);
                 String address = dataUtils.getFullAddress(addressBeanList);
                 String skuNum = "1";
+                String materialType = itemPublishVo.getMaterialType();
+                if (materialType == null) materialType = "0";
 
                 // 下一步请求
                 String finalSkuId = skuId;
-                mModel.getProductDetailsStep2(platformId, shopId, cid, skuId, provinceId, cityId, countryId, address, skuNum, new HttpRxObserver<ProductDetailsStep2Bean>() {
+                mModel.getProductDetailsStep2(materialType, platformId, shopId, cid, skuId, provinceId, cityId, countryId, address, skuNum, new HttpRxObserver<ProductDetailsStep2Bean>() {
                     @Override
                     protected void onError(ErrorBean e) {
                         baseView.onError(e);
@@ -98,9 +102,10 @@ public class ProductDetailsPresenterImpl2
 
                     @Override
                     protected void onSuccess(ProductDetailsStep2Bean response2) {
-                        dataUtils.analysisAllData(mContext.getApplicationContext(), finalSkuId, response1, response2);
-
-                        baseView.onProductInfoLoadCompleted(dataUtils.getProductDetailsPageBean());
+                        if (isCallBack()) {
+                            dataUtils.analysisAllData(mContext.getApplicationContext(), finalSkuId, response1, response2);
+                            baseView.onProductInfoLoadCompleted(dataUtils.getProductDetailsPageBean());
+                        }
                         baseView.dismissDialog();
                     }
                 });

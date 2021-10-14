@@ -48,13 +48,19 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
     private String saleArea;
     private String shopType;
     private String isBought;
+    private String mMaterialType;
+
+    public SearchResultByShopFragment(){
+
+    }
 
     @Override
     protected void loadData() {
         Bundle bundle = this.getArguments();
         mSearchKey = bundle.getString("search_key", "");
+        mMaterialType = bundle.getString("materialType");
 
-        mAdapter = new SearchResultByShopAdapter(this.getContext());
+        mAdapter = new SearchResultByShopAdapter(this.getContext(), mMaterialType);
         binding.brvSearchResultByShopRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.brvSearchResultByShopRecycler.setAdapter(mAdapter);
@@ -152,7 +158,7 @@ public class SearchResultByShopFragment extends LazyFragment<FragmentSearchResul
      * @param isDialog
      */
     void notifyData(String isBought, int page, String keyWord, String orderColumn, String orderType, String shopType, String saleArea, boolean isDialog) {
-        mPresenter.getShopListWithKeywordOnly(isBought, page, 30, keyWord, orderColumn, orderType, shopType, saleArea, isDialog);
+        mPresenter.getShopListWithKeywordOnly(mMaterialType, isBought, page, 30, keyWord, orderColumn, orderType, shopType, saleArea, isDialog);
     }
 
 

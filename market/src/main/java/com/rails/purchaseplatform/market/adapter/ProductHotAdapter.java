@@ -50,8 +50,10 @@ public class ProductHotAdapter extends BaseRecyclerAdapter<ProductBean, ItemMark
     protected void onBindView(ItemMarketProductHotBinding binding) {
         super.onBindView(binding);
         if (type != 0) {
-            binding.tvProperty.setTextColor(mContext.getResources().getColor(R.color.font_red));
-            binding.tvProperty.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            RecyclerView.LayoutParams linearParams =
+                    (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
+            linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 60)) / 3;
+            binding.getRoot().setLayoutParams(linearParams);
         }
     }
 }

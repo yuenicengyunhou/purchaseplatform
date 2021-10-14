@@ -21,6 +21,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ShopAdapter;
 import com.rails.purchaseplatform.market.databinding.ActivityMarketShopBinding;
@@ -42,7 +43,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 
     private ShopAdapter adapter;
     private ShopPresenterImp presenter;
-    private String shopInfoId;
+    private String shopInfoId = "";
     private final int PAGE_DEF = 1;
     private int mPage = PAGE_DEF;
     /**
@@ -54,6 +55,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 //    private FilterShopPop mPop;
 
     private int userScrollY;//用户滑动距离
+//    private int materialType;
 
     /**
      * 排序：
@@ -74,6 +76,9 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     protected void getExtraEvent(Bundle extras) {
         super.getExtraEvent(extras);
         shopInfoId = extras.getString("shopInfoId");
+        if (null == shopInfoId) {
+            ToastUtil.showCenter(this, "店铺id为空");
+        }
 //        shopInfoId = 202003030111L;
     }
 
@@ -150,7 +155,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 
         presenter = new ShopPresenterImp(this, this);
         queryShopInfo();//获取店铺信息
-        queryShopProductList();//获取店铺商品列表
+
 
     }
 
@@ -274,16 +279,15 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     @Override
     public void loadShopInfo(ShopInfoBean shop) {
         binding.setShopInfo(shop);
-        if (null != shop) {
-            String mobile = shop.getMobile();
-            binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
-            binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
-            if (TextUtils.isEmpty(mobile)) {
-                binding.ivMakePhone.setVisibility(View.GONE);
-            } else {
-                binding.ivMakePhone.setVisibility(View.VISIBLE);
-            }
+        String mobile = shop.getMobile();
+        binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
+        binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
+        if (TextUtils.isEmpty(mobile)) {
+            binding.ivMakePhone.setVisibility(View.GONE);
+        } else {
+            binding.ivMakePhone.setVisibility(View.VISIBLE);
         }
+        queryShopProductList();//获取店铺商品列表
     }
 
     @Override

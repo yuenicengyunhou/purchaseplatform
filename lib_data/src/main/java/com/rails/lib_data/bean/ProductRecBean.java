@@ -1,7 +1,13 @@
 package com.rails.lib_data.bean;
 
+import android.text.TextUtils;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import androidx.databinding.ObservableField;
 
 /**
  * 商城首页推荐类别产品bean
@@ -30,6 +36,9 @@ public class ProductRecBean implements Serializable {
      * linkUrl : null
      */
 
+
+
+
     private Integer id;
     private Integer key;
     private Integer platformId;
@@ -52,6 +61,16 @@ public class ProductRecBean implements Serializable {
 
     private String firstCategoryId;
     private String firstCategoryName;
+    private String statisticsDate;
+    private String createTime;
+    private Integer orderNum;
+    private Integer rank;
+    private String englishName;
+    private String lowerRgb;
+    private String chineseenglishRgb;
+    private String topPhoto;
+    private String topPhotoUrl;
+    public final ObservableField<Boolean> isSel = new ObservableField<>();
 
 
     public Integer getId() {
@@ -214,5 +233,84 @@ public class ProductRecBean implements Serializable {
 
     public void setFirstCategoryName(String firstCategoryName) {
         this.firstCategoryName = firstCategoryName;
+    }
+
+    public String getStatisticsDate() {
+        return statisticsDate;
+    }
+
+    public void setStatisticsDate(String statisticsDate) {
+        this.statisticsDate = statisticsDate;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public String getEnglishName() {
+        return englishName;
+    }
+
+    public void setEnglishName(String englishName) {
+        this.englishName = englishName;
+    }
+
+    public String getLowerRgb() {
+        if (TextUtils.isEmpty(lowerRgb)){
+            return "#9F4343";
+        }
+        return lowerRgb;
+    }
+
+    public void setLowerRgb(String lowerRgb) {
+        this.lowerRgb = lowerRgb;
+    }
+
+    public String getChineseenglishRgb() {
+        if (TextUtils.isEmpty(chineseenglishRgb)){
+            return "#FFFFFFFF";
+        }
+        return chineseenglishRgb;
+    }
+
+    public void setChineseenglishRgb(String chineseenglishRgb) {
+        this.chineseenglishRgb = chineseenglishRgb;
+    }
+
+    public String getTopPhoto() {
+        return topPhoto;
+    }
+
+    public void setTopPhoto(String topPhoto) {
+        this.topPhoto = topPhoto;
+    }
+
+
+    public String getTopPhotoUrl() {
+        return topPhotoUrl;
+    }
+
+    public void setTopPhotoUrl(String topPhotoUrl) {
+        this.topPhotoUrl = topPhotoUrl;
     }
 }

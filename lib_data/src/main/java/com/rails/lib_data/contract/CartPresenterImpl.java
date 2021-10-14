@@ -51,7 +51,6 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.onError(e);
             }
 
             @Override
@@ -173,7 +172,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.onError(e);
+                if ("404".equals(e.getCode())){
+
+                }else{
+                    baseView.onError(e);
+                }
             }
 
             @Override
@@ -197,7 +200,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.onError(e);
+                if ("404".equals(e.getCode())){
+
+                }else{
+                    baseView.onError(e);
+                }
             }
 
             @Override
@@ -220,7 +227,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.onError(e);
+                if ("404".equals(e.getCode())){
+
+                }else{
+                    baseView.onError(e);
+                }
             }
 
             @Override
@@ -239,7 +250,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.onError(e);
+                if ("404".equals(e.getCode())){
+
+                }else{
+                    baseView.onError(e);
+                }
             }
 
             @Override
@@ -285,7 +300,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                baseView.onError(e);
+                if ("404".equals(e.getCode())){
+
+                }else{
+                    baseView.onError(e);
+                }
                 if (isCallBack())
                     baseView.getSelStatus(1, isSel);
 
@@ -311,7 +330,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 baseView.dismissDialog();
                 if (isCallBack())
                     baseView.getSelStatus(2, !isSel);
-                baseView.onError(e);
+                if ("404".equals(e.getCode())){
+
+                }else{
+                    baseView.onError(e);
+                }
             }
 
             @Override

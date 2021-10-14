@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -26,12 +27,14 @@ import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
+import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
@@ -42,7 +45,9 @@ import com.rails.purchaseplatform.market.adapter.CartAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
+import com.rails.purchaseplatform.market.ui.pop.CartAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
+import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -72,7 +77,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     int type = 0;//是否显示标题
     final int DEF_PAGE = 1;
     int page = DEF_PAGE;
+
+    //默认选中第一个地址
     AddressBean addressBean;
+    //地址列表
+    ArrayList<AddressBean> addressBeans;
 
     CartAdapter cartAdapter;
     ProductHotAdapter recAdapter;
@@ -86,6 +95,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     private CartShopProductBean lastBean;
 
+    public CartFrm() {
+    }
 
     private CartFrm(int type) {
         this.type = type;
@@ -126,6 +137,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         recAdapter.setListener(new PositionListener<ProductBean>() {
             @Override
             public void onPosition(ProductBean bean, int position) {
+                //跳转商品详情
                 if (TextUtils.isEmpty(bean.getItemId())) {
                     ToastUtil.showCenter(getActivity(), "商品不存在或已下架");
                     return;
@@ -179,11 +191,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 binding.swipe.finishRefresh();
                 page = DEF_PAGE;
-                addressPresenter.getDefAddress("20", "1", "", "");
+                addressPresenter.getAddress("20", "1", "", "");
                 notifyData(false, page);
             }
         });
-        addressPresenter.getDefAddress("20", "1", "", "");
+        addressPresenter.getAddress("20", "1", "", "");
         notifyData(false, page);
     }
 
@@ -201,8 +213,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-//        productPresenter.getHotProducts(false, page, "10");
-        productPresenter.getRectProducts(false, false);
+        productPresenter.getHotProducts(false, page, "10");
     }
 
     @Override
@@ -221,7 +232,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
         cartAdapter.update(shopBeans, true);
         setDefTotal(cartBean);
-        binding.cartRecycler.setEmptyView(binding.empty);
+//        binding.cartRecycler.setEmptyView(binding.empty);
     }
 
     @Override
@@ -297,16 +308,16 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         });
 
-        binding.imgTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.scroll.smoothScrollTo(0, 0);
-            }
+
+        binding.imgTop.setOnClickListener(v -> {
+            binding.scroll.smoothScrollTo(0, 0);
         });
 
         binding.btnCommit.setOnClickListener(v -> {
-            if (addressBean == null)
+            if (addressBean == null) {
+                showAddressDialog();
                 return;
+            }
             if (cartAdapter.isNext())
                 presenter.verifyCart(String.valueOf(addressBean.getId()));
             else
@@ -319,15 +330,17 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
 
+        //选中收藏操作
         binding.btnCollect.setOnClickListener(v -> {
             collectAllParams(cartAdapter.getBeans());
         });
 
-
+        //返回按钮
         binding.btnBack.setOnClickListener(v -> {
             getActivity().finish();
         });
 
+        //管理操作
         binding.tvManager.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.tvManager.setText(R.string.market_cart_complement);
@@ -338,6 +351,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 binding.llOperate.setVisibility(View.GONE);
                 binding.llPrice.setVisibility(View.VISIBLE);
             }
+        });
+
+
+        //地址列表弹窗
+        binding.tvAddress.setOnClickListener(v -> {
+            if (addressBean == null)
+                showAddressDialog();
+            else
+                showSelAddressDialog();
         });
     }
 
@@ -471,25 +493,26 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getAddress(ArrayList<AddressBean> addressBeans) {
+        if (null != addressBeans && !addressBeans.isEmpty()) {
+            this.addressBeans = addressBeans;
+            addressBean = addressBeans.get(0);
+        }
 
+        binding.empty.setBtnEmpty("");
+        presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
+
+        if (addressBean != null) {
+//            cartAdapter.update(new ArrayList(), true);
+//            return;
+            binding.tvAddress.setText(addressBean.getFullAddress());
+        } else {
+
+        }
     }
 
     @Override
     public void getDefAddress(AddressBean bean) {
-        binding.empty.setBtnEmpty("");
-        if (bean == null) {
-            Boolean isAddressManager = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_ADDRESS, false);
-            if (!isAddressManager) {
-                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
-                return;
-            } else {
-                showAddressDialog();
-            }
-            cartAdapter.update(new ArrayList(), true);
-            return;
-        }
-        addressBean = bean;
-        presenter.getCarts(true, String.valueOf(bean.getId()));
+
     }
 
 
@@ -584,29 +607,27 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
     @Override
-    public void getRecProducts(ArrayList<ProductRecBean> beans) {
+    public void getHotProducts(ArrayList<ProductBean> beans) {
+        if (beans == null)
+            return;
         if (beans.isEmpty())
             return;
-        recAdapter.update(beans.get(0).getFloorList(), true);
-    }
-
-    @Override
-    public void getBanners(ArrayList<BannerBean> bannerBeans) {
-
-    }
-
-    @Override
-    public void getBrands(ArrayList<BrandBean> brandBeans) {
-
-    }
-
-    @Override
-    public void getRecCategorys(ArrayList<CategorySubBean> beans) {
-
+        recAdapter.update(beans, true);
+        binding.recRecycler.notifyMoreFinish(false);
     }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
+
+    }
+
+    @Override
+    public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
     }
 
@@ -623,7 +644,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 .setDialogListener(new AlterDialog.DialogListener() {
                     @Override
                     public void onLeft() {
-                        ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+                        Boolean isAddressManager = PrefrenceUtil.getInstance(getActivity()).getBoolean(ConShare.MENU_ADDRESS, false);
+                        if (!isAddressManager) {
+                            ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                            return;
+                        } else {
+                            ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+                        }
+
                         dismissDialog();
                     }
 
@@ -645,12 +673,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             case ERROR_UNLOAD_2:
             case ERROR_TIMEOUT: {
                 cartAdapter.update(new ArrayList(), true);
-                binding.empty.setBtnEmpty("立即登录");
-                ToastUtil.showCenter(getActivity(), errorBean.getMsg());
-            }
-            break;
-            case HTTP_ERROR: {
-                cartAdapter.update(new ArrayList(), true);
+                binding.empty.setVisibility(View.VISIBLE);
                 binding.empty.setBtnEmpty("立即登录");
             }
             break;
@@ -660,6 +683,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 break;
         }
     }
+
 
     /**
      * token是否存在
@@ -671,4 +695,26 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         return !TextUtils.isEmpty(token);
     }
 
+
+    /**
+     * 显示选择地址的弹窗
+     */
+    void showSelAddressDialog() {
+        if (addressBeans == null)
+            return;
+        if (addressBeans.isEmpty())
+            return;
+        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans);
+        addressPop.setType(BasePop.MATCH_WRAP);
+        addressPop.setGravity(Gravity.BOTTOM);
+        addressPop.setListener(new CartAddressPop.AddressListener() {
+            @Override
+            public void getAddrss(AddressBean bean) {
+                binding.tvAddress.setText(bean.getFullAddress());
+            }
+
+        });
+
+        addressPop.show(getChildFragmentManager(), "address");
+    }
 }

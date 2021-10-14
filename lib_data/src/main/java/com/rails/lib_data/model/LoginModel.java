@@ -80,7 +80,7 @@ public class LoginModel {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("serviceTicket", token);
-        params.put("platformId", "30");
+        params.put("platformId", "20");
 
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()

@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
         <variable
             name="brand"
             type="com.rails.lib_data.bean.BrandBean" />
@@ -29,7 +33,48 @@
             app:borderWidth="@dimen/dp_1"
             app:displayBorder="true"
             app:displayType="round_rect"
-            app:imgUrl="@{brand.pictureUrl}" />
+            app:imgByte="@{brand.brandLogoUrl}" />
+
+
+        <com.rails.purchaseplatform.common.widget.RatioLinear
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_corner_border_gray_5"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{TextUtils.isEmpty(brand.brandLogoUrl)?View.VISIBLE:View.GONE}">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_5"
+                android:singleLine="true"
+                android:maxLength="4"
+                android:text="@{brand.brandName}"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_3"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_5"
+                android:singleLine="true"
+                android:text="@{brand.brandNameE}"
+                android:textColor="@color/font_gray"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+
+        </com.rails.purchaseplatform.common.widget.RatioLinear>
 
 
     </FrameLayout>

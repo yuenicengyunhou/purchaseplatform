@@ -81,7 +81,11 @@ public class OrderRecyclerAdapter extends BaseRecycleAdapter<SubOrderInfoBean, O
             holder.ivNext.setVisibility(View.VISIBLE);
             holder.tvOrderTime.setText(orderTime);
             holder.tvOrderTime.setVisibility(View.VISIBLE);
-            holder.tvNumKey.setText("订单号：");
+            if (orderNo.equals("购物车订单")) {
+                holder.tvNumKey.setText("");
+            } else {
+                holder.tvNumKey.setText("订单号：");
+            }
             holder.tvTimeKey.setVisibility(View.VISIBLE);
 
         } else {

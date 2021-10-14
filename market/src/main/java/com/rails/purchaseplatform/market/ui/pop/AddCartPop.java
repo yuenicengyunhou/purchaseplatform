@@ -18,6 +18,7 @@ import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
 import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
+import com.rails.lib_data.bean.forAppShow.ProductDetailsPageBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPopBean;
 import com.rails.lib_data.bean.forAppShow.RecommendItemsBean;
 import com.rails.lib_data.bean.forAppShow.SpecificationPopBean;
@@ -45,7 +46,7 @@ import java.util.List;
  * @author： sk_comic@163.com
  * @date: 2021/3/29
  */
-public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
+public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
 
     final private String TAG = AddCartPop.class.getSimpleName();
 
@@ -66,13 +67,13 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     private ChooseSkuAndAddCart mChooseSkuAndAddCart;
 
-    private String mMinPrice, mMaxPrice, mDelivery, mPrice;
+    private String mMinPrice, mMaxPrice, mDelivery, mPrice, mMaterialType;
 
     private String mShopId, mProvinceId, mCityId, mCountryId, mAddress, mSkuNum;
 
     private String mStockStateStr = "";
 
-    private ArrayList<T> mBeans;
+    private ArrayList<SpecificationPopBean> mBeans;
     private ArrayList<ItemSkuInfo> mItemSkuInfos;
     private ItemSkuInfo mItemSkuInfo, mPreviousItemSkuInfo;
     private SkuStockBean mSkuStockBean;
@@ -81,29 +82,23 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
 
     /**
      * 选择型号/加入购物车弹窗
-     *
-     * @param beans
-     * @param skuInfos
-     * @param price
-     * @param delivery
      */
-    public AddCartPop(ArrayList<T> beans, List<ItemSkuInfo> skuInfos, ItemSkuInfo currentSkuInfo, SkuStockBean skuStockBean, String price, String delivery,
-                      String supplierId, String provinceId, String cityId, String countryId,
-                      String address, String skuNum) {
+    public AddCartPop(ProductDetailsPageBean pageBean, List<ItemSkuInfo> skuInfos) {
         super();
-        mBeans = beans;
-        mShopId = supplierId;
-        mProvinceId = provinceId;
-        mCityId = cityId;
-        mCountryId = countryId;
-        mAddress = address;
-        mSkuNum = skuNum;
+        mBeans = pageBean.getSpecPopBeanList();
+        mShopId = pageBean.getShopId();
+        mProvinceId = pageBean.getProvinceCode();
+        mCityId = pageBean.getCityCode();
+        mCountryId = pageBean.getCountryCode();
+        mAddress = "";
+        mSkuNum = "1";
         mItemSkuInfos = (ArrayList<ItemSkuInfo>) skuInfos;
-        mItemSkuInfo = currentSkuInfo;
+        mItemSkuInfo = pageBean.getCurrentItemSkuInfo();
         mPreviousItemSkuInfo = mItemSkuInfo;
-        mDelivery = delivery;
-        mPrice = price;
-        mSkuStockBean = skuStockBean;
+        mDelivery = pageBean.getDelivery();
+        mPrice = pageBean.getSellPrice();
+        mSkuStockBean = pageBean.getSkuStockBean();
+        mMaterialType = pageBean.getMaterialType();
         mProductDetailsPresenter = new ProductDetailsPresenterImpl(getActivity(), new ProductDetailsContract.ProductDetailsView() {
             @Override
             public void onGetProductDetailsSuccess(ProductDetailsBean bean, ArrayList<ProductServiceBean> serviceBeans, ArrayList<ProductServiceBean> recCompanys, ArrayList<SpecificationPopBean> specificationPopBeanList) {
@@ -146,7 +141,6 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
             @Override
             public void getSkuSaleStocks(SkuStockBean bean) {
                 mSkuStockBean = bean;
-//                Log.d(TAG, "谁动了我的接口？？？？？？？");
                 setAddCartButton();
             }
 
@@ -190,6 +184,9 @@ public class AddCartPop<T> extends BasePop<PopMarketPropertyBinding> {
      * 详情页 -> 加入购物车弹窗 || 选择规格弹窗
      */
     private void setPopEvent() {
+        if (mMaterialType.equals("1")) {
+            binding.llSkuPrice.setVisibility(View.INVISIBLE);
+        }
         binding.llTop.setVisibility(View.VISIBLE); // 显示图片头
         binding.rlBuyCount.setVisibility(View.VISIBLE); // 显示数量步进器
         binding.addCart.setVisibility(View.VISIBLE); // 显示加入购物车按钮（长按钮 确定）

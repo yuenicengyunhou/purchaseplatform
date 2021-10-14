@@ -21,6 +21,8 @@ public class CategoryRootBean implements Serializable {
 
     private String name;
     private String fcid;
+    //是否是专用物资 0：普通物资 1；专用物资
+    private int materialType;
     private List<CategoryBean> secondPlatformCategoryList;
 
 
@@ -38,6 +40,14 @@ public class CategoryRootBean implements Serializable {
 
     public void setFcid(String fcid) {
         this.fcid = fcid;
+    }
+
+    public int getMaterialType() {
+        return materialType;
+    }
+
+    public void setMaterialType(int materialType) {
+        this.materialType = materialType;
     }
 
     public List<CategoryBean> getSecondPlatformCategoryList() {

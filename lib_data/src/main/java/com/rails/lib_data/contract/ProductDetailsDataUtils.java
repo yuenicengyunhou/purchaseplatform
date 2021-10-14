@@ -102,6 +102,11 @@ public class ProductDetailsDataUtils {
         String cid = String.valueOf(productDetailsBean.getItemPublishVo().getCid());
         pageBean.setCid(cid);
 
+        // 专用物资标识
+        String materialType = productDetailsBean.getItemPublishVo().getMaterialType();
+        if (materialType == null) materialType = "0";
+        pageBean.setMaterialType(materialType);
+
         // skuStockBean
         SkuStockBean stockBean = bean2.getSkuStockBeans().get(0);
         pageBean.setSkuStockBean(stockBean);

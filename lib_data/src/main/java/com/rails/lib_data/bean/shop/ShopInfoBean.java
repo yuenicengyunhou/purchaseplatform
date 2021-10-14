@@ -1,7 +1,6 @@
 package com.rails.lib_data.bean.shop;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 public class ShopInfoBean {
 
@@ -81,6 +80,15 @@ public class ShopInfoBean {
     private String tiezongCode;
     private Object recommendOrgId;
     private Object bindOrgId;
+    private int materialType;
+
+    public int getMaterialType() {
+        return materialType;
+    }
+
+    public void setMaterialType(int materialType) {
+        this.materialType = materialType;
+    }
 
     public int getId() {
         return id;

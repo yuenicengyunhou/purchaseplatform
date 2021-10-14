@@ -77,6 +77,23 @@ public class AddressModel {
     }
 
     /**
+     * 地址编辑
+     */
+    public void editAddress(String addressId, String json, HttpRxObserver httpRxObserver) {
+//        if (null == platformId || TextUtils.isEmpty(platformId)) {
+//            platformId = "20";
+//        }
+        HashMap<String, Object> map = new HashMap<>();
+//        map.put("platformId", platformId);
+//        map.put("accountId", accountId);
+        map.put("requestStr", json);
+        map.put("buyerAddressId", addressId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(AddressService.class).updateAddress(map))
+                .subscribe(httpRxObserver);
+    }
+
+    /**
      * 删除地址
      */
     public void deleteAddress(String buyerAddressId, HttpRxObserver httpRxObserver) {
@@ -115,23 +132,6 @@ public class AddressModel {
         map.put("id", id);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(AddressService.class).updateDefaultInvoiceAddress(map))
-                .subscribe(httpRxObserver);
-    }
-
-    /**
-     * 地址编辑
-     */
-    public void editAddress(String addressId, String json, HttpRxObserver httpRxObserver) {
-//        if (null == platformId || TextUtils.isEmpty(platformId)) {
-//            platformId = "20";
-//        }
-        HashMap<String, Object> map = new HashMap<>();
-//        map.put("platformId", platformId);
-//        map.put("accountId", accountId);
-        map.put("requestStr", json);
-        map.put("buyerAddressId", addressId);
-        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(AddressService.class).updateAddress(map))
                 .subscribe(httpRxObserver);
     }
 

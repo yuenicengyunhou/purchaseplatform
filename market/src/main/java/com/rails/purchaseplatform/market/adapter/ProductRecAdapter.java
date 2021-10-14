@@ -13,6 +13,7 @@ import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding;
 
+import androidx.databinding.adapters.Converters;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,26 +27,10 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
  */
 public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemMarketProductRecBinding> {
 
-    private int[] res;
     private String[] colors;
 
     public ProductRecAdapter(Context context) {
         super(context);
-        res = new int[]{
-                R.drawable.ic_market_bluethree,
-                R.drawable.ic_market_bluelightthree,
-                R.drawable.ic_market_brownthree,
-                R.drawable.ic_market_blacklightthree,
-                R.drawable.ic_market_greenthree
-        };
-
-        colors = new String[]{
-                "#5566DF",
-                "#47ACF1",
-                "#DDA15B",
-                "#4F5468",
-                "#3DC999"
-        };
     }
 
     @Override
@@ -56,23 +41,13 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindItem(ItemMarketProductRecBinding binding, ProductRecBean bean, int position) {
         binding.setFloor(bean);
-        try {
-            binding.tvTitle.setTextColor(Color.parseColor(bean.getColor()));
-            VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(mContext.getResources(), R.drawable.svg_market_threeline, null);
-            vectorDrawableCompat.setTint(Color.parseColor(bean.getColor()));
-            binding.imgLeft.setImageDrawable(vectorDrawableCompat);
-            binding.imgRight.setImageDrawable(vectorDrawableCompat);
-            binding.tvTitle.setTextColor(Color.parseColor(colors[position % 5]));
-            binding.imgLeft.setImageResource(res[position % 5]);
-            binding.imgRight.setImageResource(res[position % 5]);
-        } catch (Exception e) {
 
-        }
-
+        binding.card.setCardBackgroundColor(Color.parseColor(bean.getLowerRgb()));
+        binding.tvTitle.setTextColor(Color.parseColor(bean.getChineseenglishRgb()));
+        binding.tvName.setTextColor(Color.parseColor(bean.getChineseenglishRgb()));
 
         ProductRecSubAdapter adapter = new ProductRecSubAdapter(mContext);
         binding.recycler.setLayoutManager(new GridLayoutManager(mContext, 3));
-//        binding.recycler.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 3);
         binding.recycler.setAdapter(adapter);
         adapter.update(bean.getFloorList(), true);
 
@@ -83,7 +58,12 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
                     positionListener.onPosition(bean, position);
                 }
             }
+        });
 
+        binding.tvTitle.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(bean, position);
+            }
         });
 
     }
@@ -92,7 +72,12 @@ public class ProductRecAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemM
     @Override
     protected void onBindView(ItemMarketProductRecBinding binding) {
         super.onBindView(binding);
-        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 0, 15, 0, 15, R.color.white));
+
+        binding.recycler.setHasFixedSize(true);
+        binding.recycler.setNestedScrollingEnabled(false);
+        binding.recycler.setItemViewCacheSize(200);
+        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+        binding.recycler.setRecycledViewPool(recycledViewPool);
+        binding.recycler.addItemDecoration(new SpaceGirdWeightDecoration(mContext, 5, 15, 5, 0, R.color.white));
     }
 }
-

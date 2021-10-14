@@ -8,16 +8,18 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 public interface ShopService {
 
-    @GET("app-user-service/app/v1/mall/shop/queryShopInfoByShopInfoId")
+    @POST("app-user-service/app/v1/mall/shop/queryShopInfoByShopInfoId")
     Observable<HttpResult<ShopInfoBean>> getShopInfo(@QueryMap HashMap<String, Object> map);
 
-    @GET("elasticsearch-service/mall/search/queryShopItemListByKeyword")
+    @POST("elasticsearch-service/mall/search/queryShopItemListByKeyword")
     Observable<HttpResult<ShopRecommendBean>> getShopItemList(@QueryMap HashMap<String, Object> map);
-    @GET("elasticsearch-service/mall/search/queryItemListByCid")
+
+    @POST("elasticsearch-service/mall/search/queryItemListByCid")
     Observable<HttpResult<ShopRecommendBean>> getShopItemListByCid(@QueryMap HashMap<String, Object> map);
 
     //采购单号 从

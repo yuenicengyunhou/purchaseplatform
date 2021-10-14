@@ -57,7 +57,7 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
             }
             break;
             case UN_KNOWN_ERROR: {
-
+                ToastUtil.showCenter(this, errorBean.getMsg());
             }
             break;
             default:

@@ -12,6 +12,9 @@ import com.rails.purchaseplatform.user.databinding.FrmMineBinding;
  * @date: 2021/1/26
  */
 public class MineFrm extends LazyFragment<FrmMineBinding> {
+
+    public MineFrm(){}
+
     @Override
     protected void loadData() {
         // TODO: 2021/2/25 类的初始化页面数据在这里处理 

@@ -29,7 +29,7 @@ import retrofit2.HttpException;
 public class ExceptionEngine {
 
     //登录
-    public static final String ERROR_PASTDUE = "99999-4";
+    public static final String ERROR_PASTDUE = "90000-21";
     public static final String ERROR_UNLOAD = "0-0004";
     public static final String ERROR_TIMEOUT = "0-0202";
     public static final String ERROR_UNLOAD_2 = "0000010200006";
@@ -56,7 +56,10 @@ public class ExceptionEngine {
             if (((HttpException) e).code() == 502) {
                 errorBean = new ErrorBean(e, ERROE_502);
                 errorBean.setMsg("");
-            } else {
+            } else if (((HttpException) e).code() == 400) {
+                errorBean = new ErrorBean(e, ERROR_PASTDUE);
+                errorBean.setMsg("");
+            } else{
                 errorBean = new ErrorBean(e, HTTP_ERROR);
                 errorBean.setMsg("网络请求异常");  //均视为网络错误
             }
@@ -82,7 +85,7 @@ public class ExceptionEngine {
             else if (e.getMessage().contains("but was com.google.gson.JsonNull")) {
                 errorBean.setMsg("but was com.google.gson.JsonNull");
             }
-        } else if (e instanceof ConnectException||e instanceof NoRouteToHostException|| e instanceof UnknownHostException) {//连接网络错误
+        } else if (e instanceof ConnectException || e instanceof NoRouteToHostException || e instanceof UnknownHostException) {//连接网络错误
             errorBean = new ErrorBean(e, CONNECT_ERROR);
             errorBean.setMsg("连接失败，请检查网络状况");
         } else if (e instanceof SocketTimeoutException) {//网络超时

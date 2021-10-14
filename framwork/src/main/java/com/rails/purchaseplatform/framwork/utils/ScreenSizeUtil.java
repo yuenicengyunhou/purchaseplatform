@@ -40,10 +40,15 @@ public class ScreenSizeUtil {
             return metrics;
         }
         metrics = new DisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            ((Activity) context).getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-        else
-            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        if (context instanceof Activity){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                ((Activity) context).getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+            else
+                ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        }else{
+            metrics =context.getResources().getDisplayMetrics();
+        }
+
         return metrics;
     }
 

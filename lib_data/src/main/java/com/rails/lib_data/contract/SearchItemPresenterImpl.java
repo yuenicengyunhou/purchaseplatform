@@ -89,11 +89,11 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
     }
 
     @Override
-    public void queryItemListByCid(String keyword, String cid, String orderColumn, String orderType,
+    public void queryItemListByCid(String materialType, String keyword, String cid, String orderColumn, String orderType,
                                    String brands, String brandsString, String categoryAttrValueIds, String expandAttrValueIds,
                                    String minPrice, String maxPrice, int pageNum, int pageSize, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.queryItemListByCid(keyword, cid, orderColumn, orderType, brands, brandsString,
+        model.queryItemListByCid(materialType, keyword, cid, orderColumn, orderType, brands, brandsString,
                 categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, pageNum, pageSize,
                 new HttpRxObserver<SearchDataByItemBean>() {
                     @Override
@@ -130,11 +130,11 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
      * @param isDialog
      */
     @Override
-    public void queryItemListByKeyword(String keyword, String orderColumn, String orderType,
+    public void queryItemListByKeyword(String materialType, String keyword, String orderColumn, String orderType,
                                        String brands, String brandsString, String categoryAttrValueIds, String expandAttrValueIds,
                                        String minPrice, String maxPrice, int pageNum, int pageSize, boolean isDialog) {
         if (isDialog) baseView.showResDialog(R.string.loading);
-        model.queryItemListByKeyword(keyword, orderColumn, orderType,
+        model.queryItemListByKeyword(materialType, keyword, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
                 minPrice, maxPrice, pageNum, pageSize,
                 new HttpRxObserver<JsonObject>() {

@@ -40,6 +40,8 @@ import com.rails.lib_data.contract.ProductDetailsContract2;
 import com.rails.lib_data.contract.ProductDetailsDataUtils;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl;
 import com.rails.lib_data.contract.ProductDetailsPresenterImpl2;
+import com.rails.lib_data.contract.StatisticContract;
+import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.AreaPop;
@@ -74,13 +76,26 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         CartContract.DetailsCartView,
         ProductDetailsContract.ProductDetailsView,
         ProductDetailsContract2.ProductDetailsView2,
-        AddressToolContract.AddressToolView {
+        AddressToolContract.AddressToolView,
+        StatisticContract.StatisticView {
 
     final private String TAG = ProductDetailsActivity.class.getSimpleName();
 
     final private int LOAD_BITMAP = 63;
 
-    private Handler mHandler;
+    private final Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == LOAD_BITMAP) {
+                imgAdapter.update(mDescribePictureList, true);
+                mThread.interrupt();
+                mHandler.removeCallbacksAndMessages(null);
+                return true;
+            }
+            return false;
+        }
+    });
+
     private Thread mThread;
 
     /**
@@ -91,7 +106,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 商品详情页面所有需要展示的、可能需要运算的数据
      */
-    private ProductDetailsPageBean mPageBean;
+    private ProductDetailsPageBean mPageBean = new ProductDetailsPageBean();
 
     /**
      * 添加购物车Pop中需要展示或计算的所有数据
@@ -105,6 +120,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private QuickJumpPop pop;
 
     private ArrayList<String> mDescribeUrlList = new ArrayList<>();
+    private ArrayList<ItemPicture> mDescribePictureList = new ArrayList<>();
 
     private ProductDetailsBean productDetailsBean;
 
@@ -112,13 +128,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private String mSkuId;
     private String mPlatformId = "20";
 
-    private AddCartPop<SpecificationPopBean> mPop;
+    private AddCartPop mPop;
     private ProductDetailsChooseAddressPop mChooseAddressPop;
     private ProductDetailsParamsPop mParamsPop;
     private QuickJumpPop mQuickJumpPop;
 
     private CartContract.CartPresenter2 mPresenter;
     private ProductDetailsContract.ProductDetailsPresenter mGetProductDetailsPresenter;
+    private StatisticContract.StatisticPresenter statisticPresenter;
 
     private RecommendItemsRecyclerAdapter recommendItemsRecyclerAdapter;
     private DetailImgAdapter imgAdapter;
@@ -386,12 +403,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 弹出添加购物车Pop
         binding.tvPutInCart.setOnClickListener(v -> {
-            showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
+            if (mPageBean.getCurrentItemSkuInfo() != null)
+                showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
         });
 
         // 弹出选择型号Pop
         binding.rlTypeChosen.setOnClickListener(v -> {
-            showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
+            if (mPageBean.getCurrentItemSkuInfo() != null)
+                showPropertyPop(mPageBean.getCurrentItemSkuInfo().getId());
         });
 
         // 弹出选择地址Pop
@@ -406,7 +425,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 点击收藏按钮 收藏商品
         binding.llCollection.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(mPageBean.getCurrentItemSkuInfo().getId()))
+            if (mPageBean.getCurrentItemSkuInfo() == null || TextUtils.isEmpty(mPageBean.getCurrentItemSkuInfo().getId()))
                 return;
             mPresenter.onCollect(String.valueOf(mPageBean.getCurrentItemSkuInfo().getId()), "20", mPageBean.isCollected(), -1);
         });
@@ -426,6 +445,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         }
         Bundle bundle = new Bundle();
         bundle.putString("shopInfoId", mPageBean.getShopId());
+        bundle.putString("materialType", mPageBean.getMaterialType());
         ARouter.getInstance().build(ConRoute.MARKET.SHOP_DETAILS).with(bundle).navigation();
     }
 
@@ -464,10 +484,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             itemSkuInfoList = (ArrayList<ItemSkuInfo>) productDetailsBean.getItemSkuInfoList();
         }
         if (mPop == null) {
-            mPop = new AddCartPop<>(mPageBean.getSpecPopBeanList(), itemSkuInfoList, mPageBean.getCurrentItemSkuInfo(), mPageBean.getSkuStockBean(),
-                    mPageBean.getSellPrice(), mPageBean.getDelivery(),
-                    mPageBean.getShopId(), mPageBean.getProvinceCode(), mPageBean.getCityCode(), mPageBean.getCountryCode(),
-                    "", "1");
+            mPop = new AddCartPop(mPageBean, itemSkuInfoList);
             mPop.setGravity(Gravity.BOTTOM);
             mPop.setType(BasePop.MATCH_WRAP);
             //选择型号完成的监听
@@ -523,7 +540,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 弹出查看商品参数弹窗
      */
     void showParamsCheckPop() {
-        if (productDetailsBean == null) {
+        if (mPageBean.getCurrentItemSkuInfo() == null || productDetailsBean == null) {
             ToastUtil.showCenter(this, "产品参数未上传");
             return;
         }
@@ -638,43 +655,29 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void showDescribePictures() {
         String longUrl = mPageBean.getDetailsPictureUrl();
         if (!TextUtils.isEmpty(longUrl) && longUrl.contains(".jpg")) {
-            ArrayList<ItemPicture> pics = new ArrayList<>();
             mDescribeUrlList.clear();
             String[] urls = longUrl.split("\\.jpg");
             for (String string : urls) {
                 if (string.contains("//")) {
                     String[] realUrls = string.split("//");
                     ItemPicture picture = new ItemPicture();
-                    picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
-                    pics.add(picture);
                     mDescribeUrlList.add("https://" + realUrls[1] + ".jpg");
+                    picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
+                    mDescribePictureList.add(picture);
                 }
             }
-
-            mHandler = new Handler(new Handler.Callback() {
-                @Override
-                public boolean handleMessage(@NonNull Message msg) {
-                    if (msg.what == LOAD_BITMAP) {
-                        imgAdapter.update(pics, true);
-                        mThread.interrupt();
-                        mHandler.removeCallbacksAndMessages(null);
-                        return true;
-                    }
-                    return false;
-                }
-            });
 
             mThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        for (int i = 0; i < pics.size(); i++) {
+                        for (int i = 0; i < mDescribePictureList.size(); i++) {
                             Bitmap bitmap = Glide.with(ProductDetailsActivity.this)
                                     .asBitmap()
-                                    .load(pics.get(i).getPictureUrl())
+                                    .load(mDescribePictureList.get(i).getPictureUrl())
                                     .submit(960, 960)
                                     .get();
-                            pics.get(i).setBitmap(bitmap);
+                            mDescribePictureList.get(i).setBitmap(bitmap);
                         }
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
@@ -685,6 +688,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                     }
                 }
             });
+            mThread.setDaemon(true);
             mThread.start();
         }
     }
@@ -735,7 +739,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //        }
         binding.productPictureHD
                 .setImages(mPageBean.getSkuPicList())
-                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
+                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
         // TODO: 2021/6/9 需要更新sku名称（应该是在点的时候通过查询本地ItemSkuInfoList更新了，不过推荐在请求成功后更新）
     }
 
@@ -770,6 +774,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onDestroy() {
+        mThread = null;
         super.onDestroy();
     }
 
@@ -792,13 +797,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置轮播图
         binding.productPictureHD
                 .setImages(mPageBean.getSkuPicList())
-                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(24, 25)).start();
+                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
 
         // 设置价格
         binding.tvSellPrice.setText(mPageBean.getSellPrice());
         if (mPageBean.getPriceBean().getMarketPrice() == 0 || mPageBean.getPriceBean().getMarketPrice() == mPageBean.getPriceBean().getSellPrice()) {
             binding.tvRmbGray.setVisibility(View.INVISIBLE);
             binding.tvPriceGray.setVisibility(View.INVISIBLE);
+            binding.tvSkuUnitGray.setVisibility(View.INVISIBLE);
         } else {
             binding.tvPriceGray.setText(mPageBean.getMarketPrice());
         }
@@ -851,6 +857,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.ivCreditLevel.setBackground(mPageBean.getShopSecurityIcon());
 
         // 更新店铺推荐商品
+        recommendItemsRecyclerAdapter.setMaterialType(mPageBean.getMaterialType());
         recommendItemsRecyclerAdapter.update(mPageBean.getRecommendItemList(), false);
 
         // 展示商品介绍图片
@@ -874,7 +881,26 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 设置购物车内商品数量
         binding.tvCartCount.setText(mPageBean.getCartCount());
 
+        // 专用物资 不显示价格 只显示物资编码。后续的比价、查看历史价格、购物车能看到价格。
+        if (mPageBean.getMaterialType().equals("1")) {
+//            if (isNonePrice(mPageBean.getSellPrice())) {
+            binding.llFlag.setVisibility(View.GONE);
+            binding.llItemCode.setVisibility(View.VISIBLE);
+            binding.tvItemCode.setText(mPageBean.getCurrentItemSkuInfo().getMaterialCode());
+//            } else if (isNonePrice(mPageBean.getMarketPrice())) {
+//                binding.tvRmbGray.setVisibility(View.GONE);
+//                binding.tvPriceGray.setVisibility(View.GONE);
+//                binding.tvSkuUnitGray.setVisibility(View.GONE);
+//            }
+        }
 
+        // 流量统计
+        statisticPresenter = new StatisticPresenterImpl(this, this);
+        statisticPresenter.getVisitors("0", mPageBean.getShopId(), mPageBean.getSkuId());
+    }
+
+    private boolean isNonePrice(String price) {
+        return price == null || price.equals("0.00") || price.equals("");
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
@@ -14,10 +15,17 @@ import com.rails.purchaseplatform.market.databinding.ItemSearchResultBinding;
 public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<ItemAttribute, ItemSearchResultBinding> {
 
     private Context mContext;
+    private String mMaterialType = "0";
 
     public SearchResultRecyclerAdapter(Context context) {
         super(context);
         mContext = context;
+    }
+
+    public SearchResultRecyclerAdapter(Context context, String materialType) {
+        super(context);
+        mContext = context;
+        mMaterialType = materialType;
     }
 
     @Override
@@ -28,10 +36,14 @@ public class SearchResultRecyclerAdapter extends BaseRecyclerAdapter<ItemAttribu
     @Override
     protected void onBindItem(ItemSearchResultBinding binding, ItemAttribute itemAttribute, int position) {
         binding.setItemAttribute(itemAttribute);
+        if (mMaterialType.equals("1")) { // 值为1就是专用物资，隐藏价格。
+            binding.llPrice.setVisibility(View.GONE);
+        }
         binding.tvPrice.setText(String.format("%.2f", itemAttribute.getSellPrice()));
         binding.llItems.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("itemId", String.valueOf(itemAttribute.getItemId()));
+            bundle.putString("materialType", mMaterialType);
             ARouter.getInstance()
                     .build(ConRoute.MARKET.PRODUCT_DETAIL)
                     .with(bundle).navigation();

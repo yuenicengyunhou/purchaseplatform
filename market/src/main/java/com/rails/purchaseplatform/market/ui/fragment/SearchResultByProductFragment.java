@@ -44,6 +44,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     private String brands, brandsString,
             categoryAttrValueIds, expandAttrValueIds,
             minPrice, maxPrice;
+    private String mMaterialType;
 
 
     private final int DEF_PAGE = 1;
@@ -54,14 +55,18 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     private ArrayList<SearchFilterBean> mSearchFilterList;
 
+    public SearchResultByProductFragment(){
+
+    }
 
     @Override
     protected void loadData() {
         Bundle bundle = this.getArguments();
         mSearchKey = bundle.getString("search_key");
         mCid = bundle.getString("cid");
+        mMaterialType = bundle.getString("materialType");
 
-        mAdapter = new SearchResultRecyclerAdapter(this.getContext());
+        mAdapter = new SearchResultRecyclerAdapter(this.getContext(), mMaterialType);
         binding.brvProductSearchResult.setLayoutManager(BaseRecyclerView.GRID, RecyclerView.VERTICAL, false, 2);
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
         binding.brvProductSearchResult.setAdapter(mAdapter);
@@ -113,11 +118,11 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
                     String minPrice, String maxPrice, int page, int pageSize, boolean isDialog) {
         if (!TextUtils.isEmpty(mCid)) {
 //            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, isDialog);
-            mPresenter.queryItemListByCid(keyWord, cid, orderColumn, orderType, brands, brandsString,
+            mPresenter.queryItemListByCid(mMaterialType, keyWord, cid, orderColumn, orderType, brands, brandsString,
                     categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, pageSize, isDialog);
         } else {
 //            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyWord, page, isDialog);
-            mPresenter.queryItemListByKeyword(keyWord, orderColumn, orderType, brands, brandsString,
+            mPresenter.queryItemListByKeyword(mMaterialType, keyWord, orderColumn, orderType, brands, brandsString,
                     categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, pageSize, isDialog);
         }
     }

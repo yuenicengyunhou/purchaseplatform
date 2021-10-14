@@ -15,7 +15,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-/**O
+/**
+ * O
  * recyclerView 自己滚动
  *
  * @author： sk_comic@163.com
@@ -42,7 +43,7 @@ public class MarqueeRecyclerView extends BaseRecyclerView {
 
     private void init() {
         //主线程的handler，用于执行Marquee的滚动消息
-        int width =(ScreenSizeUtil.getScreenWidth(getContext()) - ScreenSizeUtil.dp2px(getContext(), 56)) >> 2;
+        int width = (ScreenSizeUtil.getScreenWidth(getContext()) - ScreenSizeUtil.dp2px(getContext(), 56)) >> 2;
         mHandler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {

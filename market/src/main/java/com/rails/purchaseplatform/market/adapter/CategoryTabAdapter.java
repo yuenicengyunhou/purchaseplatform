@@ -74,6 +74,8 @@ public class CategoryTabAdapter extends BaseRecyclerAdapter<CategoryBean, ItemCa
 
 
     public void updateData(ArrayList<CategoryBean> itemDatas, boolean isClear) {
+        if (itemDatas ==null)
+            return;
         if (!itemDatas.isEmpty()) {
             for (int i = 0; i < itemDatas.size(); i++) {
                 if (i == 0) {
