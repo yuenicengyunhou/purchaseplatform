@@ -359,7 +359,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             if (addressBean == null)
                 showAddressDialog();
             else
-                showSelAddressDialog();
+                showSelAddressDialog(binding.tvAddress.getText().toString());
         });
     }
 
@@ -699,12 +699,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     /**
      * 显示选择地址的弹窗
      */
-    void showSelAddressDialog() {
+    void showSelAddressDialog(String address) {
         if (addressBeans == null)
             return;
         if (addressBeans.isEmpty())
             return;
-        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans);
+        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans, address);
         addressPop.setType(BasePop.MATCH_WRAP);
         addressPop.setGravity(Gravity.BOTTOM);
         addressPop.setListener(new CartAddressPop.AddressListener() {

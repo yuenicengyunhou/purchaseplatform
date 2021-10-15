@@ -23,6 +23,7 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
 
     private Context mContext;
     private ArrayList<AddressBean> mAddresses;
+    private String mAddress;
     private PopChooseAddressAdapter mAdapter;
     private AddressListener listener;
 
@@ -32,6 +33,14 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
         mAddresses = addresses;
     }
 
+
+    public CartAddressPop(Context context, ArrayList<AddressBean> addresses, String address) {
+        super();
+        mContext = context;
+        mAddresses = addresses;
+        mAddress = address;
+    }
+
     public void setListener(AddressListener listener) {
         this.listener = listener;
     }
@@ -39,7 +48,7 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
     @Override
     protected void initialize(Bundle bundle) {
 
-        mAdapter = new PopChooseAddressAdapter(mContext);
+        mAdapter = new PopChooseAddressAdapter(mContext, mAddress);
         binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvAddress.setAdapter(mAdapter);
         mAdapter.setListener(new PositionListener<AddressBean>() {
