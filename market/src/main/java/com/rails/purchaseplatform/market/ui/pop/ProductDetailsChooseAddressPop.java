@@ -19,7 +19,14 @@ import java.util.ArrayList;
 public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsChooseAddressBinding> {
 
     private Context mContext;
+    /**
+     * 地址集合
+     */
     private ArrayList<AddressBean> mAddresses;
+    /**
+     * 当前选中的地址
+     */
+    private String mCurrentAddress;
     private PopChooseAddressAdapter mAdapter;
     private AddressListener listener;
 
@@ -36,7 +43,7 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
     @Override
     protected void initialize(Bundle bundle) {
 
-        mAdapter = new PopChooseAddressAdapter(mContext);
+        mAdapter = new PopChooseAddressAdapter(mContext, mCurrentAddress);
         binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvAddress.setAdapter(mAdapter);
         mAdapter.setListener(new PositionListener<AddressBean>() {
@@ -67,6 +74,11 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
             dismiss();
         });
 
+    }
+
+    // 每次打开pop之前都要设置当前地址以便显示图标
+    public void setCurrentAddress(String currentAddress) {
+        mCurrentAddress = currentAddress;
     }
 
 
