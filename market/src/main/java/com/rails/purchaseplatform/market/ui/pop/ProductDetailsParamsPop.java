@@ -34,11 +34,13 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
     @Override
     protected void initialize(Bundle bundle) {
         adapter = new ProDetailsParamsAdapter(getActivity());
+        adapter.setMaxKeyLength(getKeyMaxLength(mParameters));
         binding.brvProductParams.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvProductParams.setAdapter(adapter);
         adapter.update(mParameters, true);
 
         adapterSpec = new ProDetailsParamsAdapter(getActivity());
+        adapterSpec.setMaxKeyLength(getKeyMaxLength(mSpecParameters));
         binding.brvProductSpecParams.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvProductSpecParams.setAdapter(adapterSpec);
         adapterSpec.update(mSpecParameters, true);
@@ -50,13 +52,33 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
 
     }
 
+    /**
+     * 获取集合中左边字符串，最大的长度值。
+     *
+     * @param parameters
+     * @return
+     */
+    private int getKeyMaxLength(ArrayList<ProductSpecificParameter> parameters) {
+        int keyLength = 0;
+        for (ProductSpecificParameter params : parameters) {
+//            Log.d(TAG, params.getParamKey() + "----- 长度是 = " + params.getParamKey().length());
+            int currentKeyLength = params.getParamKey().length();
+            if (currentKeyLength > keyLength) {
+                keyLength = currentKeyLength;
+            }
+        }
+        return keyLength;
+    }
+
     public void setParameters(ArrayList<ProductSpecificParameter> parameters) {
         this.mParameters = parameters;
+        adapter.setMaxKeyLength(getKeyMaxLength(mParameters));
         adapter.update(mParameters, true);
     }
 
     public void setSpecParameters(ArrayList<ProductSpecificParameter> specParameters) {
         this.mSpecParameters = specParameters;
+        adapter.setMaxKeyLength(getKeyMaxLength(mSpecParameters));
         adapterSpec.update(mSpecParameters, true);
     }
 }

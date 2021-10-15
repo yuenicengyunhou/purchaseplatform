@@ -41,6 +41,7 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportDa
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 
 public class ProductDetailsDataUtils {
@@ -344,7 +345,11 @@ public class ProductDetailsDataUtils {
                             continue;
                         if (!TextUtils.isEmpty(info.getAttrValue())) {
                             ProductSpecificParameter parameter = new ProductSpecificParameter();
-                            parameter.setParamKey(info.getAttrName() + "：");
+                            if (Objects.equals(info.getAttrName(), "净含量（mL）")) {
+                                parameter.setParamKey("净含量(mL)：");
+                            } else {
+                                parameter.setParamKey(info.getAttrName() + "：");
+                            }
                             parameter.setParamValue(info.getAttrValue());
                             parameters.add(parameter);
                         }
