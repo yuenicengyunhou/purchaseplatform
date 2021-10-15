@@ -1,8 +1,6 @@
 package com.rails.purchaseplatform.common.pop;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.google.gson.reflect.TypeToken;
@@ -76,7 +74,7 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         mAdapter2 = new FilterCheckAdapter(getActivity());
         binding.recyclerStatus.setAdapter(mAdapter2);
 //        RadioButton rbAll = (RadioButton) binding.radioGroup.getChildAt(0);
-        binding.tvCommon.setSelected(true);
+//        binding.tvCommon.setSelected(true);
 //        rbAll.setChecked(true);
         List<OrderStatusBean> statusBeans = filterBean.getStatusBeans();
         if (null == statusBeans) {
@@ -89,8 +87,8 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         } else {
             loadData();
         }
-        binding.tvCommon.setOnClickListener(v -> setTextSelectedState(binding.tvCommon));
-        binding.tvSpecial.setOnClickListener(v -> setTextSelectedState(binding.tvSpecial));
+//        binding.tvCommon.setOnClickListener(v -> setTextSelectedState(binding.tvCommon));
+//        binding.tvSpecial.setOnClickListener(v -> setTextSelectedState(binding.tvSpecial));
 
 
         binding.tvReset.setOnClickListener(v -> {
@@ -141,18 +139,18 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
     /**
      * 物资大类选中
      */
-    private void setTextSelectedState(TextView selectedText) {
-        if (selectedText == binding.tvCommon) {
-            mGoodsType = "0";
-        } else {
-            mGoodsType = "1";
-        }
-        for (int i = 0; i < binding.linearType.getChildCount(); i++) {
-            TextView child = (TextView) binding.linearType.getChildAt(i);
-            child.setSelected(child.getId() == selectedText.getId());
-        }
-
-    }
+//    private void setTextSelectedState(TextView selectedText) {
+//        if (selectedText == binding.tvCommon) {
+//            mGoodsType = "0";
+//        } else {
+//            mGoodsType = "1";
+//        }
+//        for (int i = 0; i < binding.linearType.getChildCount(); i++) {
+//            TextView child = (TextView) binding.linearType.getChildAt(i);
+//            child.setSelected(child.getId() == selectedText.getId());
+//        }
+//
+//    }
 
 
     /**
@@ -172,7 +170,7 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
             binding.tvStatus.setText(texts[0]);
 //            binding.tvPrice.setText(texts[1]);
 
-            binding.tvTime.setText(texts[3]);
+            binding.tvTime.setText(texts[2]);
         }
     }
 
