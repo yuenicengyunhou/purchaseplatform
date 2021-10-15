@@ -274,9 +274,11 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.rlRecycler.setEnableLoadMore(false);
         binding.rlRecycler.setOnRefreshListener(refreshLayout -> {
             binding.rlRecycler.finishRefresh();
+            presenter.getHotProducts(false, 1, "10");
             presenter.getMarketIndexInfo(false, false);
         });
-        presenter.getMarketIndexInfo(true, false);
+        presenter.getHotProducts(false, 1, "10");
+        presenter.getMarketIndexInfo(true, true);
     }
 
     @Override
@@ -299,6 +301,12 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void getHotProducts(ArrayList<ProductBean> beans) {
+        if (beans == null){
+            binding.llBrand.setVisibility(View.GONE);
+        }else{
+            binding.llBrand.setVisibility(View.VISIBLE);
+            hotAdapter.update(beans, true);
+        }
 
     }
 
@@ -311,8 +319,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             binding.llBrand.setVisibility(View.VISIBLE);
             brandAdapter.update(bean.getBrandBeans(), true);
         }
-
-        hotAdapter.update(bean.getHotBeans(), true);
         tabAdapter.updateData(bean.getRecBeans(), true);
         recAdapter.update(bean.getRecBeans(), true);
         categoryAdapter.update(bean.getCategorySubBeans(), true);

@@ -17,6 +17,7 @@ import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
@@ -63,6 +64,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
 
         recAdapter = new ProductHotAdapter(this, 0);
         hotManager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false);
+        barBinding.recRecycler.addItemDecoration(new SpaceGirdWeightDecoration(this, 8, 5, 0, 8, R.color.white));
         barBinding.recRecycler.setLayoutManager(hotManager);
         barBinding.recRecycler.setAdapter(recAdapter);
         recAdapter.setListener(new PositionListener<ProductBean>() {

@@ -31,6 +31,7 @@ import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
@@ -133,6 +134,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         recAdapter = new ProductHotAdapter(getActivity(), 0);
         hotManager = new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false);
         binding.recRecycler.setLayoutManager(hotManager);
+        binding.recRecycler.addItemDecoration(new SpaceGirdWeightDecoration(getActivity(), 8, 5, 0, 8, R.color.white));
         binding.recRecycler.setLoadMoreListener(this);
         recAdapter.setListener(new PositionListener<ProductBean>() {
             @Override

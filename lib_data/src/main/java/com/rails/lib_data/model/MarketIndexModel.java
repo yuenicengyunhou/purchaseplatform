@@ -170,7 +170,6 @@ public class MarketIndexModel {
     public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
         // TODO: 2016/9/30 读取缓存数据
-        Observable hotProducts = getHotProducts().subscribeOn(Schedulers.io());//获取热销商品
         Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());//获取商城首页推荐商品列表
         Observable brands = getRecBrands().subscribeOn(Schedulers.io());//获取品牌列表
 
@@ -178,16 +177,9 @@ public class MarketIndexModel {
         Observable categorys = getCategorys().subscribeOn(Schedulers.io());//获取导航
 
 
-        Observable.zip(hotProducts, recProducts, brands, banners, categorys, (Function5<ListBeen<ProductBean>, ArrayList<ProductRecBean>, Object, ArrayList<BannerBean>,
-                ArrayList<NavigationBean>, MarketIndexBean>) (hotListBeen, products, brandListBeen, hBanners, hCategorys) -> {
+        Observable.zip(recProducts, brands, banners, categorys, (Function4<ArrayList<ProductRecBean>, Object, ArrayList<BannerBean>,
+                ArrayList<NavigationBean>, MarketIndexBean>) (products, brandListBeen, hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
-
-
-            try {
-                marketIndexBean.setHotBeans(hotListBeen.getList());
-            } catch (Exception e) {
-
-            }
 
 
             try {
@@ -201,7 +193,7 @@ public class MarketIndexModel {
                 if (brandListBeen instanceof ListBeen)
                     marketIndexBean.setBrandBeans((ArrayList<BrandBean>) ((ListBeen<?>) brandListBeen).getList());
             } catch (Exception e) {
-                marketIndexBean.setHotBeans(null);
+                marketIndexBean.setBrandBeans(null);
             }
 
 
