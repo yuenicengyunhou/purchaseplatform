@@ -457,10 +457,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_tiny"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@color/bg_gray" />
+                        android:layout_height="@dimen/dp_12"
+                        android:background="@color/bg_gray_light" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -474,8 +472,10 @@
                             android:layout_height="wrap_content"
                             android:text="同类商品"
                             android:textColor="#2E2E2E"
-                            android:textSize="@dimen/font_size_13"
+                            android:textSize="@dimen/font_size_14"
+                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -503,6 +503,13 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_tiny"
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:background="@color/bg_gray" />
 
                     <com.rails.purchaseplatform.common.widget.BaseRecyclerView
                         android:id="@+id/recyclerRecommendItems"
