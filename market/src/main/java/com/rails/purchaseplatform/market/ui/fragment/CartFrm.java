@@ -173,6 +173,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         toolPresenter = new CartToolPresenterImpl(getActivity(), this);
         productPresenter = new MarKetIndexPresenterImpl(getActivity(), this);
         addressPresenter = new AddressToolPresenterImpl(getActivity(), this);
+
+        addressPresenter.getAddress("20", "1", "", "");
     }
 
     @Override
@@ -197,7 +199,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 notifyData(false, page);
             }
         });
-        addressPresenter.getAddress("20", "1", "", "");
         notifyData(false, page);
     }
 
@@ -712,6 +713,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         addressPop.setListener(new CartAddressPop.AddressListener() {
             @Override
             public void getAddrss(AddressBean bean) {
+                addressBean = bean;
                 binding.tvAddress.setText(bean.getFullAddress());
             }
 

@@ -302,9 +302,9 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     @Override
     public void getHotProducts(ArrayList<ProductBean> beans) {
         if (beans == null){
-            binding.llBrand.setVisibility(View.GONE);
+            binding.llHot.setVisibility(View.GONE);
         }else{
-            binding.llBrand.setVisibility(View.VISIBLE);
+            binding.llHot.setVisibility(View.VISIBLE);
             hotAdapter.update(beans, true);
         }
 
