@@ -126,7 +126,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.cartRecycler.setAdapter(cartAdapter);
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null)
                 .setMarginTop(80)
-                .setBtnEmpty("立即登录")
+                .setBtnEmpty("")
                 .setBtnListener(v -> {
                     ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                 });

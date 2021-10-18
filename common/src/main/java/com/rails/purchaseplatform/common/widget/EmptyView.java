@@ -163,12 +163,8 @@ public class EmptyView extends LinearLayout {
 
 
     public EmptyView setBtnListener(OnClickListener onClickListener) {
-        if (binding.btnUnEmpty.getVisibility() == View.VISIBLE)
-            binding.btnUnEmpty.setOnClickListener(onClickListener);
-
-        if (binding.btnEmpty.getVisibility() == View.VISIBLE)
-            binding.btnEmpty.setOnClickListener(onClickListener);
-
+        binding.btnUnEmpty.setOnClickListener(onClickListener);
+        binding.btnEmpty.setOnClickListener(onClickListener);
         return this;
     }
 
