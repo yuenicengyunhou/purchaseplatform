@@ -52,12 +52,15 @@ public class FloorTabAdapter extends BaseRecyclerAdapter<ProductRecBean, ItemFlo
 
 
     public void setLastBean(int position) {
-        if (position < mDataSource.size()) {
-            if (lastBean != null)
-                lastBean.isSel.set(false);
-            lastBean = mDataSource.get(position);
-            lastBean.isSel.set(true);
-        }
+        try{
+            if (position < mDataSource.size()) {
+                if (lastBean != null)
+                    lastBean.isSel.set(false);
+                lastBean = mDataSource.get(position);
+                lastBean.isSel.set(true);
+            }
+        }catch (Exception e){}
+
     }
 
 
