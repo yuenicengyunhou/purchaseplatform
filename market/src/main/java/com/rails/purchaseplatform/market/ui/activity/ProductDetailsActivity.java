@@ -407,7 +407,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         });
 
         // 跳转到店铺详情
-        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail());
+//        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail()); // 此按钮不在跳转到店铺页，隐藏此按钮
         binding.tvGoInShop.setOnClickListener(v -> productDetailGoShopDetail());
         binding.llShop.setOnClickListener(v -> productDetailGoShopDetail());
 

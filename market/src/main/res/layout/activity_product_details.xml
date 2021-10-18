@@ -472,7 +472,7 @@
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="店铺推荐"
+                            android:text="同类商品"
                             android:textColor="#2E2E2E"
                             android:textSize="@dimen/font_size_13"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -487,6 +487,7 @@
                             android:text="查看全部"
                             android:textColor="#387CFC"
                             android:textSize="@dimen/font_size_13"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/imageButton"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -497,6 +498,7 @@
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:src="@drawable/svg_arrow_blue_387cfc"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
