@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -393,7 +394,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //                for (String str : mPageBean.getSkuMarkPicList()) {
 //                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
 //                }
-                if (mPageBean.getSkuMarkPicList() == null || mPageBean.getSkuMarkPicList().size() == 0)
+
+                Log.d(TAG, "   MARK PIC LENGTH = " + mPageBean.getSkuMarkPicList());
+                Log.d(TAG, "UN MARK PIC LENGTH = " + mPageBean.getSkuPicList());
+                if (mPageBean.getSkuMarkPicList() == null || mPageBean.getSkuMarkPicList().size() == 0 || mPageBean.getSkuMarkPicList().contains(null))
                     bundle.putStringArrayList("imageUrlList", mPageBean.getSkuPicList());
                 else
                     bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
