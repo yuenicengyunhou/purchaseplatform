@@ -21,7 +21,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
     private final ShopModel model;
     private String keywordCache = "";
     //    private String platformId = null;
-    private int materialType;
+//    private int materialType;
 
     public ShopPresenterImp(Activity mContext, ShopContract.ShopView shopView) {
         super(mContext, shopView);
@@ -53,7 +53,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
                 baseView.dismissDialog();
                 if (null != response) {
 //            materialType = shop.getMaterialType();
-                    materialType = response.getMaterialType();
+//                    materialType = response.getMaterialType();
                     baseView.loadShopInfo(response);
                 } else {
                     ToastUtil.showCenter(mContext,"店铺信息为空");
@@ -77,7 +77,8 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             baseView.showResDialog(R.string.loading);
         }
 
-        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, materialType, new HttpRxObserver<ShopRecommendBean>() {
+//        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, materialType, new HttpRxObserver<ShopRecommendBean>() {
+        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (showLoading) {
