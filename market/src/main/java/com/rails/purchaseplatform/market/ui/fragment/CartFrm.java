@@ -216,6 +216,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
+        presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
         productPresenter.getHotProducts(false, page, "10");
     }
 
@@ -502,8 +503,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
 
         binding.empty.setBtnEmpty("");
-        presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
-
         if (addressBean != null) {
 //            cartAdapter.update(new ArrayList(), true);
 //            return;

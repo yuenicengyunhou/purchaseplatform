@@ -65,9 +65,9 @@ public class CategoryTextView extends AppCompatTextView {
         start = (int) getPaint().measureText(text.toString());
 
         path = new Path();
-        path.moveTo(start + (iconHeight >> 1), (mHeight >> 1) - (iconHeight >> 1));
+        path.moveTo(start + (iconHeight >> 1), (mHeight >> 1) - ((iconHeight) >> 1));
         path.lineTo(start + iconHeight, mHeight >> 1);
-        path.lineTo(start + (iconHeight >> 1), (mHeight >> 1) + (iconHeight >> 1));
+        path.lineTo(start + (iconHeight >> 1), (mHeight >> 1) + ((iconHeight+2) >> 1));
 
         invalidate();
     }
