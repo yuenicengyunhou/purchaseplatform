@@ -55,7 +55,8 @@ public class ShopModel {
      * 价格向下
      * orderColumn=sellPrice&orderType=desc
      */
-    public void getShopItemList( String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans,String keyword,int materialType, HttpRxObserver httpRxObserver) {
+//    public void getShopItemList( String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans,String keyword,int materialType, HttpRxObserver httpRxObserver) {
+    public void getShopItemList( String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans,String keyword, HttpRxObserver httpRxObserver) {
 //        String temp = platformId == null ? "20" : platformId;
         HashMap<String, Object> map = new HashMap<>();
 //        map.put("platformId", temp);
@@ -65,7 +66,7 @@ public class ShopModel {
         map.put("shopInfoId", shopInfoId);//店铺ID
         map.put("businessType", "1");//
         map.put("keyword", keyword);//搜索关键字
-        map.put("materialType", materialType);//是否是通用物资 0通用  1专用，由getShopInfo返回
+//        map.put("materialType", materialType);//是否是通用物资 0通用  1专用，由getShopInfo返回
         if (!TextUtils.isEmpty(orderColumn)) {
             map.put("orderColumn", orderColumn);//排序字段  销量 saleCount   ，  价格  sellPrice
             map.put("orderType", orderType);//排序顺序    向下  desc    ,向上  asc

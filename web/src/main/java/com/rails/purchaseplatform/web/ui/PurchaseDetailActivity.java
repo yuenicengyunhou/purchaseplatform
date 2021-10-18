@@ -139,9 +139,12 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         pop.show(getSupportFragmentManager(), "quick");
     }
 
+    @JavascriptInterface
     @Override
     public void goDeliveredPage(String orderNo) {
-
+        Bundle bundle = new Bundle();
+        bundle.putString("orderNo", orderNo);
+        ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation(this, 0);
     }
 
     @Override
