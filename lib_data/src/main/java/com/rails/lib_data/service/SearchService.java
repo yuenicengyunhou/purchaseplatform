@@ -53,7 +53,8 @@ public interface SearchService {
      * @param params
      * @return
      */
-    @GET("statistic-service/statistic/searchRecord")
-    Observable<HttpResult<String>> searchRecord(@QueryMap HashMap<String, Object> params);
+    @FormUrlEncoded
+    @POST("statistic-service/statistic/searchRecord")
+    Observable<HttpResult<String>> searchRecord(@FieldMap HashMap<String, Object> params);
 
 }
