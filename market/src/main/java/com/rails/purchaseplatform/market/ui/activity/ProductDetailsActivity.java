@@ -393,7 +393,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //                for (String str : mPageBean.getSkuMarkPicList()) {
 //                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
 //                }
-                bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
+                if (mPageBean.getSkuMarkPicList() == null || mPageBean.getSkuMarkPicList().size() == 0)
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuPicList());
+                else
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
                 bundle.putInt("position", position);
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
             }
