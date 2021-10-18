@@ -425,7 +425,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 弹出选择地址Pop
         binding.rlAddressChosen.setOnClickListener(v -> {
-            showChooseAddressPop(binding.tvAddressDefault.getText().toString());
+            showChooseAddressPop(mPageBean.getAddressId());
         });
 
         // 弹出详细参数Pop
@@ -573,16 +573,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 弹出选择地址弹窗
      */
-    void showChooseAddressPop(String address) {
+    void showChooseAddressPop(String addressId) {
         if (mChooseAddressPop == null) {
             mChooseAddressPop = new ProductDetailsChooseAddressPop(this, mPageBean.getAddressList());
-            mChooseAddressPop.setCurrentAddress(address);
+            mChooseAddressPop.setCurrentAddressId(addressId);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
             mChooseAddressPop.setListener(new ProductDetailsChooseAddressPop.AddressListener() {
                 @Override
                 public void getAddrss(AddressBean bean) {
                     binding.tvAddressDefault.setText(bean.getFullAddress());
+                    mPageBean.setFullAddress(bean.getFullAddress());
+                    mPageBean.setAddressId(bean.getAddressId());
                 }
 
                 @Override
@@ -602,7 +604,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 }
             });
         } else {
-            mChooseAddressPop.setCurrentAddress(address);
+            mChooseAddressPop.setCurrentAddressId(addressId);
         }
         mChooseAddressPop.show(getSupportFragmentManager(), "product_details_choose_address");
     }

@@ -251,6 +251,10 @@ public class ProductDetailsDataUtils {
         String fullAddress = getFullAddress(addressList);
         pageBean.setFullAddress(fullAddress);
 
+        // 地址ID
+        String addressId = getAddressId(addressList);
+        pageBean.setAddressId(addressId);
+
         // 获取商品介绍
         String longDescribeUrl = bean1.getProductDetailsBean().getItemPublishVo().getDescribeUrl();
         pageBean.setDetailsPictureUrl(longDescribeUrl);
@@ -512,6 +516,21 @@ public class ProductDetailsDataUtils {
                 || TextUtils.isEmpty(addressBeans.get(0).getFullAddress()))
             return "北京市市辖区东城区";
         return addressBeans.get(0).getFullAddress();
+    }
+
+
+    /**
+     * 获取地址ID
+     *
+     * @param addressBeans
+     * @return
+     */
+    public String getAddressId(ArrayList<AddressBean> addressBeans) {
+        if (addressBeans == null
+                || addressBeans.size() == 0
+                || TextUtils.isEmpty(addressBeans.get(0).getAddressId()))
+            return null;
+        return addressBeans.get(0).getAddressId();
     }
 
     /**

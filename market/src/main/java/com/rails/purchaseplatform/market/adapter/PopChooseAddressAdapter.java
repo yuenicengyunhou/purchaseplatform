@@ -13,17 +13,17 @@ import java.util.Objects;
 public class PopChooseAddressAdapter extends BaseRecyclerAdapter<AddressBean, ItemPopProductDetailsChooseAddressBinding> {
 
     private Context mContext;
-    private String mCurrentAddress;
+    private String mCurrentAddressId;
 
     public PopChooseAddressAdapter(Context context) {
         super(context);
         mContext = context;
     }
 
-    public PopChooseAddressAdapter(Context context, String currentAddress) {
+    public PopChooseAddressAdapter(Context context, String currentAddressId) {
         super(context);
         mContext = context;
-        mCurrentAddress = currentAddress;
+        mCurrentAddressId = currentAddressId;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PopChooseAddressAdapter extends BaseRecyclerAdapter<AddressBean, It
 
     @Override
     protected void onBindItem(ItemPopProductDetailsChooseAddressBinding binding, AddressBean addressBean, int position) {
-        if (Objects.equals(addressBean.getFullAddress(), mCurrentAddress)) {
+        if (Objects.equals(addressBean.getAddressId(), mCurrentAddressId)) {
             binding.cbCheck.setVisibility(View.VISIBLE);
         }
         binding.setChooseAddress(addressBean);
