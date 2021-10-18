@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -393,14 +394,20 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //                for (String str : mPageBean.getSkuMarkPicList()) {
 //                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
 //                }
-                bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
+
+                Log.d(TAG, "   MARK PIC LENGTH = " + mPageBean.getSkuMarkPicList());
+                Log.d(TAG, "UN MARK PIC LENGTH = " + mPageBean.getSkuPicList());
+                if (mPageBean.getSkuMarkPicList() == null || mPageBean.getSkuMarkPicList().size() == 0 || mPageBean.getSkuMarkPicList().contains(null))
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuPicList());
+                else
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
                 bundle.putInt("position", position);
                 ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
             }
         });
 
         // 跳转到店铺详情
-        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail());
+//        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail()); // 此按钮不在跳转到店铺页，隐藏此按钮
         binding.tvGoInShop.setOnClickListener(v -> productDetailGoShopDetail());
         binding.llShop.setOnClickListener(v -> productDetailGoShopDetail());
 
@@ -418,7 +425,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 弹出选择地址Pop
         binding.rlAddressChosen.setOnClickListener(v -> {
-            showChooseAddressPop(binding.tvAddressDefault.getText().toString());
+            showChooseAddressPop(mPageBean.getAddressId());
         });
 
         // 弹出详细参数Pop
@@ -566,16 +573,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 弹出选择地址弹窗
      */
-    void showChooseAddressPop(String address) {
+    void showChooseAddressPop(String addressId) {
         if (mChooseAddressPop == null) {
             mChooseAddressPop = new ProductDetailsChooseAddressPop(this, mPageBean.getAddressList());
-            mChooseAddressPop.setCurrentAddress(address);
+            mChooseAddressPop.setCurrentAddressId(addressId);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
             mChooseAddressPop.setListener(new ProductDetailsChooseAddressPop.AddressListener() {
                 @Override
                 public void getAddrss(AddressBean bean) {
                     binding.tvAddressDefault.setText(bean.getFullAddress());
+                    mPageBean.setFullAddress(bean.getFullAddress());
+                    mPageBean.setAddressId(bean.getAddressId());
                 }
 
                 @Override
@@ -595,7 +604,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 }
             });
         } else {
-            mChooseAddressPop.setCurrentAddress(address);
+            mChooseAddressPop.setCurrentAddressId(addressId);
         }
         mChooseAddressPop.show(getSupportFragmentManager(), "product_details_choose_address");
     }

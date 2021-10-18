@@ -3,17 +3,16 @@ package com.rails.purchaseplatform.market.ui.pop;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.market.adapter.PopChooseAddressAdapter;
 import com.rails.purchaseplatform.market.databinding.PopCartAddressBinding;
-import com.rails.purchaseplatform.market.databinding.PopProductDetailsChooseAddressBinding;
 
 import java.util.ArrayList;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -23,7 +22,7 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
 
     private Context mContext;
     private ArrayList<AddressBean> mAddresses;
-    private String mAddress;
+    private String mAddressId;
     private PopChooseAddressAdapter mAdapter;
     private AddressListener listener;
 
@@ -34,11 +33,11 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
     }
 
 
-    public CartAddressPop(Context context, ArrayList<AddressBean> addresses, String address) {
+    public CartAddressPop(Context context, ArrayList<AddressBean> addresses, String addressId) {
         super();
         mContext = context;
         mAddresses = addresses;
-        mAddress = address;
+        mAddressId = addressId;
     }
 
     public void setListener(AddressListener listener) {
@@ -48,7 +47,7 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
     @Override
     protected void initialize(Bundle bundle) {
 
-        mAdapter = new PopChooseAddressAdapter(mContext, mAddress);
+        mAdapter = new PopChooseAddressAdapter(mContext, mAddressId);
         binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvAddress.setAdapter(mAdapter);
         mAdapter.setListener(new PositionListener<AddressBean>() {

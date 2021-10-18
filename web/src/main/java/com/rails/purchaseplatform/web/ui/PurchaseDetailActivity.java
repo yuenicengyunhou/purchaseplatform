@@ -1,6 +1,5 @@
 package com.rails.purchaseplatform.web.ui;
 
-import android.app.ActivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -8,21 +7,17 @@ import android.webkit.JavascriptInterface;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
-import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * 采购单详情
@@ -83,6 +78,10 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
 
     }
 
+    @Override
+    public void onBackPressed() {
+        onBack(binding.web);
+    }
 
     @JavascriptInterface
     @Override
@@ -139,9 +138,12 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         pop.show(getSupportFragmentManager(), "quick");
     }
 
+    @JavascriptInterface
     @Override
     public void goDeliveredPage(String orderNo) {
-
+        Bundle bundle = new Bundle();
+        bundle.putString("orderNo", orderNo);
+        ARouter.getInstance().build(ConRoute.ORDER.ORDER_DELIVER).with(bundle).navigation(this, 0);
     }
 
     @Override

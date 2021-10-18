@@ -1,22 +1,28 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.AddressBean;
-import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.CategorySubBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
-import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
@@ -27,7 +33,6 @@ import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.pop.AlterDialog;
-import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.widget.AlphaScrollView;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
@@ -48,22 +53,11 @@ import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.pop.CartAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
-import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
 
 /**
  * 购物车
@@ -126,7 +120,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.cartRecycler.setAdapter(cartAdapter);
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null)
                 .setMarginTop(80)
-                .setBtnEmpty("立即登录")
+                .setBtnEmpty("")
                 .setBtnListener(v -> {
                     ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                 });
@@ -216,6 +210,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
+        presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
         productPresenter.getHotProducts(false, page, "10");
     }
 
@@ -502,8 +497,6 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
 
         binding.empty.setBtnEmpty("");
-        presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
-
         if (addressBean != null) {
 //            cartAdapter.update(new ArrayList(), true);
 //            return;
@@ -707,7 +700,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             return;
         if (addressBeans.isEmpty())
             return;
-        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans, address);
+        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans, addressBean.getAddressId());
         addressPop.setType(BasePop.MATCH_WRAP);
         addressPop.setGravity(Gravity.BOTTOM);
         addressPop.setListener(new CartAddressPop.AddressListener() {
