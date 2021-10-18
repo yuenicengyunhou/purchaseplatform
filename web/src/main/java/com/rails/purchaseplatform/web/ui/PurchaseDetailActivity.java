@@ -55,7 +55,6 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     @Override
     protected void onResume() {
         super.onResume();
-        initWeb(binding.web, this);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
 
     @Override
     protected void initialize(Bundle bundle) {
-
+        initWeb(binding.web, this);
     }
 
     @Override
