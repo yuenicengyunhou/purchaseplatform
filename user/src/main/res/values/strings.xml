@@ -39,6 +39,8 @@
     <string name="user_setting">设置</string>
     <string name="user_set_address">地址管理</string>
     <string name="user_set_modifypaw">密码修改</string>
+    <string name="user_set_version">当前版本</string>
+
     <string name="empty_title" />
     <string name="user_modify_verify">长度不少于8位，至少包含数字、字母和特殊字符，字母区分大小写</string>
     <string name="user_set_exit">退出登录</string>

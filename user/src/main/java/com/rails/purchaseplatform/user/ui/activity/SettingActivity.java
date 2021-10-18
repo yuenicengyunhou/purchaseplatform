@@ -43,7 +43,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
         presenter.queryAuthor();
 
         String version = SystemUtil.getVersionName(this);
-        barBinding.btnVersion.setContent("V" + version);
+        barBinding.tvVersion.setText("V" + version);
     }
 
     @Override
