@@ -259,7 +259,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             cartAdapter.updateSubAdater(position);
             setTotal();
         } else {
-            presenter.getCarts(false, addressBean.getId());
+
+            presenter.getCarts(false, "-1");
         }
     }
 
@@ -598,7 +599,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (position != -1)
             lastBean.isCollect.set(isCollect);
         else {
-            presenter.getCarts(false, addressBean.getId());
+            presenter.getCarts(false, "-1");
         }
     }
 
