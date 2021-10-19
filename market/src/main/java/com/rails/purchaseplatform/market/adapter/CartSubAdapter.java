@@ -73,7 +73,7 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         }
         binding.tvPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         if (SystemUtil.isPad(mContext)) {
-            size = ScreenSizeUtil.sp2px(14, mContext);
+            size = ScreenSizeUtil.sp2px(10, mContext);
         } else {
             size = 13;
         }

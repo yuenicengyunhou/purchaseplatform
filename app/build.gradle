@@ -27,8 +27,8 @@ android {
         targetSdkVersion 30
 
         // 08月24日生产环境：版本号为7，版本名称为1.0.6。
-        versionCode 41
-        versionName "1.0.41"
+        versionCode 8
+        versionName "1.0.7"
 
         flavorDimensions "versionCode"
         multiDexEnabled true
