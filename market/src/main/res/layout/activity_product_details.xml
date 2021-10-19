@@ -710,24 +710,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/ib_back"
-                android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_32"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:background="@null"
-                android:src="@mipmap/icon_back" />
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_details"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_toStartOf="@+id/ib_quick_jump"
-                android:layout_toEndOf="@+id/ib_back"
+                android:layout_marginStart="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_24"
                 android:visibility="visible"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="#387CFC"
@@ -760,12 +750,22 @@
             </com.google.android.material.tabs.TabLayout>
 
             <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:background="@null"
+                android:src="@mipmap/icon_back" />
+
+            <ImageButton
                 android:id="@+id/ib_quick_jump"
                 android:layout_width="@dimen/dp_32"
                 android:layout_height="@dimen/dp_32"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_4"
                 android:layout_marginBottom="@dimen/dp_8"
                 android:background="@null"
                 android:src="@drawable/ic_baseline_more_horiz_24_black" />
@@ -776,7 +776,7 @@
             android:id="@+id/ib_back_1"
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
-            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginStart="@dimen/dp_4"
             android:layout_marginTop="@dimen/dp_40"
             android:background="@drawable/bg_tran_black_circle"
             android:src="@mipmap/ic_back_white"
@@ -789,7 +789,7 @@
             android:layout_height="@dimen/dp_32"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/dp_40"
-            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_4"
             android:background="@drawable/bg_tran_black_circle"
             android:src="@drawable/ic_baseline_more_horiz_24_white" />
 
