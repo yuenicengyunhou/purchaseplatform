@@ -69,13 +69,13 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         if (SystemUtil.isPad(mContext)) {
             fontSize = ScreenSizeUtil.sp2px(6, mContext);
         } else {
-            fontSize = 16;
+            fontSize = 10;
         }
         binding.tvPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         if (SystemUtil.isPad(mContext)) {
             size = ScreenSizeUtil.sp2px(14, mContext);
         } else {
-            size = 18;
+            size = 13;
         }
 
         binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, size));

@@ -130,7 +130,7 @@
                 android:paddingTop="@dimen/dp_3"
                 android:paddingBottom="@dimen/dp_3"
                 android:textColor="@color/font_red"
-                android:textSize="@dimen/font_size_14"
+                android:textSize="@dimen/font_size_13"
                 android:textStyle="bold" />
 
 
