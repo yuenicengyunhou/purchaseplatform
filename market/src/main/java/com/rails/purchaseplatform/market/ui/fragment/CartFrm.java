@@ -45,6 +45,8 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.CartAdapter;
@@ -90,6 +92,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     private CartShopProductBean lastBean;
 
+    private int size;
+
     public CartFrm() {
     }
 
@@ -109,8 +113,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             binding.btnBack.setVisibility(View.VISIBLE);
         }
 
+
+        if (SystemUtil.isPad(getActivity())) {
+            size = ScreenSizeUtil.sp2px(14, getActivity());
+        } else {
+            size = 18;
+        }
+
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(0.0), "", 18));
+                DecimalUtil.formatDouble(0.0), "", size));
 
         cartAdapter = new CartAdapter(getActivity());
         cartAdapter.setListener(this);
@@ -276,7 +287,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             cartAdapter.checkAll(isSel);
             binding.imgTotal.setSelected(isSel);
             cartAdapter.updateShopPrice();
-            binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
+            binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", size));
         }
     }
 
@@ -414,7 +425,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         cartAdapter.updateShopPrice();
         binding.imgTotal.setSelected(cartAdapter.isAll());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", 18));
+                DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", size));
     }
 
 
@@ -428,7 +439,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             return;
         binding.imgTotal.setSelected(bean.getSelected());
         binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(Double.parseDouble(bean.getTotalPrice())), "", 18));
+                DecimalUtil.formatDouble(Double.parseDouble(bean.getTotalPrice())), "", size));
     }
 
 
