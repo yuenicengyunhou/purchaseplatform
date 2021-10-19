@@ -1,5 +1,7 @@
 package com.rails.lib_data.model;
 
+import android.text.TextUtils;
+
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.ListBeen;
@@ -204,7 +206,17 @@ public class MarketIndexModel {
             }
 
             try {
-                marketIndexBean.setCategorySubBeans(hCategorys);
+                if (hCategorys != null){
+                    ArrayList<NavigationBean> navigationBeans = new ArrayList<>();
+                    for (NavigationBean bean :hCategorys){
+                        String url = bean.getPictureUrl();
+                        if (!TextUtils.isEmpty(url)){
+                            navigationBeans.add(bean);
+                        }
+                    }
+                    marketIndexBean.setCategorySubBeans(navigationBeans);
+                }
+
             } catch (Exception e) {
 
             }
