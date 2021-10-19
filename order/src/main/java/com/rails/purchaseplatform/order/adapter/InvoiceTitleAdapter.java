@@ -36,7 +36,7 @@ public class InvoiceTitleAdapter extends BaseRecyclerAdapter<InvoiceTitleBean, I
         if (position != 0)
             binding.tvModule.setVisibility(View.GONE);
         else {
-            binding.tvModule.setVisibility(View.VISIBLE);
+            binding.tvModule.setVisibility(View.GONE);
         }
 
 
