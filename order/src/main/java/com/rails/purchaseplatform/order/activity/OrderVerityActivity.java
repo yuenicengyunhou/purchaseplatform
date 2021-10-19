@@ -40,6 +40,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.OrderVerifyAdapter;
@@ -307,8 +308,10 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
 
         barBinding.rlCompay.setOnClickListener(v -> {
             CompanyPop pop = new CompanyPop();
+
             pop.setGravity(Gravity.BOTTOM);
-            pop.setType(BasePop.MATCH_WRAP);
+            pop.setType(BasePop.MATCH_CUSTOM);
+            pop.setY(ScreenSizeUtil.getActivityHeight(this) >> 1);
             pop.setListener(companyBean -> {
                 orderPurchaseBean = companyBean;
                 barBinding.rlCompay.setKey(companyBean.getFullName());
@@ -407,9 +410,15 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
             }
 
 
-            //发票
-            orderInvoiceBean.getInvoiceAddress().setAddress(orderInvoiceBean.getInvoiceAddress().getFullAddress());
-            body.setOrderInvoice(orderInvoiceBean);
+            //发票地址
+            if (orderInvoiceBean != null) {
+                AddressBean addressBean = orderInvoiceBean.getInvoiceAddress();
+                if (addressBean != null) {
+                    orderInvoiceBean.getInvoiceAddress().setAddress(addressBean.getFullAddress());
+                    body.setOrderInvoice(orderInvoiceBean);
+                }
+
+            }
 
 
             //商品  && 备注

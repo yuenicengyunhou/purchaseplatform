@@ -93,14 +93,16 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
         barBinding.contentRecycler.setAdapter(contentAdapter);
 
         titleAdapter = new InvoiceTitleAdapter(this);
+
         barBinding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         barBinding.recycler.setAdapter(titleAdapter);
+        barBinding.recycler.setEmptyView(barBinding.empty);
 
 
         presenter = new InvoicePresenterImpl(this, this);
         addressToolPresenter = new AddressToolPresenterImpl(this, this);
 
-        addressToolPresenter.getDefAddress("20", addressType,"","");
+        addressToolPresenter.getDefAddress("20", addressType, "", "");
 
         presenter.getInvoiceContents();
         presenter.getInvoiceContents(false);

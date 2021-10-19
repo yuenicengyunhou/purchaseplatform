@@ -52,7 +52,13 @@ public class EmptyView extends LinearLayout {
      * @return
      */
     public EmptyView setImgEmpty(int res) {
-        binding.imgEmpty.setImageResource(res);
+        if (res == 0) {
+            binding.imgEmpty.setVisibility(View.GONE);
+        } else {
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.imgEmpty.setImageResource(res);
+        }
+
         return this;
     }
 
