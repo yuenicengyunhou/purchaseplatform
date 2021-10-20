@@ -73,7 +73,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     int page = DEF_PAGE;
 
     //默认选中第一个地址
-    AddressBean addressBean;
+    AddressBean mAddress;
     //地址列表
     ArrayList<AddressBean> addressBeans;
 
@@ -205,7 +205,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * param page
      */
     private void notifyData(int page) {
-        presenter.getCarts(true, addressBean == null ? "-1" : String.valueOf(addressBean.getId()));
+        presenter.getCarts(true, mAddress == null ? "-1" : String.valueOf(mAddress.getId()));
         productPresenter.getHotProducts(false, page, "10");
     }
 
@@ -241,7 +241,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getResult(int type, String msg) {
         if (type == 0) {
-            ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).withSerializable("address", addressBean).navigation();
+            ARouter.getInstance().build(ConRoute.ORDER.ORDER_VERITY).withSerializable("address", mAddress).navigation();
         }
         ToastUtil.show(getActivity(), msg);
 
@@ -308,12 +308,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
         binding.btnCommit.setOnClickListener(v -> {
-            if (addressBean == null) {
-                showAddressDialog();
+            if (mAddress == null) {
+                showAddAddressDialog();
                 return;
             }
             if (cartAdapter.isNext())
-                presenter.verifyCart(String.valueOf(addressBean.getId()));
+                presenter.verifyCart(String.valueOf(mAddress.getId()));
             else
                 ToastUtil.showCenter(getActivity(), "您有商品未满足下单条件请核对");
         });
@@ -350,10 +350,11 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         //地址列表弹窗
         binding.tvAddress.setOnClickListener(v -> {
-            if (addressBean == null) {
-                showAddressDialog();
+            if (mAddress == null) {
+                showAddAddressDialog();//添加新地址的弹窗
             } else {
                 addressPresenter.getAddress("20", "1", "", "", true);
+//                showSelAddressDialog();
             }
         });
     }
@@ -437,10 +438,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private void userTotal(CartShopProductBean bean) {
         if (bean == null)
             return;
-        if (bean.isSel.get() == null)
+        if (bean.isSel.get() == null) {
             return;
-        if (bean.isSel.get())
+        }
+        if (bean.isSel.get()) {
             setTotal();
+        }
 
     }
 
@@ -485,19 +488,40 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 }).builder().show();
     }
 
-
+    /**
+     * 2021/10/20修改了这个方法 by王琪
+     * 解决点击顶部地址，地址弹窗内容不实时，用户勾选的位置不回显的问题
+     * 1传入showAddressPop参数，来区分是弹出地址框还是第一次加载页面
+     * 2用旧的address(用户选择的address)的addressId比对新列表中的，没有则再次默认选第一个。有则不做处理（用户已经选择的address可能在pc删掉）
+     */
     @Override
-    public void getAddress(ArrayList<AddressBean> addressBeans,boolean showAddressPop) {
+    public void getAddress(ArrayList<AddressBean> addressBeans, boolean showAddressPop) {
         if (null != addressBeans && !addressBeans.isEmpty()) {
             this.addressBeans = addressBeans;
-            addressBean = addressBeans.get(0);
+            boolean oldAddressExists = true;//旧的地址存在
+            if (null != mAddress) {//如果没选择地址，则
+                String addressId = mAddress.getAddressId();
+                for (AddressBean bean : addressBeans) {
+                    if (bean.getAddressId().equals(addressId)) {
+                        oldAddressExists = true;//如果存在跳出循环
+                        break;
+                    } else {
+                        oldAddressExists = false;//如果不存在变为false，继续循环
+                    }
+                }
+                if (!oldAddressExists) {//如果不存在，重置为第一个
+                    mAddress = addressBeans.get(0);
+                }
+            } else {
+                mAddress = addressBeans.get(0);
+            }
         }
 
         binding.empty.setBtnEmpty("");
-        if (addressBean != null) {
+        if (mAddress != null) {
 //            cartAdapter.update(new ArrayList(), true);
 //            return;
-            binding.tvAddress.setText(addressBean.getFullAddress());
+            binding.tvAddress.setText(mAddress.getFullAddress());
         } else {
 
         }
@@ -632,7 +656,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     /**
      * 显示地址弹窗
      */
-    private void showAddressDialog() {
+    private void showAddAddressDialog() {
         new AlterDialog.Builder().context(getActivity())
                 .title("提示")
                 .msg("购物车需要收货地址判断商品库存\n立即去设置")
@@ -701,12 +725,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             ToastUtil.showCenter(mActivity, "无地址信息");
             return;
         }
-        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans, addressBean.getAddressId());
+        CartAddressPop addressPop = new CartAddressPop(getActivity(), addressBeans, mAddress.getAddressId());
         addressPop.setType(BasePop.MATCH_CUSTOM);
         addressPop.setGravity(Gravity.BOTTOM);
         addressPop.setY(ScreenSizeUtil.getScreenHeight(mActivity) * 4 / 5);
         addressPop.setListener(bean -> {
-            addressBean = bean;
+            mAddress = bean;
             binding.tvAddress.setText(bean.getFullAddress());
         });
 
