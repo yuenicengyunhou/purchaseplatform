@@ -836,8 +836,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
 
+
     @Override
-    public void getAddress(ArrayList<AddressBean> addressBeans) {
+    public void getAddress(ArrayList<AddressBean> addressBeansp, boolean showAddressPop) {
+
     }
 
     @Override

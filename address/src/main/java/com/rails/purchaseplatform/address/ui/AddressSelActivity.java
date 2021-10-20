@@ -112,9 +112,9 @@ public class AddressSelActivity extends BaseErrorActivity<ActivityAddressSelBind
     private void onRefresh() {
         binding.smart.setOnRefreshListener(refreshLayout -> {
             binding.smart.finishRefresh();
-            presenter.getAddress("", type, binding.tvPop.getText().toString(), binding.editText.getText().toString().trim());
+            presenter.getAddress("", type, binding.tvPop.getText().toString(), binding.editText.getText().toString().trim(),false);
         });
-        presenter.getAddress("", type, binding.tvPop.getText().toString(), binding.editText.getText().toString().trim());
+        presenter.getAddress("", type, binding.tvPop.getText().toString(), binding.editText.getText().toString().trim(),false);
     }
 
 
@@ -202,7 +202,7 @@ public class AddressSelActivity extends BaseErrorActivity<ActivityAddressSelBind
     }
 
     @Override
-    public void getAddress(ArrayList<AddressBean> addressBeans) {
+    public void getAddress(ArrayList<AddressBean> addressBeans, boolean showAddressPop) {
         addressAdapter.update(addressBeans, true);
         if (addressBean != null) {
             addressAdapter.setSelPosition(addressBean);

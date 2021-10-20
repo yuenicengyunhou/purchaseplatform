@@ -49,15 +49,12 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
 
         mAdapter = new PopChooseAddressAdapter(mContext, mAddressId);
         binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
+        binding.brvAddress.setVerticalFadingEdgeEnabled(true);
         binding.brvAddress.setAdapter(mAdapter);
-        mAdapter.setListener(new PositionListener<AddressBean>() {
-            @Override
-            public void onPosition(AddressBean bean, int position) {
-                if (listener != null)
-                    listener.getAddrss(bean);
-                dismiss();
-            }
-
+        mAdapter.setListener((PositionListener<AddressBean>) (bean, position) -> {
+            if (listener != null)
+                listener.getAddrss(bean);
+            dismiss();
         });
 
         mAdapter.update(mAddresses, true);
