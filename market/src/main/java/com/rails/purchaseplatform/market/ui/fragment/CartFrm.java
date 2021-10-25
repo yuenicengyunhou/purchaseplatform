@@ -5,6 +5,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -117,7 +118,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             size = 18;
         }
 
-        clearTotalPrice();
+        DecimalUtil.formatStrSize("¥ ",
+                DecimalUtil.formatDouble(0.0), "", size);
 
         cartAdapter = new CartAdapter(getActivity());
         cartAdapter.setListener(this);
@@ -174,8 +176,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 重置总计金额，到0.00
      */
     private void clearTotalPrice() {
-        DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(0.0), "", size);
+
     }
 
     @Override
@@ -696,6 +697,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onError(ErrorBean errorBean) {
         String errorCode = errorBean.getCode();
@@ -707,7 +709,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 cartAdapter.update(new ArrayList(), true);
                 binding.empty.setVisibility(View.VISIBLE);
                 binding.empty.setBtnEmpty("立即登录");
-                clearTotalPrice();
+                binding.tvTotal.setText("0.00");
+                binding.tvAddress.setText("");
             }
             break;
             default:
