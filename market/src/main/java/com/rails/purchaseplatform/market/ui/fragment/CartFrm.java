@@ -262,7 +262,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (type == 1 && position != -1) {
             cartAdapter.updateSubAdater(position);
             setTotal();
-            if (cartAdapter.getItemCount()==0) {//解决bug，当用户左滑删除条目，到最后，没有出现空空如也,所以刷新一下列表
+            if (cartAdapter.getItemCount() == 0) {//解决bug，当用户左滑删除条目，到最后，没有出现空空如也,所以刷新一下列表
                 onRefresh();
             }
         } else {
@@ -709,8 +709,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 cartAdapter.update(new ArrayList(), true);
                 binding.empty.setVisibility(View.VISIBLE);
                 binding.empty.setBtnEmpty("立即登录");
-                binding.tvTotal.setText("0.00");
-                binding.tvAddress.setText("");
+                binding.bottom.setVisibility(View.GONE);
+                binding.tvManager.setVisibility(View.INVISIBLE);
+                binding.tvAddress.setVisibility(View.INVISIBLE);
             }
             break;
             default:
