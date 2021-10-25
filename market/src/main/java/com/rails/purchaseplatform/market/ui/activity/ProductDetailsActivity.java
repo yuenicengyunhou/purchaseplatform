@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
@@ -114,6 +116,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 添加购物车Pop中需要展示或计算的所有数据
      */
     private ProductDetailsPopBean mPopBean;
+
+
+    private ArrayList<String> mTabs = new ArrayList<String>() {{
+        add("商品信息");
+        add("包装清单");
+        add("售后服务");
+        add("推荐单位");
+    }};
+
+
+    //判断是点击还是滑动
+    private boolean isScroll = true;
 
 
     /**
@@ -224,23 +238,63 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.rlHeadViewWithTabLayout.setAlpha(0);
         binding.ibGoTop.setVisibility(View.GONE);
 
+
+        /**
+         *
+         */
+        for (int i = 0; i < mTabs.size(); i++) {
+            TabLayout.Tab tab = binding.tabDetails.newTab();
+            TextView lable = new TextView(this);
+            tab.setCustomView(lable);
+            lable.setText(mTabs.get(i));
+            lable.setGravity(Gravity.CENTER);
+            lable.setTextColor(getResources().getColor(i == 0 ? R.color.font_blue : R.color.font_black));
+//            lable.setTypeface(Typeface.defaultFromStyle(i == 0 ? Typeface.BOLD : Typeface.NORMAL));
+            lable.setTextSize(13F);
+            tab.setTag(i);
+            binding.tabDetails.addTab(tab);
+            int finalI = i;
+            lable.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tab.select();
+                    isScroll = false;
+                    if (finalI == 0) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webProductInfo) - px);
+                    } else if (finalI == 1) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webPackageList) - px);
+                    } else if (finalI == 2) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webService) - px);
+                    } else if (finalI == 3) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webRecommend) - px);
+                    }
+                }
+            });
+        }
+
+
         // 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
         binding.tabDetails.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                selectTab(tab, px);
+                TextView lable = (TextView) tab.getCustomView();
+                lable.setTextColor(getResources().getColor(R.color.font_blue));
+                lable.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                TextView lable = (TextView) tab.getCustomView();
+                lable.setTextColor(getResources().getColor(R.color.font_black));
+                lable.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                selectTab(tab, px);
+//                selectTab(tab, px);
             }
         });
+
 
         // 监听NestedScrollView滚动事件设置TabLayout透明度和Tab标签
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -248,9 +302,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 updateTabTitleStateOnScroll(px, px2);
                 updateBackButtonStateOnScroll(scrollY);
-                updateTabStateOnScroll(px);
+                if (isScroll) {
+                    updateTabStateOnScroll(px);
+                }
                 updateGoTopButtonStateOnScroll(scrollY, px3);
-
+                isScroll = true;
             }
         });
 
@@ -308,15 +364,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private void updateTabStateOnScroll(int px) {
         int productInfoPosition = getCurrentPositionY(binding.webProductInfo) - px;
-        int packageListPosition = getCurrentPositionY(binding.webPackageList) - px;
-        int servicePosition = getCurrentPositionY(binding.webService) - px;
-        int recommendPosition = getCurrentPositionY(binding.webRecommend) - px;
+        int packageListPosition = getCurrentPositionY(binding.webPackageList) - getScreenHeight() + px;
+        int servicePosition = getCurrentPositionY(binding.webService) - getScreenHeight() + px;
+        int recommendPosition = getCurrentPositionY(binding.webRecommend) - getScreenHeight() + px;
 
-        if (packageListPosition <= 0 && servicePosition > 0) {
+        if (productInfoPosition >= 0) {
+            binding.tabDetails.selectTab(binding.tabDetails.getTabAt(0));
+        } else if (packageListPosition >= 0) {
             binding.tabDetails.selectTab(binding.tabDetails.getTabAt(1));
-        } else if (servicePosition <= 0 && recommendPosition > 0) {
+        } else if (servicePosition >= 0) {
             binding.tabDetails.selectTab(binding.tabDetails.getTabAt(2));
-        } else if (recommendPosition <= 0) {
+        } else if (recommendPosition >= 0) {
             binding.tabDetails.selectTab(binding.tabDetails.getTabAt(3));
         }
     }
@@ -479,6 +537,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[1];
+    }
+
+    public int getScreenHeight() {
+        return this.getWindowManager().getDefaultDisplay().getHeight();
     }
 
     /**
@@ -774,8 +836,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     }
 
 
+
     @Override
-    public void getAddress(ArrayList<AddressBean> addressBeans) {
+    public void getAddress(ArrayList<AddressBean> addressBeansp, boolean showAddressPop) {
+
     }
 
     @Override

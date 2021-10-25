@@ -13,6 +13,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit;
 import com.rails.purchaseplatform.framwork.http.trust.OkHttp3Connection;
 import com.rails.purchaseplatform.framwork.utils.SSLUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

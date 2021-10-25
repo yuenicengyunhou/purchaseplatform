@@ -203,7 +203,7 @@ public class InvoiceActivity extends ToolbarActivity<ActivityOrderInvoiceBinding
     }
 
     @Override
-    public void getAddress(ArrayList<AddressBean> addressBeans) {
+    public void getAddress(ArrayList<AddressBean> addressBeans, boolean showAddressPop) {
 
     }
 

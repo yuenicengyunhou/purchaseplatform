@@ -26,6 +26,7 @@
             android:screenOrientation="portrait" /> <!-- 结果页面 -->
         <activity
             android:name=".ui.activity.CommitResultActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--        竞价排名-->
