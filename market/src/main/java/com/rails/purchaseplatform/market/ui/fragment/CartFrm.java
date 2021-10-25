@@ -7,6 +7,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -116,8 +117,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             size = 18;
         }
 
-        binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(0.0), "", size));
+        clearTotalPrice();
 
         cartAdapter = new CartAdapter(getActivity());
         cartAdapter.setListener(this);
@@ -168,6 +168,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         addressPresenter = new AddressToolPresenterImpl(getActivity(), this);
 
         addressPresenter.getAddress("20", "1", "", "", false);
+    }
+
+    /**
+     * 重置总计金额，到0.00
+     */
+    private void clearTotalPrice() {
+        DecimalUtil.formatStrSize("¥ ",
+                DecimalUtil.formatDouble(0.0), "", size);
     }
 
     @Override
@@ -253,6 +261,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (type == 1 && position != -1) {
             cartAdapter.updateSubAdater(position);
             setTotal();
+            if (cartAdapter.getItemCount()==0) {//解决bug，当用户左滑删除条目，到最后，没有出现空空如也,所以刷新一下列表
+                onRefresh();
+            }
         } else {
 
             presenter.getCarts(false, "-1");
@@ -696,6 +707,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 cartAdapter.update(new ArrayList(), true);
                 binding.empty.setVisibility(View.VISIBLE);
                 binding.empty.setBtnEmpty("立即登录");
+                clearTotalPrice();
             }
             break;
             default:
