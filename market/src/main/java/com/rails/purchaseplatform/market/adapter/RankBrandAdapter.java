@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
@@ -28,17 +29,22 @@ public class RankBrandAdapter extends BaseRecyclerAdapter<BrandBean, ItemRankBra
     protected void onBindItem(ItemRankBrandBinding binding, BrandBean brandBean, int position) {
         binding.setBrand(brandBean);
         if (position == 0) {
-            binding.tvRank.setBackgroundResource(R.drawable.ic_rank_first);
-            binding.tvRank.setText("");
+            binding.imgRank.setImageResource(R.drawable.ic_rank_first);
+            binding.tvRank.setVisibility(View.GONE);
+            binding.imgRank.setVisibility(View.VISIBLE);
         } else if (position == 1) {
-            binding.tvRank.setBackgroundResource(R.drawable.ic_rank_two);
-            binding.tvRank.setText("");
+            binding.imgRank.setImageResource(R.drawable.ic_rank_two);
+            binding.tvRank.setVisibility(View.GONE);
+            binding.imgRank.setVisibility(View.VISIBLE);
         } else if (position == 2) {
-            binding.tvRank.setText("");
-            binding.tvRank.setBackgroundResource(R.drawable.ic_rank_three);
+            binding.tvRank.setVisibility(View.GONE);
+            binding.imgRank.setVisibility(View.VISIBLE);
+            binding.imgRank.setImageResource(R.drawable.ic_rank_three);
         } else {
             binding.tvRank.setText(String.valueOf(++position));
             binding.tvRank.setBackground(null);
+            binding.tvRank.setVisibility(View.VISIBLE);
+            binding.imgRank.setVisibility(View.GONE);
         }
 
 
