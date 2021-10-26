@@ -20,6 +20,7 @@
     <string name="market_cart_complement">完成</string>
     <string name="market_cart_total">合计:&#160;&#160;</string>
     <string name="market_cart_order">下一步</string>
+    <string name="market_cart_commit">提交</string>
     <string name="market_cart_pay">¥%s</string>
     <string name="market_cart_hot">热销商品</string>
     <string name="market_cart_selall">全选</string>

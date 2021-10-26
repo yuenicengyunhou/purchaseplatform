@@ -312,6 +312,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
+        if (null == bean) return;
         indexBean = bean;
         if (bean.getBrandBeans() == null) {
             binding.llBrand.setVisibility(View.GONE);

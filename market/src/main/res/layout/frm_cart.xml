@@ -281,7 +281,7 @@
                     android:paddingTop="@dimen/dp_5"
                     android:paddingRight="@dimen/dp_20"
                     android:paddingBottom="@dimen/dp_5"
-                    android:text="@string/market_cart_order"
+                    android:text="@string/market_cart_commit"
                     android:textColor="@color/enable_white_black_color"
                     android:textSize="@dimen/font_size_16" />
 
