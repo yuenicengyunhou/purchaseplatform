@@ -3,12 +3,12 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecBinding;
 import com.rails.purchaseplatform.market.databinding.ItemMarketProductRecSubBinding;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,7 +62,10 @@ public class ProductRecSubAdapter extends BaseRecyclerAdapter<ProductBean, ItemM
         super.onBindView(binding);
         RecyclerView.LayoutParams linearParams =
                 (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
-        linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 60)) / 3;
+        if (!SystemUtil.isPad(mContext))
+            linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 60)) / 3;
+        else
+            linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 90)) / 3;
         binding.getRoot().setLayoutParams(linearParams);
     }
 }
