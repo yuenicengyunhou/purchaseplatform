@@ -65,7 +65,6 @@
         </FrameLayout>
 
 
-
         <CheckBox
             android:id="@+id/tv_manager"
             android:layout_width="wrap_content"

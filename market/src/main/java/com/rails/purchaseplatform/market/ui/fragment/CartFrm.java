@@ -5,6 +5,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -117,7 +118,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             size = 18;
         }
 
-        clearTotalPrice();
+        DecimalUtil.formatStrSize("¥ ",
+                DecimalUtil.formatDouble(0.0), "", size);
 
         cartAdapter = new CartAdapter(getActivity());
         cartAdapter.setListener(this);
@@ -174,8 +176,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 重置总计金额，到0.00
      */
     private void clearTotalPrice() {
-        DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(0.0), "", size);
+
     }
 
     @Override
@@ -261,7 +262,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (type == 1 && position != -1) {
             cartAdapter.updateSubAdater(position);
             setTotal();
-            if (cartAdapter.getItemCount()==0) {//解决bug，当用户左滑删除条目，到最后，没有出现空空如也,所以刷新一下列表
+            if (cartAdapter.getItemCount() == 0) {//解决bug，当用户左滑删除条目，到最后，没有出现空空如也,所以刷新一下列表
                 onRefresh();
             }
         } else {
@@ -696,6 +697,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onError(ErrorBean errorBean) {
         String errorCode = errorBean.getCode();
@@ -707,7 +709,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 cartAdapter.update(new ArrayList(), true);
                 binding.empty.setVisibility(View.VISIBLE);
                 binding.empty.setBtnEmpty("立即登录");
-                clearTotalPrice();
+                binding.bottom.setVisibility(View.GONE);
+                binding.tvManager.setVisibility(View.INVISIBLE);
+                binding.tvAddress.setVisibility(View.INVISIBLE);
             }
             break;
             default:
