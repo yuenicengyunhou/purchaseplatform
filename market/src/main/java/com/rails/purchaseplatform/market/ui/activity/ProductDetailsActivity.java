@@ -702,12 +702,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onCollect(boolean isCollect, int position) {
         // TODO: 2021/6/10 保留 点击收藏按钮时发送网络请求 成功后更新收藏状态
-        if (mPageBean.isCollected()) {
-            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
-        } else {
-            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
-        }
         mPageBean.setCollected(!mPageBean.isCollected());
+        if (mPageBean.isCollected()) {
+            ToastUtil.showCenter(this, "收藏成功");
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
+        } else {
+            ToastUtil.showCenter(this, "取消成功");
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
+        }
     }
 
 
@@ -834,7 +836,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     public void getDelivery(DeliveryBean deliveryBean) {
 
     }
-
 
 
     @Override
