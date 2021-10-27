@@ -294,6 +294,7 @@ public class ProductDetailsPresenterImpl
 
 
     public void spliceList(ArrayList<ProductDetailsPackingBean> packingBeans, String annexName) {
+        if (annexName == null) return;
         if (annexName.contains("``")) {
             String[] strings = annexName.split("``");
             for (String keyValue : strings) {

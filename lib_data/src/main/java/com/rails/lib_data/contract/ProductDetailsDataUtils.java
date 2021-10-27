@@ -359,10 +359,11 @@ public class ProductDetailsDataUtils {
                         }
                     }
                     if (!TextUtils.isEmpty(currentItemSkuInfo.getMaterialCode())) {
-                        ProductSpecificParameter parameter = new ProductSpecificParameter();
-                        parameter.setParamKey("物资编码：");
-                        parameter.setParamValue(currentItemSkuInfo.getMaterialCode());
-                        parameters.add(parameter);
+                        // 不显示物资编码属性
+                        // ProductSpecificParameter parameter = new ProductSpecificParameter();
+                        // parameter.setParamKey("物资编码：");
+                        // parameter.setParamValue(currentItemSkuInfo.getMaterialCode());
+                        // parameters.add(parameter);
                     }
                 }
             }
