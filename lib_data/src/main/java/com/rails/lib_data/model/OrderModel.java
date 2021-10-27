@@ -62,7 +62,7 @@ public class OrderModel {
 
     private void mergeMap(OrderFilterBean filterBean, HashMap<String, Object> map) {
         if (null == filterBean) {
-            map.put("materialType", "0");//默认通用物资
+//            map.put("materialType", "0");//默认通用物资
             return;
         }
         String startDate = filterBean.getStartDate();
