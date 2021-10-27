@@ -93,13 +93,19 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
 
 //        final String SALE_NUM = "1"; // 固定1
         binding.btnOk.setOnClickListener(v -> {
+            String lowPrice = binding.etLowPrice.getText().toString().trim();
+            String highPrice = binding.etHighPrice.getText().toString().trim();
             if (null != filterCompleteListener && null != shopAdapter) {
-                filterCompleteListener.onComplete(shopAdapter.getDataSource());
+                filterCompleteListener.onComplete(shopAdapter.getDataSource(),lowPrice,highPrice);
             }
             dismiss();
         });
 
-        binding.btnReset.setOnClickListener(v -> shopAdapter.resetSelectState());
+        binding.btnReset.setOnClickListener(v -> {
+            binding.etLowPrice.setText("");
+            binding.etHighPrice.setText("");
+            shopAdapter.resetSelectState();
+        });
     }
 
     //    public void setAddToCartListener(PropertyPop.AddToCart addToCart) {
@@ -107,7 +113,7 @@ public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
 //    }
 //
     public interface FilterCompleteListener {
-        void onComplete(ArrayList<SearchFilterBean> filterbeans);
+        void onComplete(ArrayList<SearchFilterBean> filterbeans, String lowPrice, String highPrice);
 
 //        void onReset();
     }
