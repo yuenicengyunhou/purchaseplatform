@@ -10,6 +10,8 @@ import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchItemPresenterImpl;
+import com.rails.lib_data.contract.StatisticContract;
+import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -29,7 +31,8 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         implements
         SearchContract.SearchItemView,
         SearchResultActivity.OnSortClick,
-        SearchResultActivity.OnFilterClick {
+        SearchResultActivity.OnFilterClick,
+        StatisticContract.StatisticView {
 
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
@@ -52,10 +55,11 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     private SearchResultRecyclerAdapter mAdapter;
     private SearchContract.SearchItemPresenter mPresenter;
+    private StatisticContract.StatisticPresenter statisticPresenter;
 
     private ArrayList<SearchFilterBean> mSearchFilterList;
 
-    public SearchResultByProductFragment(){
+    public SearchResultByProductFragment() {
 
     }
 
@@ -73,6 +77,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         binding.brvProductSearchResult.setEmptyView(binding.empty);
 
         mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
+        statisticPresenter = new StatisticPresenterImpl(getActivity(), this);
 
         onRefresh();
     }
@@ -100,6 +105,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         if (!TextUtils.isEmpty(mSearchKey)) {
             mPresenter.searchRecord("1", mSearchKey);
         }
+        statisticPresenter.getVisitors("0", null, null);
     }
 
 
