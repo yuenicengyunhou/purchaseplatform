@@ -9,6 +9,9 @@ import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.TimeUtil;
+
+import java.util.Date;
 
 /**
  * 流量统计
@@ -39,7 +42,22 @@ public class StatisticPresenterImpl extends BasePresenter<StatisticContract.Stat
     public void getVisitors(String materialType, String itemShopId, String skuId) {
         String token = PrefrenceUtil.getInstance(mContext).getString(ConShare.TOKEN, "");
         String visitorType = TextUtils.isEmpty(token) ? "0" : "1";
-        String cookieFinger = String.valueOf(System.currentTimeMillis());
+
+
+        String oldTime = PrefrenceUtil.getInstance(mContext).getString(ConShare.EVENT_DATE, "0");
+        String oldDate = TimeUtil.LongtoStringFormatYMD(Long.parseLong(oldTime));
+        ;
+        long time = System.currentTimeMillis();
+        String date = TimeUtil.LongtoStringFormatYMD(time);
+
+        String cookieFinger;
+        if (!date.equals(oldDate)) {
+            cookieFinger = String.valueOf(System.currentTimeMillis());
+        } else
+            cookieFinger = oldTime;
+
+        PrefrenceUtil.getInstance(mContext).setString(ConShare.EVENT_DATE, cookieFinger);
+
         String sourceType = "1";
         model.getVisitors("20", visitorType, cookieFinger, materialType, sourceType, itemShopId, skuId, new HttpRxObserver<String>() {
             @Override

@@ -27,6 +27,7 @@ import com.rails.lib_data.contract.InvoiceContract;
 import com.rails.lib_data.contract.InvoicePresenterImpl;
 import com.rails.lib_data.contract.OrderVerifyContract;
 import com.rails.lib_data.contract.OrderVerifyPresenterImpl;
+import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.lib_data.request.OrderAddressBean;
@@ -283,6 +284,9 @@ public class OrderVerityActivity extends ToolbarActivity<ActivityOrderVerityBind
         });
 
         barBinding.btnCommit.setOnClickListener(v -> {
+
+            new StatisticPresenterImpl(this,null).getVisitors("0","","");
+
             if (canOrder) {
                 if (extraPrice >= 0 && itemPrice > extraPrice) {
                     showDialog();
