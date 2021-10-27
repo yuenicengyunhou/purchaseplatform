@@ -273,7 +273,7 @@ public class ProductDetailsPresenterImpl
                 ArrayList<ItemPicture> pics = new ArrayList<>(); // 这个集合是做什么的？
                 ArrayList<ProductDetailsPackingBean> packingBeans = new ArrayList<>();
 
-                if (response.size() != 0) {
+                if (response != null && response.size() != 0) {
                     bean = response.get(0);
 
                     if (bean.getPackinglist() != null && bean.getPackinglist().size() != 0) {
