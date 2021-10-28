@@ -239,8 +239,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
         statisticPresenter = new StatisticPresenterImpl(getActivity(), this);
-        //通用 首页请求此接口时 itemShopId skuId 为null
-        statisticPresenter.getVisitors("0", null, null);
 
         onRefresh();
     }
@@ -276,9 +274,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             binding.rlRecycler.finishRefresh();
             presenter.getHotProducts(false, 1, "10");
             presenter.getMarketIndexInfo(false, false);
+            //通用 首页请求此接口时 itemShopId skuId 为null
+            statisticPresenter.getVisitors("0", null, null);
         });
         presenter.getHotProducts(false, 1, "10");
         presenter.getMarketIndexInfo(true, true);
+        //通用 首页请求此接口时 itemShopId skuId 为null
+        statisticPresenter.getVisitors("0", null, null);
     }
 
     @Override
