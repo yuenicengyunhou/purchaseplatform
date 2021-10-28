@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.ui.pop;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.lib_data.bean.AddressBean;
@@ -48,8 +49,7 @@ public class CartAddressPop extends BasePop<PopCartAddressBinding> {
     protected void initialize(Bundle bundle) {
 
         mAdapter = new PopChooseAddressAdapter(mContext, mAddressId);
-        binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
-        binding.brvAddress.canScrollVertical(true);
+        binding.brvAddress.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         binding.brvAddress.setAdapter(mAdapter);
         mAdapter.setListener((PositionListener<AddressBean>) (bean, position) -> {
             if (listener != null)

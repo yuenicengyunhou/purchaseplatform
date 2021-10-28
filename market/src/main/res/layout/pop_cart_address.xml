@@ -26,13 +26,21 @@
         android:background="@null"
         android:padding="@dimen/dp_10"
         android:src="@drawable/svg_close_gray_12" />
+<!--    <com.rails.purchaseplatform.market.widget.MoreScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/brv_address"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_title" />
+<!--        </FrameLayout>-->
+<!--    </com.rails.purchaseplatform.market.widget.MoreScrollView>-->
 
-    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-        android:id="@+id/brv_address"
-        android:layout_width="match_parent"
-        android:scrollbars="vertical"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tv_title"
-        android:overScrollMode="never"/>
+
 
 </RelativeLayout>
