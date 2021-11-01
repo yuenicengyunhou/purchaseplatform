@@ -68,9 +68,15 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         super.onMessageEvent(event);
         String code = event.getEventCode();
         ResultWebBean bean = (ResultWebBean) event.getBean();
-        if (ConRoute.EVENTCODE.MAIN_CODE.equals(code)) {
-            position = bean.getCode();
+        if (code.equals("cartToHome")) {//当用户的购物车没有商品时，点击去采购，切换到首页
+            binding.rbGroup.check(binding.rbMall.getId());
+            binding.viewpager.setCurrentItem(0);
+        }else {
+            if (ConRoute.EVENTCODE.MAIN_CODE.equals(code)) {
+                position = bean.getCode();
+            }
         }
+
     }
 
     @Override
