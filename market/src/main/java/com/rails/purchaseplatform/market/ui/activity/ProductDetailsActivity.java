@@ -507,8 +507,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 商品详情跳转到店铺详情
      */
     private void productDetailGoShopDetail() {
-        if (null == mPageBean) {
-            ToastUtil.showCenter(this, "商品信息为空");
+        if (mPageBean == null || mPageBean.getShopId() == null) {
+            ToastUtil.showCenter(this, "未查询到该店铺");
             return;
         }
         Bundle bundle = new Bundle();
