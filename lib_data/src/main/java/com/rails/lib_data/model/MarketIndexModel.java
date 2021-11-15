@@ -20,8 +20,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function4;
-import io.reactivex.functions.Function5;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -181,37 +180,18 @@ public class MarketIndexModel {
     public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
         // TODO: 2016/9/30 读取缓存数据
-        Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());//获取商城首页推荐商品列表
-        Observable brands = getRecBrands().subscribeOn(Schedulers.io());//获取品牌列表
-
         Observable banners = getBanners().subscribeOn(Schedulers.io());//获取商城banner列表
         Observable categorys = getCategorys().subscribeOn(Schedulers.io());//获取导航
 
 
-        Observable.zip(recProducts, brands, banners, categorys, (Function4<ArrayList<ProductRecBean>, Object, ArrayList<BannerBean>,
-                ArrayList<NavigationBean>, MarketIndexBean>) (products, brandListBeen, hBanners, hCategorys) -> {
+        Observable.zip(  banners, categorys, (BiFunction< ArrayList<BannerBean>,
+                                        ArrayList<NavigationBean>, MarketIndexBean>) (hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
-
-
-            try {
-                marketIndexBean.setRecBeans(products);
-            } catch (Exception e) {
-
-            }
-
-
-            try {
-                if (brandListBeen instanceof ListBeen)
-                    marketIndexBean.setBrandBeans((ArrayList<BrandBean>) ((ListBeen<?>) brandListBeen).getList());
-            } catch (Exception e) {
-                marketIndexBean.setBrandBeans(null);
-            }
-
 
             try {
                 marketIndexBean.setBannerBeans(hBanners);
             } catch (Exception e) {
-
+                marketIndexBean.setBannerBeans(null);
             }
 
             try {

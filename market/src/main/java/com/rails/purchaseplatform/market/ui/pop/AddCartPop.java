@@ -255,6 +255,10 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         binding.tvReduce.setTextColor(fontGray);
         setAddCartButton();
         binding.addCart.setOnClickListener(v -> {
+            if (mMaterialType != null && mMaterialType.equals("1")) {
+                ToastUtil.showCenter(this.getActivity(), "APP暂不支持");
+                return;
+            }
             if (binding.tvCountState.getText().toString().equals("无货")) {
                 ToastUtil.showCenter(getActivity(), "请选择其它型号的商品");
                 return;
@@ -353,6 +357,8 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         String num = binding.etNum.getText().toString().trim();
         if (!TextUtils.isEmpty(num)) {
             number = Integer.parseInt(num);
+        } else {
+            number = 0;
         }
         if (isAdd) {
             if (number >= 999999) {
@@ -361,6 +367,7 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
             binding.etNum.setText(String.valueOf(number + 1));
         } else {
             if (number <= 1) {
+                binding.etNum.setText("1");
                 return;
             }
             binding.etNum.setText(String.valueOf(number - 1));

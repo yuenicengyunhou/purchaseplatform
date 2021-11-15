@@ -35,6 +35,7 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     private MarketIndexModel model;
     //缓存首页数据的文件
     private final String fileName = "mallInfo";
+    private final String floorName = "floor";
 
     public MarKetIndexPresenterImpl(Activity mContext, MarketIndexContract.MarketIndexView marketIndexView) {
         super(mContext, marketIndexView);
@@ -79,8 +80,40 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
         getIndexInfo(isDialog);
     }
 
+
+    /**
+     *
+     */
     @Override
+    public void getFloors(boolean isCache) {
+        if (isCache) {
+            ArrayList<ProductRecBean> beans = (ArrayList<ProductRecBean>) FileCacheUtil.getInstance(mContext).readObject(floorName);
+            if (beans != null) {
+                baseView.getFloors(beans);
+            }
+        }
+        model.getRecProducts(new HttpRxObserver<ArrayList<ProductRecBean>>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                baseView.onError(e);
+            }
+
+            @Override
+            protected void onSuccess(ArrayList<ProductRecBean> beans) {
+                if (beans != null) {
+                    baseView.getFloors(beans);
+                    FileCacheUtil.getInstance(mContext).writeObject(beans, floorName);
+                }
+            }
+        });
+    }
+
+    @Override
+<<<<<<< HEAD
     public void getRanks(boolean isDialog, int page, String pageSize, String paramType, String brandId, String categoryId) {
+=======
+    public void getRanks(boolean isDialog, int page, String pageSize, String categoryId) {
+>>>>>>> 0328529d776d1031fdf951bd660849b96e163139
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }

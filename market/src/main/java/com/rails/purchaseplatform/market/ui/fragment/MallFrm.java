@@ -272,13 +272,17 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.rlRecycler.setEnableLoadMore(false);
         binding.rlRecycler.setOnRefreshListener(refreshLayout -> {
             binding.rlRecycler.finishRefresh();
-            presenter.getHotProducts(false, 1, "10");
             presenter.getMarketIndexInfo(false, false);
+            presenter.getRanks(false,1,"10","");
+            presenter.getHotProducts(false, 1, "10");
+            presenter.getFloors(false);
             //通用 首页请求此接口时 itemShopId skuId 为null
             statisticPresenter.getVisitors("0", null, null);
         });
-        presenter.getHotProducts(false, 1, "10");
         presenter.getMarketIndexInfo(true, true);
+        presenter.getRanks(false,1,"10","");
+        presenter.getHotProducts(false, 1, "10");
+        presenter.getFloors(true);
         //通用 首页请求此接口时 itemShopId skuId 为null
         statisticPresenter.getVisitors("0", null, null);
     }
@@ -309,21 +313,12 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
             binding.llHot.setVisibility(View.VISIBLE);
             hotAdapter.update(beans, true);
         }
-
     }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
         if (null == bean) return;
         indexBean = bean;
-        if (bean.getBrandBeans() == null) {
-            binding.llBrand.setVisibility(View.GONE);
-        } else {
-            binding.llBrand.setVisibility(View.VISIBLE);
-            brandAdapter.update(bean.getBrandBeans(), true);
-        }
-        tabAdapter.updateData(bean.getRecBeans(), true);
-        recAdapter.update(bean.getRecBeans(), true);
         categoryAdapter.update(bean.getCategorySubBeans(), true);
         setBanners(bean.getBannerBeans());
 
@@ -331,12 +326,23 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
-
+        if (brandBeans == null || brandBeans.isEmpty()) {
+            binding.llBrand.setVisibility(View.GONE);
+        } else {
+            binding.llBrand.setVisibility(View.VISIBLE);
+            brandAdapter.update(brandBeans, true);
+        }
     }
 
     @Override
     public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
+    }
+
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
+        recAdapter.update(productBeans, true);
+        tabAdapter.updateData(productBeans, true);
     }
 
     @Override

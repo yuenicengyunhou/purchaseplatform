@@ -8,12 +8,14 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
@@ -147,6 +149,11 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
         }
     }
 
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
+
+    }
+
 
     /**
      * 刷新效果
@@ -221,5 +228,10 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
 
         }
 
+    }
+
+
+    @Override
+    public void onError(ErrorBean errorBean) {
     }
 }
