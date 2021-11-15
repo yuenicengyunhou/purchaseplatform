@@ -31,6 +31,7 @@ public class OrderPurchaseAdapter extends BaseRecyclerAdapter<OrderPurchaseBean,
     @Override
     protected void onBindItem(ItemOrderPurchaseBinding binding, OrderPurchaseBean orderPurchaseBean, int position) {
         binding.setPurchase(orderPurchaseBean);
+        binding.tvNuit.setText(orderPurchaseBean.getAccountingType()== 1?"集团公司集中结算":"本单位结算");
 
         binding.getRoot().setOnClickListener(v -> {
             if (positionListener != null)
@@ -56,7 +57,7 @@ public class OrderPurchaseAdapter extends BaseRecyclerAdapter<OrderPurchaseBean,
 
     public void setSelPosition(OrderPurchaseBean bean) {
         for (OrderPurchaseBean addressBean : mDataSource) {
-            if (bean.getId().equals(addressBean.getId())) {
+            if (bean.getId().equals(addressBean.getId()) && (bean.getAccountingType() == addressBean.getAccountingType())) {
                 addressBean.isSel.set(true);
                 break;
             } else {
