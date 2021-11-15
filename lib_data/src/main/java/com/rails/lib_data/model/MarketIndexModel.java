@@ -110,12 +110,20 @@ public class MarketIndexModel {
     /**
      * 获取品牌列表
      *
+     * @param page
+     * @param pageSize
+     * @param paramType 0代表七日品牌排名，1代表七日品牌所对应店铺排名 (必填项)
+     * @param brandId
      * @param httpRxObserver
      */
-    public void getRecBrands(int page, String pageSize, HttpRxObserver httpRxObserver) {
+    public void getRecBrands(int page, String pageSize, String paramType, String brandId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageNum", page);
         params.put("pageSize", pageSize);
+        params.put("paramType",paramType);
+        if ("1".equals(paramType))
+            params.put("brandId",brandId);
+
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(MarketIndexService.class, 2)
                 .getBrands(params))
@@ -132,6 +140,7 @@ public class MarketIndexModel {
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageNum", 1);
         params.put("pageSize", 10);
+        params.put("paramType","0");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(MarketIndexService.class, 2).getBrands(params));
     }
@@ -206,11 +215,11 @@ public class MarketIndexModel {
             }
 
             try {
-                if (hCategorys != null){
+                if (hCategorys != null) {
                     ArrayList<NavigationBean> navigationBeans = new ArrayList<>();
-                    for (NavigationBean bean :hCategorys){
+                    for (NavigationBean bean : hCategorys) {
                         String url = bean.getPictureUrl();
-                        if (!TextUtils.isEmpty(url)){
+                        if (!TextUtils.isEmpty(url)) {
                             navigationBeans.add(bean);
                         }
                     }

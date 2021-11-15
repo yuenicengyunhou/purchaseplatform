@@ -21,6 +21,7 @@ import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.RankBrandAdapter;
 import com.rails.purchaseplatform.market.adapter.RankProductAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentMarketRankBinding;
+import com.rails.purchaseplatform.market.ui.activity.ShopsActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -49,7 +50,7 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
     private RankBrandAdapter brandAdapter;
     private RankProductAdapter productAdapter;
 
-    public RankFragment(){
+    public RankFragment() {
 
     }
 
@@ -73,13 +74,13 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
             brandAdapter.setListener(new PositionListener<BrandBean>() {
                 @Override
                 public void onPosition(BrandBean bean, int position) {
-                    String shopId = bean.getShopid();
+                    String brandId = bean.getBrandId();
                     Bundle bundle = new Bundle();
-                    if (TextUtils.isEmpty(shopId))
+                    if (TextUtils.isEmpty(brandId))
                         return;
                     try {
-                        bundle.putString("shopInfoId", shopId);
-                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                        bundle.putString("brandId", brandId);
+                        startIntent(ShopsActivity.class, bundle);
                     } catch (Exception e) {
 
                     }
@@ -174,7 +175,7 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        presenter.getRanks(isDialog, page, pageSize, categoryId);
+        presenter.getRanks(isDialog, page, pageSize, "0", "", categoryId);
     }
 
 

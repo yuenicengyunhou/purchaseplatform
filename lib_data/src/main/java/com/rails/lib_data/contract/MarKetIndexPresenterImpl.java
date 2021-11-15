@@ -80,12 +80,12 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     }
 
     @Override
-    public void getRanks(boolean isDialog, int page, String pageSize, String categoryId) {
-        if (isDialog){
+    public void getRanks(boolean isDialog, int page, String pageSize, String paramType, String brandId, String categoryId) {
+        if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
         if (TextUtils.isEmpty(categoryId)) {
-            model.getRecBrands(page, pageSize, new HttpRxObserver<ListBeen<BrandBean>>() {
+            model.getRecBrands(page, pageSize, paramType, brandId, new HttpRxObserver<ListBeen<BrandBean>>() {
                 @Override
                 protected void onError(ErrorBean e) {
                     baseView.dismissDialog();

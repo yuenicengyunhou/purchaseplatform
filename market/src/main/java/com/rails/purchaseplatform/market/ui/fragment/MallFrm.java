@@ -44,6 +44,7 @@ import com.rails.purchaseplatform.market.adapter.ProductHotIndexAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.market.ui.activity.RankActivity;
+import com.rails.purchaseplatform.market.ui.activity.ShopsActivity;
 import com.rails.purchaseplatform.market.widget.CenterManger;
 
 import java.util.ArrayList;
@@ -137,14 +138,13 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter.setListener(new PositionListener<BrandBean>() {
             @Override
             public void onPosition(BrandBean bean, int position) {
-
-                String shopId = bean.getShopid();
+                String brandId = bean.getBrandId();
                 Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(shopId))
+                if (TextUtils.isEmpty(brandId))
                     return;
                 try {
-                    bundle.putString("shopInfoId", shopId);
-                    goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                    bundle.putString("brandId", brandId);
+                    startIntent(ShopsActivity.class, bundle);
                 } catch (Exception e) {
 
                 }
