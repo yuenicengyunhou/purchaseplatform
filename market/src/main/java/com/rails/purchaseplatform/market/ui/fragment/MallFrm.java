@@ -273,14 +273,14 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.rlRecycler.setOnRefreshListener(refreshLayout -> {
             binding.rlRecycler.finishRefresh();
             presenter.getMarketIndexInfo(false, false);
-            presenter.getRanks(false,1,"10","");
+            presenter.getRanks(false,1,"10","0","","");
             presenter.getHotProducts(false, 1, "10");
             presenter.getFloors(false);
             //通用 首页请求此接口时 itemShopId skuId 为null
             statisticPresenter.getVisitors("0", null, null);
         });
         presenter.getMarketIndexInfo(true, true);
-        presenter.getRanks(false,1,"10","");
+        presenter.getRanks(false,1,"10","0","","");
         presenter.getHotProducts(false, 1, "10");
         presenter.getFloors(true);
         //通用 首页请求此接口时 itemShopId skuId 为null

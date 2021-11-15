@@ -8,6 +8,7 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -184,6 +185,11 @@ public class ShopsActivity extends ToolbarActivity<ActivityShopsBinding> impleme
 
     @Override
     public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
 
     }
 }

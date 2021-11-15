@@ -109,11 +109,7 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     }
 
     @Override
-<<<<<<< HEAD
     public void getRanks(boolean isDialog, int page, String pageSize, String paramType, String brandId, String categoryId) {
-=======
-    public void getRanks(boolean isDialog, int page, String pageSize, String categoryId) {
->>>>>>> 0328529d776d1031fdf951bd660849b96e163139
         if (isDialog) {
             baseView.showResDialog(R.string.loading);
         }
