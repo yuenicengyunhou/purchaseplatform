@@ -8,7 +8,6 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -42,6 +41,7 @@ import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
@@ -56,6 +56,8 @@ import com.rails.purchaseplatform.market.databinding.FrmCartBinding;
 import com.rails.purchaseplatform.market.ui.activity.ShopDetailActivity;
 import com.rails.purchaseplatform.market.ui.pop.CartAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.CartEditDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,8 +131,10 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         binding.cartRecycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.line_gray));
         binding.cartRecycler.setAdapter(cartAdapter);
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null)
+                .setBtnGobuy("")
                 .setMarginTop(80)
                 .setBtnEmpty("")
+                .setGoBuyListener(v -> EventBus.getDefault().post(new BusEvent<>(null, "cartToHome")))
                 .setBtnListener(v -> ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation());
         binding.empty.setVisibility(View.VISIBLE);
         recAdapter = new ProductHotAdapter(getActivity(), 0);
@@ -233,6 +237,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         } else {
             binding.empty.setVisibility(View.GONE);
         }
+        binding.empty.setBtnGobuy("去采购");
         cartAdapter.update(shopBeans, true);
         setDefTotal(cartBean);
 //        binding.cartRecycler.setEmptyView(binding.empty);
@@ -531,6 +536,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
 
         binding.empty.setBtnEmpty("");
+        binding.empty.setBtnGobuy("去采购");
         if (mAddress != null) {
 //            cartAdapter.update(new ArrayList(), true);
 //            return;
@@ -604,19 +610,29 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 return;
             if (shopBeans.isEmpty())
                 return;
-            ArrayList<String> skuIds = new ArrayList<>();
-            StringBuffer buffer = new StringBuffer();
+//            ArrayList<String> skuIds = new ArrayList<>();
+            StringBuilder buffer = new StringBuilder();
+            int selectedCount = 0;
             for (CartShopBean shopBean : shopBeans) {
                 for (CartShopProductBean bean : shopBean.getSkuList()) {
+                    if (bean.isSel.get()) {
+                        selectedCount++;
+                    }
                     if (!bean.isCollect.get() && bean.isSel.get()) {
-                        skuIds.add(bean.getSkuId());
-                        buffer.append(bean.getSkuId() + ",");
+//                        skuIds.add(bean.getSkuId());
+                        buffer.append(bean.getSkuId()).append(",");
                     }
 
                 }
             }
-            if (TextUtils.isEmpty(buffer.toString()))
+            if (TextUtils.isEmpty(buffer.toString()) ) {
+                if (selectedCount > 0) {
+                    ToastUtil.showCenter(mActivity, "商品已收藏");
+                } else {
+                    ToastUtil.showCenter(mActivity, "请选择商品");
+                }
                 return;
+            }
             toolPresenter.onCollect(buffer.toString().substring(0, buffer.length() - 1), "30", false, -1);
         } catch (Exception e) {
             e.printStackTrace();
