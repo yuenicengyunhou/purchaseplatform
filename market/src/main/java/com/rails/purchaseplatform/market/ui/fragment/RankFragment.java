@@ -15,6 +15,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
@@ -226,5 +227,10 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
 
         }
 
+    }
+
+
+    @Override
+    public void onError(ErrorBean errorBean) {
     }
 }
