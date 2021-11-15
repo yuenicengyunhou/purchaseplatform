@@ -54,6 +54,13 @@ public interface MarketIndexContract {
          */
         void getFloorProducts(ArrayList<ProductBean> productBeans,boolean hasMore, boolean isClear);
 
+
+        /**
+         * 获取楼层数据
+         * @param productBeans
+         */
+        void getFloors(ArrayList<ProductRecBean> productBeans);
+
     }
 
 
@@ -72,6 +79,12 @@ public interface MarketIndexContract {
          * 首页列表聚合
          */
         void getMarketIndexInfo(boolean isCache, boolean isDialog);
+
+
+        /**
+         * 获取楼层数据
+         */
+        void getFloors(boolean isCache);
 
 
         /**

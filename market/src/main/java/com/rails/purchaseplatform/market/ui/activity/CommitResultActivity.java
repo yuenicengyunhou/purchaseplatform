@@ -210,4 +210,9 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
     public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
     }
+
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
+
+    }
 }

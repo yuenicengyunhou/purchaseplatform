@@ -8,6 +8,7 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
@@ -144,6 +145,11 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
             binding.swipe.setEnableLoadMore(hasMore);
             productAdapter.update(productBeans, isClear);
         }
+    }
+
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
+
     }
 
 
