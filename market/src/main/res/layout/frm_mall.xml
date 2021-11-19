@@ -151,8 +151,8 @@
                             <com.rails.purchaseplatform.common.widget.LrLableLayout
                                 android:id="@+id/lr_hot"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/dp_45"
-                                android:layout_marginTop="@dimen/dp_15"
+                                android:layout_height="@dimen/dp_60"
+                                android:paddingTop="@dimen/dp_15"
                                 app:isBold="true"
                                 app:is_hide="true"
                                 app:key="@string/market_index_hot"
@@ -160,6 +160,7 @@
                                 app:key_right_img="@drawable/ic_index_hot"
                                 app:key_size="@dimen/font_size_16"
                                 app:value_color="@color/font_grays"
+                                android:background="@drawable/bg_pink"
                                 app:value_content="查看更多"
                                 app:value_right_icon="@drawable/svg_arrow_white_12"
                                 app:value_size="@dimen/font_size_12" />
@@ -171,6 +172,7 @@
                                 android:layout_marginLeft="@dimen/common_border"
                                 android:overScrollMode="never"
                                 android:paddingRight="@dimen/common_border"
+                                android:paddingBottom="@dimen/dp_5"
                                 app:canH="true"
                                 app:canV="false" />
 
