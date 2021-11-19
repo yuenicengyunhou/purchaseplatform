@@ -256,7 +256,7 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         setAddCartButton();
         binding.addCart.setOnClickListener(v -> {
             if (mMaterialType != null && mMaterialType.equals("1")) {
-                ToastUtil.showCenter(this.getActivity(), "APP暂不支持");
+                ToastUtil.showCenter(this.getActivity(), "专用物资暂不支持购买");
                 return;
             }
             if (binding.tvCountState.getText().toString().equals("无货")) {
