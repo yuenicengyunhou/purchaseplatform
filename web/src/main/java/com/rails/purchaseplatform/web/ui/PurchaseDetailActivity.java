@@ -13,6 +13,7 @@ import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.web.R;
@@ -75,6 +76,8 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     @Override
     protected void initialize(Bundle bundle) {
         initWeb(binding.web, this);
+        StatusBarUtil.setStatusBarColor(this, R.color.bg_blue);
+
     }
 
     @Override
