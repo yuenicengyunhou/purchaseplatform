@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.framwork.systembar;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.Window;
@@ -32,8 +33,8 @@ public class StatusBarUtil {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(color);
-//        tintManager.setStatusBarTintColor(android.R.color.transparent);
+//        tintManager.setStatusBarTintResource(color);
+        tintManager.setStatusBarTintColor(android.R.color.transparent);
     }
 
 

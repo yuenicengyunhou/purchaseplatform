@@ -1,9 +1,13 @@
 package com.rails.purchaseplatform.web.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.webkit.JavascriptInterface;
+
+import androidx.core.content.ContextCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -12,6 +16,7 @@ import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
+import com.rails.purchaseplatform.common.utils.StatusBarCompat;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
@@ -56,6 +61,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     @Override
     protected void onResume() {
         super.onResume();
+        setDarkStatusBar(R.color.bg_blue);
     }
 
     @Override
@@ -65,7 +71,7 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
 
     @Override
     protected boolean isSetSystemBar() {
-        return true;
+        return false;
     }
 
     @Override
@@ -76,7 +82,6 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     @Override
     protected void initialize(Bundle bundle) {
         initWeb(binding.web, this);
-        StatusBarUtil.setStatusBarColor(this, R.color.bg_blue);
 
     }
 
@@ -156,4 +161,17 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
             pop = null;
         }
     }
+
+    protected void setDarkStatusBar(int color) {
+        int statusBarColor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            statusBarColor = ContextCompat.getColor(this, color);
+            View decor = getWindow().getDecorView();
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            statusBarColor = ContextCompat.getColor(this, color);
+        }
+        StatusBarCompat.compat(this, statusBarColor);
+    }
+
 }
