@@ -289,7 +289,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarMode(getActivity(), android.R.color.transparent);
+        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
     }
 
 
