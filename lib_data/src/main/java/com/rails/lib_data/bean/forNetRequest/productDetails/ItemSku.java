@@ -7,7 +7,7 @@ public class ItemSku {
     private String pictureUrl;
     private double sellPrice;
     private long shopId;
-    private int skuId;
+    private String skuId;
     // private int contrastFlag;
     private int cid;
 
@@ -55,11 +55,11 @@ public class ItemSku {
         this.shopId = shopId;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 

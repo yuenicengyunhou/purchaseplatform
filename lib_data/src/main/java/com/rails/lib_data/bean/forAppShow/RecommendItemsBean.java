@@ -8,7 +8,7 @@ public class RecommendItemsBean {
     private int cid;
     private long shopId;
     private long itemId;
-    private int skuId;
+    private String skuId;
 
     public String getImageUrl() {
         return imageUrl;
@@ -66,11 +66,11 @@ public class RecommendItemsBean {
         this.itemId = itemId;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 }
