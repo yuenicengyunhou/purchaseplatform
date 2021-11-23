@@ -150,7 +150,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
                     @Override
                     protected void onSuccess(JsonObject response) {
-
+                        baseView.dismissDialog();
                         if (response == null) { // 这里真的可能是个null，已经在onError回调方法中处理
                         }
                         // 如果有这些属性，转为SearchDataByItemBean对象并返回集合

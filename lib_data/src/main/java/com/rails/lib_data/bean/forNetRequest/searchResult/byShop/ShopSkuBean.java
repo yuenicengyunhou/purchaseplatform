@@ -6,7 +6,7 @@ public class ShopSkuBean {
     private long upTime; // TODO: 2021/04/19 类型存疑
     private double sellPrice;
     private String skuPicture;
-    private int skuId;
+    private String skuId;
     private int cid;
 
     public String getSkuName() {
@@ -49,11 +49,11 @@ public class ShopSkuBean {
         this.skuPicture = skuPicture;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 
