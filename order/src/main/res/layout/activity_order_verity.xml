@@ -39,8 +39,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginBottom="@dimen/dp_8"
                     android:drawableRight="@drawable/svg_arrow_white"
-                    android:ellipsize="end"
-                    android:lines="1"
+                    android:ellipsize="middle"
                     android:singleLine="true"
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_18"
@@ -48,10 +47,9 @@
 
                 <TextView
                     android:id="@+id/tv_phone"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
+                    android:ellipsize="middle"
                     android:singleLine="true"
                     android:textColor="@color/font_black_light"
                     android:textSize="@dimen/font_size_13" />

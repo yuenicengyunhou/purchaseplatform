@@ -20,7 +20,7 @@
             android:id="@+id/ll_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_border"
+            android:layout_marginStart="@dimen/common_border"
             android:layout_marginTop="@dimen/dp_20"
             android:orientation="horizontal">
 
@@ -38,6 +38,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:maxEms="5"
+                android:singleLine="true"
+                android:ellipsize="middle"
                 android:text="@{address.receiverName}"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_16" />
@@ -51,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ll_name"
             android:layout_alignBottom="@+id/ll_name"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_toRightOf="@+id/ll_name"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_toEndOf="@+id/ll_name"
             android:gravity="center_vertical"
             android:text="@{address.mobile}"
             android:textColor="@color/font_black"
@@ -79,9 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:visibility="gone"
             android:padding="@dimen/common_border"
-            android:src="@drawable/ic_address_edit" />
+            android:src="@drawable/ic_address_edit"
+            android:visibility="gone" />
 
 
         <View
