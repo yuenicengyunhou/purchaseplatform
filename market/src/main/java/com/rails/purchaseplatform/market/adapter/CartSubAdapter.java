@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
@@ -21,8 +18,8 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
 
 /**
- * @author： sk_comic@163.com
- * @date: 2021/3/11
+ * author： sk_comic@163.com
+ * date: 2021/3/11
  */
 public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, ItemMarketCartSubBinding> {
 
@@ -80,75 +77,54 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
 
         binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, size));
 
-        binding.imgLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    boolean isChecked = binding.imgLeft.isChecked();
-                    productBean.isSel.set(isChecked);
-                    mulPositionListener.onPosition(productBean, position, CHECK);
-                }
+        binding.imgLeft.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                boolean isChecked = binding.imgLeft.isChecked();
+                productBean.isSel.set(isChecked);
+                mulPositionListener.onPosition(productBean, position, CHECK);
+            }
 
+        });
+
+
+        binding.tvProperty.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, PROPERTY);
             }
         });
 
 
-        binding.tvProperty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, PROPERTY);
-                }
+        binding.tvAdd.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, ADD);
             }
         });
 
 
-        binding.tvAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, ADD);
-                }
+        binding.tvReduce.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, REDUCE);
             }
         });
 
-
-        binding.tvReduce.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, REDUCE);
-                }
+        binding.etNum.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, EDIT);
             }
         });
 
-        binding.etNum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, EDIT);
-                }
+        binding.btnCollect.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, SUB_COLLECT);
             }
+
         });
 
-        binding.btnCollect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, SUB_COLLECT);
-                }
-
+        binding.btnDel.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, SUB_DEL);
             }
-        });
 
-        binding.btnDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, SUB_DEL);
-                }
-
-            }
         });
 
 
