@@ -38,14 +38,14 @@ public class SubSkuDemandInfoBean {
      * canAfs : false
      */
 
-    private long id;
-    private long key;
-    private int platformId;//平台id ,
+    private String id;
+    private String key;
+    private String platformId;//平台id ,
     private String pictureUrl;//sku图片 ,
     private String shortCode;
-    private int skuId;
+    private String skuId;
     private String sourceSkuId;
-    private int itemId;
+    private String itemId;
     private String itemName;// sku名称 ,
     private String attributes;//销售属性 ,
     private String sellPrice;// sku销售价格 ,
@@ -66,27 +66,27 @@ public class SubSkuDemandInfoBean {
     private Object subSkuDemandNoList;//子订单以及sku对应的需求单号列表 ,
     private boolean canAfs;//是否可以售后 ,
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getKey() {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(long key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
-    public int getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(int platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
@@ -106,11 +106,11 @@ public class SubSkuDemandInfoBean {
         this.shortCode = shortCode;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 
@@ -122,11 +122,11 @@ public class SubSkuDemandInfoBean {
         this.sourceSkuId = sourceSkuId;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

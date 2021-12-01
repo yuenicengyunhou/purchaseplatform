@@ -134,6 +134,8 @@ public class ConRoute {
 
         // WangYuhang - local
 //        public final static String BASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
+//        public final static String BASEURL = "http://192.168.69.214/";
+//        public final static String BASEURL = "http://192.168.69.214/purchase-android-web";
 
         // H5地址
 //        public final static String BASEURL = "https://shop.rails.cn/purchase-android-web/#/";
