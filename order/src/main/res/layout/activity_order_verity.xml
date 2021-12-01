@@ -39,7 +39,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginBottom="@dimen/dp_8"
                     android:drawableRight="@drawable/svg_arrow_white"
-                    android:ellipsize="middle"
+                    android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="@color/font_black"
                     android:textSize="@dimen/font_size_18"
