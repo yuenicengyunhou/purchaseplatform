@@ -2,7 +2,7 @@ package com.rails.lib_data.bean.forNetRequest.productDetails;
 
 public class ItemSku {
     private String skuName;
-    private int itemId;
+    private String itemId;
     // private String upTime;
     private String pictureUrl;
     private double sellPrice;
@@ -23,11 +23,11 @@ public class ItemSku {
         this.skuName = skuName;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

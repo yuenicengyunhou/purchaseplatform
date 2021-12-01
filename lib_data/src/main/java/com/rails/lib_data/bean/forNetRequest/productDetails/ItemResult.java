@@ -3,7 +3,7 @@ package com.rails.lib_data.bean.forNetRequest.productDetails;
 import java.util.List;
 
 public class ItemResult {
-    private int itemId;
+    private String itemId;
     private List<ItemSku> item_sku;
     private String shopName;
 
@@ -27,11 +27,11 @@ public class ItemResult {
         this.shopName = shopName;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 }
