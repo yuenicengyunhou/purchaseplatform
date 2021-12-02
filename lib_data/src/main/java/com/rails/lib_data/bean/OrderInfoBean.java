@@ -6,21 +6,21 @@ public class OrderInfoBean {
 
     private long id;
     private long key;
-    private int platformId;// 平台id ,
+    private String platformId;// 平台id ,
     private String orderNo;// 订单编号 ,
     private String orderNoStr;
     private long parentNo;//采购单编号 ,
     private String orderTime;//订单提交时间 ,
     private String deliverTime;//订单全部发货时间 ,
     private String finishTime;//订单完成(确认收货)时间 ,
-    private int buyerId;//采购人id ,
+    private String buyerId;//采购人id ,
     private String buyerName;//采购人名称 ,
-    private int organizeId;//采购人所属组织机构id ,
+    private String organizeId;//采购人所属组织机构id ,
     private String organizeName;//采购人所属组织机构名称 ,
     private String secondOrganizeId;// 采购人所属组织机构的二级机构的id ,
     private String secondOrganizeName;//采购人所属组织机构的二级机构的名称 ,
     private int settleType;//结算类型：10暂不选择 15运营物资 20其他物资 ,
-    private long shopId;// 供应商id ,
+    private String shopId;// 供应商id ,
     private String shopName;//: 供应商名称 ,
     private String totalPrice;//订单商品金额 ,
     private String paymentPrice;//订单实际支付金额 ,
@@ -65,11 +65,11 @@ public class OrderInfoBean {
         this.key = key;
     }
 
-    public int getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(int platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
@@ -121,11 +121,11 @@ public class OrderInfoBean {
         this.finishTime = finishTime;
     }
 
-    public int getBuyerId() {
+    public String getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(int buyerId) {
+    public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }
 
@@ -137,11 +137,11 @@ public class OrderInfoBean {
         this.buyerName = buyerName;
     }
 
-    public int getOrganizeId() {
+    public String getOrganizeId() {
         return organizeId;
     }
 
-    public void setOrganizeId(int organizeId) {
+    public void setOrganizeId(String organizeId) {
         this.organizeId = organizeId;
     }
 
@@ -177,11 +177,11 @@ public class OrderInfoBean {
         this.settleType = settleType;
     }
 
-    public long getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(long shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 

@@ -8,10 +8,10 @@ public class SubOrderInfoBean {
 
     private long id;
     private long key;
-    private int platformId;//平台id ,
+    private String platformId;//平台id ,
     private String shopId;//店铺id ,
     private String organizeId;//创建人所属组织机构id ,
-    private int buyerId;//创建人用户id ,
+    private String buyerId;//创建人用户id ,
     private String orderNo;//订单编号 ,
     private String parentNo;//0:第一级主单(拆单和未拆单都为0)，(!=0):当前订单的父单号（和order_split_type 配合查询订单） ,
     private String thirdOrderNo;//三方订单编号 ,
@@ -93,11 +93,11 @@ public class SubOrderInfoBean {
         this.key = key;
     }
 
-    public int getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(int platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
@@ -117,11 +117,11 @@ public class SubOrderInfoBean {
         this.organizeId = organizeId;
     }
 
-    public int getBuyerId() {
+    public String getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(int buyerId) {
+    public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }
 
