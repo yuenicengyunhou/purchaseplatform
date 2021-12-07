@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 
 public class ItemPublishVo {
-    private int id;
+    private String id;
     private int platformId;
     private int sellerId;
     private String shopId;
@@ -291,11 +291,11 @@ public class ItemPublishVo {
         this.itemName = itemName;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

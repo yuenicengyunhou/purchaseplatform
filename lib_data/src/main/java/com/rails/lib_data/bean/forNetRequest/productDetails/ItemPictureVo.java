@@ -3,7 +3,7 @@ package com.rails.lib_data.bean.forNetRequest.productDetails;
 public class ItemPictureVo {
     private int id;
     private int platformId;
-    private int itemId;
+    private String itemId;
     private int skuId;
     private long shopId;
     private int sellerId;
@@ -32,11 +32,11 @@ public class ItemPictureVo {
         this.platformId = platformId;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
