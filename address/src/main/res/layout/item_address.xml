@@ -134,7 +134,7 @@
             android:layout_height="match_parent"
             android:background="@color/font_red"
             android:gravity="center"
-            android:text="删除"
+            android:text="@string/address_main_del"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_12" />
 

@@ -164,7 +164,7 @@
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
             android:layout_gravity="bottom|end"
-            android:layout_marginRight="@dimen/common_border"
+            android:layout_marginEnd="@dimen/common_border"
             android:layout_marginBottom="@dimen/common_border"
             android:padding="@dimen/dp_5"
             android:src="@drawable/ic_go_top"
