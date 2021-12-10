@@ -3,15 +3,15 @@ package com.rails.lib_data.bean.shop;
 public class ItemSkuBean {
 
     private String skuName;
-    private long itemId;
-    private long upTime;
+    private String itemId;
+    private String upTime;
     private String pictureUrl;
     private Object brandId;
     private double sellPrice;
-    private long shopId;
-    private int skuId;
+    private String shopId;
+    private String skuId;
     private Object contrastFlag;
-    private int cid;
+    private String cid;
 
     public String getSkuName() {
         return skuName;
@@ -21,19 +21,19 @@ public class ItemSkuBean {
         this.skuName = skuName;
     }
 
-    public long getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(long itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
-    public long getUpTime() {
+    public String getUpTime() {
         return upTime;
     }
 
-    public void setUpTime(long upTime) {
+    public void setUpTime(String upTime) {
         this.upTime = upTime;
     }
 
@@ -61,19 +61,19 @@ public class ItemSkuBean {
         this.sellPrice = sellPrice;
     }
 
-    public long getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(long shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 
@@ -85,11 +85,11 @@ public class ItemSkuBean {
         this.contrastFlag = contrastFlag;
     }
 
-    public int getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(int cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 }
