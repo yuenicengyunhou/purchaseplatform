@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -54,7 +55,7 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
 
         String property = productBean.getAttributesName();
         if (TextUtils.isEmpty(property)) {
-            binding.tvProperty.setVisibility(View.GONE);
+            binding.tvProperty.setVisibility(View.INVISIBLE);
         } else {
             binding.tvProperty.setVisibility(View.VISIBLE);
         }
@@ -75,8 +76,17 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
             size = 13;
         }
 
+
         binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, size));
 
+        if (productBean.canSel.get()) {
+            binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_black));
+            binding.tvPrice.setTextColor(mContext.getResources().getColor(R.color.font_red));
+        } else {
+            binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_gray_invalid));
+            binding.tvPrice.setTextColor(mContext.getResources().getColor(R.color.font_black));
+            binding.tvPrice.setText("商品已失效");
+        }
         binding.imgLeft.setOnClickListener(v -> {
             if (mulPositionListener != null) {
                 boolean isChecked = binding.imgLeft.isChecked();

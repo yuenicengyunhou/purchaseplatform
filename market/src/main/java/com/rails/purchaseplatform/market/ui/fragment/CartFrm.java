@@ -491,7 +491,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             return;
         new CartEditDialog.Builder()
                 .context(getActivity())
-                .title("输入您要购买的数量")
+                .title("输入您要购买的数量").content(String.valueOf(bean.num.get()))
                 .setDialogListener(new CartEditDialog.DialogListener() {
                     @Override
                     public void onLeft() {
