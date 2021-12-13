@@ -138,16 +138,23 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter.setListener(new PositionListener<BrandBean>() {
             @Override
             public void onPosition(BrandBean bean, int position) {
-                String brandId = bean.getBrandId();
-                Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(brandId))
-                    return;
-                try {
-                    bundle.putString("brandId", brandId);
-                    startIntent(ShopsActivity.class, bundle);
-                } catch (Exception e) {
+                if (!hasToken()) {
+                    ARouter.getInstance()
+                            .build(ConRoute.USER.LOGIN)
+                            .navigation();
+                } else {
+                    String brandId = bean.getBrandId();
+                    Bundle bundle = new Bundle();
+                    if (TextUtils.isEmpty(brandId))
+                        return;
+                    try {
+                        bundle.putString("brandId", brandId);
+                        startIntent(ShopsActivity.class, bundle);
+                    } catch (Exception e) {
 
+                    }
                 }
+
             }
         });
 
