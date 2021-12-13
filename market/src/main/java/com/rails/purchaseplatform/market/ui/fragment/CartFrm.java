@@ -230,6 +230,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (null != addressPresenter) {
+            addressPresenter.getAddress("20", "1", "", "", false);
+        }
+    }
+
+    @Override
     public void getCartInfo(CartBean cartBean) {
         ArrayList<CartShopBean> shopBeans = (ArrayList<CartShopBean>) cartBean.getShopList();
         if (shopBeans.isEmpty()) {
@@ -476,7 +484,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (bean.num.get() <= 1) {
             bean.canReduce.set(false);
             bean.canAdd.set(true);
-        } else if (bean.num.get() > 1 && bean.num.get() < 999999) {
+        } else if (bean.num.get() > 1 && bean.num.get() < 999999999) {
             bean.canReduce.set(true);
             bean.canAdd.set(true);
         } else {

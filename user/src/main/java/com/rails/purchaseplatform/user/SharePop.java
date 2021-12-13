@@ -11,10 +11,13 @@ import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.PopShareBinding;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -59,7 +62,18 @@ public class SharePop extends BasePop<PopShareBinding> {
                         Toast.makeText(getContext(), "二维码已保存至相册", Toast.LENGTH_SHORT).show();
                     }
                 }
+            } else {
+                File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                String absolutePath = directory.getAbsolutePath();
+                String path = absolutePath + File.separator + "国铁商城.png";
+                FileOutputStream fileOutputStream = new FileOutputStream(path);
+                while (inputStream.read(buffer) != -1) {
+                    fileOutputStream.write(buffer);
+                }
+                fileOutputStream.close();
             }
+            bufferedInputStream.close();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
