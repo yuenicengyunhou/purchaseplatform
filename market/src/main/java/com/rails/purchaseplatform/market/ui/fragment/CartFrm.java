@@ -230,6 +230,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (null != addressPresenter) {
+            addressPresenter.getAddress("20", "1", "", "", false);
+        }
+    }
+
+    @Override
     public void getCartInfo(CartBean cartBean) {
         ArrayList<CartShopBean> shopBeans = (ArrayList<CartShopBean>) cartBean.getShopList();
         if (shopBeans.isEmpty()) {

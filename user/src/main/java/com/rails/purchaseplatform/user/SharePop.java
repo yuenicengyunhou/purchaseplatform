@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.databinding.PopShareBinding;
 
 import java.io.BufferedInputStream;
@@ -59,6 +60,8 @@ public class SharePop extends BasePop<PopShareBinding> {
                         Toast.makeText(getContext(), "二维码已保存至相册", Toast.LENGTH_SHORT).show();
                     }
                 }
+            } else {
+                ToastUtil.showCenter(getContext(), "设备版本低");
             }
         } catch (IOException e) {
             e.printStackTrace();
