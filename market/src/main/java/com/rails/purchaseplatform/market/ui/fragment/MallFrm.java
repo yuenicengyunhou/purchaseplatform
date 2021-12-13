@@ -201,15 +201,22 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         recAdapter = new ProductRecAdapter(getActivity());
         recAdapter.setListener(this);
         recAdapter.setMulPositionListener((bean, position, params) -> {
-            if (indexBean != null) {
-                try {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("position", position + 2);
-                    startIntent(RankActivity.class, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (!hasToken()) {
+                ARouter.getInstance()
+                        .build(ConRoute.USER.LOGIN)
+                        .navigation();
+            } else {
+                if (indexBean != null) {
+                    try {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", position + 2);
+                        startIntent(RankActivity.class, bundle);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+
         });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.addItemDecoration(new SpaceBottomDecoration(getActivity(), 10, R.color.bg));
@@ -273,14 +280,14 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.rlRecycler.setOnRefreshListener(refreshLayout -> {
             binding.rlRecycler.finishRefresh();
             presenter.getMarketIndexInfo(false, false);
-            presenter.getRanks(false,1,"10","0","","");
+            presenter.getRanks(false, 1, "10", "0", "", "");
             presenter.getHotProducts(false, 1, "10");
             presenter.getFloors(false);
             //通用 首页请求此接口时 itemShopId skuId 为null
             statisticPresenter.getVisitors("0", null, null);
         });
         presenter.getMarketIndexInfo(true, true);
-        presenter.getRanks(false,1,"10","0","","");
+        presenter.getRanks(false, 1, "10", "0", "", "");
         presenter.getHotProducts(false, 1, "10");
         presenter.getFloors(true);
         //通用 首页请求此接口时 itemShopId skuId 为null
@@ -374,26 +381,38 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         });
 
         binding.lrTitle.setOnClickListener(v -> {
-            if (indexBean != null) {
-                try {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("position", 0);
-                    startIntent(RankActivity.class, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (!hasToken()) {
+                ARouter.getInstance()
+                        .build(ConRoute.USER.LOGIN)
+                        .navigation();
+            } else {
+                if (indexBean != null) {
+                    try {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", 0);
+                        startIntent(RankActivity.class, bundle);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
 
         binding.lrHot.setOnClickListener(v -> {
-            if (indexBean != null) {
-                try {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("position", 1);
-                    startIntent(RankActivity.class, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (!hasToken()) {
+                ARouter.getInstance()
+                        .build(ConRoute.USER.LOGIN)
+                        .navigation();
+            } else {
+                if (indexBean != null) {
+                    try {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", 1);
+                        startIntent(RankActivity.class, bundle);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
