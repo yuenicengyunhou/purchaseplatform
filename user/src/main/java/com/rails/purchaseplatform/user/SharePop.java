@@ -16,6 +16,8 @@ import com.rails.purchaseplatform.user.databinding.PopShareBinding;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -61,8 +63,17 @@ public class SharePop extends BasePop<PopShareBinding> {
                     }
                 }
             } else {
-                ToastUtil.showCenter(getContext(), "设备版本低");
+                File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                String absolutePath = directory.getAbsolutePath();
+                String path = absolutePath + File.separator + "国铁商城.png";
+                FileOutputStream fileOutputStream = new FileOutputStream(path);
+                while (inputStream.read(buffer) != -1) {
+                    fileOutputStream.write(buffer);
+                }
+                fileOutputStream.close();
             }
+            bufferedInputStream.close();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

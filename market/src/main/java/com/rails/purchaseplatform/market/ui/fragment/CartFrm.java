@@ -484,7 +484,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (bean.num.get() <= 1) {
             bean.canReduce.set(false);
             bean.canAdd.set(true);
-        } else if (bean.num.get() > 1 && bean.num.get() < 999999) {
+        } else if (bean.num.get() > 1 && bean.num.get() < 999999999) {
             bean.canReduce.set(true);
             bean.canAdd.set(true);
         } else {

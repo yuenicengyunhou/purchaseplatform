@@ -74,7 +74,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                             if (productBean.num.get() <= 1) {
                                 productBean.canReduce.set(false);
                                 productBean.canAdd.set(true);
-                            } else if (productBean.num.get() > 1 && productBean.num.get() < 999999) {
+                            } else if (productBean.num.get() > 1 && productBean.num.get() < 999999999) {
                                 productBean.canReduce.set(true);
                                 productBean.canAdd.set(true);
                             } else {
