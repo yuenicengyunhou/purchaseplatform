@@ -334,10 +334,10 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         } else {
             binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
-        if (String.valueOf(s).length() >= 7) {
-            binding.etNum.setText("999999");
+        if (String.valueOf(s).length() >= 9) {
+            binding.etNum.setText("999999999");
             binding.tvAdd.setTextColor(fontGray);
-        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) == 999999) {
+        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) == 999999999) {
             binding.tvAdd.setTextColor(fontGray);
         } else {
             binding.tvAdd.setTextColor(fontBlack);
@@ -361,7 +361,7 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
             number = 0;
         }
         if (isAdd) {
-            if (number >= 999999) {
+            if (number >= 999999999) {
                 return;
             }
             binding.etNum.setText(String.valueOf(number + 1));
