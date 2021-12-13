@@ -24,6 +24,7 @@ import com.rails.lib_data.bean.CartShopProductBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
+import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
@@ -240,7 +241,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void getCartInfo(CartBean cartBean) {
         ArrayList<CartShopBean> shopBeans = (ArrayList<CartShopBean>) cartBean.getShopList();
-        if (shopBeans.isEmpty()) {
+        UserInfoBean bean = PrefrenceUtil.getInstance(mActivity).getBean(ConShare.USERINFO, UserInfoBean.class);
+        if (shopBeans.isEmpty() && (null != bean)) {
             binding.empty.setVisibility(View.VISIBLE);
         } else {
             binding.empty.setVisibility(View.GONE);
@@ -633,7 +635,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
                 }
             }
-            if (TextUtils.isEmpty(buffer.toString()) ) {
+            if (TextUtils.isEmpty(buffer.toString())) {
                 if (selectedCount > 0) {
                     ToastUtil.showCenter(mActivity, "商品已收藏");
                 } else {
