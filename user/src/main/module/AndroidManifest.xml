@@ -4,36 +4,33 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application>
-
-        <!--密码修改-->
+        <activity
+            android:name=".ui.activity.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <!-- 密码修改 -->
         <activity
             android:name=".ui.activity.ModifyPswActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <!-- 注册 -->
+            android:screenOrientation="portrait" /> <!-- 注册 -->
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <!-- 登录页面 -->
+            android:screenOrientation="portrait" /> <!-- 登录页面 -->
         <activity
             android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <!-- 找回密码页面 -->
+            android:screenOrientation="portrait" /> <!-- 找回密码页面 -->
         <activity
             android:name=".ui.activity.RetrievePasswordActivity"
-            android:screenOrientation="portrait" />
-        <!-- 找回密码确认 -->
+            android:screenOrientation="portrait" /> <!-- 找回密码确认 -->
         <activity
             android:name=".ui.activity.RetrievePasswordConfirmActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <!-- 设置 -->
+            android:screenOrientation="portrait" /> <!-- 设置 -->
         <activity
             android:name=".ui.activity.SettingActivity"
             android:launchMode="singleTop"
