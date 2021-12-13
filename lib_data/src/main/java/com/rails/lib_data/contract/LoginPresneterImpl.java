@@ -1,11 +1,7 @@
 package com.rails.lib_data.contract;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.text.TextUtils;
-
-import androidx.core.app.ActivityCompat;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.UserInfoBean;
@@ -52,11 +48,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-//        if (!VerificationUtil.isPaw(paw)) {
-//            ToastUtil.showCenter(mContext, "密码格式错误");
-//            return;
-//        }
-
         if (TextUtils.isEmpty(code)) {
             ToastUtil.showCenter(mContext, "验证码不能为空");
             return;
@@ -67,11 +58,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             return;
         }
 
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ToastUtil.showCenter(mContext, "请授予地理位置权限");
-            return;
-        }
         double[] location = new GpsUtils(mContext).getLocation();
 
         baseView.showResDialog(R.string.loading);
@@ -210,11 +196,6 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
         String rndCodeAsDoubleMd5 = MD5Util.md5md5_2(MD5Util.md5md5_2(randInit + randomCode1 + randomCode2 + randomCode3).toUpperCase()).toUpperCase();
         String passwordAsDoubleMd5 = MD5Util.MD5(MD5Util.MD5(password));
 
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ToastUtil.showCenter(mContext, "请授予地理位置权限");
-            return;
-        }
         double[] location = new GpsUtils(mContext).getLocation();
 
         if (isDialog) baseView.showResDialog(R.string.loading);
