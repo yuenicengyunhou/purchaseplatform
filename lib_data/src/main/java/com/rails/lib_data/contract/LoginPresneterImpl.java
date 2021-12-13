@@ -131,8 +131,8 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             @Override
             protected void onSuccess(UserInfoBean bean) {
                 baseView.dismissDialog();
-                baseView.getUserInfo(bean);
                 ToastUtil.showCenter(mContext, "登录成功");
+                baseView.getUserInfo(bean);
             }
         });
     }
