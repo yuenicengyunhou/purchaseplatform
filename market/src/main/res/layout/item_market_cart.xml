@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -32,7 +33,7 @@
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_15"
                 android:button="@null"
                 android:checked="@{cart.isSel}"
                 android:drawableLeft="@drawable/selector_cart_checked" />
@@ -42,19 +43,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/img_left"
+                android:layout_toEndOf="@+id/img_left"
+                android:gravity="center_vertical"
                 android:text="@{cart.shopName}"
                 android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_15" />
+                android:textSize="@dimen/font_size_14"
+                app:drawableEndCompat="@drawable/ic_cart_right" />
 
 
-            <ImageView
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_15"
-                android:src="@drawable/svg_arrow_white" />
+<!--            <ImageView-->
+<!--                android:layout_width="@dimen/dp_20"-->
+<!--                android:layout_height="@dimen/dp_20"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginEnd="@dimen/dp_15"-->
+<!--                android:src="@drawable/svg_arrow_white" />-->
 
         </RelativeLayout>
 
@@ -65,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_40"
             android:orientation="vertical"
             android:visibility="@{cart.isshow?View.VISIBLE:View.GONE}">
 
@@ -74,35 +77,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_30"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_30"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="还需"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_11" />
 
                 <TextView
                     android:id="@+id/tv_key"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="@{@string/market_cart_dprice(cart.dprice)}"
                     android:textColor="@color/font_red"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_11" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="元方可下单"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_11" />
 
             </LinearLayout>
 
@@ -110,9 +110,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_15"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -125,14 +125,15 @@
                     android:gravity="center_vertical"
                     android:text="去选购"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_11" />
 
 
                 <ImageView
                     android:id="@+id/img_right"
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
-                    android:src="@drawable/svg_arrow_white" />
+                    android:src="@drawable/ic_cart_right"
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
         </RelativeLayout>

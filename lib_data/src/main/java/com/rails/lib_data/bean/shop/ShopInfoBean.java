@@ -44,9 +44,9 @@ public class ShopInfoBean {
      * bindOrgId : null
      */
 
-    private int id;
+    private String id;
     private int key;
-    private int platformId;
+    private String platformId;
     private Object sellerId;
     private long shopId;
     private int organizeId;
@@ -90,11 +90,11 @@ public class ShopInfoBean {
         this.materialType = materialType;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -106,11 +106,11 @@ public class ShopInfoBean {
         this.key = key;
     }
 
-    public int getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(int platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
