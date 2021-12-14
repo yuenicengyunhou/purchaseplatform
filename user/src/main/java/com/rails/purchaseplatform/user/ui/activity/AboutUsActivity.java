@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.ViewGroup;
 
@@ -105,8 +106,6 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
         pop.show(getSupportFragmentManager(), "share");
     }
     private void requestPermission() {
-        // Here, thisActivity is the current activity
-//        TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         RxPermissions.getInstance(this)
                 .request(
                         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -115,7 +114,12 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
                     if (aBoolean) {
                         showPop();
                     } else {
-                        ToastUtil.showCenter(this,"保存到相册需要您给与权限");
+                        ToastUtil.showCenter(this,"此功能需要手机存储权限");
+                        Intent intent = new Intent();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        intent.setData(Uri.fromParts("package", getPackageName(), null));
+                        startActivity(intent);
                     }
                 });
     }
