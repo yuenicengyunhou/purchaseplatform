@@ -334,7 +334,7 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         } else {
             binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
-        if (String.valueOf(s).length() >= 9) {
+        if (String.valueOf(s).length() >= 10) {
             binding.etNum.setText("999999999");
             binding.tvAdd.setTextColor(fontGray);
         } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) == 999999999) {
