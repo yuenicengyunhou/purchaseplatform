@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.user;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -71,6 +72,12 @@ public class SharePop extends BasePop<PopShareBinding> {
                     fileOutputStream.write(buffer);
                 }
                 fileOutputStream.close();
+                //这个广播的目的就是更新图库，发了这个广播进入相册就可以找到你保存的图片了！，记得要传你更新的file哦
+                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri uri = Uri.fromFile(new File(path));
+                intent.setData(uri);
+                context.sendBroadcast(intent);
+                Toast.makeText(getContext(), "二维码已保存至相册", Toast.LENGTH_SHORT).show();
             }
             bufferedInputStream.close();
             inputStream.close();
