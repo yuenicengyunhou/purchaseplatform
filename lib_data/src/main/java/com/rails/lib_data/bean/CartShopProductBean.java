@@ -103,6 +103,7 @@ public class CartShopProductBean {
     private String thirdCategoryName;
     private Boolean limit;
     private Boolean canUser;
+    private String tempShopId;
 
 
     public final ObservableField<Boolean> isSel = new ObservableField<>();

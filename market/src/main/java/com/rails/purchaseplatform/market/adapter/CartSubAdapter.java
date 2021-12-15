@@ -18,6 +18,8 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
 
+import java.text.MessageFormat;
+
 /**
  * author： sk_comic@163.com
  * date: 2021/3/11
@@ -65,27 +67,35 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         int size;
         int fontSize;
         if (SystemUtil.isPad(mContext)) {
-            fontSize = ScreenSizeUtil.sp2px(6, mContext);
+            fontSize = ScreenSizeUtil.sp2px(8, mContext);
         } else {
             fontSize = 10;
         }
-        binding.tvPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        binding.tvPriceBig.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        binding.tvPriceSmall.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         if (SystemUtil.isPad(mContext)) {
             size = ScreenSizeUtil.sp2px(9, mContext);
         } else {
             size = 13;
         }
+        String bigPrice = price.substring(0, price.indexOf("."));
+        String smallPrice = price.substring(price.indexOf("."));
 
-
-        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, size));
+        binding.tvPriceBig.setText(MessageFormat.format("¥ {0}", bigPrice));
+        String finalSmallPrice = smallPrice + (TextUtils.isEmpty(unit) ? "" : " /" + unit);
+        binding.tvPriceSmall.setText(finalSmallPrice);
 
         if (productBean.canSel.get()) {
             binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_black));
-            binding.tvPrice.setTextColor(mContext.getResources().getColor(R.color.font_red));
+            binding.tvPriceBig.setTextColor(mContext.getResources().getColor(R.color.font_red));
+            binding.tvPriceBig.setTextSize(16);
+            binding.tvPriceSmall.setVisibility(View.VISIBLE);
         } else {
             binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_gray_invalid));
-            binding.tvPrice.setTextColor(mContext.getResources().getColor(R.color.font_black));
-            binding.tvPrice.setText("商品已失效");
+            binding.tvPriceBig.setTextColor(mContext.getResources().getColor(R.color.font_black));
+            binding.tvPriceBig.setText("商品已失效");
+            binding.tvPriceBig.setTextSize(14);
+            binding.tvPriceSmall.setVisibility(View.GONE);
         }
         binding.imgLeft.setOnClickListener(v -> {
             if (mulPositionListener != null) {

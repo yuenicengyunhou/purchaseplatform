@@ -43,13 +43,21 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     //收藏
     public static final int SUB_COLLECT = 7;
 
+    //删除所有失效商品
+    public static final int CLEAN_INVALID_SKUS = 8;
     private CartSubAdapter subAdapter;
     private int lastPosition;
+    private CleanInvalidSkuListener cleanInvalidSkuListener;
 
+    public void setCleanInvalidSkuListener(CleanInvalidSkuListener cleanInvalidSkuListener) {
+        this.cleanInvalidSkuListener = cleanInvalidSkuListener;
+    }
 
     public CartAdapter(Context context) {
         super(context);
     }
+
+
 
     @Override
     protected int getContentID() {
@@ -63,43 +71,40 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
-        adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
-            @Override
-            public void onPosition(CartShopProductBean bean, int len, int... params) {
-                int size = adapter.getSize();
-                if (params[0] == CartSubAdapter.CHECK) {
-                    cartShopBean.isSel.set(isAllChecked(cartShopBean));
-                    mulPositionListener.onPosition(bean, len, CHECK);
+        adapter.setMulPositionListener((MulPositionListener<CartShopProductBean>) (bean, len, params) -> {
+            int size = adapter.getSize();
+            if (params[0] == CartSubAdapter.CHECK) {
+                cartShopBean.isSel.set(isAllChecked(cartShopBean));
+                mulPositionListener.onPosition(bean, len, CHECK);
 
-                } else if (params[0] == CartSubAdapter.PROPERTY) {
-                    // TODO: 2021/3/22 产品规格
-                    if (mulPositionListener != null) {
-                        mulPositionListener.onPosition(bean, len, PROPERTY);
-                    }
-                } else if (params[0] == CartSubAdapter.ADD) {
-                    // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean, len, ADD);
-                } else if (params[0] == CartSubAdapter.REDUCE) {
-                    // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean, len, REDUCE);
-                } else if (params[0] == CartSubAdapter.EDIT) {
-                    // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean, len, EDIT);
-                } else if (params[0] == CartSubAdapter.SUB_COLLECT) {
-                    // TODO: 2021/3/22 收藏
-                    subAdapter = adapter;
-                    mulPositionListener.onPosition(bean, len, SUB_COLLECT);
-                    if (size == 0) {
-                        updateRemove(position);
-                    }
-                } else if (params[0] == CartSubAdapter.SUB_DEL) {
-                    // TODO: 2021/3/22 删除
-                    subAdapter = adapter;
-                    lastPosition = position;
-                    mulPositionListener.onPosition(bean, len, SUB_DEL);
+            } else if (params[0] == CartSubAdapter.PROPERTY) {
+                // TODO: 2021/3/22 产品规格
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(bean, len, PROPERTY);
                 }
-
+            } else if (params[0] == CartSubAdapter.ADD) {
+                // TODO: 2021/3/22 数量加减
+                mulPositionListener.onPosition(bean, len, ADD);
+            } else if (params[0] == CartSubAdapter.REDUCE) {
+                // TODO: 2021/3/22 数量加减
+                mulPositionListener.onPosition(bean, len, REDUCE);
+            } else if (params[0] == CartSubAdapter.EDIT) {
+                // TODO: 2021/3/22 数量加减
+                mulPositionListener.onPosition(bean, len, EDIT);
+            } else if (params[0] == CartSubAdapter.SUB_COLLECT) {
+                // TODO: 2021/3/22 收藏
+                subAdapter = adapter;
+                mulPositionListener.onPosition(bean, len, SUB_COLLECT);
+                if (size == 0) {
+                    updateRemove(position);
+                }
+            } else if (params[0] == CartSubAdapter.SUB_DEL) {
+                // TODO: 2021/3/22 删除
+                subAdapter = adapter;
+                lastPosition = position;
+                mulPositionListener.onPosition(bean, len, SUB_DEL);
             }
+
         });
 
         adapter.update((ArrayList) cartShopBean.getSkuList(), true);
@@ -120,6 +125,12 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             if (positionListener != null)
                 positionListener.onPosition(cartShopBean, SHOP);
         });
+
+        binding.tvClearInvalids.setOnClickListener(v -> {
+            if (cleanInvalidSkuListener != null) {
+                cleanInvalidSkuListener.onClean(cartShopBean);
+            }
+        });
     }
 
 
@@ -137,6 +148,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 bean.isSel.set(isChecked);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -300,6 +312,10 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             }
         }
         return true;
+    }
+
+    public interface CleanInvalidSkuListener{
+        void onClean(CartShopBean shopBean);
     }
 
 }

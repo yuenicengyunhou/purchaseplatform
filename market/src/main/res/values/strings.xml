@@ -80,5 +80,6 @@
     <string name="text_cart">购物车</string>
     <string name="text_zero">0</string>
     <string name="text_add_to_cart">加入购物车</string>
+    <string name="clean_invalid_sku">清空失效商品</string>
 
 </resources>

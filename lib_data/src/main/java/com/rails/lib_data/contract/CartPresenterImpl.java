@@ -23,6 +23,7 @@ import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,6 +43,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         model = new CartModel();
     }
 
+    /**
+     * 获取购物车商品
+     */
     @Override
     public void getCarts(boolean isDialog, String addressId) {
         if (isDialog)
@@ -59,7 +63,11 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
                 if (isCallBack()) {
                     if (null == cartBean) return;
-                    for (CartShopBean shopBean : cartBean.getShopList()) {
+                    CartShopBean invalidShop = new CartShopBean();
+                    ArrayList<CartShopProductBean> invalidProducts = new ArrayList<>();
+                    List<CartShopBean> shopList = cartBean.getShopList();
+                    for (int j = 0;j < shopList.size(); j++) {
+                        CartShopBean shopBean = shopList.get(j);
                         StringBuffer buffer = new StringBuffer();
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
                             productBean.num.set(productBean.getSkuNum());
@@ -105,8 +113,26 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                             shopBean.dprice.set(DecimalUtil.formatDouble(freight - total));
                             shopBean.isshow.set(true);
                         }
+                        List<CartShopProductBean> skuList = shopBean.getSkuList();
+                        for (int i = 0; i < skuList.size(); i++) {
+                            CartShopProductBean skuBean = skuList.get(i);
+                            if (skuBean.getSaleStatus() == 0) {
+                                invalidProducts.add(skuBean);
+                                skuList.remove(skuBean);
+                                i = i - 1;
+                            }
+                        }
+                        if (skuList.isEmpty()) {
+                            shopList.remove(shopBean);
+                            j = j - 1;
+                        }
                     }
-
+                    if (!invalidProducts.isEmpty()) {
+                        invalidShop.setShopName("失效商品");
+                        invalidShop.setHideCheckBox(true);
+                        invalidShop.setSkuList(invalidProducts);
+                        shopList.add(invalidShop);
+                    }
                     baseView.getCartInfo(cartBean);
                 }
             }
@@ -122,6 +148,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
     private double shopPrice(CartShopBean cartShopBean) {
         double total = 0;
         try {
+
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
 //                if (bean.canSel.get() == null)
@@ -132,6 +159,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 if (bean.isSel.get()) {
                     total += bean.num.get() * bean.getSellPrice();
                 }
+//                if (bean.getSaleStatus() == 0) {
+//                   invalidProducts.add(bean);
+//                }
             }
         } catch (Exception e) {
             return total;
@@ -172,9 +202,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -200,9 +230,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -227,9 +257,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -250,9 +280,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -300,9 +330,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
                 if (isCallBack())
@@ -330,9 +360,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 baseView.dismissDialog();
                 if (isCallBack())
                     baseView.getSelStatus(2, !isSel);
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }

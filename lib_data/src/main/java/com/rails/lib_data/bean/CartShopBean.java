@@ -43,6 +43,7 @@ public class CartShopBean {
     private String selectedSkuNum;
     private String freightPrice;
     private int totalNum;
+    private boolean hideCheckBox;
     private List<CartShopProductBean> skuList;
     public final ObservableField<Boolean> isSel = new ObservableField<>();
     public final ObservableField<String> remark = new ObservableField<>();
@@ -53,6 +54,14 @@ public class CartShopBean {
 
     public String getPlatformId() {
         return platformId;
+    }
+
+    public boolean isHideCheckBox() {
+        return hideCheckBox;
+    }
+
+    public void setHideCheckBox(boolean hideCheckBox) {
+        this.hideCheckBox = hideCheckBox;
     }
 
     public void setPlatformId(String platformId) {
