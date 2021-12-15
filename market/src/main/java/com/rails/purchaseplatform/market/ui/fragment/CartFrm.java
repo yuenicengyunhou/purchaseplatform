@@ -353,7 +353,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
         binding.btnDel.setOnClickListener(v -> {
             //全部删除
-            delAllParams(cartAdapter.getBeans(),true);
+            delAllParams(cartAdapter.getBeans(), true);
         });
 
 
@@ -601,15 +601,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * <p>
      * param shopBeans
      */
-    private void delAllParams(ArrayList<CartShopBean> shopBeans,boolean needAnalyze) {
+    private void delAllParams(ArrayList<CartShopBean> shopBeans, boolean needAnalyze) {
         if (shopBeans == null)
             return;
         if (shopBeans.isEmpty())
             return;
 
         CartShopBean cartShopBean = shopBeans.get(shopBeans.size() - 1);
-        if (needAnalyze&&(cartShopBean.getShopName().equals("失效商品"))) {
-            ArrayList<CartShopBean> cartShopBeans = generateInvalidShops(cartShopBean,false);
+        if (needAnalyze && (cartShopBean.getShopName().equals("失效商品"))) {
+            ArrayList<CartShopBean> cartShopBeans = generateInvalidShops(cartShopBean, false);
             shopBeans.remove(cartShopBean);
             shopBeans.addAll(cartShopBeans);
         }
@@ -662,7 +662,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 tempShopId = shopId;
             }
         }
-        delAllParams(mShopBeans,false);
+        delAllParams(mShopBeans, false);
     }
 
     /**

@@ -45,14 +45,14 @@
                 android:id="@+id/shopName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/paddingL"
                 android:layout_toEndOf="@+id/img_left"
                 android:gravity="center_vertical"
                 android:text="@{cart.shopName}"
                 android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_14" />
+                android:textSize="@dimen/font_size_14"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -109,26 +109,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="还需"
-                    android:textStyle="bold"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/font_size_11" />
+                    android:textSize="@dimen/font_size_11"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_key"
                     android:layout_width="wrap_content"
-                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:text="@{@string/market_cart_dprice(cart.dprice)}"
                     android:textColor="@color/font_red"
-                    android:textSize="@dimen/font_size_11" />
+                    android:textSize="@dimen/font_size_11"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="元方可下单"
-                    android:textStyle="bold"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/font_size_11" />
+                    android:textSize="@dimen/font_size_11"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
