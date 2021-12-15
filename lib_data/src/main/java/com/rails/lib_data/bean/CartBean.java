@@ -46,6 +46,8 @@ public class CartBean {
     // 店铺集合
     private List<CartShopBean> shopList;
 
+//    private List<Fa>
+
     public String getPlatformId() {
         return platformId;
     }

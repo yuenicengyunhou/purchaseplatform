@@ -8,6 +8,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -25,6 +26,7 @@ import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.UserInfoBean;
+import com.rails.lib_data.bean.forNetRequest.searchResult.byShop.ShopBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
@@ -62,6 +64,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -128,6 +131,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         cartAdapter = new CartAdapter(getActivity());
         cartAdapter.setListener(this);
         cartAdapter.setMulPositionListener(this);
+        cartAdapter.setCleanInvalidSkuListener(this::cleanAllInvalidSkus);
         binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.cartRecycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.line_gray));
         binding.cartRecycler.setAdapter(cartAdapter);
@@ -300,7 +304,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             cartAdapter.checkAll(isSel);
             binding.imgTotal.setSelected(isSel);
             cartAdapter.updateShopPrice();
-            binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ", DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", size));
+            String price = DecimalUtil.formatDouble(cartAdapter.totalPrice());
+            setTotalPrice(price);
         }
     }
 
@@ -439,8 +444,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     private void setTotal() {
         cartAdapter.updateShopPrice();
         binding.imgTotal.setSelected(cartAdapter.isAll());
-        binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(cartAdapter.totalPrice()), "", size));
+        String price = DecimalUtil.formatDouble(cartAdapter.totalPrice());
+        setTotalPrice(price);
     }
 
 
@@ -453,8 +458,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (bean == null)
             return;
         binding.imgTotal.setSelected(bean.getSelected());
-        binding.tvTotal.setText(DecimalUtil.formatStrSize("¥ ",
-                DecimalUtil.formatDouble(Double.parseDouble(bean.getTotalPrice())), "", size));
+        setTotalPrice(bean.getTotalPrice());
+    }
+
+    private void setTotalPrice(String price) {
+        String bigPrice = price.substring(0, price.indexOf("."));
+        String smallPrice = price.substring(price.indexOf("."));
+        binding.tvTotalBig.setText(DecimalUtil.formatStrSize("¥ ", bigPrice, "", size));
+        binding.tvTotalSmall.setText(smallPrice);
     }
 
 
@@ -605,6 +616,45 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (map.isEmpty())
             return;
         presenter.delProduct(map, -1);
+
+    }
+
+    /**
+     * 清空失效商品
+     */
+    private void cleanAllInvalidSkus(CartShopBean shopBean) {
+        List<CartShopProductBean> skuList = shopBean.getSkuList();
+        ArrayList<CartShopBean> mShopBeans = new ArrayList<>();
+        String tempShopId = "";
+        CartShopBean cartShopBean = null;
+        for (int i = 0; i < skuList.size(); i++) {
+            CartShopProductBean skuBean = skuList.get(i);
+            skuBean.isSel.set(true);
+            String shopId = skuBean.getShopId();
+            if (tempShopId.equals(shopId)) {
+                if ((null!=cartShopBean)&&(null!=cartShopBean.getSkuList())) {
+                    cartShopBean.getSkuList().add(skuBean);
+                }
+            } else {
+                cartShopBean = new CartShopBean();
+                List<CartShopProductBean> newSkuList = new ArrayList<>();
+                newSkuList.add(skuBean);
+                cartShopBean.setShopId(shopId);
+                cartShopBean.setSkuList(newSkuList);
+                mShopBeans.add(cartShopBean);
+                tempShopId = shopId;
+            }
+        }
+        for (int i = 0; i < mShopBeans.size(); i++) {
+            CartShopBean cart = mShopBeans.get(i);
+            String shopId = cart.getShopId();
+            List<CartShopProductBean> cs = cart.getSkuList();
+            for (int j = 0; j < cs.size(); j++) {
+                String skuId = cs.get(j).getSkuId();
+                String skushopid = cs.get(j).getShopId();
+            }
+        }
+        delAllParams(mShopBeans);
 
     }
 
