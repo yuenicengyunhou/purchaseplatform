@@ -2,15 +2,14 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.ProductBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
@@ -20,9 +19,11 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
 
+import java.text.MessageFormat;
+
 /**
- * @author： sk_comic@163.com
- * @date: 2021/3/11
+ * author： sk_comic@163.com
+ * date: 2021/3/11
  */
 public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, ItemMarketCartSubBinding> {
 
@@ -57,7 +58,7 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
 
         String property = productBean.getAttributesName();
         if (TextUtils.isEmpty(property)) {
-            binding.tvProperty.setVisibility(View.GONE);
+            binding.tvProperty.setVisibility(View.INVISIBLE);
         } else {
             binding.tvProperty.setVisibility(View.VISIBLE);
         }
@@ -67,88 +68,88 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         int size;
         int fontSize;
         if (SystemUtil.isPad(mContext)) {
-            fontSize = ScreenSizeUtil.sp2px(6, mContext);
+            fontSize = ScreenSizeUtil.sp2px(8, mContext);
         } else {
             fontSize = 10;
         }
-        binding.tvPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        binding.tvPriceBig.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        binding.tvPriceSmall.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         if (SystemUtil.isPad(mContext)) {
             size = ScreenSizeUtil.sp2px(9, mContext);
         } else {
             size = 13;
         }
+        String bigPrice = price.substring(0, price.indexOf("."));
+        String smallPrice = price.substring(price.indexOf("."));
 
-        binding.tvPrice.setText(DecimalUtil.formatStrSize("¥ ", price, TextUtils.isEmpty(unit) ? "" : " /" + unit, size));
+        binding.tvPriceBig.setText(MessageFormat.format("¥ {0}", bigPrice));
+        String finalSmallPrice = smallPrice + (TextUtils.isEmpty(unit) ? "" : " /" + unit);
+        binding.tvPriceSmall.setText(finalSmallPrice);
 
-        binding.imgLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    boolean isChecked = binding.imgLeft.isChecked();
-                    productBean.isSel.set(isChecked);
-                    mulPositionListener.onPosition(productBean, position, CHECK);
-                }
+        if (productBean.canSel.get()) {
+            binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_black));
+            binding.tvPriceBig.setTextColor(mContext.getResources().getColor(R.color.font_red));
+            binding.tvPriceBig.setTextSize(16);
+//            TextPaint tp = binding.tvPriceBig.getPaint();
+//            tp.setFakeBoldText(true);
+//            binding.tvPriceSmall.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_gray_invalid));
+            binding.tvPriceBig.setTextColor(mContext.getResources().getColor(R.color.font_black));
+//            binding.tvPriceBig.setText("商品已失效");
+//            binding.tvPriceBig.setTextSize(14);
+//            TextPaint tp = binding.tvPriceBig.getPaint();
+//            tp.setFakeBoldText(false);
+//            binding.tvPriceSmall.setVisibility(View.GONE);
+        }
+        binding.imgLeft.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                boolean isChecked = binding.imgLeft.isChecked();
+                productBean.isSel.set(isChecked);
+                mulPositionListener.onPosition(productBean, position, CHECK);
+            }
 
+        });
+
+
+        binding.tvProperty.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, PROPERTY);
             }
         });
 
 
-        binding.tvProperty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, PROPERTY);
-                }
+        binding.tvAdd.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, ADD);
             }
         });
 
 
-        binding.tvAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, ADD);
-                }
+        binding.tvReduce.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, REDUCE);
             }
         });
 
-
-        binding.tvReduce.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, REDUCE);
-                }
+        binding.etNum.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, EDIT);
             }
         });
 
-        binding.etNum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, EDIT);
-                }
+        binding.btnCollect.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, SUB_COLLECT);
             }
+
         });
 
-        binding.btnCollect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, SUB_COLLECT);
-                }
-
+        binding.btnDel.setOnClickListener(v -> {
+            if (mulPositionListener != null) {
+                mulPositionListener.onPosition(productBean, position, SUB_DEL);
             }
-        });
 
-        binding.btnDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mulPositionListener != null) {
-                    mulPositionListener.onPosition(productBean, position, SUB_DEL);
-                }
-
-            }
         });
 
 

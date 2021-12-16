@@ -44,6 +44,7 @@ import com.rails.purchaseplatform.market.adapter.ProductHotIndexAdapter;
 import com.rails.purchaseplatform.market.adapter.ProductRecAdapter;
 import com.rails.purchaseplatform.market.databinding.FrmMallBinding;
 import com.rails.purchaseplatform.market.ui.activity.RankActivity;
+import com.rails.purchaseplatform.market.ui.activity.ShopsActivity;
 import com.rails.purchaseplatform.market.widget.CenterManger;
 
 import java.util.ArrayList;
@@ -137,17 +138,23 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         brandAdapter.setListener(new PositionListener<BrandBean>() {
             @Override
             public void onPosition(BrandBean bean, int position) {
+                if (!hasToken()) {
+                    ARouter.getInstance()
+                            .build(ConRoute.USER.LOGIN)
+                            .navigation();
+                } else {
+                    String brandId = bean.getBrandId();
+                    Bundle bundle = new Bundle();
+                    if (TextUtils.isEmpty(brandId))
+                        return;
+                    try {
+                        bundle.putString("brandId", brandId);
+                        startIntent(ShopsActivity.class, bundle);
+                    } catch (Exception e) {
 
-                String shopId = bean.getShopid();
-                Bundle bundle = new Bundle();
-                if (TextUtils.isEmpty(shopId))
-                    return;
-                try {
-                    bundle.putString("shopInfoId", shopId);
-                    goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
-                } catch (Exception e) {
-
+                    }
                 }
+
             }
         });
 
@@ -201,15 +208,22 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         recAdapter = new ProductRecAdapter(getActivity());
         recAdapter.setListener(this);
         recAdapter.setMulPositionListener((bean, position, params) -> {
-            if (indexBean != null) {
-                try {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("position", position + 2);
-                    startIntent(RankActivity.class, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (!hasToken()) {
+                ARouter.getInstance()
+                        .build(ConRoute.USER.LOGIN)
+                        .navigation();
+            } else {
+                if (indexBean != null) {
+                    try {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", position + 2);
+                        startIntent(RankActivity.class, bundle);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+
         });
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.recycler.addItemDecoration(new SpaceBottomDecoration(getActivity(), 10, R.color.bg));
@@ -239,8 +253,6 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
         presenter = new MarKetIndexPresenterImpl(getActivity(), this);
         statisticPresenter = new StatisticPresenterImpl(getActivity(), this);
-        //通用 首页请求此接口时 itemShopId skuId 为null
-        statisticPresenter.getVisitors("0", null, null);
 
         onRefresh();
     }
@@ -274,16 +286,24 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         binding.rlRecycler.setEnableLoadMore(false);
         binding.rlRecycler.setOnRefreshListener(refreshLayout -> {
             binding.rlRecycler.finishRefresh();
-            presenter.getHotProducts(false, 1, "10");
             presenter.getMarketIndexInfo(false, false);
+            presenter.getRanks(false, 1, "10", "0", "", "");
+            presenter.getHotProducts(false, 1, "10");
+            presenter.getFloors(false);
+            //通用 首页请求此接口时 itemShopId skuId 为null
+            statisticPresenter.getVisitors("0", null, null);
         });
-        presenter.getHotProducts(false, 1, "10");
         presenter.getMarketIndexInfo(true, true);
+        presenter.getRanks(false, 1, "10", "0", "", "");
+        presenter.getHotProducts(false, 1, "10");
+        presenter.getFloors(true);
+        //通用 首页请求此接口时 itemShopId skuId 为null
+        statisticPresenter.getVisitors("0", null, null);
     }
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarMode(getActivity(), android.R.color.transparent);
+        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
     }
 
 
@@ -301,26 +321,18 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void getHotProducts(ArrayList<ProductBean> beans) {
-        if (beans == null){
+        if (beans == null) {
             binding.llHot.setVisibility(View.GONE);
-        }else{
+        } else {
             binding.llHot.setVisibility(View.VISIBLE);
             hotAdapter.update(beans, true);
         }
-
     }
 
     @Override
     public void getIndexInfo(MarketIndexBean bean) {
+        if (null == bean) return;
         indexBean = bean;
-        if (bean.getBrandBeans() == null) {
-            binding.llBrand.setVisibility(View.GONE);
-        } else {
-            binding.llBrand.setVisibility(View.VISIBLE);
-            brandAdapter.update(bean.getBrandBeans(), true);
-        }
-        tabAdapter.updateData(bean.getRecBeans(), true);
-        recAdapter.update(bean.getRecBeans(), true);
         categoryAdapter.update(bean.getCategorySubBeans(), true);
         setBanners(bean.getBannerBeans());
 
@@ -328,12 +340,23 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
 
     @Override
     public void getBrands(ArrayList<BrandBean> brandBeans, boolean hasMore, boolean isClear) {
-
+        if (brandBeans == null || brandBeans.isEmpty()) {
+            binding.llBrand.setVisibility(View.GONE);
+        } else {
+            binding.llBrand.setVisibility(View.VISIBLE);
+            brandAdapter.update(brandBeans, true);
+        }
     }
 
     @Override
     public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
 
+    }
+
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
+        recAdapter.update(productBeans, true);
+        tabAdapter.updateData(productBeans, true);
     }
 
     @Override
@@ -365,26 +388,38 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
         });
 
         binding.lrTitle.setOnClickListener(v -> {
-            if (indexBean != null) {
-                try {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("position", 0);
-                    startIntent(RankActivity.class, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (!hasToken()) {
+                ARouter.getInstance()
+                        .build(ConRoute.USER.LOGIN)
+                        .navigation();
+            } else {
+                if (indexBean != null) {
+                    try {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", 0);
+                        startIntent(RankActivity.class, bundle);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
 
         binding.lrHot.setOnClickListener(v -> {
-            if (indexBean != null) {
-                try {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("position", 1);
-                    startIntent(RankActivity.class, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (!hasToken()) {
+                ARouter.getInstance()
+                        .build(ConRoute.USER.LOGIN)
+                        .navigation();
+            } else {
+                if (indexBean != null) {
+                    try {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", 1);
+                        startIntent(RankActivity.class, bundle);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

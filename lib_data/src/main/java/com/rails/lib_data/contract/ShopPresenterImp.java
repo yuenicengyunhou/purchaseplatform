@@ -56,7 +56,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
 //                    materialType = response.getMaterialType();
                     baseView.loadShopInfo(response);
                 } else {
-                    ToastUtil.showCenter(mContext,"店铺信息为空");
+                    ToastUtil.showCenter(mContext, "店铺信息为空");
                 }
 
             }
@@ -67,7 +67,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
      * keyword  搜索关键字
      */
     @Override
-    public void getShopItemList(boolean showLoading, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list, String keyword) {
+    public void getShopItemList(boolean showLoading, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> list, String keyword, String lowPrice, String highPrice) {
         if (null == shopInfoId) {
             ToastUtil.showCenter(mContext, "店铺id为空");
             return;
@@ -78,7 +78,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
         }
 
 //        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, materialType, new HttpRxObserver<ShopRecommendBean>() {
-        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, new HttpRxObserver<ShopRecommendBean>() {
+        model.getShopItemList(shopInfoId, page, pageSize, orderColumn, orderType, list, keyword, lowPrice, highPrice, new HttpRxObserver<ShopRecommendBean>() {
             @Override
             protected void onError(ErrorBean e) {
                 if (showLoading) {
@@ -87,7 +87,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
 
                 baseView.onError(e);
                 ArrayList<ResultListBean> listBean = new ArrayList<>();
-                baseView.loadShopProductList(listBean,0);
+                baseView.loadShopProductList(listBean, 0);
             }
 
             @Override

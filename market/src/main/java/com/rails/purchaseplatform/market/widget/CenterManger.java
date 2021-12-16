@@ -32,7 +32,7 @@ public class CenterManger extends LinearLayoutManager {
     public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
         RecyclerView.SmoothScroller smoothScroller = new CenterSmoothScroller(recyclerView.getContext());
         smoothScroller.setTargetPosition(position);
-        startSmoothScroll(smoothScroller);
+        startSmoothScroll(smoothScroller);//Invalid target position
     }
 
 

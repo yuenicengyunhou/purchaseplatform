@@ -112,7 +112,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        productPresenter.getHotProducts(false, 1,"10");
+        productPresenter.getHotProducts(false, 1, "10");
     }
 
     @Override
@@ -165,13 +165,15 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
                 } else {
                     if (webBean.getCode() == 3)
                         finish();
-                    else
+                    else {
                         ARouter.getInstance()
                                 .build(webBean.getUrlright())
                                 .withParcelable("webBean", webBean)
                                 .navigation();
+                        finish();
+                    }
+
                 }
-                finish();
 
             }
         });
@@ -188,7 +190,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
 
     @Override
     public void getHotProducts(ArrayList<ProductBean> beans) {
-        if(beans == null)
+        if (beans == null)
             return;
         if (beans.isEmpty())
             return;
@@ -208,6 +210,11 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
 
     @Override
     public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
 
     }
 }

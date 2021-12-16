@@ -52,7 +52,13 @@ public class EmptyView extends LinearLayout {
      * @return
      */
     public EmptyView setImgEmpty(int res) {
-        binding.imgEmpty.setImageResource(res);
+        if (res == 0) {
+            binding.imgEmpty.setVisibility(View.GONE);
+        } else {
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.imgEmpty.setImageResource(res);
+        }
+
         return this;
     }
 
@@ -127,6 +133,20 @@ public class EmptyView extends LinearLayout {
         return this;
     }
 
+    public EmptyView setBtnGobuy(String str) {
+        if (TextUtils.isEmpty(str))
+            binding.btnGobuy.setVisibility(View.GONE);
+        else {
+            if (binding.btnEmpty.getVisibility() == View.GONE) {
+                binding.btnGobuy.setVisibility(VISIBLE);
+            } else {
+                binding.btnGobuy.setVisibility(View.VISIBLE);
+            }
+            binding.btnGobuy.setText(str);
+        }
+        return this;
+    }
+
 
     /**
      * @param str
@@ -165,6 +185,11 @@ public class EmptyView extends LinearLayout {
     public EmptyView setBtnListener(OnClickListener onClickListener) {
         binding.btnUnEmpty.setOnClickListener(onClickListener);
         binding.btnEmpty.setOnClickListener(onClickListener);
+        return this;
+    }
+
+    public EmptyView setGoBuyListener(OnClickListener onClickListener) {
+        binding.btnGobuy.setOnClickListener(onClickListener);
         return this;
     }
 

@@ -62,12 +62,12 @@ public class OrderModel {
 
     private void mergeMap(OrderFilterBean filterBean, HashMap<String, Object> map) {
         if (null == filterBean) {
-            map.put("materialType", "0");//默认通用物资
+//            map.put("materialType", "0");//默认通用物资
             return;
         }
         String startDate = filterBean.getStartDate();
         String endDate = filterBean.getEndDate();
-        String goodsType = filterBean.getGoodsType();
+//        String goodsType = filterBean.getGoodsType();
         List<OrderStatusBean> statusBeans = filterBean.getStatusBeans();
         if (null != startDate && !TextUtils.isEmpty(startDate)) {
             map.put("orderTimeBegin", startDate);
@@ -75,9 +75,9 @@ public class OrderModel {
         if (null != endDate && !TextUtils.isEmpty(endDate)) {
             map.put("orderTimeEnd", endDate);
         }
-        if (null != goodsType) {
-            map.put("materialType", goodsType);
-        }
+//        if (null != goodsType) {
+//            map.put("materialType", goodsType);
+//        }
         if (null != statusBeans) {
             String code = "";
             for (int i = 0; i < statusBeans.size(); i++) {

@@ -15,16 +15,32 @@
         android:background="@color/white">
 
 
-        <TextView
-            android:id="@+id/tv_rank"
-            android:layout_width="@dimen/dp_22"
-            android:layout_height="@dimen/dp_25"
+        <FrameLayout
+            android:id="@+id/fl_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/common_border"
             android:layout_marginRight="@dimen/common_border"
-            android:gravity="center"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/font_size_14" />
+            android:minWidth="@dimen/dp_30">
+
+            <ImageView
+                android:id="@+id/img_rank"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25" />
+
+
+            <TextView
+                android:id="@+id/tv_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:gravity="center"
+                android:minWidth="@dimen/dp_25"
+                android:singleLine="true"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14" />
+
+        </FrameLayout>
 
 
         <androidx.cardview.widget.CardView
@@ -33,7 +49,7 @@
             android:layout_height="@dimen/dp_50"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_20"
-            android:layout_toRightOf="@+id/tv_rank"
+            android:layout_toRightOf="@+id/fl_rank"
             android:background="@drawable/bg_corner_border_gray_5"
             app:cardCornerRadius="@dimen/dp_5">
 

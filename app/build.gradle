@@ -26,9 +26,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
 
-        // 08月24日生产环境：版本号为7，版本名称为1.0.6。
-        versionCode 9
-        versionName "1.0.8"
+        versionCode 10
+        versionName "1.0.9"
 
         flavorDimensions "versionCode"
         multiDexEnabled true

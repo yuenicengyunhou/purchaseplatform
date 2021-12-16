@@ -8,12 +8,14 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
+import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
@@ -21,6 +23,7 @@ import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.RankBrandAdapter;
 import com.rails.purchaseplatform.market.adapter.RankProductAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentMarketRankBinding;
+import com.rails.purchaseplatform.market.ui.activity.ShopsActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -49,7 +52,7 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
     private RankBrandAdapter brandAdapter;
     private RankProductAdapter productAdapter;
 
-    public RankFragment(){
+    public RankFragment() {
 
     }
 
@@ -73,13 +76,13 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
             brandAdapter.setListener(new PositionListener<BrandBean>() {
                 @Override
                 public void onPosition(BrandBean bean, int position) {
-                    String shopId = bean.getShopid();
+                    String brandId = bean.getBrandId();
                     Bundle bundle = new Bundle();
-                    if (TextUtils.isEmpty(shopId))
+                    if (TextUtils.isEmpty(brandId))
                         return;
                     try {
-                        bundle.putString("shopInfoId", shopId);
-                        goLogin(null, ConRoute.MARKET.SHOP_DETAILS, bundle);
+                        bundle.putString("brandId", brandId);
+                        startIntent(ShopsActivity.class, bundle);
                     } catch (Exception e) {
 
                     }
@@ -146,6 +149,11 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
         }
     }
 
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
+
+    }
+
 
     /**
      * 刷新效果
@@ -174,7 +182,7 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        presenter.getRanks(isDialog, page, pageSize, categoryId);
+        presenter.getRanks(isDialog, page, pageSize, "0", "", categoryId);
     }
 
 
@@ -220,5 +228,10 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
 
         }
 
+    }
+
+
+    @Override
+    public void onError(ErrorBean errorBean) {
     }
 }

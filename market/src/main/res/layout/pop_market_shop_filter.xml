@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -51,11 +51,66 @@
                 android:paddingStart="@dimen/margin"
                 android:paddingEnd="@dimen/margin" />
 
-        </LinearLayout>
+        </FrameLayout>
 
 
     </com.rails.purchaseplatform.common.widget.MaxHeightScrollView>
 
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="价格区间"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_14"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/paddingL"
+        android:gravity="center_vertical">
+
+        <!--        <View-->
+        <!--            android:id="@+id/view_lowPrice"-->
+        <!--            android:layout_width="@dimen/dp_90"-->
+        <!--            android:layout_height="@dimen/dp_30"-->
+        <!--            android:layout_marginStart="@dimen/dp_16"-->
+        <!--            android:layout_marginTop="@dimen/dp_10"-->
+        <!--            android:background="@drawable/bg_corner_gray_20" />-->
+
+        <EditText
+            android:id="@+id/et_lowPrice"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/margin"
+            android:background="@drawable/bg_corner_gray_20"
+            android:gravity="center"
+            android:hint="@string/lowPrice"
+            android:inputType="number"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_13" />
+
+        <View
+            android:id="@+id/view_split"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="1dp"
+            android:background="@color/bg_gray" />
+
+
+        <EditText
+            android:id="@+id/et_highPrice"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/bg_corner_gray_20"
+            android:gravity="center"
+            android:hint="@string/highPrice"
+            android:inputType="number"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_13" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_bottom"

@@ -18,10 +18,10 @@ public interface AddressToolContract {
 
         /**
          * 获取专属地址列表
-         *
-         * @param addressBeans
+         * <p>
+         * param addressBeans
          */
-        void getAddress(ArrayList<AddressBean> addressBeans);
+        void getAddress(ArrayList<AddressBean> addressBeansp,boolean showAddressPop);
 
 
         /**
@@ -45,7 +45,8 @@ public interface AddressToolContract {
          *                    type  搜索类型 收货人 手机号   详细地址
          *                    keyword 搜索关键字
          */
-        void getAddress(String paltId, String addressType, String searchType, String keyword);
+        void getAddress(String paltId, String addressType, String searchType, String keyword, boolean showLoading);
+
 
 
         /**

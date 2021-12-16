@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -52,10 +53,13 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     private ArrayList<SearchFilterBean> filterList = null;
     private String orderColumn = "";//默认的排序方式为空字符
     private String orderType = "";//默认的排序顺序为空字符
+    private String mLowPrice = "";
+    private String mHighPrice = "";
 //    private FilterShopPop mPop;
 
     private int userScrollY;//用户滑动距离
-//    private int materialType;
+    private FilterShopPop mPop;
+    //    private int materialType;
 
     /**
      * 排序：
@@ -118,7 +122,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 
         binding.ivMakePhone.setOnClickListener(v -> {
             String phoneText = binding.tvPhone.getText().toString();
-            String substring = phoneText.substring(phoneText.indexOf("：")+1);
+            String substring = phoneText.substring(phoneText.indexOf("：") + 1);
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + substring));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -169,7 +173,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     }
 
     private void queryShopProductList() {
-        presenter.getShopItemList(mPage == PAGE_DEF, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+        presenter.getShopItemList(mPage == PAGE_DEF, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
     }
 
     /**
@@ -214,7 +218,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
                     mPage = PAGE_DEF;
                     orderType = binding.rbSale.isChecked() ? "asc" : "desc";
                     orderColumn = "saleCount";
-                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
                 }
         );
 
@@ -223,7 +227,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
                     mPage = PAGE_DEF;
                     orderType = binding.rbPrice.isChecked() ? "asc" : "desc";
                     orderColumn = "sellPrice";
-                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
                 }
 
         );
@@ -233,7 +237,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
             orderColumn = "";
             orderType = "";
             mPage = PAGE_DEF;
-            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
         });
 
         binding.rbSel.setOnClickListener(v -> showPop());
@@ -262,16 +266,18 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
      */
     private void showPop() {
         if (null == filterList) return;
-//        if (null == mPop) {
-        FilterShopPop mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
-        mPop.setCompleteListener(filterbeans -> {
-            filterList = filterbeans;
-            mPage = PAGE_DEF;
-            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
-        });
-        mPop.setGravity(Gravity.BOTTOM);
-//        }
-        mPop.setType(BasePop.MATCH_WRAP);
+        if (null == mPop) {
+            mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
+            mPop.setCompleteListener((filterbeans, lowPrice, highPrice) -> {
+                filterList = filterbeans;
+                mPage = PAGE_DEF;
+                mLowPrice = lowPrice;
+                mHighPrice = highPrice;
+                presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
+            });
+            mPop.setGravity(Gravity.BOTTOM);
+            mPop.setType(BasePop.MATCH_WRAP);
+        }
         mPop.show(getSupportFragmentManager(), "property");
     }
 

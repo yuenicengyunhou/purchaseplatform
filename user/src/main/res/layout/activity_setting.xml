@@ -33,13 +33,26 @@
         android:text="@string/user_set_modifypaw"
         android:textColor="@color/font_black"
         android:textSize="@dimen/font_size_15" />
+    <TextView
+        android:id="@+id/btn_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_65"
+        android:layout_below="@+id/btn_modify"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/common_border"
+        android:background="@drawable/bottom_line_bg"
+        android:drawableRight="@drawable/svg_arrow_white"
+        android:gravity="center_vertical"
+        android:text="@string/about_us"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/font_size_15" />
 
 
     <RelativeLayout
         android:id="@+id/btn_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_modify"
+        android:layout_below="@+id/btn_about_us"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/common_border"
         android:background="@drawable/bottom_line_bg">

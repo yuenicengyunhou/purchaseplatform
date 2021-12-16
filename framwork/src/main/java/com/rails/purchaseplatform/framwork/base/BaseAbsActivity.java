@@ -197,8 +197,8 @@ public abstract class BaseAbsActivity extends AppCompatActivity {
      * @param color
      */
     protected void setupSystemBar(int color) {
-//        StatusBarUtil.setStatusBarColor(this, color);
-        StatusBarUtil.StatusBarMode(this, color);
+        StatusBarUtil.setStatusBarColor(this, color);
+//        StatusBarUtil.StatusBarMode(this, color);
     }
 
     @Override

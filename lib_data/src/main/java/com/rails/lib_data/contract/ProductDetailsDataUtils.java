@@ -132,7 +132,17 @@ public class ProductDetailsDataUtils {
         pageBean.setSkuId(currentSkuId);
 
         // sku价格（在售价格、市场价格、sku名称、sku图片、评分、销量）
-        ProductPriceBean priceBean = bean2.getProductPriceBeans().get(0);
+        ProductPriceBean priceBean;
+        if (bean2.getProductPriceBeans() == null || bean2.getProductPriceBeans().size() == 0) {
+            priceBean = new ProductPriceBean();
+            priceBean.setMarketPrice(0.00D);
+            priceBean.setSellPrice(0.00D);
+            priceBean.setPackageDis("");
+            priceBean.setScore(0.00D);
+            priceBean.setSaleNum(0);
+        } else {
+            priceBean = bean2.getProductPriceBeans().get(0);
+        }
         pageBean.setPriceBean(priceBean);
 
         // 在售价格
@@ -359,10 +369,11 @@ public class ProductDetailsDataUtils {
                         }
                     }
                     if (!TextUtils.isEmpty(currentItemSkuInfo.getMaterialCode())) {
-                        ProductSpecificParameter parameter = new ProductSpecificParameter();
-                        parameter.setParamKey("物资编码：");
-                        parameter.setParamValue(currentItemSkuInfo.getMaterialCode());
-                        parameters.add(parameter);
+                        // 不显示物资编码属性
+                        // ProductSpecificParameter parameter = new ProductSpecificParameter();
+                        // parameter.setParamKey("物资编码：");
+                        // parameter.setParamValue(currentItemSkuInfo.getMaterialCode());
+                        // parameters.add(parameter);
                     }
                 }
             }

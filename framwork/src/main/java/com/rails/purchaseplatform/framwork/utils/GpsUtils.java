@@ -173,5 +173,12 @@ public class GpsUtils {
 
         void OnLocationChange(Location location);
     }
+
+    public boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        return gps || network;
+    }
 }
 

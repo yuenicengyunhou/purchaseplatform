@@ -27,6 +27,7 @@ public class CartEditDialog {
     private Context context;
     private String title;
     private String msg;
+    private String content;
     private String leftBtn;
     private String rightBtn;
     private int leftColor;
@@ -37,6 +38,7 @@ public class CartEditDialog {
         this.context = builder.context;
         this.title = builder.title;
         this.msg = builder.msg;
+        this.content = builder.content;
         this.leftBtn = builder.leftBtn;
         this.rightBtn = builder.rightBtn;
         this.leftColor = builder.leftColor;
@@ -51,6 +53,7 @@ public class CartEditDialog {
         String msg;
         String leftBtn;
         String rightBtn;
+        String content;
         int leftColor;
         int rightColor;
         DialogListener dialogListener;
@@ -67,6 +70,11 @@ public class CartEditDialog {
 
         public Builder msg(String msg) {
             this.msg = msg;
+            return this;
+        }
+
+        public Builder content(String content) {
+            this.content = content;
             return this;
         }
 
@@ -124,6 +132,9 @@ public class CartEditDialog {
 
         if (!TextUtils.isEmpty(msg))
             bind.etMsg.setHint(msg);
+        if (!TextUtils.isEmpty(content)) {
+            bind.etMsg.setText(content);
+        }
 
         if (!TextUtils.isEmpty(leftBtn))
             bind.rbLeft.setText(leftBtn);
@@ -158,7 +169,7 @@ public class CartEditDialog {
                 if (TextUtils.isEmpty(paw) || !TextUtils.isDigitsOnly(paw)) {
                     ToastUtil.showCenter(context, "请输入正确信息");
                     return;
-                }else if ("0".equals(paw)){
+                } else if ("0".equals(paw)) {
                     ToastUtil.showCenter(context, "数量不能为0");
                     return;
                 }

@@ -7,6 +7,8 @@ import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.databinding.ItemConditionBinding;
 
+import java.text.MessageFormat;
+
 
 public class ConditionAdapter extends BaseRecyclerAdapter<BuyerBean, ItemConditionBinding> {
 
@@ -45,7 +47,7 @@ public class ConditionAdapter extends BaseRecyclerAdapter<BuyerBean, ItemConditi
             name = skuName;
             id = buyerBean.getSkuId();
         } else {
-            name = brandNameCh + "(" + brandNameEn + ")";
+            name = MessageFormat.format("{0}({1})", brandNameCh, brandNameEn);
             id = buyerBean.getId();
         }
 //        String name = null == supplierName ? realName : supplierName;

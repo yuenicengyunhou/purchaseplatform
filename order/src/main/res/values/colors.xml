@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#387CFC</color>
+    <color name="colorPrimaryDark">#387CFC</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="appThemeRed">#EE2E2F</color>
     <color name="tabCheck">#528DFD</color>

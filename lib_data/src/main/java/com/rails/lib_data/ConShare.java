@@ -14,6 +14,9 @@ public class ConShare {
     // 获取验证码所使用的手机号
     public static final String CODE_PHONE = "code_phone";
 
+    //统计时间
+    public static final String EVENT_DATE="event_date";
+
 
     //菜单权限存储
     public static final String MENU_COLLECT = "MENU_COLLECT";

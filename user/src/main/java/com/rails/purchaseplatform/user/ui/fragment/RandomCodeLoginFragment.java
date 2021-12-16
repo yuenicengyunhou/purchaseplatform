@@ -1,7 +1,9 @@
 package com.rails.purchaseplatform.user.ui.fragment;
 
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
@@ -36,6 +38,8 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     private ArrayList<String> mAccountList = new ArrayList<>();
 
     private PopupWindow mPop;
+
+    private boolean isInputCode = true;
 
     @Override
     protected void loadData() {
@@ -110,6 +114,76 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             scrollUp("randomCode", v, hasFocus);
         });
 
+        binding.et1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isInputCode = count != 0;
+                if (s.length() == 3 && isInputCode) {
+                    binding.et1.clearFocus();
+                    binding.et2.requestFocus();
+                    mManager.showSoftInput(binding.et2, InputMethodManager.SHOW_FORCED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.et2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isInputCode = count != 0;
+                if (s.length() == 3 && isInputCode) {
+                    binding.et2.clearFocus();
+                    binding.et3.requestFocus();
+                    mManager.showSoftInput(binding.et3, InputMethodManager.SHOW_FORCED);
+                }
+                if (s.length() == 0 && !isInputCode) {
+                    binding.et2.clearFocus();
+                    binding.et1.requestFocus();
+                    mManager.showSoftInput(binding.et1, InputMethodManager.SHOW_FORCED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.et3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isInputCode = count != 0;
+                if (s.length() == 0 && !isInputCode) {
+                    binding.et3.clearFocus();
+                    binding.et2.requestFocus();
+                    mManager.showSoftInput(binding.et2, InputMethodManager.SHOW_FORCED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void initRandomAreaHeight() {

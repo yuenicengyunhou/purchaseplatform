@@ -40,6 +40,7 @@ public class ConRoute {
         public final static String RETRIEVE_PASSWORD = "/user/password";
         //更改密码
         public final static String USER_MODIFY_PAW = "/user/modify_paw";
+        public final static String USER_ABOUT_US = "/user/about_us";
     }
 
     // 通用COMMON
@@ -134,6 +135,8 @@ public class ConRoute {
 
         // WangYuhang - local
 //        public final static String BASEURL = "http://172.28.22.140:3000/purchase-android-web/#/";
+//        public final static String BASEURL = "http://192.168.69.214/";
+//        public final static String BASEURL = "http://192.168.69.214/purchase-android-web";
 
         // H5地址
 //        public final static String BASEURL = "https://shop.rails.cn/purchase-android-web/#/";
@@ -141,8 +144,6 @@ public class ConRoute {
         public final static String BASEURL = BaseRetrofit.isDebug
                 ? "https://shop.rails.cn/purchase-android-web/#/"   // DEBUG
                 : "https://mall.95306.cn/purchase-android-web/#/";  // RELEASE
-
-
 
 
         public final static String HOME = BASEURL + "home";

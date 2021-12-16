@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ResultListBean {
 
-    private int itemId;
+    private String itemId;
     private String shopName;
     /**
      * skuName : 得力30207封箱胶带48mm*150y*50um(6卷/筒)
@@ -21,7 +21,7 @@ public class ResultListBean {
 
     private List<ItemSkuBean> item_sku;
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 

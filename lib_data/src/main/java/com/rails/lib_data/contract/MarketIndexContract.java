@@ -54,6 +54,13 @@ public interface MarketIndexContract {
          */
         void getFloorProducts(ArrayList<ProductBean> productBeans,boolean hasMore, boolean isClear);
 
+
+        /**
+         * 获取楼层数据
+         * @param productBeans
+         */
+        void getFloors(ArrayList<ProductRecBean> productBeans);
+
     }
 
 
@@ -75,14 +82,22 @@ public interface MarketIndexContract {
 
 
         /**
+         * 获取楼层数据
+         */
+        void getFloors(boolean isCache);
+
+
+        /**
          * 获取排行列表
          *
          * @param isDialog
          * @param page
          * @param pageSize
+         * @param paramType 1代表七日品牌排名，0代表七日品牌所对应店铺排名 (必填项)
+         * @param brandId 品牌ID
          * @param categoryId 分类id   热销商品为 "1"， 热销品牌为 ""
          */
-        void getRanks(boolean isDialog, int page, String pageSize, String categoryId);
+        void getRanks(boolean isDialog, int page, String pageSize,String paramType, String brandId, String categoryId);
 
     }
 

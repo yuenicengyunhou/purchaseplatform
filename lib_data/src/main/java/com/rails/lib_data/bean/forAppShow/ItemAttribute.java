@@ -21,7 +21,7 @@ public class ItemAttribute {
     /**
      * 商品ID
      */
-    private int skuId;
+    private String skuId;
 
     /**
      * 商品名称
@@ -185,11 +185,11 @@ public class ItemAttribute {
         this.cartCounts = cartCounts;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 

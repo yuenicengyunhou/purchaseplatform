@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="brand"
+            type="com.rails.lib_data.bean.BrandBean" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <FrameLayout
+            android:id="@+id/fl_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_border"
+            android:layout_marginRight="@dimen/common_border"
+            android:minWidth="@dimen/dp_30">
+
+            <ImageView
+                android:id="@+id/img_rank"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25" />
+
+
+            <TextView
+                android:id="@+id/tv_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:gravity="center"
+                android:minWidth="@dimen/dp_25"
+                android:singleLine="true"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14" />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/img_product"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_toRightOf="@+id/fl_rank">
+
+
+            <com.rails.purchaseplatform.common.widget.RoundImage
+                android:id="@+id/img_brand"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:radius="@dimen/dp_5"
+                app:borderColor="@color/line_gray"
+                app:borderWidth="@dimen/dp_1"
+                app:displayBorder="true"
+                app:displayType="round_rect"
+                app:imgUrl="@{brand.shopLogUrl}" />
+
+
+            <com.rails.purchaseplatform.common.widget.RatioLinear
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_corner_border_gray_5"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="@{TextUtils.isEmpty(brand.brandLogoUrl)?View.VISIBLE:View.GONE}">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:maxLength="2"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5"
+                    android:singleLine="true"
+                    android:text="@{brand.shopName}"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_12"
+                    android:textStyle="bold" />
+
+
+            </com.rails.purchaseplatform.common.widget.RatioLinear>
+
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img_product"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_toEndOf="@+id/img_product"
+            android:layout_toStartOf="@+id/btn_shop"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="@{brand.shopName}"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_13"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/btn_shop"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_toEndOf="@+id/img_product"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="@{@string/market_rank_num(brand.countNum)}"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/font_size_12" />
+
+
+        <TextView
+            android:id="@+id/btn_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_conner_blank_blue"
+            android:paddingLeft="@dimen/dp_11"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_11"
+            android:layout_marginRight="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="进店逛逛"
+            android:textColor="#387CFC"
+            android:textSize="@dimen/font_size_13" />
+
+
+        <View
+            style="@style/line_thin_gray"
+            android:layout_below="@+id/img_product"
+            android:layout_alignLeft="@+id/img_product" />
+
+    </RelativeLayout>
+</layout>

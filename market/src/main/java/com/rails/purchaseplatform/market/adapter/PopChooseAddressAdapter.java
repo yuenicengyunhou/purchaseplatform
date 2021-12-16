@@ -35,6 +35,8 @@ public class PopChooseAddressAdapter extends BaseRecyclerAdapter<AddressBean, It
     protected void onBindItem(ItemPopProductDetailsChooseAddressBinding binding, AddressBean addressBean, int position) {
         if (Objects.equals(addressBean.getAddressId(), mCurrentAddressId)) {
             binding.cbCheck.setVisibility(View.VISIBLE);
+        }else {
+            binding.cbCheck.setVisibility(View.GONE);
         }
         binding.setChooseAddress(addressBean);
         binding.llAddress.setOnClickListener(v -> {

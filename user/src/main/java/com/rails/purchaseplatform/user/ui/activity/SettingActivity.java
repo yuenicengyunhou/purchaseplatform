@@ -66,55 +66,49 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
     protected void onClick() {
         super.onClick();
 
-        barBinding.btnAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isAddressManager) {
-                    ToastUtil.showCenter(SettingActivity.this, getResources().getString(R.string.common_author_null));
-                    return;
-                }
-                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+        barBinding.btnAddress.setOnClickListener(v -> {
+            if (!isAddressManager) {
+                ToastUtil.showCenter(SettingActivity.this, getResources().getString(R.string.common_author_null));
+                return;
             }
+            ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
         });
 
 
-        barBinding.btnModify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance()
-                        .build(ConRoute.USER.USER_MODIFY_PAW)
-                        .withString("url", ConRoute.WEB_URL.MODIFYPAW)
-                        .navigation();
-            }
-        });
+        barBinding.btnModify.setOnClickListener(v -> ARouter.getInstance()
+                .build(ConRoute.USER.USER_MODIFY_PAW)
+                .withString("url", ConRoute.WEB_URL.MODIFYPAW)
+                .navigation());
+
+        barBinding.btnAboutUs.setOnClickListener(v -> ARouter.getInstance()
+                .build(ConRoute.USER.USER_ABOUT_US)
+                .navigation());
 
 
-        barBinding.btnExit.setOnClickListener(v -> {
-            new AlterDialog.Builder().context(this)
-                    .title("提示")
-                    .msg("确定要退出吗")
-                    .leftBtn("确定")
-                    .rightBtn("取消")
-                    .setDialogListener(new AlterDialog.DialogListener() {
-                        @Override
-                        public void onLeft() {
-                            PrefrenceUtil.getInstance(SettingActivity.this).clear();
-                            SettingActivity.this
-                                    .getSharedPreferences("SEARCH_HISTORY", MODE_PRIVATE)
-                                    .edit().clear().apply();
-                            BaseActManager.getInstance().clear();
-                            ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                            dismissDialog();
-                            finish();
-                        }
+        barBinding.btnExit.setOnClickListener(v -> new AlterDialog.Builder().context(this)
+                .title("提示")
+                .msg("确定要退出吗")
+                .leftBtn("确定")
+                .rightBtn("取消")
+                .setDialogListener(new AlterDialog.DialogListener() {
+                    @Override
+                    public void onLeft() {
+                        PrefrenceUtil.getInstance(SettingActivity.this).clear();
+                        SettingActivity.this
+                                .getSharedPreferences("SEARCH_HISTORY", MODE_PRIVATE)
+                                .edit().clear().apply();
+                        BaseActManager.getInstance().clear();
+                        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                        dismissDialog();
+                        finish();
+                    }
 
-                        @Override
-                        public void onRight() {
-                            dismissDialog();
-                        }
-                    })
-                    .builder().show();
-        });
+                    @Override
+                    public void onRight() {
+                        dismissDialog();
+                    }
+                })
+                .builder().show());
 
     }
 

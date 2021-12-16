@@ -56,12 +56,12 @@ public class MainActivity extends BaseErrorActivity<ActivityMainBinding> {
 
     @Override
     protected int getColor() {
-        return 0;
+        return android.R.color.transparent;
     }
 
     @Override
     protected boolean isSetSystemBar() {
-        return false;
+        return true;
     }
 
     @Override

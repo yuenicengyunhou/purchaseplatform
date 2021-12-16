@@ -255,6 +255,10 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         binding.tvReduce.setTextColor(fontGray);
         setAddCartButton();
         binding.addCart.setOnClickListener(v -> {
+            if (mMaterialType != null && mMaterialType.equals("1")) {
+                ToastUtil.showCenter(this.getActivity(), "专用物资暂不支持购买");
+                return;
+            }
             if (binding.tvCountState.getText().toString().equals("无货")) {
                 ToastUtil.showCenter(getActivity(), "请选择其它型号的商品");
                 return;
@@ -330,10 +334,10 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         } else {
             binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
         }
-        if (String.valueOf(s).length() >= 7) {
-            binding.etNum.setText("999999");
+        if (String.valueOf(s).length() >= 10) {
+            binding.etNum.setText("999999999");
             binding.tvAdd.setTextColor(fontGray);
-        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) == 999999) {
+        } else if (String.valueOf(s).length() != 0 && Integer.parseInt(String.valueOf(s)) == 999999999) {
             binding.tvAdd.setTextColor(fontGray);
         } else {
             binding.tvAdd.setTextColor(fontBlack);
@@ -353,14 +357,17 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
         String num = binding.etNum.getText().toString().trim();
         if (!TextUtils.isEmpty(num)) {
             number = Integer.parseInt(num);
+        } else {
+            number = 0;
         }
         if (isAdd) {
-            if (number >= 999999) {
+            if (number >= 999999999) {
                 return;
             }
             binding.etNum.setText(String.valueOf(number + 1));
         } else {
             if (number <= 1) {
+                binding.etNum.setText("1");
                 return;
             }
             binding.etNum.setText(String.valueOf(number - 1));

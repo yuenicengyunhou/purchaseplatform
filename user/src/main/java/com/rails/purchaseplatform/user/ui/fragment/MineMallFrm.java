@@ -15,6 +15,7 @@ import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil2;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
@@ -42,6 +43,9 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
     private boolean isCollect = false;
     private boolean isTrack = false;
 
+    private int quitNum = 0;
+    private String userName = "admin";
+
     @Override
     protected void loadData() {
 
@@ -50,7 +54,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue);
+        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue_2);
 
 
         PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
@@ -61,7 +65,6 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
         UserInfoBean bean = PrefrenceUtil.getInstance(getActivity()).getBean(ConShare.USERINFO, UserInfoBean.class);
         if (bean != null) {
-            toolPresenter.getUserStatictics();
             toolPresenter.getUserInfoStatictics();
             toolPresenter.queryAuthor();
         }
@@ -183,6 +186,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
                 ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
                 return;
             }
+            PrefrenceUtil2.getInstance(getActivity()).setString(userName, String.valueOf(quitNum));
             ARouter.getInstance()
                     .build(ConRoute.ORDER.ORDER_MAIN)
                     .withString("statusCode", "70")
@@ -289,10 +293,16 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         if (bean == null)
             return;
 
+        quitNum = bean.getFailureCount();
         binding.tabOrder.setNumber(bean.getStayPayCount());
         binding.tabSend.setNumber(bean.getStayDeliverCount());
         binding.tabRecivice.setNumber(bean.getStayReceiveCount());
-        binding.tabQuit.setNumber(bean.getFailureCount());
+
+        String num = PrefrenceUtil2.getInstance(getActivity()).getString(userName, "");
+        if (num.equals(String.valueOf(quitNum)))
+            binding.tabQuit.setNumber(0);
+        else
+            binding.tabQuit.setNumber(quitNum);
     }
 
     @Override
@@ -328,6 +338,10 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
         if (bean == null)
             return;
         goLogin(true);
+
+        toolPresenter.getUserStatictics();
+
+        userName = bean.getUserName();
         binding.tvName.setText(String.valueOf(bean.getUserName()));
         binding.tvDepartment.setText(bean.getDepartmentOrganizationName());
 

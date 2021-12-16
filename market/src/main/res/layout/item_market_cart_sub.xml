@@ -24,22 +24,22 @@
 
             <RelativeLayout
                 android:id="@+id/ll_left"
-                android:layout_width="@dimen/dp_35"
+                android:layout_width="@dimen/dp_22"
                 android:layout_height="@dimen/dp_35"
                 android:layout_alignTop="@+id/ll_product"
                 android:layout_alignBottom="@+id/ll_product"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_5">
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_5">
 
                 <CheckBox
                     android:id="@+id/img_left"
-                    android:layout_width="@dimen/dp_35"
-                    android:layout_height="@dimen/dp_35"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
                     android:layout_centerVertical="true"
                     android:button="@null"
                     android:checked="@{product.isSel}"
-                    android:drawableLeft="@drawable/selector_cart_checked" />
+                    android:drawableStart="@drawable/selector_cart_checked" />
 
 
                 <!--                <ImageView-->
@@ -56,28 +56,36 @@
 
             <FrameLayout
                 android:id="@+id/ll_product"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:layout_toRightOf="@+id/ll_left">
+                android:layout_toEndOf="@+id/ll_left">
 
-                <com.rails.purchaseplatform.common.widget.RatioImage
-                    android:id="@+id/img_product"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="wrap_content"
-                    app:imgUrl="@{product.pictureUrl}" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/dp_90"
+                    app:cardElevation="0dp"
+                    android:layout_height="@dimen/dp_90"
+                    android:layout_marginStart="@dimen/padding"
+                    app:cardCornerRadius="@dimen/dp_8">
+
+                    <com.rails.purchaseplatform.common.widget.RatioImage
+                        android:id="@+id/img_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:imgUrl="@{product.pictureUrl}" />
+                </androidx.cardview.widget.CardView>
 
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_corner_trans"
-                    android:gravity="center"
-                    android:text="失效"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_14"
-                    android:visibility="@{product.canSel?View.GONE:View.VISIBLE}" />
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:background="@drawable/bg_corner_trans"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:text="失效"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="@dimen/font_size_14"-->
+                <!--                    android:visibility="@{product.canSel?View.GONE:View.VISIBLE}" />-->
 
             </FrameLayout>
 
@@ -90,12 +98,12 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="-3dp"
                 android:layout_marginRight="@dimen/dp_15"
-                android:layout_toRightOf="@+id/ll_product"
+                android:layout_toEndOf="@+id/ll_product"
                 android:lineSpacingMultiplier="1.1"
                 android:lines="2"
                 android:text="@{product.itemName}"
                 android:textColor="@color/font_black"
-                android:textSize="@dimen/font_size_13" />
+                android:textSize="@dimen/font_size_14" />
 
 
             <TextView
@@ -103,10 +111,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
-                android:layout_alignLeft="@+id/tv_title"
+                android:layout_alignStart="@+id/tv_title"
                 android:layout_marginTop="@dimen/dp_5"
-                android:layout_marginRight="@dimen/dp_15"
-                android:background="@color/bg_gray_light"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:background="@drawable/bg_cart_property"
                 android:gravity="center"
                 android:minWidth="@dimen/dp_100"
                 android:paddingLeft="@dimen/dp_5"
@@ -116,21 +124,46 @@
                 android:singleLine="true"
                 android:text="@{product.attributesName}"
                 android:textColor="@color/font_gray"
-                android:textSize="@dimen/font_size_12" />
+                android:textSize="@dimen/font_size_11" />
 
 
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/tv_price_big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_property"
-                android:layout_alignLeft="@+id/tv_title"
+                android:layout_alignStart="@+id/tv_title"
                 android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_15"
-                android:paddingTop="@dimen/dp_3"
-                android:paddingBottom="@dimen/dp_3"
+                android:gravity="bottom"
+                android:textStyle="bold"
+                android:visibility="@{product.canSel?View.VISIBLE:View.GONE}"
                 android:textColor="@color/font_red"
-                android:textSize="@dimen/font_size_13"
+                android:textSize="@dimen/font_size_16" />
+
+            <TextView
+                android:id="@+id/tv_invalid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_property"
+                android:layout_alignStart="@+id/tv_title"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="bottom"
+                android:text="商品已失效"
+                android:visibility="@{product.canSel?View.GONE:View.VISIBLE}"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14" />
+
+            <TextView
+                android:id="@+id/tv_price_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_property"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_toEndOf="@id/tv_price_big"
+                android:gravity="bottom"
+                android:visibility="@{product.canSel?View.VISIBLE:View.GONE}"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/font_size_12"
                 android:textStyle="bold" />
 
 
@@ -138,9 +171,9 @@
                 android:id="@+id/layout"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_25"
-                android:layout_alignTop="@+id/tv_price"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dp_15"
+                android:layout_alignTop="@+id/tv_price_big"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_15"
                 android:layout_marginBottom="@dimen/dp_15"
                 android:background="@drawable/bg_corner_border_gray"
                 android:visibility="@{product.canSel?View.VISIBLE:View.INVISIBLE}">
@@ -149,7 +182,7 @@
                     android:id="@+id/tv_reduce"
                     android:layout_width="@dimen/dp_25"
                     android:layout_height="match_parent"
-                    android:background="@color/bg_gray_light"
+                    android:background="@drawable/bg_cart_box"
                     android:enabled="@{product.canReduce}"
                     android:gravity="center"
                     android:text="-"
@@ -162,8 +195,8 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="center"
-                    android:minWidth="@dimen/dp_30"
                     android:maxLength="6"
+                    android:minWidth="@dimen/dp_30"
                     android:singleLine="true"
                     android:text="@{String.valueOf(product.num)}"
                     android:textColor="@color/font_black"
@@ -174,7 +207,7 @@
                     android:id="@+id/tv_add"
                     android:layout_width="@dimen/dp_25"
                     android:layout_height="match_parent"
-                    android:background="@color/bg_gray_light"
+                    android:background="@drawable/bg_cart_box"
                     android:enabled="@{product.canAdd}"
                     android:gravity="center"
                     android:text="+"
@@ -189,8 +222,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dp_15"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_15"
                 android:layout_marginBottom="@dimen/dp_15"
                 android:text="库存不足"
                 android:textColor="@color/font_red"
