@@ -135,9 +135,23 @@
                 android:layout_alignStart="@+id/tv_title"
                 android:layout_marginTop="@dimen/dp_10"
                 android:gravity="bottom"
+                android:textStyle="bold"
+                android:visibility="@{product.canSel?View.VISIBLE:View.GONE}"
                 android:textColor="@color/font_red"
-                android:textSize="@dimen/font_size_16"
-                android:textStyle="bold" />
+                android:textSize="@dimen/font_size_16" />
+
+            <TextView
+                android:id="@+id/tv_invalid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_property"
+                android:layout_alignStart="@+id/tv_title"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="bottom"
+                android:text="商品已失效"
+                android:visibility="@{product.canSel?View.GONE:View.VISIBLE}"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14" />
 
             <TextView
                 android:id="@+id/tv_price_small"
@@ -147,6 +161,7 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_toEndOf="@id/tv_price_big"
                 android:gravity="bottom"
+                android:visibility="@{product.canSel?View.VISIBLE:View.GONE}"
                 android:textColor="@color/font_red"
                 android:textSize="@dimen/font_size_12"
                 android:textStyle="bold" />
