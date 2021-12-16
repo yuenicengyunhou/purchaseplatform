@@ -284,9 +284,10 @@
             android:textSize="@dimen/font_size_10" />
 
         <LinearLayout
+            android:padding="@dimen/dp_tiny"
             android:id="@+id/layout"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_25"
+            android:layout_height="@dimen/dp_26"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/dp_16"
