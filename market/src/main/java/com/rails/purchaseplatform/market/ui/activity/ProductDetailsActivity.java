@@ -829,7 +829,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetCartCountSuccess(String count) {
-        binding.tvCartCount.setText(count);
+        setCartCount(count);
     }
 
     @Override
@@ -959,7 +959,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 this.getResources().getDrawable(R.drawable.ic_collection));
 
         // 设置购物车内商品数量
-        binding.tvCartCount.setText(mPageBean.getCartCount());
+        setCartCount(mPageBean.getCartCount());
 
         // 专用物资 不显示价格 只显示物资编码。后续的比价、查看历史价格、购物车能看到价格。
         if (mPageBean.getMaterialType().equals("1")) {
@@ -977,6 +977,27 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 流量统计
         statisticPresenter = new StatisticPresenterImpl(this, this);
         statisticPresenter.getVisitors("0", mPageBean.getShopId(), mPageBean.getSkuId());
+    }
+
+    /**
+     * 设置购物车内商品数量显示
+     * @param cartCount
+     */
+    private void setCartCount(String cartCount) {
+        // 转int。
+        int count = 0;
+        try {
+            count = Integer.parseInt(cartCount);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        // 是0不显示，不是0显示数量。
+        if (count == 0) {
+            binding.tvCartCount.setVisibility(View.INVISIBLE);
+        } else {
+            binding.tvCartCount.setText(String.valueOf(count));
+            binding.tvCartCount.setVisibility(View.VISIBLE);
+        }
     }
 
     private boolean isNonePrice(String price) {
