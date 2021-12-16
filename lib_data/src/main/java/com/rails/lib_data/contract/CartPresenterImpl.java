@@ -129,6 +129,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                     }
                     if (!invalidProducts.isEmpty()) {
                         invalidShop.setShopName("失效商品");
+                        invalidShop.isshow.set(false);
                         invalidShop.setHideCheckBox(true);
                         invalidShop.setSkuList(invalidProducts);
                         shopList.add(invalidShop);

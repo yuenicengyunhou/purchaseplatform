@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -89,12 +90,16 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
             binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_black));
             binding.tvPriceBig.setTextColor(mContext.getResources().getColor(R.color.font_red));
             binding.tvPriceBig.setTextSize(16);
+            TextPaint tp = binding.tvPriceBig.getPaint();
+            tp.setFakeBoldText(true);
             binding.tvPriceSmall.setVisibility(View.VISIBLE);
         } else {
             binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_gray_invalid));
             binding.tvPriceBig.setTextColor(mContext.getResources().getColor(R.color.font_black));
             binding.tvPriceBig.setText("商品已失效");
             binding.tvPriceBig.setTextSize(14);
+            TextPaint tp = binding.tvPriceBig.getPaint();
+            tp.setFakeBoldText(false);
             binding.tvPriceSmall.setVisibility(View.GONE);
         }
         binding.imgLeft.setOnClickListener(v -> {

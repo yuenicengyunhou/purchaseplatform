@@ -39,8 +39,7 @@
                     android:layout_centerVertical="true"
                     android:button="@null"
                     android:checked="@{product.isSel}"
-                    android:drawableStart="@drawable/selector_cart_checked"
-                    android:enabled="@{product.saleStatus==1?true:false}" />
+                    android:drawableStart="@drawable/selector_cart_checked" />
 
 
                 <!--                <ImageView-->
@@ -57,18 +56,25 @@
 
             <FrameLayout
                 android:id="@+id/ll_product"
-                android:layout_width="@dimen/dp_90"
-                android:layout_height="@dimen/dp_90"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:layout_toEndOf="@+id/ll_left">
 
-                <com.rails.purchaseplatform.common.widget.RatioImage
-                    android:id="@+id/img_product"
+                <androidx.cardview.widget.CardView
                     android:layout_width="@dimen/dp_90"
-                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    android:layout_height="@dimen/dp_90"
                     android:layout_marginStart="@dimen/padding"
-                    app:imgUrl="@{product.pictureUrl}" />
+                    app:cardCornerRadius="@dimen/dp_8">
+
+                    <com.rails.purchaseplatform.common.widget.RatioImage
+                        android:id="@+id/img_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:imgUrl="@{product.pictureUrl}" />
+                </androidx.cardview.widget.CardView>
 
 
                 <!--                <TextView-->
