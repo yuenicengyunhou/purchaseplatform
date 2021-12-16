@@ -26,6 +26,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
 
+        // 2021-12-16
         versionCode 10
         versionName "1.0.9"
 
