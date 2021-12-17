@@ -8,7 +8,6 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -236,6 +235,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void onResume() {
+//        if (!isFristLoad&&(null!=presenter)) {
+//            presenter.getCarts(true, mAddress == null ? "-1" : String.valueOf(mAddress.getId()));
+//        }
         super.onResume();
         if (null != addressPresenter) {
             addressPresenter.getAddress("20", "1", "", "", false);
@@ -465,8 +467,15 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     }
 
     private void setTotalPrice(String price) {
-        String bigPrice = price.substring(0, price.indexOf("."));
-        String smallPrice = price.substring(price.indexOf("."));
+        String bigPrice;
+        String smallPrice;
+        if (price.equals("0")) {
+            bigPrice = "0";
+            smallPrice = ".00";
+        } else {
+            bigPrice = price.substring(0, price.indexOf("."));
+            smallPrice = price.substring(price.indexOf("."));
+        }
         binding.tvTotalBig.setText(DecimalUtil.formatStrSize("¥ ", bigPrice, "", size));
         binding.tvTotalSmall.setText(smallPrice);
     }
@@ -640,28 +649,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 清空失效商品
      */
     private void cleanAllInvalidSkus(CartShopBean shopBean) {
-        List<CartShopProductBean> skuList = shopBean.getSkuList();
-        ArrayList<CartShopBean> mShopBeans = new ArrayList<>();
-        String tempShopId = "";
-        CartShopBean cartShopBean = null;
-        for (int i = 0; i < skuList.size(); i++) {
-            CartShopProductBean skuBean = skuList.get(i);
-            skuBean.isSel.set(true);
-            String shopId = skuBean.getShopId();
-            if (tempShopId.equals(shopId)) {
-                if ((null != cartShopBean) && (null != cartShopBean.getSkuList())) {
-                    cartShopBean.getSkuList().add(skuBean);
-                }
-            } else {
-                cartShopBean = new CartShopBean();
-                List<CartShopProductBean> newSkuList = new ArrayList<>();
-                newSkuList.add(skuBean);
-                cartShopBean.setShopId(shopId);
-                cartShopBean.setSkuList(newSkuList);
-                mShopBeans.add(cartShopBean);
-                tempShopId = shopId;
-            }
-        }
+        ArrayList<CartShopBean> mShopBeans = generateInvalidShops(shopBean, true);
         delAllParams(mShopBeans, false);
     }
 
