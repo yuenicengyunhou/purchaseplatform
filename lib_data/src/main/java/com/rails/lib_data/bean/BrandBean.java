@@ -52,6 +52,7 @@ public class BrandBean implements Serializable{
     private String shopId;
 
     private String shopLogUrl;
+    private String shopLogoUrl;
     private String shopName;
 
     public String getId() {
@@ -235,5 +236,13 @@ public class BrandBean implements Serializable{
 
     public void setShopName(String shopName) {
         this.shopName = shopName;
+    }
+
+    public String getShopLogoUrl() {
+        return shopLogoUrl;
+    }
+
+    public void setShopLogoUrl(String shopLogoUrl) {
+        this.shopLogoUrl = shopLogoUrl;
     }
 }
