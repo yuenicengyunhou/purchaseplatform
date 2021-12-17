@@ -107,7 +107,7 @@ public class BaseApp extends Application {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
 //                return BaseRetrofit.isDebug;
-                return false;
+                return true;
             }
         });
     }
