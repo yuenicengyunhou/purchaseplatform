@@ -87,39 +87,14 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
 
 
     protected void onClick() {
-        binding.rbMall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.viewpager.setCurrentItem(0);
-            }
-        });
-        binding.rbIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.viewpager.setCurrentItem(1);
-            }
-        });
+        binding.rbMall.setOnClickListener(v -> binding.viewpager.setCurrentItem(0));
+        binding.rbIndex.setOnClickListener(v -> binding.viewpager.setCurrentItem(1));
 
-        binding.rbZc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLogin(2);
-            }
-        });
-        binding.rbMine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLogin(3);
-            }
-        });
+        binding.rbZc.setOnClickListener(v -> goLogin(2));
+        binding.rbMine.setOnClickListener(v -> goLogin(3));
 
-        binding.goPlat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(MallTabFrm.this)
-                        .navigate(R.id.action_mall_to_plat);
-            }
-        });
+        binding.goPlat.setOnClickListener(v -> NavHostFragment.findNavController(MallTabFrm.this)
+                .navigate(R.id.action_mall_to_plat));
     }
 
     /**

@@ -181,9 +181,6 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical">
 
-        <View style="@style/line_thin_shade" />
-
-
         <TextView
             android:id="@+id/img_total"
             android:layout_width="wrap_content"
