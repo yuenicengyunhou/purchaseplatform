@@ -10,7 +10,7 @@ import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
+import com.rails.purchaseplatform.market.databinding.ItemMarketCartCopyBinding;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/3/10
  */
-public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartBinding> {
+public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartCopyBinding> {
 
 
     //控制全局
@@ -48,6 +48,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     private CartSubAdapter subAdapter;
     private int lastPosition;
     private CleanInvalidSkuListener cleanInvalidSkuListener;
+    private CartSubAdapter adapter;
 
     public void setCleanInvalidSkuListener(CleanInvalidSkuListener cleanInvalidSkuListener) {
         this.cleanInvalidSkuListener = cleanInvalidSkuListener;
@@ -58,19 +59,18 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     }
 
 
-
     @Override
     protected int getContentID() {
-        return R.layout.item_market_cart;
+        return R.layout.item_market_cart_copy;
     }
 
     @Override
-    protected void onBindItem(ItemMarketCartBinding binding, CartShopBean cartShopBean, int position) {
+    protected void onBindItem(ItemMarketCartCopyBinding binding, CartShopBean cartShopBean, int position) {
         binding.setCart(cartShopBean);
 
 
-        CartSubAdapter adapter = new CartSubAdapter(mContext);
-        binding.recycler.setAdapter(adapter);
+
+
         adapter.setMulPositionListener((MulPositionListener<CartShopProductBean>) (bean, len, params) -> {
             int size = adapter.getSize();
             if (params[0] == CartSubAdapter.CHECK) {
@@ -106,9 +106,9 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             }
 
         });
-
-        adapter.update((ArrayList) cartShopBean.getSkuList(), true);
-
+        if (null != adapter) {
+            adapter.update((ArrayList) cartShopBean.getSkuList(), true);
+        }
 
         binding.imgLeft.setOnClickListener(v -> {
             checkShopAll(cartShopBean, binding.imgLeft.isChecked());
@@ -121,10 +121,10 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 positionListener.onPosition(cartShopBean, SHOP);
         });
 
-        binding.rlPostage.setOnClickListener(v -> {
-            if (positionListener != null)
-                positionListener.onPosition(cartShopBean, SHOP);
-        });
+//        binding.tvToShop.setOnClickListener(v -> {
+//            if (positionListener != null)
+//                positionListener.onPosition(cartShopBean, SHOP);
+//        });
 
         binding.tvClearInvalids.setOnClickListener(v -> {
             if (cleanInvalidSkuListener != null) {
@@ -247,10 +247,13 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
 
     @Override
-    protected void onBindView(ItemMarketCartBinding binding) {
+    protected void onBindView(ItemMarketCartCopyBinding binding) {
         super.onBindView(binding);
         binding.recycler.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
+        adapter = new CartSubAdapter(mContext);
+//        binding.recycler.setItemAnimator(new MyDefaultItemAnimator());
+        binding.recycler.setAdapter(adapter);
     }
 
 
@@ -314,7 +317,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         return true;
     }
 
-    public interface CleanInvalidSkuListener{
+    public interface CleanInvalidSkuListener {
         void onClean(CartShopBean shopBean);
     }
 

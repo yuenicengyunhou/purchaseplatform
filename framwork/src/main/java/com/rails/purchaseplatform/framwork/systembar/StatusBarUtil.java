@@ -33,10 +33,8 @@ public class StatusBarUtil {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
-        if (color <= 0)
-            tintManager.setStatusBarTintResource(android.R.color.transparent);
-        else
-            tintManager.setStatusBarTintResource(color);
+//        tintManager.setStatusBarTintResource(color);
+        tintManager.setStatusBarTintColor(android.R.color.transparent);
     }
 
 

@@ -2,9 +2,7 @@ package com.rails.purchaseplatform.market.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -17,7 +15,7 @@ import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubBinding;
+import com.rails.purchaseplatform.market.databinding.ItemMarketCartSubCopyBinding;
 
 import java.text.MessageFormat;
 
@@ -25,7 +23,7 @@ import java.text.MessageFormat;
  * author： sk_comic@163.com
  * date: 2021/3/11
  */
-public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, ItemMarketCartSubBinding> {
+public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, ItemMarketCartSubCopyBinding> {
 
     //选中
     public static final int CHECK = 0;
@@ -49,11 +47,11 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
 
     @Override
     protected int getContentID() {
-        return R.layout.item_market_cart_sub;
+        return R.layout.item_market_cart_sub_copy;
     }
 
     @Override
-    protected void onBindItem(ItemMarketCartSubBinding binding, CartShopProductBean productBean, int position) {
+    protected void onBindItem(ItemMarketCartSubCopyBinding binding, CartShopProductBean productBean, int position) {
         binding.setProduct(productBean);
 
         String property = productBean.getAttributesName();

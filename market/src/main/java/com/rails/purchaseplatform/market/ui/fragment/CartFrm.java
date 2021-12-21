@@ -25,7 +25,6 @@ import com.rails.lib_data.bean.MarketIndexBean;
 import com.rails.lib_data.bean.ProductBean;
 import com.rails.lib_data.bean.ProductRecBean;
 import com.rails.lib_data.bean.UserInfoBean;
-import com.rails.lib_data.bean.forNetRequest.searchResult.byShop.ShopBean;
 import com.rails.lib_data.contract.AddressToolContract;
 import com.rails.lib_data.contract.AddressToolPresenterImpl;
 import com.rails.lib_data.contract.CartContract;
@@ -40,6 +39,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
+import com.rails.purchaseplatform.framwork.MyDefaultItemAnimator;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -133,6 +133,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         cartAdapter.setCleanInvalidSkuListener(shopBean -> cleanAllInvalidSkus(shopBean));
         binding.cartRecycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 0);
         binding.cartRecycler.addItemDecoration(new SpaceDecoration(getActivity(), 10, R.color.line_gray));
+        binding.cartRecycler.setItemAnimator(new MyDefaultItemAnimator());
         binding.cartRecycler.setAdapter(cartAdapter);
         binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null)
                 .setBtnGobuy("")
@@ -859,5 +860,14 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         });
 
         addressPop.show(getChildFragmentManager(), "address");
+    }
+
+    private void removeRecyclerAnimation(RecyclerView recyclerView) {
+//        recyclerView.getItemAnimator().setAddDuration(0);
+        recyclerView.getItemAnimator().setChangeDuration(5000);
+//        recyclerView.getItemAnimator().setMoveDuration(0);
+//        recyclerView.getItemAnimator().setRemoveDuration(0);
+//        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+
     }
 }
