@@ -169,7 +169,7 @@
                 android:id="@+id/tv_add"
                 android:layout_width="@dimen/dp_25"
                 android:layout_height="@dimen/dp_25"
-                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginTop="@dimen/paddingL"
                 android:background="@drawable/bg_cart_box"
                 android:enabled="@{product.canAdd}"
                 android:gravity="center"
