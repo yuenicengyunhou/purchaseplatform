@@ -44,11 +44,12 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     public static final int SUB_COLLECT = 7;
 
     //删除所有失效商品
-    public static final int CLEAN_INVALID_SKUS = 8;
+//    public static final int CLEAN_INVALID_SKUS = 8;
     private CartSubAdapter subAdapter;
     private int lastPosition;
     private CleanInvalidSkuListener cleanInvalidSkuListener;
-    private CartSubAdapter adapter;
+//    private CartSubAdapter adapter;
+//    private ArrayList<CartSubAdapter> adapters;
 
     public void setCleanInvalidSkuListener(CleanInvalidSkuListener cleanInvalidSkuListener) {
         this.cleanInvalidSkuListener = cleanInvalidSkuListener;
@@ -56,6 +57,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
     public CartAdapter(Context context) {
         super(context);
+//        adapters = new ArrayList<>();
     }
 
 
@@ -67,10 +69,10 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     @Override
     protected void onBindItem(ItemMarketCartCopyBinding binding, CartShopBean cartShopBean, int position) {
         binding.setCart(cartShopBean);
-
-
-
-
+        CartSubAdapter adapter = new CartSubAdapter(mContext);
+        binding.recycler.setAdapter(adapter);
+//        CartSubAdapter adapter = (CartSubAdapter) binding.recycler.getTag();
+//        CartSubAdapter adapter = adapters.get(position);
         adapter.setMulPositionListener((MulPositionListener<CartShopProductBean>) (bean, len, params) -> {
             int size = adapter.getSize();
             if (params[0] == CartSubAdapter.CHECK) {
@@ -106,9 +108,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             }
 
         });
-        if (null != adapter) {
-            adapter.update((ArrayList) cartShopBean.getSkuList(), true);
-        }
+        adapter.update((ArrayList) cartShopBean.getSkuList(), true);
 
         binding.imgLeft.setOnClickListener(v -> {
             checkShopAll(cartShopBean, binding.imgLeft.isChecked());
@@ -120,11 +120,6 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             if (positionListener != null)
                 positionListener.onPosition(cartShopBean, SHOP);
         });
-
-//        binding.tvToShop.setOnClickListener(v -> {
-//            if (positionListener != null)
-//                positionListener.onPosition(cartShopBean, SHOP);
-//        });
 
         binding.tvClearInvalids.setOnClickListener(v -> {
             if (cleanInvalidSkuListener != null) {
@@ -251,9 +246,11 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
         super.onBindView(binding);
         binding.recycler.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
-        adapter = new CartSubAdapter(mContext);
+//        CartSubAdapter adapter = new CartSubAdapter(mContext);
 //        binding.recycler.setItemAnimator(new MyDefaultItemAnimator());
-        binding.recycler.setAdapter(adapter);
+//        binding.recycler.setAdapter(adapter);
+//        binding.recycler.setTag(adapter);
+//        adapters.add(adapter);
     }
 
 
