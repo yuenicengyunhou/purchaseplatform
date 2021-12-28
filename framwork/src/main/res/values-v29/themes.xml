@@ -1,5 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
     <style name="Theme.rails" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@android:color/transparent</item>
@@ -11,23 +12,6 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:textCursorDrawable">@drawable/cursor</item>
         <item name="android:windowAnimationStyle">@style/activityAnim</item>
-    </style>
-
-
-    <style name="title_bar" parent="Widget.AppCompat.ActionBar">
-        <item name="contentInsetEnd">0dp</item>
-        <item name="contentInsetLeft">0dp</item>
-        <item name="contentInsetRight">0dp</item>
-        <item name="contentInsetStart">0dp</item>
-    </style>
-
-
-    <style name="SpalashTheme" parent="android:Theme">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="activityTheme" parent="Theme.rails">
-        <item name="android:windowAnimationStyle">@style/activityAnim</item>
+        <item name="android:forceDarkAllowed">false</item>
     </style>
 </resources>
