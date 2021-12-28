@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,10 +17,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:paddingLeft="@dimen/common_border"
-            android:paddingRight="@dimen/dp_10"
+            android:paddingStart="@dimen/common_border"
+            android:paddingEnd="@dimen/dp_10"
             android:src="@drawable/svg_back_black"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
 
 
         <TextView
@@ -71,12 +73,12 @@
             android:id="@+id/tv_manager"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:button="@null"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/common_border"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/common_border"
             android:text="@string/market_cart_manager"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_14" />

@@ -302,7 +302,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:overScrollMode="never"
-
                         android:paddingStart="@dimen/dp_8"
                         android:paddingEnd="@dimen/dp_8"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

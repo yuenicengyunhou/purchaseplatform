@@ -219,6 +219,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     /**
      * 请求推荐商品列表
+     * 刷新购物车商品
      * <p>
      * param isDialog
      * param page
