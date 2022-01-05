@@ -18,6 +18,7 @@ import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.framwork.utils.file.FileCacheUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ProductHotAdapter;
 import com.rails.purchaseplatform.market.adapter.RankBrandAdapter;
@@ -88,6 +89,10 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
                     }
                 }
             });
+            ArrayList<BrandBean> brandBeans = (ArrayList<BrandBean>) FileCacheUtil.getInstance(getActivity()).readObject("brand");
+            if (brandBeans != null)
+                brandAdapter.update(brandBeans, true);
+
         } else {
             productAdapter = new RankProductAdapter(getActivity());
             binding.cartRecycler.setAdapter(productAdapter);

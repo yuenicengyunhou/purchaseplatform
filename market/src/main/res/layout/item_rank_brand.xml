@@ -65,7 +65,7 @@
                 app:borderWidth="@dimen/dp_1"
                 app:displayBorder="true"
                 app:displayType="round_rect"
-                app:imgByte="@{brand.brandLogoUrl}" />
+                app:imgUrl="@{brand.pictureAddress}" />
 
 
             <com.rails.purchaseplatform.common.widget.RatioLinear
@@ -74,7 +74,7 @@
                 android:background="@drawable/bg_corner_border_gray_5"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="@{TextUtils.isEmpty(brand.brandLogoUrl)?View.VISIBLE:View.GONE}">
+                android:visibility="@{TextUtils.isEmpty(brand.pictureAddress)?View.VISIBLE:View.GONE}">
 
 
                 <TextView

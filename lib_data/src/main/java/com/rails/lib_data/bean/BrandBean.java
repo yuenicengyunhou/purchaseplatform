@@ -54,6 +54,7 @@ public class BrandBean implements Serializable{
     private String shopLogUrl;
     private String shopLogoUrl;
     private String shopName;
+    private String pictureAddress;
 
     public String getId() {
         return id;
@@ -244,5 +245,13 @@ public class BrandBean implements Serializable{
 
     public void setShopLogoUrl(String shopLogoUrl) {
         this.shopLogoUrl = shopLogoUrl;
+    }
+
+    public String getPictureAddress() {
+        return pictureAddress;
+    }
+
+    public void setPictureAddress(String pictureAddress) {
+        this.pictureAddress = pictureAddress;
     }
 }
