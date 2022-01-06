@@ -36,6 +36,7 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
     //缓存首页数据的文件
     private final String fileName = "mallInfo";
     private final String floorName = "floor";
+    private final String brandName = "brand";
 
     public MarKetIndexPresenterImpl(Activity mContext, MarketIndexContract.MarketIndexView marketIndexView) {
         super(mContext, marketIndexView);
@@ -132,6 +133,7 @@ public class MarKetIndexPresenterImpl extends BasePresenter<MarketIndexContract.
                         if (listBeen != null) {
                             boolean isClear = listBeen.getPageNum() == 1;
                             boolean hasMore = listBeen.getPageNum() < listBeen.getTotalPageCount();
+                            FileCacheUtil.getInstance(mContext).writeObject(listBeen.getList(), brandName);
                             baseView.getBrands(listBeen.getList(), hasMore, isClear);
                         } else {
                             baseView.getBrands(new ArrayList<>(), false, true);
