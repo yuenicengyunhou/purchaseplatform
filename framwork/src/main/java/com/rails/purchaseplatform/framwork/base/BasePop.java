@@ -1,5 +1,6 @@
 package com.rails.purchaseplatform.framwork.base;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -135,6 +136,12 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
 
         DisplayMetrics dm = new DisplayMetrics();
         Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        WindowManager windowManager = (WindowManager) Objects
+                .requireNonNull(getContext())
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics disMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(disMetrics);
 
         WindowManager.LayoutParams params = win.getAttributes();
         params.dimAmount = alpha == 0 ? DEFAULT_ALPHA : alpha;
