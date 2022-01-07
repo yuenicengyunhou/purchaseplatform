@@ -71,7 +71,7 @@ public class SearchResultFilterPop extends BasePop<PopSearchResultFilterBinding>
             //设置dialog高度
             Point pSize = new Point();
             display.getSize(pSize);
-            lp.height = (int) (pSize.y * 0.66);
+            lp.height = (int) (pSize.y * 0.8);
             window.setAttributes(lp);
         }
         setCancelable(true);

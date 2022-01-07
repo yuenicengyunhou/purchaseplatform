@@ -104,11 +104,11 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
                     @Override
                     protected void onSuccess(SearchDataByItemBean response) {
+                        baseView.dismissDialog();
                         ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
                         ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
                         boolean isClear = pageNum <= 1;
                         baseView.onQueryItemListByCidSuccess(itemAttributes, searchFilterBeans, false, isClear);
-                        baseView.dismissDialog();
                     }
                 });
     }
