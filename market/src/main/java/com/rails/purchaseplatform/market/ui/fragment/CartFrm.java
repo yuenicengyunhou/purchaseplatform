@@ -255,7 +255,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         } else {
             binding.empty.setVisibility(View.GONE);
         }
-        binding.empty.setBtnGobuy("去采购");
+        if (!binding.empty.isBtnEmptyVisible()) {
+            binding.empty.setBtnGobuy("去采购");
+        }
         cartAdapter.update(shopBeans, true);
         setDefTotal(cartBean);
 //        binding.cartRecycler.setEmptyView(binding.empty);

@@ -133,15 +133,15 @@ public class EmptyView extends LinearLayout {
         return this;
     }
 
+    public boolean isBtnEmptyVisible() {
+        return binding.btnEmpty.getVisibility() == View.VISIBLE;
+    }
+
     public EmptyView setBtnGobuy(String str) {
         if (TextUtils.isEmpty(str))
             binding.btnGobuy.setVisibility(View.GONE);
         else {
-            if (binding.btnEmpty.getVisibility() == View.GONE) {
-                binding.btnGobuy.setVisibility(VISIBLE);
-            } else {
-                binding.btnGobuy.setVisibility(View.VISIBLE);
-            }
+            binding.btnGobuy.setVisibility(VISIBLE);
             binding.btnGobuy.setText(str);
         }
         return this;
