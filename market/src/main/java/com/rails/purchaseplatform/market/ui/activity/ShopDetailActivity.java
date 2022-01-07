@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,6 +21,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ShopAdapter;
@@ -276,7 +276,8 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
                 presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
             });
             mPop.setGravity(Gravity.BOTTOM);
-            mPop.setType(BasePop.MATCH_WRAP);
+            mPop.setType(BasePop.MATCH_CUSTOM);
+            mPop.setY(ScreenSizeUtil.getScreenHeight(this) * 4 / 5);
         }
         mPop.show(getSupportFragmentManager(), "property");
     }

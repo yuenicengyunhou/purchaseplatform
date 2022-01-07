@@ -9,6 +9,7 @@ import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
 import com.rails.purchaseplatform.market.adapter.SearchItemFilterAdapter;
 import com.rails.purchaseplatform.market.adapter.ShopFilterAdapter;
 import com.rails.purchaseplatform.market.databinding.PopMarketShopFilterBinding;
+import com.rails.purchaseplatform.market.databinding.PopMarketShopFilterCopyBinding;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * author： sk_comic@163.com
  * date: 2021/3/29
  */
-public class FilterShopPop extends BasePop<PopMarketShopFilterBinding> {
+public class FilterShopPop extends BasePop<PopMarketShopFilterCopyBinding> {
 
     //    final private String TAG = PropertyPop.class.getSimpleName();
     public static final int

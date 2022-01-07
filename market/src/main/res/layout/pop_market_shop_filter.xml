@@ -37,7 +37,8 @@
     <com.rails.purchaseplatform.common.widget.MaxHeightScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:overScrollMode="never">
 
         <FrameLayout
@@ -116,8 +117,6 @@
         android:id="@+id/ll_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll"
-        android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_25"
         android:layout_marginBottom="@dimen/dp_25">
