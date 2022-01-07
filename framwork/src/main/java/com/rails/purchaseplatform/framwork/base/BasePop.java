@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +11,21 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.rails.purchaseplatform.framwork.R;
-import com.rails.purchaseplatform.framwork.utils.AnimationUtil;
-import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewbinding.ViewBinding;
+
+import com.rails.purchaseplatform.framwork.R;
+import com.rails.purchaseplatform.framwork.utils.AnimationUtil;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Objects;
 
 /**
  * author wangchao
@@ -50,25 +51,21 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
     public static final int MATCH_CUSTOM = 4;
 
 
-    public BasePop setType(int type) {
+    public void setType(int type) {
         this.type = type;
-        return this;
     }
 
-    public BasePop setGravity(int gravity) {
+    public void setGravity(int gravity) {
         this.gravity = gravity;
-        return this;
     }
 
-    public BasePop setAlpha(int alpha) {
+    public void setAlpha(int alpha) {
         this.alpha = alpha;
-        return this;
     }
 
 
-    public BasePop setY(int y) {
+    public void setY(int y) {
         this.y = y;
-        return this;
     }
 
     @Override
@@ -77,8 +74,9 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.MyDialog);
     }
 
+    @SuppressWarnings("unchecked") // 不检查类型转换【try块的两个强转】
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Type type = this.getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
@@ -86,10 +84,12 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
                 Class<T> cls = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
                 Method method = cls.getMethod("inflate", LayoutInflater.class, ViewGroup.class, Boolean.TYPE);
                 binding = (T) method.invoke(null, inflater, container, false);
-            } catch (Exception e) {
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
                 e.getCause();
             }
         }
+        assert binding != null;
         return binding.getRoot();
 
     }
@@ -105,7 +105,7 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        Log.d(TAG, "onViewCreated");
         view.setClickable(true);
@@ -123,18 +123,18 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
 
 
     /**
-     * @param type
-     * @param height
+     * @param type   类型
+     * @param height 高度
      */
     private void setScreenHeight(int type, int height) {
         //设置宽度铺满全屏
-        Window win = getDialog().getWindow();
+        Window win = Objects.requireNonNull(getDialog()).getWindow();
         // 一定要设置Background，如果不设置，window属性设置无效
         win.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
         win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
 
         DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         WindowManager.LayoutParams params = win.getAttributes();
         params.dimAmount = alpha == 0 ? DEFAULT_ALPHA : alpha;
@@ -158,7 +158,7 @@ public abstract class BasePop<T extends ViewBinding> extends DialogFragment {
         }
 
         if (gravity == Gravity.TOP) {
-            params.y = ScreenSizeUtil.dp2px(getContext(), y);
+            params.y = ScreenSizeUtil.dp2px(Objects.requireNonNull(getContext()), y);
         }
         win.setAttributes(params);
     }
