@@ -21,7 +21,6 @@ import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByProdu
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 /**
@@ -152,7 +151,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         bundle.putString("itemId", itemId);
         bundle.putString("skuId", skuId);
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
-        Objects.requireNonNull(getActivity()).finish();
+//        Objects.requireNonNull(getActivity()).finish();
     }
 
     @Override
@@ -160,6 +159,11 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         mAdapter.update(results, isClear);
         binding.smart.finishLoadMore();
         if (!filtered) mSearchFilterList = filterResults;
+    }
+
+    @Override
+    public void onSearchIdFailed() {
+        mAdapter.update(new ArrayList<>(), true);
     }
 
     @Override

@@ -84,6 +84,8 @@ public class ExceptionEngine {
             // Expected a com.google.gson.JsonObject but was com.google.gson.JsonNull
             else if (e.getMessage().contains("but was com.google.gson.JsonNull")) {
                 errorBean.setMsg("but was com.google.gson.JsonNull");
+            } else if (e.getMessage().contains("End of input at line 1 column 1 path $")) {
+                errorBean.setMsg("End of input at line 1 column 1 path $");
             }
         } else if (e instanceof ConnectException || e instanceof NoRouteToHostException || e instanceof UnknownHostException) {//连接网络错误
             errorBean = new ErrorBean(e, CONNECT_ERROR);
