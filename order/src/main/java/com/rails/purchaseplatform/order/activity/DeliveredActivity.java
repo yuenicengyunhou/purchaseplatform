@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,6 +82,9 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
                 currentIndex = -1;
             } else if (msg.what == DOWNLOADING) {
                 adapter.notifyDownloadState(currentIndex, DOWNLOADING, msg.arg1);
+            } else if (msg.what == 57) {
+                Toast.makeText(activity, "下载文件失败", Toast.LENGTH_SHORT).show();
+                adapter.notifyDownloadState(currentIndex,STATE_DEFAULT,0);
             }
         }
     }
@@ -169,6 +173,7 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
      * positionPlus=index+1
      */
     public void start_single(String url, int positionPlus, int position, int state) {
+        Log.e("WQ", "downloadurl---" + url);
         String extension = url.substring(url.lastIndexOf("."));
         String mFilePath = mSinglePath + orderNo + "_" + positionPlus + extension;
         if (state == 2) {
@@ -235,6 +240,9 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
                     @Override
                     protected void error(BaseDownloadTask task, Throwable e) {
                         mDownloadState = STATE_DEFAULT;
+                        Message message = new Message();
+                        message.what=57;
+                        uiHandler.sendMessage(message);
                         Log.d("feifei", "error taskId:" + task.getId() + ",e:" + e.getLocalizedMessage());
                     }
 

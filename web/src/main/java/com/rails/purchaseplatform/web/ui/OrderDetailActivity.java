@@ -25,7 +25,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
  * 订单
- *
+ * <p>
  * author： sk_comic@163.com
  * date: 2021/3/23
  */
@@ -87,6 +87,7 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         super.onResume();
         setDarkStatusBar(R.color.bg_blue);
     }
+
     protected void setDarkStatusBar(int color) {
         int statusBarColor;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -161,6 +162,18 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         if (null != pop) {
             pop.dismiss();
             pop = null;
+        }
+    }
+
+    /**
+     * 系统状态栏
+     */
+    @Override
+    protected void newLink(String url) {
+        if (url.contains("/parcels")) {
+            setDarkStatusBar(R.color.white);
+        } else if (url.contains("/orderDetails")) {
+            setDarkStatusBar(R.color.bg_blue);
         }
     }
 }
