@@ -2,6 +2,7 @@ package com.rails.purchaseplatform.address.ui;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.rails.purchaseplatform.address.databinding.ActivityAddressBinding;
 import com.rails.purchaseplatform.address.databinding.PopAddressSearchBinding;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.utils.StatusBarCompat;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
@@ -34,6 +36,7 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
 import java.util.ArrayList;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -128,6 +131,22 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDarkStatusBar(R.color.white);
+    }
+    protected void setDarkStatusBar(int color) {
+        int statusBarColor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            statusBarColor = ContextCompat.getColor(this, color);
+            View decor = getWindow().getDecorView();
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            statusBarColor = ContextCompat.getColor(this, color);
+        }
+        StatusBarCompat.compat(this, statusBarColor);
+    }
 
     /**
      * 刷新请求
