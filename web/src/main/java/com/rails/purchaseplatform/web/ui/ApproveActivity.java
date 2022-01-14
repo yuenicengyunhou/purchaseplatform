@@ -1,9 +1,13 @@
 package com.rails.purchaseplatform.web.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.webkit.JavascriptInterface;
+
+import androidx.core.content.ContextCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -11,6 +15,7 @@ import com.rails.lib_data.ConShare;
 import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
+import com.rails.purchaseplatform.common.utils.StatusBarCompat;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
@@ -70,6 +75,17 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
     protected void onResume() {
         super.onResume();
         initWeb(binding.web, this);
+    }
+    protected void setDarkStatusBar(int color) {
+        int statusBarColor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            statusBarColor = ContextCompat.getColor(this, color);
+            View decor = getWindow().getDecorView();
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            statusBarColor = ContextCompat.getColor(this, color);
+        }
+        StatusBarCompat.compat(this, statusBarColor);
     }
 
     @JavascriptInterface
@@ -136,4 +152,21 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
+//    @Override
+//    protected void isApprovalList(boolean isList) {
+//        if (isList) {
+//
+//        } else {
+//
+//        }
+//    }
+
+    @Override
+    protected void newLink(String url) {
+        if (url.contains("/purOrderDetails")) {
+            setDarkStatusBar(R.color.bg_blue);
+        } else if (url.contains("/approvalList")) {
+            setDarkStatusBar(R.color.white);
+        }
+    }
 }
