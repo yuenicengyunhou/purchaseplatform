@@ -70,6 +70,8 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 商品详情页
@@ -734,42 +736,74 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void showDescribePictures() {
         String longUrl = mPageBean.getDetailsPictureUrl();
         if (!TextUtils.isEmpty(longUrl) && longUrl.contains(".jpg")) {
-            mDescribeUrlList.clear();
-            String[] urls = longUrl.split("\\.jpg");
-            for (String string : urls) {
-                if (string.contains("//")) {
-                    String[] realUrls = string.split("//");
-                    ItemPicture picture = new ItemPicture();
-                    mDescribeUrlList.add("https://" + realUrls[1] + ".jpg");
-                    picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
-                    mDescribePictureList.add(picture);
+            extracted(longUrl);
+        }
+    }
+
+    private void extracted(String longUrl) {
+        mDescribeUrlList.clear();
+
+        // 新方案2
+        String strginx = filterHtml2(longUrl);
+        String[] stringsx = strginx.split("/>");
+        for (String string : stringsx) {
+            ItemPicture picture = new ItemPicture();
+            String subStrrrr = matchHtmlAttr(string, "img", "src");
+            mDescribeUrlList.add("https:" + subStrrrr);
+            picture.setPictureUrl("https:" + subStrrrr);
+            mDescribePictureList.add(picture);
+//            Log.e(TAG, " ************** " + subStrrrr);
+        }
+
+//        // 新方案（可用）
+//        String sub1 = "<p><img src=\"";
+//        String sub2 = "\" /><img src=\"";
+//        String sub6 = "\" /></p>";
+//        longUrl = longUrl.replace(sub1, "");
+//        longUrl = longUrl.replace(sub6, "");
+//        String[] urls1 = longUrl.split(sub2);
+//        for (String url : urls1) {
+//            ItemPicture picture = new ItemPicture();
+//            mDescribeUrlList.add("https:" + url);
+//            picture.setPictureUrl("https:" + url);
+//            mDescribePictureList.add(picture);
+//        }
+
+//        // 旧方案
+//        String[] urls = longUrl.split("\\.jpg");
+//        for (String string : urls) {
+//            if (string.contains("//")) {
+//                String[] realUrls = string.split("//");
+//                ItemPicture picture = new ItemPicture();
+//                mDescribeUrlList.add("https://" + realUrls[1] + ".jpg");
+//                picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
+//                mDescribePictureList.add(picture);
+//            }
+//        }
+
+        mThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < mDescribePictureList.size(); i++) {
+                        Bitmap bitmap = Glide.with(ProductDetailsActivity.this)
+                                .asBitmap()
+                                .load(mDescribePictureList.get(i).getPictureUrl())
+                                .submit(960, 960)
+                                .get();
+                        mDescribePictureList.get(i).setBitmap(bitmap);
+                    }
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    Message msg = Message.obtain();
+                    msg.what = LOAD_BITMAP;
+                    mHandler.sendMessage(msg);
                 }
             }
-
-            mThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 0; i < mDescribePictureList.size(); i++) {
-                            Bitmap bitmap = Glide.with(ProductDetailsActivity.this)
-                                    .asBitmap()
-                                    .load(mDescribePictureList.get(i).getPictureUrl())
-                                    .submit(960, 960)
-                                    .get();
-                            mDescribePictureList.get(i).setBitmap(bitmap);
-                        }
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
-                    } finally {
-                        Message msg = Message.obtain();
-                        msg.what = LOAD_BITMAP;
-                        mHandler.sendMessage(msg);
-                    }
-                }
-            });
-            mThread.setDaemon(true);
-            mThread.start();
-        }
+        });
+        mThread.setDaemon(true);
+        mThread.start();
     }
 
 
@@ -981,6 +1015,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     /**
      * 设置购物车内商品数量显示
+     *
      * @param cartCount
      */
     private void setCartCount(String cartCount) {
@@ -1012,5 +1047,82 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onHaveNoSkuId() {
         ProductDetailsActivity.this.finish();
+    }
+
+    /**
+     * 获取标签中的内容
+     *
+     * @param source  内容
+     * @param element 标签
+     * @param attr    属性Html
+     * @return
+     */
+    public String matchHtmlContent(String source, String element, String attr) {
+        String reg = "<" + element + "[^<>]*?\\s" + attr + "=['\"]?(.*?)['\"]?\\s.*?>([^<]*)</" + element + ">";
+        Matcher m = Pattern.compile(reg).matcher(source);
+        while (m.find()) {
+            String r = m.group(2);
+            return r;
+        }
+        return "";
+    }
+
+    /**
+     * 获取字符串中html标签属性
+     *
+     * @param source  内容
+     * @param element 标签
+     * @param attr    属性Html
+     * @return
+     */
+    public String matchHtmlAttr(String source, String element, String attr) {
+        String reg = "<" + element + "[^<>]*?\\s" + attr + "=['\"]?(.*?)['\"]?\\s.*?";
+        Matcher m = Pattern.compile(reg).matcher(source);
+        while (m.find()) {
+            String r = m.group(1);
+            return r;
+        }
+        return "";
+    }
+
+    /**
+     * 基本功能：过滤所有以"<"开头以">"结尾的标签
+     *
+     * @param str
+     * @return String
+     */
+    public String filterHtml(String str) {
+        String regxpForHtml = "<([^>]*)>";
+        Pattern pattern = Pattern.compile(regxpForHtml);
+        Matcher matcher = pattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        boolean result1 = matcher.find();
+        while (result1) {
+            matcher.appendReplacement(sb, "");
+            result1 = matcher.find();
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+
+    /**
+     * 基本功能：过滤所有以"<"开头以">"结尾的标签
+     *
+     * @param str
+     * @return String
+     */
+    public String filterHtml2(String str) {
+        String regxpForHtml = "<([^img]*)>";
+        Pattern pattern = Pattern.compile(regxpForHtml);
+        Matcher matcher = pattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        boolean result1 = matcher.find();
+        while (result1) {
+            matcher.appendReplacement(sb, "");
+            result1 = matcher.find();
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
     }
 }

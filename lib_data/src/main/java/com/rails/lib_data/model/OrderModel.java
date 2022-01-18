@@ -177,7 +177,7 @@ public class OrderModel {
             String filePath = mSinglePath + orderNo + "_" + (i + 1) + extension;
             deliveredFile.setProgress(0);
             deliveredFile.setDownloadState(checkFileDownloadState(filePath));//判断文件是否已经下载
-            if (s.contains("https")) {
+            if (s.contains("http")) {
                 deliveredFile.setUrl(s);
             } else {
                 deliveredFile.setUrl(MessageFormat.format("https:{0}", s));

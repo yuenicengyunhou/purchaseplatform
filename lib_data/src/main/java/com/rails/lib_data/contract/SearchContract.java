@@ -39,6 +39,12 @@ public interface SearchContract {
          * @param isClear
          */
         void onQueryItemListByCidSuccess(ArrayList<ItemAttribute> results, ArrayList<SearchFilterBean> filterResults, boolean hasMore, boolean isClear);
+
+
+        /**
+         * 搜索SkuId或ItemId失败并抛出异常时回调此方法。
+         */
+        void onSearchIdFailed();
     }
 
 

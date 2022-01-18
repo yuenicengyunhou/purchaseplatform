@@ -579,7 +579,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         }
 
         binding.empty.setBtnEmpty("");
-        binding.empty.setBtnGobuy("去采购");
+        if (!binding.empty.isBtnEmptyVisible()) {
+            binding.empty.setBtnGobuy("去采购");
+        }
         if (mAddress != null) {
 //            cartAdapter.update(new ArrayList(), true);
 //            return;
@@ -827,6 +829,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 cartAdapter.update(new ArrayList(), true);
                 binding.empty.setVisibility(View.VISIBLE);
                 binding.empty.setBtnEmpty("立即登录");
+                binding.empty.setBtnGobuy("");
                 binding.bottom.setVisibility(View.GONE);
                 binding.tvManager.setVisibility(View.INVISIBLE);
                 binding.tvAddress.setVisibility(View.INVISIBLE);
