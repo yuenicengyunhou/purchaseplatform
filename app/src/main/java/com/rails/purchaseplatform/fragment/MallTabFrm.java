@@ -14,6 +14,7 @@ import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
 import com.rails.purchaseplatform.market.ui.fragment.CategoryFrm;
 import com.rails.purchaseplatform.market.ui.fragment.MallFrm;
+import com.rails.purchaseplatform.market.ui.fragment.RankFragment;
 import com.rails.purchaseplatform.user.ui.fragment.MineMallFrm;
 
 import java.util.ArrayList;
@@ -35,13 +36,18 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
     public MallTabFrm(){}
 
 
-    private MallTabFrm(int position) {
-        this.position = position;
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        position = extras.getInt("position");
     }
 
-
     public static MallTabFrm newInstance(int position) {
-        return new MallTabFrm(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("position",position);
+        MallTabFrm mallTabFrm = new MallTabFrm();
+        mallTabFrm.setArguments(bundle);
+        return mallTabFrm;
     }
 
 

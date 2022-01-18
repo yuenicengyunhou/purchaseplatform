@@ -98,21 +98,27 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     private int size;
 
-    public CartFrm() {
-    }
-
-    private CartFrm(int type) {
-        this.type = type;
-    }
+    public CartFrm(){}
 
 
     public static CartFrm newInstance(int type) {
-        return new CartFrm(type);
+        Bundle bundle = new Bundle();
+        bundle.putInt("type",type);
+        CartFrm cartFrm = new CartFrm();
+        cartFrm.setArguments(bundle);
+        return cartFrm;
     }
 
 
     @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        type = getArguments().getInt("type");
+    }
+
+    @Override
     protected void loadData() {
+
         if (type == 1) {
             binding.btnBack.setVisibility(View.VISIBLE);
         }

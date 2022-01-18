@@ -57,12 +57,18 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
 
     }
 
-    private RankFragment(String categoryId) {
-        this.categoryId = categoryId;
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        categoryId = extras.getString("categoryId");
     }
 
     public static RankFragment getInstance(String categoryId) {
-        return new RankFragment(categoryId);
+        Bundle bundle = new Bundle();
+        bundle.putString("categoryId",categoryId);
+        RankFragment rankFragment = new RankFragment();
+        rankFragment.setArguments(bundle);
+        return rankFragment;
 
     }
 
