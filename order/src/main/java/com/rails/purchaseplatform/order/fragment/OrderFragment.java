@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.order.fragment;
 
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.rails.lib_data.ConShare;
@@ -25,6 +26,7 @@ import com.rails.purchaseplatform.order.R;
 import com.rails.purchaseplatform.order.adapter.order.OrderParentAdapter;
 import com.rails.purchaseplatform.order.databinding.FragmentOrderBinding;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,22 +44,40 @@ public class OrderFragment extends LazyFragment<FragmentOrderBinding> implements
     private OrderContract.OrderPresenter presenter;
     private UserToolContract.UserToolPresenter toolPresenter;
 
-    private final int status;// 区分我的/全部
+    private int status;// 区分我的/全部
 //    private String statusCode;//区分采购单状态
 
     private int searchType = 0;
     private String searchContent = "";
     private OrderFilterBean filterBean;
 
-    private OrderFragment(int status, String statusCode, OrderFilterBean bean) {
-        this.status = status;
+//    private OrderFragment(int status, String statusCode, OrderFilterBean bean) {
+//        this.status = status;
+//        if (null != statusCode) {
+//            this.filterBean = bean;
+//        }
+//    }
+
+
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        this.status = extras.getInt("status");
+        String statusCode = extras.getString("statusCode");
+        OrderFilterBean bean = (OrderFilterBean) extras.getSerializable("filterBean");
         if (null != statusCode) {
             this.filterBean = bean;
         }
     }
 
     public static OrderFragment getInstance(int status, String statusCode, OrderFilterBean bean) {
-        return new OrderFragment(status, statusCode, bean);
+        Bundle bundle = new Bundle();
+        bundle.putInt("status", status);
+        bundle.putString("statusCode", statusCode);
+        bundle.putSerializable("filterBean", bean);
+        OrderFragment orderFragment = new OrderFragment();
+        orderFragment.setArguments(bundle);
+        return orderFragment;
     }
 
     @Override
