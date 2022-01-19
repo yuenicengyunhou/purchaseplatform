@@ -31,23 +31,30 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
     @Override
     public void onError(ErrorBean errorBean) {
         String errorCode = errorBean.getCode();
-        switch (errorCode) {
-            case ERROR_PASTDUE:
-            case ERROR_UNLOAD:
-            case ERROR_UNLOAD_2:
-            case ERROR_TIMEOUT: {
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(getActivity(), ConRoute.CODE.LOGIN_CODE);
-            }
-            break;
-            case UN_KNOWN_ERROR: {
-
-            }
-            break;
-            default:
-                String msg = errorBean.getMsg();
-                ToastUtil.showCenter(getActivity(), msg);
+        if (null != errorCode) {
+            switch (errorCode) {
+                case ERROR_PASTDUE:
+                case ERROR_UNLOAD:
+                case ERROR_UNLOAD_2:
+                case ERROR_TIMEOUT: {
+                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(getActivity(), ConRoute.CODE.LOGIN_CODE);
+                }
                 break;
+                case UN_KNOWN_ERROR: {
+
+                }
+                break;
+                default:
+                    String msg = errorBean.getMsg();
+                    ToastUtil.showCenter(getActivity(), msg);
+                    break;
+            }
+        } else {
+            String msg = errorBean.getMsg();
+            if (null==msg) return;
+            ToastUtil.showCenter(getActivity(), msg);
         }
+
 
     }
 

@@ -821,27 +821,34 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onError(ErrorBean errorBean) {
+    public void onError(ErrorBean errorBean) {//java.lang.NullPointerException  Attempt to invoke virtual method 'int java.lang.String.hashCode()' on a null object reference at com.rails.purchaseplatform.market.ui.fragment.CartFrm.onError(CartFrm.java:678)
         String errorCode = errorBean.getCode();
-        switch (errorCode) {
-            case ERROR_PASTDUE:
-            case ERROR_UNLOAD:
-            case ERROR_UNLOAD_2:
-            case ERROR_TIMEOUT: {
-                cartAdapter.update(new ArrayList(), true);
-                binding.empty.setVisibility(View.VISIBLE);
-                binding.empty.setBtnEmpty("立即登录");
-                binding.empty.setBtnGobuy("");
-                binding.bottom.setVisibility(View.GONE);
-                binding.tvManager.setVisibility(View.INVISIBLE);
-                binding.tvAddress.setVisibility(View.INVISIBLE);
-            }
-            break;
-            default:
-                String msg = errorBean.getMsg();
-                ToastUtil.showCenter(getActivity(), msg);
+        if (null == errorCode) {
+            switch (errorCode) {
+                case ERROR_PASTDUE:
+                case ERROR_UNLOAD:
+                case ERROR_UNLOAD_2:
+                case ERROR_TIMEOUT: {
+                    cartAdapter.update(new ArrayList(), true);
+                    binding.empty.setVisibility(View.VISIBLE);
+                    binding.empty.setBtnEmpty("立即登录");
+                    binding.empty.setBtnGobuy("");
+                    binding.bottom.setVisibility(View.GONE);
+                    binding.tvManager.setVisibility(View.INVISIBLE);
+                    binding.tvAddress.setVisibility(View.INVISIBLE);
+                }
                 break;
+                default:
+                    String msg = errorBean.getMsg();
+                    ToastUtil.showCenter(getActivity(), msg);
+                    break;
+            }
+        } else {
+            String msg = errorBean.getMsg();
+            if (null == msg) return;
+            ToastUtil.showCenter(getActivity(), msg);
         }
+
     }
 
 
