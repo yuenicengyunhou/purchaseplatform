@@ -139,6 +139,7 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
     @Override
     public void onError(ErrorBean errorBean) {
         super.onError(errorBean);
-        mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
+        if (mHandler != null)
+            mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
     }
 }
