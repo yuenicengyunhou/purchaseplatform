@@ -98,12 +98,13 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     private int size;
 
-    public CartFrm(){}
+    public CartFrm() {
+    }
 
 
     public static CartFrm newInstance(int type) {
         Bundle bundle = new Bundle();
-        bundle.putInt("type",type);
+        bundle.putInt("type", type);
         CartFrm cartFrm = new CartFrm();
         cartFrm.setArguments(bundle);
         return cartFrm;
@@ -619,7 +620,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     /**
      * 全部删除
-     * <p>
+     * <p>  这里验证一下王琪
      * param shopBeans
      */
     private void delAllParams(ArrayList<CartShopBean> shopBeans, boolean needAnalyze) {
@@ -629,7 +630,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             return;
 
         CartShopBean cartShopBean = shopBeans.get(shopBeans.size() - 1);
-        if (needAnalyze && (cartShopBean.getShopName().equals("失效商品"))) {
+        String tempName = cartShopBean.getShopName();//这里
+        if (needAnalyze && (null != cartShopBean) && (null != tempName) && (tempName.equals("失效商品"))) {
             ArrayList<CartShopBean> cartShopBeans = generateInvalidShops(cartShopBean, false);
             shopBeans.remove(cartShopBean);
             shopBeans.addAll(cartShopBeans);
