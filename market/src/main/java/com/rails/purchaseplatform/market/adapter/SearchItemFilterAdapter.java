@@ -8,6 +8,7 @@ import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.common.widget.tags.FlowTagLayout;
 import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
+import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductPropertyBinding;
 
@@ -16,8 +17,21 @@ import java.util.ArrayList;
 public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBean, ItemProductPropertyBinding> {
     final private String TAG = SearchItemFilterAdapter.class.getSimpleName();
 
+    private LoadingDialog mLoadingDialog;
+
     public SearchItemFilterAdapter(Context context) {
         super(context);
+    }
+
+
+    public SearchItemFilterAdapter(Context context, LoadingDialog dialog) {
+        super(context);
+        mLoadingDialog = dialog;
+    }
+
+    @Override
+    public int getCount() {
+        return mDataSource.size();
     }
 
     @Override
@@ -27,8 +41,23 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
 
     @Override
     protected void onBindItem(ItemProductPropertyBinding binding, SearchFilterBean searchFilterBean, int p) {
+        if (mDataSource == null || mDataSource.size() <= 4) {
+            if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                mLoadingDialog.dismiss();
+            }
+        } else {
+            if (p == 4) {
+                if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                    mLoadingDialog.dismiss();
+                }
+            }
+        }
+
         binding.tvName.setText(searchFilterBean.getFilterName());
-        SearchItemFilterSubAdapter adapter = new SearchItemFilterSubAdapter(mContext, searchFilterBean.isMultiSelect(), mDataSource.size() - 1 == p);
+        SearchItemFilterSubAdapter adapter = new SearchItemFilterSubAdapter(
+                mContext,
+                searchFilterBean.isMultiSelect(),
+                mDataSource.size() - 1 == p);
         ArrayList<SearchFilterValue> tags = new ArrayList<>(searchFilterBean.getFilterValues());
 
         binding.flow.setTagCheckedMode(searchFilterBean.isMultiSelect()

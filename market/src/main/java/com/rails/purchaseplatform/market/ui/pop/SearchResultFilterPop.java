@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +19,7 @@ import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
 import com.rails.purchaseplatform.market.adapter.SearchItemFilterAdapter;
 import com.rails.purchaseplatform.market.databinding.PopSearchResultFilterBinding;
 
@@ -37,6 +39,8 @@ public class SearchResultFilterPop extends BasePop<PopSearchResultFilterBinding>
 
     private SearchResultFilterPop.DoFilter mDoFilter;
 
+    private LoadingDialog mLoadingDialog;
+
     public SearchResultFilterPop() {
 
     }
@@ -46,6 +50,15 @@ public class SearchResultFilterPop extends BasePop<PopSearchResultFilterBinding>
         mBeans = beans;
         mMinPrice = minPrice;
         mMaxPrice = maxPrice;
+    }
+
+    public SearchResultFilterPop(ArrayList<SearchFilterBean> beans, int mode, String minPrice, String maxPrice, LoadingDialog dialog) {
+        super();
+        Log.e(TAG, "================= I AM POP");
+        mBeans = beans;
+        mMinPrice = minPrice;
+        mMaxPrice = maxPrice;
+        mLoadingDialog = dialog;
     }
 
     @Override
@@ -84,7 +97,7 @@ public class SearchResultFilterPop extends BasePop<PopSearchResultFilterBinding>
     private void setFilterPopEvent() {
         if (!TextUtils.isEmpty(mMinPrice)) binding.etLowPrice.setText(mMinPrice);
         if (!TextUtils.isEmpty(mMaxPrice)) binding.etHighPrice.setText(mMaxPrice);
-        SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity());
+        SearchItemFilterAdapter adapter1 = new SearchItemFilterAdapter(getActivity(), mLoadingDialog);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(adapter1);
         adapter1.update(mBeans, true);
