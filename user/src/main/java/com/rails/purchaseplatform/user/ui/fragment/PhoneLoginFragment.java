@@ -32,6 +32,24 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
 
     private PopupWindow mPop;
 
+    Drawable drawableHasFocus;
+
+    Drawable drawableLoseFocus;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        drawableHasFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5,
+                null);
+        drawableLoseFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5,
+                null);
+    }
+
     @Override
     protected void loadData() {
 
@@ -133,14 +151,6 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
      * @param view     需要改变颜色的View
      */
     private void setInputLineBackground(boolean hasFocus, View view) {
-        Drawable drawableHasFocus = ResourcesCompat.getDrawable(
-                getResources(),
-                com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5,
-                null);
-        Drawable drawableLoseFocus = ResourcesCompat.getDrawable(
-                getResources(),
-                com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5,
-                null);
         if (hasFocus)
             view.setBackground(drawableHasFocus);
         else
