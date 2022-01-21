@@ -802,7 +802,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 }
             }
         });
-        mThread.setDaemon(true);
+        mThread.setDaemon(false);
         mThread.start();
     }
 
@@ -888,7 +888,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onDestroy() {
-        mThread = null;
+        if (mThread != null) {
+            mThread.interrupt();
+            mThread = null;
+        }
         super.onDestroy();
     }
 
