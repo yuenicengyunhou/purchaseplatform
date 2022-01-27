@@ -85,10 +85,12 @@ public class BaseApp extends Application {
 
 
     private void initUM() {
-        // 初始化SDK
-        UMConfigure.init(this, "60ac50a9c9aacd3bd4e5616c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
-        // 选用AUTO页面采集模式
-        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        if (!BaseRetrofit.isDebug){
+            // 初始化SDK
+            UMConfigure.init(this, "60ac50a9c9aacd3bd4e5616c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
+            // 选用AUTO页面采集模式
+            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        }
     }
 
 
