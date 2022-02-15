@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
@@ -29,6 +31,24 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
     private ArrayList<String> mPhoneList = new ArrayList<>();
 
     private PopupWindow mPop;
+
+    Drawable drawableHasFocus;
+
+    Drawable drawableLoseFocus;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        drawableHasFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5,
+                null);
+        drawableLoseFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5,
+                null);
+    }
 
     @Override
     protected void loadData() {
@@ -131,8 +151,6 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
      * @param view     需要改变颜色的View
      */
     private void setInputLineBackground(boolean hasFocus, View view) {
-        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5);
-        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5);
         if (hasFocus)
             view.setBackground(drawableHasFocus);
         else

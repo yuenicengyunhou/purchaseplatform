@@ -92,7 +92,8 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
         int isUpdate = StringUtil.compareVersion(versionBean.getLastVersionCode(), versionCode);
         if (isUpdate < 1) {
             //todo 倒计时，跳转页面
-            mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
+            if (mHandler != null)
+                mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
         } else {
             // TODO: 2019/5/6 版本更新
             versionDialog(versionBean);
@@ -122,7 +123,8 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
                     .setCancelBtnClickListener(new OnBtnClickListener() {
                         @Override
                         public boolean onClick() {
-                            mHandler.sendEmptyMessageDelayed(NEXT_IN, 1000);
+                            if (mHandler != null)
+                                mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
                             return false;
                         }
                     })
@@ -139,6 +141,7 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
     @Override
     public void onError(ErrorBean errorBean) {
         super.onError(errorBean);
-        mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
+        if (mHandler != null)
+            mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
     }
 }

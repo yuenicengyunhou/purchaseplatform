@@ -71,7 +71,9 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             @Override
             protected void onSuccess(String response) {
                 baseView.dismissDialog();
-                baseView.onResult(0, "", response);
+                if (isCallBack()) {
+                    baseView.onResult(0, "", response);
+                }
             }
         });
     }
@@ -102,8 +104,10 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             protected void onSuccess(String response) {
 //                PrefrenceUtil.getInstance(mContext).setString(ConShare.CODE_PHONE, phone);
                 baseView.dismissDialog();
-                baseView.onResult(1, "获取成功", response);
-                baseView.setVerifyCode(response, phone);
+                if (isCallBack()) {
+                    baseView.onResult(1, "获取成功", response);
+                    baseView.setVerifyCode(response, phone);
+                }
 
             }
         });
@@ -131,8 +135,10 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             @Override
             protected void onSuccess(UserInfoBean bean) {
                 baseView.dismissDialog();
-                ToastUtil.showCenter(mContext, "登录成功");
-                baseView.getUserInfo(bean);
+                if (isCallBack()) {
+                    ToastUtil.showCenter(mContext, "登录成功");
+                    baseView.getUserInfo(bean);
+                }
             }
         });
     }
@@ -149,8 +155,10 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
 
             @Override
             protected void onSuccess(String response) {
-                baseView.onRandomInitSuccess(response);
                 baseView.dismissDialog();
+                if (isCallBack()) {
+                    baseView.onRandomInitSuccess(response);
+                }
             }
         });
     }
@@ -209,7 +217,9 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             @Override
             protected void onSuccess(String response) {
                 baseView.dismissDialog();
-                baseView.onResult(0, "", response);
+                if (isCallBack()) {
+                    baseView.onResult(0, "", response);
+                }
             }
         });
     }

@@ -60,6 +60,9 @@ public class ProductDetailsParamsPop extends BasePop<PopProductDetailsParamsBind
      */
     private int getKeyMaxLength(ArrayList<ProductSpecificParameter> parameters) {
         int keyLength = 0;
+        if (parameters == null) {
+            return 0;
+        }
         for (ProductSpecificParameter params : parameters) {
 //            Log.d(TAG, params.getParamKey() + "----- 长度是 = " + params.getParamKey().length());
             int currentKeyLength = params.getParamKey().length();

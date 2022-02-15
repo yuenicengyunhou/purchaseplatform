@@ -9,6 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.contract.LoginContract;
 import com.rails.lib_data.http.HttpConstants;
@@ -40,6 +42,36 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     private PopupWindow mPop;
 
     private boolean isInputCode = true;
+
+    Drawable drawableHasFocus;
+
+    Drawable drawableLoseFocus;
+
+    Drawable drawableHasFocus2;
+
+    Drawable drawableLoseFocus2;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        drawableHasFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5,
+                null);
+        drawableLoseFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5,
+                null);
+
+        drawableHasFocus2 = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_border_blue_50,
+                null);
+        drawableLoseFocus2 = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_border_gray_50,
+                null);
+    }
 
     @Override
     protected void loadData() {
@@ -257,8 +289,6 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
      * @param view     需要改变颜色的View
      */
     private void setInputLineBackground(boolean hasFocus, View view) {
-        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5);
-        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5);
         if (hasFocus)
             view.setBackground(drawableHasFocus);
         else
@@ -272,12 +302,10 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
      * @param view     需要改变颜色的View
      */
     private void setRandomCodeInputBackground(boolean hasFocus, View view) {
-        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_border_blue_50);
-        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_border_gray_50);
         if (hasFocus)
-            view.setBackground(drawableHasFocus);
+            view.setBackground(drawableHasFocus2);
         else
-            view.setBackground(drawableLoseFocus);
+            view.setBackground(drawableLoseFocus2);
     }
 
     public void setLoginAccountList(ArrayList<String> accountList) {

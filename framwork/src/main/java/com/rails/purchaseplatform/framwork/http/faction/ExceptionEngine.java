@@ -44,7 +44,7 @@ public class ExceptionEngine {
     public static final String TIMEOUT_ERROR = "9997";
     //连接网络错误
     public static final String CONNECT_ERROR = "9996";
-    //未知错误
+    //未知错误˙˙
     public static final String UN_KNOWN_ERROR = "9995";
 
 

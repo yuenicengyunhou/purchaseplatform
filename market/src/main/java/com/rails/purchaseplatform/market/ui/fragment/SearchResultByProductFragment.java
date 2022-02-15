@@ -121,6 +121,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     void notifyData(String keyWord, String cid, String orderColumn, String orderType,
                     String brands, String brandsString, String categoryAttrValueIds, String expandAttrValueIds,
                     String minPrice, String maxPrice, int page, int pageSize, boolean isDialog) {
+        if (mPresenter == null) {
+            mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
+        }
         if (!TextUtils.isEmpty(mCid)) {
 //            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, isDialog);
             mPresenter.queryItemListByCid(mMaterialType, keyWord, cid, orderColumn, orderType, brands, brandsString,

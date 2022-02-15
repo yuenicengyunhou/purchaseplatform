@@ -114,7 +114,10 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void onDestroy() {
-        mConvertToBitmap.interrupt();
+        if (mConvertToBitmap != null) {
+            mConvertToBitmap.interrupt();
+            mConvertToBitmap = null;
+        }
         super.onDestroy();
     }
 
@@ -157,6 +160,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                 }
             }
         });
+        mConvertToBitmap.setDaemon(false);
         mConvertToBitmap.start();
     }
 }
