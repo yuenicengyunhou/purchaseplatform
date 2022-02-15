@@ -16,7 +16,6 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
-import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.HTTP_ERROR;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.UN_KNOWN_ERROR;
 
 
@@ -51,7 +50,7 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
             }
         } else {
             String msg = errorBean.getMsg();
-            if (null==msg) return;
+            if (null == msg) return;
             ToastUtil.showCenter(getActivity(), msg);
         }
 
