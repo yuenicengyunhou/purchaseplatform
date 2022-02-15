@@ -165,7 +165,7 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
     protected void newLink(String url) {
         if (url.contains("/purOrderDetails")) {
             setDarkStatusBar(R.color.bg_blue);
-        } else if (url.contains("/approvalList")) {
+        } else if (url.contains("/approvalList")||url.contains("kindsApproval")) {
             setDarkStatusBar(R.color.white);
         }
     }

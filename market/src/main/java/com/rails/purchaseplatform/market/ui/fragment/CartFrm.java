@@ -867,6 +867,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
      * 显示选择地址的弹窗
      */
     void showSelAddressDialog() {
+        if (!isAdded()) {
+            return;
+        }
         if (addressBeans == null || addressBeans.isEmpty()) {
             ToastUtil.showCenter(mActivity, "无地址信息");
             return;
@@ -879,8 +882,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             mAddress = bean;
             binding.tvAddress.setText(bean.getFullAddress());
         });
-
-        addressPop.show(getChildFragmentManager(), "address");
+            addressPop.show(getChildFragmentManager(), "address");
     }
 
     private void removeRecyclerAnimation(RecyclerView recyclerView) {
