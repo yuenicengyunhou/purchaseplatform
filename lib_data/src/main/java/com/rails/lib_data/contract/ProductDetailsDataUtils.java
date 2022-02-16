@@ -453,7 +453,7 @@ public class ProductDetailsDataUtils {
         if (priceBean.getPackinglist() != null
                 && priceBean.getPackinglist().size() != 0
                 && priceBean.getPackinglist().get(0).getAnnexName() != null
-                && TextUtils.isEmpty(priceBean.getPackinglist().get(0).getAnnexName())) {
+                && !TextUtils.isEmpty(priceBean.getPackinglist().get(0).getAnnexName())) {
             ProductDetailsPackingBean bean1 = new ProductDetailsPackingBean();
             bean1.setAttrKey("附件名称");
             bean1.setAttrValue("附件数量");
