@@ -74,7 +74,6 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
 //        binding.tvPriceBig.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 //        binding.tvPriceSmall.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         if (SystemUtil.isPad(mContext)) {
-            Log.e("WQ", "pad");
            binding.tvPriceBig.setTextSize(20);
            binding.tvPriceSmall.setTextSize(14);
         }
