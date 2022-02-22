@@ -117,9 +117,9 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         binding.tvDateRange.setOnClickListener(v -> {
             Calendar now = Calendar.getInstance();
             DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd) -> {
-                        startDate = formattTime(year, monthOfYear, dayOfMonth, true);
-                        endDate = formattTime(yearEnd, monthOfYearEnd, dayOfMonthEnd, true);
-                        dateRangeStr = formattTime(year, monthOfYear, dayOfMonth, false) + " 至 " + formattTime(yearEnd, monthOfYearEnd, dayOfMonthEnd, false);
+                        startDate = formattTime(year, monthOfYear, dayOfMonth, true, false);
+                        endDate = formattTime(yearEnd, monthOfYearEnd, dayOfMonthEnd, true, true);
+                        dateRangeStr = formattTime(year, monthOfYear, dayOfMonth, false, false) + " 至 " + formattTime(yearEnd, monthOfYearEnd, dayOfMonthEnd, false, false);
                         binding.tvDateRange.setText(dateRangeStr);
                     },
                     now.get(Calendar.YEAR),
@@ -194,15 +194,19 @@ public class OrderFilterPop extends BasePop<PopOrderSearchFilterBinding> {
         loadData();
     }
 
-    private String formattTime(int year, int month, int day, boolean formatt) {
+    private String formattTime(int year, int month, int day, boolean formatt, boolean isEnd) {
         Calendar calendar = Calendar.getInstance();
         // 设置当前日期和时间
         calendar.set(year, month, day);
         // 格式化字符串
         if (formatt) {
-            return TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMDHMS);
+            if (isEnd) {
+                return TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD_) + " 23:59:59";
+            } else {
+                return TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD_) + " 00:00:00";
+            }
         } else {
-            return TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD);
+            return TimeUtil.LongtoStringFormat(calendar.getTimeInMillis(), TimeUtil.YMD_);
         }
     }
 

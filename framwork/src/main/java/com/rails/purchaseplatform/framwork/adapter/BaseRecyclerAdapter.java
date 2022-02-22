@@ -116,11 +116,15 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
      * @param position item 所在位置
      */
     public void updateRemove(int position) {
+        if (mDataSource.isEmpty()) {
+            return;
+        }
         mDataSource.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
         if (mDataSource.size() <= 0)
             notifyDataSetChanged();
+
     }
 
     /**

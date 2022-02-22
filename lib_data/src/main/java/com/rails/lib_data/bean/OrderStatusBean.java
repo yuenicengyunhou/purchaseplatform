@@ -1,7 +1,9 @@
 package com.rails.lib_data.bean;
 
 
-public class OrderStatusBean {
+import java.io.Serializable;
+
+public class OrderStatusBean implements Serializable {
     private String status;
     private String statusCode;
 

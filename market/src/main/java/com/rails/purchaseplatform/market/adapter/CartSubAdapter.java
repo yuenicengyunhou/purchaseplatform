@@ -3,6 +3,7 @@ package com.rails.purchaseplatform.market.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -65,17 +66,16 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         String unit = productBean.getUnitName();
         int size;
         int fontSize;
+//        if (SystemUtil.isPad(mContext)) {
+//            fontSize = ScreenSizeUtil.sp2px(8, mContext);
+//        } else {
+//            fontSize = 10;
+//        }
+//        binding.tvPriceBig.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+//        binding.tvPriceSmall.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         if (SystemUtil.isPad(mContext)) {
-            fontSize = ScreenSizeUtil.sp2px(8, mContext);
-        } else {
-            fontSize = 10;
-        }
-        binding.tvPriceBig.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        binding.tvPriceSmall.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        if (SystemUtil.isPad(mContext)) {
-            size = ScreenSizeUtil.sp2px(9, mContext);
-        } else {
-            size = 13;
+           binding.tvPriceBig.setTextSize(20);
+           binding.tvPriceSmall.setTextSize(14);
         }
         String bigPrice = price.substring(0, price.indexOf("."));
         String smallPrice = price.substring(price.indexOf("."));
@@ -87,7 +87,7 @@ public class CartSubAdapter extends BaseRecyclerAdapter<CartShopProductBean, Ite
         if (productBean.canSel.get()) {
             binding.tvTitle.setTextColor(mContext.getResources().getColor(R.color.font_black));
             binding.tvPriceBig.setTextColor(mContext.getResources().getColor(R.color.font_red));
-            binding.tvPriceBig.setTextSize(16);
+//            binding.tvPriceBig.setTextSize(16);
 //            TextPaint tp = binding.tvPriceBig.getPaint();
 //            tp.setFakeBoldText(true);
 //            binding.tvPriceSmall.setVisibility(View.VISIBLE);

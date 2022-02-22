@@ -200,6 +200,12 @@ public class PhoneLoginFragment extends LazyFragment<FragmentLoginPhoneBinding>
 
     @Override
     public void fillPhone(String phone) {
+        if (mPhoneList == null || mPhoneList.size() == 0) {
+            if (mPop != null && mPop.isShowing()) {
+                mPop.dismiss();
+            }
+            return;
+        }
         if (mPhoneList.get(0).contains("。")) {
             String truePhone = phone.split("。")[0];
             String password = phone.split("。")[1];
