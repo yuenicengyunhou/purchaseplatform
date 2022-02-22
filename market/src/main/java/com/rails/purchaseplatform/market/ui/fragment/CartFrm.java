@@ -198,7 +198,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarLightMode(getActivity());
+//        StatusBarUtil.StatusBarLightMode(getActivity());
         onRefresh();
     }
 

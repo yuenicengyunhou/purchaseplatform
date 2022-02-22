@@ -54,7 +54,7 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue_2);
+//        StatusBarUtil.StatusBarMode(getActivity(), R.color.bg_blue_2);
 
 
         PrefrenceUtil.getInstance(getActivity()).getString(ConShare.TOKEN, "");
