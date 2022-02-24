@@ -6,8 +6,7 @@
         <activity
             android:name=".ui.activity.ImageZoomActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/ImageZoomTranslucentTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CartActivity"
             android:screenOrientation="portrait" />
