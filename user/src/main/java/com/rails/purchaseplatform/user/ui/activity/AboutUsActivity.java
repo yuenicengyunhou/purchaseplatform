@@ -27,6 +27,11 @@ import com.rails.purchaseplatform.user.SharePop;
 import com.rails.purchaseplatform.user.databinding.ActivityAboutUsBinding;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+
 @Route(path = ConRoute.USER.USER_ABOUT_US)
 public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
 
@@ -94,7 +99,6 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
             e.printStackTrace();
             ToastUtil.showCenter(this,"该设备不支持拨号功能");
         }
-
     }
 
     private void showPop() {
