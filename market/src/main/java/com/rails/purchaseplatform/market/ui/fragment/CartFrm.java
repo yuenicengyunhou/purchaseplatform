@@ -823,7 +823,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
     @Override
     public void onError(ErrorBean errorBean) {//java.lang.NullPointerException  Attempt to invoke virtual method 'int java.lang.String.hashCode()' on a null object reference at com.rails.purchaseplatform.market.ui.fragment.CartFrm.onError(CartFrm.java:678)
         String errorCode = errorBean.getCode();
-        if (null == errorCode) {
+        if (null != errorCode) {
             switch (errorCode) {
                 case ERROR_PASTDUE:
                 case ERROR_UNLOAD:

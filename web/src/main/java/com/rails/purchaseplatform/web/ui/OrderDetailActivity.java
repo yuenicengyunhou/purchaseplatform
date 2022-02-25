@@ -85,7 +85,7 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     @Override
     protected void onResume() {
         super.onResume();
-        setDarkStatusBar(R.color.bg_blue);
+        systemBarColor(webUrl);
     }
 
     protected void setDarkStatusBar(int color) {
@@ -170,9 +170,15 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
      */
     @Override
     protected void newLink(String url) {
+        systemBarColor(url);
+    }
+
+    private void systemBarColor(String url) {
         if (url.contains("/parcels")) {
             setDarkStatusBar(R.color.white);
-        } else if (url.contains("/orderDetails")) {
+        } else if (url.contains("/orderDetails") || url.contains("purOrderDetails")) {
+            setDarkStatusBar(R.color.bg_blue);
+        } else {
             setDarkStatusBar(R.color.bg_blue);
         }
     }
