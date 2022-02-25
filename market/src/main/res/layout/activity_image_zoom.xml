@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent"
-    android:fitsSystemWindows="true"
+    android:background="@color/trans"
     tools:context=".ui.activity.ImageZoomActivity">
 
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
@@ -25,7 +24,7 @@
         android:layout_width="@dimen/dp_16"
         android:layout_height="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_44"
         android:background="@drawable/svg_close_white"
         android:padding="@dimen/dp_16" />
 
@@ -34,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_44"
         android:layout_marginEnd="@dimen/dp_24"
         android:textColor="@color/font_gray"
         android:textSize="@dimen/font_size_14" />
