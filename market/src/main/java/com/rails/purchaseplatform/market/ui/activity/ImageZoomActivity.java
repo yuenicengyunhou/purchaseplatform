@@ -18,6 +18,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.utils.StatusBarCompat;
+import com.rails.purchaseplatform.framwork.base.XiaoMiStatusBar;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.pdetail.ZoomImgVp2Adapter;
 import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
@@ -77,7 +78,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void initialize(Bundle bundle) {
-        setDarkStatusBar(android.R.color.black);
+        setDarkStatusBar(android.R.color.transparent);
         if (!TextUtils.isEmpty(mImageUrl)) {
             binding.ssivZoomImage.setVisibility(View.VISIBLE);
         } else {
@@ -97,7 +98,9 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected int getColor() {
-        return android.R.color.white;
+        return XiaoMiStatusBar.isXiaomi()
+                ? android.R.color.transparent
+                : android.R.color.white;
     }
 
     @Override
@@ -167,6 +170,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
         mConvertToBitmap.setDaemon(false);
         mConvertToBitmap.start();
     }
+
     private void setDarkStatusBar(int color) {
         int statusBarColor;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -178,4 +182,5 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
         }
         StatusBarCompat.compat(this, statusBarColor);
     }
+
 }

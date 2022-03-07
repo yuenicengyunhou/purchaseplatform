@@ -413,9 +413,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     protected int getColor() {
-        return XiaoMiStatusBar.isXiaomi() ?
-                android.R.color.transparent :
-                android.R.color.white;
+        return XiaoMiStatusBar.isXiaomi()
+                ? android.R.color.transparent
+                : android.R.color.white;
     }
 
     @Override
