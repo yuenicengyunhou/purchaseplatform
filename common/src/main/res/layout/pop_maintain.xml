@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.rails.purchaseplatform.common.widget.RatioImage
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_60"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="@dimen/dp_60"
+        android:src="@drawable/ic_maintain"
+        app:h="34"
+        app:w="25" />
+
+
+
+    <TextView
+       android:layout_above="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_14"
+        android:text="网站在升级期间内暂停相关服务，我们将尽快为您恢复，由此带来的不便敬请谅解！"
+        android:textColor="@color/font_black"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_alignEnd="@+id/img"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_alignStart="@+id/img"
+        android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_16"
+        android:text="我知道了"
+        android:layout_alignBottom="@+id/img"
+        android:textColor="@color/white"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:gravity="center"
+        android:layout_alignEnd="@+id/img"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_alignStart="@+id/img"
+        android:background="@drawable/bg_corner_blue_20"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>
+
