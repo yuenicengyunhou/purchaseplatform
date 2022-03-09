@@ -260,6 +260,7 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
     @Override
     protected void onRestart() {
         super.onRestart();
+        mPage=PAGE_DEF;
         onRefresh(true);
     }
 
