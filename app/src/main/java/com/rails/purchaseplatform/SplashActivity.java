@@ -19,6 +19,8 @@ import model.UiConfig;
 import model.UpdateConfig;
 import update.UpdateAppUtils;
 
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_509;
+
 /**
  * 启动页面
  *
@@ -141,7 +143,10 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
     @Override
     public void onError(ErrorBean errorBean) {
         super.onError(errorBean);
-        if (mHandler != null)
-            mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
+        if (errorBean.getCode() !=ERROR_509){
+            if (mHandler != null)
+                mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
+        }
+
     }
 }

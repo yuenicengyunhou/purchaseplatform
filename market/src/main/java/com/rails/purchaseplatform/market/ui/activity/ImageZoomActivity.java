@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -24,8 +23,6 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.pdetail.ZoomImgVp2Adapter;
 import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -81,11 +78,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void initialize(Bundle bundle) {
-//        if (XiaoMiStatusBar.isXiaomi())
-//            MIUISetStatusBarLightMode(getWindow(), true);
-//        else
-//            setDarkStatusBar(android.R.color.white);
-
+        setDarkStatusBar(android.R.color.transparent);
         if (!TextUtils.isEmpty(mImageUrl)) {
             binding.ssivZoomImage.setVisibility(View.VISIBLE);
         } else {
@@ -188,37 +181,6 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
             statusBarColor = ContextCompat.getColor(this, color);
         }
         StatusBarCompat.compat(this, statusBarColor);
-    }
-
-
-    /**
-     * 设置状态栏字体图标为深色，需要MIUIV6以上
-     *
-     * @param window 需要设置的窗口
-     * @param dark   是否把状态栏字体及图标颜色设置为深色
-     * @return boolean 成功执行返回true
-     */
-    public static boolean MIUISetStatusBarLightMode(Window window, boolean dark) {
-        boolean result = false;
-        if (window != null) {
-            Class clazz = window.getClass();
-            try {
-                int darkModeFlag = 0;
-                Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
-                Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
-                darkModeFlag = field.getInt(layoutParams);
-                Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-                if (dark) {
-                    extraFlagField.invoke(window, darkModeFlag, darkModeFlag);//状态栏透明且黑色字体
-                } else {
-                    extraFlagField.invoke(window, 0, darkModeFlag);//清除黑色字体
-                }
-                result = true;
-            } catch (Exception e) {
-
-            }
-        }
-        return result;
     }
 
 }
