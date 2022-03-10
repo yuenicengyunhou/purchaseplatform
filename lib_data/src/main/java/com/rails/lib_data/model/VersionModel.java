@@ -26,7 +26,7 @@ public class VersionModel {
         params.put("platformId", "20");
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(VersionService.class).getVersion(params))
+                .create(VersionService.class, false).getVersion(params))
                 .subscribe(httpRxObserver);
     }
 }
