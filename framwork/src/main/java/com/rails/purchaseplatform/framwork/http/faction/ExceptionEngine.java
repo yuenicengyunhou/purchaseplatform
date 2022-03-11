@@ -46,6 +46,8 @@ public class ExceptionEngine {
     public static final String CONNECT_ERROR = "9996";
     //未知错误˙˙
     public static final String UN_KNOWN_ERROR = "9995";
+    //服务器维护
+    public static final String ERROR_509 ="509";
 
 
     @NotNull
@@ -56,7 +58,10 @@ public class ExceptionEngine {
             if (((HttpException) e).code() == 502) {
                 errorBean = new ErrorBean(e, ERROE_502);
                 errorBean.setMsg("");
-            } else if (((HttpException) e).code() == 400) {
+            }else if (((HttpException) e).code() == 509){
+                errorBean = new ErrorBean(e, ERROR_509);
+                errorBean.setMsg("");
+            }else if (((HttpException) e).code() == 400) {
                 errorBean = new ErrorBean(e, ERROR_PASTDUE);
                 errorBean.setMsg("");
             } else{

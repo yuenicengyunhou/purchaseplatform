@@ -1,9 +1,11 @@
 package com.rails.purchaseplatform.common.base;
 
 import android.content.Intent;
+import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.activity.MaintainPop;
 import com.rails.purchaseplatform.framwork.base.BaseAbsFragment;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -12,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
 import static android.app.Activity.RESULT_OK;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_509;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
@@ -41,6 +44,12 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
                 break;
                 case UN_KNOWN_ERROR: {
 
+                }
+                break;
+                case ERROR_509:{
+                    MaintainPop pop = new MaintainPop();
+                    pop.setGravity(Gravity.CENTER);
+                    pop.show(getChildFragmentManager(),"maintain");
                 }
                 break;
                 default:

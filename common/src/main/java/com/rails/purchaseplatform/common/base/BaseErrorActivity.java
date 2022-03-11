@@ -4,6 +4,7 @@ package com.rails.purchaseplatform.common.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.ConShare;
@@ -12,6 +13,7 @@ import com.rails.lib_data.bean.UserStatisticsBean;
 import com.rails.lib_data.contract.UserToolContract;
 import com.rails.lib_data.contract.UserToolPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
+import com.rails.purchaseplatform.common.activity.MaintainPop;
 import com.rails.purchaseplatform.framwork.base.BaseActivity;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
@@ -20,6 +22,7 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_509;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
@@ -64,6 +67,12 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
             break;
             case UN_KNOWN_ERROR: {
                 ToastUtil.showCenter(this, errorBean.getMsg());
+            }
+            break;
+            case ERROR_509:{
+                MaintainPop pop = new MaintainPop();
+                pop.setGravity(Gravity.CENTER);
+                pop.show(getSupportFragmentManager(),"maintain");
             }
             break;
             default:
