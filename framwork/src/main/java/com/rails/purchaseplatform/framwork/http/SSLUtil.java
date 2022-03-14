@@ -80,7 +80,8 @@ public class SSLUtil {
                 inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
 //                inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
             else
-                inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
+//                inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
+                inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
         } catch (IOException e) {
             e.printStackTrace();
         }
