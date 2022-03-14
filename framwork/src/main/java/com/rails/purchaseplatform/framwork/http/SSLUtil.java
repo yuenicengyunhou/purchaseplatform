@@ -1,6 +1,10 @@
 package com.rails.purchaseplatform.framwork.http;
 
+import android.util.Log;
+
+import com.orhanobut.logger.Logger;
 import com.rails.purchaseplatform.framwork.BaseApp;
+import com.rails.purchaseplatform.framwork.utils.StreamUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,13 +77,14 @@ public class SSLUtil {
         InputStream inputStream = null;
         try {
             if (!isDebug)
-//                inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
                 inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
+//                inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
             else
                 inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        Logger.d("证书字符串："+ StreamUtil.readStream(inputStream));
         return inputStream;
     }
 

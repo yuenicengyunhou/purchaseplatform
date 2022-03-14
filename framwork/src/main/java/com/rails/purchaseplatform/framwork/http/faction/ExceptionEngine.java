@@ -18,6 +18,8 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.Objects;
 
+import javax.net.ssl.SSLHandshakeException;
+
 import retrofit2.HttpException;
 
 
@@ -48,6 +50,8 @@ public class ExceptionEngine {
     public static final String UN_KNOWN_ERROR = "9995";
     //服务器维护
     public static final String ERROR_509 ="509";
+
+    public static final String ERROR_SSL ="9994";
 
 
     @NotNull
@@ -98,7 +102,10 @@ public class ExceptionEngine {
         } else if (e instanceof SocketTimeoutException) {//网络超时
             errorBean = new ErrorBean(e, TIMEOUT_ERROR);
             errorBean.setMsg("请求超时，请检查网络状况");
-        } else {  //未知错误
+        }else if (e instanceof SSLHandshakeException){
+            errorBean = new ErrorBean(e, ERROR_SSL);
+            errorBean.setMsg("证书已过期，请重启APP后更新最新版本");
+        }else {  //未知错误
             errorBean = new ErrorBean(e, UN_KNOWN_ERROR);
             errorBean.setMsg("系统异常");
         }

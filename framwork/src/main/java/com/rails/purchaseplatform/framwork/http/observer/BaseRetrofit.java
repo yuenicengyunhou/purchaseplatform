@@ -45,6 +45,7 @@ public abstract class BaseRetrofit {
 
 
     /**
+     *
      * 获取host
      *
      * @param type 0：商城  1：平台

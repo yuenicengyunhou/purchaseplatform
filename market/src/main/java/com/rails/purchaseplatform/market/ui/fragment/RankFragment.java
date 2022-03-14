@@ -241,8 +241,4 @@ public class RankFragment extends LazyFragment<FragmentMarketRankBinding> implem
 
     }
 
-
-    @Override
-    public void onError(ErrorBean errorBean) {
-    }
 }
