@@ -17,6 +17,7 @@
     <!--购物车-->
     <string name="market_cart">购物车</string>
     <string name="market_cart_null">空空如也</string>
+    <string name="market_shop_locked">店铺已关闭</string>
     <string name="market_cart_manager">管理</string>
     <string name="market_cart_complement">完成</string>
     <string name="market_cart_total">合计:&#160;&#160;</string>
