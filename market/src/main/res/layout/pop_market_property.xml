@@ -114,6 +114,13 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/bg_gray"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16" />
+
     <com.rails.purchaseplatform.common.widget.MaxHeightScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -284,14 +291,14 @@
             android:textSize="@dimen/font_size_10" />
 
         <LinearLayout
-            android:padding="@dimen/dp_tiny"
             android:id="@+id/layout"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_26"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/dp_16"
-            android:background="@drawable/bg_corner_border_gray">
+            android:background="@drawable/bg_corner_border_gray"
+            android:padding="@dimen/dp_tiny">
 
             <TextView
                 android:id="@+id/tv_reduce"

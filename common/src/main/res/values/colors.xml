@@ -18,6 +18,8 @@
     <color name="bg_gray">#e4e4e4</color>
     <color name="bg_gray_light">#f5f5f5</color>
 
+    <color name="bg_hex_alpha_20">#20FFFFFF</color>
+
     <!--字体颜色-->
     <color name="font_blue">#387CFC</color>
     <color name="font_red">#e83e3a</color>
