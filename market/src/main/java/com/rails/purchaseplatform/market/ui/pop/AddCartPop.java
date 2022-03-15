@@ -296,8 +296,12 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
             binding.tvCountState.setText(mStockStateStr);
             binding.tvAdd.setTextColor(fontGray);
             binding.tvReduce.setTextColor(fontGray);
+            binding.etNum.setFocusable(false);
+            binding.etNum.setFocusableInTouchMode(false);
             return;
         }
+        binding.etNum.setFocusable(true);
+        binding.etNum.setFocusableInTouchMode(true);
         String saleState = mSkuStockBean.getSaleState();
         String skuStock = mSkuStockBean.getSkuStock();
         // 如果 销售状态 或 库存数量 为null或0 表示不可销售状态

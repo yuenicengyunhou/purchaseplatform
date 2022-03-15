@@ -108,10 +108,6 @@ public class ProductDetailsDataUtils {
         if (materialType == null) materialType = "0";
         pageBean.setMaterialType(materialType);
 
-        // skuStockBean
-        SkuStockBean stockBean = bean2.getSkuStockBeans().get(0);
-        pageBean.setSkuStockBean(stockBean);
-
         // 当前ItemSkuInfo
         ItemSkuInfo currentItemSkuInfo = null;
         // 当前的skuId
@@ -209,8 +205,21 @@ public class ProductDetailsDataUtils {
         String delivery = getDelivery(bean2.getDeliveryBean());
         pageBean.setDelivery(delivery);
 
+        // 库存bean
+        ArrayList<SkuStockBean> skuStockBeans = new ArrayList<>();
+        if (bean2.getSkuStockBeans() != null) {
+            skuStockBeans = bean2.getSkuStockBeans();
+        }
+
+        // skuStockBean
+        SkuStockBean stockBean = null;
+        if (skuStockBeans.size() != 0) {
+            stockBean = skuStockBeans.get(0);
+        }
+        pageBean.setSkuStockBean(stockBean);
+
         // 获取库存
-        boolean isInStock = isInStock(bean2.getSkuStockBeans());
+        boolean isInStock = isInStock(skuStockBeans);
         pageBean.setInStock(isInStock);
 
         // 获取商品收藏状态
