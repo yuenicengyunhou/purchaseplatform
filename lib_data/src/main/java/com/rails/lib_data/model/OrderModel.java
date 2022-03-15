@@ -20,7 +20,7 @@ import java.util.List;
 
 public class OrderModel {
 
-    private int defaltPageSize = 20;
+    private final int defaltPageSize = 20;
 
     public void getRecOrder(HttpRxObserver httpRxObserver) {
 

@@ -289,6 +289,12 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
         String mobile = shop.getMobile();
         binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
         binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
+        int shopStatus = shop.getShopStatus();
+        if (shopStatus == 2) {
+            binding.empty.setDescEmpty(R.string.market_shop_locked).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        }else {
+            binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        }
         if (TextUtils.isEmpty(mobile)) {
             binding.ivMakePhone.setVisibility(View.GONE);
         } else {
