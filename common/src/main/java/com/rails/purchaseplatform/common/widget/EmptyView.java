@@ -70,6 +70,7 @@ public class EmptyView extends LinearLayout {
      * @return
      */
     public EmptyView setContentEmpty(String content) {
+        binding.tvContentEmpty.setVisibility(VISIBLE);
         binding.tvContentEmpty.setText(content);
         return this;
     }
