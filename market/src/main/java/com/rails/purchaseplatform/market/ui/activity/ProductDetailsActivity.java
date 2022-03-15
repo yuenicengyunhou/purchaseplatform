@@ -966,6 +966,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 .placeholder(R.drawable.ic_placeholder)
                 .into(binding.ratioImage);
 
+        // 设置店铺名称位置，如果不显示风险等级就居中显示
+        if (mPageBean.getShopSecurity() == null || mPageBean.getShopSecurity().equals(" ")) {
+            binding.textView.setGravity(Gravity.CENTER_VERTICAL);
+        }
         // 设置店铺名称
         binding.textView.setText(mPageBean.getShopName());
 

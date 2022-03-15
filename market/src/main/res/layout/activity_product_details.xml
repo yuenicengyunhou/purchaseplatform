@@ -411,10 +411,11 @@
                         <TextView
                             android:id="@+id/textView"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/dp_10"
                             android:layout_marginTop="@dimen/dp_16"
                             android:layout_marginEnd="@dimen/dp_8"
+                            android:layout_marginBottom="@dimen/dp_16"
                             android:layout_toStartOf="@id/tv_go_in_shop"
                             android:layout_toEndOf="@id/ratioImage"
                             android:ellipsize="end"
