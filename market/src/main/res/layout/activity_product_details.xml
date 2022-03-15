@@ -36,7 +36,9 @@
                         <com.youth.banner.Banner
                             android:id="@+id/productPictureHD"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            app:indicator_drawable_selected="@drawable/bg_indicator_blue_12"
+                            app:indicator_drawable_unselected="@drawable/bg_indicator_gray_12" />
                     </com.rails.purchaseplatform.common.widget.RatioCard>
 
                     <LinearLayout
