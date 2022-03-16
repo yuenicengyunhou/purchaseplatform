@@ -85,7 +85,6 @@ public class SSLUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        Logger.d("证书字符串："+ StreamUtil.readStream(inputStream));
         return inputStream;
     }
 

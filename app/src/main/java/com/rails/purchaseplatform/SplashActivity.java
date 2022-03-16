@@ -91,6 +91,13 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
 
     @Override
     public void getVersion(VersionBean versionBean) {
+        if (versionBean == null) {
+            //todo 倒计时，跳转页面
+            if (mHandler != null)
+                mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
+            return;
+        }
+
         int isUpdate = StringUtil.compareVersion(versionBean.getLastVersionCode(), versionCode);
         if (isUpdate < 1) {
             //todo 倒计时，跳转页面
@@ -143,7 +150,7 @@ public class SplashActivity extends BaseErrorActivity<ActivitySplashBinding> imp
     @Override
     public void onError(ErrorBean errorBean) {
         super.onError(errorBean);
-        if (errorBean.getCode() !=ERROR_509){
+        if (errorBean.getCode() != ERROR_509) {
             if (mHandler != null)
                 mHandler.sendEmptyMessageDelayed(NEXT_IN, 3 * 1000);
         }
