@@ -30,8 +30,8 @@ public class BannerConfig {
     public static final int LOOP_TIME = 3000;
     public static final int SCROLL_TIME = 600;
     public static final int INCREASE_COUNT = 2;
-    public static final int INDICATOR_NORMAL_COLOR = 0x88ffffff;
-    public static final int INDICATOR_SELECTED_COLOR = 0x88000000;
+    public static final int INDICATOR_NORMAL_COLOR = 0xffffffff;
+    public static final int INDICATOR_SELECTED_COLOR = 0xff000000;
     public static final int INDICATOR_NORMAL_WIDTH = (int) BannerUtils.dp2px(5);
     public static final int INDICATOR_SELECTED_WIDTH = (int) BannerUtils.dp2px(7);
     public static final int INDICATOR_SPACE = (int) BannerUtils.dp2px(5);

@@ -51,11 +51,15 @@ import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.common.widget.banner.config.IndicatorConfig;
+import com.rails.purchaseplatform.common.widget.banner.indicator.DrawableIndicator;
+import com.rails.purchaseplatform.common.widget.banner.listener.OnBannerListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.base.XiaoMiStatusBar;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.adapter.BannerAdapter;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.DetailImgAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.ProductBillAdapter;
@@ -65,8 +69,6 @@ import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBindi
 import com.rails.purchaseplatform.market.ui.pop.AddCartPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
-import com.rails.purchaseplatform.market.util.GlideImageLoader;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -445,26 +447,6 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.ibQuickJump.setOnClickListener(v -> showJumpPop());
         binding.ibQuickJump1.setOnClickListener(v -> showJumpPop());
 
-        // 设置轮播点击事件
-        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Bundle bundle = new Bundle();
-//                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
-//                for (String str : mPageBean.getSkuMarkPicList()) {
-//                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
-//                }
-
-                Log.d(TAG, "   MARK PIC LENGTH = " + mPageBean.getSkuMarkPicList());
-                Log.d(TAG, "UN MARK PIC LENGTH = " + mPageBean.getSkuPicList());
-                if (mPageBean.getSkuMarkPicList() == null || mPageBean.getSkuMarkPicList().size() == 0 || mPageBean.getSkuMarkPicList().contains(null))
-                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuPicList());
-                else
-                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
-                bundle.putInt("position", position);
-                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
-            }
-        });
 
         // 跳转到店铺详情
 //        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail()); // 此按钮不在跳转到店铺页，隐藏此按钮
@@ -850,9 +832,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //        for (String str : mPageBean.getSkuMarkPicList()) {
 //            Log.d(TAG, "切换sku更新水印图片 = " + str);
 //        }
-        binding.productPictureHD
-                .setImages(mPageBean.getSkuPicList())
-                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
+//        binding.productPictureHD
+//                .setImages(mPageBean.getSkuPicList())
+//                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
         // TODO: 2021/6/9 需要更新sku名称（应该是在点的时候通过查询本地ItemSkuInfoList更新了，不过推荐在请求成功后更新）
     }
 
@@ -911,10 +893,38 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //        }
 
 
-        // 设置轮播图
-        binding.productPictureHD
-                .setImages(mPageBean.getSkuPicList())
-                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
+//        // 设置轮播图
+//        binding.productPictureHD
+//                .setImage(mPageBean.getSkuPicList())
+//                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
+
+
+        binding.productPictureHD.setAdapter(new BannerAdapter(mPageBean.getSkuPicList()))
+                .setIndicator(new DrawableIndicator(this, R.drawable.ic_indicator_gray_normal, R.drawable.ic_indicator_blue_selected))
+                .setIndicatorGravity(IndicatorConfig.Direction.CENTER)
+                .addBannerLifecycleObserver(this);
+
+        // 设置轮播点击事件
+        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(Object data, int position) {
+                Bundle bundle = new Bundle();
+//                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
+//                for (String str : mPageBean.getSkuMarkPicList()) {
+//                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
+//                }
+
+                Log.d(TAG, "   MARK PIC LENGTH = " + mPageBean.getSkuMarkPicList());
+                Log.d(TAG, "UN MARK PIC LENGTH = " + mPageBean.getSkuPicList());
+                if (mPageBean.getSkuMarkPicList() == null || mPageBean.getSkuMarkPicList().size() == 0 || mPageBean.getSkuMarkPicList().contains(null))
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuPicList());
+                else
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
+                bundle.putInt("position", position);
+                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+            }
+
+        });
 
         // 设置价格
         binding.tvSellPrice.setText(mPageBean.getSellPrice());

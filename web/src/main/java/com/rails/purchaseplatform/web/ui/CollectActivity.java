@@ -79,6 +79,7 @@ public class CollectActivity extends WebActivity<BaseWebBinding> implements JSBr
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
+    @JavascriptInterface
     @Override
     public void exit() {
         goExit();

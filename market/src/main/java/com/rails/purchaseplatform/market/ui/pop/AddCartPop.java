@@ -316,7 +316,7 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
             binding.addCart.setBackground(backgroundBlue);
             binding.tvCountState.setText(mStockStateStr);
             binding.tvAdd.setTextColor(fontBlack); // 增加数量按钮灰色
-            if (Integer.parseInt(binding.etNum.getText().toString()) <= 1)
+            if (TextUtils.isEmpty(binding.etNum.getText().toString()) || Integer.parseInt(binding.etNum.getText().toString()) <= 1)
                 binding.tvReduce.setTextColor(fontGray); // 减少数量按钮灰色
             else
                 binding.tvReduce.setTextColor(fontBlack); // 减少数量按钮黑色
