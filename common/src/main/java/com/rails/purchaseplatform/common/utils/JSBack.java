@@ -23,4 +23,10 @@ public interface JSBack {
      * 登录过期，跳转app登录
      */
     void onLogin();
+
+
+    /**
+     * 退出app
+     */
+    void exit();
 }
