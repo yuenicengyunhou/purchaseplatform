@@ -85,6 +85,11 @@ public class RankQuestionActivity extends WebActivity<BaseWebBinding> implements
     public void onLogin() {
     }
 
+    @Override
+    public void exit() {
+        goExit();
+    }
+
 
     @JavascriptInterface
     @Override

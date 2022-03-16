@@ -138,6 +138,11 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
+    @Override
+    public void exit() {
+        goExit();
+    }
+
     @JavascriptInterface
     public void goProductDetails(long platformId, long itemId) {
         Bundle bundle = new Bundle();

@@ -130,6 +130,11 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
+    @Override
+    public void exit() {
+        goExit();
+    }
+
     @JavascriptInterface
     public void goProductDetails(long platformId, long itemId) {
         Bundle bundle = new Bundle();

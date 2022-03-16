@@ -152,6 +152,11 @@ public class ApproveActivity extends WebActivity<BaseWebBinding> implements JSEv
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
+    @Override
+    public void exit() {
+        goExit();
+    }
+
 //    @Override
 //    protected void isApprovalList(boolean isList) {
 //        if (isList) {
