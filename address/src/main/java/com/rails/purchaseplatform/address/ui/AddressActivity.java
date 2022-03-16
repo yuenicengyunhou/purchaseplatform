@@ -213,13 +213,17 @@ public class AddressActivity extends BaseErrorActivity<ActivityAddressBinding> i
      */
     @Override
     public void getResult(int type, int position, String msg) {
-//        if (type == 0) {
-//            addressAdapter.updateRemove(position);
-//        } else if (type == 1) {
+        if (type == 0) {
+            addressAdapter.updateRemove(position);
+        } else {
+            mPage = PAGE_DEF;
+            onRefresh(false);
+        }
+//        else if (type == 1) {
 //            addressAdapter.modifyDef(position);
 //            addressAdapter.swapData(position, 0);
 //        }
-        onRefresh(false);
+
         if (null != msg) {
             ToastUtil.show(this, msg);
         }
