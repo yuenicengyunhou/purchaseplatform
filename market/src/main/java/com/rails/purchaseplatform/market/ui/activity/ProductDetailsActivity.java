@@ -900,7 +900,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 
         binding.productPictureHD.setAdapter(new BannerAdapter(mPageBean.getSkuPicList()))
-                .setIndicator(new DrawableIndicator(this, R.drawable.ic_indicator_blue_normal, R.drawable.ic_indicator_blue_selected))
+                .setIndicator(new DrawableIndicator(this, R.drawable.ic_indicator_gray_normal, R.drawable.ic_indicator_blue_selected))
                 .setIndicatorGravity(IndicatorConfig.Direction.CENTER)
                 .addBannerLifecycleObserver(this);
 
