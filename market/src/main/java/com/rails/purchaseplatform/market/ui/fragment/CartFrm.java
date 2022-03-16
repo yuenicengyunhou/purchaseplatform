@@ -835,6 +835,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                     binding.empty.setBtnGobuy("");
                     binding.bottom.setVisibility(View.GONE);
                     binding.tvManager.setVisibility(View.INVISIBLE);
+                    binding.addressLayout.setVisibility(View.INVISIBLE);
                     binding.tvAddress.setVisibility(View.INVISIBLE);
                 }
                 break;

@@ -957,6 +957,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 不同规格组合产生的名称
         if (TextUtils.isEmpty(mPageBean.getProductAttrName())) {
             binding.rlTypeChosen.setVisibility(View.GONE);
+            binding.rlTypeChosenLine.setVisibility(View.GONE);
         } else {
             binding.tvSelectType.setText(mPageBean.getProductAttrName());
         }

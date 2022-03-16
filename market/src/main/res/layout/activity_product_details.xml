@@ -25,11 +25,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <com.rails.purchaseplatform.common.widget.RatioCard
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:cardElevation="0dp"
                         app:h="750"
                         app:w="750">
 
@@ -257,6 +259,7 @@
                     </RelativeLayout>
 
                     <View
+                        android:id="@+id/rl_type_chosen_line"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_tiny"
                         android:layout_marginStart="@dimen/dp_56"
