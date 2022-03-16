@@ -127,8 +127,11 @@ class CommonActivity extends ToolbarActivity<BaseWebBinding> implements JSBrowse
 
     @Override
     public void exit() {
-        BaseActManager.getInstance().clear();
-        System.exit(0);
+        try {
+            BaseActManager.getInstance().clear();
+            System.exit(0);
+        } catch (Exception e) {
+        }
     }
 
 

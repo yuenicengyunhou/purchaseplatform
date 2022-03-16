@@ -95,9 +95,12 @@ public abstract class BaseWebActivity<T extends ViewBinding> extends BaseErrorAc
     /**
      * 退出app
      */
-    protected void goExit(){
-        BaseActManager.getInstance().clear();
-        System.exit(0);
+    protected void goExit() {
+        try {
+            BaseActManager.getInstance().clear();
+            System.exit(0);
+        } catch (Exception e) {
+        }
     }
 
 
