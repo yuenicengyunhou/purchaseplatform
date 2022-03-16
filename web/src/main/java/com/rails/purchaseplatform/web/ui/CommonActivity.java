@@ -125,6 +125,7 @@ class CommonActivity extends ToolbarActivity<BaseWebBinding> implements JSBrowse
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
+    @JavascriptInterface
     @Override
     public void exit() {
         try {
