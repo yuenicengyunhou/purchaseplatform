@@ -69,10 +69,14 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
                 ToastUtil.showCenter(this, errorBean.getMsg());
             }
             break;
-            case ERROR_509:{
-                MaintainPop pop = new MaintainPop();
-                pop.setGravity(Gravity.CENTER);
-                pop.show(getSupportFragmentManager(),"maintain");
+            case ERROR_509: {
+                try {
+                    MaintainPop pop = new MaintainPop();
+                    pop.setGravity(Gravity.CENTER);
+                    pop.show(getSupportFragmentManager(), "maintain");
+                } catch (Exception e) {
+                }
+
             }
             break;
             default:
