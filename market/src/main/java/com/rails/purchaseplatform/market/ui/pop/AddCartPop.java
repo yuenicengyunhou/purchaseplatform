@@ -265,6 +265,12 @@ public class AddCartPop extends BasePop<PopAddCartPdBinding> {
                 return;
             }
             if (null != mChooseSkuAndAddCart) {
+                String addCount = binding.etNum.getText().toString().trim();
+//                Log.e(TAG, "====" + addCount + "----");
+                if (TextUtils.isEmpty(addCount) || addCount.equals("0")) {
+                    ToastUtil.showCenter(getActivity(), "购买数量不能为0");
+                    return;
+                }
                 mChooseSkuAndAddCart.onAddCart(binding.etNum.getText().toString().trim());
             }
         });
