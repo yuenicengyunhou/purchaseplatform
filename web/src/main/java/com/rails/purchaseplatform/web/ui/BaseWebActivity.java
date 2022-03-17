@@ -70,7 +70,7 @@ public abstract class BaseWebActivity<T extends ViewBinding> extends BaseErrorAc
         OkHttpClient.Builder builder;
         try {
             if (!isDebug)
-                builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("shop.cer"));
+                builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("DigiCertGlobalRootCA.cer"));
             else
                 builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("CARS-CA.cer"));
         } catch (IOException e) {

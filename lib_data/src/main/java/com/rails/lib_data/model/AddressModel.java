@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddressModel {
-    private final int pageSize = 10;
+    private final int pageSize = 200;
 
     /**
      * 获取维护地址列表
