@@ -577,6 +577,8 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             } else {
                 mAddress = addressBeans.get(0);
             }
+        } else {
+            mAddress = null;
         }
 
         binding.empty.setBtnEmpty("");
@@ -588,7 +590,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 //            return;
             binding.tvAddress.setText(mAddress.getFullAddress());
         } else {
-
+            binding.tvAddress.setText("");
         }
 
         if (showAddressPop) {
@@ -883,7 +885,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
             mAddress = bean;
             binding.tvAddress.setText(bean.getFullAddress());
         });
-            addressPop.show(getChildFragmentManager(), "address");
+        addressPop.show(getChildFragmentManager(), "address");
     }
 
     private void removeRecyclerAnimation(RecyclerView recyclerView) {
