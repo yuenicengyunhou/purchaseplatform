@@ -1,25 +1,9 @@
 package com.rails.purchaseplatform.framwork.http.observer;
 
 import com.orhanobut.logger.Logger;
-import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.http.SSLUtil;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.GeneralSecurityException;
-import java.security.KeyStore;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -33,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public abstract class BaseRetrofit {
 
-    public static boolean isDebug = true;
+    public static boolean isDebug = false;
 
     public static final int CONNECT_TIME_OUT = 30;//连接超时时长x秒
     public static final int READ_TIME_OUT = 30;//读数据超时时长x秒
@@ -45,7 +29,6 @@ public abstract class BaseRetrofit {
 
 
     /**
-     *
      * 获取host
      *
      * @param type 0：商城  1：平台
@@ -141,7 +124,6 @@ public abstract class BaseRetrofit {
     public <T> T create(Class<T> service, int type, boolean isVerfier) {
         return getRetrofit(type, isVerfier).create(service);
     }
-
 
 
     /**
