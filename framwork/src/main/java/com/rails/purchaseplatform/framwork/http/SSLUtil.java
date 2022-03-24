@@ -77,7 +77,7 @@ public class SSLUtil {
         InputStream inputStream = null;
         try {
             if (!isDebug)
-                inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
+                inputStream = BaseApp.getContext().getAssets().open("mall.cer");
 //                inputStream = BaseApp.getContext().getAssets().open("CARS-CA.cer");
             else
 //                inputStream = BaseApp.getContext().getAssets().open("DigiCertGlobalRootCA.cer");
