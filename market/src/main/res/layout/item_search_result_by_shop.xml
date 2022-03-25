@@ -48,6 +48,21 @@
                 android:textSize="@dimen/font_size_16"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_toStartOf="@+id/tv_go_in_shop"
+                android:layout_toEndOf="@+id/ratioImage"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="#2E2E2E"
+                android:textSize="@dimen/font_size_16"
+                android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/iv_security_level"
                 android:layout_width="@dimen/dp_16"

@@ -65,6 +65,7 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
                 shopName = shopName.replace("</em>", "");
             binding.textView.setVisibility(View.VISIBLE);
             binding.textView.setText(shopName);
+            binding.textView2.setText(shopName);
         } else {
             binding.textView.setVisibility(View.INVISIBLE);
         }
@@ -88,16 +89,24 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
         switch (credit) {
             case CREDIT_NAME_1:
                 binding.ivSecurityLevel.setVisibility(View.INVISIBLE);
+                binding.textView.setVisibility(View.GONE);
+                binding.textView2.setVisibility(View.VISIBLE);
                 break;
             case CREDIT_NAME_2:
                 binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                binding.textView2.setVisibility(View.GONE);
+                binding.textView.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_b));
                 break;
             case CREDIT_NAME_3:
+                binding.textView2.setVisibility(View.GONE);
                 binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                binding.textView.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_c));
                 break;
             case CREDIT_NAME_4:
+                binding.textView2.setVisibility(View.GONE);
+                binding.textView.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_d));
                 break;

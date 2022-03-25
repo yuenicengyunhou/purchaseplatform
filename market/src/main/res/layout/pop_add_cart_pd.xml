@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_corner_white_top_half_10"
+    android:orientation="vertical">
+
+    <com.rails.purchaseplatform.common.widget.MaxHeightScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/ll_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_10">
+
+                <com.rails.purchaseplatform.common.widget.RatioImage
+                    android:id="@+id/img_product"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_border" />
+
+                <LinearLayout
+                    android:id="@+id/ll_sku_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/tv_send"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_toEndOf="@+id/img_product"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:id="@+id/tv_rmb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥  "
+                        android:textColor="@color/font_red"
+                        android:textSize="@dimen/font_size_15" />
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_red"
+                        android:textSize="@dimen/font_size_26"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_sku_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_red"
+                        android:textSize="@dimen/font_size_15"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/img_product"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_2"
+                    android:layout_toEndOf="@+id/img_product"
+                    android:text="店铺满9999.00元包邮"
+                    android:textColor="@color/font_black_light"
+                    android:textSize="@dimen/font_size_13" />
+
+
+                <ImageButton
+                    android:id="@+id/btn_close"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_alignTop="@+id/img_product"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@null"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/svg_close_gray_12" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:background="@color/bg_gray_light" />
+
+            <com.rails.purchaseplatform.common.widget.MaxHeightScrollView2
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/common_border"
+                        android:layout_marginRight="@dimen/common_border"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+            </com.rails.purchaseplatform.common.widget.MaxHeightScrollView2>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_buy_count"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_buy_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:text="购买数量"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/font_size_13" />
+
+                <TextView
+                    android:id="@+id/tv_count_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_toEndOf="@+id/tv_buy_count"
+                    android:textColor="@color/font_gray"
+                    android:textSize="@dimen/font_size_10" />
+
+                <LinearLayout
+                    android:id="@+id/layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:background="@drawable/bg_corner_border_gray"
+                    android:padding="@dimen/dp_tiny">
+
+                    <TextView
+                        android:id="@+id/tv_reduce"
+                        android:layout_width="@dimen/dp_25"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_gray_light"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="@color/selector_black_gray_color"
+                        android:textSize="@dimen/font_size_18" />
+
+                    <EditText
+                        android:id="@+id/et_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:ems="4"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxEms="9"
+                        android:maxLength="9"
+                        android:maxLines="1"
+                        android:minWidth="@dimen/dp_30"
+                        android:singleLine="true"
+                        android:text="1"
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/font_size_12" />
+
+
+                    <TextView
+                        android:id="@+id/tv_add"
+                        android:layout_width="@dimen/dp_25"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_gray_light"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/selector_black_gray_color"
+                        android:textSize="@dimen/font_size_18" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/add_cart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:background="@drawable/bg_corner_blue_20"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_15" />
+        </LinearLayout>
+    </com.rails.purchaseplatform.common.widget.MaxHeightScrollView>
+
+</LinearLayout>
+

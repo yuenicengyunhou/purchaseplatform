@@ -35,7 +35,7 @@ import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.PropertyAdapter;
-import com.rails.purchaseplatform.market.databinding.PopMarketPropertyBinding;
+import com.rails.purchaseplatform.market.databinding.PopAddCartPdBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ import java.util.List;
  * @author： sk_comic@163.com
  * @date: 2021/3/29
  */
-public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
+public class AddCartPop extends BasePop<PopAddCartPdBinding> {
 
     final private String TAG = AddCartPop.class.getSimpleName();
 
@@ -236,6 +236,7 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
                 }
             }
         });
+        binding.recycler.canScrollVertical(false);
         binding.recycler.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 2);
         binding.recycler.setAdapter(mAdapter);
         mAdapter.update(mBeans, true);
@@ -264,6 +265,12 @@ public class AddCartPop extends BasePop<PopMarketPropertyBinding> {
                 return;
             }
             if (null != mChooseSkuAndAddCart) {
+                String addCount = binding.etNum.getText().toString().trim();
+//                Log.e(TAG, "====" + addCount + "----");
+                if (TextUtils.isEmpty(addCount) || addCount.equals("0")) {
+                    ToastUtil.showCenter(getActivity(), "购买数量不能为0");
+                    return;
+                }
                 mChooseSkuAndAddCart.onAddCart(binding.etNum.getText().toString().trim());
             }
         });
