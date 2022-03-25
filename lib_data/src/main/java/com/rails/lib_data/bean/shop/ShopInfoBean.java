@@ -355,7 +355,7 @@ public class ShopInfoBean {
         this.supplierStatus = supplierStatus;
     }
 
-    public String getCreditLevel() {
+    public String getCreditLevelDescription() {
         if (null == creditLevel) {
             creditLevel = "";
         }
@@ -380,6 +380,10 @@ public class ShopInfoBean {
 
     public void setCreditLevel(String creditLevel) {
         this.creditLevel = creditLevel;
+    }
+
+    public String getCreditLevel() {
+        return this.creditLevel;
     }
 
     public String getTiezongCode() {
