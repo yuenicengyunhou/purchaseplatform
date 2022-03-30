@@ -26,12 +26,13 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:layout_centerVertical="true"
-                android:background="@null"
+                android:background="@drawable/bg_corner_gray_0"
+                android:padding="@dimen/dp_1"
                 android:src="@drawable/ic_shop_logo"
-                app:h="18"
+                app:h="20"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:w="21" />
+                app:w="20" />
 
             <TextView
                 android:id="@+id/textView"
@@ -52,8 +53,8 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_16"
                 android:layout_toStartOf="@+id/tv_go_in_shop"
                 android:layout_toEndOf="@+id/ratioImage"
