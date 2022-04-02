@@ -4,9 +4,11 @@ import com.rails.lib_data.bean.shop.ShopInfoBean;
 import com.rails.lib_data.bean.shop.ShopRecommendBean;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
@@ -22,5 +24,7 @@ public interface ShopService {
     @POST("elasticsearch-service/mall/search/queryItemListByCid")
     Observable<HttpResult<ShopRecommendBean>> getShopItemListByCid(@QueryMap HashMap<String, Object> map);
 
+    @POST("app-user-service/app/v1/feign/shop/batchQueryShopEvaluate")
+    Observable<HttpResult<ArrayList<ShopInfoBean>>> getShopRating(@QueryMap HashMap<String, Object> map);
     //采购单号 从
 }

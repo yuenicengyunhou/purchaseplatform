@@ -288,7 +288,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     public void loadShopInfo(ShopInfoBean shop) {
         binding.setShopInfo(shop);
         String mobile = shop.getMobile();
-        String creditLevel = shop.getCreditLevel();
+//        String creditLevel = shop.getCreditLevel();
         binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
         binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
         int shopStatus = shop.getShopStatus();
@@ -302,18 +302,24 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
         } else {
             binding.ivMakePhone.setVisibility(View.VISIBLE);
         }
-        if (null == creditLevel || TextUtils.isEmpty(creditLevel) || creditLevel.equals("A")) {
-            binding.ivMark.setVisibility(View.INVISIBLE);
-            binding.tvLevel.setVisibility(View.INVISIBLE);
-        } else if (creditLevel.equals("B")) {
-            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_security_b,null));
-        } else if (creditLevel.equals("C")) {
-            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_security_d,null));
-        } else if (creditLevel.equals("D")) {
-            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_security_d,null));
-        }
         queryShopProductList();//获取店铺商品列表
     }
+
+    @Override
+    public void loadShopRating(String rating,String shopRateSquence) {
+        binding.tvLevel.setText(shopRateSquence);
+        if (null == rating || TextUtils.isEmpty(rating) || rating.contains("A")) {
+            binding.ivMark.setVisibility(View.INVISIBLE);
+            binding.tvLevel.setVisibility(View.INVISIBLE);
+        } else if (rating.equals("B")) {
+            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_b, null));
+        } else if (rating.equals("C")) {
+            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_c, null));
+        } else if (rating.equals("D")) {
+            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_d, null));
+        }
+    }
+
 
     @Override
     public void loadShopProductList(ArrayList<ResultListBean> list, int totalCount) {

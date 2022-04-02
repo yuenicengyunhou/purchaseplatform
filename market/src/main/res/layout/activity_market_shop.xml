@@ -133,14 +133,16 @@
                                 android:layout_marginEnd="@dimen/paddingL"
                                 android:layout_toStartOf="@+id/iv_mark"
                                 android:layout_toEndOf="@+id/img_shop"
+                                android:ellipsize="end"
+                                android:maxLines="2"
                                 android:text="@{shopInfo.shopName}"
                                 android:textColor="@color/font_black"
                                 android:textSize="@dimen/font_size_16" />
 
                             <ImageView
                                 android:id="@+id/iv_mark"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_18"
                                 android:layout_alignBottom="@id/tv_level"
                                 android:layout_marginEnd="@dimen/padding"
                                 android:layout_toStartOf="@id/tv_level"
@@ -154,7 +156,6 @@
                                 android:layout_alignBaseline="@+id/tv_name"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="@dimen/common_border"
-                                android:text="@{shopInfo.getCreditLevelDescription}"
                                 android:textColor="@color/font_black_light"
                                 android:textSize="@dimen/font_size_12" />
 
