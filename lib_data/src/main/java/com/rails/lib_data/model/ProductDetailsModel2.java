@@ -3,6 +3,7 @@ package com.rails.lib_data.model;
 import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.ShopRateBean;
 import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.HotSaleBean;
 import com.rails.lib_data.bean.forNetRequest.productDetails.ProductDetailsBean;
@@ -13,6 +14,7 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.ProductPriceBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.AddressService;
 import com.rails.lib_data.service.ProductService;
+import com.rails.lib_data.service.ShopService;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
@@ -26,7 +28,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function4;
-import io.reactivex.functions.Function6;
+import io.reactivex.functions.Function7;
 import io.reactivex.schedulers.Schedulers;
 
 public class ProductDetailsModel2 {
@@ -274,6 +276,16 @@ public class ProductDetailsModel2 {
 
     }
 
+
+    public Observable<ArrayList<ShopRateBean>> getShopRating(String shopId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", "20");
+        map.put("shopId", shopId);
+
+        return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ShopService.class).getShopRating2(map));
+    }
+
     /**
      * 请求商品信息
      *
@@ -313,16 +325,19 @@ public class ProductDetailsModel2 {
                 = getHotSale(materialType, platformId, cid, 1);
         Observable skuStock
                 = querySkuSaleStocks(shopId, provinceId, cityId, countryId, address, skuNum, skuId);
+        Observable shopRate
+                = getShopRating(shopId);
 
         Observable.zip(
-                deliver, visit, productPrice, userCollect, hotSale, skuStock,
-                new Function6<
+                deliver, visit, productPrice, userCollect, hotSale, skuStock, shopRate,
+                new Function7<
                         DeliveryBean,
                         Boolean,
                         ArrayList<ProductPriceBean>,
                         JSONObject,
                         HotSaleBean,
                         ArrayList<SkuStockBean>,
+                        ArrayList<ShopRateBean>,
                         ProductDetailsStep2Bean>() {
 
                     @NotNull
@@ -333,7 +348,8 @@ public class ProductDetailsModel2 {
                             @NotNull ArrayList<ProductPriceBean> productPriceBeans,
                             @NotNull JSONObject jsonObject,
                             @NotNull HotSaleBean hotSaleBean,
-                            @NotNull ArrayList<SkuStockBean> skuStockBeans) throws Exception {
+                            @NotNull ArrayList<SkuStockBean> skuStockBeans,
+                            @NotNull ArrayList<ShopRateBean> shopRateBeans) throws Exception {
 
                         ProductDetailsStep2Bean bean = new ProductDetailsStep2Bean();
                         bean.setDeliveryBean(deliveryBean);
@@ -342,6 +358,7 @@ public class ProductDetailsModel2 {
                         bean.setCollect(jsonObject);
                         bean.setHotSaleBean(hotSaleBean);
                         bean.setSkuStockBeans(skuStockBeans);
+                        bean.setShopRateBeans(shopRateBeans);
                         return bean;
                     }
                 })

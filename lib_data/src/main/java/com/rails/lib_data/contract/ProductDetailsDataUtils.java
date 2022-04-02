@@ -14,6 +14,7 @@ import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.ShopRateBean;
 import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPageBean;
@@ -48,11 +49,14 @@ public class ProductDetailsDataUtils {
 
     final private String TAG = ProductDetailsDataUtils.class.getSimpleName();
 
+    final private String CREDIT_LEVEL_5 = "AA";
+    final private String CREDIT_LEVEL_6 = "AAA";
     final private String CREDIT_LEVEL_1 = "A";
     final private String CREDIT_LEVEL_2 = "B";
     final private String CREDIT_LEVEL_3 = "C";
     final private String CREDIT_LEVEL_4 = "D";
-    final private String CREDIT_NAME_1 = " ";
+    final private String CREDIT_NAME_0 = " ";
+    final private String CREDIT_NAME_1 = "无风险";
     final private String CREDIT_NAME_2 = "风险较低";
     final private String CREDIT_NAME_3 = "风险较高";
     final private String CREDIT_NAME_4 = "风险极高";
@@ -243,7 +247,7 @@ public class ProductDetailsDataUtils {
         pageBean.setShopLogo(logoUrl);
 
         // 获取店铺风险等级
-        String shopSecurity = getSecurityText(detailsBean);
+        String shopSecurity = getRateText(bean2.getShopRateBeans());
         pageBean.setShopSecurity(shopSecurity);
 
         // 获取风险等级图标
@@ -795,11 +799,42 @@ public class ProductDetailsDataUtils {
      */
     private String getSecurityText(ProductDetailsBean bean) {
         String creditLv = bean.getItemPublishVo().getCreditLevel();
-        String text = CREDIT_NAME_1;
+        String text = CREDIT_NAME_0;
         if (creditLv == null) {
             return text;
         }
         switch (creditLv) {
+            case CREDIT_LEVEL_2:
+                text = CREDIT_NAME_2;
+                break;
+            case CREDIT_LEVEL_3:
+                text = CREDIT_NAME_3;
+                break;
+            case CREDIT_LEVEL_4:
+                text = CREDIT_NAME_4;
+                break;
+            default:
+                break;
+        }
+        return text;
+    }
+
+    private String getRateText(ArrayList<ShopRateBean> shopRateBeans) {
+        String text = CREDIT_NAME_0;
+        if (shopRateBeans == null || shopRateBeans.size() == 0) {
+            return text;
+        }
+        String creditLv = shopRateBeans.get(0).getRate();
+        if (creditLv == null) {
+            return text;
+        }
+        switch (creditLv) {
+            case CREDIT_LEVEL_1:
+            case CREDIT_LEVEL_5:
+            case CREDIT_LEVEL_6:
+                // TODO: 2022/4/2 风险等级提示如何显示？
+                text = CREDIT_NAME_0;
+                break;
             case CREDIT_LEVEL_2:
                 text = CREDIT_NAME_2;
                 break;
