@@ -28,6 +28,8 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
     final private String CREDIT_LEVEL_2 = "B";
     final private String CREDIT_LEVEL_3 = "C";
     final private String CREDIT_LEVEL_4 = "D";
+    final private String CREDIT_LEVEL_5 = "AA";
+    final private String CREDIT_LEVEL_6 = "AAA";
     final private String CREDIT_NAME_1 = " ";
     final private String CREDIT_NAME_2 = "风险较低";
     final private String CREDIT_NAME_3 = "风险较高";
@@ -71,8 +73,8 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
         }
 
         String credit = CREDIT_NAME_1;
-        if (shopAttribute.getCreditLevel() != null) {
-            switch (shopAttribute.getCreditLevel()) {
+        if (shopAttribute.getRate() != null) {
+            switch (shopAttribute.getRate()) {
                 case CREDIT_LEVEL_2:
                     credit = CREDIT_NAME_2;
                     break;

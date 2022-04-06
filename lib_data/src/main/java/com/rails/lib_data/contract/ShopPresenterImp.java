@@ -1,11 +1,8 @@
 package com.rails.lib_data.contract;
 
 import android.app.Activity;
-import android.util.Log;
 
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
-import com.rails.lib_data.bean.ShopRateBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.shop.ItemListBean;
 import com.rails.lib_data.bean.shop.ResultListBean;
@@ -50,11 +47,11 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
 
             @Override
             protected void onSuccess(ArrayList<ShopInfoBean> response) {
-                if ((null != response)&&(!response.isEmpty())) {
+                if ((null != response) && (!response.isEmpty())) {
                     ShopInfoBean bean = response.get(0);
                     String rate = bean.getRate();
                     String shopRateSquence = getShopRate(rate);
-                    baseView.loadShopRating(rate,shopRateSquence);
+                    baseView.loadShopRating(rate, shopRateSquence);
                 }
             }
         });
@@ -66,7 +63,7 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
         }
         if (rate.contains("A") || rate.contains("B")) {
             return "风险较低";
-        } else if (rate.contains("D") ) {
+        } else if (rate.contains("D")) {
             return "风险极高";
         } else if (rate.contains("C")) {
             return "风险较高";
@@ -106,7 +103,6 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             }
         });
     }
-
 
 
     /**
