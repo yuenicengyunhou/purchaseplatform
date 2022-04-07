@@ -314,8 +314,12 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
         } else if (rating.equals("B")) {
             binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_b, null));
         } else if (rating.equals("C")) {
+            binding.ivMark.setVisibility(View.INVISIBLE);
+            binding.tvLevel.setVisibility(View.INVISIBLE);
             binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_c, null));
         } else if (rating.equals("D")) {
+            binding.ivMark.setVisibility(View.INVISIBLE);
+            binding.tvLevel.setVisibility(View.INVISIBLE);
             binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_d, null));
         }
     }
