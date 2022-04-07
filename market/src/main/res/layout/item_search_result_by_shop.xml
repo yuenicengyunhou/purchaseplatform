@@ -72,8 +72,7 @@
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginBottom="@dimen/dp_18"
                 android:layout_toEndOf="@+id/ratioImage"
-                android:background="@null"
-                android:src="@drawable/ic_security_b" />
+                android:background="@null" />
 
             <TextView
                 android:id="@+id/tv_creditLevel"

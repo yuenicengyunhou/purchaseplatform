@@ -78,12 +78,13 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
                 case CREDIT_LEVEL_2:
                     credit = CREDIT_NAME_2;
                     break;
-                case CREDIT_LEVEL_3:
-                    credit = CREDIT_NAME_3;
-                    break;
-                case CREDIT_LEVEL_4:
-                    credit = CREDIT_NAME_4;
-                    break;
+                // A C D 这三种等级都不展示
+//                case CREDIT_LEVEL_3:
+//                    credit = CREDIT_NAME_3;
+//                    break;
+//                case CREDIT_LEVEL_4:
+//                    credit = CREDIT_NAME_4;
+//                    break;
                 default:
                     break;
             }
