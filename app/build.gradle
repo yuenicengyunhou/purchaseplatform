@@ -26,15 +26,12 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
 
-        // 2022-03-18
-        versionCode 13
-        versionName "1.1.2"
+        // 2022-04-11
+//        versionCode 13
+//        versionName "1.1.2"
 
-//        versionCode 47
-//        versionName "1.0.47"
-
-//        versionCode 47
-//        versionName "1.0.47"
+        versionCode 48
+        versionName "1.0.48"
 
         flavorDimensions "versionCode"
         multiDexEnabled true
