@@ -13,6 +13,8 @@ public class ShopBean {
     private int shopType;
     private List<ShopSkuBean> shop_sku;
     private String creditLevel;
+    private String rate;
+    private String totalPoints;
 
 
     // ===============================================================================
@@ -96,5 +98,21 @@ public class ShopBean {
 
     public void setShop_sku(List<ShopSkuBean> shop_sku) {
         this.shop_sku = shop_sku;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(String totalPoints) {
+        this.totalPoints = totalPoints;
     }
 }

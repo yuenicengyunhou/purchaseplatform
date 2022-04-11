@@ -41,6 +41,15 @@ public class ShopModel {
                 .subscribe(httpRxObserver);
     }
 
+    public void getShopRating( String shopId, HttpRxObserver httpRxObserver) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("platformId", "20");
+        map.put("shopId", shopId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                .create(ShopService.class).getShopRating(map))
+                .subscribe(httpRxObserver);
+    }
+
 
     /**
      * 排序：

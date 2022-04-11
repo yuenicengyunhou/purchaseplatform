@@ -384,23 +384,32 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 String msg = e.getMsg();
                 if (msg.contains("[") && msg.contains("]")) {
                     ArrayList<String> limits = new ArrayList<>();
+                    if (msg.contains("[[") && msg.contains("]]")) {
                         Type type = new TypeToken<ArrayList<ArrayList<CartShopProductBean>>>() {
                         }.getType();
-                    try {
-                        ArrayList<ArrayList<CartShopProductBean>> outterList = JsonUtil.parseJson(msg, type);
-                        if ((null!=outterList)&&(!outterList.isEmpty())) {
-                            ArrayList<CartShopProductBean> innerList = outterList.get(0);
-                            if (!innerList.isEmpty()) {
-                                for (CartShopProductBean bean : innerList) {
-                                    String skuId = bean.getSkuId();
-                                    limits.add(skuId);
+                        try {
+                            ArrayList<ArrayList<CartShopProductBean>> outterList = JsonUtil.parseJson(msg, type);
+                            if ((null != outterList) && (!outterList.isEmpty())) {
+                                ArrayList<CartShopProductBean> innerList = outterList.get(0);
+                                if (!innerList.isEmpty()) {
+                                    for (CartShopProductBean bean : innerList) {
+                                        String skuId = bean.getSkuId();
+                                        limits.add(skuId);
+                                    }
                                 }
                             }
+                            msg = "您购买的商品实际库存不足，请修改购买数量或选择其他商品！";
+                        } catch (JsonSyntaxException exception) {
+                            exception.printStackTrace();
+                            msg = "json解析异常";
                         }
-                        msg = "您购买的商品实际库存不足，请修改购买数量或选择其他商品！";
-                    } catch (JsonSyntaxException exception) {
-                        exception.printStackTrace();
-                        msg = "json解析异常";
+                    } else {
+                        int start = msg.lastIndexOf("[");
+                        int end = msg.lastIndexOf("]") + 1;
+                        String array = msg.substring(start, end);
+                        Type type = new TypeToken<ArrayList<String>>() {
+                        }.getType();
+                        limits = JsonUtil.parseJson(array, type);
                     }
                     baseView.getLimits(limits, msg);
                 } else {
