@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -21,12 +22,11 @@ import com.rails.purchaseplatform.user.databinding.ActivitySettingBinding;
 
 /**
  * 设置页面
- *
- * @author： sk_comic@163.com
- * @date: 2021/4/9
+ * <p>
+ * author： sk_comic@163.com
+ * date: 2021/4/9
  */
 public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> implements UserToolContract.UserToolView {
-
 
     private boolean isAddressManager = false;
     private UserToolContract.UserToolPresenter presenter;
@@ -38,9 +38,10 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
                 .setTitleBar(R.string.user_setting)
                 .setImgLeftRes(R.drawable.svg_back_black)
                 .setShowLine(true);
-
-        presenter = new UserToolPresenterImpl(this, this);
-        presenter.queryAuthor();
+        if (hasToken()) {
+            presenter = new UserToolPresenterImpl(this, this);
+            presenter.queryAuthor();
+        }
 
         String version = SystemUtil.getVersionName(this);
         barBinding.tvVersion.setText("V" + version);
@@ -67,11 +68,16 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
         super.onClick();
 
         barBinding.btnAddress.setOnClickListener(v -> {
-            if (!isAddressManager) {
-                ToastUtil.showCenter(SettingActivity.this, getResources().getString(R.string.common_author_null));
-                return;
+            if (hasToken()) {
+                if (!isAddressManager) {
+                    ToastUtil.showCenter(SettingActivity.this, getResources().getString(R.string.common_author_null));
+                    return;
+                }
+                ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+            } else {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
             }
-            ARouter.getInstance().build(ConRoute.ADDRESS.ADDRESS_MAIN).navigation();
+
         });
 
 
@@ -85,6 +91,10 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
                 .navigation());
 
 
+        if (!hasToken()) {
+            barBinding.btnExit.setVisibility(View.GONE);
+            barBinding.btnModify.setVisibility(View.GONE);
+        }
         barBinding.btnExit.setOnClickListener(v -> new AlterDialog.Builder().context(this)
                 .title("提示")
                 .msg("确定要退出吗")
@@ -138,4 +148,14 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
     public void getAuthor(AuthorBean authorBean) {
         isAddressManager = PrefrenceUtil.getInstance(this).getBoolean(ConShare.MENU_ADDRESS, false);
     }
+
+    private boolean hasToken() {
+        String token = PrefrenceUtil.getInstance(this).getString(ConShare.TOKEN, "");
+        return !TextUtils.isEmpty(token);
+    }
 }
+//if (!hasToken()) {
+//                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+//                return;
+//            }
+
