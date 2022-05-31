@@ -84,79 +84,61 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
             ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
         });
 
-        binding.btnMsg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasToken()) {
-                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                    return;
-                }
-                ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
-            }
-        });
-
-
-        binding.btnSetting.setOnClickListener(v -> {
+        binding.btnMsg.setOnClickListener(v -> {
             if (!hasToken()) {
                 ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
                 return;
             }
-            startIntent(SettingActivity.class);
+            ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
         });
 
 
-        binding.orderAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasToken()) {
-                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                    return;
-                }
+        binding.btnSetting.setOnClickListener(v -> startIntent(SettingActivity.class));
 
-                if (!isPurchase) {
-                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
-                    return;
-                }
-                ARouter.getInstance().build(ConRoute.ORDER.ORDER_MAIN).navigation();
+
+        binding.orderAll.setOnClickListener(v -> {
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
             }
+
+            if (!isPurchase) {
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                return;
+            }
+            ARouter.getInstance().build(ConRoute.ORDER.ORDER_MAIN).navigation();
         });
 
-        binding.tabOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasToken()) {
-                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                    return;
-                }
-                //待下单
-                if (!isPurchase) {
-                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
-                    return;
-                }
-                ARouter.getInstance()
-                        .build(ConRoute.ORDER.ORDER_MAIN)
-                        .withString("statusCode", "10")
-                        .navigation();
+        binding.tabOrder.setOnClickListener(v -> {
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
             }
+            //待下单
+            if (!isPurchase) {
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                return;
+            }
+            ARouter.getInstance()
+                    .build(ConRoute.ORDER.ORDER_MAIN)
+                    .withString("statusCode", "10")
+                    .navigation();
         });
 
-        binding.tabRecivice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasToken()) {
-                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                    return;
-                }
-                //待收货 "status": "待收货", "statusCode": "30"
-                if (!isPurchase) {
-                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
-                    return;
-                }
-                ARouter.getInstance()
-                        .build(ConRoute.ORDER.ORDER_MAIN)
-                        .withString("statusCode", "30")
-                        .navigation();
+        binding.tabRecivice.setOnClickListener(v -> {
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
             }
+            //待收货 "status": "待收货", "statusCode": "30"
+            if (!isPurchase) {
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                return;
+            }
+            ARouter.getInstance()
+                    .build(ConRoute.ORDER.ORDER_MAIN)
+                    .withString("statusCode", "30")
+                    .navigation();
         });
 
         binding.tabSend.setOnClickListener(v -> {
@@ -193,41 +175,35 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
                     .navigation();
         });
 
-        binding.tvWatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasToken()) {
-                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                    return;
-                }
-                if (!isTrack) {
-                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
-                    return;
-                }
-                ARouter.getInstance()
-                        .build(ConRoute.WEB.WEB_BROWSE)
-                        .withString("url", ConRoute.WEB_URL.BROWSE)
-                        .navigation();
+        binding.tvWatch.setOnClickListener(v -> {
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
             }
+            if (!isTrack) {
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                return;
+            }
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_BROWSE)
+                    .withString("url", ConRoute.WEB_URL.BROWSE)
+                    .navigation();
         });
 
 
-        binding.tvCollect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasToken()) {
-                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
-                    return;
-                }
-                if (!isCollect) {
-                    ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
-                    return;
-                }
-                ARouter.getInstance()
-                        .build(ConRoute.WEB.WEB_COLLECT)
-                        .withString("url", ConRoute.WEB_URL.COLLECT)
-                        .navigation();
+        binding.tvCollect.setOnClickListener(v -> {
+            if (!hasToken()) {
+                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+                return;
             }
+            if (!isCollect) {
+                ToastUtil.showCenter(getActivity(), getResources().getString(R.string.common_author_null));
+                return;
+            }
+            ARouter.getInstance()
+                    .build(ConRoute.WEB.WEB_COLLECT)
+                    .withString("url", ConRoute.WEB_URL.COLLECT)
+                    .navigation();
         });
 
 
