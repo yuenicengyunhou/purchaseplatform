@@ -28,6 +28,11 @@ public interface ShopContract {
         void loadShopInfo(ShopInfoBean shop);
 
         /**
+         * 加载店铺信用
+         */
+        void loadShopRating(String rating,String shopRateSquence);
+
+        /**
          * 筛选弹窗
          */
         void loadFilter(ArrayList<SearchFilterBean> filterBeans, boolean resetFilter);
@@ -37,7 +42,10 @@ public interface ShopContract {
 
     interface ShopPresenter {
 
-
+        /**
+         * 获取店铺的信用等级
+         */
+        void getShopRating(String shopId);
         /**
          * param 店铺信息详情
          */
@@ -46,7 +54,7 @@ public interface ShopContract {
         /**
          * 店铺推荐商品列表
          */
-        void getShopItemList(boolean showLoading,String shopInfoId, int page, int pageSize,String orderColumn,String orderType,ArrayList<SearchFilterBean> filterBeans,String keyword);
+        void getShopItemList(boolean showLoading, String shopInfoId, int page, int pageSize, String orderColumn, String orderType, ArrayList<SearchFilterBean> filterBeans, String keyword, String lowPrice, String highPrice);
 
     }
 }

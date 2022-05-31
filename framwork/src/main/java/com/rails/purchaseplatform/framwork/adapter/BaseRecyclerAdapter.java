@@ -59,6 +59,7 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
         E binding = (E) holder.getBinding();
         final T t = mDataSource.get(position);
         onBindItem(binding, t, position);
+        binding.executePendingBindings();//解决databinding刷新数据闪烁的问题
     }
 
     /**
@@ -115,11 +116,15 @@ public abstract class BaseRecyclerAdapter<T, E extends ViewDataBinding> extends 
      * @param position item 所在位置
      */
     public void updateRemove(int position) {
+        if (mDataSource.isEmpty()) {
+            return;
+        }
         mDataSource.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
         if (mDataSource.size() <= 0)
             notifyDataSetChanged();
+
     }
 
     /**

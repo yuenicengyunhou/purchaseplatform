@@ -273,7 +273,7 @@ public class ProductDetailsPresenterImpl
                 ArrayList<ItemPicture> pics = new ArrayList<>(); // 这个集合是做什么的？
                 ArrayList<ProductDetailsPackingBean> packingBeans = new ArrayList<>();
 
-                if (response.size() != 0) {
+                if (response != null && response.size() != 0) {
                     bean = response.get(0);
 
                     if (bean.getPackinglist() != null && bean.getPackinglist().size() != 0) {
@@ -294,6 +294,7 @@ public class ProductDetailsPresenterImpl
 
 
     public void spliceList(ArrayList<ProductDetailsPackingBean> packingBeans, String annexName) {
+        if (annexName == null) return;
         if (annexName.contains("``")) {
             String[] strings = annexName.split("``");
             for (String keyValue : strings) {

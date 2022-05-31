@@ -10,7 +10,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -27,6 +30,7 @@ import com.rails.lib_data.contract.OrderPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
+import com.rails.purchaseplatform.common.utils.StatusBarCompat;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
@@ -81,6 +85,9 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
                 currentIndex = -1;
             } else if (msg.what == DOWNLOADING) {
                 adapter.notifyDownloadState(currentIndex, DOWNLOADING, msg.arg1);
+            } else if (msg.what == 57) {
+                Toast.makeText(activity, "下载文件失败", Toast.LENGTH_SHORT).show();
+                adapter.notifyDownloadState(currentIndex,STATE_DEFAULT,0);
             }
         }
     }
@@ -143,6 +150,12 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setDarkStatusBar(android.R.color.white);
+    }
+
+    @Override
     public void loadDeliveredFileList(ArrayList<DeliveredFile> list) {
         binding.refresh.finishRefresh();
         if (null != adapter) {
@@ -169,6 +182,7 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
      * positionPlus=index+1
      */
     public void start_single(String url, int positionPlus, int position, int state) {
+        Log.e("WQ", "downloadurl---" + url);
         String extension = url.substring(url.lastIndexOf("."));
         String mFilePath = mSinglePath + orderNo + "_" + positionPlus + extension;
         if (state == 2) {
@@ -235,6 +249,9 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
                     @Override
                     protected void error(BaseDownloadTask task, Throwable e) {
                         mDownloadState = STATE_DEFAULT;
+                        Message message = new Message();
+                        message.what=57;
+                        uiHandler.sendMessage(message);
                         Log.d("feifei", "error taskId:" + task.getId() + ",e:" + e.getLocalizedMessage());
                     }
 
@@ -458,6 +475,18 @@ public class DeliveredActivity extends BaseErrorActivity<ActivityDeliveredBindin
         } else {
             ToastUtil.showCenter(this, "图片不存在");
         }
+    }
+
+    protected void setDarkStatusBar(int color) {
+        int statusBarColor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            statusBarColor = ContextCompat.getColor(this, color);
+            View decor = getWindow().getDecorView();
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            statusBarColor = ContextCompat.getColor(this, color);
+        }
+        StatusBarCompat.compat(this, statusBarColor);
     }
 
 

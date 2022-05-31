@@ -1,9 +1,13 @@
 package com.rails.purchaseplatform.web.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.webkit.JavascriptInterface;
+
+import androidx.core.content.ContextCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -12,8 +16,8 @@ import com.rails.lib_data.bean.ResultWebBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
+import com.rails.purchaseplatform.common.utils.StatusBarCompat;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.web.R;
@@ -21,7 +25,7 @@ import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
 
 /**
  * 订单
- *
+ * <p>
  * author： sk_comic@163.com
  * date: 2021/3/23
  */
@@ -54,7 +58,7 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
 
     @Override
     protected boolean isSetSystemBar() {
-        return true;
+        return false;
     }
 
     @Override
@@ -81,7 +85,19 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     @Override
     protected void onResume() {
         super.onResume();
-        StatusBarUtil.StatusBarMode(this, getResources().getColor(R.color.bg_blue));
+        systemBarColor(webUrl);
+    }
+
+    protected void setDarkStatusBar(int color) {
+        int statusBarColor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            statusBarColor = ContextCompat.getColor(this, color);
+            View decor = getWindow().getDecorView();
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            statusBarColor = ContextCompat.getColor(this, color);
+        }
+        StatusBarCompat.compat(this, statusBarColor);
     }
 
     @JavascriptInterface
@@ -112,6 +128,12 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
     @Override
     public void onLogin() {
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+    }
+
+    @JavascriptInterface
+    @Override
+    public void exit() {
+        goExit();
     }
 
     @JavascriptInterface
@@ -146,6 +168,24 @@ public class OrderDetailActivity extends WebActivity<BaseWebBinding> implements 
         if (null != pop) {
             pop.dismiss();
             pop = null;
+        }
+    }
+
+    /**
+     * 系统状态栏
+     */
+    @Override
+    protected void newLink(String url) {
+        systemBarColor(url);
+    }
+
+    private void systemBarColor(String url) {
+        if (url.contains("/parcels")) {
+            setDarkStatusBar(R.color.white);
+        } else if (url.contains("/orderDetails") || url.contains("purOrderDetails")) {
+            setDarkStatusBar(R.color.bg_blue);
+        } else {
+            setDarkStatusBar(R.color.bg_blue);
         }
     }
 }

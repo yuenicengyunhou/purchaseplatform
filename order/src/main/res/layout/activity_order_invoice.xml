@@ -3,13 +3,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart"
         android:layout_width="match_parent"
-        android:layout_above="@+id/btn_add"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_add">
 
 
         <androidx.core.widget.NestedScrollView
@@ -26,7 +27,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
 
 
                     <LinearLayout
@@ -105,9 +107,10 @@
                     android:id="@+id/typeRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_border"
-                    android:layout_marginRight="@dimen/common_border"
+                    android:background="@color/white"
                     android:overScrollMode="never"
+                    android:paddingLeft="@dimen/common_border"
+                    android:paddingRight="@dimen/common_border"
                     app:canH="false"
                     app:canV="false" />
 
@@ -117,23 +120,55 @@
                     android:id="@+id/contentRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_border"
-                    android:layout_marginRight="@dimen/common_border"
+                    android:background="@color/white"
                     android:overScrollMode="never"
+                    android:paddingLeft="@dimen/common_border"
+                    android:paddingRight="@dimen/common_border"
                     app:canH="false"
                     app:canV="false" />
 
                 <View style="@style/line_bold_gray_10" />
 
-                <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-                    android:id="@+id/recycler"
+                <TextView
+                    android:id="@+id/tv_module"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_border"
-                    android:layout_marginRight="@dimen/common_border"
-                    android:overScrollMode="never"
-                    app:canH="false"
-                    app:canV="false" />
+                    android:background="@color/white"
+                    android:paddingLeft="@dimen/dp_20"
+                    android:paddingTop="@dimen/dp_20"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:text="发票抬头"
+                    android:textColor="@color/font_gray"
+                    android:textSize="@dimen/font_size_13" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:paddingLeft="@dimen/common_border"
+                        android:paddingRight="@dimen/common_border"
+                        app:canH="false"
+                        app:canV="false" />
+
+                    <TextView
+                        android:id="@+id/empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:textColor="@color/font_black_light"
+                        android:textSize="@dimen/font_size_12"
+                        android:text="暂无数据"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:visibility="visible" />
+
+
+                </FrameLayout>
 
 
             </LinearLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_corner_white_top_half_10"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="筛选"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_18"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/svg_close_gray_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.rails.purchaseplatform.common.widget.MaxHeightScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:overScrollMode="never">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/margin"
+                android:paddingEnd="@dimen/margin" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recycler"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="价格区间"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_size_14"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_lowPrice"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_30"
+                android:layout_below="@id/tv_price"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/paddingL"
+                android:background="@drawable/bg_corner_gray_20"
+                android:gravity="center"
+                android:hint="@string/lowPrice"
+                android:inputType="number"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_13" />
+
+            <View
+                android:id="@+id/view_split"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_price"
+                android:layout_marginTop="@dimen/dp_25"
+                android:layout_toEndOf="@id/et_lowPrice"
+                android:background="@color/bg_gray" />
+
+
+            <EditText
+                android:id="@+id/et_highPrice"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_30"
+                android:layout_below="@id/tv_price"
+
+                android:layout_marginTop="@dimen/paddingL"
+                android:layout_toEndOf="@id/view_split"
+                android:background="@drawable/bg_corner_gray_20"
+                android:gravity="center"
+                android:hint="@string/highPrice"
+                android:inputType="number"
+                android:textColor="@color/font_gray"
+                android:textSize="@dimen/font_size_13" />
+        </RelativeLayout>
+    </com.rails.purchaseplatform.common.widget.MaxHeightScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginBottom="@dimen/dp_25"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/btn_reset"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_35"
+            android:background="@drawable/bg_corner_border_gray_20"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="重置"
+            android:textColor="@color/font_black_light"
+            android:textSize="@dimen/font_size_15" />
+
+
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corner_blue_20"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_15" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

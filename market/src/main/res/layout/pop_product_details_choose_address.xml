@@ -1,51 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rails.purchaseplatform.common.widget.MaxHeightScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_corner_white_top_half_10">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_corner_white_top_half_10"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_16"
-        android:text="送至"
-        android:textColor="@color/font_black"
-        android:textSize="@dimen/font_size_18"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/ib_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/dp_10"
-        android:background="@null"
-        android:padding="@dimen/dp_10"
-        android:src="@drawable/svg_close_gray_12" />
-
-    <com.rails.purchaseplatform.common.widget.BaseRecyclerView
-        android:id="@+id/brv_address"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title"
-        android:overScrollMode="never" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_chooseAddress"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_below="@+id/brv_address"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_32"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_24"
-        android:background="@drawable/bg_corner_blue_20"
-        android:gravity="center"
-        android:text="选择其他地区"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_15" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:text="送至"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/font_size_18"
+            android:textStyle="bold" />
 
-</RelativeLayout>
+        <ImageButton
+            android:id="@+id/ib_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@null"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/svg_close_gray_12" />
+
+        <com.rails.purchaseplatform.common.widget.BaseRecyclerView
+            android:id="@+id/brv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:overScrollMode="never" />
+
+        <TextView
+            android:id="@+id/tv_chooseAddress"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_below="@+id/brv_address"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_32"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_24"
+            android:background="@drawable/bg_corner_blue_20"
+            android:gravity="center"
+            android:text="选择其他地区"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_15" />
+
+    </RelativeLayout>
+</com.rails.purchaseplatform.common.widget.MaxHeightScrollView>
+

@@ -14,6 +14,7 @@ import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.DeliveryBean;
 import com.rails.lib_data.bean.ProductServiceBean;
+import com.rails.lib_data.bean.ShopRateBean;
 import com.rails.lib_data.bean.SkuStockBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPackingBean;
 import com.rails.lib_data.bean.forAppShow.ProductDetailsPageBean;
@@ -41,17 +42,21 @@ import com.rails.lib_data.bean.forNetRequest.productDetails.SupplierInfoImportDa
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 
 public class ProductDetailsDataUtils {
 
     final private String TAG = ProductDetailsDataUtils.class.getSimpleName();
 
+    final private String CREDIT_LEVEL_5 = "AA";
+    final private String CREDIT_LEVEL_6 = "AAA";
     final private String CREDIT_LEVEL_1 = "A";
     final private String CREDIT_LEVEL_2 = "B";
     final private String CREDIT_LEVEL_3 = "C";
     final private String CREDIT_LEVEL_4 = "D";
-    final private String CREDIT_NAME_1 = " ";
+    final private String CREDIT_NAME_0 = " ";
+    final private String CREDIT_NAME_1 = "无风险";
     final private String CREDIT_NAME_2 = "风险较低";
     final private String CREDIT_NAME_3 = "风险较高";
     final private String CREDIT_NAME_4 = "风险极高";
@@ -107,10 +112,6 @@ public class ProductDetailsDataUtils {
         if (materialType == null) materialType = "0";
         pageBean.setMaterialType(materialType);
 
-        // skuStockBean
-        SkuStockBean stockBean = bean2.getSkuStockBeans().get(0);
-        pageBean.setSkuStockBean(stockBean);
-
         // 当前ItemSkuInfo
         ItemSkuInfo currentItemSkuInfo = null;
         // 当前的skuId
@@ -131,7 +132,17 @@ public class ProductDetailsDataUtils {
         pageBean.setSkuId(currentSkuId);
 
         // sku价格（在售价格、市场价格、sku名称、sku图片、评分、销量）
-        ProductPriceBean priceBean = bean2.getProductPriceBeans().get(0);
+        ProductPriceBean priceBean;
+        if (bean2.getProductPriceBeans() == null || bean2.getProductPriceBeans().size() == 0) {
+            priceBean = new ProductPriceBean();
+            priceBean.setMarketPrice(0.00D);
+            priceBean.setSellPrice(0.00D);
+            priceBean.setPackageDis("");
+            priceBean.setScore(0.00D);
+            priceBean.setSaleNum(0);
+        } else {
+            priceBean = bean2.getProductPriceBeans().get(0);
+        }
         pageBean.setPriceBean(priceBean);
 
         // 在售价格
@@ -198,8 +209,21 @@ public class ProductDetailsDataUtils {
         String delivery = getDelivery(bean2.getDeliveryBean());
         pageBean.setDelivery(delivery);
 
+        // 库存bean
+        ArrayList<SkuStockBean> skuStockBeans = new ArrayList<>();
+        if (bean2.getSkuStockBeans() != null) {
+            skuStockBeans = bean2.getSkuStockBeans();
+        }
+
+        // skuStockBean
+        SkuStockBean stockBean = null;
+        if (skuStockBeans.size() != 0) {
+            stockBean = skuStockBeans.get(0);
+        }
+        pageBean.setSkuStockBean(stockBean);
+
         // 获取库存
-        boolean isInStock = isInStock(bean2.getSkuStockBeans());
+        boolean isInStock = isInStock(skuStockBeans);
         pageBean.setInStock(isInStock);
 
         // 获取商品收藏状态
@@ -223,7 +247,7 @@ public class ProductDetailsDataUtils {
         pageBean.setShopLogo(logoUrl);
 
         // 获取店铺风险等级
-        String shopSecurity = getSecurityText(detailsBean);
+        String shopSecurity = getRateText(bean2.getShopRateBeans());
         pageBean.setShopSecurity(shopSecurity);
 
         // 获取风险等级图标
@@ -249,6 +273,10 @@ public class ProductDetailsDataUtils {
         // 地址
         String fullAddress = getFullAddress(addressList);
         pageBean.setFullAddress(fullAddress);
+
+        // 地址ID
+        String addressId = getAddressId(addressList);
+        pageBean.setAddressId(addressId);
 
         // 获取商品介绍
         String longDescribeUrl = bean1.getProductDetailsBean().getItemPublishVo().getDescribeUrl();
@@ -344,16 +372,21 @@ public class ProductDetailsDataUtils {
                             continue;
                         if (!TextUtils.isEmpty(info.getAttrValue())) {
                             ProductSpecificParameter parameter = new ProductSpecificParameter();
-                            parameter.setParamKey(info.getAttrName() + "：");
+                            if (Objects.equals(info.getAttrName(), "净含量（mL）")) {
+                                parameter.setParamKey("净含量(mL)：");
+                            } else {
+                                parameter.setParamKey(info.getAttrName() + "：");
+                            }
                             parameter.setParamValue(info.getAttrValue());
                             parameters.add(parameter);
                         }
                     }
                     if (!TextUtils.isEmpty(currentItemSkuInfo.getMaterialCode())) {
-                        ProductSpecificParameter parameter = new ProductSpecificParameter();
-                        parameter.setParamKey("物资编码：");
-                        parameter.setParamValue(currentItemSkuInfo.getMaterialCode());
-                        parameters.add(parameter);
+                        // 不显示物资编码属性
+                        // ProductSpecificParameter parameter = new ProductSpecificParameter();
+                        // parameter.setParamKey("物资编码：");
+                        // parameter.setParamValue(currentItemSkuInfo.getMaterialCode());
+                        // parameters.add(parameter);
                     }
                 }
             }
@@ -375,10 +408,20 @@ public class ProductDetailsDataUtils {
         ArrayList<ProductServiceBean> serviceBeans = new ArrayList<>();
         try {
             ItemAfterSaleVo afterSale = detailsBean.getItemPublishVo().getItemAfterSaleVo();
-            serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_exits, "售后退货说明",
-                    afterSale.getRefundService() == 1 ? "特殊商品不允许退货。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请退货。"));
-            serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_updates, "售后换货说明",
-                    afterSale.getChangeService() == 1 ? "特殊商品，一经签收不予换货。。" : "确认收货后" + afterSale.getRefundDuration() + "日内出现质量问题可申请换货。"));
+            serviceBeans.add(
+                    new ProductServiceBean(
+                            R.drawable.ic_market_exits,
+                            "售后退货说明",
+                            afterSale.getRefundService() == 1
+                                    ? "特殊商品不允许退货。"
+                                    : "确认收货后" + afterSale.getRefundDuration() + "日内可无理由退货。"));
+            serviceBeans.add(
+                    new ProductServiceBean(
+                            R.drawable.ic_market_updates,
+                            "售后换货说明",
+                            afterSale.getChangeService() == 1
+                                    ? "特殊商品，一经签收不予换货。"
+                                    : "确认收货后" + afterSale.getChangeDuration() + "日内可无理由换货。"));
             serviceBeans.add(new ProductServiceBean(R.drawable.ic_market_saves, "售后质保说明",
                     "确认收货后" + afterSale.getRepaireDuration() + "个月内出现质量问题可申请质保。"));
         } catch (Exception e) {
@@ -423,7 +466,7 @@ public class ProductDetailsDataUtils {
         if (priceBean.getPackinglist() != null
                 && priceBean.getPackinglist().size() != 0
                 && priceBean.getPackinglist().get(0).getAnnexName() != null
-                && TextUtils.isEmpty(priceBean.getPackinglist().get(0).getAnnexName())) {
+                && !TextUtils.isEmpty(priceBean.getPackinglist().get(0).getAnnexName())) {
             ProductDetailsPackingBean bean1 = new ProductDetailsPackingBean();
             bean1.setAttrKey("附件名称");
             bean1.setAttrValue("附件数量");
@@ -507,6 +550,21 @@ public class ProductDetailsDataUtils {
                 || TextUtils.isEmpty(addressBeans.get(0).getFullAddress()))
             return "北京市市辖区东城区";
         return addressBeans.get(0).getFullAddress();
+    }
+
+
+    /**
+     * 获取地址ID
+     *
+     * @param addressBeans
+     * @return
+     */
+    public String getAddressId(ArrayList<AddressBean> addressBeans) {
+        if (addressBeans == null
+                || addressBeans.size() == 0
+                || TextUtils.isEmpty(addressBeans.get(0).getAddressId()))
+            return null;
+        return addressBeans.get(0).getAddressId();
     }
 
     /**
@@ -741,11 +799,42 @@ public class ProductDetailsDataUtils {
      */
     private String getSecurityText(ProductDetailsBean bean) {
         String creditLv = bean.getItemPublishVo().getCreditLevel();
-        String text = CREDIT_NAME_1;
+        String text = CREDIT_NAME_0;
         if (creditLv == null) {
             return text;
         }
         switch (creditLv) {
+            case CREDIT_LEVEL_2:
+                text = CREDIT_NAME_2;
+                break;
+            case CREDIT_LEVEL_3:
+                text = CREDIT_NAME_3;
+                break;
+            case CREDIT_LEVEL_4:
+                text = CREDIT_NAME_4;
+                break;
+            default:
+                break;
+        }
+        return text;
+    }
+
+    private String getRateText(ArrayList<ShopRateBean> shopRateBeans) {
+        String text = CREDIT_NAME_0;
+        if (shopRateBeans == null || shopRateBeans.size() == 0) {
+            return text;
+        }
+        String creditLv = shopRateBeans.get(0).getRate();
+        if (creditLv == null) {
+            return text;
+        }
+        switch (creditLv) {
+            case CREDIT_LEVEL_1:
+            case CREDIT_LEVEL_5:
+            case CREDIT_LEVEL_6:
+                // TODO: 2022/4/2 风险等级提示如何显示？
+                text = CREDIT_NAME_0;
+                break;
             case CREDIT_LEVEL_2:
                 text = CREDIT_NAME_2;
                 break;

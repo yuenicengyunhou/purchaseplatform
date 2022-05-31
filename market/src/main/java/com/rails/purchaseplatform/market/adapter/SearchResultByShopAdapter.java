@@ -28,6 +28,8 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
     final private String CREDIT_LEVEL_2 = "B";
     final private String CREDIT_LEVEL_3 = "C";
     final private String CREDIT_LEVEL_4 = "D";
+    final private String CREDIT_LEVEL_5 = "AA";
+    final private String CREDIT_LEVEL_6 = "AAA";
     final private String CREDIT_NAME_1 = " ";
     final private String CREDIT_NAME_2 = "风险较低";
     final private String CREDIT_NAME_3 = "风险较高";
@@ -65,22 +67,24 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
                 shopName = shopName.replace("</em>", "");
             binding.textView.setVisibility(View.VISIBLE);
             binding.textView.setText(shopName);
+            binding.textView2.setText(shopName);
         } else {
             binding.textView.setVisibility(View.INVISIBLE);
         }
 
         String credit = CREDIT_NAME_1;
-        if (shopAttribute.getCreditLevel() != null) {
-            switch (shopAttribute.getCreditLevel()) {
+        if (shopAttribute.getRate() != null) {
+            switch (shopAttribute.getRate()) {
                 case CREDIT_LEVEL_2:
                     credit = CREDIT_NAME_2;
                     break;
-                case CREDIT_LEVEL_3:
-                    credit = CREDIT_NAME_3;
-                    break;
-                case CREDIT_LEVEL_4:
-                    credit = CREDIT_NAME_4;
-                    break;
+                // A C D 这三种等级都不展示
+//                case CREDIT_LEVEL_3:
+//                    credit = CREDIT_NAME_3;
+//                    break;
+//                case CREDIT_LEVEL_4:
+//                    credit = CREDIT_NAME_4;
+//                    break;
                 default:
                     break;
             }
@@ -88,16 +92,24 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
         switch (credit) {
             case CREDIT_NAME_1:
                 binding.ivSecurityLevel.setVisibility(View.INVISIBLE);
+                binding.textView.setVisibility(View.GONE);
+                binding.textView2.setVisibility(View.VISIBLE);
                 break;
             case CREDIT_NAME_2:
                 binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                binding.textView2.setVisibility(View.GONE);
+                binding.textView.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_b));
                 break;
             case CREDIT_NAME_3:
+                binding.textView2.setVisibility(View.GONE);
                 binding.ivSecurityLevel.setVisibility(View.VISIBLE);
+                binding.textView.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_c));
                 break;
             case CREDIT_NAME_4:
+                binding.textView2.setVisibility(View.GONE);
+                binding.textView.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setVisibility(View.VISIBLE);
                 binding.ivSecurityLevel.setBackground(mContext.getResources().getDrawable(R.drawable.ic_security_d));
                 break;

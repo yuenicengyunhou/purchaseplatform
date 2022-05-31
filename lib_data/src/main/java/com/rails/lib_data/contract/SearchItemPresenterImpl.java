@@ -104,11 +104,11 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
                     @Override
                     protected void onSuccess(SearchDataByItemBean response) {
+                        baseView.dismissDialog();
                         ArrayList<ItemAttribute> itemAttributes = getItemAttributes(response);
                         ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(response);
                         boolean isClear = pageNum <= 1;
                         baseView.onQueryItemListByCidSuccess(itemAttributes, searchFilterBeans, false, isClear);
-                        baseView.dismissDialog();
                     }
                 });
     }
@@ -142,7 +142,9 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                     protected void onError(ErrorBean e) {
                         if (e.getMsg().contains("but was com.google.gson.JsonNull")) {
                             baseView.onQueryItemListByKeywordSuccess(new ArrayList<ItemAttribute>(), new ArrayList<SearchFilterBean>(), false, true);
-                        } else {
+                        } else if (e.getMessage().contains("End of input at line 1 column 1 path $")) {
+                            baseView.onSearchIdFailed();
+                        }else {
                             baseView.onError(e);
                         }
                         baseView.dismissDialog();
@@ -150,7 +152,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
 
                     @Override
                     protected void onSuccess(JsonObject response) {
-
+                        baseView.dismissDialog();
                         if (response == null) { // 这里真的可能是个null，已经在onError回调方法中处理
                         }
                         // 如果有这些属性，转为SearchDataByItemBean对象并返回集合

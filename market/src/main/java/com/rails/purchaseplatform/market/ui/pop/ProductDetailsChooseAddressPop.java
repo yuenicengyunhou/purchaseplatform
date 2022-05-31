@@ -2,12 +2,10 @@ package com.rails.purchaseplatform.market.ui.pop;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Gravity;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rails.lib_data.bean.AddressBean;
-import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
@@ -19,7 +17,14 @@ import java.util.ArrayList;
 public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsChooseAddressBinding> {
 
     private Context mContext;
+    /**
+     * 地址集合
+     */
     private ArrayList<AddressBean> mAddresses;
+    /**
+     * 当前选中的地址
+     */
+    private String mCurrentAddressId;
     private PopChooseAddressAdapter mAdapter;
     private AddressListener listener;
 
@@ -36,7 +41,7 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
     @Override
     protected void initialize(Bundle bundle) {
 
-        mAdapter = new PopChooseAddressAdapter(mContext);
+        mAdapter = new PopChooseAddressAdapter(mContext, mCurrentAddressId);
         binding.brvAddress.setLayoutManager(BaseRecyclerView.LIST, RecyclerView.VERTICAL, false, 1);
         binding.brvAddress.setAdapter(mAdapter);
         mAdapter.setListener(new PositionListener<AddressBean>() {
@@ -67,6 +72,11 @@ public class ProductDetailsChooseAddressPop extends BasePop<PopProductDetailsCho
             dismiss();
         });
 
+    }
+
+    // 每次打开pop之前都要设置当前地址以便显示图标
+    public void setCurrentAddressId(String currentAddressId) {
+        mCurrentAddressId = currentAddressId;
     }
 
 

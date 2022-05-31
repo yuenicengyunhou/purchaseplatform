@@ -1,12 +1,12 @@
 package com.rails.lib_data.bean.forNetRequest.productDetails;
 
 public class ItemPictureVo {
-    private int id;
+    private String id;
     private int platformId;
-    private int itemId;
-    private int skuId;
+    private String itemId;
+    private String skuId;
     private long shopId;
-    private int sellerId;
+    private String sellerId;
     private String pictureUrl;
     private String altImages;
     private int sortNumber;
@@ -16,11 +16,11 @@ public class ItemPictureVo {
     // ===========================================================================================
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -32,19 +32,19 @@ public class ItemPictureVo {
         this.platformId = platformId;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 
@@ -56,11 +56,11 @@ public class ItemPictureVo {
         this.shopId = shopId;
     }
 
-    public int getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(int sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
     }
 

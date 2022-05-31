@@ -17,8 +17,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -343,6 +343,30 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     protected void onClick() {
         super.onClick();
         binding.btnLogin.setOnClickListener(v -> {
+            GpsUtils gps = new GpsUtils(this);
+            if (!gps.isLocationEnabled()) {
+                ToastUtil.showCenter(this, "请开启定位功能");
+                return;
+            }
+
+            // 先检测位置权限
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                new LocationDialog().show(getFragmentManager(), "location");
+                new LocationAgreeDialog.Builder()
+                        .context(this)
+                        .message("为保证您可正常、安全的使用国铁商城，请允许获取您的位置信息权限。")
+                        .goButton("去允许")
+                        .setListener(new LocationAgreeDialog.DialogListener() {
+                            @Override
+                            public void onGo() {
+                                goAppSetting();
+                            }
+                        })
+                        .builder().show();
+                return;
+            }
+
             if (mPosition == 0) {
                 ArrayList<String> infoList = mRandomCodeLoginFragment.getLoginInfo();
                 mCurrentAccount = infoList.get(0) + "。" + infoList.get(1);
@@ -531,6 +555,33 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
 
     }
 
+    private void goSetting() {
+        try {
+            this.startActivity(new Intent().setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void goAppSetting() {
+//        Intent intent = new Intent();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setAction(Intent.ACTION_VIEW);
+//        intent.setClassName("com.android.settings", "com.android.setting.InstalledAppDetails");
+//        intent.putExtra("com.android.settings.ApplicationPkgName", requireContext().getPackageName());
+
+        Intent intent = new Intent();
+        intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + this.getPackageName()));
+//        activity.startActivity(intent);
+        try {
+            this.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 //    /**
 //     * What is this?
 //     */
@@ -598,67 +649,4 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                     }
                 });
     }
-
-//    /**
-//     *     --------- beginning of crash
-//     * 2021-08-13 11:25:26.344 5332-5332/com.rails.purchaseplatform E/AndroidRuntime: FATAL EXCEPTION: main
-//     *     Process: com.rails.purchaseplatform, PID: 5332
-//     *     java.lang.RuntimeException: Failure delivering result ResultInfo{who=@android:requestPermissions:, request=42, result=-1, data=Intent { act=android.content.pm.action.REQUEST_PERMISSIONS (has extras) }} to activity {com.rails.purchaseplatform/com.tbruyelle.rxpermissions.ShadowActivity}: rx.exceptions.OnErrorNotImplementedException: getLine1NumberForDisplay: Neither user 10156 nor current process has android.permission.READ_PHONE_STATE, android.permission.READ_SMS, or android.permission.READ_PHONE_NUMBERS
-//     *         at android.app.ActivityThread.deliverResults(ActivityThread.java:5015)
-//     *         at android.app.ActivityThread.handleSendResult(ActivityThread.java:5056)
-//     *         at android.app.servertransaction.ActivityResultItem.execute(ActivityResultItem.java:51)
-//     *         at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
-//     *         at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
-//     *         at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2066)
-//     *         at android.os.Handler.dispatchMessage(Handler.java:106)
-//     *         at android.os.Looper.loop(Looper.java:223)
-//     *         at android.app.ActivityThread.main(ActivityThread.java:7656)
-//     *         at java.lang.reflect.Method.invoke(Native Method)
-//     *         at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:592)
-//     *         at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)
-//     *      Caused by: rx.exceptions.OnErrorNotImplementedException: getLine1NumberForDisplay: Neither user 10156 nor current process has android.permission.READ_PHONE_STATE, android.permission.READ_SMS, or android.permission.READ_PHONE_NUMBERS
-//     *         at rx.internal.util.InternalObservableUtils$ErrorNotImplementedAction.call(InternalObservableUtils.java:386)
-//     *         at rx.internal.util.InternalObservableUtils$ErrorNotImplementedAction.call(InternalObservableUtils.java:383)
-//     *         at rx.internal.util.ActionSubscriber.onError(ActionSubscriber.java:44)
-//     *         at rx.observers.SafeSubscriber._onError(SafeSubscriber.java:153)
-//     *         at rx.observers.SafeSubscriber.onError(SafeSubscriber.java:115)
-//     *         at rx.exceptions.Exceptions.throwOrReport(Exceptions.java:212)
-//     *         at rx.observers.SafeSubscriber.onNext(SafeSubscriber.java:139)
-//     *         at rx.internal.operators.OperatorMerge$MergeSubscriber.emitScalar(OperatorMerge.java:511)
-//     *         at rx.internal.operators.OperatorMerge$MergeSubscriber.tryEmit(OperatorMerge.java:466)
-//     *         at rx.internal.operators.OperatorMerge$MergeSubscriber.onNext(OperatorMerge.java:244)
-//     *         at rx.internal.operators.OperatorMerge$MergeSubscriber.onNext(OperatorMerge.java:148)
-//     *         at rx.internal.operators.OnSubscribeMap$MapSubscriber.onNext(OnSubscribeMap.java:77)
-//     *         at rx.internal.operators.OperatorBufferWithSize$BufferExact.onNext(OperatorBufferWithSize.java:114)
-//     *         at rx.internal.operators.OperatorMerge$MergeSubscriber.emitScalar(OperatorMerge.java:395)
-//     *         at rx.internal.operators.OperatorMerge$MergeSubscriber.tryEmit(OperatorMerge.java:355)
-//     *         at rx.internal.operators.OperatorMerge$InnerSubscriber.onNext(OperatorMerge.java:846)
-//     *         at rx.observers.SerializedObserver.onNext(SerializedObserver.java:91)
-//     *         at rx.observers.SerializedSubscriber.onNext(SerializedSubscriber.java:94)
-//     *         at rx.internal.operators.OnSubscribeConcatMap$ConcatMapSubscriber.innerNext(OnSubscribeConcatMap.java:182)
-//     *         at rx.internal.operators.OnSubscribeConcatMap$ConcatMapInnerSubscriber.onNext(OnSubscribeConcatMap.java:335)
-//     *         at rx.subjects.PublishSubject$PublishSubjectProducer.onNext(PublishSubject.java:304)
-//     *         at rx.subjects.PublishSubject$PublishSubjectState.onNext(PublishSubject.java:219)
-//     *         at rx.subjects.PublishSubject.onNext(PublishSubject.java:72)
-//     *         at com.tbruyelle.rxpermissions.RxPermissions.onRequestPermissionsResult(RxPermissions.java:290)
-//     *         at com.tbruyelle.rxpermissions.ShadowActivity.onRequestPermissionsResult(ShadowActivity.java:32)
-//     *         at android.app.Activity.dispatchRequestPermissionsResult(Activity.java:8466)
-//     *         at android.app.Activity.dispatchActivityResult(Activity.java:8314)
-//     * 2021-08-13 11:25:26.345 5332-5332/com.rails.purchaseplatform E/AndroidRuntime:     at android.app.ActivityThread.deliverResults(ActivityThread.java:5008)
-//     *         	... 11 more
-//     *      Caused by: java.lang.SecurityException: getLine1NumberForDisplay: Neither user 10156 nor current process has android.permission.READ_PHONE_STATE, android.permission.READ_SMS, or android.permission.READ_PHONE_NUMBERS
-//     *         at android.os.Parcel.createExceptionOrNull(Parcel.java:2373)
-//     *         at android.os.Parcel.createException(Parcel.java:2357)
-//     *         at android.os.Parcel.readException(Parcel.java:2340)
-//     *         at android.os.Parcel.readException(Parcel.java:2282)
-//     *         at com.android.internal.telephony.ITelephony$Stub$Proxy.getLine1NumberForDisplay(ITelephony.java:10831)
-//     *         at android.telephony.TelephonyManager.getLine1Number(TelephonyManager.java:4479)
-//     *         at android.telephony.TelephonyManager.getLine1Number(TelephonyManager.java:4447)
-//     *         at com.rails.purchaseplatform.user.ui.activity.LoginActivity.lambda$requestPermission$6$LoginActivity(LoginActivity.java:591) // NOTICE: Crash here.
-//     *         at com.rails.purchaseplatform.user.ui.activity.-$$Lambda$LoginActivity$jlzfMEKuye97TDYP3oq0xCxznXs.call(Unknown Source:6)
-//     *         at rx.internal.util.ActionSubscriber.onNext(ActionSubscriber.java:39)
-//     *         at rx.observers.SafeSubscriber.onNext(SafeSubscriber.java:134)
-//     *         	... 32 more
-//     */
-
 }

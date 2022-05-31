@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
+            android:visibility="gone"
             android:textColor="@color/font_black_light"
             android:textSize="@dimen/font_size_16" />
 
@@ -35,11 +36,13 @@
             android:layout_marginLeft="@dimen/dp_55"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginRight="@dimen/dp_55"
+            android:layout_marginBottom="@dimen/dp_30"
             android:gravity="center"
             android:lineSpacingMultiplier="1.3"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_size_14"
-            android:visibility="gone" />
+            android:visibility="gone"
+             />
 
 
         <TextView
@@ -59,6 +62,22 @@
             android:layout_height="@dimen/dp_45"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_70"
+            android:background="@drawable/bg_corner_blue_20"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_40"
+            android:paddingLeft="@dimen/dp_40"
+            android:paddingEnd="@dimen/dp_40"
+            android:paddingRight="@dimen/dp_40"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_17"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/btn_gobuy"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_70"
             android:background="@drawable/bg_corner_blue_20"
             android:gravity="center"

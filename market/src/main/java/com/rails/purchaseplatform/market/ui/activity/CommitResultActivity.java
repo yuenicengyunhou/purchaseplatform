@@ -17,6 +17,7 @@ import com.rails.lib_data.contract.MarKetIndexPresenterImpl;
 import com.rails.lib_data.contract.MarketIndexContract;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
+import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
@@ -63,6 +64,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
 
         recAdapter = new ProductHotAdapter(this, 0);
         hotManager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false);
+        barBinding.recRecycler.addItemDecoration(new SpaceGirdWeightDecoration(this, 8, 5, 0, 8, R.color.white));
         barBinding.recRecycler.setLayoutManager(hotManager);
         barBinding.recRecycler.setAdapter(recAdapter);
         recAdapter.setListener(new PositionListener<ProductBean>() {
@@ -110,7 +112,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
      * @param page
      */
     private void notifyData(boolean isDialog, int page) {
-        productPresenter.getHotProducts(false, 1,"10");
+        productPresenter.getHotProducts(false, 1, "10");
     }
 
     @Override
@@ -163,13 +165,15 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
                 } else {
                     if (webBean.getCode() == 3)
                         finish();
-                    else
+                    else {
                         ARouter.getInstance()
                                 .build(webBean.getUrlright())
                                 .withParcelable("webBean", webBean)
                                 .navigation();
+                        finish();
+                    }
+
                 }
-                finish();
 
             }
         });
@@ -186,7 +190,7 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
 
     @Override
     public void getHotProducts(ArrayList<ProductBean> beans) {
-        if(beans == null)
+        if (beans == null)
             return;
         if (beans.isEmpty())
             return;
@@ -206,6 +210,11 @@ public class CommitResultActivity extends ToolbarActivity<ActivityMarketResultBi
 
     @Override
     public void getFloorProducts(ArrayList<ProductBean> productBeans, boolean hasMore, boolean isClear) {
+
+    }
+
+    @Override
+    public void getFloors(ArrayList<ProductRecBean> productBeans) {
 
     }
 }

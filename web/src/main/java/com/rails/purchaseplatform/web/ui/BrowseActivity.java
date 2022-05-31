@@ -78,4 +78,10 @@ public class BrowseActivity extends WebActivity<BaseWebBinding> implements JSBro
     public void onLogin() {
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
+
+    @JavascriptInterface
+    @Override
+    public void exit() {
+        goExit();
+    }
 }

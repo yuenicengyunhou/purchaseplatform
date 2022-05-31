@@ -26,9 +26,12 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
 
-        // 08月24日生产环境：版本号为7，版本名称为1.0.6。
-        versionCode 41
-        versionName "1.0.41"
+        // 2022-04-11
+//        versionCode 13
+//        versionName "1.1.2"
+
+        versionCode 48
+        versionName "1.0.48"
 
         flavorDimensions "versionCode"
         multiDexEnabled true
@@ -42,8 +45,7 @@ android {
 
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters "armeabi-v7a", "x86"
-//            abiFilters  "armeabi-v7a"
+            abiFilters "armeabi-v7a", "x86", "x86_64"
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

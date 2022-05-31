@@ -5,10 +5,10 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.systembar.StatusBarUtil;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -102,11 +102,11 @@ public abstract class BaseActivity<T extends ViewBinding> extends BaseAbsActivit
         if (isSetSystemBar()) {
             int color = getColor();
             if (color == 0) {
-                setupSystemBar(Color.TRANSPARENT);
-            } else if (color == android.R.color.white) {
-                setLightMode();
-            } else {
-                setupSystemBar(getColor());
+//                setupSystemBar(Color.TRANSPARENT);
+                StatusBarUtil.StatusBarMode(this, Color.TRANSPARENT);
+            }else {
+//                setupSystemBar(getColor());
+                StatusBarUtil.StatusBarMode(this, getColor());
             }
         }
     }

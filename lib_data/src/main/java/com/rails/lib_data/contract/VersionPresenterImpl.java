@@ -38,6 +38,10 @@ public class VersionPresenterImpl extends BasePresenter<VersionContract.VersionV
                 if (isCallBack()) {
                     if (response != null && !response.isEmpty()) {
                         baseView.getVersion(response.get(0));
+                    }else{
+                        baseView.getVersion(null);
+                        //做兄弟在心中，有事儿电话打不通
+
                     }
                 }
             }

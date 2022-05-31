@@ -5,6 +5,7 @@ import android.webkit.SslErrorHandler;
 
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.BaseApp;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,7 +70,7 @@ public abstract class BaseWebActivity<T extends ViewBinding> extends BaseErrorAc
         OkHttpClient.Builder builder;
         try {
             if (!isDebug)
-                builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("shop.cer"));
+                builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("mall.cer"));
             else
                 builder = setCertificates(new OkHttpClient.Builder(), context.getAssets().open("CARS-CA.cer"));
         } catch (IOException e) {
@@ -88,6 +89,18 @@ public abstract class BaseWebActivity<T extends ViewBinding> extends BaseErrorAc
                 handler.proceed();
             }
         });
+    }
+
+
+    /**
+     * 退出app
+     */
+    protected void goExit() {
+        try {
+            BaseActManager.getInstance().clear();
+            System.exit(0);
+        } catch (Exception e) {
+        }
     }
 
 

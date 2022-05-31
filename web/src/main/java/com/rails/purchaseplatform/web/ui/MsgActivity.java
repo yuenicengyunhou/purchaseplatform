@@ -92,4 +92,10 @@ public class MsgActivity extends WebActivity<BaseWebBinding> implements JSEvalut
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
+    @JavascriptInterface
+    @Override
+    public void exit() {
+        goExit();
+    }
+
 }

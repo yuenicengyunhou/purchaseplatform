@@ -39,7 +39,7 @@
                     android:padding="@dimen/dp_tiny"
                     android:scaleType="centerCrop"
                     app:h="97"
-                    app:imgUrl="@{floor.topPhotoUrl}"
+                    app:imgUrl_null="@{floor.topPhotoUrl}"
                     app:w="357" />
 
 

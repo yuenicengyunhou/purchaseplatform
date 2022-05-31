@@ -6,9 +6,9 @@ import android.content.ContextWrapper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
-
 import androidx.core.widget.NestedScrollView;
+
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 
 /**
  * 解决viewpager和scrollView冲突, 顶部标题栏渐变效果
@@ -36,10 +36,11 @@ public class MaxHeightScrollView extends NestedScrollView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int height = getMeasuredHeight();
-        try{
-            maxHeight = ScreenSizeUtil.getScreenHeight(scanForActivity(getContext())) >> 1;
-        }catch (Exception e){
-            maxHeight = 500;
+        try {
+//            maxHeight = ScreenSizeUtil.getScreenHeight(scanForActivity(getContext())) >> 1;
+            maxHeight = ScreenSizeUtil.getScreenHeight(scanForActivity(getContext())) * 4 / 5;
+        } catch (Exception e) {
+            maxHeight = 800;
         }
 
         if (height >= maxHeight) {
@@ -85,13 +86,13 @@ public class MaxHeightScrollView extends NestedScrollView {
     }
 
 
-    private  Activity scanForActivity(Context cont) {
+    private Activity scanForActivity(Context cont) {
         if (cont == null)
             return null;
         else if (cont instanceof Activity)
-            return (Activity)cont;
+            return (Activity) cont;
         else if (cont instanceof ContextWrapper)
-            return scanForActivity(((ContextWrapper)cont).getBaseContext());
+            return scanForActivity(((ContextWrapper) cont).getBaseContext());
         return null;
     }
 

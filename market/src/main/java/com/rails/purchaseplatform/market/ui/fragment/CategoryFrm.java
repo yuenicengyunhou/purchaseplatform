@@ -125,7 +125,13 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
 
     @Override
     protected void loadPreVisitData() {
-        StatusBarUtil.StatusBarLightMode(getActivity());
+//        StatusBarUtil.StatusBarLightMode(getActivity());
+//        try {
+//            StatusBarUtil.StatusBarLightMode(getActivity());
+//        }catch (Exception e){
+//
+//        }
+
     }
 
     @Override
@@ -166,20 +172,9 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
     @Override
     protected void onClick() {
         super.onClick();
-        binding.etSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation();
-            }
-        });
+        binding.etSearch.setOnClickListener(v -> ARouter.getInstance().build(ConRoute.COMMON.SEARCH).navigation());
 
-
-        binding.imgMsg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation();
-            }
-        });
+        binding.imgMsg.setOnClickListener(v -> ARouter.getInstance().build(ConRoute.WEB.WEB_MSG).withString("url", ConRoute.WEB_URL.MSG).navigation());
     }
 
 

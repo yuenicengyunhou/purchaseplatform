@@ -52,7 +52,13 @@ public class EmptyView extends LinearLayout {
      * @return
      */
     public EmptyView setImgEmpty(int res) {
-        binding.imgEmpty.setImageResource(res);
+        if (res == 0) {
+            binding.imgEmpty.setVisibility(View.GONE);
+        } else {
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.imgEmpty.setImageResource(res);
+        }
+
         return this;
     }
 
@@ -64,6 +70,7 @@ public class EmptyView extends LinearLayout {
      * @return
      */
     public EmptyView setContentEmpty(String content) {
+        binding.tvContentEmpty.setVisibility(VISIBLE);
         binding.tvContentEmpty.setText(content);
         return this;
     }
@@ -127,6 +134,20 @@ public class EmptyView extends LinearLayout {
         return this;
     }
 
+    public boolean isBtnEmptyVisible() {
+        return binding.btnEmpty.getVisibility() == View.VISIBLE;
+    }
+
+    public EmptyView setBtnGobuy(String str) {
+        if (TextUtils.isEmpty(str))
+            binding.btnGobuy.setVisibility(View.GONE);
+        else {
+            binding.btnGobuy.setVisibility(VISIBLE);
+            binding.btnGobuy.setText(str);
+        }
+        return this;
+    }
+
 
     /**
      * @param str
@@ -163,12 +184,13 @@ public class EmptyView extends LinearLayout {
 
 
     public EmptyView setBtnListener(OnClickListener onClickListener) {
-        if (binding.btnUnEmpty.getVisibility() == View.VISIBLE)
-            binding.btnUnEmpty.setOnClickListener(onClickListener);
+        binding.btnUnEmpty.setOnClickListener(onClickListener);
+        binding.btnEmpty.setOnClickListener(onClickListener);
+        return this;
+    }
 
-        if (binding.btnEmpty.getVisibility() == View.VISIBLE)
-            binding.btnEmpty.setOnClickListener(onClickListener);
-
+    public EmptyView setGoBuyListener(OnClickListener onClickListener) {
+        binding.btnGobuy.setOnClickListener(onClickListener);
         return this;
     }
 

@@ -2,7 +2,7 @@ package com.rails.lib_data.bean.forNetRequest.productDetails;
 
 public class ItemSkuInfo {
     private String id;
-    private int itemId;
+    private String itemId;
     private String attributes;
     private String pictureUrl;
     private String altImages;
@@ -13,7 +13,7 @@ public class ItemSkuInfo {
     private long shopId;
     private String weightUnit;
     private int sourceSkuId;
-    private int shortCode;
+    private String shortCode;
     private int saleStatus;
     private long upTime;
     private String barCode;
@@ -107,11 +107,11 @@ public class ItemSkuInfo {
         this.sourceSkuId = sourceSkuId;
     }
 
-    public int getShortCode() {
+    public String getShortCode() {
         return shortCode;
     }
 
-    public void setShortCode(int shortCode) {
+    public void setShortCode(String shortCode) {
         this.shortCode = shortCode;
     }
 
@@ -163,11 +163,11 @@ public class ItemSkuInfo {
         this.id = id;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

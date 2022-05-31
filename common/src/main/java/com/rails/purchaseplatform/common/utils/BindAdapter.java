@@ -65,6 +65,29 @@ public class BindAdapter {
     }
 
 
+
+    /**
+     * 绑定地址图片
+     *
+     * @param view
+     * @param imageUrl
+     */
+    @androidx.databinding.BindingAdapter("imgUrl_null")
+    public static void bindImageUrlnull(ImageView view, String imageUrl) {
+        if (TextUtils.isEmpty(imageUrl))
+            imageUrl = "";
+
+        if (!imageUrl.contains("https"))
+            imageUrl = "https:" + imageUrl;
+
+        Glide.with(view)
+                .load(imageUrl)
+                .centerInside()
+                .into(view);
+    }
+
+
+
     @androidx.databinding.BindingAdapter("imgByte")
     public static void bindImageBytes(ImageView view, String imageUrl) {
         try {

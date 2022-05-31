@@ -24,7 +24,6 @@ public class HttpRxObservable {
      */
     public static Observable getObservable(Observable apiObservable) {
         Observable observable = apiObservable
-                .observeOn(AndroidSchedulers.mainThread())
                 .map(new HttpFunction())
                 .onErrorResumeNext(new ErrorFunction())
                 .subscribeOn(Schedulers.io())

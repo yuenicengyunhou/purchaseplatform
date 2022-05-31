@@ -49,11 +49,14 @@ public class ProductHotAdapter extends BaseRecyclerAdapter<ProductBean, ItemMark
     @Override
     protected void onBindView(ItemMarketProductHotBinding binding) {
         super.onBindView(binding);
+        RecyclerView.LayoutParams linearParams =
+                (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
         if (type != 0) {
-            RecyclerView.LayoutParams linearParams =
-                    (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
             linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 60)) / 3;
             binding.getRoot().setLayoutParams(linearParams);
+        }else{
+            linearParams.width = (ScreenSizeUtil.getScreenWidth(mContext) - ScreenSizeUtil.dp2px(mContext, 42)) / 2;
         }
+        binding.getRoot().setLayoutParams(linearParams);
     }
 }

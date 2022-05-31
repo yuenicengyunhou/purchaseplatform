@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.rails" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:typeface">normal</item>
+        <item name="toolbarStyle">@style/title_bar</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+        <item name="android:windowAnimationStyle">@style/activityAnim</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+</resources>

@@ -2,6 +2,8 @@ package com.rails.lib_data.bean.shop;
 
 import android.text.TextUtils;
 
+import java.util.Locale;
+
 public class ShopInfoBean {
 
 
@@ -44,11 +46,11 @@ public class ShopInfoBean {
      * bindOrgId : null
      */
 
-    private int id;
+    private String id;
     private int key;
-    private int platformId;
+    private String platformId;
     private Object sellerId;
-    private long shopId;
+    private String shopId;
     private int organizeId;
     private String organizeName = "";
     private String shopName;
@@ -82,6 +84,20 @@ public class ShopInfoBean {
     private Object bindOrgId;
     private int materialType;
 
+
+    /**
+     * 以下是店铺评级的属性
+     */
+    private String rate;
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
     public int getMaterialType() {
         return materialType;
     }
@@ -90,11 +106,11 @@ public class ShopInfoBean {
         this.materialType = materialType;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -106,11 +122,11 @@ public class ShopInfoBean {
         this.key = key;
     }
 
-    public int getPlatformId() {
+    public String getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(int platformId) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
@@ -122,11 +138,11 @@ public class ShopInfoBean {
         this.sellerId = sellerId;
     }
 
-    public long getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
-    public void setShopId(long shopId) {
+    public void setShopId(String shopId) {
         this.shopId = shopId;
     }
 
@@ -355,20 +371,7 @@ public class ShopInfoBean {
         this.supplierStatus = supplierStatus;
     }
 
-    public String getCreditLevel() {
-        if (null == creditLevel) {
-            creditLevel = "";
-        }
-        switch (creditLevel) {
-            case "A":
-            case "B":
-                return "风险较低";
-            case "D":
-            case "C":
-                return "风险较高";
-        }
-        return "";
-    }
+
 
     public boolean showMarkImg() {
         if (null == creditLevel || TextUtils.isEmpty(creditLevel)) {
@@ -380,6 +383,10 @@ public class ShopInfoBean {
 
     public void setCreditLevel(String creditLevel) {
         this.creditLevel = creditLevel;
+    }
+
+    public String getCreditLevel() {
+        return this.creditLevel;
     }
 
     public String getTiezongCode() {

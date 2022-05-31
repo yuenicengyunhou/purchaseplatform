@@ -26,11 +26,17 @@
             android:screenOrientation="portrait" /> <!-- 结果页面 -->
         <activity
             android:name=".ui.activity.CommitResultActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--        竞价排名-->
         <activity
             android:name=".ui.activity.RankActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 店铺列表-->
+        <activity
+            android:name=".ui.activity.ShopsActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -1,6 +1,7 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -15,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
+import com.rails.purchaseplatform.common.utils.StatusBarCompat;
+import com.rails.purchaseplatform.framwork.base.XiaoMiStatusBar;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.pdetail.ZoomImgVp2Adapter;
 import com.rails.purchaseplatform.market.databinding.ActivityImageZoomBinding;
@@ -74,6 +78,7 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void initialize(Bundle bundle) {
+        setDarkStatusBar(android.R.color.transparent);
         if (!TextUtils.isEmpty(mImageUrl)) {
             binding.ssivZoomImage.setVisibility(View.VISIBLE);
         } else {
@@ -93,7 +98,9 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected int getColor() {
-        return android.R.color.white;
+        return XiaoMiStatusBar.isXiaomi()
+                ? android.R.color.transparent
+                : android.R.color.white;
     }
 
     @Override
@@ -114,7 +121,10 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
 
     @Override
     protected void onDestroy() {
-        mConvertToBitmap.interrupt();
+        if (mConvertToBitmap != null) {
+            mConvertToBitmap.interrupt();
+            mConvertToBitmap = null;
+        }
         super.onDestroy();
     }
 
@@ -157,6 +167,20 @@ public class ImageZoomActivity extends BaseErrorActivity<ActivityImageZoomBindin
                 }
             }
         });
+        mConvertToBitmap.setDaemon(false);
         mConvertToBitmap.start();
     }
+
+    private void setDarkStatusBar(int color) {
+        int statusBarColor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            statusBarColor = ContextCompat.getColor(this, color);
+            View decor = getWindow().getDecorView();
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        } else {
+            statusBarColor = ContextCompat.getColor(this, color);
+        }
+        StatusBarCompat.compat(this, statusBarColor);
+    }
+
 }

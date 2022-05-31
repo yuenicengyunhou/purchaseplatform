@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -21,6 +22,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.framwork.base.BasePop;
+import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.ShopAdapter;
@@ -52,10 +54,13 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     private ArrayList<SearchFilterBean> filterList = null;
     private String orderColumn = "";//默认的排序方式为空字符
     private String orderType = "";//默认的排序顺序为空字符
+    private String mLowPrice = "";
+    private String mHighPrice = "";
 //    private FilterShopPop mPop;
 
     private int userScrollY;//用户滑动距离
-//    private int materialType;
+    private FilterShopPop mPop;
+    //    private int materialType;
 
     /**
      * 排序：
@@ -118,7 +123,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
 
         binding.ivMakePhone.setOnClickListener(v -> {
             String phoneText = binding.tvPhone.getText().toString();
-            String substring = phoneText.substring(phoneText.indexOf("：")+1);
+            String substring = phoneText.substring(phoneText.indexOf("：") + 1);
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + substring));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -169,7 +174,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     }
 
     private void queryShopProductList() {
-        presenter.getShopItemList(mPage == PAGE_DEF, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+        presenter.getShopItemList(mPage == PAGE_DEF, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
     }
 
     /**
@@ -214,7 +219,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
                     mPage = PAGE_DEF;
                     orderType = binding.rbSale.isChecked() ? "asc" : "desc";
                     orderColumn = "saleCount";
-                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
                 }
         );
 
@@ -223,7 +228,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
                     mPage = PAGE_DEF;
                     orderType = binding.rbPrice.isChecked() ? "asc" : "desc";
                     orderColumn = "sellPrice";
-                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+                    presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
                 }
 
         );
@@ -233,7 +238,7 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
             orderColumn = "";
             orderType = "";
             mPage = PAGE_DEF;
-            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
+            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
         });
 
         binding.rbSel.setOnClickListener(v -> showPop());
@@ -262,16 +267,19 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
      */
     private void showPop() {
         if (null == filterList) return;
-//        if (null == mPop) {
-        FilterShopPop mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
-        mPop.setCompleteListener(filterbeans -> {
-            filterList = filterbeans;
-            mPage = PAGE_DEF;
-            presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim());
-        });
-        mPop.setGravity(Gravity.BOTTOM);
-//        }
-        mPop.setType(BasePop.MATCH_WRAP);
+        if (null == mPop) {
+            mPop = new FilterShopPop(filterList, FilterShopPop.MODE_4);
+            mPop.setCompleteListener((filterbeans, lowPrice, highPrice) -> {
+                filterList = filterbeans;
+                mPage = PAGE_DEF;
+                mLowPrice = lowPrice;
+                mHighPrice = highPrice;
+                presenter.getShopItemList(true, shopInfoId, mPage, SHOP_RECOMMEND_PAGE_SIZE, orderColumn, orderType, filterList, binding.editText.getText().toString().trim(), mLowPrice, mHighPrice);
+            });
+            mPop.setGravity(Gravity.BOTTOM);
+            mPop.setType(BasePop.MATCH_CUSTOM);
+            mPop.setY(ScreenSizeUtil.getScreenHeight(this) * 4 / 5);
+        }
         mPop.show(getSupportFragmentManager(), "property");
     }
 
@@ -280,8 +288,15 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
     public void loadShopInfo(ShopInfoBean shop) {
         binding.setShopInfo(shop);
         String mobile = shop.getMobile();
+//        String creditLevel = shop.getCreditLevel();
         binding.tvPhone.setText(MessageFormat.format("联系电话：{0}", mobile));
         binding.tvOrganizeName.setText(MessageFormat.format("供应商：{0}", shop.getOrganizeName()));
+        int shopStatus = shop.getShopStatus();
+        if (shopStatus == 2) {
+            binding.empty.setDescEmpty(R.string.market_shop_locked).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        } else {
+            binding.empty.setDescEmpty(R.string.market_cart_null).setImgEmpty(R.drawable.ic_cart_null).setMarginTop(80);
+        }
         if (TextUtils.isEmpty(mobile)) {
             binding.ivMakePhone.setVisibility(View.GONE);
         } else {
@@ -289,6 +304,26 @@ public class ShopDetailActivity extends BaseErrorActivity<ActivityMarketShopBind
         }
         queryShopProductList();//获取店铺商品列表
     }
+
+    @Override
+    public void loadShopRating(String rating,String shopRateSquence) {
+        binding.tvLevel.setText(shopRateSquence);
+        if (null == rating || TextUtils.isEmpty(rating) || rating.contains("A")) {
+            binding.ivMark.setVisibility(View.INVISIBLE);
+            binding.tvLevel.setVisibility(View.INVISIBLE);
+        } else if (rating.equals("B")) {
+            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_b, null));
+        } else if (rating.equals("C")) {
+            binding.ivMark.setVisibility(View.INVISIBLE);
+            binding.tvLevel.setVisibility(View.INVISIBLE);
+            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_c, null));
+        } else if (rating.equals("D")) {
+            binding.ivMark.setVisibility(View.INVISIBLE);
+            binding.tvLevel.setVisibility(View.INVISIBLE);
+            binding.ivMark.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_security_d, null));
+        }
+    }
+
 
     @Override
     public void loadShopProductList(ArrayList<ResultListBean> list, int totalCount) {

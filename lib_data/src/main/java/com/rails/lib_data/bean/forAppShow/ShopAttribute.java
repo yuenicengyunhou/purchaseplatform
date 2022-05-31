@@ -14,6 +14,8 @@ public class ShopAttribute {
     private long shopSaleCount;
     private List<ItemAttribute> items;
     private String creditLevel;
+    private String rate;
+    private String totalPoints;
 
 
     // =========================================
@@ -73,5 +75,21 @@ public class ShopAttribute {
 
     public void setShopSaleCount(long shopSaleCount) {
         this.shopSaleCount = shopSaleCount;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(String totalPoints) {
+        this.totalPoints = totalPoints;
     }
 }

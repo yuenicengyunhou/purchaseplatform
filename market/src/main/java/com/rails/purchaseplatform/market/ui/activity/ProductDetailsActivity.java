@@ -2,13 +2,16 @@ package com.rails.purchaseplatform.market.ui.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
@@ -48,11 +51,15 @@ import com.rails.purchaseplatform.common.pop.AreaPop;
 import com.rails.purchaseplatform.common.pop.QuickJumpPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
+import com.rails.purchaseplatform.common.widget.banner.config.IndicatorConfig;
+import com.rails.purchaseplatform.common.widget.banner.indicator.DrawableIndicator;
+import com.rails.purchaseplatform.common.widget.banner.listener.OnBannerListener;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.base.XiaoMiStatusBar;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
+import com.rails.purchaseplatform.market.adapter.BannerAdapter;
 import com.rails.purchaseplatform.market.adapter.RecommendItemsRecyclerAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.DetailImgAdapter;
 import com.rails.purchaseplatform.market.adapter.pdetail.ProductBillAdapter;
@@ -62,11 +69,11 @@ import com.rails.purchaseplatform.market.databinding.ActivityProductDetailsBindi
 import com.rails.purchaseplatform.market.ui.pop.AddCartPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsChooseAddressPop;
 import com.rails.purchaseplatform.market.ui.pop.ProductDetailsParamsPop;
-import com.rails.purchaseplatform.market.util.GlideImageLoader;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 商品详情页
@@ -113,6 +120,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 添加购物车Pop中需要展示或计算的所有数据
      */
     private ProductDetailsPopBean mPopBean;
+
+
+    private ArrayList<String> mTabs = new ArrayList<String>() {{
+        add("商品信息");
+        add("包装清单");
+        add("售后服务");
+        add("推荐单位");
+    }};
+
+
+    //判断是点击还是滑动
+    private boolean isScroll = true;
 
 
     /**
@@ -223,23 +242,63 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.rlHeadViewWithTabLayout.setAlpha(0);
         binding.ibGoTop.setVisibility(View.GONE);
 
+
+        /**
+         *
+         */
+        for (int i = 0; i < mTabs.size(); i++) {
+            TabLayout.Tab tab = binding.tabDetails.newTab();
+            TextView lable = new TextView(this);
+            tab.setCustomView(lable);
+            lable.setText(mTabs.get(i));
+            lable.setGravity(Gravity.CENTER);
+            lable.setTextColor(getResources().getColor(i == 0 ? R.color.font_blue : R.color.font_black));
+//            lable.setTypeface(Typeface.defaultFromStyle(i == 0 ? Typeface.BOLD : Typeface.NORMAL));
+            lable.setTextSize(13F);
+            tab.setTag(i);
+            binding.tabDetails.addTab(tab);
+            int finalI = i;
+            lable.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tab.select();
+                    isScroll = false;
+                    if (finalI == 0) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webProductInfo) - px);
+                    } else if (finalI == 1) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webPackageList) - px);
+                    } else if (finalI == 2) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webService) - px);
+                    } else if (finalI == 3) {
+                        binding.nestedScrollView.scrollBy(0, getCurrentPositionY(binding.webRecommend) - px);
+                    }
+                }
+            });
+        }
+
+
         // 监视TabLayout标签事件，使NestedScrollView滚动到相应的位置
         binding.tabDetails.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                selectTab(tab, px);
+                TextView lable = (TextView) tab.getCustomView();
+                lable.setTextColor(getResources().getColor(R.color.font_blue));
+                lable.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                TextView lable = (TextView) tab.getCustomView();
+                lable.setTextColor(getResources().getColor(R.color.font_black));
+                lable.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                selectTab(tab, px);
+//                selectTab(tab, px);
             }
         });
+
 
         // 监听NestedScrollView滚动事件设置TabLayout透明度和Tab标签
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -247,9 +306,11 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 updateTabTitleStateOnScroll(px, px2);
                 updateBackButtonStateOnScroll(scrollY);
-                updateTabStateOnScroll(px);
+                if (isScroll) {
+                    updateTabStateOnScroll(px);
+                }
                 updateGoTopButtonStateOnScroll(scrollY, px3);
-
+                isScroll = true;
             }
         });
 
@@ -307,15 +368,17 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      */
     private void updateTabStateOnScroll(int px) {
         int productInfoPosition = getCurrentPositionY(binding.webProductInfo) - px;
-        int packageListPosition = getCurrentPositionY(binding.webPackageList) - px;
-        int servicePosition = getCurrentPositionY(binding.webService) - px;
-        int recommendPosition = getCurrentPositionY(binding.webRecommend) - px;
+        int packageListPosition = getCurrentPositionY(binding.webPackageList) - getScreenHeight() + px;
+        int servicePosition = getCurrentPositionY(binding.webService) - getScreenHeight() + px;
+        int recommendPosition = getCurrentPositionY(binding.webRecommend) - getScreenHeight() + px;
 
-        if (packageListPosition <= 0 && servicePosition > 0) {
+        if (productInfoPosition >= 0) {
+            binding.tabDetails.selectTab(binding.tabDetails.getTabAt(0));
+        } else if (packageListPosition >= 0) {
             binding.tabDetails.selectTab(binding.tabDetails.getTabAt(1));
-        } else if (servicePosition <= 0 && recommendPosition > 0) {
+        } else if (servicePosition >= 0) {
             binding.tabDetails.selectTab(binding.tabDetails.getTabAt(2));
-        } else if (recommendPosition <= 0) {
+        } else if (recommendPosition >= 0) {
             binding.tabDetails.selectTab(binding.tabDetails.getTabAt(3));
         }
     }
@@ -352,9 +415,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     protected int getColor() {
-        return XiaoMiStatusBar.isXiaomi() ?
-                android.R.color.transparent :
-                android.R.color.white;
+        return XiaoMiStatusBar.isXiaomi()
+                ? android.R.color.transparent
+                : android.R.color.white;
     }
 
     @Override
@@ -384,23 +447,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.ibQuickJump.setOnClickListener(v -> showJumpPop());
         binding.ibQuickJump1.setOnClickListener(v -> showJumpPop());
 
-        // 设置轮播点击事件
-        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Bundle bundle = new Bundle();
-//                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
-//                for (String str : mPageBean.getSkuMarkPicList()) {
-//                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
-//                }
-                bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
-                bundle.putInt("position", position);
-                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
-            }
-        });
 
         // 跳转到店铺详情
-        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail());
+//        binding.tvShowAll.setOnClickListener(v -> productDetailGoShopDetail()); // 此按钮不在跳转到店铺页，隐藏此按钮
         binding.tvGoInShop.setOnClickListener(v -> productDetailGoShopDetail());
         binding.llShop.setOnClickListener(v -> productDetailGoShopDetail());
 
@@ -418,7 +467,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 弹出选择地址Pop
         binding.rlAddressChosen.setOnClickListener(v -> {
-            showChooseAddressPop();
+            showChooseAddressPop(mPageBean.getAddressId());
         });
 
         // 弹出详细参数Pop
@@ -442,8 +491,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
      * 商品详情跳转到店铺详情
      */
     private void productDetailGoShopDetail() {
-        if (null == mPageBean) {
-            ToastUtil.showCenter(this, "商品信息为空");
+        if (mPageBean == null || mPageBean.getShopId() == null) {
+            ToastUtil.showCenter(this, "未查询到该店铺");
             return;
         }
         Bundle bundle = new Bundle();
@@ -472,6 +521,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[1];
+    }
+
+    public int getScreenHeight() {
+        return this.getWindowManager().getDefaultDisplay().getHeight();
     }
 
     /**
@@ -566,15 +619,18 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     /**
      * 弹出选择地址弹窗
      */
-    void showChooseAddressPop() {
+    void showChooseAddressPop(String addressId) {
         if (mChooseAddressPop == null) {
             mChooseAddressPop = new ProductDetailsChooseAddressPop(this, mPageBean.getAddressList());
+            mChooseAddressPop.setCurrentAddressId(addressId);
             mChooseAddressPop.setType(BasePop.MATCH_WRAP);
             mChooseAddressPop.setGravity(Gravity.BOTTOM);
             mChooseAddressPop.setListener(new ProductDetailsChooseAddressPop.AddressListener() {
                 @Override
                 public void getAddrss(AddressBean bean) {
                     binding.tvAddressDefault.setText(bean.getFullAddress());
+                    mPageBean.setFullAddress(bean.getFullAddress());
+                    mPageBean.setAddressId(bean.getAddressId());
                 }
 
                 @Override
@@ -593,6 +649,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
                 }
             });
+        } else {
+            mChooseAddressPop.setCurrentAddressId(addressId);
         }
         mChooseAddressPop.show(getSupportFragmentManager(), "product_details_choose_address");
     }
@@ -628,12 +686,14 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onCollect(boolean isCollect, int position) {
         // TODO: 2021/6/10 保留 点击收藏按钮时发送网络请求 成功后更新收藏状态
-        if (mPageBean.isCollected()) {
-            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
-        } else {
-            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
-        }
         mPageBean.setCollected(!mPageBean.isCollected());
+        if (mPageBean.isCollected()) {
+            ToastUtil.showCenter(this, "收藏成功");
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collect_true));
+        } else {
+            ToastUtil.showCenter(this, "取消成功");
+            binding.ivCollect.setBackground(this.getResources().getDrawable(R.drawable.ic_collection));
+        }
     }
 
 
@@ -658,42 +718,74 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     private void showDescribePictures() {
         String longUrl = mPageBean.getDetailsPictureUrl();
         if (!TextUtils.isEmpty(longUrl) && longUrl.contains(".jpg")) {
-            mDescribeUrlList.clear();
-            String[] urls = longUrl.split("\\.jpg");
-            for (String string : urls) {
-                if (string.contains("//")) {
-                    String[] realUrls = string.split("//");
-                    ItemPicture picture = new ItemPicture();
-                    mDescribeUrlList.add("https://" + realUrls[1] + ".jpg");
-                    picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
-                    mDescribePictureList.add(picture);
+            extracted(longUrl);
+        }
+    }
+
+    private void extracted(String longUrl) {
+        mDescribeUrlList.clear();
+
+        // 新方案2
+        String strginx = filterHtml2(longUrl);
+        String[] stringsx = strginx.split("/>");
+        for (String string : stringsx) {
+            ItemPicture picture = new ItemPicture();
+            String subStrrrr = matchHtmlAttr(string, "img", "src");
+            mDescribeUrlList.add("https:" + subStrrrr);
+            picture.setPictureUrl("https:" + subStrrrr);
+            mDescribePictureList.add(picture);
+//            Log.e(TAG, " ************** " + subStrrrr);
+        }
+
+//        // 新方案（可用）
+//        String sub1 = "<p><img src=\"";
+//        String sub2 = "\" /><img src=\"";
+//        String sub6 = "\" /></p>";
+//        longUrl = longUrl.replace(sub1, "");
+//        longUrl = longUrl.replace(sub6, "");
+//        String[] urls1 = longUrl.split(sub2);
+//        for (String url : urls1) {
+//            ItemPicture picture = new ItemPicture();
+//            mDescribeUrlList.add("https:" + url);
+//            picture.setPictureUrl("https:" + url);
+//            mDescribePictureList.add(picture);
+//        }
+
+//        // 旧方案
+//        String[] urls = longUrl.split("\\.jpg");
+//        for (String string : urls) {
+//            if (string.contains("//")) {
+//                String[] realUrls = string.split("//");
+//                ItemPicture picture = new ItemPicture();
+//                mDescribeUrlList.add("https://" + realUrls[1] + ".jpg");
+//                picture.setPictureUrl("https://" + realUrls[1] + ".jpg");
+//                mDescribePictureList.add(picture);
+//            }
+//        }
+
+        mThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < mDescribePictureList.size(); i++) {
+                        Bitmap bitmap = Glide.with(ProductDetailsActivity.this)
+                                .asBitmap()
+                                .load(mDescribePictureList.get(i).getPictureUrl())
+                                .submit(960, 960)
+                                .get();
+                        mDescribePictureList.get(i).setBitmap(bitmap);
+                    }
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    Message msg = Message.obtain();
+                    msg.what = LOAD_BITMAP;
+                    mHandler.sendMessage(msg);
                 }
             }
-
-            mThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 0; i < mDescribePictureList.size(); i++) {
-                            Bitmap bitmap = Glide.with(ProductDetailsActivity.this)
-                                    .asBitmap()
-                                    .load(mDescribePictureList.get(i).getPictureUrl())
-                                    .submit(960, 960)
-                                    .get();
-                            mDescribePictureList.get(i).setBitmap(bitmap);
-                        }
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
-                    } finally {
-                        Message msg = Message.obtain();
-                        msg.what = LOAD_BITMAP;
-                        mHandler.sendMessage(msg);
-                    }
-                }
-            });
-            mThread.setDaemon(true);
-            mThread.start();
-        }
+        });
+        mThread.setDaemon(false);
+        mThread.start();
     }
 
 
@@ -740,9 +832,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //        for (String str : mPageBean.getSkuMarkPicList()) {
 //            Log.d(TAG, "切换sku更新水印图片 = " + str);
 //        }
-        binding.productPictureHD
-                .setImages(mPageBean.getSkuPicList())
-                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
+//        binding.productPictureHD
+//                .setImages(mPageBean.getSkuPicList())
+//                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
         // TODO: 2021/6/9 需要更新sku名称（应该是在点的时候通过查询本地ItemSkuInfoList更新了，不过推荐在请求成功后更新）
     }
 
@@ -753,7 +845,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onGetCartCountSuccess(String count) {
-        binding.tvCartCount.setText(count);
+        setCartCount(count);
     }
 
     @Override
@@ -763,7 +855,8 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
 
     @Override
-    public void getAddress(ArrayList<AddressBean> addressBeans) {
+    public void getAddress(ArrayList<AddressBean> addressBeansp, boolean showAddressPop) {
+
     }
 
     @Override
@@ -777,7 +870,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
     @Override
     public void onDestroy() {
-        mThread = null;
+        if (mThread != null) {
+            mThread.interrupt();
+            mThread = null;
+        }
         super.onDestroy();
     }
 
@@ -797,10 +893,38 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 //        }
 
 
-        // 设置轮播图
-        binding.productPictureHD
-                .setImages(mPageBean.getSkuPicList())
-                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
+//        // 设置轮播图
+//        binding.productPictureHD
+//                .setImage(mPageBean.getSkuPicList())
+//                .setImageLoader(GlideImageLoader.getInstance().setWidthHeight(1, 1)).start();
+
+
+        binding.productPictureHD.setAdapter(new BannerAdapter(mPageBean.getSkuPicList()))
+                .setIndicator(new DrawableIndicator(this, R.drawable.ic_indicator_gray_normal, R.drawable.ic_indicator_blue_selected))
+                .setIndicatorGravity(IndicatorConfig.Direction.CENTER)
+                .addBannerLifecycleObserver(this);
+
+        // 设置轮播点击事件
+        binding.productPictureHD.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(Object data, int position) {
+                Bundle bundle = new Bundle();
+//                bundle.putString("imageUrl", mPageBean.getTopPictureList().get(position));
+//                for (String str : mPageBean.getSkuMarkPicList()) {
+//                    Log.d(TAG, "点击轮播展示水印图片 = " + str);
+//                }
+
+                Log.d(TAG, "   MARK PIC LENGTH = " + mPageBean.getSkuMarkPicList());
+                Log.d(TAG, "UN MARK PIC LENGTH = " + mPageBean.getSkuPicList());
+                if (mPageBean.getSkuMarkPicList() == null || mPageBean.getSkuMarkPicList().size() == 0 || mPageBean.getSkuMarkPicList().contains(null))
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuPicList());
+                else
+                    bundle.putStringArrayList("imageUrlList", mPageBean.getSkuMarkPicList());
+                bundle.putInt("position", position);
+                ARouter.getInstance().build(ConRoute.MARKET.IMAGE_ZOOM).with(bundle).navigation();
+            }
+
+        });
 
         // 设置价格
         binding.tvSellPrice.setText(mPageBean.getSellPrice());
@@ -833,6 +957,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         // 不同规格组合产生的名称
         if (TextUtils.isEmpty(mPageBean.getProductAttrName())) {
             binding.rlTypeChosen.setVisibility(View.GONE);
+            binding.rlTypeChosenLine.setVisibility(View.GONE);
         } else {
             binding.tvSelectType.setText(mPageBean.getProductAttrName());
         }
@@ -852,6 +977,10 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 .placeholder(R.drawable.ic_placeholder)
                 .into(binding.ratioImage);
 
+        // 设置店铺名称位置，如果不显示风险等级就居中显示
+        if (mPageBean.getShopSecurity() == null || mPageBean.getShopSecurity().equals(" ")) {
+            binding.textView.setGravity(Gravity.CENTER_VERTICAL);
+        }
         // 设置店铺名称
         binding.textView.setText(mPageBean.getShopName());
 
@@ -882,7 +1011,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
                 this.getResources().getDrawable(R.drawable.ic_collection));
 
         // 设置购物车内商品数量
-        binding.tvCartCount.setText(mPageBean.getCartCount());
+        setCartCount(mPageBean.getCartCount());
 
         // 专用物资 不显示价格 只显示物资编码。后续的比价、查看历史价格、购物车能看到价格。
         if (mPageBean.getMaterialType().equals("1")) {
@@ -902,6 +1031,28 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         statisticPresenter.getVisitors("0", mPageBean.getShopId(), mPageBean.getSkuId());
     }
 
+    /**
+     * 设置购物车内商品数量显示
+     *
+     * @param cartCount
+     */
+    private void setCartCount(String cartCount) {
+        // 转int。
+        int count = 0;
+        try {
+            count = Integer.parseInt(cartCount);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        // 是0不显示，不是0显示数量。
+        if (count == 0) {
+            binding.tvCartCount.setVisibility(View.INVISIBLE);
+        } else {
+            binding.tvCartCount.setText(String.valueOf(count));
+            binding.tvCartCount.setVisibility(View.VISIBLE);
+        }
+    }
+
     private boolean isNonePrice(String price) {
         return price == null || price.equals("0.00") || price.equals("");
     }
@@ -914,5 +1065,82 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
     @Override
     public void onHaveNoSkuId() {
         ProductDetailsActivity.this.finish();
+    }
+
+    /**
+     * 获取标签中的内容
+     *
+     * @param source  内容
+     * @param element 标签
+     * @param attr    属性Html
+     * @return
+     */
+    public String matchHtmlContent(String source, String element, String attr) {
+        String reg = "<" + element + "[^<>]*?\\s" + attr + "=['\"]?(.*?)['\"]?\\s.*?>([^<]*)</" + element + ">";
+        Matcher m = Pattern.compile(reg).matcher(source);
+        while (m.find()) {
+            String r = m.group(2);
+            return r;
+        }
+        return "";
+    }
+
+    /**
+     * 获取字符串中html标签属性
+     *
+     * @param source  内容
+     * @param element 标签
+     * @param attr    属性Html
+     * @return
+     */
+    public String matchHtmlAttr(String source, String element, String attr) {
+        String reg = "<" + element + "[^<>]*?\\s" + attr + "=['\"]?(.*?)['\"]?\\s.*?";
+        Matcher m = Pattern.compile(reg).matcher(source);
+        while (m.find()) {
+            String r = m.group(1);
+            return r;
+        }
+        return "";
+    }
+
+    /**
+     * 基本功能：过滤所有以"<"开头以">"结尾的标签
+     *
+     * @param str
+     * @return String
+     */
+    public String filterHtml(String str) {
+        String regxpForHtml = "<([^>]*)>";
+        Pattern pattern = Pattern.compile(regxpForHtml);
+        Matcher matcher = pattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        boolean result1 = matcher.find();
+        while (result1) {
+            matcher.appendReplacement(sb, "");
+            result1 = matcher.find();
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+
+    /**
+     * 基本功能：过滤所有以"<"开头以">"结尾的标签
+     *
+     * @param str
+     * @return String
+     */
+    public String filterHtml2(String str) {
+        String regxpForHtml = "<([^img]*)>";
+        Pattern pattern = Pattern.compile(regxpForHtml);
+        Matcher matcher = pattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        boolean result1 = matcher.find();
+        while (result1) {
+            matcher.appendReplacement(sb, "");
+            result1 = matcher.find();
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
     }
 }

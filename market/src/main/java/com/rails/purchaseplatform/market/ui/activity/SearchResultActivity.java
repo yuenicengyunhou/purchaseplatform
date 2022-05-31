@@ -1,12 +1,9 @@
 package com.rails.purchaseplatform.market.ui.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
@@ -45,7 +42,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
     final private String TAG = SearchResultActivity.class.getSimpleName();
 
     private static int COUNTING = 1;
-    private static LoadingDialog mLoadingDialog = null;
+    private LoadingDialog mLoadingDialog = null;
 
     private int mSearchType = 0;
     private String mSearchKey = "";
@@ -131,10 +128,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                         .setMessage("Loading")
                         .createWithBackground();
                 mLoadingDialog.setCancelable(true);
-                mLoadingDialog.show();
             }
             // 商品筛选弹窗
             if (mSearchType == 0) {
+                mLoadingDialog.show();
                 ArrayList<SearchFilterBean> filterBeans = fragment1.getFilterData(); // 筛选条件
                 if (filterBeans == null || filterBeans.size() == 0) {
                     ToastUtil.showCenter(this, "没有过滤条件");
@@ -143,7 +140,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                     return;
                 }
 //                PropertyPop<SearchFilterBean> mPop = new PropertyPop<>(filterBeans, 3, mMinPrice, mMaxPrice);
-                SearchResultFilterPop mPop = new SearchResultFilterPop(filterBeans, 3, mMinPrice, mMaxPrice);
+                SearchResultFilterPop mPop = new SearchResultFilterPop(filterBeans, 3, mMinPrice, mMaxPrice, mLoadingDialog);
                 mPop.setGravity(Gravity.BOTTOM);
                 mPop.setType(BasePop.MATCH_WRAP);
 //                mPop.setFilterListener(new PropertyPop.DoFilter() {
@@ -299,6 +296,16 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        if (mLoadingDialog != null) {
+            if (mLoadingDialog.isShowing()) {
+                mLoadingDialog.dismiss();
+            }
+            mLoadingDialog = null;
+        }
+        super.onDestroy();
+    }
 
     public interface OnSortClick {
 
@@ -344,18 +351,5 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
          */
         void sendShopFilterData(int page, String isBought, String shopType, String saleArea);
 
-    }
-
-    public static class LoadingHandlerInSearchActivity extends Handler {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == COUNTING) {
-                if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-                    mLoadingDialog.dismiss();
-                    mLoadingDialog = null;
-                }
-            }
-        }
     }
 }

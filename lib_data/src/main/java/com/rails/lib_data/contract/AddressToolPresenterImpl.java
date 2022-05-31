@@ -3,6 +3,7 @@ package com.rails.lib_data.contract;
 import android.app.Activity;
 
 import com.rails.lib_data.ConShare;
+import com.rails.lib_data.R;
 import com.rails.lib_data.bean.AddressBean;
 import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.AddressModel;
@@ -36,17 +37,29 @@ public class AddressToolPresenterImpl extends BasePresenter<AddressToolContract.
 
     }
 
+    /**
+     * 获取地址，传递一个是否需要加载条的参数，showLoading.用途：购物车初始获取时不显示loading,当点击购物车顶部地址条时，
+     * 再次请求这个接口，这时显示loading。
+     * 为什么要这么再次请求这个接口？解决app处在购物车界面时，pc端手动编辑收货地址后，点击顶部地址条，展示的地址列表未更新的问题
+     */
     @Override
-    public void getAddress(String paltId, String addressType, String type, String keyword) {
+    public void getAddress(String paltId, String addressType, String type, String keyword, boolean showLoading) {
+
+        if (showLoading) baseView.showResDialog(R.string.loading);
+
         model.getAddress(paltId, addressType, userId, userType, type, keyword, new HttpRxObserver<ArrayList<AddressBean>>() {
             @Override
             protected void onError(ErrorBean e) {
+                if (showLoading) baseView.dismissDialog();
+
                 baseView.onError(e);
             }
 
             @Override
             protected void onSuccess(ArrayList<AddressBean> addressBeans) {
-                baseView.getAddress(addressBeans);
+                if (showLoading) baseView.dismissDialog();
+
+                baseView.getAddress(addressBeans,showLoading);
             }
         });
     }

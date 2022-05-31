@@ -152,6 +152,13 @@ public class ProductDetailsPageBean {
      */
     private String fullAddress;
 
+
+    /**
+     * 地址ID，地址可能是重复字符串，但地址ID不是。
+     */
+    private String addressId;
+
+
     /**
      * 运费
      */
@@ -418,6 +425,14 @@ public class ProductDetailsPageBean {
 
     public void setFullAddress(String fullAddress) {
         this.fullAddress = fullAddress;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
     public String getDelivery() {

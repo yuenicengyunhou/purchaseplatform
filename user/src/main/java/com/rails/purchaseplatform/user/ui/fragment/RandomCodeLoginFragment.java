@@ -1,11 +1,15 @@
 package com.rails.purchaseplatform.user.ui.fragment;
 
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.bumptech.glide.Glide;
 import com.rails.lib_data.contract.LoginContract;
@@ -36,6 +40,38 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
     private ArrayList<String> mAccountList = new ArrayList<>();
 
     private PopupWindow mPop;
+
+    private boolean isInputCode = true;
+
+    Drawable drawableHasFocus;
+
+    Drawable drawableLoseFocus;
+
+    Drawable drawableHasFocus2;
+
+    Drawable drawableLoseFocus2;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        drawableHasFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5,
+                null);
+        drawableLoseFocus = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5,
+                null);
+
+        drawableHasFocus2 = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_border_blue_50,
+                null);
+        drawableLoseFocus2 = ResourcesCompat.getDrawable(
+                getResources(),
+                com.rails.purchaseplatform.common.R.drawable.bg_border_gray_50,
+                null);
+    }
 
     @Override
     protected void loadData() {
@@ -110,6 +146,76 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
             scrollUp("randomCode", v, hasFocus);
         });
 
+        binding.et1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isInputCode = count != 0;
+                if (s.length() == 3 && isInputCode) {
+                    binding.et1.clearFocus();
+                    binding.et2.requestFocus();
+                    mManager.showSoftInput(binding.et2, InputMethodManager.SHOW_FORCED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.et2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isInputCode = count != 0;
+                if (s.length() == 3 && isInputCode) {
+                    binding.et2.clearFocus();
+                    binding.et3.requestFocus();
+                    mManager.showSoftInput(binding.et3, InputMethodManager.SHOW_FORCED);
+                }
+                if (s.length() == 0 && !isInputCode) {
+                    binding.et2.clearFocus();
+                    binding.et1.requestFocus();
+                    mManager.showSoftInput(binding.et1, InputMethodManager.SHOW_FORCED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.et3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isInputCode = count != 0;
+                if (s.length() == 0 && !isInputCode) {
+                    binding.et3.clearFocus();
+                    binding.et2.requestFocus();
+                    mManager.showSoftInput(binding.et2, InputMethodManager.SHOW_FORCED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void initRandomAreaHeight() {
@@ -183,8 +289,6 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
      * @param view     需要改变颜色的View
      */
     private void setInputLineBackground(boolean hasFocus, View view) {
-        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_blue_5);
-        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_corner_gray_5);
         if (hasFocus)
             view.setBackground(drawableHasFocus);
         else
@@ -198,12 +302,10 @@ public class RandomCodeLoginFragment extends LazyFragment<FragmentLoginRandomCod
      * @param view     需要改变颜色的View
      */
     private void setRandomCodeInputBackground(boolean hasFocus, View view) {
-        Drawable drawableHasFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_border_blue_50);
-        Drawable drawableLoseFocus = getResources().getDrawable(com.rails.purchaseplatform.common.R.drawable.bg_border_gray_50);
         if (hasFocus)
-            view.setBackground(drawableHasFocus);
+            view.setBackground(drawableHasFocus2);
         else
-            view.setBackground(drawableLoseFocus);
+            view.setBackground(drawableLoseFocus2);
     }
 
     public void setLoginAccountList(ArrayList<String> accountList) {

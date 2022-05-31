@@ -8,6 +8,7 @@ import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.databinding.ItemProductParamsInpopBinding;
 
 public class ProDetailsParamsAdapter extends BaseRecyclerAdapter<ProductSpecificParameter, ItemProductParamsInpopBinding> {
+    private int mMaxKeyLength;
 
     public ProDetailsParamsAdapter(Context context) {
         super(context);
@@ -21,5 +22,12 @@ public class ProDetailsParamsAdapter extends BaseRecyclerAdapter<ProductSpecific
     @Override
     protected void onBindItem(ItemProductParamsInpopBinding binding, ProductSpecificParameter productSpecificParameter, int position) {
         binding.setParams(productSpecificParameter);
+        if (mMaxKeyLength >= 7) mMaxKeyLength = 6;
+        binding.tvParamsKey.setEms(mMaxKeyLength);
+    }
+
+    public void setMaxKeyLength(int maxKeyLength) {
+        mMaxKeyLength = maxKeyLength;
+//        Log.d("===========", "=========" + mMaxKeyLength);
     }
 }

@@ -3,14 +3,14 @@ package com.rails.lib_data.bean.forNetRequest.productDetails;
 public class ItemSaleInfoVo {
     private int advancePercent;
     private int deliveryCycle;
-    private int id;
+    private String id;
     private int initialMount;
-    private int itemId;
+    private String itemId;
     private int platformId;
     private int salePriceType;
     private int saleType;
-    private int sellerId;
-    private int shopId;
+    private String sellerId;
+    private long shopId;
 
 
     // =======================================================================================
@@ -32,11 +32,11 @@ public class ItemSaleInfoVo {
         this.deliveryCycle = deliveryCycle;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,11 +48,11 @@ public class ItemSaleInfoVo {
         this.initialMount = initialMount;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
@@ -80,19 +80,19 @@ public class ItemSaleInfoVo {
         this.saleType = saleType;
     }
 
-    public int getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(int sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
     }
 
-    public int getShopId() {
+    public long getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(long shopId) {
         this.shopId = shopId;
     }
 }

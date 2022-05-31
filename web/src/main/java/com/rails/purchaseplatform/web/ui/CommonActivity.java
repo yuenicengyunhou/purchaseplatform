@@ -24,6 +24,7 @@ import com.rails.lib_data.ConShare;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.common.utils.JSBack;
+import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.web.R;
 import com.rails.purchaseplatform.web.databinding.BaseWebBinding;
@@ -122,6 +123,16 @@ class CommonActivity extends ToolbarActivity<BaseWebBinding> implements JSBrowse
     @Override
     public void onLogin() {
         ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+    }
+
+    @JavascriptInterface
+    @Override
+    public void exit() {
+        try {
+            BaseActManager.getInstance().clear();
+            System.exit(0);
+        } catch (Exception e) {
+        }
     }
 
 

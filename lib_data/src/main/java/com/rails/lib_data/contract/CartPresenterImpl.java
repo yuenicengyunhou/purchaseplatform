@@ -1,36 +1,33 @@
 package com.rails.lib_data.contract;
 
-import android.app.Activity;
-import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
-import android.view.View;
+import static com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit.isDebug;
 
+import android.app.Activity;
+import android.text.TextUtils;
+
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 /**
  * 购物车架构
- *
- * @author： sk_comic@163.com
- * @date: 2021/3/12
+ * <p>
+ * author： sk_comic@163.com
+ * date: 2021/3/12
  */
 public class CartPresenterImpl extends BasePresenter<CartContract.CartView> implements CartContract.CartPresenter {
 
@@ -42,6 +39,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
         model = new CartModel();
     }
 
+    /**
+     * 获取购物车商品
+     */
     @Override
     public void getCarts(boolean isDialog, String addressId) {
         if (isDialog)
@@ -59,14 +59,18 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
                 if (isCallBack()) {
                     if (null == cartBean) return;
-                    for (CartShopBean shopBean : cartBean.getShopList()) {
-                        StringBuffer buffer = new StringBuffer();
+                    CartShopBean invalidShop = new CartShopBean();
+                    ArrayList<CartShopProductBean> invalidProducts = new ArrayList<>();
+                    List<CartShopBean> shopList = cartBean.getShopList();
+                    for (int j = 0; j < shopList.size(); j++) {
+                        CartShopBean shopBean = shopList.get(j);
+                        StringBuilder buffer = new StringBuilder();
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
                             productBean.num.set(productBean.getSkuNum());
                             productBean.isSel.set(productBean.getSelected());
                             productBean.isCollect.set(productBean.getCollect());
 
-                            buffer.append(productBean.getSkuId() + ",");
+                            buffer.append(productBean.getSkuId()).append(",");
 
                             productBean.canSel.set(productBean.getSaleStatus() == 1);
                             productBean.canAdd.set(true);
@@ -74,7 +78,7 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                             if (productBean.num.get() <= 1) {
                                 productBean.canReduce.set(false);
                                 productBean.canAdd.set(true);
-                            } else if (productBean.num.get() > 1 && productBean.num.get() < 999999) {
+                            } else if (productBean.num.get() > 1 && productBean.num.get() < 999999999) {
                                 productBean.canReduce.set(true);
                                 productBean.canAdd.set(true);
                             } else {
@@ -105,8 +109,27 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                             shopBean.dprice.set(DecimalUtil.formatDouble(freight - total));
                             shopBean.isshow.set(true);
                         }
+                        List<CartShopProductBean> skuList = shopBean.getSkuList();
+                        for (int i = 0; i < skuList.size(); i++) {
+                            CartShopProductBean skuBean = skuList.get(i);
+                            if (skuBean.getSaleStatus() == 0) {
+                                invalidProducts.add(skuBean);
+                                skuList.remove(skuBean);
+                                i = i - 1;
+                            }
+                        }
+                        if (skuList.isEmpty()) {
+                            shopList.remove(shopBean);
+                            j = j - 1;
+                        }
                     }
-
+                    if (!invalidProducts.isEmpty()) {
+                        invalidShop.setShopName("失效商品");
+                        invalidShop.isshow.set(false);
+                        invalidShop.setHideCheckBox(true);
+                        invalidShop.setSkuList(invalidProducts);
+                        shopList.add(invalidShop);
+                    }
                     baseView.getCartInfo(cartBean);
                 }
             }
@@ -116,12 +139,13 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
     /**
      * 计算一个店的价格
-     *
-     * @return
+     * <p>
+     * return
      */
     private double shopPrice(CartShopBean cartShopBean) {
         double total = 0;
         try {
+
             ArrayList<CartShopProductBean> beans = (ArrayList<CartShopProductBean>) cartShopBean.getSkuList();
             for (CartShopProductBean bean : beans) {
 //                if (bean.canSel.get() == null)
@@ -132,6 +156,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 if (bean.isSel.get()) {
                     total += bean.num.get() * bean.getSellPrice();
                 }
+//                if (bean.getSaleStatus() == 0) {
+//                   invalidProducts.add(bean);
+//                }
             }
         } catch (Exception e) {
             return total;
@@ -172,9 +199,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -200,9 +227,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -227,9 +254,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -250,9 +277,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -300,9 +327,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
             @Override
             protected void onError(ErrorBean e) {
                 baseView.dismissDialog();
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
                 if (isCallBack())
@@ -330,9 +357,9 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 baseView.dismissDialog();
                 if (isCallBack())
                     baseView.getSelStatus(2, !isSel);
-                if ("404".equals(e.getCode())){
+                if ("404".equals(e.getCode())) {
 
-                }else{
+                } else {
                     baseView.onError(e);
                 }
             }
@@ -356,18 +383,38 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 //单品编码[1111204]已下架或失效,请选择其他商品！
                 String msg = e.getMsg();
                 if (msg.contains("[") && msg.contains("]")) {
-                    int start = msg.lastIndexOf("[");
-                    int end = msg.lastIndexOf("]") + 1;
-                    String array = msg.substring(start, end);
-                    Type type = new TypeToken<ArrayList<String>>() {
-                    }.getType();
-                    ArrayList<String> limits = JsonUtil.parseJson(array, type);
+                    ArrayList<String> limits = new ArrayList<>();
+                    if (msg.contains("[[") && msg.contains("]]")) {
+                        Type type = new TypeToken<ArrayList<ArrayList<CartShopProductBean>>>() {
+                        }.getType();
+                        try {
+                            ArrayList<ArrayList<CartShopProductBean>> outterList = JsonUtil.parseJson(msg, type);
+                            if ((null != outterList) && (!outterList.isEmpty())) {
+                                ArrayList<CartShopProductBean> innerList = outterList.get(0);
+                                if (!innerList.isEmpty()) {
+                                    for (CartShopProductBean bean : innerList) {
+                                        String skuId = bean.getSkuId();
+                                        limits.add(skuId);
+                                    }
+                                }
+                            }
+                            msg = "您购买的商品实际库存不足，请修改购买数量或选择其他商品！";
+                        } catch (JsonSyntaxException exception) {
+                            exception.printStackTrace();
+                            msg = "json解析异常";
+                        }
+                    } else {
+                        int start = msg.lastIndexOf("[");
+                        int end = msg.lastIndexOf("]") + 1;
+                        String array = msg.substring(start, end);
+                        Type type = new TypeToken<ArrayList<String>>() {
+                        }.getType();
+                        limits = JsonUtil.parseJson(array, type);
+                    }
                     baseView.getLimits(limits, msg);
                 } else {
                     baseView.onError(e);
                 }
-
-
             }
 
             @Override

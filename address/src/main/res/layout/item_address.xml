@@ -34,6 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@{address.receiverName}"
+                android:maxEms="5"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/font_size_16"
                 app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +134,7 @@
             android:layout_height="match_parent"
             android:background="@color/font_red"
             android:gravity="center"
-            android:text="删除"
+            android:text="@string/address_main_del"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_12" />
 

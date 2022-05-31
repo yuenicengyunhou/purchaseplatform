@@ -51,6 +51,11 @@ public class BrandBean implements Serializable{
     private String countNum;
     private String shopId;
 
+    private String shopLogUrl;
+    private String shopLogoUrl;
+    private String shopName;
+    private String pictureAddress;
+
     public String getId() {
         return id;
     }
@@ -215,5 +220,38 @@ public class BrandBean implements Serializable{
 
     public void setCountNum(String countNum) {
         this.countNum = countNum;
+    }
+
+
+    public String getShopLogUrl() {
+        return shopLogUrl;
+    }
+
+    public void setShopLogUrl(String shopLogUrl) {
+        this.shopLogUrl = shopLogUrl;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getShopLogoUrl() {
+        return shopLogoUrl;
+    }
+
+    public void setShopLogoUrl(String shopLogoUrl) {
+        this.shopLogoUrl = shopLogoUrl;
+    }
+
+    public String getPictureAddress() {
+        return pictureAddress;
+    }
+
+    public void setPictureAddress(String pictureAddress) {
+        this.pictureAddress = pictureAddress;
     }
 }

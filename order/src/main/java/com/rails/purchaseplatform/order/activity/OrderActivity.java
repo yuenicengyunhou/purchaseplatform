@@ -153,6 +153,9 @@ public class OrderActivity extends BaseErrorActivity<ActivityOrderBinding> imple
                     binding.ivClear.setVisibility(View.VISIBLE);
                 } else {
                     binding.ivClear.setVisibility(View.GONE);
+                    if (null != listPop && listPop.isShowing()) {
+                        listPop.dismiss();
+                    }
                 }
                 showConditionListPopWindow(string);
             }

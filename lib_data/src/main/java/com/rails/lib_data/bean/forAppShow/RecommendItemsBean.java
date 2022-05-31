@@ -7,8 +7,8 @@ public class RecommendItemsBean {
     private long platformId;
     private int cid;
     private long shopId;
-    private long itemId;
-    private int skuId;
+    private String itemId;
+    private String skuId;
 
     public String getImageUrl() {
         return imageUrl;
@@ -58,19 +58,19 @@ public class RecommendItemsBean {
         this.shopId = shopId;
     }
 
-    public long getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(long itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
-    public int getSkuId() {
+    public String getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(int skuId) {
+    public void setSkuId(String skuId) {
         this.skuId = skuId;
     }
 }

@@ -18,6 +18,8 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.Objects;
 
+import javax.net.ssl.SSLHandshakeException;
+
 import retrofit2.HttpException;
 
 
@@ -44,8 +46,12 @@ public class ExceptionEngine {
     public static final String TIMEOUT_ERROR = "9997";
     //连接网络错误
     public static final String CONNECT_ERROR = "9996";
-    //未知错误
+    //未知错误˙˙
     public static final String UN_KNOWN_ERROR = "9995";
+    //服务器维护
+    public static final String ERROR_509 ="509";
+
+    public static final String ERROR_SSL ="9994";
 
 
     @NotNull
@@ -56,7 +62,10 @@ public class ExceptionEngine {
             if (((HttpException) e).code() == 502) {
                 errorBean = new ErrorBean(e, ERROE_502);
                 errorBean.setMsg("");
-            } else if (((HttpException) e).code() == 400) {
+            }else if (((HttpException) e).code() == 509){
+                errorBean = new ErrorBean(e, ERROR_509);
+                errorBean.setMsg("");
+            }else if (((HttpException) e).code() == 400) {
                 errorBean = new ErrorBean(e, ERROR_PASTDUE);
                 errorBean.setMsg("");
             } else{
@@ -84,6 +93,8 @@ public class ExceptionEngine {
             // Expected a com.google.gson.JsonObject but was com.google.gson.JsonNull
             else if (e.getMessage().contains("but was com.google.gson.JsonNull")) {
                 errorBean.setMsg("but was com.google.gson.JsonNull");
+            } else if (e.getMessage().contains("End of input at line 1 column 1 path $")) {
+                errorBean.setMsg("End of input at line 1 column 1 path $");
             }
         } else if (e instanceof ConnectException || e instanceof NoRouteToHostException || e instanceof UnknownHostException) {//连接网络错误
             errorBean = new ErrorBean(e, CONNECT_ERROR);
@@ -91,7 +102,10 @@ public class ExceptionEngine {
         } else if (e instanceof SocketTimeoutException) {//网络超时
             errorBean = new ErrorBean(e, TIMEOUT_ERROR);
             errorBean.setMsg("请求超时，请检查网络状况");
-        } else {  //未知错误
+        }else if (e instanceof SSLHandshakeException){
+            errorBean = new ErrorBean(e, ERROR_SSL);
+            errorBean.setMsg("证书已过期，请重启APP后更新最新版本");
+        }else {  //未知错误
             errorBean = new ErrorBean(e, UN_KNOWN_ERROR);
             errorBean.setMsg("系统异常");
         }

@@ -252,12 +252,12 @@
                                 style="@style/mine_order"
                                 android:drawableTop="@drawable/ic_mine_refuse"
                                 android:text="@string/mine_order_aftersale"
-                                app:distance="@dimen/dp_0"
+                                app:distance="@dimen/dp_5"
                                 app:font_color="@color/bg_red"
-                                app:font_padding="@dimen/dp_3"
+                                app:font_padding="@dimen/dp_5"
                                 app:font_size="@dimen/font_size_10"
                                 app:is_hide="false"
-                                app:is_hide_txt="false" />
+                                app:is_hide_txt="true" />
 
 
                         </LinearLayout>

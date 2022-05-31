@@ -43,6 +43,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
 
     protected String url;
     protected String jsCls;
+    protected String webUrl="";
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -131,6 +132,8 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
             @Override
             public void onPageFinished(WebView view, String url) {
                 // TODO Auto-generated method stub
+                webUrl = url;
+                newLink(url);
                 synCookies(url);
                 dismissDialog();
             }
@@ -210,5 +213,13 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
             webView.loadUrl(url);
         else
             webView.loadUrl(url, params);
+    }
+
+
+    /**
+     * 判断审核列表进入审核详情
+     */
+    protected void newLink(String url){
+
     }
 }

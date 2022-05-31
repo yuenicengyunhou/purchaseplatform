@@ -1,5 +1,7 @@
 package com.rails.lib_data.model;
 
+import android.text.TextUtils;
+
 import com.rails.lib_data.bean.BannerBean;
 import com.rails.lib_data.bean.BrandBean;
 import com.rails.lib_data.bean.ListBeen;
@@ -18,8 +20,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function4;
-import io.reactivex.functions.Function5;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -108,12 +109,20 @@ public class MarketIndexModel {
     /**
      * 获取品牌列表
      *
+     * @param page
+     * @param pageSize
+     * @param paramType 0代表七日品牌排名，1代表七日品牌所对应店铺排名 (必填项)
+     * @param brandId
      * @param httpRxObserver
      */
-    public void getRecBrands(int page, String pageSize, HttpRxObserver httpRxObserver) {
+    public void getRecBrands(int page, String pageSize, String paramType, String brandId, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageNum", page);
         params.put("pageSize", pageSize);
+        params.put("paramType",paramType);
+        if ("1".equals(paramType))
+            params.put("brandId",brandId);
+
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(MarketIndexService.class, 2)
                 .getBrands(params))
@@ -130,6 +139,7 @@ public class MarketIndexModel {
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageNum", 1);
         params.put("pageSize", 10);
+        params.put("paramType","0");
         return HttpRxObservable.getObservable(RetrofitUtil.getInstance()
                 .create(MarketIndexService.class, 2).getBrands(params));
     }
@@ -170,49 +180,32 @@ public class MarketIndexModel {
     public void getMarketIndexInfo(HttpRxObserver httpRxObserver) {
 
         // TODO: 2016/9/30 读取缓存数据
-        Observable hotProducts = getHotProducts().subscribeOn(Schedulers.io());//获取热销商品
-        Observable recProducts = getRecProducts().subscribeOn(Schedulers.io());//获取商城首页推荐商品列表
-        Observable brands = getRecBrands().subscribeOn(Schedulers.io());//获取品牌列表
-
         Observable banners = getBanners().subscribeOn(Schedulers.io());//获取商城banner列表
         Observable categorys = getCategorys().subscribeOn(Schedulers.io());//获取导航
 
 
-        Observable.zip(hotProducts, recProducts, brands, banners, categorys, (Function5<ListBeen<ProductBean>, ArrayList<ProductRecBean>, Object, ArrayList<BannerBean>,
-                ArrayList<NavigationBean>, MarketIndexBean>) (hotListBeen, products, brandListBeen, hBanners, hCategorys) -> {
+        Observable.zip(  banners, categorys, (BiFunction< ArrayList<BannerBean>,
+                                        ArrayList<NavigationBean>, MarketIndexBean>) (hBanners, hCategorys) -> {
             MarketIndexBean marketIndexBean = new MarketIndexBean();
-
-
-            try {
-                marketIndexBean.setHotBeans(hotListBeen.getList());
-            } catch (Exception e) {
-
-            }
-
-
-            try {
-                marketIndexBean.setRecBeans(products);
-            } catch (Exception e) {
-
-            }
-
-
-            try {
-                if (brandListBeen instanceof ListBeen)
-                    marketIndexBean.setBrandBeans((ArrayList<BrandBean>) ((ListBeen<?>) brandListBeen).getList());
-            } catch (Exception e) {
-                marketIndexBean.setHotBeans(null);
-            }
-
 
             try {
                 marketIndexBean.setBannerBeans(hBanners);
             } catch (Exception e) {
-
+                marketIndexBean.setBannerBeans(null);
             }
 
             try {
-                marketIndexBean.setCategorySubBeans(hCategorys);
+                if (hCategorys != null) {
+                    ArrayList<NavigationBean> navigationBeans = new ArrayList<>();
+                    for (NavigationBean bean : hCategorys) {
+                        String url = bean.getPictureUrl();
+                        if (!TextUtils.isEmpty(url)) {
+                            navigationBeans.add(bean);
+                        }
+                    }
+                    marketIndexBean.setCategorySubBeans(navigationBeans);
+                }
+
             } catch (Exception e) {
 
             }

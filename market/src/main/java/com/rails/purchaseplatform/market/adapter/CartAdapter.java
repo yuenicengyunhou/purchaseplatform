@@ -10,7 +10,7 @@ import com.rails.purchaseplatform.framwork.adapter.BaseRecyclerAdapter;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.market.R;
-import com.rails.purchaseplatform.market.databinding.ItemMarketCartBinding;
+import com.rails.purchaseplatform.market.databinding.ItemMarketCartCopyBinding;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author： sk_comic@163.com
  * @date: 2021/3/10
  */
-public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartBinding> {
+public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCartCopyBinding> {
 
 
     //控制全局
@@ -43,67 +43,72 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
     //收藏
     public static final int SUB_COLLECT = 7;
 
+    //删除所有失效商品
+//    public static final int CLEAN_INVALID_SKUS = 8;
     private CartSubAdapter subAdapter;
     private int lastPosition;
+    private CleanInvalidSkuListener cleanInvalidSkuListener;
+//    private CartSubAdapter adapter;
+//    private ArrayList<CartSubAdapter> adapters;
 
+    public void setCleanInvalidSkuListener(CleanInvalidSkuListener cleanInvalidSkuListener) {
+        this.cleanInvalidSkuListener = cleanInvalidSkuListener;
+    }
 
     public CartAdapter(Context context) {
         super(context);
+//        adapters = new ArrayList<>();
     }
+
 
     @Override
     protected int getContentID() {
-        return R.layout.item_market_cart;
+        return R.layout.item_market_cart_copy;
     }
 
     @Override
-    protected void onBindItem(ItemMarketCartBinding binding, CartShopBean cartShopBean, int position) {
+    protected void onBindItem(ItemMarketCartCopyBinding binding, CartShopBean cartShopBean, int position) {
         binding.setCart(cartShopBean);
-
-
         CartSubAdapter adapter = new CartSubAdapter(mContext);
         binding.recycler.setAdapter(adapter);
-        adapter.setMulPositionListener(new MulPositionListener<CartShopProductBean>() {
-            @Override
-            public void onPosition(CartShopProductBean bean, int len, int... params) {
-                int size = adapter.getSize();
-                if (params[0] == CartSubAdapter.CHECK) {
-                    cartShopBean.isSel.set(isAllChecked(cartShopBean));
-                    mulPositionListener.onPosition(bean, len, CHECK);
+//        CartSubAdapter adapter = (CartSubAdapter) binding.recycler.getTag();
+//        CartSubAdapter adapter = adapters.get(position);
+        adapter.setMulPositionListener((MulPositionListener<CartShopProductBean>) (bean, len, params) -> {
+            int size = adapter.getSize();
+            if (params[0] == CartSubAdapter.CHECK) {
+                cartShopBean.isSel.set(isAllChecked(cartShopBean));
+                mulPositionListener.onPosition(bean, len, CHECK);
 
-                } else if (params[0] == CartSubAdapter.PROPERTY) {
-                    // TODO: 2021/3/22 产品规格
-                    if (mulPositionListener != null) {
-                        mulPositionListener.onPosition(bean, len, PROPERTY);
-                    }
-                } else if (params[0] == CartSubAdapter.ADD) {
-                    // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean, len, ADD);
-                } else if (params[0] == CartSubAdapter.REDUCE) {
-                    // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean, len, REDUCE);
-                } else if (params[0] == CartSubAdapter.EDIT) {
-                    // TODO: 2021/3/22 数量加减
-                    mulPositionListener.onPosition(bean, len, EDIT);
-                } else if (params[0] == CartSubAdapter.SUB_COLLECT) {
-                    // TODO: 2021/3/22 收藏
-                    subAdapter = adapter;
-                    mulPositionListener.onPosition(bean, len, SUB_COLLECT);
-                    if (size == 0) {
-                        updateRemove(position);
-                    }
-                } else if (params[0] == CartSubAdapter.SUB_DEL) {
-                    // TODO: 2021/3/22 删除
-                    subAdapter = adapter;
-                    lastPosition = position;
-                    mulPositionListener.onPosition(bean, len, SUB_DEL);
+            } else if (params[0] == CartSubAdapter.PROPERTY) {
+                // TODO: 2021/3/22 产品规格
+                if (mulPositionListener != null) {
+                    mulPositionListener.onPosition(bean, len, PROPERTY);
                 }
-
+            } else if (params[0] == CartSubAdapter.ADD) {
+                // TODO: 2021/3/22 数量加减
+                mulPositionListener.onPosition(bean, len, ADD);
+            } else if (params[0] == CartSubAdapter.REDUCE) {
+                // TODO: 2021/3/22 数量加减
+                mulPositionListener.onPosition(bean, len, REDUCE);
+            } else if (params[0] == CartSubAdapter.EDIT) {
+                // TODO: 2021/3/22 数量加减
+                mulPositionListener.onPosition(bean, len, EDIT);
+            } else if (params[0] == CartSubAdapter.SUB_COLLECT) {
+                // TODO: 2021/3/22 收藏
+                subAdapter = adapter;
+                mulPositionListener.onPosition(bean, len, SUB_COLLECT);
+                if (size == 0) {
+                    updateRemove(position);
+                }
+            } else if (params[0] == CartSubAdapter.SUB_DEL) {
+                // TODO: 2021/3/22 删除
+                subAdapter = adapter;
+                lastPosition = position;
+                mulPositionListener.onPosition(bean, len, SUB_DEL);
             }
+
         });
-
         adapter.update((ArrayList) cartShopBean.getSkuList(), true);
-
 
         binding.imgLeft.setOnClickListener(v -> {
             checkShopAll(cartShopBean, binding.imgLeft.isChecked());
@@ -116,9 +121,10 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 positionListener.onPosition(cartShopBean, SHOP);
         });
 
-        binding.rlPostage.setOnClickListener(v -> {
-            if (positionListener != null)
-                positionListener.onPosition(cartShopBean, SHOP);
+        binding.tvClearInvalids.setOnClickListener(v -> {
+            if (cleanInvalidSkuListener != null) {
+                cleanInvalidSkuListener.onClean(cartShopBean);
+            }
         });
     }
 
@@ -137,6 +143,7 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
                 bean.isSel.set(isChecked);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -235,10 +242,15 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
 
 
     @Override
-    protected void onBindView(ItemMarketCartBinding binding) {
+    protected void onBindView(ItemMarketCartCopyBinding binding) {
         super.onBindView(binding);
         binding.recycler.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         binding.recycler.addItemDecoration(new SpaceDecoration(mContext, 1, R.color.line_gray));
+//        CartSubAdapter adapter = new CartSubAdapter(mContext);
+//        binding.recycler.setItemAnimator(new MyDefaultItemAnimator());
+//        binding.recycler.setAdapter(adapter);
+//        binding.recycler.setTag(adapter);
+//        adapters.add(adapter);
     }
 
 
@@ -300,6 +312,10 @@ public class CartAdapter extends BaseRecyclerAdapter<CartShopBean, ItemMarketCar
             }
         }
         return true;
+    }
+
+    public interface CleanInvalidSkuListener {
+        void onClean(CartShopBean shopBean);
     }
 
 }

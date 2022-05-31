@@ -14,6 +14,7 @@ import com.rails.purchaseplatform.framwork.bean.BusEvent;
 import com.rails.purchaseplatform.market.ui.fragment.CartFrm;
 import com.rails.purchaseplatform.market.ui.fragment.CategoryFrm;
 import com.rails.purchaseplatform.market.ui.fragment.MallFrm;
+import com.rails.purchaseplatform.market.ui.fragment.RankFragment;
 import com.rails.purchaseplatform.user.ui.fragment.MineMallFrm;
 
 import java.util.ArrayList;
@@ -35,13 +36,18 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
     public MallTabFrm(){}
 
 
-    private MallTabFrm(int position) {
-        this.position = position;
+    @Override
+    protected void getExtraEvent(Bundle extras) {
+        super.getExtraEvent(extras);
+        position = extras.getInt("position");
     }
 
-
     public static MallTabFrm newInstance(int position) {
-        return new MallTabFrm(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("position",position);
+        MallTabFrm mallTabFrm = new MallTabFrm();
+        mallTabFrm.setArguments(bundle);
+        return mallTabFrm;
     }
 
 
@@ -68,9 +74,15 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
         super.onMessageEvent(event);
         String code = event.getEventCode();
         ResultWebBean bean = (ResultWebBean) event.getBean();
-        if (ConRoute.EVENTCODE.MAIN_CODE.equals(code)) {
-            position = bean.getCode();
+        if (code.equals("cartToHome")) {//当用户的购物车没有商品时，点击去采购，切换到首页
+            binding.rbGroup.check(binding.rbMall.getId());
+            binding.viewpager.setCurrentItem(0);
+        }else {
+            if (ConRoute.EVENTCODE.MAIN_CODE.equals(code)) {
+                position = bean.getCode();
+            }
         }
+
     }
 
     @Override
@@ -81,39 +93,14 @@ public class MallTabFrm extends LazyFragment<FrmTabMallBinding> {
 
 
     protected void onClick() {
-        binding.rbMall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.viewpager.setCurrentItem(0);
-            }
-        });
-        binding.rbIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.viewpager.setCurrentItem(1);
-            }
-        });
+        binding.rbMall.setOnClickListener(v -> binding.viewpager.setCurrentItem(0));
+        binding.rbIndex.setOnClickListener(v -> binding.viewpager.setCurrentItem(1));
 
-        binding.rbZc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLogin(2);
-            }
-        });
-        binding.rbMine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLogin(3);
-            }
-        });
+        binding.rbZc.setOnClickListener(v -> goLogin(2));
+        binding.rbMine.setOnClickListener(v -> goLogin(3));
 
-        binding.goPlat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(MallTabFrm.this)
-                        .navigate(R.id.action_mall_to_plat);
-            }
-        });
+        binding.goPlat.setOnClickListener(v -> NavHostFragment.findNavController(MallTabFrm.this)
+                .navigate(R.id.action_mall_to_plat));
     }
 
     /**

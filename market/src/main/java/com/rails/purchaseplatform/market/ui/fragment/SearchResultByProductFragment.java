@@ -10,6 +10,8 @@ import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.contract.SearchContract;
 import com.rails.lib_data.contract.SearchItemPresenterImpl;
+import com.rails.lib_data.contract.StatisticContract;
+import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
@@ -19,7 +21,6 @@ import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByProdu
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 /**
@@ -29,7 +30,8 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         implements
         SearchContract.SearchItemView,
         SearchResultActivity.OnSortClick,
-        SearchResultActivity.OnFilterClick {
+        SearchResultActivity.OnFilterClick,
+        StatisticContract.StatisticView {
 
     final private String TAG = SearchResultByProductFragment.class.getSimpleName();
 
@@ -52,10 +54,11 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
     private SearchResultRecyclerAdapter mAdapter;
     private SearchContract.SearchItemPresenter mPresenter;
+    private StatisticContract.StatisticPresenter statisticPresenter;
 
     private ArrayList<SearchFilterBean> mSearchFilterList;
 
-    public SearchResultByProductFragment(){
+    public SearchResultByProductFragment() {
 
     }
 
@@ -73,6 +76,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         binding.brvProductSearchResult.setEmptyView(binding.empty);
 
         mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
+        statisticPresenter = new StatisticPresenterImpl(getActivity(), this);
 
         onRefresh();
     }
@@ -100,6 +104,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         if (!TextUtils.isEmpty(mSearchKey)) {
             mPresenter.searchRecord("1", mSearchKey);
         }
+        statisticPresenter.getVisitors("0", null, null);
     }
 
 
@@ -116,6 +121,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
     void notifyData(String keyWord, String cid, String orderColumn, String orderType,
                     String brands, String brandsString, String categoryAttrValueIds, String expandAttrValueIds,
                     String minPrice, String maxPrice, int page, int pageSize, boolean isDialog) {
+        if (mPresenter == null) {
+            mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
+        }
         if (!TextUtils.isEmpty(mCid)) {
 //            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, isDialog);
             mPresenter.queryItemListByCid(mMaterialType, keyWord, cid, orderColumn, orderType, brands, brandsString,
@@ -146,7 +154,7 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         bundle.putString("itemId", itemId);
         bundle.putString("skuId", skuId);
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
-        Objects.requireNonNull(getActivity()).finish();
+//        Objects.requireNonNull(getActivity()).finish();
     }
 
     @Override
@@ -154,6 +162,11 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         mAdapter.update(results, isClear);
         binding.smart.finishLoadMore();
         if (!filtered) mSearchFilterList = filterResults;
+    }
+
+    @Override
+    public void onSearchIdFailed() {
+        mAdapter.update(new ArrayList<>(), true);
     }
 
     @Override

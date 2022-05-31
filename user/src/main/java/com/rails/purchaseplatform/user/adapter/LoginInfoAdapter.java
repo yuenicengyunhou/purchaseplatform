@@ -33,8 +33,10 @@ public class LoginInfoAdapter extends BaseRecyclerAdapter<String, ItemLoginInfoB
         binding.tvInfo.setText(trueText);
         binding.tvInfo.setOnClickListener(v -> {
             // TODO: 2021/7/6 通知对应的fragment填充账号信息
-            if (type == 0) mFillAccountListener.fillAccount(s);
-            if (type == 1) mFillPhoneListener.fillPhone(s);
+            if (type == 0 && mFillAccountListener != null)
+                mFillAccountListener.fillAccount(s);
+            if (type == 1 && mFillPhoneListener != null)
+                mFillPhoneListener.fillPhone(s);
         });
     }
 

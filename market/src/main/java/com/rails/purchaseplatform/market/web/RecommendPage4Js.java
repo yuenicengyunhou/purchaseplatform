@@ -35,4 +35,9 @@ public class RecommendPage4Js implements JSBack {
     public void onLogin() {
 
     }
+
+    @Override
+    public void exit() {
+
+    }
 }
