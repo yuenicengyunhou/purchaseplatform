@@ -73,7 +73,7 @@ dependencies {
     //分包
     api 'com.android.support:multidex:1.0.3'
 
-    api 'com.alibaba:fastjson:1.2.75'
+    api 'com.alibaba:fastjson:1.2.83'
 //    api 'com.google.code.gson:gson:2.8.6'
 
 
