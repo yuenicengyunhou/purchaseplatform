@@ -32,20 +32,21 @@ public class ShopRateBean {
     private String shopName;
     private Object totalPoints;
     private String rate;
-    private Object mallRanking;
-    private int priceProtectionPoints;
-    private Object priceRating;
-    private Object logisticsServicePoints;
-    private Object logisticsRating;
-    private double qualityGuaranteePoints;
-    private Object qualityRating;
-    private Object settlementServicesPoints;
+    private String mallRanking;
+    private float priceProtectionPoints;
+    private String priceRating;
+    private float logisticsServicePoints;
+    private String logisticsRating;
+    private float qualityGuaranteePoints;
+    private String qualityRating;
+    private float settlementServicesPoints;
     private String settlementRating;
-    private Object integratedServicePoints;
+    private float integratedServicePoints;
     private String integratedRating;
     private int redLine;
     private int operatorId;
     private long created;
+
 
     public String getId() {
         return id;
@@ -95,67 +96,67 @@ public class ShopRateBean {
         this.rate = rate;
     }
 
-    public Object getMallRanking() {
+    public String getMallRanking() {
         return mallRanking;
     }
 
-    public void setMallRanking(Object mallRanking) {
+    public void setMallRanking(String mallRanking) {
         this.mallRanking = mallRanking;
     }
 
-    public int getPriceProtectionPoints() {
+    public float getPriceProtectionPoints() {
         return priceProtectionPoints;
     }
 
-    public void setPriceProtectionPoints(int priceProtectionPoints) {
+    public void setPriceProtectionPoints(float priceProtectionPoints) {
         this.priceProtectionPoints = priceProtectionPoints;
     }
 
-    public Object getPriceRating() {
+    public String getPriceRating() {
         return priceRating;
     }
 
-    public void setPriceRating(Object priceRating) {
+    public void setPriceRating(String priceRating) {
         this.priceRating = priceRating;
     }
 
-    public Object getLogisticsServicePoints() {
+    public float getLogisticsServicePoints() {
         return logisticsServicePoints;
     }
 
-    public void setLogisticsServicePoints(Object logisticsServicePoints) {
+    public void setLogisticsServicePoints(float logisticsServicePoints) {
         this.logisticsServicePoints = logisticsServicePoints;
     }
 
-    public Object getLogisticsRating() {
+    public String getLogisticsRating() {
         return logisticsRating;
     }
 
-    public void setLogisticsRating(Object logisticsRating) {
+    public void setLogisticsRating(String logisticsRating) {
         this.logisticsRating = logisticsRating;
     }
 
-    public double getQualityGuaranteePoints() {
+    public float getQualityGuaranteePoints() {
         return qualityGuaranteePoints;
     }
 
-    public void setQualityGuaranteePoints(double qualityGuaranteePoints) {
+    public void setQualityGuaranteePoints(float qualityGuaranteePoints) {
         this.qualityGuaranteePoints = qualityGuaranteePoints;
     }
 
-    public Object getQualityRating() {
+    public String getQualityRating() {
         return qualityRating;
     }
 
-    public void setQualityRating(Object qualityRating) {
+    public void setQualityRating(String qualityRating) {
         this.qualityRating = qualityRating;
     }
 
-    public Object getSettlementServicesPoints() {
+    public float getSettlementServicesPoints() {
         return settlementServicesPoints;
     }
 
-    public void setSettlementServicesPoints(Object settlementServicesPoints) {
+    public void setSettlementServicesPoints(float settlementServicesPoints) {
         this.settlementServicesPoints = settlementServicesPoints;
     }
 
@@ -167,11 +168,11 @@ public class ShopRateBean {
         this.settlementRating = settlementRating;
     }
 
-    public Object getIntegratedServicePoints() {
+    public float getIntegratedServicePoints() {
         return integratedServicePoints;
     }
 
-    public void setIntegratedServicePoints(Object integratedServicePoints) {
+    public void setIntegratedServicePoints(float integratedServicePoints) {
         this.integratedServicePoints = integratedServicePoints;
     }
 

@@ -23,6 +23,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import androidx.annotation.NonNull;
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 
 /**
@@ -44,7 +45,7 @@ public class OkHttpGlideModel extends AppGlideModule {
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
         //设置请求方式为okhttp 并设置okhttpClient的证书及超时时间
-        OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(UnsafeOkHttpClient.getUnsafeOkHttpClient());
+        OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory((Call.Factory) UnsafeOkHttpClient.getUnsafeOkHttpClient());
         registry.replace(GlideUrl.class, InputStream.class, factory);
     }
 
