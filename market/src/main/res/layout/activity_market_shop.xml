@@ -131,7 +131,7 @@
                                 android:layout_alignTop="@+id/img_shop"
                                 android:layout_marginStart="@dimen/dp_10"
                                 android:layout_marginEnd="@dimen/paddingL"
-                                android:layout_toStartOf="@+id/iv_mark"
+                                android:layout_toStartOf="@+id/tv_level"
                                 android:layout_toEndOf="@+id/img_shop"
                                 android:ellipsize="end"
                                 android:maxLines="2"
@@ -143,6 +143,7 @@
                                 android:id="@+id/iv_mark"
                                 android:layout_width="@dimen/dp_16"
                                 android:layout_height="@dimen/dp_18"
+                                android:visibility="invisible"
                                 android:layout_alignBottom="@id/tv_level"
                                 android:layout_marginEnd="@dimen/padding"
                                 android:layout_toStartOf="@id/tv_level"
@@ -156,7 +157,11 @@
                                 android:layout_alignBaseline="@+id/tv_name"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="@dimen/common_border"
-                                android:textColor="@color/font_black_light"
+                                android:paddingStart="@dimen/dp_5"
+                                android:paddingEnd="@dimen/dp_5"
+                                android:text="A"
+                                android:background="@drawable/bg_corner_border_red_3"
+                                android:textColor="@color/font_red"
                                 android:textSize="@dimen/font_size_12" />
 
                             <TextView
