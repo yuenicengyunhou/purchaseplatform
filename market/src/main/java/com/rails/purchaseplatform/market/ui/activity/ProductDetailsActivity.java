@@ -986,7 +986,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
 
         // 设置店铺风险等级
         binding.tvCreditLevel.setText(mPageBean.getShopSecurity());
-        binding.tvCreditLevel.setVisibility(TextUtils.isEmpty(mPageBean.getShopSecurity())?View.GONE:View.VISIBLE);
+        binding.llRate.setVisibility(TextUtils.isEmpty(mPageBean.getShopSecurity())?View.GONE:View.VISIBLE);
 //        binding.ivCreditLevel.setBackground(mPageBean.getShopSecurityIcon());
 
         // 更新店铺推荐商品

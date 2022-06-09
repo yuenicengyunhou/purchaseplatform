@@ -115,7 +115,8 @@ public class SearchResultByShopAdapter extends BaseRecyclerAdapter<ShopAttribute
 
         String credit = shopAttribute.getRate();
         binding.tvCreditLevel.setText(TextUtils.isEmpty(credit) ? "" : credit);
-        binding.tvCreditLevel.setVisibility(TextUtils.isEmpty(credit) ? View.GONE : View.VISIBLE);
+        binding.llRate.setVisibility(TextUtils.isEmpty(credit) ? View.GONE : View.VISIBLE);
+
         Glide.with(mContext)
                 .load("https:" + shopAttribute.getShopPicture())
                 .placeholder(R.drawable.ic_placeholder)
