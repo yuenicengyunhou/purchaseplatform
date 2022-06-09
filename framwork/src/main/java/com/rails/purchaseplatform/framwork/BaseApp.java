@@ -46,7 +46,7 @@ public class BaseApp extends Application {
         initLogger();
         initUM();
         initAroute();
-        initFont();
+//        initFont();
         initFileDownloader();
         initTBS();
         UpdateAppUtils.init(this);
@@ -108,8 +108,8 @@ public class BaseApp extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
-//                return BaseRetrofit.isDebug;
-                return true;
+                return BaseRetrofit.isDebug;
+//                return true;
             }
         });
     }

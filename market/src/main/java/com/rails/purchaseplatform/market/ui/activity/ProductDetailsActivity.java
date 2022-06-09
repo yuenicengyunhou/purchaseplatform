@@ -734,6 +734,7 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
             String url = ((subStrrrr.contains("http")?"":"https:" )+ subStrrrr);
             mDescribeUrlList.add(url);
             picture.setPictureUrl(url);
+            mDescribePictureList.add(picture);
 //            Log.e(TAG, " ************** " + subStrrrr);
         }
 

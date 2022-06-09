@@ -159,7 +159,7 @@
                                 android:layout_marginEnd="@dimen/common_border"
                                 android:paddingStart="@dimen/dp_5"
                                 android:paddingEnd="@dimen/dp_5"
-                                android:text="A"
+                                android:visibility="gone"
                                 android:background="@drawable/bg_corner_border_red_3"
                                 android:textColor="@color/font_red"
                                 android:textSize="@dimen/font_size_12" />

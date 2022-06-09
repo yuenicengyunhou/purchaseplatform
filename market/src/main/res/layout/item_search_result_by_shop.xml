@@ -63,6 +63,7 @@
                     android:id="@+id/ll_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_alignParentBottom="true">
 
                     <TextView
@@ -84,7 +85,6 @@
                         android:background="@drawable/bg_corner_border_red_3"
                         android:paddingStart="@dimen/dp_5"
                         android:paddingEnd="@dimen/dp_5"
-                        android:text="A"
                         android:textColor="@color/font_red"
                         android:textSize="@dimen/font_size_12" />
 
