@@ -408,44 +408,44 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:w="21" />
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:layout_marginEnd="@dimen/dp_8"
-                            android:layout_marginBottom="@dimen/dp_16"
-                            android:layout_toStartOf="@id/tv_go_in_shop"
-                            android:layout_toEndOf="@id/ratioImage"
-                            android:ellipsize="end"
-                            android:lines="1"
-                            android:textColor="#2E2E2E"
-                            android:textSize="@dimen/font_size_16"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/iv_credit_level"
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_16"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="@dimen/dp_10"
-                            android:layout_marginBottom="@dimen/dp_18"
-                            android:layout_toEndOf="@+id/ratioImage"
-                            android:background="@null" />
-
-                        <TextView
-                            android:id="@+id/tv_credit"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="@dimen/dp_8"
-                            android:layout_marginBottom="@dimen/dp_18"
-                            android:layout_toEndOf="@id/iv_credit_level"
-                            android:textColor="#333333"
-                            android:textSize="@dimen/font_size_12" />
+                            android:layout_alignBottom="@+id/ratioImage"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_alignTop="@+id/ratioImage"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:layout_toStartOf="@+id/tv_go_in_shop"
+                            android:layout_toEndOf="@+id/ratioImage"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:text="风险较低风险较低风险较低风险较低风险较低风险较低"
+                                android:textColor="#2E2E2E"
+                                android:textSize="@dimen/font_size_16"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_creditLevel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:paddingStart="@dimen/dp_5"
+                                android:paddingEnd="@dimen/dp_5"
+                                android:layout_marginTop="@dimen/dp_4"
+                                android:text="A"
+                                android:background="@drawable/bg_corner_border_red_3"
+                                android:textColor="@color/font_red"
+                                android:textSize="@dimen/font_size_12" />
+
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/tv_go_in_shop"
                             android:layout_width="wrap_content"

@@ -820,34 +820,15 @@ public class ProductDetailsDataUtils {
     }
 
     private String getRateText(ArrayList<ShopRateBean> shopRateBeans) {
-        String text = CREDIT_NAME_0;
+        String text = "";
         if (shopRateBeans == null || shopRateBeans.size() == 0) {
             return text;
         }
         String creditLv = shopRateBeans.get(0).getRate();
         if (creditLv == null) {
             return text;
-        }
-//        switch (creditLv) {
-//            case CREDIT_LEVEL_1:
-//            case CREDIT_LEVEL_5:
-//            case CREDIT_LEVEL_6:
-//                // TODO: 2022/4/2 风险等级提示如何显示？
-//                text = CREDIT_NAME_0;
-//                break;
-//            case CREDIT_LEVEL_2:
-//                text = CREDIT_NAME_2;
-//                break;
-//            case CREDIT_LEVEL_3:
-//                text = CREDIT_NAME_3;
-//                break;
-//            case CREDIT_LEVEL_4:
-//                text = CREDIT_NAME_4;
-//                break;
-//            default:
-//                break;
-//        }
-        return text;
+        } else
+            return creditLv;
     }
 
     /**
