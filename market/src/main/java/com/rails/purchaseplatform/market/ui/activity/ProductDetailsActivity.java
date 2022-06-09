@@ -731,9 +731,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         for (String string : stringsx) {
             ItemPicture picture = new ItemPicture();
             String subStrrrr = matchHtmlAttr(string, "img", "src");
-            mDescribeUrlList.add("https:" + subStrrrr);
-            picture.setPictureUrl("https:" + subStrrrr);
-            mDescribePictureList.add(picture);
+            String url = ((subStrrrr.contains("http")?"":"https:" )+ subStrrrr);
+            mDescribeUrlList.add(url);
+            picture.setPictureUrl(url);
 //            Log.e(TAG, " ************** " + subStrrrr);
         }
 
