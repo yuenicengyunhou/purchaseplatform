@@ -828,25 +828,25 @@ public class ProductDetailsDataUtils {
         if (creditLv == null) {
             return text;
         }
-        switch (creditLv) {
-            case CREDIT_LEVEL_1:
-            case CREDIT_LEVEL_5:
-            case CREDIT_LEVEL_6:
-                // TODO: 2022/4/2 风险等级提示如何显示？
-                text = CREDIT_NAME_0;
-                break;
-            case CREDIT_LEVEL_2:
-                text = CREDIT_NAME_2;
-                break;
-            case CREDIT_LEVEL_3:
-                text = CREDIT_NAME_3;
-                break;
-            case CREDIT_LEVEL_4:
-                text = CREDIT_NAME_4;
-                break;
-            default:
-                break;
-        }
+//        switch (creditLv) {
+//            case CREDIT_LEVEL_1:
+//            case CREDIT_LEVEL_5:
+//            case CREDIT_LEVEL_6:
+//                // TODO: 2022/4/2 风险等级提示如何显示？
+//                text = CREDIT_NAME_0;
+//                break;
+//            case CREDIT_LEVEL_2:
+//                text = CREDIT_NAME_2;
+//                break;
+//            case CREDIT_LEVEL_3:
+//                text = CREDIT_NAME_3;
+//                break;
+//            case CREDIT_LEVEL_4:
+//                text = CREDIT_NAME_4;
+//                break;
+//            default:
+//                break;
+//        }
         return text;
     }
 
