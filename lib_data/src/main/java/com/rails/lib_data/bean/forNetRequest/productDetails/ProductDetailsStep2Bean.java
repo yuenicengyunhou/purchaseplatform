@@ -2,6 +2,7 @@ package com.rails.lib_data.bean.forNetRequest.productDetails;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rails.lib_data.bean.DeliveryBean;
+import com.rails.lib_data.bean.ShopRateBean;
 import com.rails.lib_data.bean.SkuStockBean;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class ProductDetailsStep2Bean {
     private JSONObject collect;
     private HotSaleBean hotSaleBean;
     private ArrayList<SkuStockBean> skuStockBeans;
+    private ArrayList<ShopRateBean> shopRateBeans;
 
     public DeliveryBean getDeliveryBean() {
         return deliveryBean;
@@ -60,5 +62,13 @@ public class ProductDetailsStep2Bean {
 
     public void setSkuStockBeans(ArrayList<SkuStockBean> skuStockBeans) {
         this.skuStockBeans = skuStockBeans;
+    }
+
+    public ArrayList<ShopRateBean> getShopRateBeans() {
+        return shopRateBeans;
+    }
+
+    public void setShopRateBeans(ArrayList<ShopRateBean> shopRateBeans) {
+        this.shopRateBeans = shopRateBeans;
     }
 }

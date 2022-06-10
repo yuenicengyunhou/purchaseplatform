@@ -47,7 +47,7 @@
     <string name="input_old_password">请输入原密码</string>
     <string name="input_new_password">请输入新密码</string>
     <string name="input_new_psw_again">请再次输入新密码</string>
-    <string name="about_us">关于我们</string>
+    <string name="about_us">关于国铁商城APP</string>
     <string name="scan_qr_code">扫描二维码下载客户端</string>
     <string name="website_is">官方网址</string>
     <string name="save_qr_code">保存二维码</string>

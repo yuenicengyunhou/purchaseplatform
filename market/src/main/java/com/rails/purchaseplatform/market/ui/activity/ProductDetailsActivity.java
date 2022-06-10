@@ -731,8 +731,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         for (String string : stringsx) {
             ItemPicture picture = new ItemPicture();
             String subStrrrr = matchHtmlAttr(string, "img", "src");
-            mDescribeUrlList.add("https:" + subStrrrr);
-            picture.setPictureUrl("https:" + subStrrrr);
+            String url = ((subStrrrr.contains("http")?"":"https:" )+ subStrrrr);
+            mDescribeUrlList.add(url);
+            picture.setPictureUrl(url);
             mDescribePictureList.add(picture);
 //            Log.e(TAG, " ************** " + subStrrrr);
         }
@@ -985,8 +986,9 @@ public class ProductDetailsActivity extends BaseErrorActivity<ActivityProductDet
         binding.textView.setText(mPageBean.getShopName());
 
         // 设置店铺风险等级
-        binding.tvCredit.setText(mPageBean.getShopSecurity());
-        binding.ivCreditLevel.setBackground(mPageBean.getShopSecurityIcon());
+        binding.tvCreditLevel.setText(mPageBean.getShopSecurity());
+        binding.llRate.setVisibility(TextUtils.isEmpty(mPageBean.getShopSecurity())?View.GONE:View.VISIBLE);
+//        binding.ivCreditLevel.setBackground(mPageBean.getShopSecurityIcon());
 
         // 更新店铺推荐商品
         recommendItemsRecyclerAdapter.setMaterialType(mPageBean.getMaterialType());

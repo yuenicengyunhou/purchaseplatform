@@ -6,7 +6,7 @@
         android:startColor="@color/white" />
     <stroke
         android:width="@dimen/dp_1"
-        android:color="@color/white" />
+        android:color="@color/line_red" />
 
-    <corners android:radius="@dimen/dp_5" />
+    <corners android:radius="@dimen/dp_3" />
 </shape>

@@ -5,8 +5,6 @@
         android:endColor="@color/white"
         android:startColor="@color/white" />
     <stroke
-        android:width="@dimen/dp_1"
-        android:color="@color/white" />
-
-    <corners android:radius="@dimen/dp_5" />
+        android:width="@dimen/dp_tiny"
+        android:color="@color/line_gray" />
 </shape>

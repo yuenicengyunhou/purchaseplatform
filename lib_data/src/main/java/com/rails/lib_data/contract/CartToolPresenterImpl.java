@@ -30,6 +30,10 @@ public class CartToolPresenterImpl extends BasePresenter<CartContract.DetailsCar
                     @Override
                     protected void onError(ErrorBean e) {
                         baseView.dismissDialog();
+                        String msg = e.getMsg();
+                        if (msg.contains("[") && msg.contains("]")) {
+                            e.setMsg("您购买的商品实际库存不足，请修改购买数量或选择其他商品！");
+                        }
                         baseView.onError(e);
                     }
 

@@ -1,37 +1,33 @@
 package com.rails.lib_data.contract;
 
-import android.app.Activity;
-import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
-import android.view.View;
+import static com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit.isDebug;
 
+import android.app.Activity;
+import android.text.TextUtils;
+
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.rails.lib_data.ConShare;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CartBean;
 import com.rails.lib_data.bean.CartShopBean;
 import com.rails.lib_data.bean.CartShopProductBean;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.model.CartModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
 import com.rails.purchaseplatform.framwork.utils.DecimalUtil;
 import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 购物车架构
- *
- * @author： sk_comic@163.com
- * @date: 2021/3/12
+ * <p>
+ * author： sk_comic@163.com
+ * date: 2021/3/12
  */
 public class CartPresenterImpl extends BasePresenter<CartContract.CartView> implements CartContract.CartPresenter {
 
@@ -66,15 +62,15 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                     CartShopBean invalidShop = new CartShopBean();
                     ArrayList<CartShopProductBean> invalidProducts = new ArrayList<>();
                     List<CartShopBean> shopList = cartBean.getShopList();
-                    for (int j = 0;j < shopList.size(); j++) {
+                    for (int j = 0; j < shopList.size(); j++) {
                         CartShopBean shopBean = shopList.get(j);
-                        StringBuffer buffer = new StringBuffer();
+                        StringBuilder buffer = new StringBuilder();
                         for (CartShopProductBean productBean : shopBean.getSkuList()) {
                             productBean.num.set(productBean.getSkuNum());
                             productBean.isSel.set(productBean.getSelected());
                             productBean.isCollect.set(productBean.getCollect());
 
-                            buffer.append(productBean.getSkuId() + ",");
+                            buffer.append(productBean.getSkuId()).append(",");
 
                             productBean.canSel.set(productBean.getSaleStatus() == 1);
                             productBean.canAdd.set(true);
@@ -143,8 +139,8 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
 
     /**
      * 计算一个店的价格
-     *
-     * @return
+     * <p>
+     * return
      */
     private double shopPrice(CartShopBean cartShopBean) {
         double total = 0;
@@ -387,18 +383,38 @@ public class CartPresenterImpl extends BasePresenter<CartContract.CartView> impl
                 //单品编码[1111204]已下架或失效,请选择其他商品！
                 String msg = e.getMsg();
                 if (msg.contains("[") && msg.contains("]")) {
-                    int start = msg.lastIndexOf("[");
-                    int end = msg.lastIndexOf("]") + 1;
-                    String array = msg.substring(start, end);
-                    Type type = new TypeToken<ArrayList<String>>() {
-                    }.getType();
-                    ArrayList<String> limits = JsonUtil.parseJson(array, type);
+                    ArrayList<String> limits = new ArrayList<>();
+                    if (msg.contains("[[") && msg.contains("]]")) {
+                        Type type = new TypeToken<ArrayList<ArrayList<CartShopProductBean>>>() {
+                        }.getType();
+                        try {
+                            ArrayList<ArrayList<CartShopProductBean>> outterList = JsonUtil.parseJson(msg, type);
+                            if ((null != outterList) && (!outterList.isEmpty())) {
+                                ArrayList<CartShopProductBean> innerList = outterList.get(0);
+                                if (!innerList.isEmpty()) {
+                                    for (CartShopProductBean bean : innerList) {
+                                        String skuId = bean.getSkuId();
+                                        limits.add(skuId);
+                                    }
+                                }
+                            }
+                            msg = "您购买的商品实际库存不足，请修改购买数量或选择其他商品！";
+                        } catch (JsonSyntaxException exception) {
+                            exception.printStackTrace();
+                            msg = "json解析异常";
+                        }
+                    } else {
+                        int start = msg.lastIndexOf("[");
+                        int end = msg.lastIndexOf("]") + 1;
+                        String array = msg.substring(start, end);
+                        Type type = new TypeToken<ArrayList<String>>() {
+                        }.getType();
+                        limits = JsonUtil.parseJson(array, type);
+                    }
                     baseView.getLimits(limits, msg);
                 } else {
                     baseView.onError(e);
                 }
-
-
             }
 
             @Override

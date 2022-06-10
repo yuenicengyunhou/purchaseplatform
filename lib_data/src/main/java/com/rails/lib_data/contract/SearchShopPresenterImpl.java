@@ -70,6 +70,8 @@ public class SearchShopPresenterImpl extends BasePresenter<SearchContract.Search
                                 shopAttribute.setShopId(shopBean.getShopId());
                                 shopAttribute.setShopPicture(shopBean.getShopPicture());
                                 shopAttribute.setCreditLevel(shopBean.getCreditLevel());
+                                shopAttribute.setRate(shopBean.getRate());
+                                shopAttribute.setTotalPoints(shopBean.getTotalPoints());
                                 shopAttribute.setItems(items);
                                 shops.add(shopAttribute);
                             }
