@@ -35,6 +35,10 @@
             android:name=".ui.activity.SettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.CerErrorActivity"
+            android:exported="false" /> <!-- 启动页/欢迎页 -->
     </application>
 
 </manifest>

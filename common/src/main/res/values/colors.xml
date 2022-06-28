@@ -12,6 +12,7 @@
     <color name="bg_black">#666668</color>
     <color name="bg_blue">#387CFC</color>
     <color name="bg_blue_2">#326EFF</color>
+    <color name="bg_default">#F6F5F5</color>
 
 
     <color name="bg_red">#e83e3a</color>

@@ -326,7 +326,7 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     public void onError(ErrorBean errorBean) {
         String code = errorBean.getCode();
         if (ERROR_SSL.equals(code)){
-            ToastUtil.showCenter(getActivity(),errorBean.getMsg());
+            ARouter.getInstance().build(ConRoute.USER.SSL_EXCEPTION).navigation();
         }
     }
 

@@ -40,7 +40,11 @@ public class ConRoute {
         public final static String RETRIEVE_PASSWORD = "/user/password";
         //更改密码
         public final static String USER_MODIFY_PAW = "/user/modify_paw";
+        //关于我们
         public final static String USER_ABOUT_US = "/user/about_us";
+
+        //证书过期
+        public final static String SSL_EXCEPTION = "/user/cer_error";
     }
 
     // 通用COMMON
