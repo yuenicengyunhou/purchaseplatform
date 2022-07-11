@@ -55,15 +55,16 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
             case ERROR_PASTDUE:
             case ERROR_UNLOAD:
             case ERROR_UNLOAD_2:
-            case ERROR_TIMEOUT: {
-                UserInfoBean bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
-                if (null == bean) {
-                    ToastUtil.showCenter(this, "用户未登录");
-                } else {
-                    ToastUtil.showCenter(this, "身份认证失效，请重新登录");
-                }
-                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(this, ConRoute.CODE.LOGIN_CODE);
-            }
+            case ERROR_TIMEOUT:
+//            {
+//                UserInfoBean bean = PrefrenceUtil.getInstance(this).getBean(ConShare.USERINFO, UserInfoBean.class);
+//                if (null == bean) {
+//                    ToastUtil.showCenter(this, "用户未登录");
+//                } else {
+//                    ToastUtil.showCenter(this, "身份认证失效，请重新登录");
+//                }
+//                ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(this, ConRoute.CODE.LOGIN_CODE);
+//            }
             break;
             case UN_KNOWN_ERROR: {
                 ToastUtil.showCenter(this, errorBean.getMsg());

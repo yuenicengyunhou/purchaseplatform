@@ -20,11 +20,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
+import com.rails.lib_data.http.RetrofitUtil;
+import com.rails.lib_data.service.LoginService;
 import com.rails.purchaseplatform.common.utils.JSBack;
+import com.rails.purchaseplatform.framwork.BaseApp;
+import com.rails.purchaseplatform.framwork.bean.ErrorBean;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
+import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.DeviceUtils;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import androidx.annotation.Nullable;
@@ -43,7 +53,8 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
 
     protected String url;
     protected String jsCls;
-    protected String webUrl="";
+    protected String webUrl = "";
+    protected WebView webView;
 
     @Override
     protected void getExtraEvent(Bundle extras) {
@@ -82,6 +93,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
      */
     @SuppressLint("JavascriptInterface")
     protected void initWeb(WebView webView, JSBack jsBack) {
+        this.webView = webView;
         synCookies(url);
         WebSettings webSettings = webView.getSettings();
         webSettings.setSupportZoom(false);
@@ -219,7 +231,33 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
     /**
      * 判断审核列表进入审核详情
      */
-    protected void newLink(String url){
+    protected void newLink(String url) {
 
+    }
+
+    protected void refreshNewToken() {
+        String deviceId = DeviceUtils.getDeviceId(BaseApp.getContext());
+        HashMap<String, String> params = new HashMap<>();
+        params.put("deviceCode", deviceId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                        .create(LoginService.class, 1).refreshAppTicket(params))
+                .subscribe(new HttpRxObserver<String>() {
+                    @Override
+                    protected void onError(ErrorBean e) {
+                        if ("1".equals(e.getCode())) {
+                            ToastUtil.showCenter(BaseApp.getContext(), "登录已过期，请重新登录");
+                            ARouter.getInstance().build("/user/login").navigation();
+                            PrefrenceUtil.getInstance(BaseApp.getContext()).clear();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(String newToken) {
+                        if (null != newToken && !"null".equals(newToken)) {
+                            PrefrenceUtil.getInstance(BaseApp.getContext()).setString(ConShare.TOKEN, newToken);
+                            webView.reload();
+                        }
+                    }
+                });
     }
 }

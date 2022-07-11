@@ -76,7 +76,8 @@ public class CollectActivity extends WebActivity<BaseWebBinding> implements JSBr
     @JavascriptInterface
     @Override
     public void onLogin() {
-        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+        refreshNewToken();
+//        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
     @JavascriptInterface

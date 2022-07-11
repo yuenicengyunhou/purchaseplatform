@@ -101,7 +101,8 @@ public class EvaluteActivity extends WebActivity<BaseWebBinding> implements JSEv
     @JavascriptInterface
     @Override
     public void onLogin() {
-        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+        refreshNewToken();
+//        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
     }
 
     @JavascriptInterface

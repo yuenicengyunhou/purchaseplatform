@@ -135,7 +135,8 @@ public class PurchaseDetailActivity extends WebActivity<BaseWebBinding> implemen
     @JavascriptInterface
     @Override
     public void onLogin() {
-        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+//        ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation();
+        refreshNewToken();
     }
 
     @JavascriptInterface

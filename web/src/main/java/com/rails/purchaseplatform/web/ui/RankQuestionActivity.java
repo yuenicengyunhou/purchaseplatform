@@ -83,6 +83,7 @@ public class RankQuestionActivity extends WebActivity<BaseWebBinding> implements
     @JavascriptInterface
     @Override
     public void onLogin() {
+        refreshNewToken();
     }
 
     @JavascriptInterface
