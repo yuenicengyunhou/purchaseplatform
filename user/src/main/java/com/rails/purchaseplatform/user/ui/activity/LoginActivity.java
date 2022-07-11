@@ -55,6 +55,7 @@ import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.GpsUtils;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
 import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
+import com.rails.purchaseplatform.framwork.utils.SystemUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.adapter.LoginInfoAdapter;
@@ -66,6 +67,7 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -285,6 +287,13 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
             tab.setCustomView(tabView);
         });
         mediator.attach();
+
+        //联系客服
+        binding.tvToAbout.setOnClickListener(v -> startIntent(AboutUsActivity.class));
+
+        //app版本号
+        String versionName = SystemUtil.getVersionName(this);
+        binding.tvVersion.setText(MessageFormat.format("版本号V{0}", versionName));
 
         // 请求随机码坐标
         presenter.randomInit(MD5Util.MD5(UUID.randomUUID().toString() + System.currentTimeMillis()), true);
