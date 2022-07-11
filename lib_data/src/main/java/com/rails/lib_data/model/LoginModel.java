@@ -5,9 +5,11 @@ import android.os.Build;
 import com.rails.lib_data.bean.LoginCoordinateBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.LoginService;
+import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObservable;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.DeviceUtils;
 import com.rails.purchaseplatform.framwork.utils.MD5Util;
 
 import org.jetbrains.annotations.NotNull;
@@ -46,13 +48,15 @@ public class LoginModel {
         params.put("loginDevice", "android@" + Build.BRAND + "#" + Build.MODEL);// 登录设备 固定Android
         params.put("osVersionNumber", "android@version" + Build.VERSION.RELEASE + "#" + "api" + Build.VERSION.SDK_INT); // android版本&api版本
         params.put("loginMedia", "APP"); // 固定值
+        String deviceId = DeviceUtils.getDeviceId(BaseApp.getContext());
+        params.put("deviceCode", deviceId); // 设备识别码
         if (location != null) {
             params.put("longitude", String.format("%6f", location[0]));
             params.put("latitude", String.format("%6f", location[1]));
         }
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(LoginService.class, 1).onLogin(params))
+                        .create(LoginService.class, 1).onLogin(params))
                 .subscribe(httpRxObserver);
     }
 
@@ -66,7 +70,7 @@ public class LoginModel {
     public void getCode(String phone, HttpRxObserver httpRxObserver) {
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(LoginService.class, 1).getCode(phone))
+                        .create(LoginService.class, 1).getCode(phone))
                 .subscribe(httpRxObserver);
     }
 
@@ -84,7 +88,7 @@ public class LoginModel {
 
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(LoginService.class).getUserInfo(params))
+                        .create(LoginService.class).getUserInfo(params))
                 .subscribe(httpRxObserver);
     }
 
@@ -102,8 +106,8 @@ public class LoginModel {
         params.put("userEmail", email);
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(LoginService.class, 1)
-                .retrievePassword(params))
+                        .create(LoginService.class, 1)
+                        .retrievePassword(params))
                 .subscribe(httpRxObserver);
     }
 
@@ -116,7 +120,7 @@ public class LoginModel {
      */
     public void randomInit(String code, HttpRxObserver httpRxObserver) {
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(LoginService.class, 1).randomInit(code))
+                        .create(LoginService.class, 1).randomInit(code))
                 .subscribe(httpRxObserver);
     }
 
@@ -151,18 +155,18 @@ public class LoginModel {
                 = getCoordinate3(randInit).subscribeOn(Schedulers.io());
 
         Observable.zip(
-                coordinate1, coordinate2, coordinate3,
-                new Function3<String, String, String, LoginCoordinateBean>() {
-                    @NotNull
-                    @Override
-                    public LoginCoordinateBean apply(@NotNull String s1, @NotNull String s2, @NotNull String s3) throws Exception {
-                        LoginCoordinateBean coordinateBean = new LoginCoordinateBean();
-                        coordinateBean.setCoordinate1(s1);
-                        coordinateBean.setCoordinate2(s2);
-                        coordinateBean.setCoordinate3(s3);
-                        return coordinateBean;
-                    }
-                })
+                        coordinate1, coordinate2, coordinate3,
+                        new Function3<String, String, String, LoginCoordinateBean>() {
+                            @NotNull
+                            @Override
+                            public LoginCoordinateBean apply(@NotNull String s1, @NotNull String s2, @NotNull String s3) throws Exception {
+                                LoginCoordinateBean coordinateBean = new LoginCoordinateBean();
+                                coordinateBean.setCoordinate1(s1);
+                                coordinateBean.setCoordinate2(s2);
+                                coordinateBean.setCoordinate3(s3);
+                                return coordinateBean;
+                            }
+                        })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(httpRxObserver);
     }
@@ -191,13 +195,24 @@ public class LoginModel {
         params.put("requestFlag", requestFlag); // 这是啥？ 是randInit接口返回的字符串？
         params.put("isWeakPwd", "0"); // 不是弱密码 固定0
         params.put("returnUrl", ""); // 返回的url 不需要
+        String deviceId = DeviceUtils.getDeviceId(BaseApp.getContext());
+        params.put("deviceCode", deviceId); // 设备识别码
         if (location != null) {
             params.put("longitude", String.format("%6f", location[0]));
             params.put("latitude", String.format("%6f", location[1]));
         }
 
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(LoginService.class, 1).randomCodeLogin(params))
+                        .create(LoginService.class, 1).randomCodeLogin(params))
+                .subscribe(httpRxObserver);
+    }
+
+    public void refreshAppTicket(HttpRxObserver httpRxObserver) {
+        String deviceId = DeviceUtils.getDeviceId(BaseApp.getContext());
+        HashMap<String, String> params = new HashMap<>();
+        params.put("deviceCode", deviceId);
+        HttpRxObservable.getObservable(RetrofitUtil.getInstance()
+                        .create(LoginService.class, 1).refreshAppTicket(params))
                 .subscribe(httpRxObserver);
     }
 }

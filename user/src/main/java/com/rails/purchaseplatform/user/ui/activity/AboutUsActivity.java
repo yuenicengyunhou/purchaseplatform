@@ -61,8 +61,8 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         int screenWidth = ScreenSizeUtil.getScreenWidth(this);
         params.width = screenWidth;
-        params.height=(screenWidth*310)/375;
-        params.topToBottom=binding.toolbar.getId();
+        params.height = (screenWidth * 310) / 375;
+        params.topToBottom = binding.toolbar.getId();
         binding.areaQrCode.setLayoutParams(params);
         binding.ibBack.setOnClickListener(v -> finish());
         binding.ivShare.setOnClickListener(v -> requestPermission());
@@ -80,13 +80,13 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
 
     private void toWebPage() {
         try {
-        Uri uri = Uri.parse("https://mall.95306.cn/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+            Uri uri = Uri.parse("https://mall.95306.cn/");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
-            ToastUtil.showCenter(this,"该设备不支持浏览器功能");
+            ToastUtil.showCenter(this, "该设备不支持浏览器功能");
         }
     }
 
@@ -97,7 +97,7 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
-            ToastUtil.showCenter(this,"该设备不支持拨号功能");
+            ToastUtil.showCenter(this, "该设备不支持拨号功能");
         }
     }
 
@@ -118,7 +118,7 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
                     if (aBoolean) {
                         showPop();
                     } else {
-                        ToastUtil.showCenter(this,"此功能需要手机存储权限");
+                        ToastUtil.showCenter(this, "此功能需要手机存储权限");
                         Intent intent = new Intent();
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");

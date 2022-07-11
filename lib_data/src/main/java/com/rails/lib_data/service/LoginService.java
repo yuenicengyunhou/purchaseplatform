@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -36,6 +37,12 @@ public interface LoginService {
      */
     @POST("passport/phoneCode/send/{phone}")
     Observable<HttpResult<String>> getCode(@Path("phone") String phone);
+
+    /**
+     * 刷新token
+     */
+    @POST("passport/refreshAppTicket")
+    Observable<HttpResult<String>> refreshAppTicket(@Body HashMap<String, String> params);
 
 
     /**
@@ -102,5 +109,5 @@ public interface LoginService {
      * @return
      */
     @POST("passport/appLogin")
-    Observable<HttpResult<String>> randomCodeLogin(@Body HashMap<String, String> params);
+    Observable<HttpResult<Object>> randomCodeLogin(@Body HashMap<String, String> params);
 }

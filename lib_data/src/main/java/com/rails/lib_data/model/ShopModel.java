@@ -46,7 +46,7 @@ public class ShopModel {
         map.put("platformId", "20");
         map.put("shopId", shopId);
         HttpRxObservable.getObservable(RetrofitUtil.getInstance()
-                .create(ShopService.class).getShopRating(map))
+                .create(ShopService.class).getShopRating2(map))
                 .subscribe(httpRxObserver);
     }
 

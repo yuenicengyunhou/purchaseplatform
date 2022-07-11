@@ -50,9 +50,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android:flexbox:1.0.0'
 
-    //阿里路由
-    implementation 'com.alibaba:arouter-api:1.4.0'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+//    //阿里路由
+//    implementation 'com.alibaba:arouter-api:1.4.0'
+//    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
     //起始日期选择器
     implementation 'com.borax12.materialdaterangepicker:library:2.0'

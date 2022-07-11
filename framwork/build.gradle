@@ -60,6 +60,9 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:$rails.retrofit"
     api "com.squareup.retrofit2:adapter-rxjava2:$rails.retrofit"
 
+//阿里路由
+    api 'com.alibaba:arouter-api:1.4.0'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
     //logger日志
     api 'com.orhanobut:logger:2.2.0'

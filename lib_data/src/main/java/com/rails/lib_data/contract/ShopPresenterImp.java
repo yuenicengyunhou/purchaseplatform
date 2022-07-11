@@ -3,6 +3,7 @@ package com.rails.lib_data.contract;
 import android.app.Activity;
 
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.ShopRateBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.shop.ItemListBean;
 import com.rails.lib_data.bean.shop.ResultListBean;
@@ -40,15 +41,15 @@ public class ShopPresenterImp extends BasePresenter<ShopContract.ShopView> imple
             ToastUtil.showCenter(mContext, "店铺id为空");
             return;
         }
-        model.getShopRating(shopId, new HttpRxObserver<ArrayList<ShopInfoBean>>() {
+        model.getShopRating(shopId, new HttpRxObserver<ArrayList<ShopRateBean>>() {
             @Override
             protected void onError(ErrorBean e) {
             }
 
             @Override
-            protected void onSuccess(ArrayList<ShopInfoBean> response) {
+            protected void onSuccess(ArrayList<ShopRateBean> response) {
                 if ((null != response) && (!response.isEmpty())) {
-                    ShopInfoBean bean = response.get(0);
+                    ShopRateBean bean = response.get(0);
                     String rate = bean.getRate();
                     String shopRateSquence = getShopRate(rate);
                     baseView.loadShopRating(rate, shopRateSquence);

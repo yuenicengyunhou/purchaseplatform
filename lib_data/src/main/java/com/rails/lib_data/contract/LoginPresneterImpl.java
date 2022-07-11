@@ -2,6 +2,7 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.UserInfoBean;
@@ -142,6 +143,20 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
             }
         });
     }
+
+//    public void refreshTicket() {
+//        model.refreshAppTicket(new HttpRxObserver() {
+//            @Override
+//            protected void onError(ErrorBean e) {
+//                Log.e("WQ", "e" + e);
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object response) {
+//                Log.e("WQ", "response=" + response);
+//            }
+//        });
+//    }
 
     @Override
     public void randomInit(String code, boolean isDialog) {
