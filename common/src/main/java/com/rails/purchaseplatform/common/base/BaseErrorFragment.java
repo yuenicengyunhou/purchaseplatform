@@ -39,7 +39,7 @@ public abstract class BaseErrorFragment<T extends ViewBinding> extends BaseAbsFr
                 case ERROR_UNLOAD:
                 case ERROR_UNLOAD_2:
                 case ERROR_TIMEOUT: {
-                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(getActivity(), ConRoute.CODE.LOGIN_CODE);
+//                    ARouter.getInstance().build(ConRoute.USER.LOGIN).navigation(getActivity(), ConRoute.CODE.LOGIN_CODE);
                 }
                 break;
                 case UN_KNOWN_ERROR: {
