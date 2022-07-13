@@ -38,6 +38,7 @@
 
         <activity
             android:name=".ui.activity.CerErrorActivity"
+            android:launchMode="singleTop"
             android:exported="false" /> <!-- 启动页/欢迎页 -->
     </application>
 

@@ -97,7 +97,7 @@ public class CommonInterceptor implements Interceptor {
             }
         }
 
-        Log.e("WQ", "code==" + code + "  responseCode==" + response.code());
+//        Log.e("WQ", "code==" + code + "  responseCode==" + response.code());
         if ((response.code() == 401) || ERROR_PASTDUE.equals(code) || ERROR_UNLOAD.equals(code) ||
                 ERROR_UNLOAD_2.equals(code) || ERROR_TIMEOUT.equals(code)) {
             // TODO: 2022/6/23 重新获取token

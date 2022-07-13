@@ -1,6 +1,9 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -13,6 +16,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.ToolbarActivity;
 import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import com.rails.purchaseplatform.framwork.utils.SystemUtil;
+import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.ActivityCerErrorBinding;
 
@@ -50,6 +54,7 @@ public class CerErrorActivity extends ToolbarActivity<ActivityCerErrorBinding> i
         VersionContract.VersionPresenter presenter = new VersionPresenterImpl(this, this);
         barBinding.tvDownload.setOnClickListener(view -> versionDialog(mVersionBean));
         presenter.getVersion();
+        barBinding.tvPhone.setOnClickListener(v -> toPhonePage());
     }
 
     @Override
@@ -92,6 +97,17 @@ public class CerErrorActivity extends ToolbarActivity<ActivityCerErrorBinding> i
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void toPhonePage() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "010-95306-8"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            ToastUtil.showCenter(this, "该设备不支持拨号功能");
         }
     }
 
