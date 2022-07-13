@@ -139,24 +139,26 @@ public class LoginPresneterImpl extends BasePresenter<LoginContract.LoginView> i
                 if (isCallBack()) {
                     ToastUtil.showCenter(mContext, "登录成功");
                     baseView.getUserInfo(bean);
+//                    refreshTicket();
                 }
             }
         });
     }
 
-//    public void refreshTicket() {
-//        model.refreshAppTicket(new HttpRxObserver() {
-//            @Override
-//            protected void onError(ErrorBean e) {
-//                Log.e("WQ", "e" + e);
-//            }
-//
-//            @Override
-//            protected void onSuccess(Object response) {
-//                Log.e("WQ", "response=" + response);
-//            }
-//        });
-//    }
+    @Override
+    public void refreshTicket() {
+        model.refreshAppTicket(new HttpRxObserver<String>() {
+            @Override
+            protected void onError(ErrorBean e) {
+                Log.e("WQ", "e" + e);
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                Log.e("WQ", "response=" + response);
+            }
+        });
+    }
 
     @Override
     public void randomInit(String code, boolean isDialog) {

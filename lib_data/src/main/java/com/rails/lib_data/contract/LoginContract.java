@@ -96,5 +96,7 @@ public interface LoginContract {
          * @param isDialog
          */
         void randomCodeLogin(String account, String password, String randInit, String randomCode1, String randomCode2, String randomCode3, boolean isDialog);
+
+        void refreshTicket();
     }
 }

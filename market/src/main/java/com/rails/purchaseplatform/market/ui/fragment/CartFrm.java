@@ -39,6 +39,7 @@ import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
 import com.rails.purchaseplatform.common.widget.SpaceDecoration;
 import com.rails.purchaseplatform.common.widget.SpaceGirdWeightDecoration;
 import com.rails.purchaseplatform.common.widget.recycler.LoadMoreRecycler;
+import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.MyDefaultItemAnimator;
 import com.rails.purchaseplatform.framwork.adapter.listener.MulPositionListener;
 import com.rails.purchaseplatform.framwork.adapter.listener.PositionListener;
@@ -324,7 +325,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
 
     @Override
     public void getLimits(ArrayList<String> list, String msg) {
-        if (null!=list) {
+        if (null != list) {
             for (String itemId : list) {
                 for (CartShopBean bean : cartAdapter.getBeans()) {
                     for (CartShopProductBean productBean : bean.getSkuList()) {
@@ -590,6 +591,7 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
         if (mAddress != null) {
 //            cartAdapter.update(new ArrayList(), true);
 //            return;
+            binding.tvAddress.setVisibility(View.VISIBLE);
             binding.tvAddress.setText(mAddress.getFullAddress());
         } else {
             binding.tvAddress.setText("");
@@ -833,14 +835,17 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 case ERROR_UNLOAD:
                 case ERROR_UNLOAD_2:
                 case ERROR_TIMEOUT: {
-                    cartAdapter.update(new ArrayList(), true);
-                    binding.empty.setVisibility(View.VISIBLE);
-                    binding.empty.setBtnEmpty("立即登录");
-                    binding.empty.setBtnGobuy("");
-                    binding.bottom.setVisibility(View.GONE);
-                    binding.tvManager.setVisibility(View.INVISIBLE);
-                    binding.addressLayout.setVisibility(View.INVISIBLE);
-                    binding.tvAddress.setVisibility(View.INVISIBLE);
+                    String token = PrefrenceUtil.getInstance(getContext()).getString(ConShare.TOKEN, "");
+                    if (TextUtils.isEmpty(token)) {
+                        cartAdapter.update(new ArrayList(), true);
+                        binding.empty.setVisibility(View.VISIBLE);
+                        binding.empty.setBtnEmpty("立即登录");
+                        binding.empty.setBtnGobuy("");
+                        binding.bottom.setVisibility(View.GONE);
+                        binding.tvManager.setVisibility(View.INVISIBLE);
+                        binding.addressLayout.setVisibility(View.INVISIBLE);
+                        binding.tvAddress.setVisibility(View.INVISIBLE);
+                    }
                 }
                 break;
                 default:

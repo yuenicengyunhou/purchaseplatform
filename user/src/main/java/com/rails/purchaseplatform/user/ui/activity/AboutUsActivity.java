@@ -7,10 +7,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.Gravity;
 import android.view.ViewGroup;
 
@@ -20,17 +18,12 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
-import com.rails.purchaseplatform.framwork.utils.GpsUtils;
 import com.rails.purchaseplatform.framwork.utils.ScreenSizeUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
+import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.SharePop;
 import com.rails.purchaseplatform.user.databinding.ActivityAboutUsBinding;
 import com.tbruyelle.rxpermissions.RxPermissions;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 
 @Route(path = ConRoute.USER.USER_ABOUT_US)
 public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
@@ -39,7 +32,7 @@ public class AboutUsActivity extends BaseErrorActivity<ActivityAboutUsBinding> {
 
     @Override
     protected int getColor() {
-        return android.R.color.white;
+        return R.color.white;
     }
 
     @Override

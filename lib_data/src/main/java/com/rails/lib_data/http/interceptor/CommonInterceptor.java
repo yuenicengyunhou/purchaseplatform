@@ -6,6 +6,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
+import static com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit.isDebug;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,9 +14,7 @@ import android.util.Log;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
 import com.rails.lib_data.ConShare;
-import com.rails.lib_data.bean.UserInfoBean;
 import com.rails.lib_data.http.RetrofitUtil;
 import com.rails.lib_data.service.LoginService;
 import com.rails.purchaseplatform.framwork.BaseApp;
@@ -98,11 +97,13 @@ public class CommonInterceptor implements Interceptor {
             }
         }
 
-
+        Log.e("WQ", "code==" + code + "  responseCode==" + response.code());
         if ((response.code() == 401) || ERROR_PASTDUE.equals(code) || ERROR_UNLOAD.equals(code) ||
                 ERROR_UNLOAD_2.equals(code) || ERROR_TIMEOUT.equals(code)) {
             // TODO: 2022/6/23 重新获取token
-
+            if (isDebug) {
+                ToastUtil.showCenter(BaseApp.getContext(), "过期了");
+            }
             if (!TextUtils.isEmpty(token)) {
                 String deviceId = DeviceUtils.getDeviceId(BaseApp.getContext());
                 HashMap<String, String> params = new HashMap<>();
@@ -155,6 +156,7 @@ public class CommonInterceptor implements Interceptor {
             try {
                 charset = contentType.charset(UTF8);
             } catch (UnsupportedCharsetException e) {
+                e.printStackTrace();
             }
         }
 
@@ -163,8 +165,7 @@ public class CommonInterceptor implements Interceptor {
         }
 
         if (responseBody.contentLength() != 0) {
-            String result = buffer.clone().readString(charset);
-            return result;
+            return buffer.clone().readString(charset);
         }
         return null;
     }
