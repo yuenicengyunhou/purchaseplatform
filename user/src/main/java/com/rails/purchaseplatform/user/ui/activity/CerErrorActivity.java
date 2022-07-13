@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.user.ui.activity;
 
 
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpError;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +11,7 @@ import android.text.Html;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.rails.lib_data.bean.VersionBean;
 import com.rails.lib_data.contract.VersionContract;
 import com.rails.lib_data.contract.VersionPresenterImpl;
@@ -60,9 +63,10 @@ public class CerErrorActivity extends ToolbarActivity<ActivityCerErrorBinding> i
     @Override
     public void getVersion(VersionBean versionBean) {
 //        versionBean.
+        if (null == versionBean) return;
         this.mVersionBean = versionBean;
         String lastVersionCode = versionBean.getLastVersionCode();
-        int i = StringUtil.compareVersion(lastVersionCode, "1.1.4");
+        int i = StringUtil.compareVersion(lastVersionCode, versionName);
         barBinding.tvVersion.setText(MessageFormat.format("当前版本：V{0}  最新版本：V{1}", versionName, lastVersionCode));
         if (i < 1) {
             barBinding.tvDownload.setVisibility(View.INVISIBLE);
@@ -111,4 +115,9 @@ public class CerErrorActivity extends ToolbarActivity<ActivityCerErrorBinding> i
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hasJumpError = false;
+    }
 }

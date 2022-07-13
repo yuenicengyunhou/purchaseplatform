@@ -39,6 +39,7 @@ import update.UpdateAppUtils;
 public class BaseApp extends Application {
 
     public static Context context;
+    public static boolean hasJumpError;
 
     @Override
     public void onCreate() {

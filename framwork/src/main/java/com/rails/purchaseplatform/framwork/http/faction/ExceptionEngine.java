@@ -104,7 +104,7 @@ public class ExceptionEngine {
             errorBean.setMsg("请求超时，请检查网络状况");
         }else if (e instanceof SSLHandshakeException){
             errorBean = new ErrorBean(e, ERROR_SSL);
-            errorBean.setMsg("证书已过期，请重启APP后更新最新版本");
+            errorBean.setMsg("");
         }else {  //未知错误
             errorBean = new ErrorBean(e, UN_KNOWN_ERROR);
             errorBean.setMsg("系统异常");

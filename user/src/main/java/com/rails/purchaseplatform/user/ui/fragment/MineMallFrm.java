@@ -21,8 +21,10 @@ import com.rails.purchaseplatform.user.R;
 import com.rails.purchaseplatform.user.databinding.FrmMineMallBinding;
 import com.rails.purchaseplatform.user.ui.activity.SettingActivity;
 
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpError;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.CONNECT_ERROR;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_SSL;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
@@ -339,6 +341,12 @@ public class MineMallFrm extends LazyFragment<FrmMineMallBinding> implements Use
                 goLogin(false);
             }
             break;
+            case ERROR_SSL: {
+                if (!hasJumpError) {
+                    ARouter.getInstance().build(ConRoute.USER.SSL_EXCEPTION).navigation();
+                    hasJumpError = true;
+                }
+            }
             case "500": {
                 ToastUtil.showCenter(getActivity(), errorBean.getMsg());
             }

@@ -1,5 +1,8 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpError;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_SSL;
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -180,6 +183,13 @@ public class CategoryFrm extends LazyFragment<FrmCategoryBinding> implements Pos
 
     @Override
     public void onError(ErrorBean errorBean) {
+        String code = errorBean.getCode();
+        if (ERROR_SSL.equals(code)){
+            if (!hasJumpError) {
+                ARouter.getInstance().build(ConRoute.USER.SSL_EXCEPTION).navigation();
+                hasJumpError = true;
+            }
+        }
     }
 
 

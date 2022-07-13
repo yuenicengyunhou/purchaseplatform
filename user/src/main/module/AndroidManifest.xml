@@ -39,7 +39,8 @@
         <activity
             android:name=".ui.activity.CerErrorActivity"
             android:launchMode="singleTop"
-            android:exported="false" /> <!-- 启动页/欢迎页 -->
+            android:screenOrientation="portrait"
+            android:exported="false" /> <!-- 证书错误页 -->
     </application>
 
 </manifest>

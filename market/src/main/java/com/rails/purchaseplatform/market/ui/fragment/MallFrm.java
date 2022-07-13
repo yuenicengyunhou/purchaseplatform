@@ -49,6 +49,7 @@ import com.rails.purchaseplatform.market.widget.CenterManger;
 
 import java.util.ArrayList;
 
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpError;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_SSL;
 
 /**
@@ -326,7 +327,10 @@ public class MallFrm extends LazyFragment<FrmMallBinding>
     public void onError(ErrorBean errorBean) {
         String code = errorBean.getCode();
         if (ERROR_SSL.equals(code)){
-            ARouter.getInstance().build(ConRoute.USER.SSL_EXCEPTION).navigation();
+            if (!hasJumpError) {
+                ARouter.getInstance().build(ConRoute.USER.SSL_EXCEPTION).navigation();
+                hasJumpError = true;
+            }
         }
     }
 

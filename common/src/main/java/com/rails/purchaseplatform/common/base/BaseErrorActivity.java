@@ -22,8 +22,10 @@ import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpError;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_509;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_SSL;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
@@ -80,6 +82,12 @@ public abstract class BaseErrorActivity<T extends ViewBinding> extends BaseActiv
 
             }
             break;
+            case ERROR_SSL: {
+                if (!hasJumpError) {
+                    ARouter.getInstance().build(ConRoute.USER.SSL_EXCEPTION).navigation();
+                    hasJumpError = true;
+                }
+            }
             default:
                 String msg = errorBean.getMsg();
                 ToastUtil.showCenter(this, msg);

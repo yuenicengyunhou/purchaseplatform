@@ -1,6 +1,8 @@
 package com.rails.purchaseplatform.market.ui.fragment;
 
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpError;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
+import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_SSL;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
@@ -848,6 +850,12 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                     }
                 }
                 break;
+                case ERROR_SSL: {
+                    if (!hasJumpError) {
+                        ARouter.getInstance().build(ConRoute.USER.SSL_EXCEPTION).navigation();
+                        hasJumpError = true;
+                    }
+                }
                 default:
                     String msg = errorBean.getMsg();
                     ToastUtil.showCenter(getActivity(), msg);
