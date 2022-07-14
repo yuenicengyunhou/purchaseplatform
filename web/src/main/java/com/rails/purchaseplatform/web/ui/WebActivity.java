@@ -40,6 +40,7 @@ import java.util.HashMap;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpLogin;
 import static com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit.isDebug;
 
 
@@ -245,9 +246,11 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
                     @Override
                     protected void onError(ErrorBean e) {
                         if ("1".equals(e.getCode())) {
-                            ToastUtil.showCenter(BaseApp.getContext(), "登录已过期，请重新登录");
-                            ARouter.getInstance().build("/user/login").navigation();
-                            PrefrenceUtil.getInstance(BaseApp.getContext()).clear();
+//                            ToastUtil.showCenter(BaseApp.getContext(), "登录已过期，请重新登录");
+                            if (!hasJumpLogin) {
+                                ARouter.getInstance().build("/user/login").navigation();
+                                PrefrenceUtil.getInstance(BaseApp.getContext()).clear();
+                            }
                         }
                     }
 

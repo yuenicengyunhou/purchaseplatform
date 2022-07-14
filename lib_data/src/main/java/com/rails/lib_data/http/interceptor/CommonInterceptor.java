@@ -2,6 +2,7 @@ package com.rails.lib_data.http.interceptor;
 
 
 import static com.alibaba.fastjson.util.IOUtils.UTF8;
+import static com.rails.purchaseplatform.framwork.BaseApp.hasJumpLogin;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_PASTDUE;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
@@ -97,13 +98,10 @@ public class CommonInterceptor implements Interceptor {
             }
         }
 
-//        Log.e("WQ", "code==" + code + "  responseCode==" + response.code());
+        Log.e("WQ", "code==" + code + "  responseCode==" + response.code());
         if ((response.code() == 401) || ERROR_PASTDUE.equals(code) || ERROR_UNLOAD.equals(code) ||
                 ERROR_UNLOAD_2.equals(code) || ERROR_TIMEOUT.equals(code)) {
             // TODO: 2022/6/23 重新获取token
-            if (isDebug) {
-                ToastUtil.showCenter(BaseApp.getContext(), "过期了");
-            }
             if (!TextUtils.isEmpty(token)) {
                 String deviceId = DeviceUtils.getDeviceId(BaseApp.getContext());
                 HashMap<String, String> params = new HashMap<>();
@@ -114,9 +112,12 @@ public class CommonInterceptor implements Interceptor {
                             @Override
                             protected void onError(ErrorBean e) {
                                 if ("1".equals(e.getCode())) {
-                                    ToastUtil.showCenter(BaseApp.getContext(), "登录已过期，请重新登录");
-                                    ARouter.getInstance().build("/user/login").navigation();
-                                    PrefrenceUtil.getInstance(BaseApp.getContext()).clear();
+//                                    ToastUtil.showCenter(BaseApp.getContext(), e.getMsg());
+                                    if (!hasJumpLogin) {
+                                        ARouter.getInstance().build("/user/login").navigation();
+                                        PrefrenceUtil.getInstance(BaseApp.getContext()).clear();
+                                    }
+
                                 }
                             }
 

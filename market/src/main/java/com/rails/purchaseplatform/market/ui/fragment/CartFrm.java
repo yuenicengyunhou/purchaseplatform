@@ -6,6 +6,7 @@ import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.E
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_TIMEOUT;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD;
 import static com.rails.purchaseplatform.framwork.http.faction.ExceptionEngine.ERROR_UNLOAD_2;
+import static com.rails.purchaseplatform.framwork.http.observer.BaseRetrofit.isDebug;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -837,6 +838,9 @@ public class CartFrm extends LazyFragment<FrmCartBinding> implements CartContrac
                 case ERROR_UNLOAD:
                 case ERROR_UNLOAD_2:
                 case ERROR_TIMEOUT: {
+//                    if (isDebug) {
+//                        ToastUtil.showCenter(mActivity, "过期了");
+//                    }
                     String token = PrefrenceUtil.getInstance(getContext()).getString(ConShare.TOKEN, "");
                     if (TextUtils.isEmpty(token)) {
                         cartAdapter.update(new ArrayList(), true);

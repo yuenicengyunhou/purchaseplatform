@@ -40,6 +40,7 @@ public class BaseApp extends Application {
 
     public static Context context;
     public static boolean hasJumpError;
+    public static boolean hasJumpLogin;
 
     @Override
     public void onCreate() {

@@ -50,6 +50,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.common.pop.PermissionPop;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.BaseApp;
 import com.rails.purchaseplatform.framwork.base.BaseActManager;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.utils.GpsUtils;
@@ -518,6 +519,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     @Override
     protected void onDestroy() {
         mediator.detach();
+        BaseApp.hasJumpLogin = false;
         binding.viewPager.unregisterOnPageChangeCallback(changeCallback);
         if (mHandler2 != null) {
             mHandler2.removeCallbacksAndMessages(null);
@@ -658,4 +660,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                     }
                 });
     }
+
+
 }
