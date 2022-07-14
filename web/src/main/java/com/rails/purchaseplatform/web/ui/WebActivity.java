@@ -248,6 +248,7 @@ public abstract class WebActivity<T extends ViewBinding> extends BaseWebActivity
                         if ("1".equals(e.getCode())) {
 //                            ToastUtil.showCenter(BaseApp.getContext(), "登录已过期，请重新登录");
                             if (!hasJumpLogin) {
+                                hasJumpLogin = true;
                                 ARouter.getInstance().build("/user/login").navigation();
                                 PrefrenceUtil.getInstance(BaseApp.getContext()).clear();
                             }

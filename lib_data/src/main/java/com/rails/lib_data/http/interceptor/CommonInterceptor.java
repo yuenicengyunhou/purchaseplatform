@@ -114,6 +114,7 @@ public class CommonInterceptor implements Interceptor {
                                 if ("1".equals(e.getCode())) {
 //                                    ToastUtil.showCenter(BaseApp.getContext(), e.getMsg());
                                     if (!hasJumpLogin) {
+                                        hasJumpLogin = true;
                                         ARouter.getInstance().build("/user/login").navigation();
                                         PrefrenceUtil.getInstance(BaseApp.getContext()).clear();
                                     }
