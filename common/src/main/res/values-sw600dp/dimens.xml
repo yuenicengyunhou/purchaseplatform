@@ -78,6 +78,7 @@
     <dimen name="font_size_18">33.75sp</dimen>
     <dimen name="font_size_19">35.625sp</dimen>
     <dimen name="font_size_20">37.5sp</dimen>
+    <dimen name="font_size_21">39.4sp</dimen>
     <dimen name="font_size_26">48.75sp</dimen>
     <dimen name="font_size_30">56.25sp</dimen>
     <dimen name="font_size_35">65.625sp</dimen>
