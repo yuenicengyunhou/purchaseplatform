@@ -355,7 +355,8 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         binding.btnLogin.setOnClickListener(v -> {
             GpsUtils gps = new GpsUtils(this);
             if (!gps.isLocationEnabled()) {
-                ToastUtil.showCenter(this, "请开启定位功能");
+                ToastUtil.showCenter(this, "请开启定位服务");
+                goSetting();
                 return;
             }
 
@@ -367,12 +368,7 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
                         .context(this)
                         .message("为保证您可正常、安全的使用国铁商城，请允许获取您的位置信息权限。")
                         .goButton("去允许")
-                        .setListener(new LocationAgreeDialog.DialogListener() {
-                            @Override
-                            public void onGo() {
-                                goAppSetting();
-                            }
-                        })
+                        .setListener(this::goAppSetting)
                         .builder().show();
                 return;
             }
@@ -576,16 +572,9 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
     }
 
     private void goAppSetting() {
-//        Intent intent = new Intent();
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.setAction(Intent.ACTION_VIEW);
-//        intent.setClassName("com.android.settings", "com.android.setting.InstalledAppDetails");
-//        intent.putExtra("com.android.settings.ApplicationPkgName", requireContext().getPackageName());
-
         Intent intent = new Intent();
         intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + this.getPackageName()));
-//        activity.startActivity(intent);
         try {
             this.startActivity(intent);
         } catch (Exception e) {
@@ -593,46 +582,6 @@ public class LoginActivity extends BaseErrorActivity<ActivityUserLoginBinding>
         }
     }
 
-//    /**
-//     * What is this?
-//     */
-//    class SmsObserver extends ContentObserver {
-//
-//        /**
-//         * Creates a content observer.
-//         *
-//         * @param handler The handler to run {@link #onChange} on, or null if none.
-//         */
-//        public SmsObserver(Handler handler) {
-//            super(handler);
-//        }
-//
-//        @Override
-//        public void onChange(boolean selfChange, @Nullable Uri uri) {
-//            super.onChange(selfChange, uri);
-//            if (null == uri) return;
-//            if (uri.toString().equals("content://sms/raw")) {
-//                Log.e("WQ", "duanxi");
-//                return;
-//            }
-//            Log.e("WQ", "短信");
-//            mHandler2.sendEmptyMessage(VERIFY_CODE_RECEIVE);
-////            Uri inboxUri = Uri.parse("content://sms/inbox");
-////            Cursor cursor = getContentResolver().query(inboxUri, null, null, null, "date desc");
-////            if (null != cursor) {
-////                if (cursor.moveToFirst()) {
-////                    String address = cursor.getString(cursor.getColumnIndex("address"));
-////                    String body = cursor.getString(cursor.getColumnIndex("body"));
-////                    if (address.equals("95306") && body.contains(mVerifyCode)) {
-////                        Message message = new Message();
-////                        message.what = VERIFY_CODE_RECEIVE;
-////                        mHandler2.sendMessage(message);
-////                    }
-////                }
-////                cursor.close();
-////            }
-//        }
-//    }
 
     @SuppressLint({"MissingPermission", "HardwareIds"})
     private void requestPermission() {
