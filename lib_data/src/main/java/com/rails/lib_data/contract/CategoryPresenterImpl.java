@@ -2,23 +2,14 @@ package com.rails.lib_data.contract;
 
 import android.app.Activity;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.rails.lib_data.R;
 import com.rails.lib_data.bean.CategoryRootBean;
-import com.rails.lib_data.bean.MarketIndexBean;
-import com.rails.lib_data.bean.NoticeBean;
 import com.rails.lib_data.model.CategoryModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
-import com.rails.purchaseplatform.framwork.http.faction.HttpResult;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
-import com.rails.purchaseplatform.framwork.utils.JsonUtil;
-import com.rails.purchaseplatform.framwork.utils.NetWorkUtil;
 import com.rails.purchaseplatform.framwork.utils.file.FileCacheUtil;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**

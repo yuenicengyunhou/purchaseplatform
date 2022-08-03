@@ -1,5 +1,6 @@
 package com.rails.lib_data.service;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.rails.lib_data.bean.forNetRequest.searchResult.SearchDataByItemBean;
 import com.rails.lib_data.bean.forNetRequest.searchResult.byShop.SearchDataByShopBean;
@@ -25,7 +26,7 @@ public interface SearchService {
      */
     @FormUrlEncoded
     @POST("elasticsearch-service/mall/search/queryItemListByKeyword")
-    Observable<HttpResult<JsonObject>> getItemListWithKeywordOnly(@FieldMap HashMap<String, Object> params);
+    Observable<HttpResult<JsonElement>> getItemListWithKeywordOnly(@FieldMap HashMap<String, Object> params);
 
 
     /**

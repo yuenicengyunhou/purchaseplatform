@@ -14,7 +14,10 @@ import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
 import com.rails.purchaseplatform.common.widget.tags.OnInitSelectedPosition;
 import com.rails.purchaseplatform.framwork.adapter.BaseAbsAdapter;
 import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.market.R;
+
+import java.util.ArrayList;
 
 public class SearchItemFilterSubAdapter
         extends BaseAbsAdapter<SearchFilterValue>
@@ -30,6 +33,7 @@ public class SearchItemFilterSubAdapter
     private boolean isMultiSelect;
 
     private boolean isLastGroup;
+    private ArrayList<String> ids = new ArrayList<>();
 
     public SearchItemFilterSubAdapter(Context context, boolean isMultiSelect) {
         super(context);
@@ -42,6 +46,8 @@ public class SearchItemFilterSubAdapter
         this.mContext = context;
         this.isMultiSelect = isMultiSelect;
         this.isLastGroup = isLastGroup;
+        ids.addAll(PrefrenceUtil.getInstance(mContext).getListString("itemBrandIds"));
+        PrefrenceUtil.getInstance(mContext).setString("itemBrandIds", "");
     }
 
     @Override
@@ -55,10 +61,11 @@ public class SearchItemFilterSubAdapter
             holder = (ViewHolder) convertView.getTag();
         }
         holder.rbTag.setText(mDataSource.get(position).getValueName());
-
         boolean select = mDataSource.get(position).isSelect();
-        holder.rbTag.setSelected(select);
+        mDataSource.get(position).setSelect(select || ids.contains(mDataSource.get(position).getValueName()));
+        holder.rbTag.setSelected(select || ids.contains(mDataSource.get(position).getValueName()));
         holder.rbTag.setOnClickListener(v -> {
+            ids.clear();
             if (!isMultiSelect) {
                 for (SearchFilterValue value : mDataSource) {
                     if (value.isSelect()) {

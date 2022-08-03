@@ -124,7 +124,7 @@ public class SearchModel {
                                        String brands, String brandsString,
                                        String categoryAttrValueIds, String expandAttrValueIds,
                                        String minPrice, String maxPrice,
-                                       int pageNum, int pageSize, HttpRxObserver<JsonObject> httpRxObserver) {
+                                       int pageNum, int pageSize, HttpRxObserver httpRxObserver) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("materialType", materialType);
         params.put("businessType", 1);

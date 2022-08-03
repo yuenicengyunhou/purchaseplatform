@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.rails.lib_data.bean.ItemBrandBean;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.contract.SearchContract;
@@ -15,12 +16,14 @@ import com.rails.lib_data.contract.StatisticPresenterImpl;
 import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.LazyFragment;
 import com.rails.purchaseplatform.common.widget.BaseRecyclerView;
+import com.rails.purchaseplatform.framwork.utils.StringUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultRecyclerAdapter;
 import com.rails.purchaseplatform.market.databinding.FragmentSearchResultByProductBinding;
 import com.rails.purchaseplatform.market.ui.activity.SearchResultActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -109,13 +112,20 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
 
 
     /**
-     * 请求网络
+     * 请求搜索商品
      *
+     * @param keyWord              关键字（关键子搜索接口）
+     * @param cid                  种类id （分类搜索接口）
      * @param orderColumn
      * @param orderType
-     * @param keyWord     关键字      （关键子搜索接口）
-     * @param cid         分类ID      （分类搜索接口）
+     * @param brands               品牌名称
+     * @param brandsString         品牌名称
+     * @param categoryAttrValueIds
+     * @param expandAttrValueIds
+     * @param minPrice             最低价格
+     * @param maxPrice             最高价格
      * @param page
+     * @param pageSize
      * @param isDialog
      */
     void notifyData(String keyWord, String cid, String orderColumn, String orderType,
@@ -125,11 +135,9 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
             mPresenter = new SearchItemPresenterImpl(this.getActivity(), this);
         }
         if (!TextUtils.isEmpty(mCid)) {
-//            mPresenter.getItemListWithCid(orderColumn, orderType, cid, page, isDialog);
             mPresenter.queryItemListByCid(mMaterialType, keyWord, cid, orderColumn, orderType, brands, brandsString,
                     categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, pageSize, isDialog);
         } else {
-//            mPresenter.getItemListWithKeywordOnly(orderColumn, orderType, keyWord, page, isDialog);
             mPresenter.queryItemListByKeyword(mMaterialType, keyWord, orderColumn, orderType, brands, brandsString,
                     categoryAttrValueIds, expandAttrValueIds, minPrice, maxPrice, page, pageSize, isDialog);
         }
@@ -155,6 +163,24 @@ public class SearchResultByProductFragment extends LazyFragment<FragmentSearchRe
         bundle.putString("skuId", skuId);
         ARouter.getInstance().build(ConRoute.MARKET.PRODUCT_DETAIL).with(bundle).navigation();
 //        Objects.requireNonNull(getActivity()).finish();
+    }
+
+    @Override
+    public void getItemBrands(List<ItemBrandBean> beans) {
+        if (beans == null)
+            return;
+        List<String> brandNames = new ArrayList<>();
+        for (ItemBrandBean bean : beans) {
+            brandNames.add(bean.getBrandNameChEn());
+        }
+        brands = String.join(",", brandNames);
+        brandsString = brands;
+
+        page = DEF_PAGE;
+        mSearchKey ="";
+        notifyData(mSearchKey, mCid, orderColumn, orderType,
+                brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
+                minPrice, maxPrice, page, 30, true);
     }
 
     @Override

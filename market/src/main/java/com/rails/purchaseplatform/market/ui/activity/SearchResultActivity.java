@@ -143,14 +143,10 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
                 SearchResultFilterPop mPop = new SearchResultFilterPop(filterBeans, 3, mMinPrice, mMaxPrice, mLoadingDialog);
                 mPop.setGravity(Gravity.BOTTOM);
                 mPop.setType(BasePop.MATCH_WRAP);
-//                mPop.setFilterListener(new PropertyPop.DoFilter() {
-                mPop.setFilterListener(new SearchResultFilterPop.DoFilter() {
-                    @Override
-                    public void doFilter(String brand, String cid, String categoryAttr, String expandAttr, String minPrice, String maxPrice) {
-                        fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice}, 1);
-                        mMinPrice = minPrice;
-                        mMaxPrice = maxPrice;
-                    }
+                mPop.setFilterListener((brand, cid, categoryAttr, expandAttr, minPrice, maxPrice) -> {
+                    fragment1.sendFilterData(new String[]{brand, cid, categoryAttr, expandAttr, minPrice, maxPrice}, 1);
+                    mMinPrice = minPrice;
+                    mMaxPrice = maxPrice;
                 });
                 mPop.show(getSupportFragmentManager(), "property");
             }

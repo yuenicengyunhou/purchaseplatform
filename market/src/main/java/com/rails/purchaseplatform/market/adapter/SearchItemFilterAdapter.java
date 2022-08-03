@@ -63,21 +63,13 @@ public class SearchItemFilterAdapter extends BaseRecyclerAdapter<SearchFilterBea
         binding.flow.setTagCheckedMode(searchFilterBean.isMultiSelect()
                 ? FlowTagLayout.FLOW_TAG_CHECKED_MULTI
                 : FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-        binding.flow.setOnChildLayoutListener(new FlowTagLayout.OnChildLayoutListener() {
-            @Override
-            public void needShowMore(boolean needShowMore) {
-                binding.cbExpand.setVisibility(needShowMore ? View.VISIBLE : View.GONE);
-            }
-        });
+        binding.flow.setOnChildLayoutListener(needShowMore -> binding.cbExpand.setVisibility(needShowMore ? View.VISIBLE : View.GONE));
         binding.flow.setAdapter(adapter);
         binding.flow.setShowMore(true);
 
-        binding.cbExpand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                binding.flow.setShowMore(isChecked);
-                adapter.update(tags);
-            }
+        binding.cbExpand.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            binding.flow.setShowMore(isChecked);
+            adapter.update(tags);
         });
         binding.cbExpand.setSelected(true);
         binding.cbExpand.setChecked(true);

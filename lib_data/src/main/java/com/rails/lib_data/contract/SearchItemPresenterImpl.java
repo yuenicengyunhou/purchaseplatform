@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.orhanobut.logger.Logger;
 import com.rails.lib_data.R;
+import com.rails.lib_data.bean.ItemBrandBean;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.SearchFilterValue;
@@ -22,10 +27,16 @@ import com.rails.lib_data.model.SearchModel;
 import com.rails.purchaseplatform.framwork.base.BasePresenter;
 import com.rails.purchaseplatform.framwork.bean.ErrorBean;
 import com.rails.purchaseplatform.framwork.http.observer.HttpRxObserver;
+import com.rails.purchaseplatform.framwork.utils.JsonUtil;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONTokener;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchItemPresenterImpl extends BasePresenter<SearchContract.SearchItemView>
         implements
@@ -137,43 +148,60 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
         model.queryItemListByKeyword(materialType, keyword, orderColumn, orderType,
                 brands, brandsString, categoryAttrValueIds, expandAttrValueIds,
                 minPrice, maxPrice, pageNum, pageSize,
-                new HttpRxObserver<JsonObject>() {
+                new HttpRxObserver<JsonElement>() {
                     @Override
                     protected void onError(ErrorBean e) {
                         if (e.getMsg().contains("but was com.google.gson.JsonNull")) {
                             baseView.onQueryItemListByKeywordSuccess(new ArrayList<ItemAttribute>(), new ArrayList<SearchFilterBean>(), false, true);
                         } else if (e.getMessage().contains("End of input at line 1 column 1 path $")) {
                             baseView.onSearchIdFailed();
-                        }else {
+                        } else {
                             baseView.onError(e);
                         }
                         baseView.dismissDialog();
                     }
 
                     @Override
-                    protected void onSuccess(JsonObject response) {
+                    protected void onSuccess(JsonElement response) {
                         baseView.dismissDialog();
                         if (response == null) { // 这里真的可能是个null，已经在onError回调方法中处理
+                            return;
                         }
                         // 如果有这些属性，转为SearchDataByItemBean对象并返回集合
-                        else if (response.has("itemList") && response.has("selectedCAttr") && response.has("selectedEAttr")) {
-                            Gson gson = new Gson();
-                            SearchDataByItemBean bean = gson.fromJson(response.toString(), SearchDataByItemBean.class);
-                            ArrayList<ItemAttribute> itemAttributes = getItemAttributes(bean);
-                            ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(bean);
-                            boolean isClear = pageNum <= 1;
-                            baseView.onQueryItemListByKeywordSuccess(itemAttributes, searchFilterBeans, false, isClear);
-                            baseView.dismissDialog();
+                        if (response instanceof JsonObject) {
+                            JsonObject obj = (JsonObject) response;
+                            if (obj.has("itemList") && obj.has("selectedCAttr") && obj.has("selectedEAttr")) {
+                                Gson gson = new Gson();
+                                SearchDataByItemBean bean = gson.fromJson(response.toString(), SearchDataByItemBean.class);
+                                ArrayList<ItemAttribute> itemAttributes = getItemAttributes(bean);
+                                ArrayList<SearchFilterBean> searchFilterBeans = getSearchFilterBeans(bean);
+                                boolean isClear = pageNum <= 1;
+                                baseView.onQueryItemListByKeywordSuccess(itemAttributes, searchFilterBeans, false, isClear);
+                                baseView.dismissDialog();
+                            }
+                            // 否则，如果含有itemId属性 返回itemId并跳转到详情页
+                            else if (obj.has("itemId")) {
+                                JsonElement element = obj.get("itemId");
+                                String itemId = TextUtils.isEmpty(element.toString())
+                                        ? ""
+                                        : element.toString();
+                                // 走到这一步说明keyword应该是一个skuId, 直接跳转到商品详情
+                                baseView.onQueryItemListByKeywordSuccess2(itemId, keyword);
+                            }
+                        } else {
+                            String json = response.toString();
+                            Gson gson = new GsonBuilder().create();
+                            Type type = new TypeToken<List<ItemBrandBean>>() {
+                            }.getType();
+                            List<ItemBrandBean> beans = gson.fromJson(json, type);
+                            ArrayList<String> ids = new ArrayList<>();
+                            for (ItemBrandBean bean : beans) {
+                                ids.add(bean.getBrandNameChEn());
+                            }
+                            PrefrenceUtil.getInstance(mContext).setListString("itemBrandIds", ids);
+                            baseView.getItemBrands(beans);
                         }
-                        // 否则，如果含有itemId属性 返回itemId并跳转到详情页
-                        else if (response.has("itemId")) {
-                            JsonElement element = response.get("itemId");
-                            String itemId = TextUtils.isEmpty(element.toString())
-                                    ? ""
-                                    : element.toString();
-                            // 走到这一步说明keyword应该是一个skuId, 直接跳转到商品详情
-                            baseView.onQueryItemListByKeywordSuccess2(itemId, keyword);
-                        }
+
                     }
                 });
     }

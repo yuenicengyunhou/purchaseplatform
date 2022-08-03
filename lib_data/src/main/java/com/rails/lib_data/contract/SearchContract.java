@@ -1,11 +1,13 @@
 package com.rails.lib_data.contract;
 
+import com.rails.lib_data.bean.ItemBrandBean;
 import com.rails.lib_data.bean.forAppShow.ItemAttribute;
 import com.rails.lib_data.bean.forAppShow.SearchFilterBean;
 import com.rails.lib_data.bean.forAppShow.ShopAttribute;
 import com.rails.purchaseplatform.framwork.base.BaseView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 搜索结果
@@ -30,6 +32,13 @@ public interface SearchContract {
          * @param itemId
          */
         void onQueryItemListByKeywordSuccess2(String itemId, String skuId);
+
+
+        /**
+         * 获取商品品牌列表
+         * @param beans
+         */
+        void getItemBrands(List<ItemBrandBean> beans);
 
         /**
          * 获取商品列表成功 使用cid
