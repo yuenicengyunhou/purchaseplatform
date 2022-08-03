@@ -198,7 +198,7 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
                             for (ItemBrandBean bean : beans) {
                                 ids.add(bean.getBrandNameChEn());
                             }
-                            PrefrenceUtil.getInstance(mContext).setListString("itemBrandIds", ids);
+                            PrefrenceUtil.getInstance(mContext).setBoolean("sBrands", false);
                             baseView.getItemBrands(beans);
                         }
 
@@ -273,7 +273,10 @@ public class SearchItemPresenterImpl extends BasePresenter<SearchContract.Search
     private ArrayList<SearchFilterBean> getSearchFilterBeans(SearchDataByItemBean response) {
         ArrayList<SearchFilterBean> searchFilterBeans = new ArrayList<>(); // 最终要传递到View层展示
         ArrayList<String> brands = (ArrayList<String>) response.getBrands();
-        if (brands != null && brands.size() != 0) {
+
+
+        boolean sBrands = PrefrenceUtil.getInstance(mContext).getBoolean("sBrands", true);
+        if (brands != null && brands.size() != 0 && sBrands) {
             SearchFilterBean searchFilterBean = new SearchFilterBean();
             searchFilterBean.setFilterName(BRAND);
             ArrayList<SearchFilterValue> searchFilterValues = new ArrayList<>();

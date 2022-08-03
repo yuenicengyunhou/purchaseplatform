@@ -43,7 +43,7 @@
         <com.rails.purchaseplatform.common.widget.BaseRecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@+id/rl_priceRange"
             android:layout_marginLeft="@dimen/common_border"
             android:layout_marginRight="@dimen/common_border"

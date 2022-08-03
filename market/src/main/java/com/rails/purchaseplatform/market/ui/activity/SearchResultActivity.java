@@ -14,6 +14,7 @@ import com.rails.purchaseplatform.common.ConRoute;
 import com.rails.purchaseplatform.common.base.BaseErrorActivity;
 import com.rails.purchaseplatform.framwork.base.BasePop;
 import com.rails.purchaseplatform.framwork.loading.LoadingDialog;
+import com.rails.purchaseplatform.framwork.utils.PrefrenceUtil;
 import com.rails.purchaseplatform.framwork.utils.ToastUtil;
 import com.rails.purchaseplatform.market.R;
 import com.rails.purchaseplatform.market.adapter.SearchResultViewPagerAdapter;
@@ -75,6 +76,7 @@ public class SearchResultActivity extends BaseErrorActivity<ActivitySearchResult
 
     @Override
     protected void initialize(Bundle bundle) {
+        PrefrenceUtil.getInstance(this).setBoolean("sBrands", true);
         Bundle fragmentBundle = new Bundle();
         fragmentBundle.putString("search_key", mSearchKey);
         fragmentBundle.putString("cid", mCid);
